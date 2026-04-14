@@ -97,9 +97,9 @@ const itemVariants = {
 
 export function FeaturedToolsSection() {
   return (
-    <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-slate-100 to-white dark:from-slate-950 dark:to-slate-900 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-900/10 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-200/30 dark:from-purple-900/10 via-transparent to-transparent" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -111,18 +111,18 @@ export function FeaturedToolsSection() {
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-4"
         >
           <div>
-            <Badge variant="outline" className="mb-4 border-purple-500/30 bg-purple-500/5 text-purple-400">
+            <Badge variant="outline" className="mb-4 border-purple-500/30 bg-purple-500/5 text-purple-600 dark:text-purple-400">
               Featured
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold mb-2">
               AI-Powered Tools
             </h2>
-            <p className="text-slate-400 text-lg max-w-xl">
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl">
               Handpicked tools to help you work smarter, not harder.
             </p>
           </div>
           <Link href="/tools" className="hidden sm:block">
-            <Button variant="outline" className="border-slate-700 hover:bg-slate-800 rounded-xl group">
+            <Button variant="outline" className="border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl group">
               View all tools 
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -142,7 +142,7 @@ export function FeaturedToolsSection() {
             return (
               <motion.div key={tool.id} variants={itemVariants}>
                 <Link href={tool.href}>
-                  <div className={`group relative p-6 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:shadow-xl ${colors.glow} hover:-translate-y-1 h-full`}>
+                  <div className={`group relative p-6 rounded-2xl bg-white dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full`}>
                     {/* Featured Badge */}
                     {tool.featured && (
                       <div className="absolute -top-2 -right-2">
@@ -158,20 +158,20 @@ export function FeaturedToolsSection() {
                     </div>
                     
                     {/* Category Badge */}
-                    <Badge variant="secondary" className="mb-3 bg-slate-700/50 text-slate-300 text-xs">
+                    <Badge variant="secondary" className="mb-3 bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 text-xs">
                       {tool.category}
                     </Badge>
                     
                     {/* Content */}
-                    <h3 className="font-semibold text-xl mb-2 group-hover:text-white transition-colors">
+                    <h3 className="font-semibold text-xl mb-2 group-hover:text-purple-600 dark:group-hover:text-white transition-colors">
                       {tool.name}
                     </h3>
-                    <p className="text-slate-400 group-hover:text-slate-300 transition-colors mb-4">
+                    <p className="text-slate-500 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
                       {tool.description}
                     </p>
 
                     {/* CTA */}
-                    <div className="flex items-center gap-2 text-sm font-medium text-slate-500 group-hover:text-purple-400 transition-colors">
+                    <div className="flex items-center gap-2 text-sm font-medium text-slate-400 dark:text-slate-500 group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors mt-4">
                       <span>Try it free</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -190,7 +190,7 @@ export function FeaturedToolsSection() {
           className="mt-8 text-center sm:hidden"
         >
           <Link href="/tools">
-            <Button variant="outline" className="border-slate-700 hover:bg-slate-800 rounded-xl">
+            <Button variant="outline" className="border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl">
               View all tools <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
