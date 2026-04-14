@@ -118,16 +118,21 @@ What would be a good follow-up question to dig deeper?`;
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt }
-      ],
-      stream: false,
-      thinking: { type: 'disabled' }
+      ]
     });
 
     const responseContent = completion.choices?.[0]?.message?.content;
 
     if (!responseContent) {
+      // Return fallback response instead of error
+      if (mode === 'question') {
+        return NextResponse.json({
+          mode: 'question',
+          content: getFallbackQuestion(category, role, difficulty)
+        });
+      }
       return NextResponse.json(
-        { error: 'Failed to generate response' },
+        { error: 'Failed to generate response. Please try again.' },
         { status: 500 }
       );
     }
@@ -164,9 +169,82 @@ What would be a good follow-up question to dig deeper?`;
 
   } catch (error) {
     console.error('Interview API error:', error);
+    
+    // Return fallback for question mode
+    const body = await request.clone().json().catch(() => ({}));
+    if (body.mode === 'question') {
+      return NextResponse.json({
+        mode: 'question',
+        content: getFallbackQuestion(body.category || 'behavioral', body.role || 'Software Developer', body.difficulty || 'mid')
+      });
+    }
+    
     return NextResponse.json(
       { error: 'An error occurred while processing your request. Please try again.' },
       { status: 500 }
     );
   }
+}
+
+// Fallback questions in case API fails
+function getFallbackQuestion(category: string, role: string, difficulty: string): string {
+  const questions: Record<string, Record<string, string[]>> = {
+    behavioral: {
+      entry: [
+        `Tell me about a time you had to learn something new quickly. How did you approach it?`,
+        `Describe a situation where you had to work with a difficult team member. How did you handle it?`,
+        `Give me an example of a project you're particularly proud of. What was your role?`
+      ],
+      mid: [
+        `Tell me about a time you had to influence a team decision without formal authority.`,
+        `Describe a situation where you had to balance multiple competing priorities. How did you manage?`,
+        `Give me an example of how you've mentored or helped a junior colleague grow.`
+      ],
+      senior: [
+        `Tell me about a time you had to make a difficult decision with incomplete information.`,
+        `Describe a situation where you had to drive organizational change. What was your approach?`,
+        `Give me an example of how you've built or transformed a team culture.`
+      ]
+    },
+    technical: {
+      entry: [
+        `Explain the difference between let, const, and var in JavaScript. When would you use each?`,
+        `What is REST API? Can you explain the basic principles?`,
+        `How do you handle errors in your code? Give me an example.`
+      ],
+      mid: [
+        `How would you design a caching strategy for a high-traffic web application?`,
+        `Explain the concept of database indexing. When should you create an index?`,
+        `What's your approach to writing maintainable and testable code?`
+      ],
+      senior: [
+        `How would you architect a microservices system for an e-commerce platform?`,
+        `Explain your approach to technical debt. How do you balance new features vs. refactoring?`,
+        `How would you design a system that needs to handle 10x traffic spikes?`
+      ]
+    },
+    system: {
+      entry: [
+        `How would you design a simple URL shortener service?`,
+        `Design a basic chat application. What components would you need?`,
+        `How would you structure a simple e-commerce product catalog?`
+      ],
+      mid: [
+        `Design a real-time notification system for a social media platform.`,
+        `How would you design a rate limiter for a public API?`,
+        `Design a content delivery system for a media streaming service.`
+      ],
+      senior: [
+        `Design a distributed job scheduling system that can handle millions of jobs.`,
+        `How would you architect a multi-region database system with low latency requirements?`,
+        `Design a system that can process and analyze real-time streaming data at scale.`
+      ]
+    }
+  };
+
+  const categoryQuestions = questions[category] || questions.behavioral;
+  const difficultyQuestions = categoryQuestions[difficulty] || categoryQuestions.mid;
+  const randomIndex = Math.floor(Math.random() * difficultyQuestions.length);
+  
+  return difficultyQuestions[randomIndex];
 }
