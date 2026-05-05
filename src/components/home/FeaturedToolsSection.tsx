@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, FileText, Mail, MessageSquare, Brain, Gamepad2, Sparkles } from 'lucide-react';
+import { ArrowRight, FileText, Mail, MessageSquare, Brain, Gamepad2, Sparkles, Search, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -16,6 +16,28 @@ const featuredTools = [
     color: 'purple',
     href: '/tools/ai-resume-builder',
     featured: true,
+  },
+  {
+    id: 'website-audit',
+    name: 'Website Audit Tool',
+    description: 'Comprehensive SEO, performance, and security analysis.',
+    icon: Search,
+    category: 'SEO',
+    color: 'cyan',
+    href: '/tools/website-audit',
+    featured: true,
+    new: true,
+  },
+  {
+    id: 'ai-content-detector',
+    name: 'AI Content Detector',
+    description: 'Detect AI-generated content with detailed analysis.',
+    icon: Shield,
+    category: 'AI Tools',
+    color: 'red',
+    href: '/tools/ai-content-detector',
+    featured: false,
+    new: true,
   },
   {
     id: 'ai-cover-letter',
@@ -76,6 +98,8 @@ const colorMap: Record<string, { bg: string; text: string; border: string; glow:
   green: { bg: 'bg-green-500/10', text: 'text-green-400', border: 'border-green-500/30', glow: 'group-hover:shadow-green-500/10' },
   orange: { bg: 'bg-orange-500/10', text: 'text-orange-400', border: 'border-orange-500/30', glow: 'group-hover:shadow-orange-500/10' },
   pink: { bg: 'bg-pink-500/10', text: 'text-pink-400', border: 'border-pink-500/30', glow: 'group-hover:shadow-pink-500/10' },
+  cyan: { bg: 'bg-cyan-500/10', text: 'text-cyan-400', border: 'border-cyan-500/30', glow: 'group-hover:shadow-cyan-500/10' },
+  red: { bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/30', glow: 'group-hover:shadow-red-500/10' },
 };
 
 const containerVariants = {
@@ -143,11 +167,11 @@ export function FeaturedToolsSection() {
               <motion.div key={tool.id} variants={itemVariants}>
                 <Link href={tool.href}>
                   <div className={`group relative p-6 rounded-2xl bg-white dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full`}>
-                    {/* Featured Badge */}
-                    {tool.featured && (
+                    {/* Featured/New Badge */}
+                    {(tool.featured || tool.new) && (
                       <div className="absolute -top-2 -right-2">
-                        <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs border-0">
-                          Popular
+                        <Badge className={`${tool.new ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-gradient-to-r from-purple-600 to-blue-600'} text-white text-xs border-0`}>
+                          {tool.new ? 'New' : 'Popular'}
                         </Badge>
                       </div>
                     )}
