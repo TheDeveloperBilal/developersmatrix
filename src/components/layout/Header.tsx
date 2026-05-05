@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { 
   Menu, 
@@ -9,8 +10,7 @@ import {
   Sun, 
   Moon, 
   ChevronDown,
-  ChevronRight,
-  Sparkles
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { navigation } from '@/data/config';
@@ -64,12 +64,14 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">
-              DevelopersMatrix
-            </span>
+            <Image 
+              src="/logo.png" 
+              alt="DevelopersMatrix" 
+              width={180} 
+              height={48}
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -83,12 +85,12 @@ export function Header() {
                       <ChevronDown className="h-4 w-4" />
                     </button>
                     <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <div className="bg-background border border-border rounded-lg shadow-lg py-2 min-w-[200px] max-h-[400px] overflow-y-auto">
+                      <div className="bg-white dark:bg-slate-900 border border-border rounded-lg shadow-xl py-2 min-w-[220px] max-h-[400px] overflow-y-auto">
                         {item.children.map((child) => (
                           <Link
                             key={child.name}
                             href={child.href}
-                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                            className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                           >
                             {child.name}
                           </Link>
@@ -146,7 +148,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div className="md:hidden py-4 border-t border-border bg-white dark:bg-slate-900 shadow-xl">
             <nav className="flex flex-col gap-1">
               {navigation.map((item) => (
                 <div key={item.name}>
@@ -166,16 +168,16 @@ export function Header() {
                       <div 
                         className={`overflow-hidden transition-all duration-200 ${
                           expandedDropdowns.includes(item.name) 
-                            ? 'max-h-[600px] opacity-100' 
+                            ? 'max-h-[800px] opacity-100' 
                             : 'max-h-0 opacity-0'
                         }`}
                       >
-                        <div className="flex flex-col ml-4 mt-1 bg-muted/30 rounded-lg mr-2 overflow-hidden">
+                        <div className="flex flex-col ml-4 mt-1 bg-slate-100 dark:bg-slate-800 rounded-lg mr-2 overflow-hidden">
                           {item.children.map((child) => (
                             <Link
                               key={child.name}
                               href={child.href}
-                              className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors min-h-[44px] flex items-center border-b border-border/30 last:border-b-0"
+                              className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors min-h-[44px] flex items-center border-b border-border/30 last:border-b-0"
                               onClick={closeMobileMenu}
                             >
                               {child.name}

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, FileText, Mail, MessageSquare, Brain, Gamepad2, Sparkles, Search, Shield } from 'lucide-react';
+import { ArrowRight, FileText, Mail, MessageSquare, Brain, Gamepad2, Sparkles, Search, Shield, Link2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -89,6 +89,16 @@ const featuredTools = [
     href: '/tools/startup-idea-generator',
     featured: false,
   },
+  {
+    id: 'link-manager',
+    name: 'Link Manager & Smart Bio',
+    description: 'Create short links and smart bio pages with analytics.',
+    icon: Link2,
+    category: 'Marketing',
+    color: 'teal',
+    featured: false,
+    href: '/tools/link-manager',
+  },
 ];
 
 const colorMap: Record<string, { bg: string; text: string; border: string; glow: string }> = {
@@ -100,6 +110,7 @@ const colorMap: Record<string, { bg: string; text: string; border: string; glow:
   pink: { bg: 'bg-pink-500/10', text: 'text-pink-400', border: 'border-pink-500/30', glow: 'group-hover:shadow-pink-500/10' },
   cyan: { bg: 'bg-cyan-500/10', text: 'text-cyan-400', border: 'border-cyan-500/30', glow: 'group-hover:shadow-cyan-500/10' },
   red: { bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/30', glow: 'group-hover:shadow-red-500/10' },
+  teal: { bg: 'bg-teal-500/10', text: 'text-teal-400', border: 'border-teal-500/30', glow: 'group-hover:shadow-teal-500/10' },
 };
 
 const containerVariants = {

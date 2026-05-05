@@ -8,7 +8,9 @@ export const siteConfig: SiteConfig = {
   links: {
     twitter: 'https://twitter.com/developersmatrix',
     github: 'https://github.com/developersmatrix',
-    linkedin: 'https://linkedin.com/company/developersmatrix'
+    linkedin: 'https://linkedin.com/company/developersmatrix',
+    facebook: 'https://www.facebook.com/developersmatrix',
+    instagram: 'https://www.instagram.com/developermatrix'
   }
 };
 
@@ -26,6 +28,8 @@ export const navigation = [
       { name: 'Startup Ideas', href: '/tools/startup-idea-generator' },
       { name: 'AI Prompt Library', href: '/tools/ai-prompt-library' },
       { name: 'AI Email Assistant', href: '/tools/ai-email-assistant' },
+      { name: 'Website Audit Tool', href: '/tools/website-audit' },
+      { name: 'AI Content Detector', href: '/tools/ai-content-detector' },
       { name: 'Link Manager', href: '/tools/link-manager' },
       { name: 'Can You Run It?', href: '/tools/can-you-run-it' },
       { name: 'Budget Planner', href: '/tools/budget-planner' },
@@ -41,15 +45,14 @@ export const navigation = [
 export const footerLinks = {
   product: [
     { name: 'AI Resume Builder', href: '/tools/ai-resume-builder' },
+    { name: 'Website Audit Tool', href: '/tools/website-audit' },
     { name: 'Budget Planner', href: '/tools/budget-planner' },
-    { name: 'Trend Radar', href: '/trends' },
     { name: 'Community Q&A', href: '/community' }
   ],
   company: [
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Careers', href: '/careers' }
+    { name: 'Blog', href: '/blog' }
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },

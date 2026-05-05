@@ -1,11 +1,13 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
-  Sparkles, 
   Twitter, 
   Github, 
   Linkedin, 
   Mail,
-  Heart
+  Heart,
+  Facebook,
+  Instagram
 } from 'lucide-react';
 import { siteConfig, footerLinks } from '@/data/config';
 import { Input } from '@/components/ui/input';
@@ -44,22 +46,42 @@ export function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">
-                DevelopersMatrix
-              </span>
+              <Image 
+                src="/logo.png" 
+                alt="DevelopersMatrix" 
+                width={160} 
+                height={40}
+                className="h-8 w-auto object-contain"
+              />
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               AI-powered tools and insights for developers, entrepreneurs, and tech professionals.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 flex-wrap">
+              <a
+                href={siteConfig.links.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href={siteConfig.links.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
               <a
                 href={siteConfig.links.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="Twitter"
               >
                 <Twitter className="w-4 h-4" />
               </a>
@@ -68,6 +90,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="GitHub"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -76,12 +99,14 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
                 href="mailto:hello@developersmatrix.com"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+                aria-label="Email"
               >
                 <Mail className="w-4 h-4" />
               </a>
