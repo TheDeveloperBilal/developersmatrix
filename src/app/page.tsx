@@ -5,6 +5,7 @@ import {
   HeroSection, 
   CategoriesSection, 
   FeaturedToolsSection, 
+  WebsiteAuditSection,
   TrendingSection, 
   DashboardSection, 
   BlogSection, 
@@ -82,6 +83,9 @@ export default function HomePage() {
 
       {/* Featured AI Tools Section */}
       <FeaturedToolsSection />
+
+      {/* Website Audit Section */}
+      <WebsiteAuditSection />
 
       {/* Trending Section */}
       <TrendingSection />
