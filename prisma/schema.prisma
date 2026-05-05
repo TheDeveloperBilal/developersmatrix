@@ -51,8 +51,7 @@ model Game {
   platforms     GamePlatform[]
   features      GameFeature[]
   tags          GameTag[]
-  minReqs       GameRequirements? @relation("MinimumRequirements")
-  recReqs       GameRequirements? @relation("RecommendedRequirements")
+  requirements  GameRequirements[]
 }
 
 model GameGenre {
@@ -101,9 +100,10 @@ model GameRequirements {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  gameForMin  Game?    @relation("MinimumRequirements", fields: [gameId], references: [id])
-  gameForRec  Game?    @relation("RecommendedRequirements", fields: [gameId], references: [id])
-  gameId      String?
+  gameId      String
+  game        Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  
+  @@unique([gameId, type])
 }
 
 // User System Specs (for Can You Run It feature)

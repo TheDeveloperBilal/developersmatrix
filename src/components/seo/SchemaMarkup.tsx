@@ -176,3 +176,6 @@ export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
     />
   );
 }
+
+// Alias for backward compatibility
+export { WebApplicationSchema as SoftwareApplicationSchema };
