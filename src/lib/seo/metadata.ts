@@ -1,0 +1,227 @@
+import { Metadata } from 'next';
+import { siteConfig } from '@/data/config';
+
+interface PageMetadataOptions {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  keywords?: string[];
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+}
+
+export function generatePageMetadata({
+  title,
+  description,
+  path,
+  image,
+  keywords = [],
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  author
+}: PageMetadataOptions): Metadata {
+  const url = `${siteConfig.url}${path}`;
+  const ogImage = image || siteConfig.ogImage;
+
+  return {
+    title,
+    description,
+    keywords: keywords.length > 0 ? keywords : undefined,
+    authors: author ? [{ name: author }] : undefined,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: type === 'article' ? 'article' : 'website',
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title
+        }
+      ],
+      ...(publishedTime && { publishedTime }),
+      ...(modifiedTime && { modifiedTime }),
+      ...(author && { authors: [author] })
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+      creator: '@developersmatrix'
+    },
+    alternates: {
+      canonical: url
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1
+      }
+    }
+  };
+}
+
+// Pre-defined metadata for main pages
+export const pageMetadata = {
+  home: {
+    title: 'DevelopersMatrix - AI-Powered Life & Opportunity Optimization Hub',
+    description: 'Your daily destination for AI-powered tools, career insights, productivity hacks, and market trends. Free resume builder, interview simulator, budget planner, and more.',
+    keywords: ['AI tools', 'resume builder', 'career optimization', 'productivity tools', 'budget planner', 'job search', 'developer tools', 'interview preparation'],
+    path: '/'
+  },
+  tools: {
+    title: 'Free AI-Powered Tools & Resources',
+    description: 'Access 15+ free AI-powered tools including Resume Builder, Cover Letter Generator, Interview Simulator, Budget Planner, and more. Boost your productivity and career today.',
+    keywords: ['AI tools', 'free tools', 'productivity tools', 'career tools', 'resume builder', 'budget planner'],
+    path: '/tools'
+  },
+  blog: {
+    title: 'Blog - Tech News, Career Tips & Industry Insights',
+    description: 'Stay updated with the latest tech news, career advice, productivity tips, and industry insights. Expert articles on AI, development, and professional growth.',
+    keywords: ['tech blog', 'career tips', 'tech news', 'productivity tips', 'AI news', 'developer blog'],
+    path: '/blog'
+  },
+  trends: {
+    title: 'Trend Radar - Emerging Tech & Career Trends',
+    description: 'Explore emerging trends in technology, career development, and business opportunities. Deep dives into AI, edge computing, cybersecurity, and more.',
+    keywords: ['tech trends', 'AI trends', 'career trends', 'emerging technology', 'industry trends'],
+    path: '/trends'
+  },
+  community: {
+    title: 'Community Q&A - Ask & Answer Questions',
+    description: 'Join our community of developers, entrepreneurs, and tech professionals. Ask questions, share knowledge, and connect with like-minded individuals.',
+    keywords: ['tech community', 'developer community', 'Q&A', 'tech questions', 'programming help'],
+    path: '/community'
+  },
+  gta6: {
+    title: 'GTA 6 News, Rumors & Updates - Everything We Know',
+    description: 'Your complete guide to GTA 6: latest news, trailer breakdowns, release date rumors, gameplay features, and everything Rockstar has revealed about Grand Theft Auto VI.',
+    keywords: ['GTA 6', 'GTA 6 news', 'Grand Theft Auto 6', 'GTA VI', 'GTA 6 release date', 'GTA 6 trailer'],
+    path: '/gta-6'
+  },
+  about: {
+    title: 'About DevelopersMatrix - Our Mission & Team',
+    description: 'Learn about DevelopersMatrix - our mission to empower developers, entrepreneurs, and tech professionals with AI-powered tools and curated content.',
+    keywords: ['about DevelopersMatrix', 'our mission', 'tech company', 'AI tools company'],
+    path: '/about'
+  },
+  contact: {
+    title: 'Contact Us - Get in Touch',
+    description: 'Have questions or feedback? Contact the DevelopersMatrix team. We are here to help with any inquiries about our tools and services.',
+    keywords: ['contact', 'support', 'customer service', 'get in touch'],
+    path: '/contact'
+  },
+  connect: {
+    title: 'Connect With Us - Collaborate & Partner',
+    description: 'Connect with DevelopersMatrix for collaboration opportunities, partnerships, sponsorships, or just to say hello. We would love to hear from you.',
+    keywords: ['connect', 'partnership', 'collaboration', 'sponsorship', 'business inquiry'],
+    path: '/connect'
+  },
+  learn: {
+    title: 'Learn - Educational Resources & Micro-Learning',
+    description: 'Access educational resources, micro-learning content, and skill development materials. Learn new technologies and enhance your professional skills.',
+    keywords: ['learning', 'education', 'skills development', 'micro-learning', 'tech education'],
+    path: '/learn'
+  }
+};
+
+// Tool-specific metadata
+export const toolMetadata: Record<string, PageMetadataOptions> = {
+  'website-audit': {
+    title: 'AI Website Audit Tool - Free SEO & Performance Analysis',
+    description: 'Free AI-powered website audit tool. Analyze SEO, performance, mobile UX, security, accessibility, and content quality. Get instant scores and actionable recommendations.',
+    keywords: ['website audit', 'SEO audit tool', 'website checker', 'SEO analyzer', 'website health check', 'technical SEO', 'free SEO tool'],
+    path: '/tools/website-audit'
+  },
+  'ai-content-detector': {
+    title: 'AI Content Detector - Detect AI-Generated Text Free',
+    description: 'Free AI Content Detector tool. Analyze text for AI-generated content, SEO issues, keyword stuffing, and EEAT signals. Real analysis with perplexity and burstiness scoring.',
+    keywords: ['AI content detector', 'AI detector', 'ChatGPT detector', 'AI content checker', 'SEO AI detector', 'human vs AI content'],
+    path: '/tools/ai-content-detector'
+  },
+  'ai-resume-builder': {
+    title: 'AI Resume Builder - Create ATS-Optimized Resumes Free',
+    description: 'Build professional, ATS-optimized resumes in minutes with our free AI resume builder. Get personalized content suggestions and export to PDF or DOCX.',
+    keywords: ['resume builder', 'AI resume', 'ATS resume', 'professional resume', 'resume maker', 'free resume builder'],
+    path: '/tools/ai-resume-builder'
+  },
+  'ai-cover-letter-generator': {
+    title: 'AI Cover Letter Generator - Create Professional Letters',
+    description: 'Generate personalized cover letters for any job application in seconds. Our AI analyzes job descriptions and crafts compelling, professional letters.',
+    keywords: ['cover letter generator', 'AI cover letter', 'job application letter', 'cover letter maker', 'free cover letter'],
+    path: '/tools/ai-cover-letter-generator'
+  },
+  'ai-interview-simulator': {
+    title: 'AI Interview Simulator - Practice Interviews Free',
+    description: 'Practice interviews with our AI-powered simulator. Get realistic questions, receive instant feedback, and build confidence for your next job interview.',
+    keywords: ['interview simulator', 'interview practice', 'AI interview', 'mock interview', 'job interview prep', 'free interview tool'],
+    path: '/tools/ai-interview-simulator'
+  },
+  'salary-estimator': {
+    title: 'Salary Estimator - Know Your Market Worth',
+    description: 'Get accurate salary estimates for any role and location. Compare salaries across cities, factor in cost of living, and negotiate with confidence.',
+    keywords: ['salary estimator', 'salary calculator', 'pay comparison', 'salary range', 'compensation calculator', 'salary by location'],
+    path: '/tools/salary-estimator'
+  },
+  'budget-planner': {
+    title: 'Budget Planner - Free Personal Finance Tool',
+    description: 'Take control of your finances with our free budget planner. Track income, expenses, visualize spending patterns, and reach your savings goals.',
+    keywords: ['budget planner', 'expense tracker', 'personal finance', 'money management', 'savings calculator', 'free budget tool'],
+    path: '/tools/budget-planner'
+  },
+  'habit-tracker': {
+    title: 'Habit Tracker - Build Better Daily Habits',
+    description: 'Build better habits and break bad ones with our free habit tracker. Track daily routines, build streaks, and visualize your progress.',
+    keywords: ['habit tracker', 'daily habits', 'habit building', 'productivity tracker', 'routine tracker', 'free habit app'],
+    path: '/tools/habit-tracker'
+  },
+  'productivity-planner': {
+    title: 'Productivity Planner - Optimize Your Daily Workflow',
+    description: 'Maximize efficiency with our AI-powered productivity planner. Smart task management, priority optimization, and intelligent scheduling.',
+    keywords: ['productivity planner', 'task manager', 'daily planner', 'time management', 'work organizer', 'free planner'],
+    path: '/tools/productivity-planner'
+  },
+  'startup-idea-generator': {
+    title: 'Startup Idea Generator - AI Business Ideas',
+    description: 'Spark your entrepreneurial journey with AI-generated startup ideas. Get innovative business concepts, market analysis, and implementation guidance.',
+    keywords: ['startup ideas', 'business ideas', 'AI business generator', 'entrepreneur ideas', 'startup generator', 'business concept'],
+    path: '/tools/startup-idea-generator'
+  },
+  'ai-prompt-library': {
+    title: 'AI Prompt Library - 500+ Curated Prompts',
+    description: 'Access 500+ curated AI prompts for ChatGPT, Claude, Midjourney, and more. Test prompts in our sandbox and discover proven prompt engineering techniques.',
+    keywords: ['AI prompts', 'prompt library', 'ChatGPT prompts', 'Midjourney prompts', 'prompt engineering', 'prompt collection'],
+    path: '/tools/ai-prompt-library'
+  },
+  'ai-email-assistant': {
+    title: 'AI Email Assistant - Write Professional Emails Fast',
+    description: 'Draft professional emails in seconds from brief notes. Rewrite emails to sound more professional and adjust tone for any situation.',
+    keywords: ['email assistant', 'AI email writer', 'professional email', 'email drafter', 'email tone', 'email generator'],
+    path: '/tools/ai-email-assistant'
+  },
+  'link-manager': {
+    title: 'Link Manager - Branded Links & Smart Bio Pages',
+    description: 'Create custom branded short links with click analytics, QR codes, and auto-updating bio pages that sync with your YouTube and Instagram content.',
+    keywords: ['link shortener', 'bio link', 'QR code generator', 'link analytics', 'branded links', 'link in bio'],
+    path: '/tools/link-manager'
+  },
+  'can-you-run-it': {
+    title: 'Can You Run It? - Game System Requirements Checker',
+    description: 'Check if your PC can run any game before buying. Compare your specs against requirements for 1000+ games including GTA 6, Cyberpunk 2077, and more.',
+    keywords: ['can you run it', 'game requirements', 'PC specs checker', 'system requirements', 'gaming hardware', 'game compatibility'],
+    path: '/tools/can-you-run-it'
+  }
+};

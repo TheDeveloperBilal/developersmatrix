@@ -1,0 +1,93 @@
+# DevelopersMatrix
+
+> AI-Powered Life & Opportunity Optimization Hub
+
+## About
+
+DevelopersMatrix is a comprehensive platform providing AI-powered tools, career insights, productivity resources, and market trends for developers, entrepreneurs, and tech professionals. Our mission is to help individuals optimize their careers, productivity, and life decisions through intelligent tools and curated content.
+
+## Website
+
+- URL: https://developersmatrix.com
+- Language: English
+- Content Type: Educational, Tools, News, Community
+
+## Main Sections
+
+### AI-Powered Tools
+- **AI Website Audit Tool** - Comprehensive website analysis with SEO, performance, security, accessibility audits
+- **AI Content Detector** - Detect AI-generated vs human-written content
+- **AI Resume Builder** - Create professional resumes with AI assistance
+- **AI Cover Letter Generator** - Generate personalized cover letters
+- **AI Interview Simulator** - Practice interviews with AI feedback
+- **AI Email Assistant** - Professional email composition assistance
+- **Salary Estimator** - Get accurate salary estimates for tech roles
+- **Startup Idea Generator** - Generate innovative startup concepts
+- **AI Prompt Library** - Curated collection of effective AI prompts
+- **Budget Planner** - Personal finance management tool
+- **Habit Tracker** - Build and track positive habits
+- **Productivity Planner** - Daily productivity optimization
+- **Link Manager** - Organize and manage your links
+- **Can You Run It?** - Check if your PC can run specific games
+
+### Content & Resources
+- **Trend Radar** - Latest trends in tech, gaming, entertainment, and more
+- **GTA 6 Hub** - Comprehensive GTA 6 news, rumors, and updates
+- **Blog** - Articles on career, productivity, tech news
+- **Community Q&A** - Ask and answer questions
+- **Learn** - Educational resources and micro-learning content
+
+## Public API Endpoints
+
+The following API endpoints are available for public use:
+
+- `/api/website-audit` - Website audit analysis
+- `/api/ai-content-detector` - Content detection analysis
+- `/api/salary-data` - Salary estimation data
+
+## Content Guidelines
+
+### Allowed for AI Training & Indexing
+- All blog articles and educational content
+- Tool descriptions and documentation
+- Public community discussions
+- Trend analysis and news content
+- GTA 6 news and updates
+
+### Not Allowed for AI Training
+- User personal data
+- Private community posts
+- API request/response data
+- Authentication credentials
+
+## Contact & Social
+
+- Twitter: https://twitter.com/developersmatrix
+- GitHub: https://github.com/TheDeveloperBilal/developersmatrix
+- LinkedIn: https://linkedin.com/company/developersmatrix
+- Email: hello@developersmatrix.com
+
+## Technical Stack
+
+- Framework: Next.js 16 (App Router)
+- Language: TypeScript
+- Styling: Tailwind CSS
+- UI Components: shadcn/ui
+- Database: Prisma (SQLite)
+- AI Integration: z-ai-web-dev-sdk
+
+## Sitemap
+
+Full sitemap available at: https://developersmatrix.com/sitemap.xml
+
+## Robots.txt
+
+Crawler instructions available at: https://developersmatrix.com/robots.txt
+
+## License
+
+Content is available for fair use with attribution. Tools are free to use for personal and commercial purposes.
+
+---
+
+Last Updated: 2025-05-04
