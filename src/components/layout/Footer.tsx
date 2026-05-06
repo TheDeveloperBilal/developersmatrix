@@ -162,6 +162,22 @@ export function Footer() {
           </div>
         </div>
       </div>
+            {/* Google News Subscribe with Google */}
+      <script async type="application/javascript" src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
+              basicSubscriptions.init({
+                type: "NewsArticle",
+                isPartOfType: ["Product"],
+                isPartOfProductId: "CAowyZ_LDA:openaccess",
+                clientOptions: { theme: "light", lang: "en" },
+              });
+            });
+          `,
+        }}
+      />
     </footer>
   );
 }
