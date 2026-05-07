@@ -72,6 +72,48 @@ export default function WebsiteAuditClient() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [copied, setCopied] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(prev => prev === index ? null : index);
+  };
+
+  // FAQ data for the website audit tool
+  const websiteAuditFaqs = [
+    {
+      question: "Is this website audit tool really free?",
+      answer: "Yes, completely free. No signup required, no credit card needed, and no usage limits. We believe every website owner deserves access to professional-grade audit tools regardless of budget."
+    },
+    {
+      question: "What does the website audit check?",
+      answer: "Our tool performs over 200 checks across 7 categories: Technical SEO (meta tags, headings, canonicals, schema), Performance (page speed, resource optimization, caching), Mobile UX (viewport, touch targets, responsive design), Security (HTTPS, headers, mixed content), Accessibility (alt text, ARIA, color contrast), Content Quality (readability, word count, CTAs), and Conversion Optimization (trust signals, value propositions)."
+    },
+    {
+      question: "How accurate is the audit score?",
+      answer: "The audit score is calculated based on industry-standard best practices from Google Lighthouse, PageSpeed Insights, and WCAG guidelines. While no automated tool can catch everything, our scoring correlates strongly with real search engine ranking factors and Core Web Vitals."
+    },
+    {
+      question: "Can I export the audit report?",
+      answer: "Yes! After running an audit, you can copy the full text report to clipboard or download a professionally formatted PDF report. The PDF includes your scores, issues, recommendations, and content analysis — perfect for sharing with clients or team members."
+    },
+    {
+      question: "How often should I audit my website?",
+      answer: "For active websites, we recommend monthly audits to catch issues early. After any major update (new design, CMS upgrade, content migration), run an audit immediately. E-commerce sites should audit weekly during high-traffic periods like holidays."
+    },
+    {
+      question: "Does the audit work for any type of website?",
+      answer: "Yes, our tool works with any publicly accessible website — WordPress, Shopify, Next.js, React, Vue, plain HTML, and more. It checks the rendered output, so it works regardless of what technology powers your site."
+    },
+    {
+      question: "What is a 'good' website audit score?",
+      answer: "Scores break down as: 90-100 (Excellent — minimal issues, well-optimized), 70-89 (Good — some improvements needed), 50-69 (Fair — significant issues affecting performance/SEO), 0-49 (Poor — critical issues requiring immediate attention). Most websites score between 60-80 on first audit."
+    },
+    {
+      question: "Will fixing these issues improve my Google rankings?",
+      answer: "Yes, especially for technical SEO and performance issues. Google explicitly uses page speed, mobile-friendliness, and Core Web Vitals as ranking factors. Fixing critical and high-priority issues typically leads to measurable ranking improvements within 2-4 weeks."
+    }
+  ];
+
   const [stats] = useState<AuditStats>({
     totalAudits: 3427,
     avgScore: 68.5,
@@ -351,6 +393,152 @@ export default function WebsiteAuditClient() {
           </motion.div>
         </section>
       )}
+      {/* SEO Content & FAQs Section */}
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* SEO Content */}
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                Why Website Audits Matter for Your Online Success
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                A comprehensive website audit is the foundation of any successful digital strategy. 
+                Our free AI-powered website audit tool analyzes over 200+ technical and on-page factors 
+                that search engines like Google use to rank your site. From broken links and slow page speeds 
+                to missing meta tags and poor mobile usability — we catch issues that could be holding 
+                your site back from reaching its full potential.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="p-5 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <Search className="w-6 h-6 text-blue-500 mb-3" />
+                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Boost Search Rankings</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Fix technical SEO issues that prevent Google from properly crawling and indexing your pages.
+                </p>
+              </div>
+              <div className="p-5 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <Gauge className="w-6 h-6 text-orange-500 mb-3" />
+                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Speed Up Your Site</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Identify performance bottlenecks that cause visitors to bounce before your page loads.
+                </p>
+              </div>
+              <div className="p-5 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <Smartphone className="w-6 h-6 text-purple-500 mb-3" />
+                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Mobile-First Optimization</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  With 60%+ traffic from mobile devices, ensure your site delivers on every screen size.
+                </p>
+              </div>
+              <div className="p-5 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <Shield className="w-6 h-6 text-red-500 mb-3" />
+                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Security & Trust</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Detect HTTPS issues, missing security headers, and vulnerabilities that put users at risk.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800">
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-3">
+                What Makes Our Audit Tool Different?
+              </h3>
+              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                  <span><strong>Completely Free:</strong> No signup, no credit card, unlimited audits</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                  <span><strong>AI-Powered:</strong> Smart recommendations prioritized by impact</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                  <span><strong>PDF Reports:</strong> Download and share professional audit reports</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                  <span><strong>200+ Checks:</strong> SEO, speed, mobile, security, accessibility, content</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                  <span><strong>Quick Wins:</strong> Focus on high-impact, easy-to-implement fixes first</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* FAQs */}
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-6">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4">
+              {websiteAuditFaqs.map((faq, i) => (
+                <div 
+                  key={i} 
+                  className="rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 overflow-hidden"
+                >
+                  <button
+                    onClick={() => toggleFaq(i)}
+                    className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors"
+                  >
+                    <span className="font-medium text-slate-900 dark:text-white pr-4">{faq.question}</span>
+                    <ChevronDown 
+                      className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
+                        openFaq === i ? 'rotate-180' : ''
+                      }`} 
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {openFaq === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 p-6 rounded-xl bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-800">
+              <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
+                Still have questions?
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                Our community is here to help. Join the discussion or reach out directly.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a 
+                  href="/community" 
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white text-sm font-medium hover:bg-purple-700 transition-colors"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  Ask Community
+                </a>
+                <a 
+                  href="/contact" 
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                >
+                  Contact Support
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

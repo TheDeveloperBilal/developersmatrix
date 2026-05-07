@@ -54,14 +54,14 @@ export function GTA6Section() {
                   <Calendar className="w-5 h-5 text-purple-500" />
                   <div>
                     <p className="text-xs text-slate-500 dark:text-slate-400">Release</p>
-                    <p className="font-semibold text-sm">Fall 2025</p>
+                    <p className="font-semibold text-sm">Nov 19, 2026</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 shadow-sm">
                   <Monitor className="w-5 h-5 text-pink-500" />
                   <div>
                     <p className="text-xs text-slate-500 dark:text-slate-400">Platforms</p>
-                    <p className="font-semibold text-sm">PS5, Xbox, PC</p>
+                    <p className="font-semibold text-sm">PS5, Xbox Series X|S</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 col-span-2 shadow-sm">
@@ -111,7 +111,7 @@ export function GTA6Section() {
                 transition={{ duration: 0.5, delay: 0.6 }}
                 className="absolute bottom-6 right-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-lg"
               >
-                Coming November 2026
+                Nov 19, 2026
               </motion.div>
             </motion.div>
           </div>

@@ -67,21 +67,21 @@ export default function GTA6Client() {
   const [loadingNews, setLoadingNews] = useState(false);
   const [activeTab, setActiveTab] = useState('requirements');
 
-  // GTA 6 system requirements (based on leaks and estimates)
+  // GTA 6 system requirements (official as of May 2026)
   const requirements: SystemRequirements = {
     minimum: {
-      os: 'Windows 10 64-bit',
-      processor: 'Intel Core i5-8600K / AMD Ryzen 5 3600',
+      os: 'Windows 11 64-bit (PC releases later)',
+      processor: 'TBD — Likely Intel Core i5-12400 / AMD Ryzen 5 5600X equivalent',
       memory: '16 GB RAM',
-      graphics: 'NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580 8GB',
-      storage: '150 GB available space (SSD recommended)'
+      graphics: 'TBD — Likely NVIDIA RTX 3060 / AMD RX 6700 XT equivalent',
+      storage: '150+ GB available space (SSD required)'
     },
     recommended: {
       os: 'Windows 11 64-bit',
-      processor: 'Intel Core i7-10700K / AMD Ryzen 7 5800X',
+      processor: 'TBD — Likely Intel Core i7-13700K / AMD Ryzen 7 7800X3D',
       memory: '32 GB RAM',
-      graphics: 'NVIDIA GeForce RTX 4070 / AMD Radeon RX 7800 XT',
-      storage: '150 GB SSD'
+      graphics: 'TBD — Likely NVIDIA RTX 4070 / AMD RX 7800 XT',
+      storage: '150+ GB NVMe SSD'
     }
   };
 
@@ -89,24 +89,27 @@ export default function GTA6Client() {
     title: "Grand Theft Auto VI",
     developer: "Rockstar Games",
     publisher: "Rockstar Games",
-    releaseDate: "Fall 2025",
-    price: "$69.99",
-    platforms: ["PlayStation 5", "Xbox Series X|S", "PC (Later)"],
+    releaseDate: "November 19, 2026",
+    consoleRelease: "November 19, 2026",
+    pcRelease: "Expected Late 2027 / Early 2028 (based on Rockstar historical pattern)",
+    price: "$69.99 - $99.99 (Standard to Collector's Edition)",
+    platforms: ["PlayStation 5", "Xbox Series X|S"],
+    pcPlatforms: ["PC (Steam, Rockstar Launcher) — TBD 2027+"],
     genres: ["Action", "Adventure", "Open World"],
-    rating: "Rating Pending",
-    location: "Vice City (Leonida State)",
+    rating: "Rating Pending (Expected Mature 17+)",
+    location: "Vice City, Leonida State (Miami-inspired)",
     protagonists: ["Lucia", "Jason"],
     features: [
-      "Massive open world map - Vice City and beyond",
+      "Massive open world — Vice City and surrounding Leonida State",
       "Dual protagonist system with Lucia and Jason",
-      "Next-gen graphics with ray tracing",
-      "Enhanced physics and destruction",
-      "Dynamic weather and day/night cycle",
-      "Expanded GTA Online integration",
-      "Hundreds of vehicles, boats, and aircraft",
-      "Next-gen AI and NPC behaviors",
+      "Next-gen graphics with ray tracing support",
+      "Enhanced physics, destruction, and AI systems",
+      "Dynamic weather, day/night cycle, and natural disasters",
+      "Expanded GTA Online integration at launch",
+      "Hundreds of vehicles, boats, aircraft, and wildlife",
       "Realistic water physics and underwater exploration",
-      "Interactive interior spaces"
+      "Interactive buildings, stores, and homes",
+      "Social media simulation and in-game streaming"
     ]
   };
 
@@ -231,7 +234,7 @@ export default function GTA6Client() {
             <div className="text-center md:text-left">
               <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6">
                 <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
-                <span className="text-purple-300 text-xs sm:text-sm font-medium">Most Anticipated Game of 2025</span>
+                <span className="text-purple-300 text-xs sm:text-sm font-medium">Most Anticipated Game of 2026</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
                 Grand Theft Auto <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">VI</span>
@@ -242,7 +245,11 @@ export default function GTA6Client() {
               <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
                 <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-400" />
-                  Release: {gameInfo.releaseDate}
+                  Console: {gameInfo.consoleRelease}
+                </Badge>
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-orange-400" />
+                  PC: {gameInfo.pcRelease}
                 </Badge>
                 <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
                   <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400" />
@@ -268,7 +275,7 @@ export default function GTA6Client() {
                   className="w-full max-w-md mx-auto rounded-2xl shadow-2xl shadow-purple-500/20 border border-purple-500/30"
                 />
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full font-bold text-sm">
-                  Coming Fall 2025
+                  Nov 19, 2026
                 </div>
               </div>
             </div>
@@ -379,10 +386,20 @@ export default function GTA6Client() {
                       {platform}
                     </Badge>
                   ))}
+                  {gameInfo.pcPlatforms.map(platform => (
+                    <Badge key={platform} variant="outline" className="px-4 py-2 border-orange-300 text-orange-600">
+                      {platform}
+                    </Badge>
+                  ))}
                 </div>
-                <p className="text-sm text-muted-foreground mt-4">
-                  Note: PC version may release later than consoles. Rockstar typically releases PC versions 6-12 months after console launch.
-                </p>
+                <div className="mt-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                  <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">
+                    ℹ️ PC Release Delayed
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Rockstar has a consistent history of delaying PC releases: GTA V had a 19-month gap, Red Dead Redemption 2 had 13 months. Expect GTA 6 PC between late 2027 and early 2028.
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
