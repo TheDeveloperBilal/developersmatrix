@@ -15,10 +15,10 @@ const headlines = [
 ];
 
 const stats = [
-  { value: '12+', label: 'AI Tools' },
-  { value: '10K+', label: 'Daily Users' },
-  { value: '500+', label: 'Career Insights' },
-  { value: '1000+', label: 'Success Stories' },
+  { value: '13+', label: 'AI-Powered Tools' },
+  { value: '$0', label: 'Free Forever' },
+  { value: 'Edge', label: 'Vercel Deployed' },
+  { value: 'Open', label: 'Source on GitHub' },
 ];
 
 export function HeroSection() {
@@ -76,7 +76,7 @@ export function HeroSection() {
               className="mb-8 px-4 py-2 border-purple-500/30 bg-purple-500/5 backdrop-blur-sm text-purple-600 dark:text-purple-400 hover:bg-purple-500/10 transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5 mr-2" />
-              Preview Build — Review Mode
+              AI-Powered Platform for Developers
             </Badge>
           </motion.div>
 
