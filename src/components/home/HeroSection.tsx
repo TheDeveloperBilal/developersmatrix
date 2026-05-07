@@ -76,7 +76,7 @@ export function HeroSection() {
               className="mb-8 px-4 py-2 border-purple-500/30 bg-purple-500/5 backdrop-blur-sm text-purple-600 dark:text-purple-400 hover:bg-purple-500/10 transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5 mr-2" />
-              AI-Powered Platform for Developers
+              Preview Build — Review Mode
             </Badge>
           </motion.div>
 
