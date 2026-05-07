@@ -7,3 +7,4 @@ export { BlogSection } from './BlogSection';
 export { GTA6Section } from './GTA6Section';
 export { CTASection } from './CTASection';
 export { WebsiteAuditSection } from './WebsiteAuditSection';
+export { SEOContentSection } from './SEOContentSection';

@@ -1,72 +1,78 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
-interface AdBannerProps {
-  type: 'header' | 'sidebar' | 'in-content' | 'footer';
+interface AdSenseProps {
+  slot: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-const adSizes = {
-  header: { width: 728, height: 90, label: '728x90' },
-  sidebar: { width: 300, height: 250, label: '300x250' },
-  'in-content': { width: '100%', height: 280, label: 'Responsive' },
-  footer: { width: 728, height: 90, label: '728x90' }
-};
+export function AdSenseAd({ slot, className, style }: AdSenseProps) {
+  const adRef = useRef<HTMLDivElement>(null);
 
-export function AdBanner({ type, className }: AdBannerProps) {
-  const size = adSizes[type];
+  useEffect(() => {
+    try {
+      const adsbygoogle = (window as any).adsbygoogle || [];
+      adsbygoogle.push({});
+    } catch (e) {
+      // Silently fail if adsbygoogle not loaded
+    }
+  }, []);
 
   return (
-    <div
-      className={cn(
-        'bg-muted/50 rounded-lg flex items-center justify-center border border-border/50',
-        className
-      )}
-      style={{
-        width: typeof size.width === 'number' ? `${size.width}px` : size.width,
-        height: `${size.height}px`,
-        maxWidth: '100%'
-      }}
-    >
-      <div className="text-center">
-        <p className="text-xs text-muted-foreground/50 uppercase tracking-wider">
-          Advertisement
-        </p>
-        <p className="text-xs text-muted-foreground/30 mt-1">
-          {size.label}
-        </p>
-      </div>
+    <div ref={adRef} className={cn('ad-wrapper', className)} style={style}>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-2091805600804724"
+        data-ad-slot={slot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
     </div>
   );
 }
 
-export function HeaderAd() {
+// Pre-configured ad placements
+export function SquareAd({ className }: { className?: string }) {
   return (
-    <div className="w-full flex justify-center py-4">
-      <AdBanner type="header" />
-    </div>
+    <AdSenseAd
+      slot="4458608037"
+      className={cn('w-full flex justify-center', className)}
+    />
   );
 }
 
-export function SidebarAd() {
+export function HorizontalAd({ className }: { className?: string }) {
   return (
-    <div className="w-full flex justify-center">
-      <AdBanner type="sidebar" />
-    </div>
+    <AdSenseAd
+      slot="9840523113"
+      className={cn('w-full flex justify-center', className)}
+    />
   );
 }
 
-export function InContentAd() {
-  return (
-    <div className="w-full flex justify-center py-6">
-      <AdBanner type="in-content" className="max-w-[800px]" />
-    </div>
-  );
+// Legacy compatibility wrappers
+export function AdBanner({ type, className }: { type: string; className?: string }) {
+  const isHorizontal = type === 'header' || type === 'footer' || type === 'in-content';
+  const Component = isHorizontal ? HorizontalAd : SquareAd;
+  return <Component className={className} />;
 }
 
-export function FooterAd() {
-  return (
-    <div className="w-full flex justify-center py-4">
-      <AdBanner type="footer" />
-    </div>
-  );
+export function HeaderAd({ className }: { className?: string }) {
+  return <HorizontalAd className={cn('py-4', className)} />;
+}
+
+export function SidebarAd({ className }: { className?: string }) {
+  return <SquareAd className={cn('py-4', className)} />;
+}
+
+export function InContentAd({ className }: { className?: string }) {
+  return <HorizontalAd className={cn('py-6 max-w-[800px] mx-auto', className)} />;
+}
+
+export function FooterAd({ className }: { className?: string }) {
+  return <HorizontalAd className={cn('py-4', className)} />;
 }

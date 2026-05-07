@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, Mail, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -10,16 +11,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import CoverLetterClient from "./CoverLetterClient";
 
-export const metadata: Metadata = {
-  title: "AI Cover Letter Generator - Create Personalized Cover Letters",
-  description: "Generate personalized, compelling cover letters tailored to each job application with our AI-powered generator. Stand out from other applicants.",
-  keywords: ["cover letter generator", "AI cover letter", "job application letter", "cover letter maker", "professional cover letter"],
-  openGraph: {
-    title: "AI Cover Letter Generator | DevelopersMatrix",
-    description: "Generate personalized cover letters for any job application with AI.",
-    url: `${siteConfig.url}/tools/ai-cover-letter-generator`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-cover-letter-generator']);
 
 export default function CoverLetterPage() {
   const tool = getToolBySlug('ai-cover-letter-generator');

@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/config";
 import { OrganizationSchema, WebApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { HorizontalAd, InContentAd } from "@/components/ads/AdBanner";
+import { SEOContentSection } from "@/components/home/SEOContentSection";
 import { 
   HeroSection, 
   CategoriesSection, 
@@ -14,28 +16,36 @@ import {
 } from "@/components/home";
 
 export const metadata: Metadata = {
-  title: "AI-Powered Tools for Developers, Entrepreneurs & Tech Professionals",
-  description: "Discover AI-powered tools for resume building, budget planning, interview preparation, and more. Stay ahead with tech trends and career insights. Free AI tools for career growth.",
+  title: "DevelopersMatrix - 20+ Free AI Tools for Career, Finance & Productivity",
+  description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview prep, expense tracking, and more. Read latest tech trends and career insights. No signup required.",
   keywords: [
+    "free AI tools",
     "AI resume builder",
     "free resume maker",
     "cover letter generator",
     "interview preparation",
     "salary estimator",
+    "budget planner",
+    "expense tracker",
     "career tools",
     "productivity tools",
-    "budget planner",
-    "developer tools",
+    "free finance tools",
     "job search tools",
-    "GTA 6 requirements",
-    "tech trends 2026"
+    "GTA 6 news",
+    "tech trends 2026",
+    "AI content detector",
+    "website audit tool",
+    "habit tracker",
+    "personal finance",
+    "money management",
+    "startup ideas"
   ],
   alternates: {
     canonical: siteConfig.url,
   },
   openGraph: {
-    title: "DevelopersMatrix - AI-Powered Career & Life Optimization",
-    description: "Discover AI-powered tools for resume building, budget planning, interview preparation, and more. Join 10,000+ professionals.",
+    title: "DevelopersMatrix - 20+ Free AI Tools for Everyone",
+    description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview preparation, and more. Read latest tech trends.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     images: [
@@ -43,7 +53,7 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "DevelopersMatrix - AI-Powered Tools Platform"
+        alt: "DevelopersMatrix - Free AI Tools Platform"
       }
     ],
     locale: 'en_US',
@@ -51,8 +61,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DevelopersMatrix - AI-Powered Career & Life Optimization',
-    description: 'Discover AI-powered tools for resume building, budget planning, interview preparation, and more.',
+    title: 'DevelopersMatrix - 20+ Free AI Tools for Everyone',
+    description: 'Discover free AI-powered tools for resume building, budget planning, interview prep, and more.',
     images: [siteConfig.ogImage],
     creator: '@developersmatrix',
   },
@@ -78,6 +88,11 @@ export default function HomePage() {
       {/* Hero Section */}
       <HeroSection />
 
+      {/* Ad Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <HorizontalAd />
+      </div>
+
       {/* Categories Section */}
       <CategoriesSection />
 
@@ -87,11 +102,21 @@ export default function HomePage() {
       {/* Website Audit Section */}
       <WebsiteAuditSection />
 
+      {/* Ad Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <InContentAd />
+      </div>
+
       {/* Trending Section */}
       <TrendingSection />
 
       {/* Daily Dashboard Section */}
       <DashboardSection />
+
+      {/* Ad Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <HorizontalAd />
+      </div>
 
       {/* GTA 6 Featured Section */}
       <GTA6Section />
@@ -101,6 +126,14 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <CTASection />
+
+      {/* SEO Content Section */}
+      <SEOContentSection />
+
+      {/* Footer Ad */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <HorizontalAd />
+      </div>
     </>
   );
 }

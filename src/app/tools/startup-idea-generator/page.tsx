@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, Lightbulb, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,16 +11,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import StartupIdeaClient from "./StartupIdeaClient";
 
-export const metadata: Metadata = {
-  title: "Startup Idea Generator - Generate Innovative Business Ideas",
-  description: "Spark your entrepreneurial journey with AI-generated startup ideas. Get innovative business concepts and market analysis.",
-  keywords: ["startup ideas", "business ideas", "AI business generator", "entrepreneur ideas", "startup generator"],
-  openGraph: {
-    title: "Startup Idea Generator | DevelopersMatrix",
-    description: "Generate innovative business ideas with AI.",
-    url: `${siteConfig.url}/tools/startup-idea-generator`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['startup-idea-generator']);
 
 export default function StartupIdeaPage() {
   const tool = getToolBySlug('startup-idea-generator');

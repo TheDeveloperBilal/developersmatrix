@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, Calendar, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,16 +11,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import ProductivityPlannerClient from "./ProductivityPlannerClient";
 
-export const metadata: Metadata = {
-  title: "Productivity Planner - Optimize Your Daily Productivity",
-  description: "Maximize efficiency with our AI-powered productivity planner. Smart task management, priority optimization, and intelligent scheduling.",
-  keywords: ["productivity planner", "task manager", "daily planner", "time management", "work organizer"],
-  openGraph: {
-    title: "Productivity Planner | DevelopersMatrix",
-    description: "Maximize efficiency with our AI-powered productivity planner.",
-    url: `${siteConfig.url}/tools/productivity-planner`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['productivity-planner']);
 
 export default function ProductivityPlannerPage() {
   const tool = getToolBySlug('productivity-planner');

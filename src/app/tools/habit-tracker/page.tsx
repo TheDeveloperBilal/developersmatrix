@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,16 +11,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import HabitTrackerClient from "./HabitTrackerClient";
 
-export const metadata: Metadata = {
-  title: "Daily Habit Tracker - Build Better Habits",
-  description: "Build better habits with our intuitive daily tracker. Track progress, build streaks, and achieve personal growth goals.",
-  keywords: ["habit tracker", "daily habits", "habit building", "productivity tracker", "routine tracker"],
-  openGraph: {
-    title: "Daily Habit Tracker | DevelopersMatrix",
-    description: "Build better habits with our intuitive daily tracker.",
-    url: `${siteConfig.url}/tools/habit-tracker`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['habit-tracker']);
 
 export default function HabitTrackerPage() {
   const tool = getToolBySlug('habit-tracker');

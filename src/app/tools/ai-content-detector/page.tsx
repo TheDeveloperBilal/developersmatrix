@@ -1,42 +1,10 @@
 import { Metadata } from 'next';
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from '@/data/config';
 import { WebApplicationSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo/SchemaMarkup';
 import AIContentDetectorClient from './AIContentDetectorClient';
 
-export const metadata: Metadata = {
-  title: 'AI Content Detector for SEO & Professional Writing | Free Tool',
-  description: 'Detect AI-generated content with our free AI Content Detector. Analyze text for SEO issues, keyword stuffing, EEAT signals, and writing quality. Get real, accurate scores for blog content, academic writing, resumes, and more.',
-  keywords: [
-    'AI content detector',
-    'AI detector',
-    'ChatGPT detector',
-    'AI content checker',
-    'SEO AI detector',
-    'human vs AI content',
-    'AI text analyzer',
-    'content authenticity checker',
-    'AI writing detector',
-    'GPT detector',
-    'AI generated content checker',
-    'plagiarism detector',
-    'content quality analyzer',
-  ],
-  alternates: {
-    canonical: `${siteConfig.url}/tools/ai-content-detector`,
-  },
-  openGraph: {
-    title: 'AI Content Detector for SEO & Professional Writing',
-    description: 'Detect AI-generated content with our free AI Content Detector. Analyze text for SEO issues, keyword stuffing, EEAT signals, and writing quality.',
-    url: `${siteConfig.url}/tools/ai-content-detector`,
-    siteName: siteConfig.name,
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AI Content Detector for SEO & Professional Writing',
-    description: 'Detect AI-generated content with real analysis. Check perplexity, burstiness, vocabulary diversity, and SEO issues.',
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-content-detector']);
 
 const faqs = [
   {

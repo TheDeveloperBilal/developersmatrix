@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, DollarSign, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -10,16 +11,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import SalaryEstimatorClient from "./SalaryEstimatorClient";
 
-export const metadata: Metadata = {
-  title: "Salary Estimator - Know Your Market Value",
-  description: "Get accurate salary estimates for any role and location. Compare compensation across industries with real market data.",
-  keywords: ["salary estimator", "salary calculator", "pay comparison", "salary range", "compensation calculator", "job salary"],
-  openGraph: {
-    title: "Salary Estimator | DevelopersMatrix",
-    description: "Get accurate salary estimates for any role and location.",
-    url: `${siteConfig.url}/tools/salary-estimator`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['salary-estimator']);
 
 export default function SalaryEstimatorPage() {
   const tool = getToolBySlug('salary-estimator');

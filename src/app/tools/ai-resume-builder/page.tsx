@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, FileText, Download, Eye, Sparkles, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,16 +13,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import ResumeBuilderClient from "./ResumeBuilderClient";
 
-export const metadata: Metadata = {
-  title: "AI Resume Builder - Create Professional, ATS-Optimized Resumes",
-  description: "Build professional, ATS-optimized resumes in minutes with our free AI-powered resume builder. Get personalized content suggestions, modern templates, and instant downloads.",
-  keywords: ["AI resume builder", "resume maker", "ATS resume", "professional resume", "free resume builder", "job application"],
-  openGraph: {
-    title: "AI Resume Builder | DevelopersMatrix",
-    description: "Build professional, ATS-optimized resumes in minutes with our free AI-powered resume builder.",
-    url: `${siteConfig.url}/tools/ai-resume-builder`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-resume-builder']);
 
 export default function ResumeBuilderPage() {
   const tool = getToolBySlug('ai-resume-builder');

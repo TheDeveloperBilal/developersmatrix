@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, MessageSquare, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,16 +11,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import InterviewSimulatorClient from "./InterviewSimulatorClient";
 
-export const metadata: Metadata = {
-  title: "AI Interview Simulator - Practice Interview Questions",
-  description: "Practice interviews with AI-powered questions and feedback. Prepare for technical and behavioral interviews.",
-  keywords: ["interview simulator", "interview practice", "AI interview", "mock interview", "job interview prep"],
-  openGraph: {
-    title: "AI Interview Simulator | DevelopersMatrix",
-    description: "Practice interviews with AI-powered questions and feedback.",
-    url: `${siteConfig.url}/tools/ai-interview-simulator`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-interview-simulator']);
 
 export default function InterviewSimulatorPage() {
   const tool = getToolBySlug('ai-interview-simulator');

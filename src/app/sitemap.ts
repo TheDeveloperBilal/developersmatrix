@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { blogPosts } from '@/data/blog';
 import { tools } from '@/data/tools';
+import { getAllTrendSlugs } from '@/data/trends-data';
 import { siteConfig } from '@/data/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -45,6 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/cookies`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
       url: `${baseUrl}/gta-6`,
       lastModified: new Date(),
       changeFrequency: 'daily',
@@ -60,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/trends`,
       lastModified: new Date(),
       changeFrequency: 'daily',
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/tools`,
@@ -98,5 +105,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...blogPages, ...toolPages];
+  // Trend pages
+  const trendSlugs = getAllTrendSlugs();
+  const trendPages: MetadataRoute.Sitemap = trendSlugs.map((slug) => ({
+    url: `${baseUrl}/trends/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...blogPages, ...toolPages, ...trendPages];
 }

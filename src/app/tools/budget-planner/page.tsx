@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, Wallet, CheckCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,16 +12,7 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import BudgetPlannerClient from "./BudgetPlannerClient";
 
-export const metadata: Metadata = {
-  title: "Budget Planner - Track Finances & Optimize Spending",
-  description: "Take control of your finances with our free Budget Planner. Track income and expenses, visualize spending patterns, set savings goals, and make smarter financial decisions.",
-  keywords: ["budget planner", "expense tracker", "personal finance", "money management", "savings calculator", "financial planning"],
-  openGraph: {
-    title: "Budget Planner | DevelopersMatrix",
-    description: "Take control of your finances with our free Budget Planner. Track income and expenses and visualize spending patterns.",
-    url: `${siteConfig.url}/tools/budget-planner`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['budget-planner']);
 
 export default function BudgetPlannerPage() {
   const tool = getToolBySlug('budget-planner');

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, Gamepad2, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,16 +11,7 @@ import { siteConfig } from "@/data/config";
 import { canYouRunItFaqs } from "@/data/new-tools";
 import CanYouRunItClient from "./CanYouRunItClient";
 
-export const metadata: Metadata = {
-  title: "Can You Run It? - Check Game Requirements for Your PC",
-  description: "Check if your PC can run any game before buying. Compare your hardware specs against minimum and recommended requirements for 1000+ popular games.",
-  keywords: ["can you run it", "game requirements", "PC specs checker", "system requirements", "gaming hardware", "game compatibility"],
-  openGraph: {
-    title: "Can You Run It? - Game Requirements Checker | DevelopersMatrix",
-    description: "Check if your PC can run any game before buying.",
-    url: `${siteConfig.url}/tools/can-you-run-it`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata(toolMetadata['can-you-run-it']);
 
 export default function CanYouRunItPage() {
   const tool = {

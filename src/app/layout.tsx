@@ -118,6 +118,13 @@ export default function RootLayout({
         
         {/* Google AdSense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2091805600804724" crossOrigin="anonymous"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            `,
+          }}
+        />
         
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-3P7JSPHQ39"></script>
@@ -139,7 +146,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
         <link rel="shortcut icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
-        <link rel="manifest" href="/manifest.json" />
         
         {/* Theme Color */}
         <meta name="theme-color" content="#7c3aed" />
