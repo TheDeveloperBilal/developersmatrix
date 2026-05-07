@@ -1,79 +1,49 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, TrendingUp, Brain, Code, Cpu, Leaf, Shield, Settings } from 'lucide-react';
+import { ArrowRight, TrendingUp, Brain, Code, Cpu, Leaf, Shield, Settings, Rocket, Gamepad2, DollarSign, Bot, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getTrendingTrends, getHotTrends, type TrendItem, type TrendCategory } from '@/data/trends-data';
 
-const trendingTopics = [
-  {
-    id: '1',
-    slug: 'generative-ai-enterprise',
-    title: 'Generative AI in Enterprise',
-    growth: 340,
-    category: 'AI',
-    icon: Brain,
-    description: 'Enterprise adoption of generative AI tools is accelerating rapidly.',
-    color: 'purple',
-  },
-  {
-    id: '2',
-    slug: 'ai-augmented-development',
-    title: 'AI-Augmented Development',
-    growth: 420,
-    category: 'Skills',
-    icon: Code,
-    description: 'AI coding assistants are transforming software development workflows.',
-    color: 'blue',
-  },
-  {
-    id: '3',
-    slug: 'edge-computing-expansion',
-    title: 'Edge Computing Expansion',
-    growth: 180,
-    category: 'Tech',
-    icon: Cpu,
-    description: 'Edge computing is becoming essential for real-time processing needs.',
-    color: 'orange',
-  },
-  {
-    id: '4',
-    slug: 'green-tech-sustainability',
-    title: 'Green Tech & Sustainability',
-    growth: 210,
-    category: 'Startup',
-    icon: Leaf,
-    description: 'Environmental concerns are driving innovation in sustainable technology.',
-    color: 'green',
-  },
-  {
-    id: '5',
-    slug: 'cybersecurity-skills-gap',
-    title: 'Cybersecurity Skills Gap',
-    growth: 85,
-    category: 'Career',
-    icon: Shield,
-    description: 'The cybersecurity skills shortage continues to intensify globally.',
-    color: 'red',
-  },
-  {
-    id: '6',
-    slug: 'platform-engineering',
-    title: 'Platform Engineering',
-    growth: 195,
-    category: 'Skills',
-    icon: Settings,
-    description: 'Platform engineering is emerging as a critical discipline.',
-    color: 'indigo',
-  },
-];
+const iconMap: Record<string, React.ElementType> = {
+  'ai-tools': Brain,
+  'ai-agents': Bot,
+  'make-money': DollarSign,
+  'gaming': Gamepad2,
+  'future-tech': Rocket,
+  'cybersecurity': Shield,
+  'social-media': Share2,
+  'coding': Code,
+  'green-tech': Leaf,
+  'career-growth': TrendingUp,
+};
 
 const categoryStyles: Record<string, { bg: string; text: string; iconBg: string }> = {
-  AI: { bg: 'bg-purple-500/10', text: 'text-purple-500', iconBg: 'from-purple-500/20 to-blue-500/20' },
-  Tech: { bg: 'bg-blue-500/10', text: 'text-blue-500', iconBg: 'from-blue-500/20 to-cyan-500/20' },
-  Skills: { bg: 'bg-indigo-500/10', text: 'text-indigo-500', iconBg: 'from-indigo-500/20 to-violet-500/20' },
-  Startup: { bg: 'bg-orange-500/10', text: 'text-orange-500', iconBg: 'from-orange-500/20 to-amber-500/20' },
-  Career: { bg: 'bg-green-500/10', text: 'text-green-500', iconBg: 'from-green-500/20 to-emerald-500/20' },
+  'ai-tools': { bg: 'bg-purple-500/10', text: 'text-purple-500', iconBg: 'from-purple-500/20 to-blue-500/20' },
+  'ai-agents': { bg: 'bg-violet-500/10', text: 'text-violet-500', iconBg: 'from-violet-500/20 to-purple-500/20' },
+  'make-money': { bg: 'bg-green-500/10', text: 'text-green-500', iconBg: 'from-green-500/20 to-emerald-500/20' },
+  'gaming': { bg: 'bg-pink-500/10', text: 'text-pink-500', iconBg: 'from-pink-500/20 to-rose-500/20' },
+  'future-tech': { bg: 'bg-blue-500/10', text: 'text-blue-500', iconBg: 'from-blue-500/20 to-cyan-500/20' },
+  'cybersecurity': { bg: 'bg-red-500/10', text: 'text-red-500', iconBg: 'from-red-500/20 to-orange-500/20' },
+  'social-media': { bg: 'bg-cyan-500/10', text: 'text-cyan-500', iconBg: 'from-cyan-500/20 to-blue-500/20' },
+  'coding': { bg: 'bg-orange-500/10', text: 'text-orange-500', iconBg: 'from-orange-500/20 to-amber-500/20' },
+  'green-tech': { bg: 'bg-emerald-500/10', text: 'text-emerald-500', iconBg: 'from-emerald-500/20 to-green-500/20' },
+  'career-growth': { bg: 'bg-amber-500/10', text: 'text-amber-500', iconBg: 'from-amber-500/20 to-yellow-500/20' },
+};
+
+const categoryDisplayNames: Record<string, string> = {
+  'ai-tools': 'AI Tools',
+  'ai-agents': 'AI Agents',
+  'make-money': 'Make Money',
+  'gaming': 'Gaming',
+  'future-tech': 'Future Tech',
+  'cybersecurity': 'Security',
+  'social-media': 'Social Media',
+  'coding': 'Coding',
+  'green-tech': 'Green Tech',
+  'career-growth': 'Career',
 };
 
 const containerVariants = {
@@ -95,6 +65,15 @@ const itemVariants = {
 };
 
 export function TrendingSection() {
+  const [trendingTopics, setTrendingTopics] = useState<TrendItem[]>([]);
+
+  useEffect(() => {
+    // Shuffle and rotate topics every time component mounts for freshness
+    const trends = getTrendingTrends(20);
+    const shuffled = [...trends].sort(() => 0.5 - Math.random());
+    setTrendingTopics(shuffled.slice(0, 6));
+  }, []);
+
   return (
     <section className="py-24 bg-white dark:bg-slate-900 relative overflow-hidden">
       {/* Background Pattern */}
@@ -142,7 +121,9 @@ export function TrendingSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {trendingTopics.map((topic, index) => {
-            const styles = categoryStyles[topic.category] || categoryStyles.AI;
+            const styles = categoryStyles[topic.category] || categoryStyles['ai-tools'];
+            const IconComponent = iconMap[topic.category] || Brain;
+            const displayName = categoryDisplayNames[topic.category] || topic.category;
             return (
               <motion.div key={topic.id} variants={itemVariants}>
                 <Link href={`/trends/${topic.slug}`}>
@@ -151,15 +132,15 @@ export function TrendingSection() {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${styles.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                          <topic.icon className="w-5 h-5 text-slate-700 dark:text-slate-200" />
+                          <IconComponent className="w-5 h-5 text-slate-700 dark:text-slate-200" />
                         </div>
                         <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${styles.bg} ${styles.text}`}>
-                          {topic.category}
+                          {displayName}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 text-green-500 text-sm font-bold">
                         <TrendingUp className="w-3.5 h-3.5" />
-                        +{topic.growth}%
+                        +{topic.popularityScore}%
                       </div>
                     </div>
 
@@ -168,7 +149,7 @@ export function TrendingSection() {
                       {topic.title}
                     </h3>
                     <p className="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors mb-4">
-                      {topic.description}
+                      {topic.subtitle}
                     </p>
 
                     {/* Read More */}
