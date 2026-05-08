@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from '@/data/config';
 import { WebApplicationSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo/SchemaMarkup';
+import { InContentAd } from '@/components/ads/AdBanner';
 import AIContentDetectorClient from './AIContentDetectorClient';
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-content-detector']);
@@ -55,6 +56,8 @@ export default function AIContentDetectorPage() {
 
       <main className="pt-16">
         <AIContentDetectorClient />
+        
+        <InContentAd />
         
         {/* FAQ Section */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900/50">

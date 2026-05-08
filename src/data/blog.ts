@@ -1,5 +1,9 @@
 import { BlogPost } from '@/types';
 import generatedBlogs from './generated-blogs.json';
+import highQualityBlogs from './high-quality-blogs.json';
+
+// High-quality blog posts (prepended to appear first)
+const hqBlogPosts: BlogPost[] = highQualityBlogs as BlogPost[];
 
 // Static blog posts
 const staticBlogPosts: BlogPost[] = [
@@ -183,9 +187,9 @@ The key is intentionality—making deliberate choices rather than letting money 
   }
 ];
 
-// Get all blog posts (static + generated)
+// Get all blog posts (generated + high-quality + static)
 export function getAllBlogPosts(): BlogPost[] {
-  return [...(generatedBlogs as BlogPost[]), ...staticBlogPosts];
+  return [...(generatedBlogs as BlogPost[]), ...hqBlogPosts, ...staticBlogPosts];
 }
 
 // Export merged blog posts
