@@ -5,42 +5,18 @@ import Link from 'next/link';
 import { ArrowRight, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { getRecentBlogPosts } from '@/data/blog';
 
-const blogPosts = [
-  {
-    id: '1',
-    slug: 'ai-revolution-2026-job-market',
-    title: 'The AI Revolution: How It Is Reshaping the Job Market in 2026',
-    excerpt: 'Explore how AI is transforming industries and creating new job opportunities.',
-    category: 'Career',
-    readTime: 8,
-    image: '/images/blog/ai-breakthrough.jpg',
-    color: 'from-purple-600 to-blue-600',
-    featured: true,
-  },
-  {
-    id: '2',
-    slug: 'remote-work-productivity-tips-2026',
-    title: '10 Strategies to Boost Productivity While Working Remotely',
-    excerpt: 'Master the art of remote work with these science-backed strategies.',
-    category: 'Productivity',
-    readTime: 10,
-    image: '/images/blog/entertainment.jpg',
-    color: 'from-blue-600 to-cyan-600',
-    featured: false,
-  },
-  {
-    id: '3',
-    slug: 'startup-funding-guide-2026',
-    title: 'The Complete Guide to Startup Funding',
-    excerpt: 'Navigate the complex world of startup funding with this comprehensive guide.',
-    category: 'Startup',
-    readTime: 12,
-    image: '/images/blog/chatgpt-ai.jpg',
-    color: 'from-orange-600 to-amber-600',
-    featured: false,
-  },
-];
+// Color mapping for blog cards
+const categoryColors: Record<string, string> = {
+  Career: 'from-purple-600 to-blue-600',
+  Technology: 'from-blue-600 to-cyan-600',
+  Startup: 'from-orange-600 to-amber-600',
+  Productivity: 'from-green-600 to-emerald-600',
+  Finance: 'from-amber-600 to-yellow-600',
+  Gaming: 'from-red-600 to-pink-600',
+  default: 'from-slate-600 to-slate-800',
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -60,6 +36,19 @@ const itemVariants = {
 };
 
 export function BlogSection() {
+  // Get the 3 most recent blog posts dynamically
+  const recentPosts = getRecentBlogPosts(3);
+  const blogPosts = recentPosts.map((post, index) => ({
+    id: post.id,
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    category: post.category,
+    readTime: post.readTime,
+    image: post.image,
+    color: categoryColors[post.category] || categoryColors.default,
+    featured: index === 0,
+  }));
   return (
     <section className="py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 relative overflow-hidden">
       {/* Background */}

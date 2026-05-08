@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
 import { ArticleSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
-import { getBlogPostBySlug, getRecentBlogPosts, blogCategories } from "@/data/blog";
+import { getBlogPostBySlug, getRecentBlogPosts, getAllBlogSlugs, blogCategories } from "@/data/blog";
 import { siteConfig } from "@/data/config";
 import { notFound } from "next/navigation";
 import { BlogCard } from "@/components/shared/Cards";
@@ -15,6 +15,11 @@ import { FeaturedImage } from "@/components/blog/FeaturedImage";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const slugs = getAllBlogSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
