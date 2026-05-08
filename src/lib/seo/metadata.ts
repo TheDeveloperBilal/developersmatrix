@@ -77,7 +77,7 @@ export function generatePageMetadata({
 // Pre-defined metadata for main pages
 export const pageMetadata = {
   home: {
-    title: 'DevelopersMatrix - AI-Powered Life & Opportunity Optimization Hub',
+    title: 'DevelopersMatrix - Free AI Tools & Career Hub',
     description: 'Your daily destination for AI-powered tools, career insights, productivity hacks, and market trends. Free resume builder, interview simulator, budget planner, and more.',
     keywords: ['AI tools', 'resume builder', 'career optimization', 'productivity tools', 'budget planner', 'job search', 'developer tools', 'interview preparation'],
     path: '/'

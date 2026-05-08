@@ -10,6 +10,7 @@ import {
   Instagram
 } from 'lucide-react';
 import { siteConfig, footerLinks } from '@/data/config';
+import { FooterAdSection } from '@/components/ads/FooterAdSection';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
@@ -178,13 +179,10 @@ export function Footer() {
         </div>
       </div>
 
-      {/* AdSense Footer Banner Placeholder */}
+      {/* AdSense Footer Banner */}
       <div className="bg-muted/50 border-t border-border py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="h-[90px] bg-muted rounded-lg flex items-center justify-center text-muted-foreground text-sm">
-            {/* AdSense Footer Banner - 728x90 */}
-            <span className="opacity-50">Advertisement</span>
-          </div>
+          <FooterAdSection />
         </div>
       </div>
     </footer>

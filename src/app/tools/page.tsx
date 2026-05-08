@@ -1,4 +1,7 @@
+import { generatePageMetadata, pageMetadata } from '@/lib/seo/metadata';
 import { Metadata } from "next";
+
+export const metadata: Metadata = generatePageMetadata(pageMetadata.tools);
 import { 
   FileText, 
   Mail, 
@@ -17,16 +20,6 @@ import { InContentAd } from "@/components/ads/AdBanner";
 import { WebApplicationSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
 import { tools } from "@/data/tools";
 import { siteConfig } from "@/data/config";
-
-export const metadata: Metadata = {
-  title: "AI-Powered Tools for Career & Productivity",
-  description: "Access free AI-powered tools including Resume Builder, Cover Letter Generator, Budget Planner, and more. Optimize your career and daily productivity.",
-  openGraph: {
-    title: "AI-Powered Tools | DevelopersMatrix",
-    description: "Access free AI-powered tools including Resume Builder, Cover Letter Generator, Budget Planner, and more.",
-    url: `${siteConfig.url}/tools`,
-  },
-};
 
 const iconMap: Record<string, React.ReactNode> = {
   FileText: <FileText className="w-8 h-8" />,
