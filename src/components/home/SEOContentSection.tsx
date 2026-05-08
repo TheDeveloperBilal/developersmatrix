@@ -74,7 +74,7 @@ export function SEOContentSection() {
           className="text-center mb-14"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3">
-            Explore All Free AI Tools \u0026 Resources
+            Explore All Free AI Tools & Resources
           </h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             DevelopersMatrix offers 20+ free AI-powered tools for career growth, personal finance, productivity, and staying informed. No signup required.
