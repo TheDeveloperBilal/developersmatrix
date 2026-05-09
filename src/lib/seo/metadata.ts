@@ -201,9 +201,30 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-resume-builder'
   },
   'ai-cover-letter-generator': {
-    title: 'AI Cover Letter Generator - Create Professional Letters',
-    description: 'Generate personalized cover letters for any job application in seconds. Our AI analyzes job descriptions and crafts compelling, professional letters.',
-    keywords: ['cover letter generator', 'AI cover letter', 'job application letter', 'cover letter maker', 'free cover letter'],
+    title: 'Free AI Cover Letter Generator for Tech Jobs | No Signup 2026',
+    description: 'Free AI cover letter generator for developers, engineers, and tech professionals. Create personalized, ATS-friendly cover letters tailored to any job description in under 60 seconds. No signup, no credit card, unlimited use.',
+    keywords: [
+      'ai cover letter generator free',
+      'free cover letter builder',
+      'cover letter generator for tech jobs',
+      'software engineer cover letter template',
+      'ats friendly cover letter',
+      'cover letter maker online free',
+      'cover letter template 2026',
+      'job application letter generator',
+      'cover letter for developers',
+      'personalized cover letter ai',
+      'cover letter writing tool free',
+      'cover letter for software engineer',
+      'cover letter tips 2026',
+      'cover letter generator no signup',
+      'ai powered cover letter writer',
+      'cover letter for data scientist',
+      'cover letter for devops engineer',
+      'cover letter optimization',
+      'developersmatrix cover letter',
+      'how to write a cover letter 2026'
+    ],
     path: '/tools/ai-cover-letter-generator'
   },
   'ai-interview-simulator': {
