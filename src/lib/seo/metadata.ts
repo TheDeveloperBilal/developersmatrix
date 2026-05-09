@@ -141,9 +141,30 @@ export const pageMetadata = {
 // Tool-specific metadata
 export const toolMetadata: Record<string, PageMetadataOptions> = {
   'website-audit': {
-    title: 'AI Website Audit Tool - Free SEO & Performance Analysis',
-    description: 'Free AI-powered website audit tool. Analyze SEO, performance, mobile UX, security, accessibility, and content quality. Get instant scores and actionable recommendations.',
-    keywords: ['website audit', 'SEO audit tool', 'website checker', 'SEO analyzer', 'website health check', 'technical SEO', 'free SEO tool'],
+    title: 'Free Website Audit Tool | SEO, Speed & Security Checker 2026',
+    description: 'Free AI-powered website audit tool. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.',
+    keywords: [
+      'free website audit tool',
+      'website seo checker free',
+      'site audit tool 2026',
+      'website health check free',
+      'seo audit tool online',
+      'website performance checker',
+      'free website analyzer',
+      'google core web vitals checker',
+      'website speed test tool',
+      'technical seo audit free',
+      'developersmatrix website audit',
+      'seo score checker',
+      'website security scanner free',
+      'mobile friendly test tool',
+      'accessibility audit tool free',
+      'website crawler tool free',
+      'page speed insights alternative',
+      'seo website analysis free',
+      'website audit report free',
+      'full website checkup tool'
+    ],
     path: '/tools/website-audit'
   },
   'ai-content-detector': {
