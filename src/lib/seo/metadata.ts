@@ -207,9 +207,30 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-cover-letter-generator'
   },
   'ai-interview-simulator': {
-    title: 'AI Interview Simulator - Practice Interviews Free',
-    description: 'Practice interviews with our AI-powered simulator. Get realistic questions, receive instant feedback, and build confidence for your next job interview.',
-    keywords: ['interview simulator', 'interview practice', 'AI interview', 'mock interview', 'job interview prep', 'free interview tool'],
+    title: 'Free AI Interview Simulator | Mock Practice for Tech Jobs 2026',
+    description: 'Free AI-powered interview simulator for developers and tech professionals. Practice behavioral, technical, and system design interviews with instant feedback. Role-specific questions for frontend, backend, DevOps, and data roles. No signup needed.',
+    keywords: [
+      'ai interview simulator free',
+      'mock interview practice online',
+      'coding interview prep 2026',
+      'technical interview practice free',
+      'behavioral interview questions and answers',
+      'star method interview examples',
+      'system design interview prep',
+      'software engineer interview questions',
+      'free interview preparation tool',
+      'ai mock interview',
+      'interview feedback tool',
+      'practice coding interviews',
+      'job interview simulator',
+      'developersmatrix interview simulator',
+      'faang interview prep 2026',
+      'frontend developer interview questions',
+      'backend developer interview questions',
+      'full stack interview questions',
+      'devops interview questions',
+      'interview confidence builder'
+    ],
     path: '/tools/ai-interview-simulator'
   },
   'salary-estimator': {
