@@ -168,9 +168,30 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/website-audit'
   },
   'ai-content-detector': {
-    title: 'AI Content Detector - Detect AI-Generated Text Free',
-    description: 'Free AI Content Detector tool. Analyze text for AI-generated content, SEO issues, keyword stuffing, and EEAT signals. Real analysis with perplexity and burstiness scoring.',
-    keywords: ['AI content detector', 'AI detector', 'ChatGPT detector', 'AI content checker', 'SEO AI detector', 'human vs AI content'],
+    title: 'Free AI Content Detector — Detect AI-Generated Text Instantly | No Login 2026',
+    description: 'Free AI content detector with real perplexity and burstiness analysis. Detect ChatGPT, GPT-4, Claude, and Gemini text instantly. 7 content modes, sentence-level breakdown, SEO issue detection. No signup, no credit card, 100% free.',
+    keywords: [
+      'ai content detector free',
+      'free ai detector',
+      'ai content checker',
+      'detect ai generated text',
+      'chatgpt detector',
+      'perplexity score checker',
+      'burstiness analysis tool',
+      'ai text detection',
+      'content authenticity checker',
+      'ai generated content detector',
+      'free ai content checker',
+      'ai writing detector',
+      'detect chatgpt text',
+      'ai content analysis',
+      'human vs ai text checker',
+      'developersmatrix ai detector',
+      'ai content detector 2026',
+      'ai text authenticity',
+      'content originality checker',
+      'ai detection tool free'
+    ],
     path: '/tools/ai-content-detector'
   },
   'ai-resume-builder': {
