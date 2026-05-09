@@ -153,9 +153,30 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-content-detector'
   },
   'ai-resume-builder': {
-    title: 'AI Resume Builder - Create ATS-Optimized Resumes Free',
-    description: 'Build professional, ATS-optimized resumes in minutes with our free AI resume builder. Get personalized content suggestions and export to PDF or DOCX.',
-    keywords: ['resume builder', 'AI resume', 'ATS resume', 'professional resume', 'resume maker', 'free resume builder'],
+    title: 'Free AI Resume Builder for Developers | ATS-Friendly 2026',
+    description: 'Build an ATS-friendly resume in minutes with our free AI resume builder. Tailored for developers, software engineers, and tech professionals. 2026-ready templates, keyword optimization, and instant PDF export.',
+    keywords: [
+      'ai resume builder free',
+      'ats friendly resume builder',
+      'free resume builder for developers',
+      'best ai resume builder 2026',
+      'resume builder for software engineers',
+      'ats resume checker free',
+      'developer resume template 2026',
+      'ai powered resume builder',
+      'online resume builder with ats optimization',
+      'software developer resume format',
+      'professional resume builder free',
+      'resume maker for tech jobs',
+      'ats optimized resume template',
+      'developersmatrix resume builder',
+      'free cv builder online',
+      'resume builder for programmers',
+      'ai resume writer',
+      'resume generator for developers',
+      'best free resume builder 2026',
+      'create resume online free'
+    ],
     path: '/tools/ai-resume-builder'
   },
   'ai-cover-letter-generator': {
