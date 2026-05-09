@@ -197,7 +197,7 @@ export default function CoverLetterPage() {
               {/* Section 1: Introduction */}
               <section className="mb-12">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Free AI Cover Letter Generator for Developers — Write ATS-Friendly Letters in 60 Seconds
+                  Free AI Cover Letter Generator for Developers. Write ATS-Friendly Letters in 60 Seconds
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="text-lg leading-relaxed">
@@ -254,7 +254,7 @@ export default function CoverLetterPage() {
                       They Influence ATS Ranking
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Modern ATS systems do not just check if keywords exist. They rank applications by keyword density, contextual relevance, and match percentage. A cover letter that naturally weaves in keywords from the job description — "React," "microservices," "CI/CD" — boosts your overall application score. A resume alone might hit 60 percent match. A resume plus a keyword-optimized cover letter can push that to 85 percent.
+                      Modern ATS systems do not just check if keywords exist. They rank applications by keyword density, contextual relevance, and match percentage. A cover letter that naturally weaves in keywords from the job description. Terms like "React," "microservices," and "CI/CD" — boosts your overall application score. A resume alone might hit 60 percent match. A resume plus a keyword-optimized cover letter can push that to 85 percent.
                     </p>
                   </div>
                 </div>
@@ -567,7 +567,7 @@ export default function CoverLetterPage() {
               <section className="mb-12">
                 <div className="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl p-8 text-white text-center">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                    Write Your First Cover Letter in 60 Seconds — It is Free
+                    Write Your First Cover Letter in 60 Seconds. It is Free
                   </h2>
                   <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
                     Join 1,800 developers who have used our generator to apply to roles at Google, Stripe, Airbnb, and hundreds of startups. No signup. No credit card. Just strong cover letters.

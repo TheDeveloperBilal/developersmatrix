@@ -10,7 +10,7 @@ export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-content-
 const faqs = [
   {
     question: 'How does the AI Content Detector work?',
-    answer: 'Our AI Content Detector uses multiple NLP analysis techniques including perplexity scoring, burstiness analysis, vocabulary diversity measurement, and sentence structure consistency checks. Perplexity measures how predictable your word choices are — AI text tends to have low perplexity because language models always pick the most statistically likely next word. Burstiness measures variation in sentence length and complexity — human writing naturally alternates between short punchy sentences and long elaborate ones, while AI tends toward uniform sentence lengths. These methods identify patterns typical of AI-generated text without using external APIs, ensuring your content remains private and secure.',
+    answer: 'Our AI Content Detector uses multiple NLP analysis techniques including perplexity scoring, burstiness analysis, vocabulary diversity measurement, and sentence structure consistency checks. Perplexity measures how predictable your word choices are. AI text tends to have low perplexity because language models always pick the most statistically likely next word. Burstiness measures variation in sentence length and complexity. Human writing naturally alternates between short punchy sentences and long elaborate ones, while AI tends toward uniform sentence lengths. These methods identify patterns typical of AI-generated text without using external APIs, ensuring your content remains private and secure.',
   },
   {
     question: 'Is the AI detection accurate?',
@@ -82,7 +82,7 @@ export default function AIContentDetectorPage() {
               {/* Section 1: Introduction */}
               <section className="mb-12">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Free AI Content Detector — Analyze Text Authenticity With Real Perplexity and Burstiness Scoring
+                  Free AI Content Detector. Analyze Text Authenticity With Real Perplexity and Burstiness Scoring
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="text-lg leading-relaxed">
@@ -100,26 +100,26 @@ export default function AIContentDetectorPage() {
               {/* Section 2: How AI Detection Works */}
               <section className="mb-12">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  How AI Detection Actually Works in 2026 — Perplexity, Burstiness, and Machine Learning
+                  How AI Detection Actually Works in 2026. Perplexity, Burstiness, and Machine Learning
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="leading-relaxed">
                     AI detection is not magic. It is pattern recognition built on well-established statistical and machine learning concepts. Our detector combines three core approaches to identify AI-generated text with high accuracy.
                   </p>
 
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Perplexity Scoring — Measuring Word Predictability</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Perplexity Scoring: Measuring Word Predictability</h3>
                   <p className="leading-relaxed">
-                    Perplexity measures how surprising or unpredictable a piece of text is to a reference language model. When AI generates text, it selects words that are statistically most likely given the preceding context. The output is highly predictable, or low perplexity. Human writers make more unexpected choices: an unusual metaphor, an abrupt tonal shift, a sentence that breaks conventional emphasis. Our detector runs your text through a statistical model and scores its predictability. Consistently low perplexity is the primary signal of machine authorship. A typical AI-generated sentence like "The experiment yielded significant results consistent with prior research" scores low perplexity because every word is exactly what a language model would predict. A human might instead write "The results surprised us, though in hindsight they probably should not have" — higher perplexity, more distinctively human.
+                    Perplexity measures how surprising or unpredictable a piece of text is to a reference language model. When AI generates text, it selects words that are statistically most likely given the preceding context. The output is highly predictable, or low perplexity. Human writers make more unexpected choices: an unusual metaphor, an abrupt tonal shift, a sentence that breaks conventional emphasis. Our detector runs your text through a statistical model and scores its predictability. Consistently low perplexity is the primary signal of machine authorship. A typical AI-generated sentence like "The experiment yielded significant results consistent with prior research" scores low perplexity because every word is exactly what a language model would predict. A human might instead write "The results surprised us, though in hindsight they probably should not have." That is higher perplexity, more distinctively human.
                   </p>
 
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Burstiness Analysis — Measuring Sentence Variation</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Burstiness Analysis: Measuring Sentence Variation</h3>
                   <p className="leading-relaxed">
                     Burstiness measures the variation in sentence length, structure, and complexity throughout a text. Human writing naturally mixes short punchy sentences with longer elaborate ones, often within the same paragraph. AI-generated text tends toward a more uniform rhythm and sentence length. The burstiness score is computed as the standard deviation of sentence lengths divided by the mean. Human writing averages 0.65 to 0.85 on this scale. ChatGPT output averages 0.18 to 0.25. Claude averages 0.20 to 0.30. Gemini averages 0.15 to 0.22. When burstiness falls below 0.30 combined with low perplexity, our detector flags the content as likely AI-generated with high confidence.
                   </p>
 
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Vocabulary Diversity and N-gram Analysis</h3>
                   <p className="leading-relaxed">
-                    AI models tend to reuse common phrases and transition patterns at higher rates than human writers. The phrase "in today's fast-paced world" appears in AI output at roughly 3 to 5 times the rate of comparable human writing. Our detector analyzes vocabulary diversity, n-gram distributions, and Zipf's Law conformity — how word frequency distributes in natural language. AI text shows flatter distributions with less of the heavy-tail pattern characteristic of human writing. These metrics catch subtle fingerprints that perplexity and burstiness alone might miss.
+                    AI models tend to reuse common phrases and transition patterns at higher rates than human writers. The phrase "in today's fast-paced world" appears in AI output at roughly 3 to 5 times the rate of comparable human writing. Our detector analyzes vocabulary diversity, n-gram distributions, and Zipf's Law conformity, which describes how word frequency distributes in natural language. AI text shows flatter distributions with less of the heavy-tail pattern characteristic of human writing. These metrics catch subtle fingerprints that perplexity and burstiness alone might miss.
                   </p>
 
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Sentence Structure Consistency</h3>
@@ -134,7 +134,7 @@ export default function AIContentDetectorPage() {
               {/* Section 3: 7 Detection Modes */}
               <section className="mb-12">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  7 Content Modes — Tailored Detection for Every Use Case
+                  7 Content Modes. Tailored Detection for Every Use Case
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                   Not all writing is the same. A formal research paper has different statistical properties than a casual blog post. Our detector offers seven specialized modes, each with context-specific scoring thresholds and SEO issue detection.
@@ -190,7 +190,7 @@ export default function AIContentDetectorPage() {
               {/* Section 4: Why No Detector Is 100% Accurate */}
               <section className="mb-12">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Why No AI Detector Is 100% Accurate — And How to Use Them Properly
+                  Why No AI Detector Is 100% Accurate. And How to Use Them Properly
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="leading-relaxed">
@@ -199,7 +199,7 @@ export default function AIContentDetectorPage() {
 
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">False Positives on Human Text</h3>
                   <p className="leading-relaxed">
-                    Independent testing of ZeroGPT — one of the most widely used free detectors — found it incorrectly flags 14.6 percent of human-written text as AI-generated. That rate jumps to 21 percent for non-native English speakers. Academic writing and technical documentation also trigger false positives because formal, structured prose naturally has low burstiness that resembles AI output. If your human text is flagged, do not panic. Add more sentence length variation, include a personal anecdote, or rewrite a few sentences with more unexpected word choices.
+                    Independent testing of ZeroGPT, one of the most widely used free detectors — found it incorrectly flags 14.6 percent of human-written text as AI-generated. That rate jumps to 21 percent for non-native English speakers. Academic writing and technical documentation also trigger false positives because formal, structured prose naturally has low burstiness that resembles AI output. If your human text is flagged, do not panic. Add more sentence length variation, include a personal anecdote, or rewrite a few sentences with more unexpected word choices.
                   </p>
 
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Edited and Paraphrased AI Text</h3>
@@ -317,7 +317,7 @@ export default function AIContentDetectorPage() {
               <section className="mb-12">
                 <div className="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl p-8 text-white text-center">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                    Detect AI Content in Seconds — Completely Free
+                    Detect AI Content in Seconds. Completely Free
                   </h2>
                   <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
                     Join thousands of writers, publishers, students, and professionals who use our detector to verify content authenticity. No signup. No credit card. Just real analysis.

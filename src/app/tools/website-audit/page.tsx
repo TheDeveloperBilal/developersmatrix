@@ -78,7 +78,7 @@ export default function WebsiteAuditPage() {
       />
       <FAQSchema faqs={toolFaqsForSchema} />
 
-      {/* Main Tool Interface — renders its own full page UI */}
+      {/* Main Tool Interface, renders its own full page UI */}
       <WebsiteAuditClient />
 
       {/* SEO Content Section */}
@@ -92,7 +92,7 @@ export default function WebsiteAuditPage() {
             {/* Section 1: Introduction */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Free Website Audit Tool — Full SEO, Speed and Security Analysis for 2026
+                Free Website Audit Tool. Full SEO, Speed and Security Analysis for 2026
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                 <p className="text-lg leading-relaxed">
@@ -405,7 +405,7 @@ export default function WebsiteAuditPage() {
             <section className="mb-12">
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white text-center">
                 <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                  Audit Your Website in Seconds — It is Free
+                  Audit Your Website in Seconds. It is Free
                 </h2>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
                   Join 3,400 website owners who have used our tool to find and fix critical issues. No signup. No credit card. Just actionable insights.

@@ -161,7 +161,7 @@ export default function InterviewSimulatorPage() {
               {/* Section 1: Introduction */}
               <section className="mb-12">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Free AI Interview Simulator for Developers — Practice Behavioral, Technical, and System Design in 2026
+                  Free AI Interview Simulator for Developers. Practice Behavioral, Technical, and System Design in 2026
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="text-lg leading-relaxed">
@@ -171,7 +171,7 @@ export default function InterviewSimulatorPage() {
                     That is why the gap between wanting a software engineering job and actually landing one has never been wider. It is not enough to know React or Python. You need to explain your thinking under pressure, handle unexpected follow-up questions, and demonstrate genuine understanding rather than memorized answers.
                   </p>
                   <p className="leading-relaxed">
-                    The <strong>DevelopersMatrix AI Interview Simulator</strong> was built for this exact moment. It is not a static question bank. Our AI generates realistic questions tailored to your target role and experience level, evaluates your answers across three dimensions — relevance, quality, and depth — and gives you actionable feedback that improves your performance. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
+                    The <strong>DevelopersMatrix AI Interview Simulator</strong> was built for this exact moment. It is not a static question bank. Our AI generates realistic questions tailored to your target role and experience level, evaluates your answers across three dimensions: relevance, quality, and depth — and gives you actionable feedback that improves your performance. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
                   </p>
                   <p className="leading-relaxed">
                     Best part? It is completely free. No signup. No credit card. No scheduling. Just pick your role, select a category, and start practicing.
@@ -236,17 +236,17 @@ export default function InterviewSimulatorPage() {
                     Behavioral questions are the most predictable part of any interview, yet candidates consistently fail them. Not because they lack experience. Because they cannot structure their answers. The STAR method fixes this. It is the framework that Amazon, Google, Microsoft, and every other major tech company uses to evaluate candidates.
                   </p>
 
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Situation — Set the Scene in One Sentence</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Situation: Set the Scene in One Sentence</h3>
                   <p className="leading-relaxed">
                     Briefly describe the context. One sentence is enough. "At my previous startup, our payment processing API started timing out during peak traffic hours." That is it. No need for backstory about the company founding or your hiring date. Just enough context for the interviewer to understand what was at stake.
                   </p>
 
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Task — Define Your Responsibility</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Task: Define Your Responsibility</h3>
                   <p className="leading-relaxed">
                     What were you specifically asked to do? "I was responsible for diagnosing the bottleneck and implementing a fix within 48 hours before our Black Friday sale." This sentence establishes ownership. It tells the interviewer that you were not a passive bystander. You had a specific job with a deadline.
                   </p>
 
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Action — Detail What You Actually Did</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Action: Detail What You Actually Did</h3>
                   <p className="leading-relaxed">
                     This is the longest part of your answer and the part that separates strong candidates from weak ones. Describe the specific steps you took. "I profiled the database queries and found that our ORM was generating N-plus-one queries on the order history table. I refactored the query to use eager loading, added a Redis cache layer for frequently accessed order summaries, and wrote a load test to verify the fix under simulated peak traffic."
                   </p>
@@ -254,7 +254,7 @@ export default function InterviewSimulatorPage() {
                     Notice what makes this strong. It is specific. It names the exact technology decisions. It shows independent problem-solving. Weak answers say "I worked with the team to fix it." Strong answers say what you personally did.
                   </p>
 
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Result — Quantify the Outcome</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Result: Quantify the Outcome</h3>
                   <p className="leading-relaxed">
                     Every STAR answer needs a number. "The API response time dropped from 4.2 seconds to 1.1 seconds. Our Black Friday sale processed 12,000 orders without a single timeout. The fix I implemented is still in production today." Numbers make your story credible. They show that you care about outcomes, not just activities.
                   </p>
@@ -534,7 +534,7 @@ export default function InterviewSimulatorPage() {
               <section className="mb-12">
                 <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-8 text-white text-center">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                    Start Practicing Your Interview Skills Now — It is Free
+                    Start Practicing Your Interview Skills Now. It is Free
                   </h2>
                   <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
                     Join 2,100 developers who have used our simulator to prepare for interviews at Google, Amazon, Meta, Stripe, and hundreds of other companies. No signup. No credit card. Just realistic practice.
