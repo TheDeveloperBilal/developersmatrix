@@ -44,7 +44,7 @@ const toolFaqs = [
   },
   {
     question: "What are the biggest resume mistakes developers make in 2026?",
-    answer: "The top mistakes we see: (1) Overdesigning with graphics and colors that break ATS parsing, (2) Listing tools without project proof — 'React' means nothing without a project context, (3) Writing generic summaries instead of targeted role statements, (4) Ignoring keyword optimization — 75% of resumes are filtered by ATS before a human sees them, (5) Not quantifying achievements. Numbers get interviews."
+    answer: "The first and most common mistake is overdesigning with graphics, colors, and creative layouts that look great to humans but completely break ATS parsing. The second is listing tools without project proof. Writing React on your skills list means nothing unless you can point to a production project where you used it. The third is using generic professional summaries like passionate developer with a love for coding instead of targeted statements with measurable outcomes. The fourth is ignoring keyword optimization entirely. Roughly 75 percent of resumes are filtered by ATS before a human ever sees them, so missing keywords is an automatic rejection. The fifth is failing to quantify achievements. Every bullet point without a number is a missed opportunity to prove impact."
   }
 ];
 
@@ -87,8 +87,10 @@ export default function ResumeBuilderPage() {
       {/* FAQ Schema */}
       <FAQSchema faqs={toolFaqsForSchema} />
 
-      {/* Main Tool Interface */}
-      <ResumeBuilderClient tool={tool} />
+      {/* Main Tool Interface — wrapped in container */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <ResumeBuilderClient tool={tool} />
+      </div>
 
       {/* SEO Content Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
