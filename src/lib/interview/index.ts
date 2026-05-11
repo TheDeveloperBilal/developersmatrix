@@ -112,8 +112,7 @@ export function submitAnswer(
   role: Role,
   category: Category,
   difficulty: Difficulty,
-  sessionId?: string,
-  questionTopics?: any[]
+  sessionId?: string
 ): FeedbackResponse | ErrorResponse {
   let session = sessionId ? sessions.get(sessionId) : undefined;
   
@@ -121,12 +120,12 @@ export function submitAnswer(
     session = createSession(role, difficulty);
   }
   
-  // Check for irrelevant input first
-  const irrelevantCheck = detectIrrelevantInput(answer, question);
+  // Check for irrelevant input first (with category for semantic relevance)
+  const irrelevantCheck = detectIrrelevantInput(answer, question, category);
   
-  // Get role knowledge for topics
+  // Get role knowledge for topics - always use proper Topic objects from knowledge base
   const roleKnowledge = roleKnowledgeBase[role];
-  const topics = questionTopics || roleKnowledge.topics[category] || roleKnowledge.topics.technical;
+  const topics = roleKnowledge.topics[category] || roleKnowledge.topics.technical;
   
   // Evaluate the answer
   const evaluation = evaluateAnswer(answer, {

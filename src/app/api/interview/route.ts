@@ -17,7 +17,6 @@ interface InterviewRequest {
   difficulty?: string;
   category?: string;
   sessionId?: string;
-  questionTopics?: any[];
 }
 
 // Map display roles to internal role keys
@@ -59,8 +58,7 @@ export async function POST(request: NextRequest) {
       role = 'Software Developer',
       difficulty = 'mid',
       category = 'behavioral',
-      sessionId,
-      questionTopics
+      sessionId
     } = body;
 
     // Map the role to internal key
@@ -95,15 +93,23 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        const result = submitAnswer(
-          question,
-          answer,
-          internalRole,
-          internalCategory,
-          internalDifficulty,
-          sessionId,
-          questionTopics
-        );
+        let result;
+        try {
+          result = submitAnswer(
+            question,
+            answer,
+            internalRole,
+            internalCategory,
+            internalDifficulty,
+            sessionId
+          );
+        } catch (evalError: any) {
+          console.error('Interview evaluation error:', evalError);
+          return NextResponse.json(
+            { success: false, error: 'Failed to evaluate answer. Please try again.' },
+            { status: 500 }
+          );
+        }
 
         if (!result.success) {
           return NextResponse.json(result, { status: 400 });
@@ -185,10 +191,11 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Interview API error:', error);
+    console.error('Stack:', error?.stack);
     return NextResponse.json(
-      { success: false, error: 'An error occurred while processing your request. Please try again.' },
+      { success: false, error: 'An unexpected error occurred. Please refresh and try again.' },
       { status: 500 }
     );
   }

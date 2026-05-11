@@ -121,6 +121,9 @@ export default function InterviewSimulatorClient() {
     setIsFollowUpMode(false);
     setShowHints(false);
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
     try {
       const response = await fetch('/api/interview', {
         method: 'POST',
@@ -131,11 +134,14 @@ export default function InterviewSimulatorClient() {
           difficulty: adaptiveDifficulty || difficulty,
           role,
           sessionId
-        })
+        }),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error('Failed to generate question');
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Server error: ${response.status}`);
       }
 
       const data = await response.json();
@@ -160,8 +166,12 @@ export default function InterviewSimulatorClient() {
         setQuestionsAnswered(data.session.questionsAnswered || 0);
         setAverageScore(data.session.averageScore || 0);
       }
-    } catch (err) {
-      setError('Failed to generate question. Please try again.');
+    } catch (err: any) {
+      if (err.name === 'AbortError') {
+        setError('Request timed out. Please check your connection and try again.');
+      } else {
+        setError(err.message || 'Failed to generate question. Please try again.');
+      }
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -174,6 +184,9 @@ export default function InterviewSimulatorClient() {
     setIsLoading(true);
     setError('');
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
     try {
       const response = await fetch('/api/interview', {
         method: 'POST',
@@ -185,13 +198,15 @@ export default function InterviewSimulatorClient() {
           category,
           difficulty: adaptiveDifficulty || difficulty,
           role,
-          sessionId,
-          questionTopics: questionData?.expectedConcepts
-        })
+          sessionId
+        }),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error('Failed to get feedback');
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Server error: ${response.status}`);
       }
 
       const data = await response.json();
@@ -201,14 +216,15 @@ export default function InterviewSimulatorClient() {
       }
 
       setFeedback(data);
-      setQuestionsAnswered(prev => prev + 1);
+      // Use server's count — don't double-count locally
+      setQuestionsAnswered(data.session?.questionsAnswered || 0);
 
       if (data.session) {
         setAverageScore(data.session.averageScore || 0);
       }
 
       // Update score history
-      if (data.score) {
+      if (typeof data.score === 'number') {
         setScoreHistory(prev => [...prev, data.score]);
       }
 
@@ -216,8 +232,12 @@ export default function InterviewSimulatorClient() {
       if (data.suggestedDifficulty && data.suggestedDifficulty !== difficulty) {
         setAdaptiveDifficulty(data.suggestedDifficulty as Difficulty);
       }
-    } catch (err) {
-      setError('Failed to get feedback. Please try again.');
+    } catch (err: any) {
+      if (err.name === 'AbortError') {
+        setError('Request timed out. Please check your connection and try again.');
+      } else {
+        setError(err.message || 'Failed to get feedback. Please try again.');
+      }
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -229,6 +249,9 @@ export default function InterviewSimulatorClient() {
 
     setIsLoading(true);
     setError('');
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     try {
       const response = await fetch('/api/interview', {
@@ -242,11 +265,14 @@ export default function InterviewSimulatorClient() {
           difficulty: adaptiveDifficulty || difficulty,
           role,
           sessionId
-        })
+        }),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error('Failed to generate follow-up');
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Server error: ${response.status}`);
       }
 
       const data = await response.json();
@@ -260,8 +286,12 @@ export default function InterviewSimulatorClient() {
       setAnswer('');
       setFeedback(null);
       setIsFollowUpMode(true);
-    } catch (err) {
-      setError('Failed to generate follow-up. Please try again.');
+    } catch (err: any) {
+      if (err.name === 'AbortError') {
+        setError('Request timed out. Please check your connection and try again.');
+      } else {
+        setError(err.message || 'Failed to generate follow-up. Please try again.');
+      }
       console.error(err);
     } finally {
       setIsLoading(false);
