@@ -81,16 +81,36 @@ const habitTrackerFaqs: FAQ[] = [
 
 const salaryEstimatorFaqs: FAQ[] = [
   {
-    question: "How accurate are the salary estimates?",
-    answer: "Our salary estimates are based on aggregated data from multiple sources including job postings, industry surveys, and user submissions. While we strive for accuracy, actual salaries may vary based on company size, specific skills, and negotiation."
+    question: "How accurate are the 2026 salary estimates?",
+    answer: "Our 2026 salary estimates are based on aggregated market data from job postings, industry salary surveys, and compensation platforms updated for the current year. While we aim for high accuracy, actual salaries vary based on company size, specific skills, stock compensation, and individual negotiation. Use these figures as a strong reference point for your discussions."
   },
   {
-    question: "Can I compare salaries across different locations?",
-    answer: "Yes! Our tool allows you to compare salaries for the same role across different cities and countries, factoring in cost of living adjustments to give you a realistic view of compensation in various locations."
+    question: "Can I compare salaries across different cities and countries?",
+    answer: "Yes. Our tool lets you compare salaries for the same role across multiple cities including San Francisco, New York, Seattle, Austin, Los Angeles, Boston, Denver, Chicago, Miami, and remote positions. Each location applies a real market multiplier so you see how geography affects your total compensation."
   },
   {
     question: "How often is the salary data updated?",
-    answer: "Our database is updated monthly with the latest market data to ensure you have access to current salary information for your job search and negotiations."
+    answer: "Our salary database refreshes regularly with the latest 2026 market data from public sources, job boards, and industry reports. We update base ranges quarterly to reflect market shifts, inflation adjustments, and hiring trends in the technology sector."
+  },
+  {
+    question: "Does the estimator include total compensation or just base salary?",
+    answer: "The primary figure shown is base salary in USD. However, our insights include context about total compensation trends including bonuses, equity, and stock options that are common in tech roles especially at senior levels and in major tech hubs."
+  },
+  {
+    question: "What experience levels are supported?",
+    answer: "We cover three standard levels: Junior (0 to 2 years), Mid-level (2 to 5 years), and Senior (5+ years). Each level applies a proven experience multiplier to the base salary so you get realistic estimates aligned with your career stage."
+  },
+  {
+    question: "Can I use this tool to prepare for salary negotiations?",
+    answer: "Absolutely. Knowing the market range for your role, location, and experience level gives you confidence in negotiations. Our tool shows 25th, 50th, and 75th percentile ranges so you understand where you stand and what to aim for."
+  },
+  {
+    question: "Which tech roles are covered?",
+    answer: "We support Software Engineer, Senior Software Engineer, Full Stack Developer, Frontend Developer, Backend Developer, DevOps Engineer, Product Manager, Data Scientist, Data Engineer, Machine Learning Engineer, Engineering Manager, Tech Lead, QA Engineer, Mobile Developer, Security Engineer, Cloud Architect, and Site Reliability Engineer. You can also type any custom role."
+  },
+  {
+    question: "Is this salary estimator free to use?",
+    answer: "Yes, it is completely free. No signup, no credit card, and no usage limits. Just select your role and location to get instant salary estimates powered by 2026 market data."
   }
 ];
 

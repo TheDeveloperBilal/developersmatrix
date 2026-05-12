@@ -276,9 +276,30 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-interview-simulator'
   },
   'salary-estimator': {
-    title: 'Salary Estimator - Know Your Market Worth',
-    description: 'Get accurate salary estimates for any role and location. Compare salaries across cities, factor in cost of living, and negotiate with confidence.',
-    keywords: ['salary estimator', 'salary calculator', 'pay comparison', 'salary range', 'compensation calculator', 'salary by location'],
+    title: 'Free Salary Estimator 2026 | Tech Salary Calculator by Role & Location',
+    description: 'Free tech salary estimator for 2026. Calculate software engineer, developer, data scientist, and tech role salaries by city and experience. Compare compensation across San Francisco, New York, Seattle, Austin, and remote. Updated with 2026 market data. No signup needed.',
+    keywords: [
+      'salary estimator 2026',
+      'tech salary calculator',
+      'software engineer salary 2026',
+      'developer salary by city',
+      'free salary comparison tool',
+      'compensation calculator tech',
+      'data scientist salary 2026',
+      'devops engineer salary',
+      'frontend developer salary',
+      'backend developer salary',
+      'full stack developer pay',
+      'product manager salary 2026',
+      'tech salary remote vs onsite',
+      'salary by location usa',
+      'cost of living salary adjustment',
+      'negotiate salary tech jobs',
+      'machine learning engineer salary',
+      'engineering manager compensation',
+      'site reliability engineer salary',
+      'developersmatrix salary tool'
+    ],
     path: '/tools/salary-estimator'
   },
   'budget-planner': {

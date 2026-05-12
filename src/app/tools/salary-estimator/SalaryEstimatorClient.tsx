@@ -40,6 +40,7 @@ const popularRoles = [
   'Frontend Developer',
   'Backend Developer',
   'DevOps Engineer',
+  'Site Reliability Engineer',
   'Product Manager',
   'Data Scientist',
   'Data Engineer',
@@ -47,6 +48,8 @@ const popularRoles = [
   'Engineering Manager',
   'Tech Lead',
   'QA Engineer',
+  'Security Engineer',
+  'Cloud Architect',
   'Mobile Developer',
 ];
 
@@ -109,14 +112,23 @@ export default function SalaryEstimatorClient() {
 
   const getLocalEstimate = (role: string, location: string, exp: string): SalaryData => {
     const baseSalaries: Record<string, number> = {
-      'software engineer': 130000,
-      'senior software engineer': 180000,
-      'full stack developer': 135000,
-      'frontend developer': 120000,
-      'backend developer': 135000,
-      'devops engineer': 145000,
-      'product manager': 150000,
-      'data scientist': 140000,
+      'software engineer': 145000,
+      'senior software engineer': 200000,
+      'full stack developer': 150000,
+      'frontend developer': 135000,
+      'backend developer': 150000,
+      'devops engineer': 160000,
+      'site reliability engineer': 165000,
+      'product manager': 165000,
+      'data scientist': 155000,
+      'data engineer': 150000,
+      'machine learning engineer': 170000,
+      'engineering manager': 190000,
+      'tech lead': 185000,
+      'qa engineer': 115000,
+      'security engineer': 155000,
+      'cloud architect': 175000,
+      'mobile developer': 135000,
     };
 
     const locationMultipliers: Record<string, number> = {
@@ -174,7 +186,7 @@ export default function SalaryEstimatorClient() {
       <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2">
           <DollarSign className="w-5 h-5" />
-          Real-Time Salary Estimator
+          2026 Salary Estimator
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
@@ -271,12 +283,12 @@ export default function SalaryEstimatorClient() {
               {isLoading ? (
                 <>
                   <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                  Fetching Real-Time Data...
+                  Fetching 2026 Salary Data...
                 </>
               ) : (
                 <>
                   <Search className="w-4 h-4 mr-2" />
-                  Get Real-Time Salary
+                  Get 2026 Salary Estimate
                 </>
               )}
             </Button>
@@ -368,7 +380,7 @@ export default function SalaryEstimatorClient() {
                 )}
 
                 <div className="text-xs text-muted-foreground text-center">
-                  Data fetched in real-time • Refresh for latest estimates
+                  2026 market estimates • Refresh for latest data
                 </div>
               </>
             ) : (
@@ -376,7 +388,7 @@ export default function SalaryEstimatorClient() {
                 <div className="text-center text-muted-foreground">
                   <DollarSign className="w-12 h-12 mx-auto mb-3 opacity-30" />
                   <p>Select role and location</p>
-                  <p className="text-sm">to get real-time salary estimates</p>
+                  <p className="text-sm">to get 2026 salary estimates</p>
                 </div>
               </div>
             )}

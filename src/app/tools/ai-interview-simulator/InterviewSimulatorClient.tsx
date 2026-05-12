@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -192,17 +192,6 @@ export default function InterviewSimulatorClient() {
       setIsLoading(false);
     }
   }, [category, difficulty, role, sessionId, adaptiveDifficulty]);
-
-  // Auto-advance to next question after feedback is shown (3.5 second delay)
-  useEffect(() => {
-    if (feedback?.isRelevant && !isLoading && !isFollowUpMode && currentQuestion) {
-      const timer = setTimeout(() => {
-        // Only auto-advance if user hasn't clicked anything
-        generateQuestion();
-      }, 3500);
-      return () => clearTimeout(timer);
-    }
-  }, [feedback, isLoading, isFollowUpMode, currentQuestion, generateQuestion]);
 
   const submitAnswer = async () => {
     if (!answer.trim() || !currentQuestion) return;
