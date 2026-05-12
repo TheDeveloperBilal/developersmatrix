@@ -101,8 +101,7 @@ export default function SalaryEstimatorClient() {
       const data = await response.json();
       setResult(data);
     } catch (err) {
-      setError('Unable to fetch real-time data. Using estimates.');
-      // Use local estimates as fallback
+      // Silently use local estimates without showing error to user
       const localData = getLocalEstimate(activeRole, selectedLocation, experience);
       setResult(localData);
     } finally {
@@ -292,10 +291,6 @@ export default function SalaryEstimatorClient() {
                 </>
               )}
             </Button>
-            
-            {error && (
-              <p className="text-sm text-yellow-600 bg-yellow-500/10 p-2 rounded">{error}</p>
-            )}
           </div>
 
           {/* Results */}

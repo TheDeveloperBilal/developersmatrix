@@ -321,9 +321,30 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/productivity-planner'
   },
   'startup-idea-generator': {
-    title: 'Startup Idea Generator - AI Business Ideas',
-    description: 'Spark your entrepreneurial journey with AI-generated startup ideas. Get innovative business concepts, market analysis, and implementation guidance.',
-    keywords: ['startup ideas', 'business ideas', 'AI business generator', 'entrepreneur ideas', 'startup generator', 'business concept'],
+    title: 'Free AI Startup Idea Generator 2026 | Business Ideas by Industry',
+    description: 'Free AI startup idea generator for 2026. Discover innovative business ideas across AI, SaaS, FinTech, HealthTech, Climate Tech, Robotics, and more. Each idea includes market analysis, monetization strategy, competition level, and MVP timeline. No signup needed.',
+    keywords: [
+      'startup idea generator free',
+      'ai business ideas 2026',
+      'startup ideas by industry',
+      'tech startup concepts',
+      'business idea generator',
+      'ai startup ideas',
+      'saas startup ideas 2026',
+      'fintech business ideas',
+      'climate tech startups',
+      'healthtech startup ideas',
+      'robotics startup concepts',
+      'entrepreneur ideas generator',
+      'startup validation tool',
+      'business concept generator',
+      'mvp timeline calculator',
+      'market analysis tool free',
+      'startup monetization ideas',
+      'developersmatrix startup generator',
+      'innovative business ideas 2026',
+      'tech entrepreneurship ideas'
+    ],
     path: '/tools/startup-idea-generator'
   },
   'ai-prompt-library': {
