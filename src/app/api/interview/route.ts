@@ -50,7 +50,17 @@ const roleMapping: Record<string, Role> = {
 
 export async function POST(request: NextRequest) {
   try {
-    const body: InterviewRequest = await request.json();
+    let body: InterviewRequest;
+    try {
+      body = await request.json();
+    } catch (parseError) {
+      console.error('Failed to parse request body:', parseError);
+      return NextResponse.json(
+        { success: false, error: 'Invalid request format. Please refresh and try again.' },
+        { status: 400 }
+      );
+    }
+    
     const {
       mode = 'question',
       question,
@@ -68,21 +78,29 @@ export async function POST(request: NextRequest) {
 
     switch (mode) {
       case 'question': {
-        const result = getQuestion(
-          internalRole,
-          internalCategory,
-          internalDifficulty,
-          sessionId
-        );
+        try {
+          const result = getQuestion(
+            internalRole,
+            internalCategory,
+            internalDifficulty,
+            sessionId
+          );
 
-        return NextResponse.json({
-          success: true,
-          mode: 'question',
-          content: result.question.question,
-          questionData: result.question,
-          session: result.session,
-          hints: result.question.hints
-        });
+          return NextResponse.json({
+            success: true,
+            mode: 'question',
+            content: result.question.question,
+            questionData: result.question,
+            session: result.session,
+            hints: result.question.hints
+          });
+        } catch (qError: any) {
+          console.error('Question generation error:', qError);
+          return NextResponse.json(
+            { success: false, error: 'Failed to generate question. Please try again.' },
+            { status: 500 }
+          );
+        }
       }
 
       case 'feedback': {
@@ -105,6 +123,7 @@ export async function POST(request: NextRequest) {
           );
         } catch (evalError: any) {
           console.error('Interview evaluation error:', evalError);
+          console.error('Stack:', evalError?.stack);
           return NextResponse.json(
             { success: false, error: 'Failed to evaluate answer. Please try again.' },
             { status: 500 }
@@ -112,7 +131,10 @@ export async function POST(request: NextRequest) {
         }
 
         if (!result.success) {
-          return NextResponse.json(result, { status: 400 });
+          return NextResponse.json(
+            { success: false, error: result.error || 'Failed to evaluate answer. Please try again.' },
+            { status: 400 }
+          );
         }
 
         return NextResponse.json({
@@ -143,22 +165,30 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        const result = getFollowUpQuestion(
-          question,
-          answer,
-          internalRole,
-          internalCategory,
-          internalDifficulty,
-          sessionId
-        );
+        try {
+          const result = getFollowUpQuestion(
+            question,
+            answer,
+            internalRole,
+            internalCategory,
+            internalDifficulty,
+            sessionId
+          );
 
-        return NextResponse.json({
-          success: true,
-          mode: 'followup',
-          content: result.question.question,
-          questionData: result.question,
-          session: result.session
-        });
+          return NextResponse.json({
+            success: true,
+            mode: 'followup',
+            content: result.question.question,
+            questionData: result.question,
+            session: result.session
+          });
+        } catch (fuError: any) {
+          console.error('Follow-up generation error:', fuError);
+          return NextResponse.json(
+            { success: false, error: 'Failed to generate follow-up. Please try again.' },
+            { status: 500 }
+          );
+        }
       }
 
       case 'summary': {
@@ -169,20 +199,28 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        const summary = getInterviewSummary(sessionId);
+        try {
+          const summary = getInterviewSummary(sessionId);
 
-        if (!summary) {
+          if (!summary) {
+            return NextResponse.json(
+              { success: false, error: 'Session not found. Please start a new interview.' },
+              { status: 404 }
+            );
+          }
+
+          return NextResponse.json({
+            success: true,
+            mode: 'summary',
+            summary
+          });
+        } catch (sError: any) {
+          console.error('Summary generation error:', sError);
           return NextResponse.json(
-            { success: false, error: 'Session not found' },
-            { status: 404 }
+            { success: false, error: 'Failed to generate summary. Please try again.' },
+            { status: 500 }
           );
         }
-
-        return NextResponse.json({
-          success: true,
-          mode: 'summary',
-          summary
-        });
       }
 
       default:
@@ -192,7 +230,7 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (error: any) {
-    console.error('Interview API error:', error);
+    console.error('Interview API unhandled error:', error);
     console.error('Stack:', error?.stack);
     return NextResponse.json(
       { success: false, error: 'An unexpected error occurred. Please refresh and try again.' },

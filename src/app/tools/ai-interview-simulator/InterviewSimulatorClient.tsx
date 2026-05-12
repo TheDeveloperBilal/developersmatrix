@@ -111,7 +111,6 @@ export default function InterviewSimulatorClient() {
   const [showHints, setShowHints] = useState(false);
   const [adaptiveDifficulty, setAdaptiveDifficulty] = useState<Difficulty | null>(null);
 
-  // Performance tracking
   const [scoreHistory, setScoreHistory] = useState<number[]>([]);
 
   const generateQuestion = useCallback(async () => {
@@ -139,15 +138,28 @@ export default function InterviewSimulatorClient() {
       });
       clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || `Server error: ${response.status}`);
+      // Handle non-JSON responses
+      let data;
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        const text = await response.text().catch(() => '');
+        console.error('Non-JSON question response:', response.status, text.substring(0, 500));
+        throw new Error(`Server error ${response.status}. Please reload and try again.`);
       }
 
-      const data = await response.json();
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('JSON parse error in question:', jsonError);
+        throw new Error('Server response error. Please reload and try again.');
+      }
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Server error: ${response.status}`);
+      }
 
       if (!data.success) {
-        throw new Error(data.error || 'Failed to generate question');
+        throw new Error(data?.error || 'Failed to generate question');
       }
 
       setCurrentQuestion(data.content);
@@ -167,16 +179,30 @@ export default function InterviewSimulatorClient() {
         setAverageScore(data.session.averageScore || 0);
       }
     } catch (err: any) {
+      clearTimeout(timeoutId);
       if (err.name === 'AbortError') {
-        setError('Request timed out. Please check your connection and try again.');
+        setError('Request timed out (15s). Please check your connection and try again.');
+      } else if (err.message?.includes('Server error')) {
+        setError('Server error. Please reload the page and try again.');
       } else {
         setError(err.message || 'Failed to generate question. Please try again.');
       }
-      console.error(err);
+      console.error('Question generation error:', err);
     } finally {
       setIsLoading(false);
     }
   }, [category, difficulty, role, sessionId, adaptiveDifficulty]);
+
+  // Auto-advance to next question after feedback is shown (3.5 second delay)
+  useEffect(() => {
+    if (feedback?.isRelevant && !isLoading && !isFollowUpMode && currentQuestion) {
+      const timer = setTimeout(() => {
+        // Only auto-advance if user hasn't clicked anything
+        generateQuestion();
+      }, 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [feedback, isLoading, isFollowUpMode, currentQuestion, generateQuestion]);
 
   const submitAnswer = async () => {
     if (!answer.trim() || !currentQuestion) return;
@@ -204,15 +230,28 @@ export default function InterviewSimulatorClient() {
       });
       clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || `Server error: ${response.status}`);
+      // Handle non-JSON responses (server crash or HTML error page)
+      let data;
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        const text = await response.text().catch(() => '');
+        console.error('Non-JSON response:', response.status, text.substring(0, 500));
+        throw new Error(`Server error ${response.status}. Please reload and try again.`);
       }
 
-      const data = await response.json();
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('JSON parse error:', jsonError);
+        throw new Error('Server response error. Please reload and try again.');
+      }
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Server error: ${response.status}`);
+      }
 
       if (!data.success) {
-        throw new Error(data.error || 'Failed to get feedback');
+        throw new Error(data?.error || 'Failed to get feedback. Please try again.');
       }
 
       setFeedback(data);
@@ -233,12 +272,17 @@ export default function InterviewSimulatorClient() {
         setAdaptiveDifficulty(data.suggestedDifficulty as Difficulty);
       }
     } catch (err: any) {
+      clearTimeout(timeoutId);
       if (err.name === 'AbortError') {
-        setError('Request timed out. Please check your connection and try again.');
+        setError('Request timed out (15s). Please check your connection and try again.');
+      } else if (err.message?.includes('Failed to evaluate')) {
+        setError('Server evaluation error. Please try again or reload the page.');
+      } else if (err.message?.includes('unexpected error') || err.message?.includes('Server error')) {
+        setError('Server error. Please reload the page and try again.');
       } else {
         setError(err.message || 'Failed to get feedback. Please try again.');
       }
-      console.error(err);
+      console.error('Submit answer error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -270,15 +314,28 @@ export default function InterviewSimulatorClient() {
       });
       clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || `Server error: ${response.status}`);
+      // Handle non-JSON responses
+      let data;
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        const text = await response.text().catch(() => '');
+        console.error('Non-JSON followup response:', response.status, text.substring(0, 500));
+        throw new Error(`Server error ${response.status}. Please reload and try again.`);
       }
 
-      const data = await response.json();
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('JSON parse error in followup:', jsonError);
+        throw new Error('Server response error. Please reload and try again.');
+      }
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Server error: ${response.status}`);
+      }
 
       if (!data.success) {
-        throw new Error(data.error || 'Failed to generate follow-up');
+        throw new Error(data?.error || 'Failed to generate follow-up');
       }
 
       setCurrentQuestion(data.content);
@@ -287,12 +344,15 @@ export default function InterviewSimulatorClient() {
       setFeedback(null);
       setIsFollowUpMode(true);
     } catch (err: any) {
+      clearTimeout(timeoutId);
       if (err.name === 'AbortError') {
-        setError('Request timed out. Please check your connection and try again.');
+        setError('Request timed out (15s). Please check your connection and try again.');
+      } else if (err.message?.includes('Server error')) {
+        setError('Server error. Please reload the page and try again.');
       } else {
         setError(err.message || 'Failed to generate follow-up. Please try again.');
       }
-      console.error(err);
+      console.error('Follow-up error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -441,9 +501,41 @@ export default function InterviewSimulatorClient() {
 
           {/* Error Message */}
           {error && (
-            <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2 text-sm text-destructive">
-              <AlertCircle className="w-4 h-4 shrink-0" />
-              {error}
+            <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg flex items-start gap-3 text-sm text-destructive">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p>{error}</p>
+                {(error.includes('Server error') || error.includes('Failed to get feedback') || error.includes('Request timed out')) && (
+                  <div className="mt-2 flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setError('');
+                        if (currentQuestion && answer.trim()) {
+                          submitAnswer();
+                        } else {
+                          generateQuestion();
+                        }
+                      }}
+                      className="text-xs h-7"
+                    >
+                      <RefreshCw className="w-3 h-3 mr-1" />
+                      Retry
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        window.location.reload();
+                      }}
+                      className="text-xs h-7"
+                    >
+                      Reload Page
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
