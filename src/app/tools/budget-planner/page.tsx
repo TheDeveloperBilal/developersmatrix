@@ -1,14 +1,8 @@
 import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
-import Link from "next/link";
-import { ArrowLeft, Wallet, CheckCircle, Sparkles, TrendingUp, TrendingDown, DollarSign, PiggyBank, Target, Shield, CreditCard, BarChart3, Briefcase, Home, Users, Zap } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Sparkles } from "lucide-react";
 import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
-import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import BudgetPlannerClient from "./BudgetPlannerClient";
 
@@ -50,8 +44,6 @@ const toolFaqs = [
 ];
 
 export default function BudgetPlannerPage() {
-  const tool = getToolBySlug('budget-planner');
-
   return (
     <>
       <FAQSchema faqs={toolFaqs.map(faq => ({ question: faq.question, answer: faq.answer }))} />
@@ -78,76 +70,58 @@ export default function BudgetPlannerPage() {
         }}
       />
 
-      <div className="min-h-screen bg-muted/20">
-        {/* Tool Section */}
-        <section className="bg-background border-b">
+      <main className="min-h-screen bg-background">
+        {/* Hero + Tool */}
+        <section className="border-b bg-muted/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="mb-6">
-              <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
-                <ArrowLeft className="w-4 h-4 mr-1" />
-                Back to Tools
-              </Link>
-              <div className="flex items-center gap-3 mb-2">
-                <Badge variant="secondary" className="text-xs">
-                  <Sparkles className="w-3 h-3 mr-1" />
-                  AI-Powered
-                </Badge>
-                <span className="text-xs text-muted-foreground">Updated for 2026</span>
-              </div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-                Free Budget Planner & Expense Tracker
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl">
-                Track income and expenses, visualize spending patterns, and reach your savings goals. Perfect for developers, freelancers, and anyone who wants financial clarity.
-              </p>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs font-medium">
+                <Sparkles className="w-3 h-3 mr-1" />
+                AI-Powered
+              </span>
+              <span className="text-xs text-muted-foreground">Updated for 2026</span>
             </div>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+              Free Budget Planner & Expense Tracker
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl">
+              Track income and expenses, visualize spending patterns, and reach your savings goals. Perfect for developers, freelancers, and anyone who wants financial clarity.
+            </p>
 
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-8 mt-8">
               <div className="lg:col-span-2">
-                <BudgetPlannerClient />
+                <div id="budget-planner">
+                  <BudgetPlannerClient />
+                </div>
                 <InContentAd />
               </div>
 
               <aside className="space-y-6">
-                <Card>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-yellow-500" />
-                      Related Resources
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2 text-sm">
-                    <Link href="/tools/salary-estimator" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <DollarSign className="w-4 h-4 text-green-500" />
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold mb-3 text-sm">Related Resources</h3>
+                  <div className="space-y-2 text-sm">
+                    <a href="/tools/salary-estimator" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>💰</span>
                       <span>Salary Estimator</span>
-                    </Link>
-                    <Link href="/tools/productivity-planner" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <BarChart3 className="w-4 h-4 text-blue-500" />
+                    </a>
+                    <a href="/tools/productivity-planner" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>📊</span>
                       <span>Productivity Planner</span>
-                    </Link>
-                    <Link href="/tools/startup-idea-generator" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <Sparkles className="w-4 h-4 text-orange-500" />
+                    </a>
+                    <a href="/tools/startup-idea-generator" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>✨</span>
                       <span>Startup Idea Generator</span>
-                    </Link>
-                    <Link href="/tools/ai-resume-builder" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <Briefcase className="w-4 h-4 text-purple-500" />
-                      <span>AI Resume Builder</span>
-                    </Link>
-                    <Link href="/tools/habit-tracker" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <TrendingUp className="w-4 h-4 text-red-500" />
+                    </a>
+                    <a href="/tools/habit-tracker" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>📈</span>
                       <span>Habit Tracker</span>
-                    </Link>
-                  </CardContent>
-                </Card>
+                    </a>
+                  </div>
+                </div>
 
-                <Card>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <PiggyBank className="w-4 h-4 text-green-500" />
-                      2026 Financial Stats
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3 text-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold mb-3 text-sm">💰 2026 Financial Stats</h3>
+                  <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Avg. developer savings rate</span>
                       <span className="font-semibold">12%</span>
@@ -168,8 +142,8 @@ export default function BudgetPlannerPage() {
                       <span className="text-muted-foreground">People who budget save more</span>
                       <span className="font-semibold">2.3x</span>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
 
                 <SidebarAd />
               </aside>
@@ -177,361 +151,185 @@ export default function BudgetPlannerPage() {
           </div>
         </section>
 
-        {/* SEO Content Sections */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        {/* SEO Content */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Main Content */}
+            <div className="flex-1 space-y-16">
 
-          {/* Introduction */}
-          <section>
-            <h2 className="text-2xl font-bold mb-4">Why Every Developer Needs a Budget in 2026</h2>
-            <div className="prose dark:prose-invert max-w-none text-muted-foreground">
-              <p className="text-base leading-relaxed mb-4">
-                The tech industry pays well, but high income does not guarantee financial health. A 2026 developer financial wellness survey found that 34 percent of software engineers earning over 120,000 dollars per year have less than one month of expenses saved. Lifestyle inflation, irregular freelance income, and the temptation of expensive gadgets and subscriptions quietly erode even impressive salaries.
-              </p>
-              <p className="text-base leading-relaxed">
-                The problem is not a lack of earning power. It is a lack of visibility. Most people cannot accurately estimate their monthly spending within 20 percent. The Budget Planner fixes this by giving you immediate, visual clarity on where your money goes. You cannot optimize what you cannot see. Five minutes of honest tracking reveals patterns that months of guessing never would.
-              </p>
-            </div>
-          </section>
+              {/* Introduction */}
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Why Every Developer Needs a Budget in 2026</h2>
+                <div className="text-muted-foreground leading-relaxed space-y-4">
+                  <p>
+                    The tech industry pays well, but high income does not guarantee financial health. A 2026 developer financial wellness survey found that 34 percent of software engineers earning over 120,000 dollars per year have less than one month of expenses saved. Lifestyle inflation, irregular freelance income, and the temptation of expensive gadgets and subscriptions quietly erode even impressive salaries.
+                  </p>
+                  <p>
+                    The problem is not a lack of earning power. It is a lack of visibility. Most people cannot accurately estimate their monthly spending within 20 percent. The Budget Planner fixes this by giving you immediate, visual clarity on where your money goes. You cannot optimize what you cannot see. Five minutes of honest tracking reveals patterns that months of guessing never would.
+                  </p>
+                </div>
+              </section>
 
-          {/* 4 Key Capabilities */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Four Features That Give You Financial Control</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <DollarSign className="w-5 h-5 text-green-500" />
-                    Income & Expense Tracking
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Log every income source and expense category with amounts. The tool calculates totals automatically. Multiple income streams, business expenses, and personal spending all live in one view. No more spreadsheet juggling or mental math.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <BarChart3 className="w-5 h-5 text-blue-500" />
-                    Visual Spending Breakdown
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Color-coded charts show exactly where your money goes. See housing as a percentage of income. Identify entertainment spending that crept up. Visual data makes abstract numbers concrete and motivates change in a way that lists never do.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Target className="w-5 h-5 text-purple-500" />
-                    Savings Goal Setting
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Set a savings target and track progress in real time. Whether you are building an emergency fund, saving for a down payment, or investing in equipment, seeing the gap between current savings and your goal creates focused motivation.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-orange-500" />
-                    Privacy-First Design
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>All financial data stays in your browser. No accounts, no cloud storage, no data breaches possible. Your salary, spending habits, and savings goals remain completely private. This is how personal finance tools should work.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          <InContentAd />
-
-          {/* Five Budgeting Mistakes */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Five Financial Mistakes That Destroy Wealth (And How to Avoid Them)</h2>
-            <div className="space-y-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">1</Badge>
-                    Lifestyle Inflation
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">Every salary increase gets immediately absorbed by a nicer apartment, a new car, or more subscriptions. After five years of raises, you are still saving the same absolute amount. This is the silent killer of wealth building.</p>
-                  <p><strong className="text-foreground">Fix:</strong> The planner shows your savings rate as a percentage of income. When your income rises, raise your savings rate first. Only then consider lifestyle upgrades. A developer who increased their savings rate from 10 to 25 percent after a promotion built a six-month emergency fund in 18 months.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">2</Badge>
-                    Ignoring Small Expenses
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">That 12-dollar monthly subscription seems trivial. But 10 subscriptions at 12 dollars each is 120 dollars monthly, or 1,440 dollars annually. Small leaks sink large ships. Developers often accumulate dozens of SaaS tools, cloud services, and streaming subscriptions without auditing them.</p>
-                  <p><strong className="text-foreground">Fix:</strong> The expense categorization reveals subscription creep. Run a monthly audit of recurring charges. Cancel what you do not use. Negotiate what you do. The planner makes this visible.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">3</Badge>
-                    No Emergency Fund
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">The tech industry is volatile. Layoffs happen. Clients disappear. Freelance work dries up. Without an emergency fund covering 3 to 6 months of expenses, a single disruption becomes a crisis.</p>
-                  <p><strong className="text-foreground">Fix:</strong> Set your first savings goal as an emergency fund equal to 3 months of expenses. The planner tracks your progress toward this goal. Once achieved, move to investment goals.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">4</Badge>
-                    Not Separating Business and Personal
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">Freelancers and contractors who mix business and personal expenses create tax nightmares and financial confusion. You cannot optimize what you cannot separate.</p>
-                  <p><strong className="text-foreground">Fix:</strong> Use custom categories to tag business expenses separately. Track them in the planner alongside personal spending. This simplifies tax preparation and reveals the true profitability of your freelance work.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">5</Badge>
-                    No Financial Goals
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">Saving money without a purpose leads to eventual splurging. The brain needs a target to maintain discipline. "Save more" is too vague. "Save 15,000 dollars for a car by December" is actionable.</p>
-                  <p><strong className="text-foreground">Fix:</strong> Use the savings goal feature to set specific, time-bound targets. Break large goals into monthly milestones. Visual progress tracking keeps motivation high across the months it takes to achieve big goals.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* Use Cases by Profile */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Who Benefits Most From Budget Tracking</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <Briefcase className="w-8 h-8 text-blue-500 mb-2" />
-                  <CardTitle className="text-base">Salaried Developers</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Steady income makes budgeting straightforward, but lifestyle inflation is the danger. Track spending, set a savings rate target, and automate the difference. Build an emergency fund, then invest aggressively while you have stable income.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Users className="w-8 h-8 text-green-500 mb-2" />
-                  <CardTitle className="text-base">Freelancers & Contractors</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Irregular income requires a different approach. Track the 3-month rolling average of income rather than monthly. Build a larger emergency fund, 6 to 9 months. Separate business expenses. Plan for tax payments. The planner handles all of this.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Home className="w-8 h-8 text-purple-500 mb-2" />
-                  <CardTitle className="text-base">Remote Workers</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Remote work changes spending patterns. Less commuting, but higher home office costs. More travel for coworking meetups. Different tax situations depending on location. The planner adapts to your unique remote work financial reality.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CreditCard className="w-8 h-8 text-orange-500 mb-2" />
-                  <CardTitle className="text-base">Side Project Builders</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Side projects have hidden costs: domain names, hosting, design tools, API fees, and marketing. Without tracking, these bleed hundreds of dollars monthly. The planner reveals the true cost of your projects and helps you decide which are worth continuing.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <TrendingUp className="w-8 h-8 text-cyan-500 mb-2" />
-                  <CardTitle className="text-base">Career Switchers</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Transitioning into tech often means a temporary income dip during bootcamp or the first junior role. A detailed budget helps you survive the transition without accumulating debt. Track every dollar, cut unnecessary expenses, and plan the breakeven point.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <PiggyBank className="w-8 h-8 text-indigo-500 mb-2" />
-                  <CardTitle className="text-base">Anyone Who Wants Clarity</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>You do not need to be struggling to benefit from budgeting. High earners use budgets to optimize wealth building. Average earners use them to escape paycheck-to-paycheck cycles. The common thread is wanting control over your financial life rather than floating along reactively.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* Internal Links */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Complete Your Financial Toolkit</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Link href="/tools/salary-estimator" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <DollarSign className="w-5 h-5 text-green-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">Salary Estimator</p>
-                        <p className="text-xs text-muted-foreground">Know your market worth</p>
+              {/* 4 Key Capabilities */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Four Features That Give You Financial Control</h2>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {[
+                    { num: "1", title: "Income & Expense Tracking", color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400", text: "Log every income source and expense category with amounts. The tool calculates totals automatically. Multiple income streams, business expenses, and personal spending all live in one view. No more spreadsheet juggling or mental math." },
+                    { num: "2", title: "Visual Spending Breakdown", color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400", text: "Color-coded charts show exactly where your money goes. See housing as a percentage of income. Identify entertainment spending that crept up. Visual data makes abstract numbers concrete and motivates change in a way that lists never do." },
+                    { num: "3", title: "Savings Goal Setting", color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400", text: "Set a savings target and track progress in real time. Whether you are building an emergency fund, saving for a down payment, or investing in equipment, seeing the gap between current savings and your goal creates focused motivation." },
+                    { num: "4", title: "Privacy-First Design", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "All financial data stays in your browser. No accounts, no cloud storage, no data breaches possible. Your salary, spending habits, and savings goals remain completely private. This is how personal finance tools should work." },
+                  ].map((f) => (
+                    <div key={f.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`w-8 h-8 rounded-lg ${f.color} flex items-center justify-center text-sm font-bold`}>{f.num}</div>
+                        <h3 className="font-semibold">{f.title}</h3>
                       </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/productivity-planner" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <BarChart3 className="w-5 h-5 text-blue-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">Productivity Planner</p>
-                        <p className="text-xs text-muted-foreground">Optimize your daily workflow</p>
+                  ))}
+                </div>
+              </section>
+
+              <InContentAd />
+
+              {/* Five Budgeting Mistakes */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Five Financial Mistakes That Destroy Wealth (And How to Avoid Them)</h2>
+                <div className="space-y-4">
+                  {[
+                    { num: "1", title: "Lifestyle Inflation", text: "Every salary increase gets immediately absorbed by a nicer apartment, a new car, or more subscriptions. After five years of raises, you are still saving the same absolute amount. This is the silent killer of wealth building.", fix: "The planner shows your savings rate as a percentage of income. When your income rises, raise your savings rate first. Only then consider lifestyle upgrades. A developer who increased their savings rate from 10 to 25 percent after a promotion built a six-month emergency fund in 18 months." },
+                    { num: "2", title: "Ignoring Small Expenses", text: "That 12-dollar monthly subscription seems trivial. But 10 subscriptions at 12 dollars each is 120 dollars monthly, or 1,440 dollars annually. Small leaks sink large ships. Developers often accumulate dozens of SaaS tools, cloud services, and streaming subscriptions without auditing them.", fix: "The expense categorization reveals subscription creep. Run a monthly audit of recurring charges. Cancel what you do not use. Negotiate what you do. The planner makes this visible." },
+                    { num: "3", title: "No Emergency Fund", text: "The tech industry is volatile. Layoffs happen. Clients disappear. Freelance work dries up. Without an emergency fund covering 3 to 6 months of expenses, a single disruption becomes a crisis.", fix: "Set your first savings goal as an emergency fund equal to 3 months of expenses. The planner tracks your progress toward this goal. Once achieved, move to investment goals." },
+                    { num: "4", title: "Not Separating Business and Personal", text: "Freelancers and contractors who mix business and personal expenses create tax nightmares and financial confusion. You cannot optimize what you cannot separate.", fix: "Use custom categories to tag business expenses separately. Track them in the planner alongside personal spending. This simplifies tax preparation and reveals the true profitability of your freelance work." },
+                    { num: "5", title: "No Financial Goals", text: "Saving money without a purpose leads to eventual splurging. The brain needs a target to maintain discipline. 'Save more' is too vague. 'Save 15,000 dollars for a car by December' is actionable.", fix: "Use the savings goal feature to set specific, time-bound targets. Break large goals into monthly milestones. Visual progress tracking keeps motivation high across the months it takes to achieve big goals." },
+                  ].map((m) => (
+                    <div key={m.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">{m.num}</div>
+                        <h3 className="font-semibold">{m.title}</h3>
                       </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{m.text}</p>
+                      <p className="text-sm leading-relaxed"><strong className="text-foreground">Fix:</strong> {m.fix}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/startup-idea-generator" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Sparkles className="w-5 h-5 text-orange-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">Startup Idea Generator</p>
-                        <p className="text-xs text-muted-foreground">Discover business ideas</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* Use Cases */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Who Benefits Most From Budget Tracking</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { icon: "💼", title: "Salaried Developers", text: "Steady income makes budgeting straightforward, but lifestyle inflation is the danger. Track spending, set a savings rate target, and automate the difference. Build an emergency fund, then invest aggressively while you have stable income." },
+                    { icon: "🤝", title: "Freelancers & Contractors", text: "Irregular income requires a different approach. Track the 3-month rolling average of income rather than monthly. Build a larger emergency fund, 6 to 9 months. Separate business expenses. Plan for tax payments. The planner handles all of this." },
+                    { icon: "🏠", title: "Remote Workers", text: "Remote work changes spending patterns. Less commuting, but higher home office costs. More travel for coworking meetups. Different tax situations depending on location. The planner adapts to your unique remote work financial reality." },
+                    { icon: "💳", title: "Side Project Builders", text: "Side projects have hidden costs: domain names, hosting, design tools, API fees, and marketing. Without tracking, these bleed hundreds of dollars monthly. The planner reveals the true cost of your projects and helps you decide which are worth continuing." },
+                    { icon: "📈", title: "Career Switchers", text: "Transitioning into tech often means a temporary income dip during bootcamp or the first junior role. A detailed budget helps you survive the transition without accumulating debt. Track every dollar, cut unnecessary expenses, and plan the breakeven point." },
+                    { icon: "🐷", title: "Anyone Who Wants Clarity", text: "You do not need to be struggling to benefit from budgeting. High earners use budgets to optimize wealth building. Average earners use them to escape paycheck-to-paycheck cycles. The common thread is wanting control over your financial life rather than floating along reactively." },
+                  ].map((u) => (
+                    <div key={u.title} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <div className="text-2xl mb-2">{u.icon}</div>
+                      <h3 className="font-semibold mb-2">{u.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{u.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Internal Links */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Complete Your Financial Toolkit</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { href: "/tools/salary-estimator", icon: "💰", title: "Salary Estimator", desc: "Know your market worth" },
+                    { href: "/tools/productivity-planner", icon: "📊", title: "Productivity Planner", desc: "Optimize your daily workflow" },
+                    { href: "/tools/startup-idea-generator", icon: "✨", title: "Startup Idea Generator", desc: "Discover business ideas" },
+                    { href: "/tools/ai-resume-builder", icon: "💼", title: "AI Resume Builder", desc: "ATS-friendly resumes" },
+                    { href: "/tools/habit-tracker", icon: "📈", title: "Habit Tracker", desc: "Build consistent routines" },
+                    { href: "/tools", icon: "⚡", title: "All Tools", desc: "15+ free AI-powered tools" },
+                  ].map((link) => (
+                    <a key={link.href} href={link.href} className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl">{link.icon}</span>
+                        <div>
+                          <p className="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{link.title}</p>
+                          <p className="text-xs text-muted-foreground">{link.desc}</p>
+                        </div>
                       </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+
+              <InContentAd />
+
+              {/* 3-Phase Workflow */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">The 3-Step Budget Setup That Takes 10 Minutes</h2>
+                <div className="grid sm:grid-cols-3 gap-6">
+                  {[
+                    { num: "1", title: "Log Your Income (3 minutes)", text: "List every income source: salary, freelance, investments, side business. Be honest about after-tax amounts. Include irregular income with a monthly average. The planner calculates your true monthly inflow." },
+                    { num: "2", title: "Track Your Expenses (5 minutes)", text: "Go through your last month of transactions. Add each expense to its category. Do not skip small purchases. The visual chart will likely reveal one or two categories that consume far more than you realized." },
+                    { num: "3", title: "Set a Savings Goal (2 minutes)", text: "Based on your income minus expenses, set a realistic savings target. If your gap is small, start with an emergency fund of 1,000 dollars. If it is large, aim for 3 months of expenses. The tracker shows your daily progress toward the goal." },
+                  ].map((w) => (
+                    <div key={w.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 relative">
+                      <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">{w.num}</div>
+                      <h3 className="font-semibold mb-3 pt-2">{w.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{w.text}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/ai-resume-builder" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Briefcase className="w-5 h-5 text-purple-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">AI Resume Builder</p>
-                        <p className="text-xs text-muted-foreground">ATS-friendly resumes</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* FAQ */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                <div className="space-y-3">
+                  {toolFaqs.map((faq, index) => (
+                    <details key={index} className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+                      <summary className="flex items-center justify-between p-4 cursor-pointer text-sm sm:text-base font-medium hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors list-none">
+                        {faq.question}
+                        <svg className="w-5 h-5 text-gray-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </summary>
+                      <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+                        {faq.answer}
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/habit-tracker" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <TrendingUp className="w-5 h-5 text-red-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">Habit Tracker</p>
-                        <p className="text-xs text-muted-foreground">Build consistent routines</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Zap className="w-5 h-5 text-primary" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">All Tools</p>
-                        <p className="text-xs text-muted-foreground">15+ free AI-powered tools</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                    </details>
+                  ))}
+                </div>
+              </section>
+
+              {/* CTA Banner */}
+              <section className="bg-gradient-to-r from-green-600 to-teal-600 rounded-2xl p-8 text-white text-center">
+                <h2 className="text-2xl font-bold mb-3">Take Control of Your Finances Today</h2>
+                <p className="text-white/90 mb-6 max-w-xl mx-auto">
+                  Join 900+ professionals who replaced financial confusion with clarity. Free, private, and ready in 10 minutes.
+                </p>
+                <a href="#budget-planner" className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-green-600 font-medium hover:bg-white/90 transition-colors">
+                  Start Budgeting Now →
+                </a>
+              </section>
+
             </div>
-          </section>
 
-          <InContentAd />
-
-          {/* 3-Phase Workflow */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">The 3-Step Budget Setup That Takes 10 Minutes</h2>
-            <div className="grid sm:grid-cols-3 gap-6">
-              <Card className="relative">
-                <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">1</div>
-                <CardHeader>
-                  <CardTitle className="text-base">Log Your Income (3 minutes)</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>List every income source: salary, freelance, investments, side business. Be honest about after-tax amounts. Include irregular income with a monthly average. The planner calculates your true monthly inflow.</p>
-                </CardContent>
-              </Card>
-              <Card className="relative">
-                <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">2</div>
-                <CardHeader>
-                  <CardTitle className="text-base">Track Your Expenses (5 minutes)</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Go through your last month of transactions. Add each expense to its category. Do not skip small purchases. The visual chart will likely reveal one or two categories that consume far more than you realized.</p>
-                </CardContent>
-              </Card>
-              <Card className="relative">
-                <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">3</div>
-                <CardHeader>
-                  <CardTitle className="text-base">Set a Savings Goal (2 minutes)</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Based on your income minus expenses, set a realistic savings target. If your gap is small, start with an emergency fund of 1,000 dollars. If it is large, aim for 3 months of expenses. The tracker shows your daily progress toward the goal.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* FAQ Accordion */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-            <Accordion type="single" collapsible className="w-full">
-              {toolFaqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left text-sm sm:text-base hover:no-underline">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </section>
-
-          {/* CTA Banner */}
-          <section className="bg-gradient-to-r from-green-600 to-teal-600 rounded-2xl p-8 text-white">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold mb-3">Take Control of Your Finances Today</h2>
-              <p className="text-white/90 mb-6">
-                Join 900+ professionals who replaced financial confusion with clarity. Free, private, and ready in 10 minutes.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button asChild variant="secondary" className="bg-white text-green-600 hover:bg-white/90">
-                  <Link href="/tools/salary-estimator">Check Your Salary</Link>
-                </Button>
-                <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                  <Link href="/tools/habit-tracker">Build Better Habits</Link>
-                </Button>
+            {/* Sticky Sidebar */}
+            <aside className="lg:w-80 flex-shrink-0 space-y-6">
+              <div className="sticky top-24 space-y-6">
+                <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-5 border border-green-100 dark:border-green-800">
+                  <h3 className="font-semibold text-sm mb-2 text-green-900 dark:text-green-100">💡 Pro Tip</h3>
+                  <p className="text-sm text-green-800 dark:text-green-200 leading-relaxed">
+                    The average developer saves only 12% of income but believes they save 25%. Track your actual spending for one month. The gap between perception and reality is where your financial power lives.
+                  </p>
+                </div>
+                <SidebarAd />
               </div>
-            </div>
-          </section>
-
+            </aside>
+          </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

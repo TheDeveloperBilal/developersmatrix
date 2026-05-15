@@ -177,7 +177,7 @@ export default function LinkManagerClient() {
   const totalClicks = links.reduce((sum, l) => sum + l.clicks, 0);
 
   return (
-    <div className="min-h-screen py-8">
+    <div id="link-manager" className="min-h-screen py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10">
@@ -302,9 +302,15 @@ export default function LinkManagerClient() {
                             <Badge variant="secondary">{link.clicks} clicks</Badge>
                           </div>
                           <div className="flex items-center gap-2 text-sm">
-                            <span className="text-indigo-500 font-medium">
+                            <a
+                              href={link.originalUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-indigo-500 font-medium hover:underline"
+                              title={`Opens: ${link.originalUrl}`}
+                            >
                               dmatrix.link/{link.shortCode}
-                            </span>
+                            </a>
                             <Button
                               variant="ghost"
                               size="sm"
@@ -662,7 +668,11 @@ export default function LinkManagerClient() {
                         <span className="text-lg font-bold text-muted-foreground w-6">{i + 1}</span>
                         <div>
                           <p className="font-medium">{link.title}</p>
-                          <p className="text-sm text-muted-foreground">dmatrix.link/{link.shortCode}</p>
+                          <p className="text-sm text-muted-foreground">
+                            <a href={link.originalUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                              dmatrix.link/{link.shortCode}
+                            </a>
+                          </p>
                         </div>
                       </div>
                       <div className="text-right">

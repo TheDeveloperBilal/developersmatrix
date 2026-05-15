@@ -1,14 +1,8 @@
 import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
-import Link from "next/link";
-import { ArrowLeft, Calendar, CheckCircle, Sparkles, Zap, Target, Clock, Brain, Layers, TrendingUp, Shield, Coffee, ListChecks, Sun, Moon, Briefcase, Users } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Sparkles } from "lucide-react";
 import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
-import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import ProductivityPlannerClient from "./ProductivityPlannerClient";
 
@@ -50,8 +44,6 @@ const toolFaqs = [
 ];
 
 export default function ProductivityPlannerPage() {
-  const tool = getToolBySlug('productivity-planner');
-
   return (
     <>
       <FAQSchema faqs={toolFaqs.map(faq => ({ question: faq.question, answer: faq.answer }))} />
@@ -78,72 +70,58 @@ export default function ProductivityPlannerPage() {
         }}
       />
 
-      <div className="min-h-screen bg-muted/20">
-        {/* Tool Section */}
-        <section className="bg-background border-b">
+      <main className="min-h-screen bg-background">
+        {/* Hero + Tool */}
+        <section className="border-b bg-muted/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="mb-6">
-              <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
-                <ArrowLeft className="w-4 h-4 mr-1" />
-                Back to Tools
-              </Link>
-              <div className="flex items-center gap-3 mb-2">
-                <Badge variant="secondary" className="text-xs">
-                  <Sparkles className="w-3 h-3 mr-1" />
-                  AI-Powered
-                </Badge>
-                <span className="text-xs text-muted-foreground">Updated for 2026</span>
-              </div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-                Free AI Productivity Planner
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl">
-                Smart task prioritization, time blocking, and progress tracking. Plan your day in 5 minutes and accomplish more with less stress.
-              </p>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs font-medium">
+                <Sparkles className="w-3 h-3 mr-1" />
+                AI-Powered
+              </span>
+              <span className="text-xs text-muted-foreground">Updated for 2026</span>
             </div>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+              Free AI Productivity Planner
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl">
+              Smart task prioritization, time blocking, and progress tracking. Plan your day in 5 minutes and accomplish more with less stress.
+            </p>
 
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-8 mt-8">
               <div className="lg:col-span-2">
-                <ProductivityPlannerClient />
+                <div id="productivity-planner">
+                  <ProductivityPlannerClient />
+                </div>
                 <InContentAd />
               </div>
 
               <aside className="space-y-6">
-                <Card>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-yellow-500" />
-                      Related Resources
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2 text-sm">
-                    <Link href="/tools/habit-tracker" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <TrendingUp className="w-4 h-4 text-green-500" />
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold mb-3 text-sm">Related Resources</h3>
+                  <div className="space-y-2 text-sm">
+                    <a href="/tools/habit-tracker" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>📈</span>
                       <span>Habit Tracker</span>
-                    </Link>
-                    <Link href="/tools/budget-planner" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <Target className="w-4 h-4 text-blue-500" />
+                    </a>
+                    <a href="/tools/budget-planner" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>🎯</span>
                       <span>Budget Planner</span>
-                    </Link>
-                    <Link href="/tools/ai-email-assistant" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <Coffee className="w-4 h-4 text-purple-500" />
+                    </a>
+                    <a href="/tools/ai-email-assistant" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>☕</span>
                       <span>AI Email Assistant</span>
-                    </Link>
-                    <Link href="/tools/startup-idea-generator" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <Sparkles className="w-4 h-4 text-orange-500" />
+                    </a>
+                    <a href="/tools/startup-idea-generator" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>✨</span>
                       <span>Startup Idea Generator</span>
-                    </Link>
-                  </CardContent>
-                </Card>
+                    </a>
+                  </div>
+                </div>
 
-                <Card>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Brain className="w-4 h-4 text-indigo-500" />
-                      2026 Productivity Stats
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3 text-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold mb-3 text-sm">🔥 2026 Productivity Stats</h3>
+                  <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Developers who plan daily</span>
                       <span className="font-semibold">3x more productive</span>
@@ -164,8 +142,8 @@ export default function ProductivityPlannerPage() {
                       <span className="text-muted-foreground">Remote workers using planners</span>
                       <span className="font-semibold">47% less burnout</span>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
 
                 <SidebarAd />
               </aside>
@@ -173,361 +151,185 @@ export default function ProductivityPlannerPage() {
           </div>
         </section>
 
-        {/* SEO Content Sections */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        {/* SEO Content */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Main Content */}
+            <div className="flex-1 space-y-16">
 
-          {/* Introduction */}
-          <section>
-            <h2 className="text-2xl font-bold mb-4">Why Productivity Planning Is Non-Negotiable in 2026</h2>
-            <div className="prose dark:prose-invert max-w-none text-muted-foreground">
-              <p className="text-base leading-relaxed mb-4">
-                The modern work environment is a minefield of distractions. The average developer switches contexts 15 times per hour, and each switch carries a 23-minute recovery cost before full focus returns. Remote work has eliminated the natural structure of office routines, leaving many professionals feeling busy but unproductive. A 2026 study of over 10,000 developers found that those who spend just 5 minutes planning their day are 3 times more likely to finish their intended tasks than those who dive straight into their inbox.
-              </p>
-              <p className="text-base leading-relaxed">
-                The problem is not a lack of willpower. It is a lack of structure. Willpower is a finite resource that depletes throughout the day. Planning removes the need for constant decision-making by making those decisions in advance, when your mental energy is highest. The Productivity Planner is designed to give you that structure in the simplest possible form: add tasks, set priorities, get a suggested schedule, and track progress. No complex setup, no learning curve, no subscription.
-              </p>
-            </div>
-          </section>
+              {/* Introduction */}
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Why Productivity Planning Is Non-Negotiable in 2026</h2>
+                <div className="text-muted-foreground leading-relaxed space-y-4">
+                  <p>
+                    The modern work environment is a minefield of distractions. The average developer switches contexts 15 times per hour, and each switch carries a 23-minute recovery cost before full focus returns. Remote work has eliminated the natural structure of office routines, leaving many professionals feeling busy but unproductive. A 2026 study of over 10,000 developers found that those who spend just 5 minutes planning their day are 3 times more likely to finish their intended tasks than those who dive straight into their inbox.
+                  </p>
+                  <p>
+                    The problem is not a lack of willpower. It is a lack of structure. Willpower is a finite resource that depletes throughout the day. Planning removes the need for constant decision-making by making those decisions in advance, when your mental energy is highest. The Productivity Planner is designed to give you that structure in the simplest possible form: add tasks, set priorities, get a suggested schedule, and track progress. No complex setup, no learning curve, no subscription.
+                  </p>
+                </div>
+              </section>
 
-          {/* 4 Key Capabilities */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Four Core Features That Transform Your Daily Output</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Layers className="w-5 h-5 text-indigo-500" />
-                    Smart Priority Matrix
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Tasks are automatically sorted using an urgency-importance matrix layered with time estimates and dependencies. High-value, short-duration tasks rise to the top. Blocking tasks get scheduled first. The result is a realistic daily plan that respects your energy and attention limits.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-green-500" />
-                    Time Blocking by Default
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Instead of an overwhelming open list, the planner encourages time blocking: assigning specific time slots to specific tasks. Research shows time blocking increases productivity by 25 to 40 percent compared to unstructured lists. The planner helps you create realistic blocks based on task estimates.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-purple-500" />
-                    Progress Visualization
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Visual progress indicators maintain momentum during long projects. Seeing tasks move from pending to completed creates a positive feedback loop. The planner tracks completion rates by priority and category, revealing patterns in your productivity that help you optimize over time.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-orange-500" />
-                    Privacy-First Design
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>All task data stays in your browser. No account creation, no cloud storage, no sync conflicts, no data leaks. Your work plans, project details, and personal goals remain entirely private. Open the page, plan your day, close the page. That is it.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          <InContentAd />
-
-          {/* Five Productivity Killers */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Five Productivity Killers (And How This Planner Eliminates Them)</h2>
-            <div className="space-y-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">1</Badge>
-                    Decision Fatigue
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">Every time you finish a task and wonder "what next," you burn mental energy. By the afternoon, this cumulative fatigue reduces your decision quality and output by up to 35 percent.</p>
-                  <p><strong className="text-foreground">Fix:</strong> The planner makes priority decisions once, in the morning, when your mental energy is highest. You simply follow the plan instead of re-deciding every hour.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">2</Badge>
-                    Context Switching
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">Developers switch contexts an average of 15 times per hour: Slack messages, emails, code reviews, meetings, documentation, and actual coding. Each switch costs 23 minutes of full focus recovery.</p>
-                  <p><strong className="text-foreground">Fix:</strong> Time blocking groups similar tasks together. You batch all your code reviews into one block, all your emails into another, and protect a 2-hour deep work block for complex development. Fewer switches, deeper focus.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">3</Badge>
-                    The Planning Fallacy
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">Humans consistently underestimate how long tasks take. A developer thinks a feature will take 2 hours; it takes 6. This optimism bias destroys schedules and creates cascading delays.</p>
-                  <p><strong className="text-foreground">Fix:</strong> The planner encourages explicit time estimates for every task. Over time, you see patterns in your estimation accuracy and can calibrate. The system also warns when your total estimated time exceeds a realistic workday.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">4</Badge>
-                    Reactive Task Inflation
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">You start the day with 5 tasks. By noon, 8 new "urgent" requests have arrived. You end the day with 12 unfinished items and feel like you accomplished nothing.</p>
-                  <p><strong className="text-foreground">Fix:</strong> The priority system forces explicit evaluation of new requests against existing commitments. Is this truly more important than what you planned? If not, it gets scheduled for tomorrow. Protecting your plan is protecting your sanity.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Badge variant="destructive" className="text-xs">5</Badge>
-                    No Visibility into Progress
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p className="mb-2">Working without tracking completion means you never feel done. There is always more to do, and the absence of visible progress creates chronic stress and eventual burnout.</p>
-                  <p><strong className="text-foreground">Fix:</strong> Visual progress tracking shows exactly what you accomplished today. Even on hard days where only 3 of 8 tasks got done, you can see those 3 wins. This positive feedback loop sustains motivation across long projects and difficult weeks.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* Use Cases by Role */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Who Benefits Most From Structured Daily Planning</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <Briefcase className="w-8 h-8 text-blue-500 mb-2" />
-                  <CardTitle className="text-base">Software Developers</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Balance deep coding sessions with code reviews, standups, and documentation. Protect 2-hour focus blocks for complex features. Batch administrative tasks into dedicated time slots.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Users className="w-8 h-8 text-green-500 mb-2" />
-                  <CardTitle className="text-base">Freelancers and Consultants</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Juggle multiple client projects without dropping balls. Track time estimates vs actuals to improve future bids. Prioritize revenue-generating work over administrative busywork.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Coffee className="w-8 h-8 text-purple-500 mb-2" />
-                  <CardTitle className="text-base">Remote Workers</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Replace the implicit structure of an office with explicit daily planning. Define work boundaries to prevent the 11 PM Slack check. Track work-life balance metrics.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Sun className="w-8 h-8 text-orange-500 mb-2" />
-                  <CardTitle className="text-base">Students and Learners</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Balance coursework, projects, and skill building. Prioritize high-impact learning activities. Use time estimates to avoid the "I will study for 8 hours today" trap that never works.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Moon className="w-8 h-8 text-indigo-500 mb-2" />
-                  <CardTitle className="text-base">Side Project Builders</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Make consistent progress on side projects despite limited time. Even 30 minutes daily adds up to 15 hours per month. The planner ensures those 30 minutes actually happen.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <ListChecks className="w-8 h-8 text-cyan-500 mb-2" />
-                  <CardTitle className="text-base">Anyone Feeling Overwhelmed</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>If your to-do list gives you anxiety, the planner helps by externalizing the mental load. Get your tasks out of your head and into a system that prioritizes them for you.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* Internal Links */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Complete Your Productivity Toolkit</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Link href="/tools/habit-tracker" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <TrendingUp className="w-5 h-5 text-green-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">Habit Tracker</p>
-                        <p className="text-xs text-muted-foreground">Build daily routines that stick</p>
+              {/* 4 Key Capabilities */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Four Core Features That Transform Your Daily Output</h2>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {[
+                    { num: "1", title: "Smart Priority Matrix", color: "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400", text: "Tasks are automatically sorted using an urgency-importance matrix layered with time estimates and dependencies. High-value, short-duration tasks rise to the top. Blocking tasks get scheduled first. The result is a realistic daily plan that respects your energy and attention limits." },
+                    { num: "2", title: "Time Blocking by Default", color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400", text: "Instead of an overwhelming open list, the planner encourages time blocking: assigning specific time slots to specific tasks. Research shows time blocking increases productivity by 25 to 40 percent compared to unstructured lists. The planner helps you create realistic blocks based on task estimates." },
+                    { num: "3", title: "Progress Visualization", color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400", text: "Visual progress indicators maintain momentum during long projects. Seeing tasks move from pending to completed creates a positive feedback loop. The planner tracks completion rates by priority and category, revealing patterns in your productivity that help you optimize over time." },
+                    { num: "4", title: "Privacy-First Design", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "All task data stays in your browser. No account creation, no cloud storage, no sync conflicts, no data leaks. Your work plans, project details, and personal goals remain entirely private. Open the page, plan your day, close the page. That is it." },
+                  ].map((f) => (
+                    <div key={f.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`w-8 h-8 rounded-lg ${f.color} flex items-center justify-center text-sm font-bold`}>{f.num}</div>
+                        <h3 className="font-semibold">{f.title}</h3>
                       </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/budget-planner" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Target className="w-5 h-5 text-blue-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">Budget Planner</p>
-                        <p className="text-xs text-muted-foreground">Track income and expenses</p>
+                  ))}
+                </div>
+              </section>
+
+              <InContentAd />
+
+              {/* Five Productivity Killers */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Five Productivity Killers (And How This Planner Eliminates Them)</h2>
+                <div className="space-y-4">
+                  {[
+                    { num: "1", title: "Decision Fatigue", text: "Every time you finish a task and wonder 'what next,' you burn mental energy. By the afternoon, this cumulative fatigue reduces your decision quality and output by up to 35 percent.", fix: "The planner makes priority decisions once, in the morning, when your mental energy is highest. You simply follow the plan instead of re-deciding every hour." },
+                    { num: "2", title: "Context Switching", text: "Developers switch contexts an average of 15 times per hour: Slack messages, emails, code reviews, meetings, documentation, and actual coding. Each switch costs 23 minutes of full focus recovery.", fix: "Time blocking groups similar tasks together. You batch all your code reviews into one block, all your emails into another, and protect a 2-hour deep work block for complex development. Fewer switches, deeper focus." },
+                    { num: "3", title: "The Planning Fallacy", text: "Humans consistently underestimate how long tasks take. A developer thinks a feature will take 2 hours; it takes 6. This optimism bias destroys schedules and creates cascading delays.", fix: "The planner encourages explicit time estimates for every task. Over time, you see patterns in your estimation accuracy and can calibrate. The system also warns when your total estimated time exceeds a realistic workday." },
+                    { num: "4", title: "Reactive Task Inflation", text: "You start the day with 5 tasks. By noon, 8 new 'urgent' requests have arrived. You end the day with 12 unfinished items and feel like you accomplished nothing.", fix: "The priority system forces explicit evaluation of new requests against existing commitments. Is this truly more important than what you planned? If not, it gets scheduled for tomorrow. Protecting your plan is protecting your sanity." },
+                    { num: "5", title: "No Visibility into Progress", text: "Working without tracking completion means you never feel done. There is always more to do, and the absence of visible progress creates chronic stress and eventual burnout.", fix: "Visual progress tracking shows exactly what you accomplished today. Even on hard days where only 3 of 8 tasks got done, you can see those 3 wins. This positive feedback loop sustains motivation across long projects and difficult weeks." },
+                  ].map((m) => (
+                    <div key={m.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">{m.num}</div>
+                        <h3 className="font-semibold">{m.title}</h3>
                       </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{m.text}</p>
+                      <p className="text-sm leading-relaxed"><strong className="text-foreground">Fix:</strong> {m.fix}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/ai-email-assistant" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Coffee className="w-5 h-5 text-purple-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">AI Email Assistant</p>
-                        <p className="text-xs text-muted-foreground">Draft emails in seconds</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* Use Cases */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Who Benefits Most From Structured Daily Planning</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { icon: "💼", title: "Software Developers", text: "Balance deep coding sessions with code reviews, standups, and documentation. Protect 2-hour focus blocks for complex features. Batch administrative tasks into dedicated time slots." },
+                    { icon: "🤝", title: "Freelancers and Consultants", text: "Juggle multiple client projects without dropping balls. Track time estimates vs actuals to improve future bids. Prioritize revenue-generating work over administrative busywork." },
+                    { icon: "☕", title: "Remote Workers", text: "Replace the implicit structure of an office with explicit daily planning. Define work boundaries to prevent the 11 PM Slack check. Track work-life balance metrics." },
+                    { icon: "☀️", title: "Students and Learners", text: "Balance coursework, projects, and skill building. Prioritize high-impact learning activities. Use time estimates to avoid the 'I will study for 8 hours today' trap that never works." },
+                    { icon: "🌙", title: "Side Project Builders", text: "Make consistent progress on side projects despite limited time. Even 30 minutes daily adds up to 15 hours per month. The planner ensures those 30 minutes actually happen." },
+                    { icon: "✅", title: "Anyone Feeling Overwhelmed", text: "If your to-do list gives you anxiety, the planner helps by externalizing the mental load. Get your tasks out of your head and into a system that prioritizes them for you." },
+                  ].map((u) => (
+                    <div key={u.title} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <div className="text-2xl mb-2">{u.icon}</div>
+                      <h3 className="font-semibold mb-2">{u.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{u.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Internal Links */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Complete Your Productivity Toolkit</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { href: "/tools/habit-tracker", icon: "📈", title: "Habit Tracker", desc: "Build daily routines that stick" },
+                    { href: "/tools/budget-planner", icon: "🎯", title: "Budget Planner", desc: "Track income and expenses" },
+                    { href: "/tools/ai-email-assistant", icon: "☕", title: "AI Email Assistant", desc: "Draft emails in seconds" },
+                    { href: "/tools/startup-idea-generator", icon: "✨", title: "Startup Idea Generator", desc: "Discover business ideas" },
+                    { href: "/tools/ai-resume-builder", icon: "💼", title: "AI Resume Builder", desc: "ATS-friendly resumes" },
+                    { href: "/tools", icon: "⚡", title: "All Tools", desc: "15+ free AI-powered tools" },
+                  ].map((link) => (
+                    <a key={link.href} href={link.href} className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl">{link.icon}</span>
+                        <div>
+                          <p className="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{link.title}</p>
+                          <p className="text-xs text-muted-foreground">{link.desc}</p>
+                        </div>
                       </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+
+              <InContentAd />
+
+              {/* 3-Phase Workflow */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">The 7-Minute Daily Routine That Changes Everything</h2>
+                <div className="grid sm:grid-cols-3 gap-6">
+                  {[
+                    { num: "1", title: "Morning Plan (5 minutes)", text: "List every task you intend to complete today. Assign priorities and time estimates. Review the suggested schedule. Commit to the plan by mentally signing a contract with yourself. Do not check email before this step. Your morning clarity is too valuable to waste on other people's priorities." },
+                    { num: "2", title: "Execute With Focus (Your Workday)", text: "Follow your time blocks. Mark tasks complete as you finish them. When new requests arrive, add them to the backlog instead of immediately switching. Protect your deep work blocks aggressively. The plan is your shield against reactive busywork." },
+                    { num: "3", title: "Evening Review (2 minutes)", text: "Review what you accomplished. Note anything that carried over. Identify one thing that went well and one thing to improve tomorrow. This reflection takes 2 minutes and compounds into dramatically better planning over weeks." },
+                  ].map((w) => (
+                    <div key={w.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 relative">
+                      <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">{w.num}</div>
+                      <h3 className="font-semibold mb-3 pt-2">{w.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{w.text}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/startup-idea-generator" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Sparkles className="w-5 h-5 text-orange-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">Startup Idea Generator</p>
-                        <p className="text-xs text-muted-foreground">Discover business ideas with AI</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* FAQ */}
+              <section>
+                <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                <div className="space-y-3">
+                  {toolFaqs.map((faq, index) => (
+                    <details key={index} className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+                      <summary className="flex items-center justify-between p-4 cursor-pointer text-sm sm:text-base font-medium hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors list-none">
+                        {faq.question}
+                        <svg className="w-5 h-5 text-gray-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </summary>
+                      <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+                        {faq.answer}
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/ai-resume-builder" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Briefcase className="w-5 h-5 text-red-500" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">AI Resume Builder</p>
-                        <p className="text-xs text-muted-foreground">ATS-friendly resumes in minutes</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools" className="group">
-                <Card className="h-full hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Zap className="w-5 h-5 text-primary" />
-                      <div>
-                        <p className="font-medium group-hover:text-primary transition-colors">All Tools</p>
-                        <p className="text-xs text-muted-foreground">15+ free AI-powered tools</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                    </details>
+                  ))}
+                </div>
+              </section>
+
+              {/* CTA Banner */}
+              <section className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white text-center">
+                <h2 className="text-2xl font-bold mb-3">Plan Your Best Work Day Ever</h2>
+                <p className="text-white/90 mb-6 max-w-xl mx-auto">
+                  Join 1,200+ professionals who start their day with intention instead of reaction. Free, private, and ready in 5 minutes.
+                </p>
+                <a href="#productivity-planner" className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-indigo-600 font-medium hover:bg-white/90 transition-colors">
+                  Start Planning Now →
+                </a>
+              </section>
+
             </div>
-          </section>
 
-          <InContentAd />
-
-          {/* 3-Phase Workflow */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">The 7-Minute Daily Routine That Changes Everything</h2>
-            <div className="grid sm:grid-cols-3 gap-6">
-              <Card className="relative">
-                <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">1</div>
-                <CardHeader>
-                  <CardTitle className="text-base">Morning Plan (5 minutes)</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>List every task you intend to complete today. Assign priorities and time estimates. Review the suggested schedule. Commit to the plan by mentally signing a contract with yourself. Do not check email before this step. Your morning clarity is too valuable to waste on other people's priorities.</p>
-                </CardContent>
-              </Card>
-              <Card className="relative">
-                <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">2</div>
-                <CardHeader>
-                  <CardTitle className="text-base">Execute With Focus (Your Workday)</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Follow your time blocks. Mark tasks complete as you finish them. When new requests arrive, add them to the backlog instead of immediately switching. Protect your deep work blocks aggressively. The plan is your shield against reactive busywork.</p>
-                </CardContent>
-              </Card>
-              <Card className="relative">
-                <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">3</div>
-                <CardHeader>
-                  <CardTitle className="text-base">Evening Review (2 minutes)</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  <p>Review what you accomplished. Note anything that carried over. Identify one thing that went well and one thing to improve tomorrow. This reflection takes 2 minutes and compounds into dramatically better planning over weeks.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* FAQ Accordion */}
-          <section>
-            <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-            <Accordion type="single" collapsible className="w-full">
-              {toolFaqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left text-sm sm:text-base hover:no-underline">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </section>
-
-          {/* CTA Banner */}
-          <section className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold mb-3">Plan Your Best Work Day Ever</h2>
-              <p className="text-white/90 mb-6">
-                Join 1,200+ professionals who start their day with intention instead of reaction. Free, private, and ready in 5 minutes.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button asChild variant="secondary" className="bg-white text-indigo-600 hover:bg-white/90">
-                  <Link href="/tools/habit-tracker">Build Better Habits</Link>
-                </Button>
-                <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                  <Link href="/tools/budget-planner">Plan Your Finances</Link>
-                </Button>
+            {/* Sticky Sidebar */}
+            <aside className="lg:w-80 flex-shrink-0 space-y-6">
+              <div className="sticky top-24 space-y-6">
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-5 border border-blue-100 dark:border-blue-800">
+                  <h3 className="font-semibold text-sm mb-2 text-blue-900 dark:text-blue-100">💡 Pro Tip</h3>
+                  <p className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed">
+                    The most productive developers do not work more hours. They protect their focus hours. Use time blocking to defend 2-hour deep work sessions from Slack, email, and meetings.
+                  </p>
+                </div>
+                <SidebarAd />
               </div>
-            </div>
-          </section>
-
+            </aside>
+          </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }
