@@ -72,27 +72,13 @@ export default function LinkManagerPage() {
       <FAQSchema faqs={toolFaqsForSchema} />
 
       <main className="pt-16">
-        {/* Hero */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="inline-flex items-center gap-2 bg-indigo-500/20 px-4 py-2 rounded-full text-indigo-300 text-sm font-medium">
-              AI-Powered
-            </span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Updated for 2026</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-            Free Link Manager — Short Links, Analytics & Smart Bio Pages
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-            Create branded short links, track clicks with detailed analytics, generate QR codes, and build auto-updating bio pages. No signup required.
-          </p>
-        </div>
-
         {/* Tool Interface */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <LinkManagerClient />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-3">
+              <div id="link-manager">
+                <LinkManagerClient />
+              </div>
             </div>
             <div className="lg:col-span-1 space-y-6">
               <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">

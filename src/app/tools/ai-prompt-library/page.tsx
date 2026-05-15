@@ -72,26 +72,10 @@ export default function AIPromptLibraryPage() {
       <FAQSchema faqs={toolFaqsForSchema} />
 
       <main className="pt-16">
-        {/* Hero */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="inline-flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-full text-purple-300 text-sm font-medium">
-              AI-Powered
-            </span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Updated for 2026</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-            Free AI Prompt Library — 500+ Curated Prompts for ChatGPT, Claude & Midjourney
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-            Browse professionally crafted prompts, test them in the AI Playground, and save your favorites. No signup required.
-          </p>
-        </div>
-
         {/* Tool Interface */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-3">
               <div id="ai-prompt-library">
                 <AIPromptLibraryClient />
               </div>

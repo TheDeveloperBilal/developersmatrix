@@ -177,8 +177,7 @@ export default function LinkManagerClient() {
   const totalClicks = links.reduce((sum, l) => sum + l.clicks, 0);
 
   return (
-    <div id="link-manager" className="min-h-screen py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="link-manager" className="py-8">
         {/* Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-indigo-500/20 px-4 py-2 rounded-full mb-6">
@@ -301,27 +300,38 @@ export default function LinkManagerClient() {
                             <h3 className="font-medium">{link.title}</h3>
                             <Badge variant="secondary">{link.clicks} clicks</Badge>
                           </div>
-                          <div className="flex items-center gap-2 text-sm">
+                          <div className="flex items-center gap-2 text-sm flex-wrap">
                             <a
-                              href={link.originalUrl}
+                              href={`/l/${link.shortCode}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-indigo-500 font-medium hover:underline"
-                              title={`Opens: ${link.originalUrl}`}
+                              className="inline-flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 font-semibold px-3 py-1.5 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors border border-indigo-100 dark:border-indigo-800"
+                              title={`Short URL: developersmatrix.com/l/${link.shortCode}`}
                             >
-                              dmatrix.link/{link.shortCode}
+                              <Link2 className="w-3.5 h-3.5" />
+                              developersmatrix.com/l/{link.shortCode}
                             </a>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-7 px-2 text-xs"
+                              onClick={() => copyToClipboard(`developersmatrix.com/l/${link.shortCode}`, link.id)}
+                            >
+                              {copied === link.id ? (
+                                <Check className="w-3 h-3 text-green-500 mr-1" />
+                              ) : (
+                                <Copy className="w-3 h-3 mr-1" />
+                              )}
+                              {copied === link.id ? 'Copied' : 'Copy'}
+                            </Button>
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="h-6 w-6 p-0"
-                              onClick={() => copyToClipboard(`dmatrix.link/${link.shortCode}`, link.id)}
+                              className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
+                              onClick={() => window.open(link.originalUrl, '_blank')}
                             >
-                              {copied === link.id ? (
-                                <Check className="w-3 h-3 text-green-500" />
-                              ) : (
-                                <Copy className="w-3 h-3" />
-                              )}
+                              <ExternalLink className="w-3 h-3 mr-1" />
+                              Open Original
                             </Button>
                           </div>
                           <p className="text-xs text-muted-foreground truncate mt-1">
@@ -384,7 +394,7 @@ export default function LinkManagerClient() {
                     <div className="space-y-2">
                       <Label>Username</Label>
                       <div className="flex items-center">
-                        <span className="text-muted-foreground text-sm mr-1">dmatrix.bio/</span>
+                        <span className="text-muted-foreground text-sm mr-1">developersmatrix.com/bio/</span>
                         <Input
                           value={bioPage.username}
                           onChange={(e) => setBioPage({ ...bioPage, username: e.target.value })}
@@ -669,8 +679,9 @@ export default function LinkManagerClient() {
                         <div>
                           <p className="font-medium">{link.title}</p>
                           <p className="text-sm text-muted-foreground">
-                            <a href={link.originalUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                              dmatrix.link/{link.shortCode}
+                            <a href={`/l/${link.shortCode}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline font-medium">
+                              <Link2 className="w-3 h-3" />
+                              developersmatrix.com/l/{link.shortCode}
                             </a>
                           </p>
                         </div>
@@ -686,7 +697,6 @@ export default function LinkManagerClient() {
             </Card>
           </TabsContent>
         </Tabs>
-      </div>
     </div>
   );
 }

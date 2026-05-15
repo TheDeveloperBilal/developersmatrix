@@ -72,26 +72,10 @@ export default function AIEmailAssistantPage() {
       <FAQSchema faqs={toolFaqsForSchema} />
 
       <main className="pt-16">
-        {/* Hero */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="inline-flex items-center gap-2 bg-blue-500/20 px-4 py-2 rounded-full text-blue-300 text-sm font-medium">
-              AI-Powered
-            </span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Updated for 2026</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-            Free AI Email Assistant — Draft Professional Emails in Seconds
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-            Draft professional emails from brief notes in seconds. Rewrite for any tone, generate replies, and never struggle with wording again.
-          </p>
-        </div>
-
         {/* Tool Interface */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-3">
               <div id="ai-email-assistant">
                 <AIEmailAssistantClient />
               </div>
