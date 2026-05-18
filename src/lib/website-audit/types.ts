@@ -118,6 +118,32 @@ export interface AuditIssue {
   url?: string;
   element?: string;
   priority: number;
+  
+  // Deep visibility fields - our competitive advantage over SEOSiteCheckup
+  affectedUrls?: string[];
+  affectedElements?: ElementInfo[];
+  codeSnippet?: string;
+  fixInstructions?: FixStep[];
+  estimatedImpact?: string;
+  timeToFix?: string;
+  difficulty?: 'easy' | 'medium' | 'hard';
+}
+
+export interface ElementInfo {
+  tag: string;
+  attributes: Record<string, string>;
+  lineNumber?: number;
+  outerHTML: string;
+  selector: string;
+}
+
+export interface FixStep {
+  step: number;
+  title: string;
+  description: string;
+  codeBefore?: string;
+  codeAfter?: string;
+  filePath?: string;
 }
 
 export type AuditCategory = 

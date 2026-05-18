@@ -55,10 +55,20 @@ export class MobileAuditor {
           severity: 'critical',
           title: 'Missing Viewport Meta Tag',
           description: `No viewport meta tag found on ${page.url}`,
-          impact: 'Without a viewport tag, mobile browsers may display the desktop version scaled down.',
-          suggestion: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> to the head.',
+          impact: 'Without a viewport tag, mobile browsers display the desktop version scaled down, making text unreadable and buttons impossible to tap. Over 60% of web traffic is mobile.',
+          suggestion: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> to the <head> section.',
           url: page.url,
           priority: 10,
+          affectedUrls: [page.url],
+          affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no viewport meta tag...</head>', selector: 'head' }],
+          codeSnippet: '<!-- Add this inside <head> -->\n<meta name="viewport" content="width=device-width, initial-scale=1">',
+          fixInstructions: [
+            { step: 1, title: 'Add the viewport meta tag', description: 'Place <meta name="viewport" content="width=device-width, initial-scale=1"> inside your <head> section.' },
+            { step: 2, title: 'Test on mobile', description: 'Check that the page renders properly on mobile devices without horizontal scrolling.' }
+          ],
+          estimatedImpact: 'Essential for mobile usability. Without it, mobile users will have a terrible experience.',
+          timeToFix: '1 minute',
+          difficulty: 'easy',
         });
       } else {
         // Check viewport content
@@ -74,6 +84,19 @@ export class MobileAuditor {
             suggestion: 'Add width=device-width to your viewport meta tag.',
             url: page.url,
             priority: 8,
+            affectedUrls: [page.url],
+            affectedElements: [{ tag: 'meta', attributes: { name: 'viewport', content: viewport }, outerHTML: `<meta name="viewport" content="${viewport}">`, selector: 'meta[name="viewport"]' }],
+            codeSnippet: `<!-- BEFORE -->
+<meta name="viewport" content="${viewport}">
+
+<!-- AFTER -->
+<meta name="viewport" content="width=device-width, initial-scale=1">`,
+            fixInstructions: [
+              { step: 1, title: 'Add width=device-width', description: 'Change your viewport tag to include width=device-width.' }
+            ],
+            estimatedImpact: 'Ensures proper responsive rendering on all screen sizes',
+            timeToFix: '1 minute',
+            difficulty: 'easy',
           });
         }
         
@@ -89,6 +112,19 @@ export class MobileAuditor {
             suggestion: 'Allow user scaling by removing user-scalable=no and maximum-scale restrictions.',
             url: page.url,
             priority: 5,
+            affectedUrls: [page.url],
+            affectedElements: [{ tag: 'meta', attributes: { name: 'viewport', content: viewport }, outerHTML: `<meta name="viewport" content="${viewport}">`, selector: 'meta[name="viewport"]' }],
+            codeSnippet: `<!-- BEFORE: Prevents zoom -->
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1">
+
+<!-- AFTER: Allows zoom (accessible) -->
+<meta name="viewport" content="width=device-width, initial-scale=1">`,
+            fixInstructions: [
+              { step: 1, title: 'Remove scaling restrictions', description: 'Remove user-scalable=no and maximum-scale=1 from your viewport tag.' }
+            ],
+            estimatedImpact: 'Improves accessibility for users with vision impairments',
+            timeToFix: '1 minute',
+            difficulty: 'easy',
           });
         }
       }

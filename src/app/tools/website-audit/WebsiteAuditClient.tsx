@@ -15,6 +15,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   ChevronDown,
+  ChevronUp,
   Download,
   Copy,
   RefreshCw,
@@ -325,30 +326,30 @@ export default function WebsiteAuditClient() {
             <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="grid grid-cols-5 w-full bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl p-1">
                 <TabsTrigger value="overview" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">Overview</TabsTrigger>
-                <TabsTrigger value="issues" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">Issues</TabsTrigger>
-                <TabsTrigger value="content" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">Content</TabsTrigger>
-                <TabsTrigger value="recommendations" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">Tips</TabsTrigger>
-                <TabsTrigger value="pages" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">Pages</TabsTrigger>
+                <TabsTrigger value="errors" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 text-red-600 dark:text-red-400">Errors</TabsTrigger>
+                <TabsTrigger value="warnings" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 text-yellow-600 dark:text-yellow-400">Warnings</TabsTrigger>
+                <TabsTrigger value="improvements" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 text-blue-600 dark:text-blue-400">Improvements</TabsTrigger>
+                <TabsTrigger value="all-issues" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">All Issues</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="mt-6">
                 <OverviewTab result={result} />
               </TabsContent>
 
-              <TabsContent value="issues" className="mt-6">
+              <TabsContent value="errors" className="mt-6">
+                <IssuesTab issues={result.issues} severityFilter={['critical', 'high']} />
+              </TabsContent>
+
+              <TabsContent value="warnings" className="mt-6">
+                <IssuesTab issues={result.issues} severityFilter={['medium']} />
+              </TabsContent>
+
+              <TabsContent value="improvements" className="mt-6">
+                <IssuesTab issues={result.issues} severityFilter={['low']} />
+              </TabsContent>
+
+              <TabsContent value="all-issues" className="mt-6">
                 <IssuesTab issues={result.issues} />
-              </TabsContent>
-
-              <TabsContent value="content" className="mt-6">
-                <ContentTab analysis={result.contentAnalysis} />
-              </TabsContent>
-
-              <TabsContent value="recommendations" className="mt-6">
-                <RecommendationsTab recommendations={result.recommendations} quickWins={result.quickWins} />
-              </TabsContent>
-
-              <TabsContent value="pages" className="mt-6">
-                <PagesTab pages={result.pageData} />
               </TabsContent>
             </Tabs>
           </motion.div>
@@ -780,39 +781,26 @@ function OverviewTab({ result }: { result: WebsiteAuditResult }) {
 }
 
 // Issues Tab
-function IssuesTab({ issues }: { issues: AuditIssue[] }) {
-  const [filter, setFilter] = useState<string>('all');
-
-  const filteredIssues = filter === 'all' 
-    ? issues 
-    : issues.filter(i => i.severity === filter);
+function IssuesTab({ issues, severityFilter }: { issues: AuditIssue[]; severityFilter?: string[] }) {
+  const filteredIssues = severityFilter 
+    ? issues.filter(i => severityFilter.includes(i.severity))
+    : issues;
 
   return (
     <div className="space-y-4">
-      {/* Filter */}
-      <div className="flex flex-wrap gap-2">
-        {['all', 'critical', 'high', 'medium', 'low'].map((severity) => (
-          <Button
-            key={severity}
-            onClick={() => setFilter(severity)}
-            variant={filter === severity ? 'default' : 'outline'}
-            size="sm"
-            className={filter === severity ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : ''}
-          >
-            {severity.charAt(0).toUpperCase() + severity.slice(1)}
-            <Badge variant="secondary" className="ml-2 bg-white/20">
-              {severity === 'all' ? issues.length : issues.filter(i => i.severity === severity).length}
-            </Badge>
-          </Button>
-        ))}
-      </div>
+      {/* Severity summary */}
+      {severityFilter && (
+        <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+          <span>Showing {filteredIssues.length} {severityFilter.join(' + ')} issue{filteredIssues.length !== 1 ? 's' : ''}</span>
+        </div>
+      )}
 
       {/* Issues List */}
       <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
         {filteredIssues.length === 0 ? (
           <div className="p-8 text-center text-slate-500 dark:text-slate-400">
             <CheckCircle2 className="w-12 h-12 mx-auto mb-3 text-green-500" />
-            <p>No issues found for this filter.</p>
+            <p>No issues found. Great job!</p>
           </div>
         ) : (
           filteredIssues.map((issue, i) => (
@@ -1000,12 +988,14 @@ function PagesTab({ pages }: { pages: WebsiteAuditResult['pageData'] }) {
 
 // Issue Card Component
 function IssueCard({ issue, showCategory = false }: { issue: AuditIssue; showCategory?: boolean }) {
+  const [expanded, setExpanded] = useState(false);
   const config = severityConfig[issue.severity];
   
   return (
-    <div className={`p-4 rounded-xl ${config.bg} border border-slate-200 dark:border-slate-700`}>
+    <div className={`p-4 rounded-xl ${config.bg} border border-slate-200 dark:border-slate-700 transition-all ${expanded ? 'ring-2 ring-offset-2 ring-slate-300 dark:ring-slate-600' : ''}`}>
+      {/* Header - always visible */}
       <div className="flex items-start justify-between gap-2 mb-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {showCategory && (
             <Badge variant="outline" className="text-xs">
               {categoryConfig[issue.category as keyof typeof categoryConfig]?.label || issue.category}
@@ -1013,14 +1003,123 @@ function IssueCard({ issue, showCategory = false }: { issue: AuditIssue; showCat
           )}
           <span className="font-medium text-slate-900 dark:text-white">{issue.title}</span>
         </div>
-        <Badge className={`${config.color} text-white text-xs`}>
-          {issue.severity}
-        </Badge>
+        <div className="flex items-center gap-2">
+          {issue.timeToFix && (
+            <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">{issue.timeToFix}</span>
+          )}
+          <Badge className={`${config.color} text-white text-xs`}>
+            {issue.severity}
+          </Badge>
+        </div>
       </div>
+      
       <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">{issue.description}</p>
-      <p className="text-sm text-slate-500 dark:text-slate-500">
-        <strong>Fix:</strong> {issue.suggestion}
-      </p>
+      
+      {/* Expand toggle */}
+      <button 
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors mt-1"
+      >
+        {expanded ? (
+          <><ChevronUp className="w-4 h-4" /> Show less</>
+        ) : (
+          <><ChevronDown className="w-4 h-4" /> Show details & fix</>
+        )}
+      </button>
+      
+      {/* Expanded deep data */}
+      {expanded && (
+        <div className="mt-4 space-y-4 border-t border-slate-200 dark:border-slate-700 pt-4">
+          {/* Impact */}
+          <div className="space-y-1">
+            <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Why This Matters</h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400">{issue.impact}</p>
+          </div>
+          
+          {/* Estimated Impact & Difficulty */}
+          {(issue.estimatedImpact || issue.difficulty || issue.timeToFix) && (
+            <div className="flex flex-wrap gap-3">
+              {issue.estimatedImpact && (
+                <div className="px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+                  <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">Estimated Impact</div>
+                  <div className="text-sm text-slate-700 dark:text-slate-300">{issue.estimatedImpact}</div>
+                </div>
+              )}
+              {issue.difficulty && (
+                <div className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Difficulty</div>
+                  <div className="text-sm text-slate-700 dark:text-slate-300 capitalize">{issue.difficulty}</div>
+                </div>
+              )}
+              {issue.timeToFix && (
+                <div className="px-3 py-2 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+                  <div className="text-xs text-green-600 dark:text-green-400 font-medium">Time to Fix</div>
+                  <div className="text-sm text-slate-700 dark:text-slate-300">{issue.timeToFix}</div>
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* Affected URLs */}
+          {issue.affectedUrls && issue.affectedUrls.length > 0 && (
+            <div className="space-y-1">
+              <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Affected URLs ({issue.affectedUrls.length})</h4>
+              <div className="space-y-1 max-h-32 overflow-y-auto">
+                {issue.affectedUrls.map((url, i) => (
+                  <div key={i} className="text-xs text-slate-500 dark:text-slate-400 font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded truncate">{url}</div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Code Snippet */}
+          {issue.codeSnippet && (
+            <div className="space-y-1">
+              <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Code</h4>
+              <pre className="text-xs text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 p-3 rounded-lg overflow-x-auto font-mono whitespace-pre-wrap">{issue.codeSnippet}</pre>
+            </div>
+          )}
+          
+          {/* Fix Instructions */}
+          {issue.fixInstructions && issue.fixInstructions.length > 0 && (
+            <div className="space-y-2">
+              <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">How to Fix</h4>
+              <div className="space-y-2">
+                {issue.fixInstructions.map((step) => (
+                  <div key={step.step} className="flex gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold flex items-center justify-center">
+                      {step.step}
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{step.title}</div>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{step.description}</p>
+                      {step.codeBefore && (
+                        <div className="mt-1">
+                          <div className="text-xs text-red-500 dark:text-red-400 mb-1">Before:</div>
+                          <pre className="text-xs bg-red-50 dark:bg-red-900/20 p-2 rounded font-mono overflow-x-auto">{step.codeBefore}</pre>
+                        </div>
+                      )}
+                      {step.codeAfter && (
+                        <div className="mt-1">
+                          <div className="text-xs text-green-500 dark:text-green-400 mb-1">After:</div>
+                          <pre className="text-xs bg-green-50 dark:bg-green-900/20 p-2 rounded font-mono overflow-x-auto">{step.codeAfter}</pre>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Suggestion (always show in expanded) */}
+          <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
+            <p className="text-sm text-slate-700 dark:text-slate-300">
+              <span className="font-semibold">Quick Fix:</span> {issue.suggestion}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

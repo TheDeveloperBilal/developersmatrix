@@ -56,10 +56,22 @@ export class SecurityAuditor {
             severity: 'critical',
             title: 'Not Using HTTPS',
             description: `Page is served over HTTP instead of HTTPS: ${page.url}`,
-            impact: 'Data transmitted over HTTP is not encrypted and can be intercepted.',
-            suggestion: 'Install an SSL certificate and redirect all HTTP traffic to HTTPS.',
+            impact: 'All data transmitted over HTTP is unencrypted and can be intercepted by attackers. Google penalizes non-HTTPS sites in rankings. Browsers show "Not Secure" warnings that scare visitors.',
+            suggestion: 'Install an SSL certificate and redirect all HTTP traffic to HTTPS. Most hosting providers offer free SSL via Let\'s Encrypt.',
             url: page.url,
             priority: 10,
+            affectedUrls: [page.url],
+            affectedElements: [{ tag: 'html', attributes: {}, outerHTML: `<html>...served over HTTP...</html>`, selector: 'html' }],
+            codeSnippet: `// Server config (nginx)\nserver {\n  listen 80;\n  return 301 https://$host$request_uri;\n}`,
+            fixInstructions: [
+              { step: 1, title: 'Get an SSL certificate', description: 'Use Let\'s Encrypt (free) or purchase from your hosting provider.' },
+              { step: 2, title: 'Install the certificate', description: 'Follow your server/hosting provider\'s SSL setup instructions.' },
+              { step: 3, title: 'Force HTTPS redirect', description: 'Configure your server to redirect all HTTP requests to HTTPS.' },
+              { step: 4, title: 'Update internal links', description: 'Change all internal links from http:// to https://.' }
+            ],
+            estimatedImpact: 'Essential for SEO, user trust, and data security. Required for modern websites.',
+            timeToFix: '30 minutes',
+            difficulty: 'medium',
           });
         }
       } catch {
@@ -83,10 +95,20 @@ export class SecurityAuditor {
         severity: 'medium',
         title: 'Missing X-Frame-Options Header',
         description: 'The X-Frame-Options header is not set.',
-        impact: 'Your site may be vulnerable to clickjacking attacks.',
+        impact: 'Your site may be vulnerable to clickjacking attacks where malicious sites embed your pages in invisible iframes to trick users into clicking hidden elements.',
         suggestion: 'Add X-Frame-Options: DENY or SAMEORIGIN to your server headers.',
         url: mainPage.url,
         priority: 6,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no X-Frame-Options header...</head>', selector: 'head' }],
+        codeSnippet: '# Apache\nHeader always set X-Frame-Options "SAMEORIGIN"\n\n# nginx\nadd_header X-Frame-Options "SAMEORIGIN" always;',
+        fixInstructions: [
+          { step: 1, title: 'Choose your policy', description: 'DENY blocks all framing. SAMEORIGIN allows your own site to frame pages.' },
+          { step: 2, title: 'Add to server config', description: 'Configure your web server to send the header with every response.' }
+        ],
+        estimatedImpact: 'Prevents clickjacking attacks and protects your users',
+        timeToFix: '5 minutes',
+        difficulty: 'easy',
       });
     }
     
@@ -103,6 +125,15 @@ export class SecurityAuditor {
         suggestion: 'Add X-Content-Type-Options: nosniff to your server headers.',
         url: mainPage.url,
         priority: 5,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no X-Content-Type-Options header...</head>', selector: 'head' }],
+        codeSnippet: '# Apache\nHeader always set X-Content-Type-Options "nosniff"\n\n# nginx\nadd_header X-Content-Type-Options "nosniff" always;',
+        fixInstructions: [
+          { step: 1, title: 'Add to server config', description: 'Configure your web server to send X-Content-Type-Options: nosniff with every response.' }
+        ],
+        estimatedImpact: 'Prevents MIME-sniffing attacks and XSS vectors',
+        timeToFix: '2 minutes',
+        difficulty: 'easy',
       });
     }
     
@@ -119,6 +150,16 @@ export class SecurityAuditor {
         suggestion: 'Add Strict-Transport-Security: max-age=31536000; includeSubDomains.',
         url: mainPage.url,
         priority: 6,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no HSTS header...</head>', selector: 'head' }],
+        codeSnippet: '# Apache\nHeader always set Strict-Transport-Security "max-age=31536000; includeSubDomains"\n\n# nginx\nadd_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;',
+        fixInstructions: [
+          { step: 1, title: 'Add HSTS header', description: 'Configure your server to send Strict-Transport-Security with every HTTPS response.' },
+          { step: 2, title: 'Test carefully', description: 'Start with a short max-age (e.g., 300) to test before committing to a year.' }
+        ],
+        estimatedImpact: 'Prevents downgrade attacks and ensures HTTPS is always used',
+        timeToFix: '5 minutes',
+        difficulty: 'easy',
       });
     }
     
@@ -135,6 +176,17 @@ export class SecurityAuditor {
         suggestion: 'Implement a Content-Security-Policy to restrict resource sources.',
         url: mainPage.url,
         priority: 5,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no CSP header...</head>', selector: 'head' }],
+        codeSnippet: '# Start with a restrictive policy and relax as needed\nContent-Security-Policy: default-src \'self\'; script-src \'self\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\'; img-src \'self\' data: https:;',
+        fixInstructions: [
+          { step: 1, title: 'Start with a basic policy', description: 'Begin with default-src \'self\' and add exceptions as needed.' },
+          { step: 2, title: 'Monitor violations', description: 'Use Content-Security-Policy-Report-Only first to catch issues.' },
+          { step: 3, title: 'Enforce the policy', description: 'Switch to Content-Security-Policy once violations are resolved.' }
+        ],
+        estimatedImpact: 'Significantly reduces XSS attack surface and prevents unauthorized resource loading',
+        timeToFix: '1 hour',
+        difficulty: 'hard',
       });
     }
     

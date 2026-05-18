@@ -71,10 +71,26 @@ export class AccessibilityAuditor {
             severity: missingAlt.length > 5 ? 'critical' : 'high',
             title: 'Images Missing Alt Text',
             description: `${missingAlt.length} images without alt attribute on ${page.url}`,
-            impact: 'Screen readers cannot describe these images to visually impaired users.',
+            impact: 'Screen readers cannot describe these images to visually impaired users. This violates WCAG 2.1 Level A requirements and can result in ADA lawsuits.',
             suggestion: 'Add descriptive alt text to all meaningful images. Use empty alt="" for decorative images.',
             url: page.url,
             priority: missingAlt.length > 5 ? 9 : 7,
+            affectedUrls: [page.url],
+            affectedElements: missingAlt.slice(0, 5).map((img, i) => ({
+              tag: 'img',
+              attributes: { src: img.src || '', alt: img.alt || '' },
+              outerHTML: `<img src="${img.src || ''}"${img.width ? ` width="${img.width}"` : ''}${img.height ? ` height="${img.height}"` : ''} />`,
+              selector: `img[src="${img.src}"]`,
+            })),
+            codeSnippet: missingAlt.slice(0, 3).map(img => `<img src="${img.src}" alt="ADD DESCRIPTIVE TEXT HERE" />`).join('\n'),
+            fixInstructions: [
+              { step: 1, title: 'Identify meaningful vs decorative', description: 'Decorative images (borders, backgrounds) use alt="". Content images need descriptive text.' },
+              { step: 2, title: 'Write descriptive alt text', description: 'Describe what the image shows. Example: "Bar chart showing Q3 revenue growth" not "image1.jpg".' },
+              { step: 3, title: 'Add alt attributes', description: 'Update each <img> tag with appropriate alt text.' }
+            ],
+            estimatedImpact: 'Essential for WCAG 2.1 compliance and prevents ADA legal liability',
+            timeToFix: `${Math.max(5, missingAlt.length * 0.5)} minutes`,
+            difficulty: 'easy',
           });
         }
       }

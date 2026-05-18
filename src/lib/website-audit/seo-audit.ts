@@ -76,10 +76,21 @@ export class SEOAuditor {
           severity: 'critical',
           title: 'Missing Page Title',
           description: `The page at ${url} has no title tag.`,
-          impact: 'Search engines use titles to understand page content. Missing titles severely hurt SEO.',
-          suggestion: 'Add a unique, descriptive title tag between 30-60 characters.',
+          impact: 'Search engines use titles to understand page content. Missing titles severely hurt SEO and click-through rates from search results.',
+          suggestion: 'Add a unique, descriptive title tag between 30-60 characters that includes your primary keyword.',
           url,
           priority: 10,
+          affectedUrls: [url],
+          affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no <title> found...</head>', selector: 'head' }],
+          codeSnippet: '<head>\n  <meta charset="UTF-8">\n  <!-- MISSING: <title>Your Page Title</title> -->\n</head>',
+          fixInstructions: [
+            { step: 1, title: 'Open the page HTML', description: `Edit the HTML file for ${url}` },
+            { step: 2, title: 'Add title tag', description: 'Inside the <head> section, add: <title>Your Primary Keyword - Brand Name</title>' },
+            { step: 3, title: 'Keep it under 60 characters', description: 'Google truncates titles longer than 60 characters in search results.' }
+          ],
+          estimatedImpact: 'Fixing this can improve search visibility and click-through rates by 15-30%',
+          timeToFix: '2 minutes',
+          difficulty: 'easy',
         });
       } else {
         titles.set(title, [...(titles.get(title) || []), url]);
@@ -105,11 +116,21 @@ export class SEOAuditor {
             type: 'missing_title',
             severity: 'low',
             title: 'Title Too Long',
-            description: `The title is ${title.length} characters, exceeding the recommended 60.`,
-            impact: 'Titles over 60 characters may be truncated in search results.',
-            suggestion: 'Keep titles between 30-60 characters for optimal display.',
+            description: `The title is ${title.length} characters, exceeding the recommended 60 character limit.`,
+            impact: 'Titles over 60 characters may be truncated in search results, cutting off important keywords and reducing click-through rates.',
+            suggestion: 'Shorten the title to under 60 characters while keeping your primary keyword at the beginning.',
             url,
             priority: 3,
+            affectedUrls: [url],
+            affectedElements: [{ tag: 'title', attributes: {}, outerHTML: `<title>${title.substring(0, 40)}...</title>`, selector: 'title' }],
+            codeSnippet: `<title>${title}</title>`,
+            fixInstructions: [
+              { step: 1, title: 'Identify the key message', description: 'Determine the most important 2-3 keywords for this page.' },
+              { step: 2, title: 'Rewrite the title', description: 'Create a concise version under 60 characters. Example: "Primary Keyword - Secondary Keyword | Brand"' }
+            ],
+            estimatedImpact: 'Improves how your listing appears in search results and can increase CTR by 5-10%',
+            timeToFix: '2 minutes',
+            difficulty: 'easy',
           });
         }
       }
@@ -125,10 +146,20 @@ export class SEOAuditor {
           severity: 'high',
           title: 'Duplicate Page Titles',
           description: `${urls.length} pages share the same title: "${title.substring(0, 50)}..."`,
-          impact: 'Duplicate titles confuse search engines about which page to rank.',
-          suggestion: 'Create unique titles for each page that reflect their specific content.',
+          impact: 'Duplicate titles confuse search engines about which page to rank. Google may choose a different title or suppress one of the pages from results.',
+          suggestion: 'Create unique titles for each page that reflect their specific content and target keywords.',
           element: urls.join(', '),
           priority: 8,
+          affectedUrls: urls,
+          affectedElements: urls.map(u => ({ tag: 'title', attributes: {}, outerHTML: `<title>${title.substring(0, 30)}...</title>`, selector: 'title' })),
+          codeSnippet: `<title>${title}</title>`,
+          fixInstructions: [
+            { step: 1, title: 'Identify each page\'s unique value', description: 'Determine what makes each page different and what keyword it should target.' },
+            { step: 2, title: 'Rewrite each title', description: 'Example: "Services" → "Web Design Services in Austin | YourBrand" vs "Pricing" → "Affordable Web Design Pricing | YourBrand"' }
+          ],
+          estimatedImpact: 'Helps each page rank for distinct keywords and prevents cannibalization',
+          timeToFix: '10 minutes',
+          difficulty: 'easy',
         });
       }
     });
@@ -148,11 +179,21 @@ export class SEOAuditor {
           type: 'missing_meta_description',
           severity: 'high',
           title: 'Missing Meta Description',
-          description: `The page at ${url} has no meta description.`,
-          impact: 'Meta descriptions influence click-through rates from search results.',
-          suggestion: 'Add a compelling meta description between 120-160 characters.',
+          description: `The page at ${url} has no meta description tag.`,
+          impact: 'Meta descriptions appear in search results and directly influence click-through rates. Without one, Google pulls random text from your page that may not be compelling.',
+          suggestion: 'Add a compelling meta description between 120-160 characters that includes your primary keyword and a call to action.',
           url,
           priority: 7,
+          affectedUrls: [url],
+          affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no meta description found...</head>', selector: 'head' }],
+          codeSnippet: '<head>\n  <meta charset="UTF-8">\n  <!-- MISSING: <meta name="description" content="..."> -->\n</head>',
+          fixInstructions: [
+            { step: 1, title: 'Write a compelling description', description: 'Include your primary keyword, a benefit, and a call to action. Keep it 120-160 characters.' },
+            { step: 2, title: 'Add the meta tag', description: '<meta name="description" content="Learn how our web design services help Austin businesses grow. Free consultation. Call today.">' }
+          ],
+          estimatedImpact: 'Can increase click-through rate from search results by 15-30%',
+          timeToFix: '3 minutes',
+          difficulty: 'easy',
         });
       } else {
         descriptions.set(description, [...(descriptions.get(description) || []), url]);
@@ -221,10 +262,21 @@ export class SEOAuditor {
           severity: 'critical',
           title: 'Missing H1 Tag',
           description: `The page at ${url} has no H1 heading.`,
-          impact: 'H1 tags are crucial for SEO and accessibility. They tell search engines what the page is about.',
-          suggestion: 'Add a single H1 tag that describes the main topic of the page.',
+          impact: 'H1 tags are crucial for SEO and accessibility. They tell search engines and screen readers what the page is about. Missing H1s hurt rankings and accessibility compliance.',
+          suggestion: 'Add a single H1 tag at the top of the page content that describes the main topic and includes your primary keyword.',
           url,
           priority: 9,
+          affectedUrls: [url],
+          affectedElements: [{ tag: 'body', attributes: {}, outerHTML: '<body>...no <h1> found...</body>', selector: 'body' }],
+          codeSnippet: '<!-- MISSING -->\n<h1>Your Primary Keyword Heading</h1>\n<p>Your content starts here...</p>',
+          fixInstructions: [
+            { step: 1, title: 'Identify the main topic', description: 'What is the single most important topic of this page?' },
+            { step: 2, title: 'Write an H1', description: 'Add <h1>Main Topic Keyword</h1> as the first heading in your content area.' },
+            { step: 3, title: 'Keep it natural', description: 'Make it readable for humans while including your primary keyword.' }
+          ],
+          estimatedImpact: 'Improves on-page SEO relevance signals and accessibility compliance',
+          timeToFix: '3 minutes',
+          difficulty: 'easy',
         });
       }
       
@@ -236,11 +288,21 @@ export class SEOAuditor {
           type: 'multiple_h1',
           severity: 'high',
           title: 'Multiple H1 Tags',
-          description: `The page has ${h1Count} H1 tags: ${page.meta.h1.slice(0, 3).join(', ')}...`,
-          impact: 'Multiple H1 tags can confuse search engines about the main topic.',
-          suggestion: 'Use only one H1 per page. Convert additional H1s to H2 or lower.',
+          description: `The page has ${h1Count} H1 tags: ${page.meta.h1.slice(0, 3).join(', ')}${page.meta.h1.length > 3 ? '...' : ''}`,
+          impact: 'Multiple H1 tags can confuse search engines about the main topic and dilute keyword relevance signals.',
+          suggestion: 'Use only one H1 per page. Convert additional H1s to H2 or lower heading levels.',
           url,
           priority: 7,
+          affectedUrls: [url],
+          affectedElements: page.meta.h1.map((text, i) => ({ tag: 'h1', attributes: {}, outerHTML: `<h1>${text.substring(0, 40)}${text.length > 40 ? '...' : ''}</h1>`, selector: `h1:nth-of-type(${i + 1})` })),
+          codeSnippet: `<h1>${page.meta.h1[0]}</h1>\n<h1>${page.meta.h1[1] || 'Second H1'}</h1>\n<!-- Change second H1 to H2 -->`,
+          fixInstructions: [
+            { step: 1, title: 'Identify the main H1', description: 'Keep the first H1 as your primary heading.' },
+            { step: 2, title: 'Convert others to H2', description: 'Change <h1> to <h2> for subsections.' }
+          ],
+          estimatedImpact: 'Clarifies page topic for search engines and improves heading hierarchy',
+          timeToFix: '5 minutes',
+          difficulty: 'easy',
         });
       }
       
@@ -275,10 +337,20 @@ export class SEOAuditor {
           severity: 'medium',
           title: 'Missing Canonical URL',
           description: `The page at ${page.url} has no canonical tag.`,
-          impact: 'Without a canonical URL, duplicate content issues may arise.',
+          impact: 'Without a canonical URL, duplicate content issues may arise. Search engines may index multiple versions of the same page (with/without www, http/https, trailing slashes), splitting your ranking signals.',
           suggestion: 'Add a canonical tag to specify the preferred URL for this content.',
           url: page.url,
           priority: 5,
+          affectedUrls: [page.url],
+          affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no canonical link found...</head>', selector: 'head' }],
+          codeSnippet: '<!-- ADD THIS -->\n<link rel="canonical" href="https://example.com/page-url" />',
+          fixInstructions: [
+            { step: 1, title: 'Determine the preferred URL', description: 'Choose the canonical version (usually HTTPS, non-www, no trailing slash).' },
+            { step: 2, title: 'Add the canonical tag', description: 'Place <link rel="canonical" href="PREFERRED_URL" /> inside <head>.' }
+          ],
+          estimatedImpact: 'Consolidates ranking signals and prevents duplicate content penalties',
+          timeToFix: '2 minutes',
+          difficulty: 'easy',
         });
       }
     });
@@ -449,10 +521,21 @@ export class SEOAuditor {
         severity: 'medium',
         title: 'Missing Open Graph Title',
         description: 'No og:title tag found on the main page.',
-        impact: 'Content may not display optimally when shared on social media.',
+        impact: 'Content may not display optimally when shared on social media platforms like Facebook, LinkedIn, and Twitter. This reduces social traffic and engagement.',
         suggestion: 'Add og:title, og:description, and og:image meta tags for better social sharing.',
         url: mainPage.url,
         priority: 4,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'head', attributes: {}, outerHTML: '<head>...no og:title found...</head>', selector: 'head' }],
+        codeSnippet: '<meta property="og:title" content="Your Compelling Title Here" />\n<meta property="og:description" content="Brief description for social sharing" />\n<meta property="og:image" content="https://example.com/og-image.jpg" />',
+        fixInstructions: [
+          { step: 1, title: 'Add og:title', description: 'Add <meta property="og:title" content="Your Title"> to <head>.' },
+          { step: 2, title: 'Add og:description', description: 'Add a compelling 1-2 sentence description.' },
+          { step: 3, title: 'Add og:image', description: 'Use a 1200x630px image for optimal display.' }
+        ],
+        estimatedImpact: 'Improves social sharing appearance and can increase social referral traffic by 20-40%',
+        timeToFix: '5 minutes',
+        difficulty: 'easy',
       });
     }
     
@@ -520,10 +603,26 @@ export class SEOAuditor {
           severity,
           title: 'Images Missing Alt Text',
           description: `${imagesWithoutAlt.length} images on ${page.url} are missing alt attributes.`,
-          impact: 'Alt text improves accessibility and helps search engines understand images.',
-          suggestion: 'Add descriptive alt text to all images. Example: "Team meeting in conference room" not "image1.jpg"',
+          impact: 'Alt text improves accessibility for screen readers and helps search engines understand image content. Missing alt text hurts both SEO and ADA compliance.',
+          suggestion: 'Add descriptive alt text to all meaningful images. Use empty alt="" for decorative images.',
           url: page.url,
           priority: severity === 'high' ? 7 : severity === 'medium' ? 5 : 3,
+          affectedUrls: [page.url],
+          affectedElements: imagesWithoutAlt.slice(0, 5).map((img, i) => ({
+            tag: 'img',
+            attributes: { src: img.src || '', alt: img.alt || '' },
+            outerHTML: `<img src="${img.src || ''}"${img.alt !== undefined ? ` alt="${img.alt}"` : ''}${img.width ? ` width="${img.width}"` : ''}${img.height ? ` height="${img.height}"` : ''} />`,
+            selector: `img[src="${img.src}"]`,
+          })),
+          codeSnippet: imagesWithoutAlt.slice(0, 3).map(img => `<img src="${img.src}" alt="ADD DESCRIPTIVE TEXT HERE" />`).join('\n'),
+          fixInstructions: [
+            { step: 1, title: 'Identify meaningful images', description: 'Decorative images (borders, backgrounds) should use alt="".' },
+            { step: 2, title: 'Write descriptive alt text', description: 'Describe what the image shows. Example: "Team meeting in modern office" not "image1.jpg".' },
+            { step: 3, title: 'Add alt attributes', description: 'Update each <img> tag with appropriate alt text.' }
+          ],
+          estimatedImpact: 'Improves accessibility compliance and image SEO. Can increase image search traffic.',
+          timeToFix: `${Math.max(2, imagesWithoutAlt.length * 0.5)} minutes`,
+          difficulty: 'easy',
         });
       }
     });

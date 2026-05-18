@@ -270,10 +270,22 @@ export class ContentAuditor {
         severity: analysis.wordCount < 150 ? 'high' : 'medium',
         title: 'Thin Content',
         description: `Page has only ${analysis.wordCount} words of content.`,
-        impact: 'Thin content may not provide enough value to rank well in search engines.',
-        suggestion: 'Add more comprehensive, valuable content (aim for 500+ words).',
+        impact: 'Pages with under 300 words rarely rank well because they do not provide enough value to satisfy search intent. Google prefers comprehensive content that fully answers user questions.',
+        suggestion: 'Expand your content to at least 500+ words. Cover the topic thoroughly with subheadings, examples, and actionable advice.',
         url: mainPage.url,
         priority: analysis.wordCount < 150 ? 8 : 5,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...${analysis.wordCount} words of content...</body>`, selector: 'body' }],
+        codeSnippet: `// Current: ${analysis.wordCount} words\n// Target: 500+ words\n\n// Add sections:\n// 1. Introduction (100 words)\n// 2. Main points with examples (300 words)\n// 3. Actionable tips (100 words)\n// 4. Conclusion (50 words)`,
+        fixInstructions: [
+          { step: 1, title: 'Identify content gaps', description: 'What questions does your audience have that this page does not answer?' },
+          { step: 2, title: 'Add subsections', description: 'Break the topic into 3-5 subtopics with H2 headings.' },
+          { step: 3, title: 'Include examples', description: 'Add real examples, case studies, or data to support your points.' },
+          { step: 4, title: 'Write a strong conclusion', description: 'Summarize key takeaways and include a call to action.' }
+        ],
+        estimatedImpact: 'Comprehensive content (500+ words) typically ranks 3-5x better than thin pages',
+        timeToFix: '1-2 hours',
+        difficulty: 'medium',
       });
     }
     
@@ -290,6 +302,17 @@ export class ContentAuditor {
         suggestion: 'Use more varied vocabulary and synonyms to improve content quality.',
         url: mainPage.url,
         priority: 5,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...repetitive vocabulary detected...</body>`, selector: 'body' }],
+        codeSnippet: `// Repetitive phrases detected: ${analysis.repeatedPhrases.length}\n// Use synonyms and restructure sentences to improve variety.`,
+        fixInstructions: [
+          { step: 1, title: 'Identify repeated phrases', description: 'Look for phrases used 3+ times in the content.' },
+          { step: 2, title: 'Use synonyms', description: 'Replace repeated words with alternatives. "Good" → "excellent", "beneficial", "advantageous".' },
+          { step: 3, title: 'Restructure sentences', description: 'Vary sentence structure to avoid repetitive patterns.' }
+        ],
+        estimatedImpact: 'Improves content quality signals and user engagement',
+        timeToFix: '30 minutes',
+        difficulty: 'easy',
       });
     }
     
@@ -306,6 +329,16 @@ export class ContentAuditor {
         suggestion: 'Vary your phrasing to keep content engaging.',
         url: mainPage.url,
         priority: 3,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...repeated phrases detected...</body>`, selector: 'body' }],
+        codeSnippet: `// Repeated phrases: ${analysis.repeatedPhrases.slice(0, 3).join(', ')}\n// Rewrite each occurrence with unique phrasing.`,
+        fixInstructions: [
+          { step: 1, title: 'Find repeated phrases', description: `These phrases appear multiple times: ${analysis.repeatedPhrases.slice(0, 3).join(', ')}` },
+          { step: 2, title: 'Rewrite with variety', description: 'Use different words and sentence structures for each occurrence.' }
+        ],
+        estimatedImpact: 'Improves user engagement and content originality signals',
+        timeToFix: '15 minutes',
+        difficulty: 'easy',
       });
     }
     
@@ -322,6 +355,17 @@ export class ContentAuditor {
         suggestion: 'Simplify sentences and use shorter words to improve readability.',
         url: mainPage.url,
         priority: 4,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...complex readability detected...</body>`, selector: 'body' }],
+        codeSnippet: `// Current readability: ${analysis.readabilityScore.toFixed(0)} (${analysis.readabilityGrade})\n// Target: 60+ (8th grade level)\n\n// Tips:\n// - Break long sentences into two\n// - Replace complex words with simple ones\n// - Use active voice`,
+        fixInstructions: [
+          { step: 1, title: 'Break long sentences', description: 'Split sentences over 20 words into two shorter sentences.' },
+          { step: 2, title: 'Use simpler words', description: 'Replace complex vocabulary with everyday alternatives.' },
+          { step: 3, title: 'Use active voice', description: 'Change passive sentences to active voice. "The ball was thrown by John" → "John threw the ball".' }
+        ],
+        estimatedImpact: 'Improves user comprehension and engagement, especially on mobile',
+        timeToFix: '45 minutes',
+        difficulty: 'easy',
       });
     }
   }
@@ -342,6 +386,21 @@ export class ContentAuditor {
         suggestion: 'Add clear CTAs like "Sign Up", "Get Started", or "Contact Us" above the fold.',
         url: mainPage.url,
         priority: 8,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...no CTA detected...</body>`, selector: 'body' }],
+        codeSnippet: `<!-- Add a prominent CTA button -->
+<div class="cta-section">
+  <h2>Ready to get started?</h2>
+  <a href="/signup" class="btn-primary">Get Started Free</a>
+</div>`,
+        fixInstructions: [
+          { step: 1, title: 'Add a primary CTA above the fold', description: 'Place your main CTA in the hero section where visitors see it immediately.' },
+          { step: 2, title: 'Use action-oriented text', description: 'Use verbs like "Get", "Start", "Try", "Join" instead of generic "Submit" or "Click Here".' },
+          { step: 3, title: 'Add secondary CTAs', description: 'Place additional CTAs at natural decision points throughout the page.' }
+        ],
+        estimatedImpact: 'Clear CTAs can increase conversion rates by 2-5x',
+        timeToFix: '20 minutes',
+        difficulty: 'easy',
       });
     } else if (analysis.ctaCount < 2) {
       issues.push({
@@ -355,6 +414,16 @@ export class ContentAuditor {
         suggestion: 'Add CTAs at natural conversion points in the page.',
         url: mainPage.url,
         priority: 5,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...only ${analysis.ctaCount} CTA found...</body>`, selector: 'body' }],
+        codeSnippet: `// Only ${analysis.ctaCount} CTA found\n// Add CTAs at:\n// - After benefits section\n// - After testimonials\n// - At end of page\n// - In navigation`,
+        fixInstructions: [
+          { step: 1, title: 'Map the user journey', description: 'Identify where users make decisions on your page.' },
+          { step: 2, title: 'Add CTAs at decision points', description: 'Place CTAs after benefits, social proof, and pricing sections.' }
+        ],
+        estimatedImpact: 'Multiple CTAs can increase conversion opportunities by 30-50%',
+        timeToFix: '15 minutes',
+        difficulty: 'easy',
       });
     }
   }
@@ -375,6 +444,17 @@ export class ContentAuditor {
         suggestion: 'Add testimonials, customer counts, guarantees, certifications, or media mentions.',
         url: mainPage.url,
         priority: analysis.trustSignals.length === 0 ? 7 : 5,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...${analysis.trustSignals.length} trust signals found...</body>`, selector: 'body' }],
+        codeSnippet: `// Trust signals found: ${analysis.trustSignals.join(', ') || 'None'}\n// Add more:\n// - Customer testimonials\n// - "Trusted by X companies"\n// - Security badges\n// - Money-back guarantee\n// - Industry certifications`,
+        fixInstructions: [
+          { step: 1, title: 'Add social proof', description: 'Include testimonials, customer logos, or user counts.' },
+          { step: 2, title: 'Add security signals', description: 'Show SSL badges, security certifications, or compliance logos.' },
+          { step: 3, title: 'Add guarantees', description: 'Money-back guarantees or free trial offers reduce purchase anxiety.' }
+        ],
+        estimatedImpact: 'Trust signals can increase conversion rates by 10-30%',
+        timeToFix: '30 minutes',
+        difficulty: 'easy',
       });
     }
   }
@@ -395,6 +475,20 @@ export class ContentAuditor {
         suggestion: 'Add a compelling headline that clearly states your unique value proposition.',
         url: mainPage.url,
         priority: 7,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...no value proposition detected...</body>`, selector: 'body' }],
+        codeSnippet: `<!-- Add a clear value proposition -->
+<h1>The easiest way to [solve problem]</h1>
+<p>[Product name] helps [target audience] [achieve outcome] in [timeframe].</p>
+<a href="/signup" class="cta">Get Started Free</a>`,
+        fixInstructions: [
+          { step: 1, title: 'Identify your unique benefit', description: 'What specific outcome do you deliver that competitors do not?' },
+          { step: 2, title: 'Write a clear headline', description: 'State the benefit in 10 words or less. Example: "The fastest way to send invoices".' },
+          { step: 3, title: 'Support with a subheadline', description: 'Explain how you deliver the benefit in one sentence.' }
+        ],
+        estimatedImpact: 'A strong value proposition can increase conversion rates by 2-3x',
+        timeToFix: '20 minutes',
+        difficulty: 'easy',
       });
     }
   }
@@ -417,6 +511,17 @@ export class ContentAuditor {
         suggestion: 'Aim for keyword density under 2-3% for natural-sounding content.',
         url: mainPage.url,
         priority: topKeyword[1] > 5 ? 6 : 4,
+        affectedUrls: [mainPage.url],
+        affectedElements: [{ tag: 'body', attributes: {}, outerHTML: `<body>...keyword "${topKeyword[0]}" used ${topKeyword[1]}%...</body>`, selector: 'body' }],
+        codeSnippet: `// Keyword "${topKeyword[0]}" density: ${topKeyword[1]}%\n// Target: under 2-3%\n\n// Fix: Use synonyms and LSI keywords\n// - "web design" → "website design", "site development"\n// - "SEO" → "search optimization", "organic traffic"`,
+        fixInstructions: [
+          { step: 1, title: 'Identify overused keywords', description: `The keyword "${topKeyword[0]}" appears too frequently (${topKeyword[1]}%).` },
+          { step: 2, title: 'Use synonyms', description: 'Replace some instances with related terms (LSI keywords).' },
+          { step: 3, title: 'Read naturally', description: 'Write for humans first. Keywords should fit naturally in the text.' }
+        ],
+        estimatedImpact: 'Natural keyword usage improves SEO and user experience',
+        timeToFix: '20 minutes',
+        difficulty: 'easy',
       });
     }
   }
