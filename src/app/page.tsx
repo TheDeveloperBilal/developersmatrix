@@ -16,14 +16,15 @@ import {
 } from "@/components/home";
 
 export const metadata: Metadata = {
-  title: "DevelopersMatrix - 20+ Free AI Tools for Career, Finance & Productivity",
-  description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview prep, expense tracking, and more. Read latest tech trends and career insights. No signup required.",
+  title: "DevelopersMatrix - 20+ Free AI Tools for Career, Finance, Productivity & Gaming News 2026",
+  description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview prep, website audits, and more. Read latest tech trends, career insights, and GTA 6 news. No signup required.",
   keywords: [
     "free AI tools",
     "AI resume builder",
     "free resume maker",
     "cover letter generator",
     "interview preparation",
+    "FAANG interview preparation roadmap 2026",
     "salary estimator",
     "budget planner",
     "expense tracker",
@@ -31,10 +32,12 @@ export const metadata: Metadata = {
     "productivity tools",
     "free finance tools",
     "job search tools",
-    "GTA 6 news",
+    "GTA 6 release date november 19 2026",
     "tech trends 2026",
     "AI content detector",
     "website audit tool",
+    "audit website",
+    "audit a website",
     "habit tracker",
     "personal finance",
     "money management",

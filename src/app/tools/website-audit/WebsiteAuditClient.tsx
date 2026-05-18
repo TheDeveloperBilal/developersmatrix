@@ -214,7 +214,7 @@ export default function WebsiteAuditClient() {
             {/* Title */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-white dark:via-slate-100 dark:to-white bg-clip-text text-transparent">
-                AI Website
+                Free Website
               </span>
               <br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -224,8 +224,8 @@ export default function WebsiteAuditClient() {
 
             {/* Description */}
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8">
-              Comprehensive website analysis covering SEO, performance, mobile UX, security, 
-              accessibility, and content quality. Get actionable recommendations instantly.
+              Audit your website for free with our comprehensive SEO, performance, mobile UX, security, 
+              accessibility, and content quality analyzer. Get instant scores and actionable fixes. No signup needed.
             </p>
 
             {/* Stats */}

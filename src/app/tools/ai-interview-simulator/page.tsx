@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
 import { ArrowLeft, MessageSquare, CheckCircle, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +10,40 @@ import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import InterviewSimulatorClient from "./InterviewSimulatorClient";
 
-export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-interview-simulator']);
+export const metadata: Metadata = {
+  title: "Free AI Interview Simulator | FAANG Interview Prep & Practice 2026",
+  description: "Free AI interview simulator for FAANG and tech job prep. Practice behavioral, technical, and system design interviews with instant scoring. Build your 2026 interview roadmap with role-specific questions for Google, Amazon, Meta, Netflix, and Apple.",
+  keywords: ['faang interview preparation roadmap 2026', 'ai interview simulator free', 'mock interview practice online', 'coding interview prep 2026', 'technical interview practice free', 'behavioral interview questions and answers', 'star method interview examples', 'system design interview prep', 'software engineer interview questions', 'free interview preparation tool', 'ai mock interview', 'interview feedback tool', 'practice coding interviews', 'google interview prep', 'amazon interview questions', 'meta interview practice', 'netflix interview preparation', 'frontend developer interview questions', 'backend developer interview questions', 'full stack interview questions'],
+  openGraph: {
+    title: "Free AI Interview Simulator | FAANG Interview Prep & Practice 2026",
+    description: "Free AI interview simulator for FAANG and tech job prep. Practice behavioral, technical, and system design interviews with instant scoring.",
+    url: `${siteConfig.url}/tools/ai-interview-simulator`,
+    siteName: siteConfig.name,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Free AI Interview Simulator | FAANG Interview Prep & Practice 2026",
+    description: "Free AI interview simulator for FAANG and tech job prep. Practice behavioral, technical, and system design interviews with instant scoring.",
+    images: [siteConfig.ogImage],
+    creator: '@developersmatrix'
+  },
+  alternates: {
+    canonical: `${siteConfig.url}/tools/ai-interview-simulator`
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1
+    }
+  }
+};
 
 const toolFaqs = [
   {
@@ -88,7 +120,7 @@ export default function InterviewSimulatorPage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl font-bold">{tool?.name}</h1>
+                  <h1 className="text-3xl font-bold">Free AI Interview Simulator for FAANG Prep and Tech Jobs</h1>
                   <Badge>Free</Badge>
                 </div>
                 <p className="text-lg text-muted-foreground">{tool?.description}</p>
@@ -175,6 +207,30 @@ export default function InterviewSimulatorPage() {
                   </p>
                   <p className="leading-relaxed">
                     Best part? It is completely free. No signup. No credit card. No scheduling. Just pick your role, select a category, and start practicing.
+                  </p>
+                </div>
+              </section>
+
+              {/* Section 1.5: FAANG Interview Preparation Roadmap 2026 */}
+              <section className="mb-12">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                  FAANG Interview Preparation Roadmap 2026: Your Complete Study Plan
+                </h2>
+                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                  <p className="text-lg leading-relaxed">
+                    If you are targeting Google, Amazon, Meta, Netflix, or Apple in 2026, you need more than random LeetCode practice. You need a structured roadmap that covers every interview type these companies use, in the right order, with the right intensity. This is the preparation plan that separates candidates who get offers from candidates who get rejection emails.
+                  </p>
+                  <p className="leading-relaxed">
+                    <strong>Month One: Foundations.</strong> Start with data structures and algorithms. Arrays, hash maps, linked lists, trees, graphs, and basic dynamic programming. Do not jump to hard problems. Master the patterns first. Two pointers, sliding window, BFS, DFS, binary search. These patterns appear in over 60 percent of technical questions at every FAANG company. Use our simulator to practice explaining your thought process out loud while you solve. Communication matters as much as correctness.
+                  </p>
+                  <p className="leading-relaxed">
+                    <strong>Month Two: System Design.</strong> Once you can solve medium LeetCode problems in 25 minutes, shift focus to system design. Read designing data intensive applications by Martin Kleppmann. Practice designing URL shorteners, Twitter feeds, chat applications, and ride sharing systems. Focus on tradeoffs, not perfection. Google wants to see how you think about scale. Amazon wants to see how you handle constraints. Meta wants to see product sense alongside technical depth.
+                  </p>
+                  <p className="leading-relaxed">
+                    <strong>Month Three: Behavioral Mastery.</strong> This is where most technical candidates fail. Amazon has 16 leadership principles. Google looks for googliness. Meta values boldness and impact. Netflix wants independent thinkers. Apple demands obsession with detail. You need 8 to 12 polished stories that fit the STAR method and can adapt to different questions. Practice with our behavioral interview mode until your answers feel natural, not rehearsed.
+                  </p>
+                  <p className="leading-relaxed">
+                    <strong>Month Four: Company Specific Prep.</strong> Research your target company deeply. Read their engineering blogs. Understand their tech stack. Know their recent product launches. Tailor your system design answers to their actual scale. If you are interviewing at Netflix, understand their chaos engineering philosophy. If you are interviewing at Amazon, prepare two stories for every leadership principle. Use our simulator in the final two weeks to do full mock sessions under time pressure.
                   </p>
                 </div>
               </section>

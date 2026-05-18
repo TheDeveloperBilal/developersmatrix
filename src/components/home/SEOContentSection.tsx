@@ -8,13 +8,13 @@ const seoSections = [
   {
     icon: FileText,
     title: 'Free AI Resume Builder \u0026 Cover Letter Generator',
-    description: 'Build professional, ATS-optimized resumes in minutes with our free AI resume builder. No signup required. Pair it with our AI cover letter generator to create matching application documents that stand out to recruiters.',
+    description: 'Build professional, ATS-optimized resumes in minutes with our free AI resume builder. No signup required. Pair it with our AI cover letter generator to create matching application documents. Then practice with our AI interview simulator for FAANG and tech job preparation, covering behavioral, technical, and system design questions with instant feedback and scoring.',
     links: [
       { text: 'AI Resume Builder', href: '/tools/ai-resume-builder' },
       { text: 'Cover Letter Generator', href: '/tools/ai-cover-letter-generator' },
-      { text: 'Interview Simulator', href: '/tools/ai-interview-simulator' },
+      { text: 'FAANG Interview Preparation', href: '/tools/ai-interview-simulator' },
     ],
-    keywords: ['free resume builder', 'AI resume maker', 'cover letter generator', 'ATS resume', 'job application tools'],
+    keywords: ['free resume builder', 'AI resume maker', 'cover letter generator', 'ATS resume', 'FAANG interview preparation roadmap 2026', 'AI interview simulator free', 'behavioral interview STAR method', 'mock interview practice online'],
   },
   {
     icon: Wallet,
@@ -29,14 +29,14 @@ const seoSections = [
   },
   {
     icon: TrendingUp,
-    title: 'Latest Tech Trends, News \u0026 Career Insights',
-    description: 'Stay ahead of the curve with daily tech trend reports, career growth strategies, and industry insights. From AI agents and ChatGPT prompts to remote work tips and cybersecurity trends — we cover what matters for your career and business.',
+    title: 'Latest Tech Trends, News \u0026 GTA 6 Release Date Updates',
+    description: 'Stay ahead of the curve with daily tech trend reports, career growth strategies, and industry insights. From AI agents and ChatGPT prompts to remote work tips and cybersecurity trends. We also cover the latest confirmed news including the GTA 6 release date of November 19, 2026, system requirements, PC version details, and everything you need to know about Grand Theft Auto VI.',
     links: [
       { text: 'Trend Radar', href: '/trends' },
       { text: 'Blog', href: '/blog' },
-      { text: 'GTA 6 News', href: '/gta-6' },
+      { text: 'GTA 6 Release Date November 19 2026', href: '/gta-6' },
     ],
-    keywords: ['tech trends 2026', 'AI news', 'career growth tips', 'remote work', 'GTA 6 news', 'ChatGPT prompts'],
+    keywords: ['tech trends 2026', 'AI news', 'career growth tips', 'remote work', 'GTA 6 release date november 19 2026', 'GTA 6 PC requirements', 'GTA 6 news', 'ChatGPT prompts'],
   },
   {
     icon: Lightbulb,
@@ -51,14 +51,14 @@ const seoSections = [
   },
   {
     icon: Shield,
-    title: 'Website Audit \u0026 AI Content Detection',
-    description: 'Analyze any website for SEO, performance, security, and accessibility issues with our free website audit tool. Check if content is AI-generated with our AI content detector. Perfect for content creators, marketers, and website owners.',
+    title: 'Website Audit Tool — Free SEO, Speed, Security \u0026 Mobile Checker',
+    description: 'Audit your website for free with our comprehensive SEO analyzer. Check page speed, Core Web Vitals, mobile UX, security headers, accessibility, and content quality. Whether you need to audit a website, run a site audit, or get a website health check, our tool delivers instant scores and actionable fixes. Perfect for content creators, marketers, developers, and website owners who want better Google rankings.',
     links: [
-      { text: 'Website Audit Tool', href: '/tools/website-audit' },
+      { text: 'Free Website Audit Tool', href: '/tools/website-audit' },
       { text: 'AI Content Detector', href: '/tools/ai-content-detector' },
       { text: 'Link Manager', href: '/tools/link-manager' },
     ],
-    keywords: ['free website audit', 'SEO checker', 'AI content detector', 'website health check', 'SEO analyzer'],
+    keywords: ['free website audit', 'audit website', 'website audit', 'audit a website', 'audit of website', 'site audit tool 2026', 'SEO checker', 'AI content detector', 'website health check', 'SEO analyzer', 'google core web vitals checker'],
   },
 ];
 

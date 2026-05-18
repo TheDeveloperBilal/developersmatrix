@@ -1,14 +1,44 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import WebsiteAuditClient from './WebsiteAuditClient';
 
-export async function generateMetadata(): Promise<Metadata> {
-  return generatePageMetadata(toolMetadata['website-audit']);
-}
+export const metadata: Metadata = {
+  title: "Free Website Audit Tool | SEO, Speed, Security & Mobile Checker 2026",
+  description: "Audit your website for free. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.",
+  keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free'],
+  openGraph: {
+    title: "Free Website Audit Tool | SEO, Speed, Security & Mobile Checker 2026",
+    description: "Audit your website for free. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes.",
+    url: `${siteConfig.url}/tools/website-audit`,
+    siteName: siteConfig.name,
+    images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Free Website Audit Tool | SEO, Speed, Security & Mobile Checker 2026",
+    description: "Audit your website for free. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility.",
+    images: [siteConfig.ogImage],
+    creator: '@developersmatrix'
+  },
+  alternates: {
+    canonical: `${siteConfig.url}/tools/website-audit`
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1
+    }
+  }
+};
 
 const toolFaqs = [
   {
