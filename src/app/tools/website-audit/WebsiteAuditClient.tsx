@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
@@ -20,6 +20,7 @@ import {
   Copy,
   RefreshCw,
   Sparkles,
+  Terminal,
   Zap,
   Target,
   Award,
@@ -71,9 +72,10 @@ export default function WebsiteAuditClient() {
   const [isAuditing, setIsAuditing] = useState(false);
   const [result, setResult] = useState<WebsiteAuditResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('all-issues');
   const [copied, setCopied] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [progressLog, setProgressLog] = useState<string[]>([]);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(prev => prev === index ? null : index);
@@ -133,6 +135,30 @@ export default function WebsiteAuditClient() {
     setIsAuditing(true);
     setError(null);
     setResult(null);
+    setProgressLog(['Initializing audit engine...', `Targeting ${url.trim()}...`]);
+
+    const auditSteps = [
+      'Fetching homepage...',
+      'Parsing HTML structure...',
+      'Checking robots.txt...',
+      'Analyzing SEO meta tags...',
+      'Scanning heading hierarchy...',
+      'Checking images for alt text...',
+      'Analyzing page performance...',
+      'Checking security headers...',
+      'Scanning accessibility...',
+      'Analyzing content quality...',
+      'Checking mobile responsiveness...',
+      'Generating report...',
+    ];
+
+    let stepIndex = 0;
+    const progressInterval = setInterval(() => {
+      if (stepIndex < auditSteps.length) {
+        setProgressLog(prev => [...prev, auditSteps[stepIndex]]);
+        stepIndex++;
+      }
+    }, 400);
 
     try {
       const response = await fetch('/api/website-audit', {
@@ -147,9 +173,12 @@ export default function WebsiteAuditClient() {
         throw new Error(data.error || 'Audit failed');
       }
 
+      clearInterval(progressInterval);
+      setProgressLog(prev => [...prev, 'Done! Analysis complete.']);
       setResult(data.result);
-      setActiveTab('overview');
+      setActiveTab('all-issues');
     } catch (err) {
+      clearInterval(progressInterval);
       setError(err instanceof Error ? err.message : 'Audit failed. Please try again.');
     } finally {
       setIsAuditing(false);
@@ -180,7 +209,7 @@ export default function WebsiteAuditClient() {
     setUrl('');
     setResult(null);
     setError(null);
-    setActiveTab('overview');
+    setActiveTab('all-issues');
   }, []);
 
   return (
@@ -278,12 +307,14 @@ export default function WebsiteAuditClient() {
                     {isAuditing ? (
                       <>
                         <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                        Scanning...
+                        <span className="hidden sm:inline">Scanning Website...</span>
+                        <span className="sm:hidden">Scanning...</span>
                       </>
                     ) : (
                       <>
                         <Search className="w-5 h-5 mr-2" />
-                        Audit Website
+                        <span className="hidden sm:inline">Audit Website</span>
+                        <span className="sm:hidden">Audit</span>
                       </>
                     )}
                   </Button>
@@ -306,13 +337,68 @@ export default function WebsiteAuditClient() {
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              {/* Terminal Loading Animation */}
+              <AnimatePresence>
+                {isAuditing && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="mt-6"
+                  >
+                    <div className="rounded-xl bg-slate-900 dark:bg-black border border-slate-700 dark:border-slate-800 overflow-hidden shadow-2xl">
+                      {/* Terminal Header */}
+                      <div className="flex items-center gap-2 px-4 py-3 bg-slate-800 dark:bg-slate-900 border-b border-slate-700 dark:border-slate-800">
+                        <div className="flex gap-1.5">
+                          <div className="w-3 h-3 rounded-full bg-red-500" />
+                          <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                          <div className="w-3 h-3 rounded-full bg-green-500" />
+                        </div>
+                        <div className="flex-1 text-center text-xs text-slate-400 font-mono">
+                          DevelopersMatrix Audit Engine
+                        </div>
+                        <Terminal className="w-4 h-4 text-slate-500" />
+                      </div>
+                      {/* Terminal Body */}
+                      <div className="p-4 font-mono text-sm min-h-[200px]">
+                        {progressLog.map((line, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.05 }}
+                            className="flex items-start gap-2 py-0.5"
+                          >
+                            <span className="text-green-400 flex-shrink-0">➜</span>
+                            <span className="text-slate-300">{line}</span>
+                            {i === progressLog.length - 1 && isAuditing && (
+                              <span className="inline-block w-2 h-4 bg-green-400 animate-pulse ml-1" />
+                            )}
+                          </motion.div>
+                        ))}
+                        {progressLog.length > 0 && !isAuditing && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="flex items-center gap-2 py-2 mt-2 border-t border-slate-700"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-green-400" />
+                            <span className="text-green-400">Audit complete. {result?.issues.length} issues found.</span>
+                          </motion.div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Results Section */}
-      {result && (
+      {result && !isAuditing && (
         <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -795,8 +881,8 @@ function IssuesTab({ issues, severityFilter }: { issues: AuditIssue[]; severityF
         </div>
       )}
 
-      {/* Issues List */}
-      <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
+      {/* Issues List - no scroll, show all */}
+      <div className="space-y-3">
         {filteredIssues.length === 0 ? (
           <div className="p-8 text-center text-slate-500 dark:text-slate-400">
             <CheckCircle2 className="w-12 h-12 mx-auto mb-3 text-green-500" />
