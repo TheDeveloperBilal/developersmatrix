@@ -76,17 +76,17 @@ export class ConversionAuditor {
       'explore', 'watch demo', 'schedule', 'request', 'apply now', 'enroll',
     ];
     
-    const allButtons = $('button, a.btn, a[class*="button"], a[class*="cta"], [class*="cta"]');
-    const allLinks = $('a');
+    const allButtons = $.find('button, a.btn, a[class*="button"], a[class*="cta"], [class*="cta"]');
+    const allLinks = $.find('a');
     
     let ctaCount = 0;
     let weakCTAs = 0;
     const ctaElements: { text: string; href?: string; classes: string }[] = [];
     
     allLinks.each((_: number, el: any) => {
-      const linkText = ($(el).text() || '').toLowerCase().trim();
-      const href = $(el).attr('href') || '';
-      const classes = ($(el).attr('class') || '').toLowerCase();
+      const linkText = (el.text || '').toLowerCase().trim();
+      const href = el.attrs["href"] || '';
+      const classes = (el.attrs["class"] || '').toLowerCase();
       
       const isCTA = ctaKeywords.some(kw => linkText.includes(kw)) || 
                     classes.includes('btn') || 
@@ -106,10 +106,10 @@ export class ConversionAuditor {
     });
     
     allButtons.each((_: number, el: any) => {
-      const btnText = ($(el).text() || '').toLowerCase().trim();
+      const btnText = (el.text || '').toLowerCase().trim();
       if (btnText.length > 0) {
         ctaCount++;
-        ctaElements.push({ text: btnText, classes: ($(el).attr('class') || '').toLowerCase() });
+        ctaElements.push({ text: btnText, classes: (el.attrs["class"] || '').toLowerCase() });
       }
     });
 
@@ -412,8 +412,8 @@ export class ConversionAuditor {
     for (const page of pages) {
       const page$ = this.createCheerioProxy(page.html.toLowerCase());
       
-      page$('form').each((_: number, form: any) => {
-        const inputs = page$(form).find('input:not([type="hidden"]), textarea, select');
+      page$.find('form').each((_: number, form: any) => {
+        const inputs = page$.find('input:not([type="hidden"]), textarea, select');
         const fieldCount = inputs.length;
         totalFormFields += fieldCount;
         
@@ -422,13 +422,13 @@ export class ConversionAuditor {
         }
         
         // Check labels
-        const hasLabels = page$(form).find('label').length > 0;
+        const hasLabels = page$.find('label').length > 0;
         if (!hasLabels && fieldCount > 0) {
           formsWithoutLabels++;
         }
         
         // Check placeholders as label substitutes
-        const hasPlaceholders = page$(form).find('[placeholder]').length > 0;
+        const hasPlaceholders = page$.find('[placeholder]').length > 0;
         if (!hasLabels && !hasPlaceholders) {
           formsWithoutLabels++;
         }
@@ -501,7 +501,7 @@ export class ConversionAuditor {
     
     // Check hero heading
     const h1Text = (mainPage.meta.h1[0] || '').toLowerCase();
-    const h2Texts = mainPage.meta.h2.slice(0, 3).join(' ').toLowerCase();
+    const h2Texts = (mainPage.meta.h2 || []).slice(0, 3).join(' ').toLowerCase();
     
     // Weak value prop indicators
     const weakHeadings = [
@@ -620,7 +620,7 @@ export class ConversionAuditor {
 
   private analyzeNavigationConversion(pages: PageData[], issues: AuditIssue[], html: string, $: CheerioProxy) {
     const mainPage = pages[0];
-    const navLinks = $('nav a, header a, [role="navigation"] a');
+    const navLinks = $.find('nav a, header a, [role="navigation"] a');
     const navItemCount = navLinks.length;
     
     // Too many nav items
@@ -643,7 +643,7 @@ export class ConversionAuditor {
     }
     
     // Footer completeness
-    const footerLinks = $('footer a').length;
+    const footerLinks = $.find('footer a').length;
     if (footerLinks < 4) {
       issues.push({
         id: 'conv-sparse-footer',
@@ -670,7 +670,7 @@ export class ConversionAuditor {
     
     // Check for feature/benefit sections
     const hasFeatureSection = text.includes('feature') || text.includes('benefit') || text.includes('why') || 
-                               html.includes('feature') || $('section').length > 2;
+                               html.includes('feature') || $.find('section').length > 2;
     
     if (!hasFeatureSection) {
       issues.push({
@@ -765,9 +765,9 @@ export class ConversionAuditor {
     }
     
     // Check for tap targets too small (already covered in mobile-audit but conversion angle)
-    const smallTapTargets = $('a, button').filter((_: number, el: any) => {
-      const style = ($(el).attr('style') || '').toLowerCase();
-      const classes = ($(el).attr('class') || '').toLowerCase();
+    const smallTapTargets = $.find('a, button').filter((_: number, el: any) => {
+      const style = (el.attrs["style"] || '').toLowerCase();
+      const classes = (el.attrs["class"] || '').toLowerCase();
       const hasSmallClass = classes.includes('sm') || classes.includes('xs') || classes.includes('tiny');
       const hasSmallStyle = style.includes('width') && (style.includes('24') || style.includes('20') || style.includes('16'));
       return hasSmallClass || hasSmallStyle;
@@ -833,10 +833,10 @@ export class ConversionAuditor {
         return {
           length: matched.length,
           each: (fn: (index: number, el: any) => void) => {
-            matched.forEach((el, i) => fn(i, { ...el, text: () => el.text }));
+            matched.forEach((el, i) => fn(i, { ...el, text: el.text }));
           },
           filter: (fn: (index: number, el: any) => boolean) => {
-            const filtered = matched.filter((el, i) => fn(i, { ...el, text: () => el.text }));
+            const filtered = matched.filter((el, i) => fn(i, { ...el, text: el.text }));
             return {
               length: filtered.length,
             };
