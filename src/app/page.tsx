@@ -12,7 +12,8 @@ import {
   DashboardSection, 
   BlogSection, 
   GTA6Section, 
-  CTASection 
+  CTASection,
+  SiteMapHub 
 } from "@/components/home";
 
 export const metadata: Metadata = {
@@ -132,6 +133,9 @@ export default function HomePage() {
 
       {/* SEO Content Section */}
       <SEOContentSection />
+
+      {/* Site Map Hub - Internal Linking for SEO */}
+      <SiteMapHub />
 
       {/* Footer Ad */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

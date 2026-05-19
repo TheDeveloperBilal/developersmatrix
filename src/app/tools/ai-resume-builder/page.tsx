@@ -61,9 +61,9 @@ export default function ResumeBuilderPage() {
       {/* Breadcrumb Schema */}
       <BreadcrumbSchema
         items={[
-          { name: 'Home', item: siteConfig.url },
-          { name: 'Tools', item: `${siteConfig.url}/tools` },
-          { name: tool.name, item: `${siteConfig.url}/tools/ai-resume-builder` }
+          { name: 'Home', url: siteConfig.url },
+          { name: 'Tools', url: `${siteConfig.url}/tools` },
+          { name: tool.name, url: `${siteConfig.url}/tools/ai-resume-builder` }
         ]}
       />
 

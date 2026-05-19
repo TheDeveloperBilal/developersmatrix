@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "GTA 6 Release Date November 19 2026 Confirmed | PC Requirements & Latest News",
   description: "GTA 6 release date is officially November 19, 2026 for PS5 and Xbox Series X. PC release expected late 2027. Check system requirements, gameplay features, and the latest confirmed news about Grand Theft Auto VI.",
   keywords: ['GTA 6 release date november 19 2026', 'GTA 6 release date confirmed', 'GTA 6 PC requirements', 'GTA 6 gameplay', 'Grand Theft Auto 6', 'GTA 6 news 2026', 'GTA 6 system requirements', 'when is GTA 6 coming out', 'GTA 6 release date november 2026', 'GTA VI confirmed'],
+  alternates: {
+    canonical: 'https://developersmatrix.com/gta-6'
+  },
   openGraph: {
     title: "GTA 6 Release Date November 19 2026 Confirmed | PC Requirements & News",
     description: "Official GTA 6 release date November 19, 2026. System requirements, gameplay features, and latest confirmed news.",
