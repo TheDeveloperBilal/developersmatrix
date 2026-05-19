@@ -17,6 +17,8 @@ import { MobileAuditor } from './mobile-audit';
 import { SecurityAuditor } from './security-audit';
 import { AccessibilityAuditor } from './accessibility-audit';
 import { ContentAuditor } from './content-audit';
+import { ConversionAuditor } from './conversion-audit';
+import { TechnicalAuditor } from './technical-audit';
 
 export class WebsiteAuditEngine {
   private crawler: WebsiteCrawler;
@@ -58,6 +60,18 @@ export class WebsiteAuditEngine {
     // Run all audits
     const seoAuditor = new SEOAuditor();
     const seoResult = seoAuditor.analyze(pages);
+    
+    onProgress?.({
+      status: 'analyzing',
+      message: 'Analyzing advanced technical SEO...',
+      progress: 68,
+      pagesScanned: pages.length,
+      totalPages: pages.length,
+      errors: [],
+    });
+    
+    const technicalAuditor = new TechnicalAuditor();
+    const technicalResult = technicalAuditor.analyze(pages, this.crawler.getRobotsTxt(), this.crawler.getSitemapUrls());
     
     onProgress?.({
       status: 'analyzing',
@@ -120,6 +134,18 @@ export class WebsiteAuditEngine {
     const contentResult = contentAuditor.analyze(pages);
     
     onProgress?.({
+      status: 'analyzing',
+      message: 'Analyzing conversion optimization...',
+      progress: 93,
+      pagesScanned: pages.length,
+      totalPages: pages.length,
+      errors: [],
+    });
+    
+    const conversionAuditor = new ConversionAuditor();
+    const conversionResult = conversionAuditor.analyze(pages);
+    
+    onProgress?.({
       status: 'scoring',
       message: 'Calculating scores...',
       progress: 95,
@@ -131,53 +157,40 @@ export class WebsiteAuditEngine {
     // Combine all issues
     const allIssues: AuditIssue[] = [
       ...seoResult.issues,
+      ...technicalResult.issues,
       ...performanceResult.issues,
       ...mobileResult.issues,
       ...securityResult.issues,
       ...accessibilityResult.issues,
       ...contentResult.issues,
+      ...conversionResult.issues,
     ];
     
     // Sort issues by priority
     allIssues.sort((a, b) => b.priority - a.priority);
     
     // Calculate overall score
-    const conversionScore = this.calculateConversionScore(allIssues, contentResult.contentAnalysis);
     const overallScore = this.calculateOverallScore({
       seo: seoResult.score,
+      technical: technicalResult.score,
       performance: performanceResult.score,
       mobile: mobileResult.score,
       security: securityResult.score,
       accessibility: accessibilityResult.score,
       content: contentResult.score,
-      conversion: { 
-        category: 'conversion' as const, 
-        score: conversionScore,
-        maxScore: 100,
-        issues: allIssues.filter(i => i.category === 'conversion').length,
-        criticalIssues: allIssues.filter(i => i.category === 'conversion' && i.severity === 'critical').length,
-        passed: 7,
-        failed: 3,
-      },
+      conversion: conversionResult.score,
     });
     
     // Update critical issue counts
     const scores = {
       seo: { ...seoResult.score, criticalIssues: seoResult.issues.filter(i => i.severity === 'critical').length },
+      technical: { ...technicalResult.score, criticalIssues: technicalResult.issues.filter(i => i.severity === 'critical').length },
       performance: { ...performanceResult.score, criticalIssues: performanceResult.issues.filter(i => i.severity === 'critical').length },
       mobile: { ...mobileResult.score, criticalIssues: mobileResult.issues.filter(i => i.severity === 'critical').length },
       security: { ...securityResult.score, criticalIssues: securityResult.issues.filter(i => i.severity === 'critical').length },
       accessibility: { ...accessibilityResult.score, criticalIssues: accessibilityResult.issues.filter(i => i.severity === 'critical').length },
       content: { ...contentResult.score, criticalIssues: contentResult.issues.filter(i => i.severity === 'critical').length },
-      conversion: { 
-        category: 'conversion' as const, 
-        score: conversionScore,
-        maxScore: 100,
-        issues: allIssues.filter(i => i.category === 'conversion').length,
-        criticalIssues: allIssues.filter(i => i.category === 'conversion' && i.severity === 'critical').length,
-        passed: 7,
-        failed: 3,
-      },
+      conversion: { ...conversionResult.score, criticalIssues: conversionResult.issues.filter(i => i.severity === 'critical').length },
     };
     
     // Generate recommendations
@@ -228,13 +241,14 @@ export class WebsiteAuditEngine {
   private calculateOverallScore(scores: Record<string, AuditScore>): number {
     // Weighted average based on category importance
     const weights: Record<string, number> = {
-      seo: 0.20,
-      performance: 0.15,
-      mobile: 0.15,
-      security: 0.15,
-      accessibility: 0.10,
-      content: 0.15,
-      conversion: 0.10,
+      seo: 0.18,
+      technical: 0.10,
+      performance: 0.13,
+      mobile: 0.13,
+      security: 0.13,
+      accessibility: 0.08,
+      content: 0.13,
+      conversion: 0.12,
     };
     
     let totalScore = 0;
@@ -247,31 +261,6 @@ export class WebsiteAuditEngine {
     });
     
     return Math.round(totalScore / totalWeight);
-  }
-
-  private calculateConversionScore(issues: AuditIssue[], analysis: ContentAnalysis): number {
-    let score = 70; // Base score
-    
-    // Adjust for CTAs
-    if (analysis.hasCTA) score += 10;
-    if (analysis.ctaCount >= 3) score += 5;
-    
-    // Adjust for trust signals
-    score += Math.min(10, analysis.trustSignals.length * 2);
-    
-    // Adjust for value proposition
-    if (analysis.valueProposition) score += 5;
-    
-    // Subtract for conversion issues
-    const conversionIssues = issues.filter(i => i.category === 'conversion');
-    conversionIssues.forEach(issue => {
-      if (issue.severity === 'critical') score -= 15;
-      else if (issue.severity === 'high') score -= 10;
-      else if (issue.severity === 'medium') score -= 5;
-      else score -= 2;
-    });
-    
-    return Math.max(0, Math.min(100, score));
   }
 
   private generateRecommendations(issues: AuditIssue[]): string[] {

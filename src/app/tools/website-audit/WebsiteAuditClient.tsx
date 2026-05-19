@@ -46,6 +46,7 @@ import type { WebsiteAuditResult, AuditIssue, AuditScore, ContentAnalysis } from
 // Category icons and colors
 const categoryConfig = {
   seo: { icon: Search, color: 'blue', label: 'SEO' },
+  technical: { icon: Terminal, color: 'cyan', label: 'Technical SEO' },
   performance: { icon: Gauge, color: 'orange', label: 'Performance' },
   mobile: { icon: Smartphone, color: 'purple', label: 'Mobile' },
   security: { icon: Shield, color: 'red', label: 'Security' },

@@ -148,6 +148,7 @@ export interface FixStep {
 
 export type AuditCategory = 
   | 'seo'
+  | 'technical'
   | 'performance'
   | 'mobile'
   | 'security'
@@ -240,6 +241,7 @@ export interface WebsiteAuditResult {
   
   scores: {
     seo: AuditScore;
+    technical: AuditScore;
     performance: AuditScore;
     mobile: AuditScore;
     security: AuditScore;
