@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { 
-  ArrowRight, 
-  Clock, 
+import {
+  ArrowRight,
+  Clock,
   TrendingUp,
   FileText,
   Mail,
@@ -103,34 +103,36 @@ interface BlogCardProps {
 export function BlogCard({ post }: BlogCardProps) {
   return (
     <Link href={`/blog/${post.slug}`}>
-      <Card className="h-full group hover:shadow-xl transition-all duration-300 hover:border-violet-500/50 overflow-hidden">
-        <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-violet-500/20 to-purple-600/20">
+      <Card className="h-full group hover:shadow-xl hover:shadow-violet-500/5 transition-all duration-300 hover:-translate-y-1 border-0 ring-1 ring-border/50 overflow-hidden bg-card">
+        <div className="aspect-[16/10] relative overflow-hidden bg-gradient-to-br from-violet-500/10 to-purple-600/10">
           {post.image && (
-            <img 
-              src={post.image} 
+            <img
+              src={post.image}
               alt={post.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
             />
           )}
-          <Badge className="absolute top-3 left-3" variant="secondary">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm text-foreground hover:bg-background/90 text-xs font-medium border-0">
             {post.category}
           </Badge>
         </div>
-        <CardHeader>
-          <CardTitle className="text-lg line-clamp-2 group-hover:text-violet-600 transition-colors">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg leading-snug line-clamp-2 group-hover:text-violet-600 transition-colors duration-200">
             {post.title}
           </CardTitle>
-          <CardDescription className="line-clamp-2">
+          <CardDescription className="line-clamp-2 text-sm leading-relaxed">
             {post.excerpt}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">
               <Clock className="w-3.5 h-3.5" />
               {post.readTime} min read
             </span>
-            <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+            <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
           </div>
         </CardContent>
       </Card>
