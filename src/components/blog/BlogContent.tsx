@@ -157,7 +157,7 @@ export function BlogContent({ content }: { content: string }) {
           const tds = row.split('|').filter(Boolean).map(d => `<td class="blog-td">${d.trim()}</td>`).join('');
           return `<tr class="blog-tr">${tds}</tr>`;
         }).join('');
-        return `<table class="blog-table"><thead class="blog-thead"><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+        return `<div class="overflow-x-auto"><table class="blog-table"><thead class="blog-thead"><tr>${ths}</tr></thead><tbody>${trs}</tbody></table></div>`;
       })
       // Line breaks
       .replace(/\n\n/g, '\n')

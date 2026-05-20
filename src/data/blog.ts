@@ -44,7 +44,7 @@ Series A funding marks the transition from startup to scale-up.
 
 // Get all blog posts (generated + high-quality + static)
 export function getAllBlogPosts(): BlogPost[] {
-  return [...(generatedBlogs as BlogPost[]), ...hqBlogPosts, ...staticBlogPosts];
+  return [...hqBlogPosts, ...(generatedBlogs as BlogPost[]), ...staticBlogPosts];
 }
 
 // Export merged blog posts
