@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -7,7 +10,9 @@ import {
   Mail,
   Heart,
   Facebook,
-  Instagram
+  Instagram,
+  CheckCircle,
+  Loader2,
 } from 'lucide-react';
 import { siteConfig, footerLinks } from '@/data/config';
 import { FooterAdSection } from '@/components/ads/FooterAdSection';
@@ -15,6 +20,43 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 export function Footer() {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMsg, setStatusMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+
+    setIsSubmitting(true);
+    setStatus('idle');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'newsletter', email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus('success');
+        setStatusMsg(data.message || 'Subscribed successfully! Welcome aboard.');
+        setEmail('');
+      } else {
+        setStatus('error');
+        setStatusMsg(data.error || 'Subscription failed. Please try again.');
+      }
+    } catch {
+      setStatus('error');
+      setStatusMsg('Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer className="bg-muted/30 border-t border-border">
       {/* Newsletter Section */}
@@ -27,16 +69,35 @@ export function Footer() {
                 Get the latest tools, trends, and insights delivered to your inbox.
               </p>
             </div>
-            <form className="flex w-full md:w-auto gap-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full md:w-72"
-              />
-              <Button className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white border-0 whitespace-nowrap">
-                Subscribe
-              </Button>
-            </form>
+            <div className="flex flex-col items-end gap-2 w-full md:w-auto">
+              {status === 'success' ? (
+                <div className="flex items-center gap-2 text-green-500 text-sm">
+                  <CheckCircle className="w-5 h-5" />
+                  <span>{statusMsg}</span>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="flex w-full md:w-auto gap-2">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full md:w-72"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white border-0 whitespace-nowrap"
+                  >
+                    {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Subscribe'}
+                  </Button>
+                </form>
+              )}
+              {status === 'error' && (
+                <p className="text-red-500 text-xs">{statusMsg}</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -105,7 +166,7 @@ export function Footer() {
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
-                href="mailto:hello@developersmatrix.com"
+                href="mailto:sy.bilalshah@gmail.com"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
                 aria-label="Email"
               >

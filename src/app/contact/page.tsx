@@ -1,24 +1,63 @@
-import { Metadata } from "next";
-import { Mail, MessageSquare, MapPin, Clock, Send } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
-import { siteConfig } from "@/data/config";
+'use client';
 
-export const metadata: Metadata = {
-  title: "Contact Us - Get in Touch",
-  description: "Have questions or feedback? We'd love to hear from you. Contact the DevelopersMatrix team for support, partnerships, or general inquiries.",
-  openGraph: {
-    title: "Contact Us | DevelopersMatrix",
-    description: "Get in touch with the DevelopersMatrix team.",
-    url: `${siteConfig.url}/contact`,
-  },
-};
+import { useState } from 'react';
+import { Mail, MessageSquare, MapPin, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { BreadcrumbSchema } from '@/components/seo/SchemaMarkup';
+import { siteConfig } from '@/data/config';
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMsg, setStatusMsg] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
+
+    setIsSubmitting(true);
+    setStatus('idle');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'general',
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus('success');
+        setStatusMsg(data.message || 'Message sent! We will get back to you soon.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+        setStatusMsg(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setStatus('error');
+      setStatusMsg('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <BreadcrumbSchema
@@ -35,7 +74,7 @@ export default function ContactPage() {
             Get in <span className="gradient-text">Touch</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a question, suggestion, or just want to say hello? We'd love to hear from you.
+            Have a question, suggestion, or just want to say hello? We&apos;d love to hear from you.
           </p>
         </div>
       </section>
@@ -59,8 +98,8 @@ export default function ContactPage() {
                   <p className="text-sm text-muted-foreground mb-2">
                     For general inquiries and support
                   </p>
-                  <a href="mailto:hello@developersmatrix.com" className="text-violet-600 hover:underline">
-                    hello@developersmatrix.com
+                  <a href="mailto:sy.bilalshah@gmail.com" className="text-violet-600 hover:underline">
+                    sy.bilalshah@gmail.com
                   </a>
                 </CardContent>
               </Card>
@@ -95,7 +134,7 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-2">
-                    We're a remote-first team
+                    We&apos;re a remote-first team
                   </p>
                   <p className="text-sm">Worldwide 🌍</p>
                 </CardContent>
@@ -126,37 +165,90 @@ export default function ContactPage() {
                   <CardTitle>Send us a Message</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Name *</Label>
-                        <Input id="name" placeholder="Your name" />
+                  {status === 'success' ? (
+                    <div className="text-center py-12">
+                      <CheckCircle className="w-16 h-16 mx-auto text-green-500 mb-4" />
+                      <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
+                      <p className="text-muted-foreground mb-6">{statusMsg}</p>
+                      <Button onClick={() => setStatus('idle')} variant="outline">
+                        Send Another Message
+                      </Button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Name *</Label>
+                          <Input
+                            id="name"
+                            placeholder="Your name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="your@email.com"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
                       </div>
+
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
-                        <Input id="email" type="email" placeholder="your@email.com" />
+                        <Label htmlFor="subject">Subject *</Label>
+                        <Input
+                          id="subject"
+                          placeholder="What's this about?"
+                          value={formData.subject}
+                          onChange={handleChange}
+                          required
+                        />
                       </div>
-                    </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="subject">Subject *</Label>
-                      <Input id="subject" placeholder="What's this about?" />
-                    </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="message">Message *</Label>
+                        <Textarea
+                          id="message"
+                          placeholder="Tell us more about your inquiry..."
+                          rows={6}
+                          value={formData.message}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Tell us more about your inquiry..."
-                        rows={6}
-                      />
-                    </div>
+                      {status === 'error' && (
+                        <div className="flex items-start gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 text-sm">
+                          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                          <span>{statusMsg}</span>
+                        </div>
+                      )}
 
-                    <Button type="submit" className="w-full sm:w-auto bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700">
-                      <Send className="w-4 h-4 mr-2" />
-                      Send Message
-                    </Button>
-                  </form>
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full sm:w-auto bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4 mr-2" />
+                            Send Message
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  )}
                 </CardContent>
               </Card>
             </div>

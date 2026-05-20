@@ -1,111 +1,133 @@
 import { NextResponse } from 'next/server';
-import ZAI from 'z-ai-web-dev-sdk';
+import { sendEmail, isEmailConfigured } from '@/lib/email';
+import {
+  buildGeneralEmail,
+  buildCollaborationEmail,
+  buildNewsletterEmail,
+  buildAutoReply,
+} from '@/lib/email-templates';
+
+const RECIPIENT = process.env.NOTIFY_EMAIL || 'sy.bilalshah@gmail.com';
 
 export async function POST(request: Request) {
   try {
-    const { name, email, company, service, budget, message } = await request.json();
+    const body = await request.json();
+    const { type, name, email, message, subject, company, service, budget } = body;
 
-    if (!name || !email || !service || !message) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+    // ── Newsletter (footer) ────────────────────────────────────────────
+    if (type === 'newsletter') {
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return NextResponse.json({ error: 'Valid email is required' }, { status: 400 });
+      }
+
+      const { subject: subj, html, text } = buildNewsletterEmail({
+        type: 'newsletter',
+        email,
+        name: '',
+        message: '',
+      });
+
+      const sent = await trySend({ subject: subj, html, text });
+
+      if (!sent) {
+        return NextResponse.json(
+          { error: 'Email service not configured. Please set GMAIL_APP_PASSWORD in environment variables.' },
+          { status: 503 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: 'Subscribed successfully! Welcome to the newsletter.',
+      });
     }
 
-    const zai = await ZAI.create();
+    // ── General Contact ────────────────────────────────────────────────
+    if (type === 'general') {
+      if (!name || !email || !message) {
+        return NextResponse.json(
+          { error: 'Name, email, and message are required' },
+          { status: 400 }
+        );
+      }
 
-    // Use AI to format a professional email
-    const emailContent = await zai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: `You are an email formatter. Create a professional email notification for a contact form submission. 
-          Format the email to be clear, professional, and easy to read. Include all the details provided by the user.`
-        },
-        {
-          role: 'user',
-          content: `Create an email notification for this contact form submission:
-          
-Name: ${name}
-Email: ${email}
-Company: ${company || 'Not provided'}
-Service Interested In: ${service}
-Budget Range: ${budget || 'Not specified'}
-Message: ${message}
+      const { subject: subj, html, text } = buildGeneralEmail({
+        type: 'general',
+        name,
+        email,
+        message,
+        subject,
+      });
 
-Format this as a professional business inquiry email to be sent to sy.bilalshah@gmail.com. Include:
-1. A clear subject line
-2. All contact details
-3. The message formatted nicely
-4. A suggested next step
+      const sent = await trySend({ subject: subj, html, text });
+      if (!sent) return notConfigured();
 
-Return ONLY the formatted email text, nothing else.`
-        }
-      ],
-      temperature: 0.3
-    });
+      // Auto-reply to the user
+      const autoReply = buildAutoReply({ type: 'general', name, email, message });
+      await trySend({ ...autoReply, to: email });
 
-    const formattedEmail = emailContent.choices[0]?.message?.content || `
-New Contact Form Submission
+      return NextResponse.json({
+        success: true,
+        message: 'Message sent! We will get back to you within 24–48 hours.',
+      });
+    }
 
-Name: ${name}
-Email: ${email}
-Company: ${company || 'Not provided'}
-Service: ${service}
-Budget: ${budget || 'Not specified'}
+    // ── Collaboration / Connect ────────────────────────────────────────
+    if (type === 'collaboration') {
+      if (!name || !email || !service || !message) {
+        return NextResponse.json(
+          { error: 'Name, email, service, and message are required' },
+          { status: 400 }
+        );
+      }
 
-Message:
-${message}
-    `;
+      const { subject: subj, html, text } = buildCollaborationEmail({
+        type: 'collaboration',
+        name,
+        email,
+        message,
+        company,
+        service,
+        budget,
+      });
 
-    // Log the submission (in production, you'd send an actual email)
-    console.log('=== New Contact Form Submission ===');
-    console.log(formattedEmail);
-    console.log('================================');
-    console.log('Would be sent to: sy.bilalshah@gmail.com');
+      const sent = await trySend({ subject: subj, html, text });
+      if (!sent) return notConfigured();
 
-    // In a production environment, you would integrate with an email service like:
-    // - Resend, SendGrid, Mailgun, AWS SES, etc.
-    // For now, we'll return success and log the submission
+      // Auto-reply to the user
+      const autoReply = buildAutoReply({ type: 'collaboration', name, email, message });
+      await trySend({ ...autoReply, to: email });
 
-    // Store submission in a file for reference
-    const submission = {
-      timestamp: new Date().toISOString(),
-      name,
-      email,
-      company,
-      service,
-      budget,
-      message,
-      emailContent: formattedEmail
-    };
+      return NextResponse.json({
+        success: true,
+        message: 'Partnership inquiry sent! We will review it and respond within 24–48 hours.',
+      });
+    }
 
-    // You could also use the AI to generate a quick auto-response
-    const autoResponse = await zai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: 'Generate a brief, professional auto-response message thanking the user for their inquiry and letting them know you will respond within 24-48 hours.'
-        },
-        {
-          role: 'user',
-          content: `User ${name} from ${company || 'a company'} inquired about ${service}.`
-        }
-      ],
-      temperature: 0.5
-    });
-
-    return NextResponse.json({
-      success: true,
-      message: 'Contact form submitted successfully',
-      autoResponse: autoResponse.choices[0]?.message?.content || 'Thank you for your inquiry! We will get back to you within 24-48 hours.'
-    });
-
+    return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('Contact API error:', error);
     return NextResponse.json(
-      { error: 'Failed to process contact form' },
+      { error: 'Failed to process submission. Please try again.' },
       { status: 500 }
     );
   }
+}
+
+async function trySend(payload: { subject: string; html: string; text: string; to?: string }): Promise<boolean> {
+  if (!isEmailConfigured()) return false;
+  try {
+    await sendEmail({ ...payload, to: payload.to || RECIPIENT });
+    return true;
+  } catch (err) {
+    console.error('Email send failed:', err);
+    return false;
+  }
+}
+
+function notConfigured() {
+  return NextResponse.json(
+    { error: 'Email service not configured. Please set GMAIL_APP_PASSWORD in environment variables.' },
+    { status: 503 }
+  );
 }

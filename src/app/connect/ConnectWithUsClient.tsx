@@ -103,7 +103,7 @@ export default function ConnectWithUsClient() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ ...formData, type: 'collaboration' })
       });
 
       if (response.ok) {
