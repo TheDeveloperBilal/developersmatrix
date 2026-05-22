@@ -17,8 +17,8 @@ import {
 } from "@/components/home";
 
 export const metadata: Metadata = {
-  title: "DevelopersMatrix - 20+ Free AI Tools for Career, Finance, Productivity & Gaming News 2026",
-  description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview prep, website audits, and more. Read latest tech trends, career insights, and GTA 6 news. No signup required.",
+  title: "20+ Free AI Tools for Resumes, Budgets & Career Growth | DevelopersMatrix",
+  description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview preparation, and more. Read latest tech trends. No signup needed.",
   keywords: [
     "free AI tools",
     "AI resume builder",

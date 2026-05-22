@@ -87,9 +87,6 @@ export const metadata: Metadata = {
   verification: {
     google: "cT-3Tl1WSPU8XVdWcDf_MGmGZ8GtOiNmBDdBDytV23A",
   },
-  alternates: {
-    canonical: siteConfig.url,
-  },
 };
 
 export default function RootLayout({
@@ -138,9 +135,6 @@ export default function RootLayout({
             `,
           }}
         />
-        
-        {/* Canonical Tag */}
-        <link rel="canonical" href={siteConfig.url} />
         
         {/* Favicon & Icons */}
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />

@@ -77,10 +77,10 @@ const services = [
 ];
 
 const stats = [
-  { value: "10K+", label: "Monthly Visitors" },
-  { value: "5K+", label: "Newsletter Subscribers" },
-  { value: "8+", label: "AI Tools Featured" },
-  { value: "26+", label: "Blog Articles" }
+  { value: "14", label: "Free AI Tools" },
+  { value: "$0", label: "Forever Free" },
+  { value: "10+", label: "Expert Guides" },
+  { value: "2025", label: "Launched" }
 ];
 
 export default function ConnectWithUsClient() {

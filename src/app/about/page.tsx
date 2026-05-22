@@ -166,20 +166,20 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <p className="text-4xl font-bold gradient-text">50K+</p>
-              <p className="text-muted-foreground mt-2">Monthly Active Users</p>
+              <p className="text-4xl font-bold gradient-text">14</p>
+              <p className="text-muted-foreground mt-2">Free AI Tools</p>
             </div>
             <div>
-              <p className="text-4xl font-bold gradient-text">8</p>
-              <p className="text-muted-foreground mt-2">AI-Powered Tools</p>
+              <p className="text-4xl font-bold gradient-text">$0</p>
+              <p className="text-muted-foreground mt-2">Forever Free</p>
             </div>
             <div>
-              <p className="text-4xl font-bold gradient-text">500+</p>
-              <p className="text-muted-foreground mt-2">Articles Published</p>
+              <p className="text-4xl font-bold gradient-text">10+</p>
+              <p className="text-muted-foreground mt-2">In-Depth Guides</p>
             </div>
             <div>
-              <p className="text-4xl font-bold gradient-text">15K+</p>
-              <p className="text-muted-foreground mt-2">Community Members</p>
+              <p className="text-4xl font-bold gradient-text">100%</p>
+              <p className="text-muted-foreground mt-2">No Signup Needed</p>
             </div>
           </div>
         </div>

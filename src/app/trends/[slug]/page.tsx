@@ -50,6 +50,9 @@ export async function generateMetadata({ params }: TrendPageProps): Promise<Meta
     title: trend.metaTitle,
     description: trend.metaDescription,
     keywords: trend.keywords,
+    alternates: {
+      canonical: `${siteConfig.url}/trends/${resolvedParams.slug}`,
+    },
     openGraph: {
       title: trend.title,
       description: trend.subtitle,
@@ -278,6 +281,107 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 {trend.content.futureScope}
               </p>
             </section>
+
+        {/* FAQ Section */}
+            {trend.content.faqs && trend.content.faqs.length > 0 && (
+              <section className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Frequently Asked Questions</h2>
+                <div className="space-y-4">
+                  {trend.content.faqs.map((faq, index) => (
+                    <div key={index} className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-2">{faq.question}</h3>
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Industry Statistics */}
+            {trend.content.statistics && trend.content.statistics.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Industry Statistics 2026</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {trend.content.statistics.map((stat, index) => (
+                    <div key={index} className="p-5 rounded-xl bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-500/5 dark:to-blue-500/5 border border-purple-100 dark:border-purple-500/20">
+                      <p className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-1">{stat.value}</p>
+                      <p className="text-sm text-slate-700 dark:text-slate-300">{stat.label}</p>
+                      {stat.source && <p className="text-xs text-slate-400 mt-2">Source: {stat.source}</p>}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Expert Commentary */}
+            {trend.content.expertCommentary && (
+              <section className="p-6 rounded-2xl bg-amber-50 dark:bg-amber-500/5 border border-amber-100 dark:border-amber-500/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-amber-100 dark:bg-amber-500/20 rounded-lg">
+                    <svg className="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    </svg>
+                  </div>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">Expert Perspective</h2>
+                </div>
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed italic">
+                  {trend.content.expertCommentary}
+                </p>
+              </section>
+            )}
+
+            {/* Comparison Section */}
+            {trend.content.comparisons && trend.content.comparisons.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Detailed Comparison</h2>
+                <div className="space-y-4">
+                  {trend.content.comparisons.map((item, index) => (
+                    <div key={index} className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-3">{item.name}</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-sm font-medium text-green-600 dark:text-green-400 mb-2">Pros</p>
+                          <ul className="space-y-1">
+                            {item.pros.map((pro, i) => (
+                              <li key={i} className="text-sm text-slate-600 dark:text-slate-400 flex items-start gap-2">
+                                <span className="text-green-500 shrink-0">+</span> {pro}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-red-500 dark:text-red-400 mb-2">Cons</p>
+                          <ul className="space-y-1">
+                            {item.cons.map((con, i) => (
+                              <li key={i} className="text-sm text-slate-600 dark:text-slate-400 flex items-start gap-2">
+                                <span className="text-red-400 shrink-0">-</span> {con}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Action Steps */}
+            {trend.content.actionSteps && trend.content.actionSteps.length > 0 && (
+              <section className="p-6 rounded-2xl bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-500/5 dark:to-green-500/5 border border-emerald-100 dark:border-emerald-500/20">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Action Steps: Get Started Today</h2>
+                <div className="space-y-3">
+                  {trend.content.actionSteps.map((step, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-bold shrink-0">
+                        {index + 1}
+                      </div>
+                      <p className="text-slate-700 dark:text-slate-300 leading-relaxed pt-0.5">{step}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Key Takeaways */}
             <section>
