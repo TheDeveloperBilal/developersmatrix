@@ -141,7 +141,7 @@ export const pageMetadata = {
 // Tool-specific metadata
 export const toolMetadata: Record<string, PageMetadataOptions> = {
   'website-audit': {
-    title: 'Free Website Audit Tool | SEO, Speed & Security Checker 2026',
+    title: 'Free Website Audit Tool | SEO, Speed & Security 2026',
     description: 'Free AI-powered website audit tool. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.',
     keywords: [
       'free website audit tool',
@@ -168,7 +168,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/website-audit'
   },
   'ai-content-detector': {
-    title: 'Free AI Content Detector — Detect AI-Generated Text Instantly | No Login 2026',
+    title: 'Free AI Content Detector | Detect AI Text Instantly 2026',
     description: 'Free AI content detector with real perplexity and burstiness analysis. Detect ChatGPT, GPT-4, Claude, and Gemini text instantly. 7 content modes, sentence-level breakdown, SEO issue detection. No signup, no credit card, 100% free.',
     keywords: [
       'ai content detector free',
@@ -222,7 +222,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-resume-builder'
   },
   'ai-cover-letter-generator': {
-    title: 'Free AI Cover Letter Generator for Tech Jobs | No Signup 2026',
+    title: 'Free AI Cover Letter Generator | For Tech Jobs 2026',
     description: 'Free AI cover letter generator for developers, engineers, and tech professionals. Create personalized, ATS-friendly cover letters tailored to any job description in under 60 seconds. No signup, no credit card, unlimited use.',
     keywords: [
       'ai cover letter generator free',
@@ -249,7 +249,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-cover-letter-generator'
   },
   'ai-interview-simulator': {
-    title: 'Free AI Interview Simulator | Mock Practice for Tech Jobs 2026',
+    title: 'Free AI Interview Simulator | Practice Tech Jobs 2026',
     description: 'Free AI-powered interview simulator for developers and tech professionals. Practice behavioral, technical, and system design interviews with instant feedback. Role-specific questions for frontend, backend, DevOps, and data roles. No signup needed.',
     keywords: [
       'ai interview simulator free',
@@ -276,7 +276,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-interview-simulator'
   },
   'salary-estimator': {
-    title: 'Free Salary Estimator 2026 | Tech Salary Calculator by Role & Location',
+    title: 'Free Salary Estimator 2026 | Tech Salary by Role & City',
     description: 'Free tech salary estimator for 2026. Calculate software engineer, developer, data scientist, and tech role salaries by city and experience. Compare compensation across San Francisco, New York, Seattle, Austin, and remote. Updated with 2026 market data. No signup needed.',
     keywords: [
       'salary estimator 2026',
@@ -303,7 +303,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/salary-estimator'
   },
   'budget-planner': {
-    title: 'Free Budget Planner 2026 | Personal Finance Calculator & Expense Tracker',
+    title: 'Free Budget Planner 2026 | Finance Calculator & Tracker',
     description: 'Free AI-powered budget planner for 2026. Track income and expenses, visualize spending patterns, calculate savings goals, and get personalized financial insights. Perfect for developers, freelancers, and professionals managing variable income. No signup needed.',
     keywords: [
       'free budget planner 2026',
@@ -329,7 +329,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/budget-planner'
   },
   'habit-tracker': {
-    title: 'Free Habit Tracker 2026 | Build Better Daily Routines & Streaks',
+    title: 'Free Habit Tracker 2026 | Build Daily Routines & Streaks',
     description: 'Free habit tracker for 2026. Build positive daily routines, break bad habits, track streaks, and visualize your progress with beautiful charts. Perfect for developers and professionals seeking consistency. No signup needed, works offline.',
     keywords: [
       'free habit tracker',
@@ -355,7 +355,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/habit-tracker'
   },
   'productivity-planner': {
-    title: 'Free Productivity Planner 2026 | AI Task Manager & Daily Workflow',
+    title: 'Free Productivity Planner 2026 | AI Task Manager & Workflow',
     description: 'Free AI-powered productivity planner for 2026. Smart task management, priority optimization, intelligent scheduling, and deep work blocks. Perfect for developers, freelancers, and remote workers. No signup, no credit card, unlimited use.',
     keywords: [
       'free productivity planner',
@@ -381,7 +381,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/productivity-planner'
   },
   'startup-idea-generator': {
-    title: 'Free AI Startup Idea Generator 2026 | Business Ideas by Industry',
+    title: 'Free AI Startup Idea Generator 2026 | Business Ideas',
     description: 'Free AI startup idea generator for 2026. Discover innovative business ideas across AI, SaaS, FinTech, HealthTech, Climate Tech, Robotics, and more. Each idea includes market analysis, monetization strategy, competition level, and MVP timeline. No signup needed.',
     keywords: [
       'startup idea generator free',
@@ -408,7 +408,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/startup-idea-generator'
   },
   'ai-prompt-library': {
-    title: 'Free AI Prompt Library 2026 | 500+ Prompts for ChatGPT, Claude & Midjourney',
+    title: 'Free AI Prompt Library 2026 | 500+ ChatGPT & Claude Prompts',
     description: 'Free AI prompt library with 500+ tested prompts for ChatGPT, Claude, Midjourney, DALL-E, and more. Organized by category with copy-paste ease. Test prompts in our live sandbox. No signup needed. Updated for 2026 AI models.',
     keywords: [
       'ai prompt library free',
@@ -435,7 +435,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-prompt-library'
   },
   'ai-email-assistant': {
-    title: 'Free AI Email Assistant 2026 | Professional Emails in Seconds — No Signup',
+    title: 'Free AI Email Assistant 2026 | Write Professional Emails',
     description: 'Free AI email assistant that writes professional emails from brief notes in seconds. Rewrite for tone, draft follow-ups, and generate cold outreach. Perfect for developers, freelancers, and professionals. No signup, no credit card, unlimited use.',
     keywords: [
       'ai email assistant free',
@@ -462,7 +462,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-email-assistant'
   },
   'link-manager': {
-    title: 'Free Link Shortener & Bio Link Page 2026 | Branded Links + Analytics',
+    title: 'Free Link Shortener 2026 | Branded Links & Bio Pages',
     description: 'Free branded link shortener with click analytics, QR codes, and smart bio pages. Create custom short links, track clicks in real-time, and build auto-updating link-in-bio pages. Perfect for creators, developers, and businesses. No signup needed.',
     keywords: [
       'free link shortener',
@@ -489,7 +489,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/link-manager'
   },
   'can-you-run-it': {
-    title: 'Can You Run It? 2026 | Free PC Game Requirements Checker & FPS Estimator',
+    title: 'Can You Run It? 2026 | PC Game Requirements Checker',
     description: 'Free PC game requirements checker for 2026. Compare your hardware specs against minimum and recommended requirements for 1000+ games including GTA 6, Cyberpunk, Elden Ring, and more. Get FPS estimates and upgrade suggestions. No signup needed.',
     keywords: [
       'can you run it free',
