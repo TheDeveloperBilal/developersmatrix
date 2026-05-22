@@ -6,6 +6,9 @@ import { siteConfig } from "@/data/config";
 export const metadata: Metadata = {
   title: "Cookie Policy - How We Use Cookies",
   description: "Understand how DevelopersMatrix uses cookies and similar technologies to improve your experience, provide relevant advertising, and analyze site traffic.",
+  alternates: {
+    canonical: `${siteConfig.url}/cookies`,
+  },
   openGraph: {
     title: "Cookie Policy | DevelopersMatrix",
     description: "Learn about our cookie usage and privacy practices.",

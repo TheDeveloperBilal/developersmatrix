@@ -6,6 +6,9 @@ import LearnClient from "./LearnClient";
 export const metadata: Metadata = {
   title: "Micro-Learning - Daily Tech Lessons",
   description: "Learn something new every day with our micro-learning lessons. Quick 15-20 minute lessons on React, TypeScript, SQL, Docker, and more.",
+  alternates: {
+    canonical: `${siteConfig.url}/learn`,
+  },
   keywords: ["micro-learning", "daily lessons", "tech tutorials", "learn programming", "quick lessons"],
   openGraph: {
     title: "Micro-Learning | DevelopersMatrix",

@@ -6,6 +6,9 @@ import { siteConfig } from "@/data/config";
 export const metadata: Metadata = {
   title: "Privacy Policy - Your Data, Your Rights",
   description: "Learn how DevelopersMatrix collects, uses, and protects your personal information. Our privacy-first approach to your data.",
+  alternates: {
+    canonical: `${siteConfig.url}/privacy`,
+  },
   openGraph: {
     title: "Privacy Policy | DevelopersMatrix",
     description: "Learn how we protect your personal information.",

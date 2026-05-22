@@ -1,21 +1,18 @@
 import { Metadata } from "next";
-import { Sparkles, Target, Users, Heart, Shield, Zap } from "lucide-react";
+import { Sparkles, Target, Users, Heart, Shield, Zap, CheckCircle, BookOpen, RefreshCw } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InContentAd } from "@/components/ads/AdBanner";
 import { OrganizationSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
+import { generatePageMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/data/config";
 
-export const metadata: Metadata = {
-  title: "About Us - Our Mission & Vision",
-  description: "Learn about DevelopersMatrix - our mission to empower developers, entrepreneurs, and tech professionals with AI-powered tools and insights.",
-  openGraph: {
-    title: "About Us | DevelopersMatrix",
-    description: "Learn about DevelopersMatrix and our mission to empower tech professionals.",
-    url: `${siteConfig.url}/about`,
-  },
-};
+export const metadata: Metadata = generatePageMetadata({
+  title: 'About DevelopersMatrix - Our Mission & Team',
+  description: 'Learn about DevelopersMatrix. Our mission, editorial standards, content review process, and the team behind our free AI tools and tech guides.',
+  path: '/about',
+});
 
 export default function AboutPage() {
   return (
@@ -154,6 +151,70 @@ export default function AboutPage() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Editorial Standards */}
+      <section className="py-16 bg-muted/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 px-4 py-2 border-violet-500/30 bg-violet-500/10">
+              <BookOpen className="w-3.5 h-3.5 mr-2 text-violet-500" />
+              <span className="text-violet-600 dark:text-violet-400">Our Standards</span>
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">Editorial Standards</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Every article, guide, and tool on DevelopersMatrix goes through a rigorous process before publication.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: <CheckCircle className="w-5 h-5" />, title: "Fact Checked", desc: "All statistics, claims, and technical details are verified against primary sources before publication." },
+              { icon: <RefreshCw className="w-5 h-5" />, title: "Regularly Updated", desc: "Content is reviewed and updated quarterly to reflect new data, tool releases, and industry shifts." },
+              { icon: <Shield className="w-5 h-5" />, title: "Independent", desc: "We do not accept payment for favorable coverage. Tool reviews are based on hands-on testing." },
+              { icon: <Users className="w-5 h-5" />, title: "Expert Reviewed", desc: "Technical articles are reviewed by practitioners working in the relevant field before publishing." },
+            ].map((item, index) => (
+              <Card key={index} className="p-4">
+                <div className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center text-violet-500 mb-3">
+                  {item.icon}
+                </div>
+                <h3 className="font-semibold mb-1">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <InContentAd />
+
+      {/* Content Review Process */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">How We Create Content</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Transparency in our process so you can trust what you read.
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-6">
+            {[
+              { step: "01", title: "Research & Analysis", desc: "We start with primary sources: official documentation, peer reviewed studies, industry reports, and hands on tool testing. No regurgitated press releases." },
+              { step: "02", title: "Drafting", desc: "Writers with relevant domain expertise create the first draft, incorporating real world examples, current data, and practical guidance." },
+              { step: "03", title: "Technical Review", desc: "A subject matter expert reviews the draft for accuracy, relevance, and completeness. Technical claims are verified against source material." },
+              { step: "04", title: "Publication & Maintenance", desc: "After final editing, the content is published with clear publish and review dates. We revisit articles quarterly to update outdated information." },
+            ].map((item, index) => (
+              <div key={index} className="flex gap-4 p-4 rounded-xl border border-border/50 bg-card/50">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                  {item.step}
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

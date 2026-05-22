@@ -12,6 +12,9 @@ import { siteConfig } from "@/data/config";
 export const metadata: Metadata = {
   title: "Question - Community Q&A",
   description: "View question and answers from the community.",
+  alternates: {
+    canonical: `${siteConfig.url}/community`,
+  },
 };
 
 const questionData = {

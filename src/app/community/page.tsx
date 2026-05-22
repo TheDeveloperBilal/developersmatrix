@@ -6,6 +6,9 @@ import CommunityClient from "@/components/community/CommunityClient";
 export const metadata: Metadata = {
   title: "Community Threads - Ask Questions, Share Knowledge",
   description: "Join our community of developers, entrepreneurs, and tech professionals. Create threads, reply to discussions, and share your knowledge.",
+  alternates: {
+    canonical: `${siteConfig.url}/community`,
+  },
   keywords: ["tech community", "developer threads", "programming discussions", "career advice", "tech help", "AI discussions", "gaming", "finance"],
   openGraph: {
     title: "Community Threads | DevelopersMatrix",

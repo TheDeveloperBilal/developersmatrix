@@ -24,6 +24,7 @@ import {
   getAllCategories,
   getHotTrends
 } from '@/data/trends-data';
+import { siteConfig } from '@/data/config';
 
 interface TrendPageProps {
   params: Promise<{

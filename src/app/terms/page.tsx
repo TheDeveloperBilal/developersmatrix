@@ -6,6 +6,9 @@ import { siteConfig } from "@/data/config";
 export const metadata: Metadata = {
   title: "Terms of Service - Usage Agreement",
   description: "Read the terms and conditions for using DevelopersMatrix services and tools.",
+  alternates: {
+    canonical: `${siteConfig.url}/terms`,
+  },
   openGraph: {
     title: "Terms of Service | DevelopersMatrix",
     description: "Terms and conditions for using our services.",
