@@ -1383,6 +1383,11 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
+// Get all trends (for cross-linking and external modules)
+export function getAllTrends(): TrendItem[] {
+  return [...allTrends];
+}
+
 // Get shuffled trends with 24-hour cache
 export function getShuffledTrends(): TrendItem[] {
   const now = Date.now();

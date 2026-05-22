@@ -24,6 +24,7 @@ import {
   getAllCategories,
   getHotTrends
 } from '@/data/trends-data';
+import { getRelatedToolsForTrend, getRelatedBlogPostsForTrend } from '@/data/cross-links';
 import { siteConfig } from '@/data/config';
 
 interface TrendPageProps {
@@ -80,6 +81,8 @@ export default async function TrendPage({ params }: TrendPageProps) {
   }
 
   const relatedTrends = getRelatedTrends(resolvedParams.slug, 4);
+  const relatedTools = getRelatedToolsForTrend(resolvedParams.slug);
+  const relatedBlogPosts = getRelatedBlogPostsForTrend(resolvedParams.slug);
   const categories = getAllCategories();
   const categoryInfo = categories.find(c => c.id === trend.category);
   const hotTrends = getHotTrends(3);
@@ -457,6 +460,52 @@ export default async function TrendPage({ params }: TrendPageProps) {
                   })}
                 </div>
               </div>
+
+              {/* Recommended Tools */}
+              {relatedTools.length > 0 && (
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-500/5 dark:to-indigo-500/5 border border-blue-100 dark:border-blue-500/20">
+                  <h3 className="font-bold text-slate-900 dark:text-white mb-4">🛠️ Try These Free Tools</h3>
+                  <div className="space-y-4">
+                    {relatedTools.map((tool) => (
+                      <Link 
+                        key={tool.slug}
+                        href={tool.path}
+                        className="block group"
+                      >
+                        <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                          {tool.name}
+                        </h4>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                          {tool.description}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Articles */}
+              {relatedBlogPosts.length > 0 && (
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-500/5 dark:to-teal-500/5 border border-emerald-100 dark:border-emerald-500/20">
+                  <h3 className="font-bold text-slate-900 dark:text-white mb-4">📚 Related Guides</h3>
+                  <div className="space-y-4">
+                    {relatedBlogPosts.map((post) => (
+                      <Link 
+                        key={post.slug}
+                        href={post.path}
+                        className="block group"
+                      >
+                        <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
+                          {post.title}
+                        </h4>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                          {post.excerpt}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Hot Trends */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-500/5 dark:to-red-500/5 border border-orange-100 dark:border-orange-500/20">
