@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from "@/data/config";
 import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import AIPromptLibraryClient from "./AIPromptLibraryClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-prompt-library']);
@@ -70,6 +70,37 @@ export default function AIPromptLibraryPage() {
         }}
       />
       <FAQSchema faqs={toolFaqsForSchema} />
+
+      <HowToSchema
+        name="How to Use the AI Prompt Library for Better Results"
+        description="Step-by-step guide to finding, testing, and customizing AI prompts from the DevelopersMatrix Prompt Library for ChatGPT, Claude, and other AI tools."
+        url={`${siteConfig.url}/tools/ai-prompt-library`}
+        totalTime="PT5M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        tool={['Web browser', 'AI Prompt Library', 'Clipboard']}
+        step={[
+          {
+            name: "Choose a prompt category",
+            text: "Browse 12 curated categories including Writing, Coding, Design, Marketing, Research, Data Science, and Business Strategy. Each category contains 40-60 professionally crafted prompts rated by effectiveness. Start with the category closest to your current task rather than searching randomly."
+          },
+          {
+            name: "Select a high-rated prompt",
+            text: "Prompts are rated by community effectiveness scores. Top-rated prompts appear first and have been tested by hundreds of users. Read the usage notes to understand what variables to customize and what output to expect. A well-rated prompt saves 10-20 minutes of trial-and-error compared to writing from scratch."
+          },
+          {
+            name: "Customize the variables",
+            text: "Every prompt includes placeholder variables marked in brackets or parentheses. Replace these with your specific context: [topic], [audience], [tone], [format], [length]. The more specific your replacements, the better the AI output. For example, replace 'Write about [topic]' with 'Write a technical blog post about React Server Components for senior frontend developers, 1,500 words, professional tone.'"
+          },
+          {
+            name: "Test in the AI Playground",
+            text: "Paste your customized prompt into the built-in AI Playground to test output quality before using it in production. The playground supports text generation, code generation, and creative writing. Iterate on the prompt 2-3 times if the first output is not satisfactory — small wording changes often produce dramatically different results."
+          },
+          {
+            name: "Save to your personal library",
+            text: "Click the save button to store the prompt in your personal library. Organize saved prompts into custom collections for different projects or workflows. Export your library as a text file for offline use. All saved data stays in your browser for privacy."
+          }
+        ]}
+      />
 
       <main className="pt-16">
         {/* Tool Interface */}

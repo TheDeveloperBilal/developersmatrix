@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { Sparkles } from "lucide-react";
 import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import { siteConfig } from "@/data/config";
 import ProductivityPlannerClient from "./ProductivityPlannerClient";
 

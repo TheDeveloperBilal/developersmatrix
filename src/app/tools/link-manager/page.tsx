@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from "@/data/config";
 import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import LinkManagerClient from "./LinkManagerClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['link-manager']);
