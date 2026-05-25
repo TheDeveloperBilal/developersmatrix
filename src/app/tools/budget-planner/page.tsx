@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { Sparkles } from "lucide-react";
 import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import { siteConfig } from "@/data/config";
 import BudgetPlannerClient from "./BudgetPlannerClient";
 
@@ -47,6 +47,45 @@ export default function BudgetPlannerPage() {
   return (
     <>
       <FAQSchema faqs={toolFaqs.map(faq => ({ question: faq.question, answer: faq.answer }))} />
+
+      <HowToSchema
+        name="How to Create a Monthly Budget That Actually Works"
+        description="Step-by-step guide to building your first monthly budget using the 50-30-20 rule. Track income, categorize expenses, and set savings goals with the free DevelopersMatrix Budget Planner."
+        url={`${siteConfig.url}/tools/budget-planner`}
+        totalTime="PT10M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        tool={['Web browser', 'DevelopersMatrix Budget Planner']}
+        step={[
+          {
+            name: "List all income sources",
+            text: "Start by adding every source of income you receive in a typical month. Include your primary salary, freelance payments, investment dividends, side business revenue, and any other regular income. For variable income like freelance work, enter your average monthly amount or your minimum guaranteed amount. Be honest — an unrealistic budget fails faster than no budget."
+          },
+          {
+            name: "Add your fixed expenses",
+            text: "Enter expenses that do not change month to month. These typically include rent or mortgage, insurance premiums, loan payments, subscription services, and phone bills. These are non-negotiable costs that you must cover regardless of circumstances. Seeing them in one place helps you understand your baseline financial obligation."
+          },
+          {
+            name: "Add variable expenses",
+            text: "Enter expenses that fluctuate monthly. Food, transportation, entertainment, personal care, and utilities often vary. Use last month's actual spending or a 3-month average for accuracy. Do not guess — look at your bank statements or transaction history. Many people underestimate their variable spending by 20 to 30 percent."
+          },
+          {
+            name: "Set a realistic savings goal",
+            text: "Enter a savings target as a percentage of your total income. The 50-30-20 rule recommends 50 percent for needs, 30 percent for wants, and 20 percent for savings and debt repayment. If 20 percent feels impossible, start with 10 percent or even 5 percent. The goal is consistency, not perfection. A small sustainable habit beats an ambitious plan that fails in month two."
+          },
+          {
+            name: "Review your spending breakdown",
+            text: "The tool generates a visual chart showing exactly where your money goes. Look for the largest categories first. Housing and food typically dominate. If any single category exceeds 40 percent of your total expenses, that is a structural issue worth addressing. The chart also shows whether your spending aligns with the 50-30-20 framework."
+          },
+          {
+            name: "Identify one area to reduce",
+            text: "Pick one expense category where you can cut spending by 10 to 15 percent without significant lifestyle impact. Common wins include unused subscriptions, dining out frequency, or impulse purchases. Small reductions in multiple categories add up faster than eliminating one large expense entirely. Track the savings monthly and redirect them toward your savings goal."
+          },
+          {
+            name: "Export or save your budget plan",
+            text: "Your budget data is stored in your browser's local storage and persists across sessions. You can return anytime to update amounts, add new categories, or track progress toward your savings goal. Review and update your budget monthly. Income and expenses change, and a budget that reflects reality is far more useful than one frozen in time."
+          }
+        ]}
+      />
       <BreadcrumbSchema
         items={[
           { name: "Home", url: siteConfig.url },
