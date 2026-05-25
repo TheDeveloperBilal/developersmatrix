@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import CoverLetterClient from "./CoverLetterClient";
@@ -54,6 +54,37 @@ export default function CoverLetterPage() {
   return (
     <>
       <FAQSchema faqs={toolFaqs.map(faq => ({ question: faq.question, answer: faq.answer }))} />
+
+      <HowToSchema
+        name="How to Write a Tech Cover Letter Using AI in 2026"
+        description="Step-by-step guide to generating, customizing, and submitting a professional cover letter for software developer and tech roles using the DevelopersMatrix AI Cover Letter Generator."
+        url={`${siteConfig.url}/tools/ai-cover-letter-generator`}
+        totalTime="PT10M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        tool={['Web browser', 'AI Cover Letter Generator', 'Job description']}
+        step={[
+          {
+            name: "Paste the full job description",
+            text: "Copy the complete job description from the company's careers page or job board posting and paste it into the tool. The AI extracts key requirements, preferred qualifications, and company values from the description to tailor the cover letter. Including the full description rather than just the title produces significantly more relevant output — a cover letter referencing specific technologies and responsibilities outperforms generic ones by 3x in hiring manager evaluations."
+          },
+          {
+            name: "Enter your experience and skills",
+            text: "Write a 2-3 sentence summary of your most relevant experience. Focus on accomplishments with quantifiable results: 'Built a real-time data pipeline processing 50K events/second' rather than 'Worked on data pipelines.' Select 3-5 key skills that match the job requirements exactly. The tool uses this information to bridge your background with the role's needs, creating natural connections that demonstrate fit."
+          },
+          {
+            name: "Generate the cover letter",
+            text: "Click Generate to produce a complete cover letter with subject line, greeting, 3-4 paragraph body, and professional closing. The letter follows tech industry conventions: it opens with a hook referencing the specific role, highlights your two most relevant achievements, explains why the company's mission or technology excites you, and closes with a confident call to action. The generated draft typically runs 250-350 words — the optimal length for tech cover letters in 2026."
+          },
+          {
+            name: "Add personal touches",
+            text: "This step is critical — 74% of hiring managers detect unedited AI-generated cover letters, and 57% say it negatively affects their decision. Add specific details only you know: mention a company product you use, reference a blog post the CTO wrote, explain why their tech stack aligns with your interests, or share a connection to their mission. These touches transform a generic draft into a compelling personal narrative. Spend 5 minutes on this step; it determines whether the cover letter gets you an interview."
+          },
+          {
+            name: "Review and submit",
+            text: "Proofread for accuracy: verify company name spelling, confirm job title matches the posting, and check that technical terms are correct. Ensure the tone matches the company culture — startups prefer conversational and enthusiastic, while enterprise companies expect formal and measured. Copy the final letter into your email or application portal. Save the prompt and settings in the tool for future applications, refining your input template with each use."
+          }
+        ]}
+      />
       <BreadcrumbSchema
         items={[
           { name: "Home", url: siteConfig.url },

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from "@/data/config";
 import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import AIEmailAssistantClient from "./AIEmailAssistantClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-email-assistant']);
@@ -70,6 +70,37 @@ export default function AIEmailAssistantPage() {
         }}
       />
       <FAQSchema faqs={toolFaqsForSchema} />
+
+      <HowToSchema
+        name="How to Write Professional Emails with AI Assistance"
+        description="Step-by-step guide to using the DevelopersMatrix AI Email Assistant to draft, rewrite, and reply to professional emails in under 2 minutes."
+        url={`${siteConfig.url}/tools/ai-email-assistant`}
+        totalTime="PT2M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        tool={['Web browser', 'AI Email Assistant']}
+        step={[
+          {
+            name: "Choose your email mode",
+            text: "Select Draft to write a new email from scratch, Rewrite to improve an existing email, Reply to respond to a received message, or Tone Adjust to change the formality level. Each mode uses different AI prompting strategies optimized for that specific task. Draft mode is best for starting fresh; Rewrite mode is best when you have a rough version that needs polishing."
+          },
+          {
+            name: "Enter your brief input",
+            text: "For Draft mode, write a simple note describing what you want to communicate. Example: 'Ask John for the API documentation by Friday, mention we are blocked until we receive it.' For Reply mode, paste the email you received and describe your response intent. For Rewrite mode, paste your existing email and select the desired tone. The more specific your input, the better the output. Vague inputs produce generic emails."
+          },
+          {
+            name: "Select tone and language",
+            text: "Choose from 6 tone presets: Professional (standard business communication), Friendly (warm but respectful), Formal (executive-level, legal, or official), Casual (internal team communication), Persuasive (sales, proposals, requests), and Empathetic (difficult conversations, apologies, support). Select your output language if writing in a non-English language. The tool adapts cultural conventions for greetings, formality, and closing phrases."
+          },
+          {
+            name: "Generate and review the draft",
+            text: "Click Generate to produce the complete email with subject line, greeting, structured body, and sign-off. Review every sentence for accuracy, tone appropriateness, and personal relevance. Add specific details the AI could not know (project names, personal references, inside jokes). Adjust any phrasing that does not sound like your voice. The AI handles structure and tone; you provide authenticity and context."
+          },
+          {
+            name: "Copy and send",
+            text: "Copy the finalized email to your clipboard and paste it into your email client. The tool does not send emails directly — this ensures you maintain full control over your communication channel and records. For frequently used templates, save the prompt and settings in the tool for future reuse. Track which templates you use most and refine them over time."
+          }
+        ]}
+      />
 
       <main className="pt-16">
         {/* Tool Interface */}
