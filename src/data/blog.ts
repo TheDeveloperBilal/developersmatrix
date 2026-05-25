@@ -50,7 +50,7 @@ export function getAllBlogPosts(): BlogPost[] {
 // Export merged blog posts
 export const blogPosts = getAllBlogPosts();
 
-export const blogCategories = ['Gaming', 'Technology', 'Politics', 'World News', 'Entertainment', 'Career', 'Productivity', 'Startup', 'Finance', 'Health', 'Education', 'Environment', 'Science'];
+export const blogCategories = ['Gaming', 'Technology', 'Politics', 'World News', 'Entertainment', 'Career', 'Productivity', 'Startup', 'Finance', 'Health', 'Education', 'Environment', 'Science', 'SEO'];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find(post => post.slug === slug);
