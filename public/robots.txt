@@ -1,36 +1,49 @@
-# https://www.robotstxt.org/robotstxt.html
+# Global Rules
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://developersmatrix.com/sitemap.xml
-
-# Disallow admin and private areas
+# Block sensitive/internal areas
 Disallow: /api/
 Disallow: /admin/
 
-# Allow all crawlers to access public resources
+# Allow rendering assets for AI + search engines
+Allow: /_next/static/
+Allow: /_next/image/
+
+# Optional low-value blocks
+Disallow: /manifest.json
+
+# AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Search Engine Crawlers
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-# Block bad bots
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
+# Sitemap
+Sitemap: https://developersmatrix.com/sitemap.xml

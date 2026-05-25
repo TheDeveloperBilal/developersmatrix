@@ -267,14 +267,14 @@ export default function GTA6Client() {
             </div>
             
             {/* Game Cover */}
-            <div className="hidden md:block">
-              <div className="relative">
+            <div className="mt-6 md:mt-0">
+              <div className="relative max-w-xs sm:max-w-sm md:max-w-md mx-auto">
                 <img 
                   src="/images/games/gta6.png" 
                   alt="GTA 6 Cover Art"
-                  className="w-full max-w-md mx-auto rounded-2xl shadow-2xl shadow-purple-500/20 border border-purple-500/30"
+                  className="w-full rounded-2xl shadow-2xl shadow-purple-500/20 border border-purple-500/30"
                 />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full font-bold text-sm">
+                <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm">
                   Nov 19, 2026
                 </div>
               </div>

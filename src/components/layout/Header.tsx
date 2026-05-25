@@ -89,6 +89,7 @@ const toolCategories = [
 const mainNavItems = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'GTA 6', href: '/gta-6', icon: Gamepad2 },
+  { name: 'Free Audit', href: '/tools/website-audit', icon: Search },
   { name: 'Trends', href: '/trends', icon: TrendingUp },
   { name: 'Blog', href: '/blog', icon: BookOpen },
   { name: 'Community', href: '/community', icon: Users },
@@ -187,7 +188,11 @@ export function Header() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
+                      className={`px-4 py-2 text-sm transition-colors rounded-md ${
+                        item.highlight 
+                          ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 font-medium' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      }`}
                     >
                       {item.name}
                     </Link>

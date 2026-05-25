@@ -28,7 +28,6 @@ export const navigation = [
       { name: 'Startup Ideas', href: '/tools/startup-idea-generator' },
       { name: 'AI Prompt Library', href: '/tools/ai-prompt-library' },
       { name: 'AI Email Assistant', href: '/tools/ai-email-assistant' },
-      { name: 'Website Audit Tool', href: '/tools/website-audit' },
       { name: 'AI Content Detector', href: '/tools/ai-content-detector' },
       { name: 'Link Manager', href: '/tools/link-manager' },
       { name: 'Can You Run It?', href: '/tools/can-you-run-it' },
@@ -37,6 +36,7 @@ export const navigation = [
       { name: 'Productivity Planner', href: '/tools/productivity-planner' }
     ]
   },
+  { name: 'Free Audit', href: '/tools/website-audit', highlight: true },
   { name: 'Trends', href: '/trends' },
   { name: 'Blog', href: '/blog' },
   { name: 'Community', href: '/community' }
