@@ -101,6 +101,12 @@ const buildDate = new Date('2026-05-22');
       changeFrequency: 'monthly',
       priority: 0.75,
     },
+    {
+      url: `${baseUrl}/research/developer-habits-productivity-guide-2026`,
+      lastModified: new Date('2026-05-25'),
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
   ];
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
