@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getBlogPostBySlug, getRecentBlogPosts, getAllBlogSlugs } from "@/data/blog";
 import { siteConfig } from "@/data/config";
-import { ArticleSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
+import { ArticleSchema, BreadcrumbSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { BlogHero } from "@/components/blog/BlogHero";
@@ -46,11 +46,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       type: "article",
       publishedTime: post.publishedAt,
       authors: [post.author],
+      images: post.image ? [`${siteConfig.url}${post.image}`] : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
+      images: post.image ? [`${siteConfig.url}${post.image}`] : undefined,
     },
   };
 }
@@ -73,7 +75,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         description={post.excerpt}
         author={post.author}
         datePublished={post.publishedAt}
+        dateModified={post.publishedAt}
         url={postUrl}
+        image={`${siteConfig.url}${post.image}`}
+        wordCount={post.content.split(/\s+/).length}
+        articleSection={post.category}
       />
       <BreadcrumbSchema
         items={[
@@ -82,6 +88,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           { name: post.title, url: postUrl }
         ]}
       />
+      {post.faqs && post.faqs.length > 0 && (
+        <FAQSchema faqs={post.faqs} />
+      )}
 
       <ReadingProgress />
       <FloatingSocialShare title={post.title} url={postUrl} />

@@ -27,6 +27,10 @@ export interface BlogPost {
   publishedAt: string;
   readTime: number;
   image: string;
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
 }
 
 // Trend Types
