@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from '@/components/seo/SchemaMarkup';
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from '@/components/seo/SchemaMarkup';
 import { getToolBySlug } from '@/data/tools';
 import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
@@ -86,6 +86,57 @@ export default function ResumeBuilderPage() {
 
       {/* FAQ Schema */}
       <FAQSchema faqs={toolFaqsForSchema} />
+
+      {/* HowTo Schema — AI systems love step-by-step instructional content */}
+      <HowToSchema
+        name="How to Build an ATS-Optimized Developer Resume in 2026"
+        description="Step-by-step guide to creating a professional, ATS-friendly resume for software developers using the DevelopersMatrix AI Resume Builder."
+        url={`${siteConfig.url}/tools/ai-resume-builder`}
+        totalTime="PT15M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        step={[
+          {
+            name: "Enter your personal information",
+            text: "Start by filling in your name, contact details, LinkedIn profile, and GitHub URL. Use a professional email address and ensure your GitHub profile is active and up to date. Hiring managers often check GitHub before calling candidates.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          },
+          {
+            name: "Write a targeted professional summary",
+            text: "Summarize your experience in 2-3 sentences with your strongest qualification first. Mention your primary tech stack and one measurable achievement. Example: 'Full-stack developer with 5 years of experience building React and Node.js applications. Reduced API response times by 40% through query optimization at previous company.' Avoid generic phrases like 'passionate developer' that every applicant uses.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          },
+          {
+            name: "Add your technical skills with categorization",
+            text: "Organize skills by category: Frontend (React, Vue, CSS), Backend (Node.js, Python, Go), DevOps (Docker, Kubernetes, CI/CD), and Cloud (AWS, GCP, Azure). This helps recruiters and ATS systems quickly identify your expertise areas. Use the AI suggestions to discover relevant keywords for your target role.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          },
+          {
+            name: "Detail work experience with measurable outcomes",
+            text: "For each role, write 3-4 bullet points using the STAR method (Situation, Task, Action, Result). Every bullet should contain a number or percentage. Instead of 'Improved page load speed', write 'Reduced page load time from 4.2s to 1.1s (74% improvement) by implementing lazy loading and image optimization.' The AI builder suggests powerful metrics based on common developer achievements.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          },
+          {
+            name: "Include relevant projects and open source contributions",
+            text: "List 2-3 standout projects with brief descriptions, your specific contribution, and the technologies used. Include links to live projects or GitHub repositories. Open source contributions are powerful signals of technical engagement. If you contributed to a well-known library or fixed bugs in a popular project, mention the specific impact — even a merged PR with 50+ stars is worth noting.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          },
+          {
+            name: "Select a clean, ATS-safe template",
+            text: "Choose the single-column professional template. Avoid creative layouts with sidebars, graphics, or color blocks that confuse ATS parsers. Use standard fonts like Arial, Calibri, or Helvetica at 11-12pt. The builder automatically applies ATS-safe formatting, but always preview the text-only version to ensure readability.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          },
+          {
+            name: "Run the AI optimization scan",
+            text: "Use the built-in AI scan to check keyword density, section completeness, and ATS compatibility. The tool flags missing keywords, suggests improvements, and scores your resume against the job description you provide. A score above 85 indicates strong ATS compatibility.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          },
+          {
+            name: "Download as PDF and test with an ATS parser",
+            text: "Download your resume as a PDF and run it through a free ATS parser test to confirm proper parsing. Check that section headers, dates, and bullet points extract correctly. Save multiple versions tailored to different job descriptions — custom resumes get 3x more callbacks than generic ones.",
+            url: `${siteConfig.url}/tools/ai-resume-builder`
+          }
+        ]}
+      />
 
       {/* Main Tool Interface, wrapped in container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">

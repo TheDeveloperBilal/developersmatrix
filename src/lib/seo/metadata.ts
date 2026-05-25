@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { siteConfig } from '@/data/config';
+import { siteAuthor } from '@/data/authors';
 
 interface PageMetadataOptions {
   title: string;
@@ -26,12 +27,15 @@ export function generatePageMetadata({
 }: PageMetadataOptions): Metadata {
   const url = `${siteConfig.url}${path}`;
   const ogImage = image || siteConfig.ogImage;
+  const pageAuthor = author || siteAuthor.name;
 
   return {
     title,
     description,
     keywords: keywords.length > 0 ? keywords : undefined,
-    authors: author ? [{ name: author }] : undefined,
+    authors: [{ name: pageAuthor, url: `${siteConfig.url}/about` }],
+    creator: pageAuthor,
+    publisher: siteConfig.name,
     openGraph: {
       title,
       description,

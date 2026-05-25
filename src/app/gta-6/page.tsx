@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import GTA6Client from './GTA6Client';
-import { FAQSchema, BreadcrumbSchema, ArticleSchema } from '@/components/seo/SchemaMarkup';
+import { FAQSchema, BreadcrumbSchema, ArticleSchema, ClaimReviewSchema } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/data/config';
 import Link from 'next/link';
 
@@ -60,8 +60,25 @@ export default function GTA6Page() {
         image={`${siteConfig.url}/og-gta6.png`}
         url={`${siteConfig.url}/gta-6`}
         datePublished="2026-05-08T00:00:00+00:00"
-        dateModified="2026-05-08T00:00:00+00:00"
-        author={{ name: 'DevelopersMatrix' }}
+        dateModified="2026-05-25T00:00:00+00:00"
+        author="Bilal Ahmad"
+        authorUrl={`${siteConfig.url}/about`}
+        authorJobTitle="Founder & Lead Editor"
+        articleSection="Gaming News"
+      />
+      <ClaimReviewSchema
+        claimReviewed="GTA 6 will release on November 19, 2026"
+        reviewRating={{ ratingValue: 5, alternateName: 'True' }}
+        author="DevelopersMatrix"
+        datePublished="2026-05-08T00:00:00+00:00"
+        url={`${siteConfig.url}/gta-6`}
+      />
+      <ClaimReviewSchema
+        claimReviewed="GTA 6 PC version will release in 2027"
+        reviewRating={{ ratingValue: 4, alternateName: 'Mostly True' }}
+        author="DevelopersMatrix"
+        datePublished="2026-05-08T00:00:00+00:00"
+        url={`${siteConfig.url}/gta-6`}
       />
       <FAQSchema faqs={gta6Faqs} />
       <GTA6Client />

@@ -84,14 +84,12 @@ const buildDate = new Date('2026-05-22');
       priority: 0.3,
     },
     {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date('2026-01-01'),
-      changeFrequency: 'yearly',
-      priority: 0.3,
+      url: `${baseUrl}/research/website-audit-statistics-2026`,
+      lastModified: new Date('2026-05-25'),
+      changeFrequency: 'monthly',
+      priority: 0.75,
     },
   ];
-
-  // Blog posts
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),

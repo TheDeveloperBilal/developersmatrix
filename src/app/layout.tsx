@@ -7,6 +7,8 @@ import { ThemeProvider } from "next-themes";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/data/config";
+import { siteAuthor } from "@/data/authors";
+import { OrganizationSchema, PersonSchema } from "@/components/seo/SchemaMarkup";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -42,9 +44,9 @@ export const metadata: Metadata = {
     "productivity planner",
     "startup ideas"
   ],
-  authors: [{ name: "DevelopersMatrix Team" }],
-  creator: "DevelopersMatrix",
-  publisher: "DevelopersMatrix",
+  authors: [{ name: siteAuthor.name, url: `${siteConfig.url}/about` }],
+  creator: siteAuthor.name,
+  publisher: siteConfig.name,
   formatDetection: {
     email: false,
     address: false,
@@ -149,7 +151,7 @@ export default function RootLayout({
         <meta name="googlebot" content="index, follow" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="1 days" />
-        <meta name="author" content="DevelopersMatrix Team" />
+        <meta name="author" content={siteAuthor.name} />
         
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -157,6 +159,36 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+
+        {/* Organization Schema — Site-wide */}
+        <OrganizationSchema
+          name={siteConfig.name}
+          url={siteConfig.url}
+          description={siteConfig.description}
+          logo={siteConfig.ogImage}
+          founder={siteAuthor.name}
+          employees="5-10"
+          knowsAbout={siteAuthor.knowsAbout}
+          sameAs={[
+            siteConfig.links.twitter,
+            siteConfig.links.github,
+            siteConfig.links.linkedin,
+            siteConfig.links.facebook,
+            siteConfig.links.instagram
+          ]}
+        />
+
+        {/* Person Schema — Author Entity */}
+        <PersonSchema
+          name={siteAuthor.name}
+          url={`${siteConfig.url}/about`}
+          image={siteAuthor.image}
+          jobTitle={siteAuthor.jobTitle}
+          worksFor={siteConfig.name}
+          description={siteAuthor.bio}
+          knowsAbout={siteAuthor.knowsAbout}
+          sameAs={siteAuthor.sameAs}
+        />
       </head>
       <body
         className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col`}

@@ -1,18 +1,38 @@
 import { Metadata } from "next";
-import { Sparkles, Target, Users, Heart, Shield, Zap, CheckCircle, BookOpen, RefreshCw } from "lucide-react";
+import { Sparkles, Target, Users, Heart, Shield, Zap, CheckCircle, BookOpen, RefreshCw, Award, GraduationCap, Briefcase } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InContentAd } from "@/components/ads/AdBanner";
-import { OrganizationSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
+import { OrganizationSchema, BreadcrumbSchema, PersonSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 import { generatePageMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/data/config";
+import { siteAuthor } from "@/data/authors";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: 'About DevelopersMatrix - Our Mission & Team',
-  description: 'Learn about DevelopersMatrix. Our mission, editorial standards, content review process, and the team behind our free AI tools and tech guides.',
+  title: 'About DevelopersMatrix — Our Mission, Team & Editorial Standards',
+  description: 'Meet Bilal Ahmad, founder of DevelopersMatrix. Learn about our mission to democratize AI tools, our editorial standards, fact-checking process, and privacy commitment.',
   path: '/about',
 });
+
+const aboutFaqs = [
+  {
+    question: "Who founded DevelopersMatrix?",
+    answer: "DevelopersMatrix was founded by Bilal Ahmad, a full-stack developer and AI tool builder with experience in Next.js, React, and modern web technologies. The platform was built to make professional-grade AI tools accessible to developers, entrepreneurs, and tech professionals regardless of budget."
+  },
+  {
+    question: "Are the tools on DevelopersMatrix really free?",
+    answer: "Yes, all core features of every tool are completely free with no signup required. No credit cards, no trial periods, no usage limits. Revenue comes from optional advertising and future premium features for power users — but the free tier will always remain fully functional."
+  },
+  {
+    question: "How does DevelopersMatrix ensure content accuracy?",
+    answer: "All technical articles and guides go through a four-step editorial process: (1) Research using primary sources and official documentation, (2) Drafting by writers with relevant domain expertise, (3) Technical review by subject matter experts, and (4) Quarterly updates to reflect new data and industry shifts. We do not accept payment for favorable coverage."
+  },
+  {
+    question: "Is my data private when using DevelopersMatrix tools?",
+    answer: "Yes. Most tools operate entirely client-side in your browser. Resume data, budget information, email drafts, and audit targets are never transmitted to our servers. We do not store, sell, or share your personal information. For tools that require server processing, data is handled temporarily and never retained."
+  }
+];
 
 export default function AboutPage() {
   return (
@@ -21,6 +41,27 @@ export default function AboutPage() {
         name={siteConfig.name}
         url={siteConfig.url}
         description={siteConfig.description}
+        logo={siteConfig.ogImage}
+        founder={siteAuthor.name}
+        employees="5-10"
+        knowsAbout={siteAuthor.knowsAbout}
+        sameAs={[
+          siteConfig.links.twitter,
+          siteConfig.links.github,
+          siteConfig.links.linkedin,
+          siteConfig.links.facebook,
+          siteConfig.links.instagram
+        ]}
+      />
+      <PersonSchema
+        name={siteAuthor.name}
+        url={`${siteConfig.url}/about`}
+        image={siteAuthor.image}
+        jobTitle={siteAuthor.jobTitle}
+        worksFor={siteConfig.name}
+        description={siteAuthor.bio}
+        knowsAbout={siteAuthor.knowsAbout}
+        sameAs={siteAuthor.sameAs}
       />
       <BreadcrumbSchema
         items={[
@@ -28,6 +69,7 @@ export default function AboutPage() {
           { name: "About", url: `${siteConfig.url}/about` }
         ]}
       />
+      <FAQSchema faqs={aboutFaqs} />
 
       {/* Hero Section */}
       <section className="hero-gradient py-16 lg:py-24">
@@ -89,6 +131,60 @@ export default function AboutPage() {
       </section>
 
       <InContentAd />
+
+      {/* Founder / Team Section — Critical for EEAT */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 px-4 py-2 border-violet-500/30 bg-violet-500/10">
+              <Award className="w-3.5 h-3.5 mr-2 text-violet-500" />
+              <span className="text-violet-600 dark:text-violet-400">Meet the Team</span>
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">Who Builds DevelopersMatrix</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Real people with real expertise. Every tool and article is built or reviewed by practitioners working in the field.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <Card className="p-8">
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shrink-0">
+                  BA
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-xl font-bold">{siteAuthor.name}</h3>
+                    <Badge variant="outline" className="text-xs">{siteAuthor.jobTitle}</Badge>
+                  </div>
+                  <p className="text-muted-foreground mb-4">{siteAuthor.bio}</p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {siteAuthor.credentials.map((cred, i) => (
+                      <span key={i} className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md bg-violet-500/10 text-violet-700 dark:text-violet-400">
+                        <GraduationCap className="w-3 h-3" />
+                        {cred}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-violet-600 transition-colors flex items-center gap-1">
+                      <Briefcase className="w-4 h-4" /> GitHub
+                    </a>
+                    <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-violet-600 transition-colors flex items-center gap-1">
+                      <Users className="w-4 h-4" /> LinkedIn
+                    </a>
+                    <a href={siteConfig.links.twitter} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-violet-600 transition-colors flex items-center gap-1">
+                      <Zap className="w-4 h-4" /> Twitter
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* Values Section */}
       <section className="py-16 bg-muted/20">
