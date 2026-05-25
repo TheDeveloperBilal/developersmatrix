@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from '@/components/seo/SchemaMarkup';
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import WebsiteAuditClient from './WebsiteAuditClient';
@@ -107,6 +107,45 @@ export default function WebsiteAuditPage() {
         }}
       />
       <FAQSchema faqs={toolFaqsForSchema} />
+
+      <HowToSchema
+        name="How to Audit Your Website for SEO, Speed and Security in 2026"
+        description="Step-by-step guide to running a comprehensive website audit using the DevelopersMatrix free tool. Covers preparation, execution, and prioritizing fixes by impact."
+        url={`${siteConfig.url}/tools/website-audit`}
+        totalTime="PT5M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        tool={['Web browser', 'DevelopersMatrix Website Audit Tool']}
+        step={[
+          {
+            name: "Prepare your website URL",
+            text: "Copy the exact URL of the page or site you want to audit. Use the canonical version with https:// and without tracking parameters. If auditing a single page, use that specific URL. For a full site scan, use your homepage. Make sure the site is publicly accessible and not behind a login wall or IP restriction."
+          },
+          {
+            name: "Enter the URL and start the audit",
+            text: "Paste your URL into the audit input field and click 'Run Audit'. The tool will crawl your page, analyze the HTML structure, run JavaScript where needed, and perform 200+ checks across 7 categories. This typically takes 10 to 30 seconds depending on page complexity. Do not refresh the page during the scan."
+          },
+          {
+            name: "Review your overall score and category breakdown",
+            text: "Your report opens with an overall score out of 100, followed by 7 category scores: Technical SEO, Performance, Mobile UX, Security, Accessibility, Content Quality, and Conversion. Click any category to expand detailed findings. A score below 50 in any category requires immediate attention. Scores between 50 and 69 indicate moderate issues. Scores above 70 are solid with minor improvements available."
+          },
+          {
+            name: "Prioritize fixes by impact level",
+            text: "Each finding is labeled Critical, High, Medium, or Low. Always fix Critical issues first. These include missing title tags, broken canonical URLs, HTTPS failures, and severe accessibility violations that may trigger legal issues. High priority covers Core Web Vitals failures, missing meta descriptions, and broken internal links. Medium includes image optimization, heading hierarchy, and minor schema issues. Low priority items are optimization suggestions like reducing DOM depth or minifying CSS. Focus on the top 10 issues for maximum impact with minimum effort."
+          },
+          {
+            name: "Fix Technical SEO issues first",
+            text: "Technical SEO is the foundation. Start with your title tag and meta description. Ensure every page has a unique, descriptive title under 60 characters and a meta description under 160 characters. Fix any broken internal links and redirect chains. Add a canonical tag to every page. Verify your XML sitemap is submitted to Google Search Console. These fixes alone often improve rankings within 2 to 4 weeks."
+          },
+          {
+            name: "Address Core Web Vitals and performance",
+            text: "Performance improvements require the most technical skill but yield strong results. Compress images using WebP or AVIF formats. Enable browser caching for static assets. Minify CSS, JavaScript, and HTML. Remove render-blocking resources by inlining critical CSS and deferring non-essential scripts. Use a CDN for asset delivery. If your server response time exceeds 800ms, consider upgrading your hosting or enabling server-side caching."
+          },
+          {
+            name: "Re-audit after implementing fixes",
+            text: "Run a second audit 2 to 4 weeks after implementing fixes to confirm improvements. Some changes like DNS updates, CDN propagation, and Google recrawling take time to reflect. Compare your new scores to the baseline and document the delta. If a critical issue persists, verify your fix was deployed correctly and clear any server or CDN caches that might be serving the old version."
+          }
+        ]}
+      />
 
       {/* Main Tool Interface, renders its own full page UI */}
       <WebsiteAuditClient />

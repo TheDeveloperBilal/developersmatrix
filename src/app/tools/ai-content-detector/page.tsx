@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from '@/data/config';
-import { SoftwareApplicationSchema, BreadcrumbSchema, FAQSchema } from '@/components/seo/SchemaMarkup';
+import { SoftwareApplicationSchema, BreadcrumbSchema, FAQSchema, HowToSchema } from '@/components/seo/SchemaMarkup';
 import { InContentAd, SidebarAd } from '@/components/ads/AdBanner';
 import AIContentDetectorClient from './AIContentDetectorClient';
 
@@ -65,6 +65,37 @@ export default function AIContentDetectorPage() {
         ]}
       />
       <FAQSchema faqs={faqs} />
+
+      <HowToSchema
+        name="How to Detect AI-Generated Content and Verify Original Writing"
+        description="Step-by-step guide to analyzing text for AI-generated patterns using perplexity, burstiness, and statistical markers. Understand what the scores mean and how to interpret confidence levels."
+        url={`${siteConfig.url}/tools/ai-content-detector`}
+        totalTime="PT2M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        tool={['Web browser', 'DevelopersMatrix AI Content Detector']}
+        step={[
+          {
+            name: "Paste the text you want to analyze",
+            text: "Copy and paste the text content you want to analyze into the detector input field. For best results, use at least 100 words. Shorter samples have less statistical signal and produce less reliable scores. The maximum input length is 5,000 words. If analyzing a longer document, paste representative sections rather than the full text. This gives you a sampling-based assessment that is faster and equally accurate."
+          },
+          {
+            name: "Review the overall AI probability score",
+            text: "The detector returns an overall probability percentage that the text is AI-generated. Scores above 80% strongly suggest AI authorship. Scores between 40% and 80% indicate mixed or heavily edited AI content. Scores below 40% typically indicate human authorship. Remember this is a probability, not proof. The score is derived from perplexity, burstiness, and vocabulary diversity metrics combined."
+          },
+          {
+            name: "Analyze the sentence-level breakdown",
+            text: "Click on individual sentences to see their AI probability scores. Sentences highlighted in red are highly likely AI-generated. Yellow sentences are ambiguous. Green sentences are likely human-written. This breakdown helps you identify which parts of a document are AI-generated versus human-written. Mixed-color documents often indicate human editing of AI drafts."
+          },
+          {
+            name: "Interpret perplexity and burstiness metrics",
+            text: "Perplexity measures how predictable your text is. Lower perplexity means more predictable text, which is characteristic of AI models. Human perplexity typically ranges from 40 to 80. AI text often falls between 10 and 40. Burstiness measures variation in sentence complexity. Humans naturally vary sentence length and structure more than AI. High burstiness scores above 60 strongly suggest human authorship. Very low burstiness below 20 is a reliable AI signal."
+          },
+          {
+            name: "Consider context and false positive risks",
+            text: "No detector is 100% accurate. Highly formal or technical writing naturally has lower perplexity. Non-native English speakers may write with simpler, more regular sentence structures. Writers who outline carefully before writing may produce more structured text that resembles AI output. Use the detector as one signal among several, not as definitive proof. When making important decisions about authorship, combine the detector with manual review and other evidence."
+          }
+        ]}
+      />
 
       <main className="pt-16">
         <AIContentDetectorClient />
