@@ -362,7 +362,48 @@ export default function DeveloperSalaryGuidePage() {
           </div>
         </section>
 
-        {/* CTA */}
+                  {/* Key Definitions */}
+          <section className="mb-12 bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              Key Compensation Terms Defined
+            </h2>
+            <dl className="space-y-4">
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Total Compensation (TC)</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  The complete value of an employment offer including base salary, annual bonus, stock grants (RSUs or options), signing bonus, and benefits. For senior developers at public tech companies, TC often exceeds base salary by 40-80% due to equity. Always negotiate and evaluate offers based on TC, not base salary alone.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Restricted Stock Unit (RSU)</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A form of equity compensation where the employer grants shares that vest over time. At vesting, the shares are taxed as ordinary income. Most tech companies use 4-year vesting schedules with a 1-year cliff (no vesting in year 1, then quarterly or monthly vesting after).
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Sign-on Bonus</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A one-time cash payment offered to new hires, typically $10,000-$50,000 for senior developers. Often negotiable and can offset unvested equity from a previous employer. Usually has a clawback provision requiring repayment if you leave within 12-24 months.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Base Salary</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  The fixed annual cash component of compensation, paid in regular paychecks. In 2026, senior software engineer base salaries range from $130,000 in secondary markets to $220,000+ in San Francisco and Seattle. Base salary is the most predictable component of TC.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Stock Refreshers</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  Additional equity grants given to existing employees, typically annually or at promotion. Refreshers extend the vesting timeline beyond the initial 4-year grant, preventing a "cliff" where total compensation drops sharply after year 4. Top performers at FAANG companies may receive refreshers worth 50-100% of their initial grant.
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <InContentAd />
+
+          {/* CTA */}
         <section className="mb-12 bg-gradient-to-r from-green-600 to-teal-600 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">
             Find Your Exact Salary Range

@@ -353,7 +353,48 @@ export default function DeveloperHabitsGuidePage() {
           </div>
         </section>
 
-        {/* CTA */}
+                  {/* Key Definitions */}
+          <section className="mb-12 bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              Key Productivity Terms Defined
+            </h2>
+            <dl className="space-y-4">
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Deep Work</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A state of uninterrupted, cognitively demanding focus on a single task. Coined by Cal Newport, deep work produces higher-quality output in less time than fragmented multitasking. For developers, deep work typically requires 90-120 minute blocks with no meetings, notifications, or context switches.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Ultradian Rhythm</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A biological cycle of 90-120 minutes that governs human cognitive performance. Each cycle consists of a high-frequency brain activity period (alertness, problem-solving) followed by a recovery period. Scheduling deep work to align with ultradian rhythms improves output quality by 20-40%.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Flow State</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A mental state of complete immersion in a task where time perception distorts and output feels effortless. For developers, entering flow typically requires 10-15 minutes of warm-up. Flow states produce 2-5x more output than normal working conditions but are fragile — a single Slack notification can destroy accumulated flow.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Context Switching Cost</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  The cognitive penalty paid when shifting attention between different tasks. Research by Gloria Mark found that knowledge workers take an average of 23 minutes to return to a task after an interruption. For developers, context switching is particularly costly because programming requires maintaining complex mental models of system state.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Keystone Habit</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A single habit that triggers positive ripple effects across multiple areas of life. For developers, common keystone habits include consistent sleep schedules, morning exercise, and protected deep work blocks. Research shows that establishing one keystone habit increases the probability of adopting additional positive habits by 35%.
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <InContentAd />
+
+          {/* CTA */}
         <section className="mb-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">
             Track Your Developer Habits

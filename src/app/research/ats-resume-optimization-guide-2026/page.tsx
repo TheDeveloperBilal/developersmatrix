@@ -387,7 +387,48 @@ export default function ATSResumeGuidePage() {
           </div>
         </section>
 
-        {/* CTA */}
+                  {/* Key Definitions */}
+          <section className="mb-12 bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              Key Resume and ATS Terms Defined
+            </h2>
+            <dl className="space-y-4">
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Applicant Tracking System (ATS)</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  Software used by employers to collect, sort, scan, and rank job applications. Over 95% of Fortune 500 companies use ATS platforms (Workday, Greenhouse, Lever, Taleo). ATS parsers extract text from resumes and match it against job descriptions before a human ever sees the application.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">ATS Parsing</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  The process by which an ATS converts a resume into structured data fields (name, email, work experience, skills, education). Parsing accuracy varies significantly by file format and layout. Text-based .docx files achieve 98-99% parsing accuracy, while image-based PDFs and multi-column layouts drop to 40-60%.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Keyword Matching</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  The primary screening mechanism in ATS systems. Recruiters configure keywords from the job description, and the ATS scores applications based on keyword frequency and placement. Exact keyword matches score higher than synonyms. Both acronyms and full terms should be included (e.g., "AWS" and "Amazon Web Services").
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Resume Parsing Failure</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  Occurs when an ATS cannot correctly extract text from a resume due to formatting issues. Common causes: tables, multi-column layouts, headers/footers, images, unusual fonts, and complex graphics. A parsing failure means your application may not appear in recruiter searches even if you are fully qualified.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">STAR Method</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A structured format for describing accomplishments: Situation (context), Task (your responsibility), Action (what you did), Result (quantified outcome). The STAR method produces scannable bullet points that both ATS systems and human recruiters prefer. Example: "Improved API response time by 40% (Result) by implementing Redis caching (Action) for the checkout microservice (Task) during peak holiday traffic (Situation)."
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <InContentAd />
+
+          {/* CTA */}
         <section className="mb-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">
             Build an ATS-Optimized Resume in Minutes

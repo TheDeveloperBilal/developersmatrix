@@ -365,7 +365,48 @@ export default function DeveloperFinancialPlanningPage() {
           </p>
         </section>
 
-        {/* CTA */}
+                  {/* Key Definitions */}
+          <section className="mb-12 bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              Key Financial Terms Defined
+            </h2>
+            <dl className="space-y-4">
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Financial Independence (FI)</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  The state of having sufficient invested assets to cover living expenses indefinitely without requiring employment income. The standard benchmark is 25x annual expenses (4% rule). For a developer spending $60,000/year, FI requires approximately $1.5M invested at a 4% safe withdrawal rate.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">4% Rule</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A guideline for sustainable retirement withdrawals stating that withdrawing 4% of a diversified portfolio annually (adjusted for inflation) has historically sustained 30-year retirements in 95% of historical scenarios. Based on the Trinity Study by Cooley, Hubbard, and Walz (1998).
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Mega Backdoor Roth</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  An advanced retirement strategy allowing after-tax 401k contributions beyond the standard $23,500 limit, up to a total of $70,000 (including employer match). These after-tax contributions can be converted to Roth, enabling up to $50,000+ in annual tax-free retirement savings. Requires employer plan support.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">Self-Employment Tax</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  The combined employer and employee portions of Social Security and Medicare taxes (15.3% on 92.35% of net earnings) paid by 1099 contractors and freelancers. W-2 employees pay only the employee portion (7.65%), with employers covering the other half. This is why 1099 income requires setting aside 25-30% for taxes.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900 dark:text-white">HSA (Health Savings Account)</dt>
+                <dd className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  A triple tax-advantaged account available to individuals with high-deductible health plans. Contributions are tax-deductible, growth is tax-free, and withdrawals for qualified medical expenses are tax-free. After age 65, non-medical withdrawals are taxed as ordinary income (like a Traditional 401k), making HSAs powerful stealth retirement accounts.
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <InContentAd />
+
+          {/* CTA */}
         <section className="mb-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">
             Start Tracking Your Developer Budget
