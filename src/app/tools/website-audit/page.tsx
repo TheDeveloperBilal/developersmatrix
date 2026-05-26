@@ -6,12 +6,12 @@ import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import WebsiteAuditClient from './WebsiteAuditClient';
 
 export const metadata: Metadata = {
-  title: "Free Website Audit Tool | SEO, Speed, Security & Mobile Checker 2026",
-  description: "Audit your website for free. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.",
+  title: "Free Website Audit Tool Online | Site Audit Check for SEO, Speed & Security",
+  description: "Free website audit tool online. Run a complete site audit check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.",
   keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free'],
   openGraph: {
-    title: "Free Website Audit Tool | SEO, Speed, Security & Mobile Checker 2026",
-    description: "Audit your website for free. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes.",
+    title: "Free Website Audit Tool Online | Site Audit Check for SEO, Speed & Security",
+    description: "Free website audit tool online. Run a complete site audit check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes.",
     url: `${siteConfig.url}/tools/website-audit`,
     siteName: siteConfig.name,
     images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Free Website Audit Tool | SEO, Speed, Security & Mobile Checker 2026",
-    description: "Audit your website for free. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility.",
+    title: "Free Website Audit Tool Online | Site Audit Check for SEO, Speed & Security",
+    description: "Free website audit tool online. Run a complete site audit check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility.",
     images: [siteConfig.ogImage],
     creator: '@developersmatrix'
   },
@@ -279,6 +279,70 @@ export default function WebsiteAuditPage() {
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Third-Party Script Bloat</h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Analytics trackers, chat widgets, ad networks, and social media embeds each add milliseconds to load time. In 2026, a single poorly implemented Facebook Pixel or Google Tag Manager container can add 2 to 3 seconds to your load time. Our audit identifies the worst offenders and suggests asynchronous loading or removal.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <InContentAd />
+
+            {/* Section: Website Code Audit */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Website Code Audit: Check Your HTML, CSS & JavaScript Quality
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <p className="leading-relaxed">
+                  A <strong>website code audit</strong> goes deeper than surface-level SEO checks. It examines the actual markup, stylesheets, and scripts that power your site. Broken HTML, bloated CSS, and unoptimized JavaScript are invisible to users but loud signals to search engines that your site is poorly maintained.
+                </p>
+                <p className="leading-relaxed">
+                  Our free website code audit tool scans every page for <strong>HTML validation errors</strong> including missing closing tags, deprecated attributes, and improper nesting. These errors prevent browsers from rendering pages correctly and confuse search engine crawlers trying to understand your content structure.
+                </p>
+                <p className="leading-relaxed">
+                  For <strong>CSS analysis</strong>, we detect unused styles that inflate file size, render-blocking stylesheets that delay page paint, and missing vendor prefixes that break layout on older browsers. We also flag inline styles that should be moved to external files for better caching and maintainability.
+                </p>
+                <p className="leading-relaxed">
+                  The <strong>JavaScript audit</strong> identifies unminified scripts, render-blocking JS files, memory leaks from event listeners, and excessive DOM manipulation that causes layout thrashing. We also check for proper async and defer attributes so scripts load without blocking critical rendering paths.
+                </p>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">What Our Website Code Audit Checks</h3>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>HTML5 validation and semantic structure</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>CSS file size and unused rule detection</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>JavaScript minification and bundling</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>Inline script and style detection</span>
+                      </li>
+                    </ul>
+                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>Missing alt attributes on images</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>Heading hierarchy (H1 through H6)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>Schema markup validation</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        <span>Accessibility ARIA roles and labels</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>

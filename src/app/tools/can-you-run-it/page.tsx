@@ -116,6 +116,10 @@ export default function CanYouRunItPage() {
                       <span>📈</span>
                       <span>Habit Tracker</span>
                     </a>
+                    <a href="/tools/website-audit" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                      <span>🔍</span>
+                      <span>Website Audit</span>
+                    </a>
                   </div>
                 </div>
 
@@ -245,6 +249,7 @@ export default function CanYouRunItPage() {
                     { href: "/trends/gta-6-release-date", icon: "🎮", title: "GTA 6 News", desc: "Release date and system requirements" },
                     { href: "/tools/salary-estimator", icon: "💰", title: "Salary Estimator", desc: "Know your market worth" },
                     { href: "/tools/budget-planner", icon: "🎯", title: "Budget Planner", desc: "Plan your upgrade budget" },
+                    { href: "/tools/website-audit", icon: "🔍", title: "Website Audit", desc: "Check your site speed and SEO" },
                     { href: "/tools/habit-tracker", icon: "📈", title: "Habit Tracker", desc: "Build consistent routines" },
                     { href: "/tools/productivity-planner", icon: "📊", title: "Productivity Planner", desc: "Optimize your workflow" },
                     { href: "/tools", icon: "⚡", title: "All Tools", desc: "15+ free AI-powered tools" },

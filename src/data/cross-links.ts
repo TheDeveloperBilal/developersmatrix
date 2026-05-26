@@ -42,6 +42,8 @@ const trendToToolsMap: Record<string, string[]> = {
   // Website/SEO trends → audit tool
   'website-speed-optimization-2026': ['website-audit'],
   'seo-trends-2026': ['website-audit'],
+  'web-development-trends-2026': ['website-audit'],
+  'mobile-first-design-2026': ['website-audit'],
 };
 
 const trendToBlogsMap: Record<string, string[]> = {
@@ -74,6 +76,9 @@ const tagToToolMap: Record<string, string[]> = {
   'seo': ['website-audit'],
   'website': ['website-audit'],
   'audit': ['website-audit'],
+  'performance': ['website-audit'],
+  'speed': ['website-audit'],
+  'optimization': ['website-audit'],
   'links': ['link-manager'],
 };
 

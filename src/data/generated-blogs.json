@@ -8,8 +8,30 @@
     "author": "Gaming News Desk",
     "category": "Gaming",
     "tags": ["GTA 6", "Rockstar Games", "Gaming", "Video Games", "Vice City"],
-    "publishedAt": "2026-11-06",
+    "publishedAt": "2026-05-20",
     "readTime": 6,
-    "image": "/images/blog/gta6-news.jpg"
+    "image": "/images/blog/gta6-news.jpg",
+    "faqs": [
+      {
+        "question": "When is GTA 6 coming out?",
+        "answer": "Grand Theft Auto VI will release on November 19, 2026 for PlayStation 5 and Xbox Series X|S. The PC version is expected to arrive in late 2027 or early 2028, following Rockstar's historical release pattern."
+      },
+      {
+        "question": "What platforms will GTA 6 be on at launch?",
+        "answer": "GTA 6 will launch on PlayStation 5 and Xbox Series X|S. A PC release will follow later, similar to previous Rockstar titles where the PC version arrived 12 to 19 months after console launch."
+      },
+      {
+        "question": "Why was GTA 6 delayed to November 2026?",
+        "answer": "Rockstar Games delayed GTA 6 to ensure the game meets their high quality standards. The additional development time allows for polish, bug fixes, and optimization of what will be the largest open-world game Rockstar has ever created."
+      },
+      {
+        "question": "How much will GTA 6 cost?",
+        "answer": "The standard edition of GTA 6 is expected to cost $69.99 to $79.99. Special and Collector's Editions may range from $89.99 to $99.99, though official pricing has not been confirmed by Rockstar."
+      },
+      {
+        "question": "Who are the main characters in GTA 6?",
+        "answer": "GTA 6 features dual protagonists: Lucia and Jason. Lucia marks the first female protagonist in a mainline GTA game. Players will switch between both characters throughout the story."
+      }
+    ]
   }
 ]
