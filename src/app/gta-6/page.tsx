@@ -61,7 +61,7 @@ export default function GTA6Page() {
         url={`${siteConfig.url}/gta-6`}
         datePublished="2026-05-08T00:00:00+00:00"
         dateModified="2026-05-25T00:00:00+00:00"
-        author="Bilal Ahmad"
+        author="Syed Bilal Shah"
         authorUrl={`${siteConfig.url}/about`}
         authorJobTitle="Founder & Lead Editor"
         articleSection="Gaming News"

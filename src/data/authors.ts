@@ -14,10 +14,10 @@ export interface Author {
 }
 
 export const siteAuthor: Author = {
-  name: 'Bilal Ahmad',
-  slug: 'bilal-ahmad',
+  name: 'Syed Bilal Shah',
+  slug: 'syed-bilal-shah',
   jobTitle: 'Founder & Lead Editor',
-  bio: 'Bilal Ahmad is the founder of DevelopersMatrix and a full-stack developer with expertise in building AI-powered tools for developers and tech professionals. He has built and scaled multiple web applications using Next.js, React, and modern AI APIs. His work focuses on making professional-grade tools accessible to everyone, regardless of budget.',
+  bio: 'Syed Bilal Shah is the founder of DevelopersMatrix and a full-stack developer with expertise in building AI-powered tools for developers and tech professionals. He has built and scaled multiple web applications using Next.js, React, and modern AI APIs. His work focuses on making professional-grade tools accessible to everyone, regardless of budget.',
   credentials: [
     'Full-Stack Developer',
     'AI Tool Builder',
@@ -39,8 +39,7 @@ export const siteAuthor: Author = {
   ],
   sameAs: [
     'https://github.com/TheDeveloperBilal',
-    'https://linkedin.com/in/bilalahmad',
-    'https://twitter.com/developersmatrix'
+    'https://www.linkedin.com/in/thedeveloperbilal/'
   ],
   joinedDate: '2024-01-01'
 };

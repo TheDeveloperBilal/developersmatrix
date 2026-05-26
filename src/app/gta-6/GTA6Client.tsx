@@ -220,7 +220,7 @@ export default function GTA6Client() {
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20" />
         
         {/* Game Cover Image */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <img 
             src="/images/games/gta6.png" 
             alt="GTA 6 Cover"
@@ -231,44 +231,45 @@ export default function GTA6Client() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8 items-center">
-            <div className="text-center md:text-left">
-              <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6">
-                <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
-                <span className="text-purple-300 text-xs sm:text-sm font-medium">Most Anticipated Game of 2026</span>
+            <div className="text-center md:text-left min-w-0">
+              <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 max-w-full">
+                <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 shrink-0" />
+                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Most Anticipated Game of 2026</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 break-words">
                 Grand Theft Auto <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">VI</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-xl mb-4 sm:mb-8">
                 Check if your PC can run GTA 6 and get the latest news, system requirements, and features.
               </p>
-              <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
-                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-400" />
-                  Console: {gameInfo.consoleRelease}
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-400 shrink-0" />
+                  <span className="truncate">Console: {gameInfo.consoleRelease}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
-                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-orange-400" />
-                  PC: {gameInfo.pcRelease}
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-orange-400 shrink-0" />
+                  <span className="sm:hidden">PC: Late 2027+</span>
+                  <span className="hidden sm:inline">PC: {gameInfo.pcRelease}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
-                  <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400" />
-                  {gameInfo.price}
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                  <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
+                  <span className="truncate">{gameInfo.price}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
-                  <Building className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400" />
-                  {gameInfo.developer}
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                  <Building className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400 shrink-0" />
+                  <span className="truncate">{gameInfo.developer}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
-                  <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-yellow-400" />
-                  {gameInfo.location}
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center col-span-2 sm:col-span-1">
+                  <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-yellow-400 shrink-0" />
+                  <span className="truncate">{gameInfo.location}</span>
                 </Badge>
               </div>
             </div>
             
             {/* Game Cover */}
             <div className="mt-6 md:mt-0">
-              <div className="relative max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+              <div className="relative max-w-[240px] sm:max-w-sm md:max-w-md mx-auto">
                 <img 
                   src="/images/games/gta6.png" 
                   alt="GTA 6 Cover Art"
