@@ -100,7 +100,7 @@ export default function CanYouRunItPage() {
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
                   <h3 className="font-semibold mb-3 text-sm">Related Resources</h3>
                   <div className="space-y-2 text-sm">
-                    <a href="/trends/gta-6-release-date" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
+                    <a href="/trends/gta-6-release-everything-we-know" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
                       <span>🎮</span>
                       <span>GTA 6 News</span>
                     </a>
@@ -246,7 +246,7 @@ export default function CanYouRunItPage() {
                 <h2 className="text-2xl font-bold mb-6">Complete Your Gaming Toolkit</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[
-                    { href: "/trends/gta-6-release-date", icon: "🎮", title: "GTA 6 News", desc: "Release date and system requirements" },
+                    { href: "/trends/gta-6-release-everything-we-know", icon: "🎮", title: "GTA 6 News", desc: "Release date and system requirements" },
                     { href: "/tools/salary-estimator", icon: "💰", title: "Salary Estimator", desc: "Know your market worth" },
                     { href: "/tools/budget-planner", icon: "🎯", title: "Budget Planner", desc: "Plan your upgrade budget" },
                     { href: "/tools/website-audit", icon: "🔍", title: "Website Audit", desc: "Check your site speed and SEO" },
