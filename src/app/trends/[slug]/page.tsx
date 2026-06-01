@@ -250,6 +250,34 @@ export default async function TrendPage({ params }: TrendPageProps) {
               </div>
             </section>
 
+            {/* Industry Examples */}
+            {trend.content.industryExamples && trend.content.industryExamples.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">AI Agent Examples by Industry</h2>
+                <p className="text-slate-600 dark:text-slate-400 mb-6">
+                  See how autonomous AI agents are deployed across different sectors in 2026. Each example includes the company, use case, and measurable results.
+                </p>
+                <div className="space-y-4">
+                  {trend.content.industryExamples.map((item, index) => (
+                    <div key={index} className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-500/50 transition-colors">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge className="bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-0">
+                          {item.industry}
+                        </Badge>
+                      </div>
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{item.company}</h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{item.description}</p>
+                      <div className="p-3 rounded-lg bg-green-50 dark:bg-green-500/5 border border-green-100 dark:border-green-500/20">
+                        <p className="text-sm text-green-700 dark:text-green-400">
+                          <span className="font-semibold">Results: </span>{item.results}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* Tools & Platforms */}
             <section>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Tools & Platforms</h2>
