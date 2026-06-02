@@ -97,13 +97,11 @@ export function BlogSection() {
                 <div className="group relative h-full rounded-2xl overflow-hidden bg-white dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 shadow-sm hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 hover:-translate-y-1">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${post.color} opacity-60`} />
                     <img 
                       src={post.image} 
                       alt={post.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
                     
                     {/* Category Badge */}
                     <Badge className="absolute top-4 left-4 bg-white/90 dark:bg-slate-900/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 backdrop-blur-sm">
