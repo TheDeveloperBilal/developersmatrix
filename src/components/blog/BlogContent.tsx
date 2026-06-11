@@ -149,6 +149,8 @@ export function BlogContent({ content }: { content: string }) {
       .replace(/^(\d+)\.\s+(.+)$/gm, '<li class="blog-oli" data-num="$1">$2</li>')
       // Links [text](url)
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="blog-link" target="_blank" rel="noopener noreferrer">$1</a>')
+      // Auto-link bare URLs (not already in <a> tags)
+      .replace(/(?<!["\'>]|href=\")(https?:\/\/[^\s<>"{}|\^`\[\]]+)/g, '<a href="$1" class="blog-link" target="_blank" rel="noopener noreferrer">$1</a>')
       // Horizontal rule
       .replace(/^---$/gm, '<hr class="blog-hr" />')
       // Images ![alt](src)
@@ -165,7 +167,7 @@ export function BlogContent({ content }: { content: string }) {
       // Line breaks
       .replace(/\n\n/g, '\n')
       // Paragraphs - but not lines that already start with HTML tags
-      .replace(/^(?!<[hbltcsrpid]|$)(.+)$/gm, '<p class="blog-p">$1</p>');
+      .replace(/^(?!<[hbltcsrpid a]|$)(.+)$/gm, '<p class="blog-p">$1</p>');
 
     // Wrap adjacent li elements in ul/ol
     html = html.replace(/(<li class="blog-li">.*?<\/li>\n?)+/g, (match) => {
