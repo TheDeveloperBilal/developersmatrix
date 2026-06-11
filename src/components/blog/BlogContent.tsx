@@ -117,7 +117,10 @@ export function BlogContent({ content }: { content: string }) {
 
   // Parse markdown-like content to HTML
   const parseContent = (rawContent: string): string => {
+    // Normalize line endings to \n for consistent parsing
     let html = rawContent
+      .replace(/\r\n/g, '\n')
+      .replace(/\r/g, '\n')
       // Escape HTML entities first to prevent XSS
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -161,8 +164,8 @@ export function BlogContent({ content }: { content: string }) {
       })
       // Line breaks
       .replace(/\n\n/g, '\n')
-      // Paragraphs
-      .replace(/^(?!<[hbltcsrpi]|$)(.+)$/gm, '<p class="blog-p">$1</p>');
+      // Paragraphs - but not lines that already start with HTML tags
+      .replace(/^(?!<[hbltcsrpid]|$)(.+)$/gm, '<p class="blog-p">$1</p>');
 
     // Wrap adjacent li elements in ul/ol
     html = html.replace(/(<li class="blog-li">.*?<\/li>\n?)+/g, (match) => {
