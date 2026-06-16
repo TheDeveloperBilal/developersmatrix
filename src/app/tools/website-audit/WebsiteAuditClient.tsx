@@ -249,14 +249,14 @@ export default function WebsiteAuditClient() {
               </span>
               <br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Audit Tool
+                Audit Tool Online
               </span>
             </h1>
 
             {/* Description */}
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8">
-              Audit your website for free with our comprehensive SEO, performance, mobile UX, security, 
-              accessibility, and content quality analyzer. Get instant scores and actionable fixes. No signup needed.
+              Run a free website audit and site health check online with our comprehensive SEO, performance, mobile UX, security, 
+              accessibility, and content quality analyzer. Get instant scores and actionable fixes from our online website auditor. No signup needed.
             </p>
 
             {/* Stats */}

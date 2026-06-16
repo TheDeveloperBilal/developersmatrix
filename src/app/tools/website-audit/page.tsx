@@ -1,17 +1,18 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { Search, Gauge, Smartphone, Accessibility } from 'lucide-react';
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import WebsiteAuditClient from './WebsiteAuditClient';
 
 export const metadata: Metadata = {
-  title: "Free Website Audit Tool Online | Site Audit Check for SEO, Speed & Security",
-  description: "Free website audit tool online. Run a complete site audit check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.",
-  keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free'],
+  title: "Free Website Audit Tool | Online Site Audit Check, Health Check & SEO Analyzer",
+  description: "Free website audit tool online. Run a complete site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores from our online website auditor. No signup needed.",
+  keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'free website health check', 'free website check', 'online website auditor', 'website auditor tool online', 'analyze site online', 'audit checker', 'url audit', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free', 'website audit cost', 'website audit pricing 2026'],
   openGraph: {
-    title: "Free Website Audit Tool Online | Site Audit Check for SEO, Speed & Security",
-    description: "Free website audit tool online. Run a complete site audit check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes.",
+    title: "Free Website Audit Tool | Online Site Audit Check, Health Check & SEO Analyzer",
+    description: "Free website audit tool online. Run a complete site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores from our online website auditor.",
     url: `${siteConfig.url}/tools/website-audit`,
     siteName: siteConfig.name,
     images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
@@ -19,8 +20,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Free Website Audit Tool Online | Site Audit Check for SEO, Speed & Security",
-    description: "Free website audit tool online. Run a complete site audit check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility.",
+    title: "Free Website Audit Tool | Online Site Audit Check, Health Check & SEO Analyzer",
+    description: "Free website audit tool online. Run a complete site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility.",
     images: [siteConfig.ogImage],
     creator: '@developersmatrix'
   },
@@ -72,7 +73,23 @@ const toolFaqs = [
   {
     question: "Can I download or share the audit report?",
     answer: "Absolutely. After running an audit, copy the full text report to your clipboard or download a professionally formatted PDF. The PDF includes color-coded scores for each category, issues organized by severity level, actionable recommendations prioritized by impact, a complete content analysis breakdown, and a clean summary perfect for stakeholders. It is ideal for sharing with clients, team members, or freelancers who will implement the fixes."
-  }
+  },
+  {
+    question: "What is a free website health check and why do I need one?",
+    answer: "A free website health check is a quick diagnostic scan that evaluates your site's core performance indicators without any cost or commitment. It checks your site's crawlability, server response time, image optimization, security headers, mobile responsiveness, and Core Web Vitals. You need one because problems like slow load times, broken links, or missing meta tags often go unnoticed until they cause ranking drops. Running regular health checks catches these issues early, before they impact your traffic or revenue. Our tool delivers a full health check in under 30 seconds with no signup required."
+  },
+  {
+    question: "How much does a website audit cost in 2026?",
+    answer: "Website audit cost in 2026 ranges from free to over $5,000 depending on depth and provider. Free tools like DevelopersMatrix and Google Lighthouse cover technical SEO, performance, and security basics for small to medium sites. Paid desktop tools like Screaming Frog cost $259 per year and excel at full-site crawling. All-in-one suites like Ahrefs ($99-$999/month) and SEMrush ($119-$449/month) add competitive analysis, rank tracking, and backlink data. Professional agency audits run $500-$5,000 and include manual review with custom strategy. For most sites under 1,000 pages, a free audit combined with Google Search Console is sufficient to start. Upgrade to paid tools only when your traffic justifies the investment."
+  },
+  {
+    question: "Can I audit a single URL instead of my entire website?",
+    answer: "Yes, absolutely. Our URL audit feature is designed for exactly this use case. Paste any individual page URL and get a deep analysis of that specific page's technical SEO, performance, content quality, and accessibility. This is perfect for checking a new blog post before publishing, verifying a landing page after a redesign, auditing a competitor's top-ranking article, or spot-checking a product page that dropped in conversions. While full-site crawls are better for finding systemic issues like orphan pages and duplicate content, a single URL audit gives you granular, actionable data faster."
+  },
+  {
+    question: "What is the best online website auditor for small businesses?",
+    answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with 200+ checks across 7 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full-site technical crawling. Avoid expensive all-in-one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
+  },
 ];
 
 export default function WebsiteAuditPage() {
@@ -346,6 +363,273 @@ export default function WebsiteAuditPage() {
                   </div>
                 </div>
               </div>
+            </section>
+
+            <InContentAd />
+
+            {/* Section: Free Website Health Check */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Free Website Health Check — Monitor Your Site's Vital Signs
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <p className="leading-relaxed">
+                  A <strong>free website health check</strong> is the fastest way to know if your site is in good shape or bleeding traffic. Think of it like a routine physical for your website. You do not wait for a heart attack to see a doctor, and you should not wait for a ranking drop to audit your site.
+                </p>
+                <p className="leading-relaxed">
+                  Our <strong>free website check</strong> scans the vital signs that matter most in 2026. We check your site's heartbeat — can Google crawl it without hitting walls? We check its blood pressure — is the server responding in under 800ms or is it struggling under load? We check its vision — are images optimized or dragging down every page load? And we check its immune system — are security headers in place or is the site vulnerable to common attacks?
+                </p>
+                <p className="leading-relaxed">
+                  The best part is there is no commitment. Enter any URL above and get a full report in under 30 seconds. No email gate. No trial expiration. Run a <strong>free website health check</strong> on your homepage, a landing page, or a competitor's site to benchmark where you stand. Many users run weekly checks and track their score over time to measure progress.
+                </p>
+                <div className="grid sm:grid-cols-3 gap-4 mt-6">
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
+                    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">30s</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">Average scan time</div>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
+                    <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-1">200+</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">Checks per audit</div>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
+                    <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">$0</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">Cost forever</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <InContentAd />
+
+            {/* Section: Online Website Auditor */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Online Website Auditor — Instant Analysis Without Installing Anything
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <p className="leading-relaxed">
+                  Not everyone wants to download software, learn a command line tool, or pay for a subscription just to <strong>analyze a site online</strong>. That is exactly why we built this <strong>online website auditor</strong> — it runs entirely in your browser and delivers the same depth of analysis that desktop tools charge hundreds of dollars for.
+                </p>
+                <p className="leading-relaxed">
+                  Traditional <strong>website auditor tools</strong> like Screaming Frog or Sitebulb require installation, configuration, and often a crawling license for larger sites. They are powerful, but overkill if you just want a quick snapshot of what is broken. Our <strong>online website auditor</strong> bridges that gap. You get enterprise-grade checks for technical SEO, performance, accessibility, and security without ever leaving this tab.
+                </p>
+                <p className="leading-relaxed">
+                  Whether you are a freelancer auditing a client site, a developer checking your own deployment, or a marketer verifying a landing page before a campaign launch, an <strong>online website auditor</strong> removes every barrier between you and the data. Just paste the URL and click audit. The results are immediate, detailed, and actionable.
+                </p>
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800 mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                    What Makes an Online Website Auditor Better?
+                  </h3>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">⚡</span>
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-white">Zero Setup</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">No downloads, no accounts, no configuration files</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">🌐</span>
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-white">Any Device</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Works on mobile, tablet, or desktop browsers</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">📊</span>
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-white">Instant PDF Export</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">Download and share reports with one click</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">🔒</span>
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-white">Private & Secure</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">We do not store your URLs or audit data</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <InContentAd />
+
+            {/* Section: URL Audit */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                URL Audit — Check Individual Pages for Deep Insights
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <p className="leading-relaxed">
+                  Sometimes you do not need a full site crawl. You need a <strong>URL audit</strong> on a single page that matters — a product page that is not converting, a blog post that dropped in rankings, or a landing page you are about to launch. Our <strong>audit checker</strong> handles both full-site analysis and deep single-page audits with the same precision.
+                </p>
+                <p className="leading-relaxed">
+                  A focused <strong>URL audit</strong> is especially powerful for content creators and SEO professionals. You can paste a competitor's top-ranking article and see exactly what technical advantages they have. Do they use FAQ schema? Are their images compressed better? Is their heading hierarchy cleaner? Our tool extracts every signal and presents it in a side-by-side readable format.
+                </p>
+                <p className="leading-relaxed">
+                  For developers, a <strong>URL audit</strong> is the fastest way to verify a deployment. Push a new build, audit the URL, and confirm that meta tags rendered correctly, images are loading from the CDN, and no console errors leaked into production. It is a safety net that takes 30 seconds and can save hours of debugging.
+                </p>
+              </div>
+            </section>
+
+            <InContentAd />
+
+            {/* Section: Website Audit Cost Comparison */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Website Audit Cost: Free vs Paid Tools in 2026
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <p className="leading-relaxed">
+                  If you have looked up <strong>website audit cost pricing 2026</strong>, you know the range is wild. Professional SEO agencies charge anywhere from $500 to $5,000 for a comprehensive manual audit. Enterprise tools like Ahrefs, SEMrush, and Sitebulb run $99 to $399 per month. Even desktop crawlers like Screaming Frog require a $259 annual license for serious use.
+                </p>
+                <p className="leading-relaxed">
+                  The question is not whether paid tools are better — they often are for massive sites and deep competitive analysis. The question is what you actually need. If you are running a small business site, a portfolio, a blog, or a startup with under 1,000 pages, a <strong>free website audit tool</strong> covers 90 percent of what matters. You can always upgrade to a paid solution once your traffic justifies the investment.
+                </p>
+              </div>
+
+              <div className="mt-6 overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-300">
+                    <tr>
+                      <th className="px-4 py-3 rounded-tl-lg">Tool</th>
+                      <th className="px-4 py-3">Cost</th>
+                      <th className="px-4 py-3">Best For</th>
+                      <th className="px-4 py-3 rounded-tr-lg">Limitations</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    <tr className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">DevelopersMatrix</td>
+                      <td className="px-4 py-3 text-green-600 dark:text-green-400 font-medium">Free</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Quick checks, small sites, developers</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Single page per scan</td>
+                    </tr>
+                    <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
+                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Google Lighthouse</td>
+                      <td className="px-4 py-3 text-green-600 dark:text-green-400 font-medium">Free</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Performance & Core Web Vitals</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">No SEO or security checks</td>
+                    </tr>
+                    <tr className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Screaming Frog</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$259/year</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Full site crawls, technical SEO</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Desktop only, steep learning curve</td>
+                    </tr>
+                    <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
+                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Ahrefs Site Audit</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$99-$999/mo</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Enterprise SEO, backlink analysis</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Expensive for small sites</td>
+                    </tr>
+                    <tr className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">SEMrush Site Audit</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$119-$449/mo</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">All-in-one marketing suite</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Overkill if you only need audits</td>
+                    </tr>
+                    <tr className="bg-gray-50 dark:bg-gray-800/50">
+                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white rounded-bl-lg">Agency Audit</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$500-$5,000</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Custom strategy, manual review</td>
+                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400 rounded-br-lg">Slow turnaround, high cost</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800 mt-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Our Recommendation
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Start with a <strong>free website audit</strong> to identify your biggest issues. Fix the critical and high-priority findings first. If your site has over 10,000 pages, or you need ongoing competitive intelligence and rank tracking, then invest in Ahrefs or SEMrush. For most sites under that threshold, a combination of our free tool plus Google Search Console is all you need.
+                </p>
+              </div>
+            </section>
+
+            <InContentAd />
+
+            {/* Section: Site Audit Checklist */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Site Audit Check — Your Complete Technical SEO Checklist for 2026
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <p className="leading-relaxed">
+                  A thorough <strong>site audit check</strong> covers more than just page speed. In 2026, Google's algorithm evaluates hundreds of signals across multiple dimensions. Here is the complete <strong>website SEO audit checklist</strong> our tool uses — use it as a reference even if you audit manually.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <Search className="w-5 h-5 text-blue-500" />
+                    Technical SEO
+                  </h3>
+                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Unique title tag on every page (50-60 chars)</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Unique meta description (120-158 chars)</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> One H1 per page, logical H2-H6 hierarchy</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Canonical tag on every page</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> XML sitemap submitted to Google Search Console</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Robots.txt configured correctly</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Schema markup (Article, FAQ, HowTo, Organization)</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> No broken internal links or orphan pages</li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <Gauge className="w-5 h-5 text-orange-500" />
+                    Performance
+                  </h3>
+                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> LCP under 2.5 seconds</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> INP under 200 milliseconds</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> CLS under 0.1</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Images in WebP/AVIF format</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Browser caching enabled</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> CSS and JS minified</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Critical CSS inlined</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> CDN for static assets</li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <Smartphone className="w-5 h-5 text-purple-500" />
+                    Mobile & Security
+                  </h3>
+                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Viewport meta tag configured</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Touch targets minimum 48px</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> No horizontal scroll on mobile</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> HTTPS enforced sitewide</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Security headers (HSTS, CSP, X-Frame-Options)</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> No mixed content warnings</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> TLS 1.2 or higher</li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <Accessibility className="w-5 h-5 text-green-500" />
+                    Accessibility & Content
+                  </h3>
+                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Alt text on all images</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Form labels associated with inputs</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> ARIA roles where needed</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Color contrast WCAG AA compliant</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Keyboard navigation works</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Content over 300 words per page</li>
+                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Clear calls-to-action present</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 mt-6 leading-relaxed">
+                Our tool runs every item on this <strong>website SEO audit checklist performance analysis</strong> automatically and scores your site against each category. You do not need to memorize the checklist — just run the audit and follow the prioritized fix list.
+              </p>
             </section>
 
             <InContentAd />
