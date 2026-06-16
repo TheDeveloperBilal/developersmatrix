@@ -36,7 +36,7 @@ export const navigation = [
       { name: 'Productivity Planner', href: '/tools/productivity-planner' }
     ]
   },
-  { name: 'Free Audit', href: '/tools/website-audit', highlight: true },
+  { name: 'Free Website Audit', href: '/tools/website-audit', highlight: true },
   { name: 'Trends', href: '/trends' },
   { name: 'Blog', href: '/blog' },
   { name: 'Community', href: '/community' }
