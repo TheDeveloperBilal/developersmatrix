@@ -199,7 +199,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-content-detector'
   },
   'ai-resume-builder': {
-    title: 'Free AI Resume Builder for Developers | ATS-Friendly 2026',
+    title: 'Free AI Resume Builder 2026 | Best ATS Resume Builder for Developers & Tech Jobs',
     description: 'Build an ATS-friendly resume in minutes with our free AI resume builder. Tailored for developers, software engineers, and tech professionals. 2026-ready templates, keyword optimization, and instant PDF export.',
     keywords: [
       'ai resume builder free',
@@ -226,7 +226,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-resume-builder'
   },
   'ai-cover-letter-generator': {
-    title: 'Free AI Cover Letter Generator | For Tech Jobs 2026',
+    title: 'Free AI Cover Letter Generator 2026 | Best Cover Letter Builder for Tech Jobs',
     description: 'Free AI cover letter generator for developers, engineers, and tech professionals. Create personalized, ATS-friendly cover letters tailored to any job description in under 60 seconds. No signup, no credit card, unlimited use.',
     keywords: [
       'ai cover letter generator free',
