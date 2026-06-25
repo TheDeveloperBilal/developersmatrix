@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link, Copy, Check, Quote, Info, AlertTriangle, Lightbulb, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useState, useCallback } from 'react';
 
 function HeadingWithCopy({ level, children, id }: { level: number; children: React.ReactNode; id: string }) {
   const [copied, setCopied] = useState(false);
@@ -102,6 +101,37 @@ export function BlockQuote({ children }: { children: React.ReactNode }) {
 export function BlogContent({ content }: { content: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Handle copy button clicks for code blocks
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const handleCopy = async (e: Event) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      const preBody = btn.closest('.blog-pre')?.querySelector('.blog-pre-body');
+      const code = preBody?.querySelector('code');
+      if (!code) return;
+      
+      try {
+        await navigator.clipboard.writeText(code.textContent || '');
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch {
+        // ignore
+      }
+    };
+
+    const buttons = containerRef.current.querySelectorAll('.blog-pre-copy-btn');
+    buttons.forEach(btn => btn.addEventListener('click', handleCopy));
+    
+    return () => {
+      buttons.forEach(btn => btn.removeEventListener('click', handleCopy));
+    };
+  }, [content]);
+
   useEffect(() => {
     if (!containerRef.current) return;
     // Auto-assign IDs to headings for anchor links
@@ -117,11 +147,37 @@ export function BlogContent({ content }: { content: string }) {
 
   // Parse markdown-like content to HTML
   const parseContent = (rawContent: string): string => {
+    // Helper to generate VS Code-style code block HTML
+    const generateCodeBlock = (code: string, lang?: string): string => {
+      const language = lang || 'code';
+      const escapedCode = code
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      
+      return `<div class="blog-pre">
+        <div class="blog-pre-header">
+          <div class="blog-pre-header-left">
+            <span class="blog-pre-dot red"></span>
+            <span class="blog-pre-dot yellow"></span>
+            <span class="blog-pre-dot green"></span>
+            <span class="blog-pre-lang">${language}</span>
+          </div>
+          <button class="blog-pre-copy-btn" type="button" title="Copy code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:text-bottom;margin-right:4px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy
+          </button>
+        </div>
+        <div class="blog-pre-body">
+          <code class="blog-precode">${escapedCode}</code>
+        </div>
+      </div>`;
+    };
+
     // Normalize line endings to \n for consistent parsing
     let html = rawContent
       .replace(/\r\n/g, '\n')
       .replace(/\r/g, '\n')
-      // Escape HTML entities first to prevent XSS
+      // Escape HTML entities first (but we'll handle code blocks specially)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
@@ -138,11 +194,26 @@ export function BlogContent({ content }: { content: string }) {
       // Bold
       .replace(/\*\*(.+?)\*\*/g, '<strong class="blog-strong">$1</strong>')
       // Italic
-      .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      // Inline code
-      .replace(/`([^`]+)`/g, '<code class="blog-code">$1</code>')
-      // Code blocks
-      .replace(/```(?:\w+)?\n?([\s\S]*?)```/g, '<pre class="blog-pre"><code class="blog-precode">$1</code></pre>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+    // Handle code blocks specially — need to do this before inline code since code blocks contain backticks
+    // First, temporarily replace code blocks with placeholders
+    const codeBlocks: Array<{ placeholder: string; html: string }> = [];
+    html = html.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
+      const placeholder = `___CODE_BLOCK_${codeBlocks.length}___`;
+      codeBlocks.push({ placeholder, html: generateCodeBlock(code, lang) });
+      return placeholder;
+    });
+
+    // Now safe to process inline code
+    html = html.replace(/`([^`]+)`/g, '<code class="blog-code">$1</code>');
+
+    // Restore code blocks
+    codeBlocks.forEach(({ placeholder, html: blockHtml }) => {
+      html = html.replace(placeholder, blockHtml);
+    });
+
+    html = html
       // Unordered lists
       .replace(/^(-|\*)\s+(.+)$/gm, '<li class="blog-li">$2</li>')
       // Ordered lists
