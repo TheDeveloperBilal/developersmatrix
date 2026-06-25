@@ -116,7 +116,7 @@ export function BlogContent({ content }: { content: string }) {
         btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
         btn.classList.add('copied');
         setTimeout(() => {
-          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:text-bottom;margin-right:4px;flex-shrink:0;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy';
           btn.classList.remove('copied');
         }, 2000);
       } catch {
@@ -130,6 +130,60 @@ export function BlogContent({ content }: { content: string }) {
     return () => {
       buttons.forEach(btn => btn.removeEventListener('click', handleCopy));
     };
+  }, [content]);
+
+  // Scroll animations — fade in elements as they enter viewport
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('blog-animate');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    const targets = containerRef.current.querySelectorAll(
+      '.blog-p, .blog-ul, .blog-ol, .blog-img, .blog-table, .blog-blockquote, .blog-pre, h2, h3, h4'
+    );
+    targets.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [content]);
+
+  // Add copy-link buttons to headings
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const headings = containerRef.current.querySelectorAll('h2.blog-h2, h3.blog-h3, h4.blog-h4');
+    
+    headings.forEach((heading) => {
+      if (heading.querySelector('.blog-heading-copy-btn')) return;
+      
+      const btn = document.createElement('button');
+      btn.className = 'blog-heading-copy-btn';
+      btn.type = 'button';
+      btn.title = 'Copy link to section';
+      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>';
+      
+      btn.addEventListener('click', async () => {
+        const url = `${window.location.origin}${window.location.pathname}#${heading.id}`;
+        await navigator.clipboard.writeText(url);
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>';
+        }, 2000);
+      });
+      
+      heading.appendChild(btn);
+    });
   }, [content]);
 
   useEffect(() => {
@@ -262,11 +316,56 @@ export function BlogContent({ content }: { content: string }) {
 
   const htmlContent = parseContent(content);
 
+  const [feedbackState, setFeedbackState] = useState<'idle' | 'yes' | 'no'>('idle');
+
   return (
-    <div
-      ref={containerRef}
-      className="blog-content-wrapper"
-      dangerouslySetInnerHTML={{ __html: htmlContent }}
-    />
+    <>
+      <div
+        ref={containerRef}
+        className="blog-content-wrapper"
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      />
+      
+      {/* Was this helpful? feedback section */}
+      <div className="blog-feedback">
+        <p className="blog-feedback-label">Was this article helpful?</p>
+        <div className="blog-feedback-buttons">
+          <button
+            className={`blog-feedback-btn ${feedbackState === 'yes' ? 'active' : ''}`}
+            onClick={() => setFeedbackState('yes')}
+            disabled={feedbackState !== 'idle'}
+          >
+            {feedbackState === 'yes' ? (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Thanks for your feedback!
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+                Yes, it helped
+              </>
+            )}
+          </button>
+          <button
+            className={`blog-feedback-btn ${feedbackState === 'no' ? 'active' : ''}`}
+            onClick={() => setFeedbackState('no')}
+            disabled={feedbackState !== 'idle'}
+          >
+            {feedbackState === 'no' ? (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Thanks for your feedback!
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 2.7l1.38 9a2 2 0 0 0 2 1.3H10M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/></svg>
+                Not really
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
