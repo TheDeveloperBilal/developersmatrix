@@ -216,8 +216,9 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const category = searchParams.get('category') || CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
     const secret = searchParams.get('secret');
+    const expectedSecret = process.env.BLOG_AUTO_SECRET || 'dm-auto-2026';
 
-    if (secret !== 'dm-auto-2026') {
+    if (secret !== expectedSecret) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -273,8 +274,9 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { secret, count = 3 } = body;
+    const expectedSecret = process.env.BLOG_AUTO_SECRET || 'dm-auto-2026';
 
-    if (secret !== 'dm-auto-2026') {
+    if (secret !== expectedSecret) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
