@@ -39,8 +39,11 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     description: post.excerpt,
     keywords: post.tags,
     alternates: {
-      canonical: `${siteConfig.url}/blog/${post.slug}`,
+      canonical: post.canonicalUrl || `${siteConfig.url}/blog/${post.slug}`,
     },
+    robots: post.noindex
+      ? { index: false, follow: true }
+      : undefined,
     openGraph: {
       title: post.title,
       description: post.excerpt,

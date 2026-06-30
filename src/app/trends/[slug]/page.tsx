@@ -61,8 +61,11 @@ export async function generateMetadata({ params }: TrendPageProps): Promise<Meta
     description: trend.metaDescription,
     keywords: trend.keywords,
     alternates: {
-      canonical: `${siteConfig.url}/trends/${resolvedParams.slug}`,
+      canonical: trend.canonicalUrl || `${siteConfig.url}/trends/${resolvedParams.slug}`,
     },
+    robots: trend.noindex
+      ? { index: false, follow: true }
+      : undefined,
     openGraph: {
       title: trend.title,
       description: trend.subtitle,

@@ -31,6 +31,8 @@ export interface BlogPost {
     question: string;
     answer: string;
   }>;
+  canonicalUrl?: string;
+  noindex?: boolean;
 }
 
 // Trend Types
@@ -43,6 +45,8 @@ export interface Trend {
   prediction: string;
   icon: string;
   tags: string[];
+  canonicalUrl?: string;
+  noindex?: boolean;
 }
 
 // FAQ Types
