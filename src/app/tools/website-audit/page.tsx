@@ -7,12 +7,12 @@ import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import WebsiteAuditClient from './WebsiteAuditClient';
 
 export const metadata: Metadata = {
-  title: "Free Website Audit Tool | Online Site Audit Check, Health Check & SEO Analyzer",
-  description: "Free website audit tool online. Run a complete site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores from our online website auditor. No signup needed.",
-  keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'free website health check', 'free website check', 'online website auditor', 'website auditor tool online', 'analyze site online', 'audit checker', 'url audit', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free', 'website audit cost', 'website audit pricing 2026'],
+  title: "Free Website Audit Tool 2026: Full Technical SEO Analysis & Site Health Checker",
+  description: "Free website audit tool online. Run a complete technical SEO analysis, site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores from our online website auditor. No signup needed.",
+  keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'free website health check', 'free website check', 'online website auditor', 'website auditor tool online', 'analyze site online', 'audit checker', 'url audit', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free', 'website audit cost', 'website audit pricing 2026', 'how to audit my website', 'technical seo audit checklist 2026', 'website code audit', 'audit my site'],
   openGraph: {
-    title: "Free Website Audit Tool | Online Site Audit Check, Health Check & SEO Analyzer",
-    description: "Free website audit tool online. Run a complete site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores from our online website auditor.",
+    title: "Free Website Audit Tool 2026: Full Technical SEO Analysis & Site Health Checker",
+    description: "Free website audit tool online. Run a complete technical SEO analysis, site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores from our online website auditor.",
     url: `${siteConfig.url}/tools/website-audit`,
     siteName: siteConfig.name,
     images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Free Website Audit Tool | Online Site Audit Check, Health Check & SEO Analyzer",
-    description: "Free website audit tool online. Run a complete site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility.",
+    title: "Free Website Audit Tool 2026: Full Technical SEO Analysis & Site Health Checker",
+    description: "Free website audit tool online. Run a complete technical SEO analysis, site audit check and free website health check for SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility.",
     images: [siteConfig.ogImage],
     creator: '@developersmatrix'
   },
