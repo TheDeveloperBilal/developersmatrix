@@ -25,6 +25,7 @@ const GONE_EXACT = new Set([
   '/blog/health-fitness-technology-2025',
   '/blog/5g-networks-go-global-how-next-gen-connectivity-changes-everything',
   '/blog/middle-east-geopolitics-analysis-2025',
+  '/roulette-echtgeld-wetten-ein-experte-leitfaden-fur-spieler/feed/',
 ]);
 
 export function middleware(request: NextRequest) {

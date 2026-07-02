@@ -26,6 +26,10 @@ Disallow: /blog/health-fitness-technology-*
 Disallow: /blog/5g-networks-go-global-*
 Disallow: /blog/middle-east-geopolitics-*
 
+# Block WordPress-style feed URLs (old domain owner spam)
+Disallow: /*/feed/
+Disallow: /feed/
+
 # Allow rendering assets for AI + search engines
 Allow: /_next/static/
 Allow: /_next/image/

@@ -5,7 +5,24 @@ import { blogPosts } from "@/data/blog";
 import { siteConfig } from "@/data/config";
 import BlogClient from "./BlogClient";
 
-export const metadata: Metadata = generatePageMetadata(pageMetadata.blog);
+export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ [key: string]: string | string[] | undefined }> }): Promise<Metadata> {
+  const params = await searchParams;
+  const hasQueryParams = params && Object.keys(params).length > 0;
+
+  const baseMetadata = generatePageMetadata(pageMetadata.blog);
+
+  if (hasQueryParams) {
+    return {
+      ...baseMetadata,
+      robots: {
+        index: false,
+        follow: true,
+      },
+    };
+  }
+
+  return baseMetadata;
+}
 
 export default function BlogPage() {
   return (
