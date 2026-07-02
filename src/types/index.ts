@@ -25,6 +25,7 @@ export interface BlogPost {
   category: string;
   tags: string[];
   publishedAt: string;
+  dateModified?: string;
   readTime: number;
   image: string;
   faqs?: Array<{
