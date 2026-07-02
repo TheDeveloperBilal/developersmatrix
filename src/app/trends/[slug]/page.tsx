@@ -34,6 +34,7 @@ import {
 } from '@/data/trends-data';
 import { getRelatedToolsForTrend, getRelatedBlogPostsForTrend } from '@/data/cross-links';
 import { siteConfig } from '@/data/config';
+import { ArticleSchema } from '@/components/seo/SchemaMarkup';
 
 interface TrendPageProps {
   params: Promise<{
@@ -149,6 +150,16 @@ export default async function TrendPage({ params }: TrendPageProps) {
           }}
         />
       )}
+      {/* Article Schema */}
+      <ArticleSchema
+        title={trend.title}
+        description={trend.subtitle}
+        url={`${siteConfig.url}/trends/${resolvedParams.slug}`}
+        publishedAt={trend.publishedAt}
+        dateModified={trend.updatedAt}
+        author={trend.author}
+        tags={trend.tags}
+      />
       {/* Hero Section */}
       <header className="bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-slate-900 dark:via-purple-900/10 dark:to-slate-900 pt-8 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
