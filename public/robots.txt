@@ -6,6 +6,26 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
+# Block spam/foreign URLs (previous domain owner content)
+Disallow: /roulette-*
+Disallow: /european-roulette-*
+Disallow: /a-real-super-star-*
+Disallow: /ruletka-*
+Disallow: /kakim-obrazom-*
+Disallow: /kak-kontsentratsija-*
+Disallow: /portfolio/
+Disallow: /service/
+Disallow: /psd-template/
+Disallow: /author/
+Disallow: /home
+Disallow: /home/
+
+# Block old blog posts that no longer exist
+Disallow: /blog/ukraine-russia-war-*
+Disallow: /blog/health-fitness-technology-*
+Disallow: /blog/5g-networks-go-global-*
+Disallow: /blog/middle-east-geopolitics-*
+
 # Allow rendering assets for AI + search engines
 Allow: /_next/static/
 Allow: /_next/image/
