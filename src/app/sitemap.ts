@@ -7,7 +7,7 @@ import { siteConfig } from '@/data/config';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
   
-const buildDate = new Date('2026-07-06');
+const buildDate = new Date('2026-07-07');
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
