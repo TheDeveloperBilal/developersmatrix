@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { Sparkles } from "lucide-react";
 import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import { siteConfig } from "@/data/config";
 import HabitTrackerClient from "./HabitTrackerClient";
 
@@ -68,6 +68,35 @@ export default function HabitTrackerPage() {
           price: "0",
           priceCurrency: "USD"
         }}
+      />
+      <HowToSchema
+        name="How to Build Better Habits with a Free Habit Tracker"
+        description="Step-by-step guide to using the DevelopersMatrix Habit Tracker to build lasting daily routines and achieve your goals."
+        url={`${siteConfig.url}/tools/habit-tracker`}
+        totalTime="PT5M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        step={[
+          {
+            name: "Add your first habit",
+            text: "Open the habit tracker and click 'Add Habit.' Enter a specific, measurable habit like 'Read 10 pages' or 'Walk 5,000 steps.' Choose how often you want to track it: daily, weekdays only, or specific days. Start with just one habit to avoid overwhelm.",
+            url: `${siteConfig.url}/tools/habit-tracker`
+          },
+          {
+            name: "Mark habits complete each day",
+            text: "Check off your habit each day you complete it. The streak counter starts immediately — seeing a growing streak creates psychological commitment that makes skipping feel like a real loss. If you miss a day, restart immediately. Missing one day is fine. Missing two days in a row is the danger zone.",
+            url: `${siteConfig.url}/tools/habit-tracker`
+          },
+          {
+            name: "Review weekly progress",
+            text: "Check your weekly summary to see completion rates, streak lengths, and patterns. Are weekends your weakness? Do you skip after stressful workdays? Use this data to plan around your triggers. The visual feedback loop is what makes habit tracking effective.",
+            url: `${siteConfig.url}/tools/habit-tracker`
+          },
+          {
+            name: "Build your habit portfolio",
+            text: "Once your first habit feels automatic (usually after 30 days), add a second. Never track more than 3 habits simultaneously when starting. Sequential habit building beats simultaneous attempts. The tracker supports unlimited habits, but your willpower doesn't.",
+            url: `${siteConfig.url}/tools/habit-tracker`
+          }
+        ]}
       />
 
       <main className="min-h-screen bg-background">

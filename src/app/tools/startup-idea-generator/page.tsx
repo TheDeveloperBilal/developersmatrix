@@ -61,6 +61,31 @@ export default function StartupIdeaPage() {
         ratingValue="4.6"
         ratingCount="2800"
       />
+      <HowToSchema
+        name="How to Find Your Next Startup Idea in 2026"
+        description="Step-by-step guide to using the DevelopersMatrix Startup Idea Generator to discover validated business concepts with market analysis and MVP timelines."
+        url="https://developersmatrix.com/tools/startup-idea-generator"
+        totalTime="PT10M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        step={[
+          {
+            name: "Choose your industry category",
+            text: "Select from categories like AI & Machine Learning, SaaS, FinTech, HealthTech, Climate Tech, E-commerce, or No-Code Tools. Each category contains curated ideas based on 2026 market trends and real demand signals. Pick a category that matches your skills or interests for the best fit."
+          },
+          {
+            name: "Generate and evaluate ideas",
+            text: "Click 'Generate Idea' to receive a complete business concept including problem statement, proposed solution, target market, monetization strategy, competition analysis, and difficulty rating. Each idea includes realistic market sizing and actual competitor names. Rate ideas as thumbs up or thumbs down to refine future recommendations."
+          },
+          {
+            name: "Review market analysis and MVP timeline",
+            text: "Every generated idea includes an estimated MVP (Minimum Viable Product) timeline and technical complexity assessment. Ideas range from weekend projects to 6-month builds. The market analysis shows addressable market size, realistic revenue potential, and entry barriers. Use this data to validate ideas before investing time."
+          },
+          {
+            name: "Save promising ideas and take action",
+            text: "Save ideas you like to your browser's local storage for later review. When you are ready to start, use the action plan to break the idea into concrete first steps. The generator is a starting point — successful execution depends on customer validation, market research, and consistent execution."
+          }
+        ]}
+      />
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://developersmatrix.com' },

@@ -69,6 +69,31 @@ export default function LinkManagerPage() {
           priceCurrency: "USD"
         }}
       />
+      <HowToSchema
+        name="How to Create Branded Short Links and Track Clicks"
+        description="Step-by-step guide to using the DevelopersMatrix Link Manager to shorten URLs, generate QR codes, and analyze click analytics."
+        url={`${siteConfig.url}/tools/link-manager`}
+        totalTime="PT3M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        step={[
+          {
+            name: "Paste your long URL",
+            text: "Copy any long URL from your website, blog, social media, or e-commerce store. Paste it into the Link Manager input field. The tool supports URLs of any length from any platform including YouTube, Amazon, LinkedIn, and custom domains."
+          },
+          {
+            name: "Customize your short link",
+            text: "Choose a custom alias or let the tool generate a random short code. Custom aliases like 'developersmatrix.com/my-product' are more memorable and trustworthy than random strings. You can also add UTM parameters for campaign tracking before shortening."
+          },
+          {
+            name: "Generate QR code and track analytics",
+            text: "Click 'Create Link' to generate your shortened URL. The tool automatically creates a scannable QR code for offline use. View real-time analytics including total clicks, unique visitors, geographic location, device types, and referrer sources. All analytics are stored locally in your browser for complete privacy."
+          },
+          {
+            name: "Build a smart bio page",
+            text: "Use the Bio Page feature to create a mobile-optimized landing page that displays all your important links in one place. Perfect for Instagram, TikTok, Twitter, and LinkedIn bios where you can only share one link. Customize colors, layout, and add profile information."
+          }
+        ]}
+      />
       <FAQSchema faqs={toolFaqsForSchema} />
 
       <main className="pt-16">

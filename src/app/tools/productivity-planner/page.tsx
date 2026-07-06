@@ -69,6 +69,31 @@ export default function ProductivityPlannerPage() {
           priceCurrency: "USD"
         }}
       />
+      <HowToSchema
+        name="How to Plan Your Day for Maximum Productivity"
+        description="Step-by-step guide to using the DevelopersMatrix Productivity Planner to prioritize tasks, block time, and accomplish more every day."
+        url={`${siteConfig.url}/tools/productivity-planner`}
+        totalTime="PT5M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        step={[
+          {
+            name: "List all your tasks",
+            text: "Enter every task you need to complete today, tomorrow, or this week. Be specific — 'write API documentation' is better than 'work on project.' Include estimated time for each task. The planner accepts tasks of any size, from quick 5-minute emails to multi-day projects."
+          },
+          {
+            name: "Assign priority and urgency",
+            text: "Mark each task as high, medium, or low priority. The AI prioritization engine weighs urgency and importance, then layers in time estimates and task dependencies. High-priority tasks with short time estimates get scheduled first. Tasks that block other work get elevated priority."
+          },
+          {
+            name: "Review AI-suggested schedule",
+            text: "The planner generates a realistic daily schedule based on your tasks and priorities. It prevents overcommitting by estimating your actual capacity. Review the suggestions and adjust as needed. You maintain full control — the AI suggests, you decide."
+          },
+          {
+            name: "Track progress and adjust",
+            text: "Check off completed tasks throughout the day. The planner tracks your completion rate and identifies patterns over time. Are you consistently underestimating task time? Do you get more done in mornings? Use these insights to continuously improve your productivity system."
+          }
+        ]}
+      />
 
       <main className="min-h-screen bg-background">
         {/* Hero + Tool */}

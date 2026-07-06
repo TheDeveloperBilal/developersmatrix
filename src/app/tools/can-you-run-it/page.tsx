@@ -69,6 +69,34 @@ export default function CanYouRunItPage() {
           priceCurrency: "USD"
         }}
       />
+      <HowToSchema
+        name="How to Check If Your PC Can Run a Game"
+        description="Step-by-step guide to checking game compatibility with your PC hardware using the DevelopersMatrix Can You Run It tool."
+        url={`${siteConfig.url}/tools/can-you-run-it`}
+        totalTime="PT2M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        step={[
+          {
+            name: "Find your PC hardware specs",
+            text: "Identify your CPU model, GPU model, and RAM amount. On Windows, search 'System Information' in the Start menu, or use free tools like CPU-Z and GPU-Z for detailed specs. For laptops, check the manufacturer's website or system settings. Note whether you have a desktop or laptop GPU — laptop versions are typically 15-30% slower.",
+            url: `${siteConfig.url}/tools/can-you-run-it`
+          },
+          {
+            name: "Search for the game",
+            text: "Enter the game name in the search box. The tool checks a database of 2,000+ games including AAA releases, indie titles, and upcoming launches like GTA 6. Select the correct game from the dropdown to view its official minimum and recommended requirements.",
+            url: `${siteConfig.url}/tools/can-you-run-it`
+          },
+          {
+            name: "Compare your hardware to requirements",
+            text: "Enter your CPU, GPU, and RAM into the comparison fields. The tool automatically evaluates whether each component meets minimum requirements, recommended requirements, or exceeds them. You get a clear verdict: Ready, Upgrade Needed, or Cannot Run, along with estimated frame rates at different settings.",
+            url: `${siteConfig.url}/tools/can-you-run-it`
+          },
+          {
+            name: "Review upgrade recommendations",
+            text: "If your hardware falls short, the tool provides specific upgrade recommendations. Instead of a generic 'your PC is too weak' message, you get actionable guidance: which component to upgrade first, what specific models to consider, and the expected performance improvement. This helps you avoid buying unnecessary upgrades."
+          }
+        ]}
+      />
 
       <main className="min-h-screen bg-background">
         {/* Hero + Tool */}
