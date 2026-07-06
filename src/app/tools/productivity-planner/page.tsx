@@ -330,6 +330,96 @@ export default function ProductivityPlannerPage() {
           </div>
         </div>
       </main>
+
+      {/* SEO Content Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
+        <div className="max-w-4xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Free Productivity Planner: Plan Your Days for Maximum Impact
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            The most productive people do not work harder — they work with intention. Our <strong>free productivity planner</strong> helps you structure your day around what actually matters, using time-blocking, priority matrices, and goal-tracking frameworks. Stop reacting to notifications and start designing your day. No signup, no premium tiers, just a practical tool that respects your time.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Why Time Blocking Works in 2026
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Context switching costs 23 minutes per interruption. A developer checking Slack "just for a second" loses 23 minutes of deep focus. Our <strong>daily productivity planner</strong> uses time-blocking to protect your focus hours — scheduling specific blocks for deep work, meetings, email, and breaks. Research from Cal Newport and others shows that deep work blocks of 90-120 minutes produce 2-3x more output than fragmented work sessions.
+          </p>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            The planner also includes an Eisenhower Matrix (urgent/important) for prioritization, a Pomodoro timer for sustained focus, and a daily review section for reflection. These are not gimmicks — they are battle-tested frameworks used by top performers across industries.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Key Productivity Frameworks
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-4 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">⏱️ Time Blocking</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Assign every hour a job. Protect 2-4 hour blocks for deep work. Schedule shallow work (email, Slack) for low-energy periods.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">📊 Eisenhower Matrix</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Urgent/Important quadrants: Do first, Schedule, Delegate, Eliminate. Most productivity gains come from eliminating quadrant 4.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🍅 Pomodoro Technique</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">25 minutes focused work + 5 minutes break. After 4 cycles, take a 15-30 minute break. Prevents burnout and maintains focus.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🎯 Weekly Review</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Review accomplishments, identify blockers, plan next week. 30 minutes on Friday saves hours of confusion on Monday.</p>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Related Tools for Productivity
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-3 mb-8">
+            <a href="/tools/habit-tracker" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">🎯</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Habit Tracker</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Build daily productivity habits</p>
+              </div>
+            </a>
+            <a href="/tools/budget-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">💰</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Budget Planner</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Plan your financial goals</p>
+              </div>
+            </a>
+            <a href="/tools/ai-email-assistant" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">✉️</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Email Assistant</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Save time on email writing</p>
+              </div>
+            </a>
+            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">📚</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Productivity Guides</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Tips for developers and professionals</p>
+              </div>
+            </a>
+          </div>
+
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800">
+            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-200 mb-2">
+              Plan Your Best Day Today
+            </h3>
+            <p className="text-blue-800 dark:text-blue-300 text-sm mb-4">
+              The difference between a productive day and a wasted one is intention. Use our planner to design your day before it designs you.
+            </p>
+            <p className="text-blue-700 dark:text-blue-400 text-xs">
+              100% free. No signup. Start planning in 2 minutes.
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

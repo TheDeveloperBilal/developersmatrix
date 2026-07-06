@@ -335,6 +335,96 @@ export default function CanYouRunItPage() {
           </div>
         </div>
       </main>
+
+      {/* SEO Content Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
+        <div className="max-w-4xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Free PC Game Requirements Checker: Can You Run It? Find Out in Seconds
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Nothing is more frustrating than buying a game, downloading 80GB, and discovering your PC cannot run it. Our <strong>free "Can You Run It" tool</strong> checks your hardware against any game's system requirements instantly. Compare your CPU, GPU, RAM, and storage against minimum and recommended specs. Know before you buy — save your money and your time.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Why PC Gamers Need a System Requirements Checker
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Modern AAA games require powerful hardware. GTA 6 demands 100GB storage and a high-end GPU. Cyberpunk 2077 needs ray-tracing capable cards for the best experience. Starfield and Baldur's Gate 3 pushed hardware limits in 2024-2025. In 2026, the requirements are only increasing. Our <strong>PC game requirements checker</strong> scans your system specs and compares them against the game's official requirements — giving you a clear yes/no answer with detailed explanations.
+          </p>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            The tool also suggests upgrade paths. If your CPU meets requirements but your GPU falls short, you will know exactly which component to upgrade. If you are short on RAM, we recommend the optimal amount. This targeted approach saves money — why replace your entire PC when a $200 GPU upgrade or $60 RAM boost would solve the problem?
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            How to Check If Your PC Can Run a Game
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-4 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">1️⃣ Select Your Game</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Choose from our database of 10,000+ games including new releases, classics, and upcoming titles.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2️⃣ Enter Your Specs</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Input your CPU, GPU, RAM, and storage. Or use our auto-detection tool to scan your system automatically.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">3️⃣ Get Results</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Instant comparison against minimum and recommended requirements. See which components pass and which need upgrades.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">4️⃣ Upgrade Smartly</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Get specific upgrade recommendations. Buy only what you need — no unnecessary component replacements.</p>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Related Gaming Tools
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-3 mb-8">
+            <a href="/gta-6" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">🎮</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">GTA 6 Hub</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Release date, specs, and news</p>
+              </div>
+            </a>
+            <a href="/trends" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">📈</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Tech Trends 2026</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Gaming hardware trends and reviews</p>
+              </div>
+            </a>
+            <a href="/tools/habit-tracker" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">🎯</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Habit Tracker</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Track gaming and productivity habits</p>
+              </div>
+            </a>
+            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">📚</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Gaming Guides</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">PC building and optimization tips</p>
+              </div>
+            </a>
+          </div>
+
+          <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 border border-purple-100 dark:border-purple-800">
+            <h3 className="text-lg font-semibold text-purple-900 dark:text-purple-200 mb-2">
+              Check Your PC Now
+            </h3>
+            <p className="text-purple-800 dark:text-purple-300 text-sm mb-4">
+              Stop guessing. Stop wasting money on games your PC cannot run. Use our free tool and know for sure in seconds.
+            </p>
+            <p className="text-purple-700 dark:text-purple-400 text-xs">
+              100% free. 10,000+ games. Instant results.
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

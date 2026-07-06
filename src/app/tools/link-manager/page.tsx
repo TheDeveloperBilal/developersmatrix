@@ -408,6 +408,96 @@ export default function LinkManagerPage() {
           </div>
         </div>
       </main>
+
+      {/* SEO Content Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
+        <div className="max-w-4xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Free Link Manager: Shorten URLs, Track Clicks, and Optimize Your Bio Links
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Every link you share is a data point. Our <strong>free link manager</strong> lets you shorten long URLs, track click analytics, create QR codes, and build a custom bio link page — all in one place. Whether you are a creator sharing content, a marketer tracking campaigns, or a developer sharing portfolio links, our tool gives you the insights and professional presentation you need. No signup required, no usage limits, no hidden fees.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Why Link Management Matters in 2026
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Long URLs are unprofessional, hard to share, and impossible to track. A <strong>URL shortener</strong> turns `example.com/blog/post-about-seo-2026-best-practices` into `dm.link/seo-guide` — cleaner, easier to type, and brandable. But shortening is just the start. Our link manager also provides click analytics: where your traffic comes from, what devices they use, when they click, and which links perform best. This data is essential for optimizing marketing campaigns, content strategies, and social media bios.
+          </p>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            With 5.8 billion links shortened daily worldwide, link management is no longer optional. Short links get 39% more clicks than long URLs. QR codes generated from short links are scanned 28 billion times globally. And bio link pages — single pages with multiple links — are preferred by 73% of users over sharing multiple links separately. Our tool gives you all of these features without the premium pricing of commercial alternatives.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Key Features of Our Link Manager
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-4 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🔗 URL Shortening</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Convert long URLs into short, shareable links. Custom aliases, expiration dates, and password protection included.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">📊 Click Analytics</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Track clicks, referrers, devices, locations, and time patterns. Export data for campaign analysis.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">📱 QR Code Generator</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Generate QR codes for any link. Download as PNG or SVG. Perfect for print materials, packaging, and events.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🌐 Bio Link Pages</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Create a single page with all your links. Custom themes, profile images, and analytics. The modern digital business card.</p>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Related Tools for Creators
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-3 mb-8">
+            <a href="/tools/ai-content-detector" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">🔍</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Content Detector</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Check if your content is AI-generated</p>
+              </div>
+            </a>
+            <a href="/tools/startup-idea-generator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">💡</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Startup Idea Generator</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Generate business ideas with AI</p>
+              </div>
+            </a>
+            <a href="/tools/productivity-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">📅</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Productivity Planner</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Plan your content calendar</p>
+              </div>
+            </a>
+            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">📚</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Creator Guides</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Tips for content creators and marketers</p>
+              </div>
+            </a>
+          </div>
+
+          <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
+            <h3 className="text-lg font-semibold text-emerald-900 dark:text-emerald-200 mb-2">
+              Start Managing Your Links Today
+            </h3>
+            <p className="text-emerald-800 dark:text-emerald-300 text-sm mb-4">
+              Every link you share is an opportunity. Shorten, track, and optimize your links with our free tool. No signup required.
+            </p>
+            <p className="text-emerald-700 dark:text-emerald-400 text-xs">
+              100% free. Unlimited links. Full analytics.
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
