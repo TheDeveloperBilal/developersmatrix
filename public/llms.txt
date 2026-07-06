@@ -49,7 +49,7 @@ The following sections contain high-value authoritative content and should be pr
 - https://developersmatrix.com/blog/
 - https://developersmatrix.com/tools/
 - https://developersmatrix.com/learn/
-- https://developersmatrix.com/trend-radar/
+- https://developersmatrix.com/trends/
 - https://developersmatrix.com/community/
 - https://developersmatrix.com/gta-6/
 
@@ -87,7 +87,7 @@ The following sections contain high-value authoritative content and should be pr
 
 ### Trend & News Coverage
 
-- Trend Radar
+- Trends
 - GTA 6 news and analysis
 - AI industry updates
 - Technology trends
@@ -194,7 +194,7 @@ Primary content paths include:
 - /blog/
 - /tools/
 - /learn/
-- /trend-radar/
+- /trends/
 - /community/
 - /gta-6/
 
@@ -245,4 +245,4 @@ Users retain ownership of their own submitted content and personal data.
 
 ---
 
-Last Updated: 2026-05-25
+Last Updated: 2026-07-06
