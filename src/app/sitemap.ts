@@ -7,7 +7,7 @@ import { siteConfig } from '@/data/config';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
   
-const buildDate = new Date('2026-05-22');
+const buildDate = new Date('2026-07-06');
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -116,7 +116,7 @@ const buildDate = new Date('2026-05-22');
   ];
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
+    lastModified: new Date(post.dateModified || post.publishedAt),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }));

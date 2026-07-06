@@ -110,6 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             tags={post.tags}
             author={post.author}
             publishedAt={post.publishedAt}
+            dateModified={post.dateModified}
             readTime={post.readTime}
             image={post.image}
             url={postUrl}
