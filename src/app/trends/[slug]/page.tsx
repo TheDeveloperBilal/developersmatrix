@@ -130,6 +130,14 @@ export default async function TrendPage({ params }: TrendPageProps) {
 
   return (
     <article className="min-h-screen">
+      {/* Breadcrumb Schema */}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: siteConfig.url },
+          { name: 'Trend Radar', url: `${siteConfig.url}/trends` },
+          { name: trend.title, url: `${siteConfig.url}/trends/${resolvedParams.slug}` }
+        ]}
+      />
       {/* FAQ Schema JSON-LD */}
       {trend.content.faqs && trend.content.faqs.length > 0 && (
         <script
@@ -225,6 +233,19 @@ export default async function TrendPage({ params }: TrendPageProps) {
               </span>
             ))}
           </div>
+
+          {/* Quick Answer — Critical for AI Citations & Featured Snippets */}
+          {trend.content.quickAnswer && (
+            <div className="mt-8 p-5 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Quick Answer</span>
+              </div>
+              <p className="text-slate-800 dark:text-slate-200 font-medium leading-relaxed">
+                {trend.content.quickAnswer}
+              </p>
+            </div>
+          )}
         </div>
       </header>
 
@@ -239,6 +260,21 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 {trend.description}
               </p>
             </section>
+
+            {/* Who Should Read This */}
+            {trend.content.whoShouldRead && (
+              <section className="p-5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-500/5 dark:to-orange-500/5 border border-amber-100 dark:border-amber-500/20">
+                <div className="flex items-center gap-2 mb-3">
+                  <svg className="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span className="text-sm font-semibold text-amber-800 dark:text-amber-400 uppercase tracking-wider">Who Should Read This</span>
+                </div>
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {trend.content.whoShouldRead}
+                </p>
+              </section>
+            )}
 
             {/* Why It Matters */}
             <section className="p-6 rounded-2xl bg-purple-50 dark:bg-purple-500/5 border border-purple-100 dark:border-purple-500/20">

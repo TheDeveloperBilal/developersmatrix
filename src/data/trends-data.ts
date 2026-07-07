@@ -35,7 +35,9 @@ export interface TrendItem {
     comparisons?: { name: string; pros: string[]; cons: string[] }[];
     actionSteps?: string[];
     industryExamples?: { industry: string; company: string; description: string; results: string }[];
-    // AI Side Hustles rich content
+    // AI Citation & GEO Optimization
+    quickAnswer?: string;
+    whoShouldRead?: string;
     hustleTable?: { name: string; tools: string; earningCeiling: string; barrier: 'Low' | 'Medium' | 'High'; bestFor: string }[];
     earningRanges?: { hustle: string; beginner: string; intermediate: string; pro: string; timeToFirstDollar: string }[];
     stepByStepGuides?: { hustle: string; steps: string[] }[];
