@@ -34,7 +34,7 @@ import {
 } from '@/data/trends-data';
 import { getRelatedToolsForTrend, getRelatedBlogPostsForTrend } from '@/data/cross-links';
 import { siteConfig } from '@/data/config';
-import { ArticleSchema } from '@/components/seo/SchemaMarkup';
+import { ArticleSchema, BreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 
 interface TrendPageProps {
   params: Promise<{
