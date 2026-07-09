@@ -138,7 +138,9 @@ export default function WebsiteAuditPage() {
       />
 
       {/* Main Tool Interface, renders its own full page UI */}
-      <WebsiteAuditClient />
+      <div id="website-audit">
+        <WebsiteAuditClient />
+      </div>
 
       {/* SEO Content Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

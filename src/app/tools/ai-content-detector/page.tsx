@@ -97,7 +97,7 @@ export default function AIContentDetectorPage() {
         ]}
       />
 
-      <main className="pt-16">
+      <main className="pt-16" id="ai-content-detector">
         <AIContentDetectorClient />
         
         <InContentAd />

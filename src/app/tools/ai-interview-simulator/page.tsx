@@ -123,7 +123,7 @@ export default function InterviewSimulatorPage() {
         }}
       />
 
-      <div className="min-h-screen bg-muted/20">
+      <div className="min-h-screen bg-muted/20" id="interview-simulator">
         {/* Header */}
         <section className="bg-background border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
