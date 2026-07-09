@@ -197,5 +197,7 @@ export interface SiteConfig {
     linkedin: string;
     facebook: string;
     instagram: string;
+    pinterest: string;
+    behance: string;
   };
 }

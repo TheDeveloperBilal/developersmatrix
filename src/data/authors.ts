@@ -16,15 +16,15 @@ export interface Author {
 export const siteAuthor: Author = {
   name: 'Syed Bilal Shah',
   slug: 'syed-bilal-shah',
-  jobTitle: 'Founder & Lead Editor',
-  bio: 'Syed Bilal Shah is the founder of DevelopersMatrix and a full-stack developer with expertise in building AI-powered tools for developers and tech professionals. He has built and scaled multiple web applications using Next.js, React, and modern AI APIs. His work focuses on making professional-grade tools accessible to everyone, regardless of budget.',
+  jobTitle: 'Founder & Lead Developer',
+  bio: 'Syed Bilal Shah is the founder of DevelopersMatrix and co-founder of OviTech Global, a software and digital solutions company with 20+ team members. With over 7 years of experience in full-stack development, SEO, and digital marketing, Bilal has worked with local businesses and international clients across multiple industries. He built DevelopersMatrix to democratize access to professional-grade AI tools after seeing how expensive subscriptions lock out freelancers, students, and small businesses. His work spans Next.js, React, WordPress, Shopify, Magento, and modern AI integrations.',
   credentials: [
     'Full-Stack Developer',
-    'AI Tool Builder',
-    'Career Development Writer',
-    'Open Source Contributor'
+    'Co-Founder, OviTech Global',
+    'SEO & Digital Marketing Specialist',
+    '7+ Years Industry Experience'
   ],
-  image: 'https://developersmatrix.com/author-bilal.jpg',
+  image: '/images/about/bilal-1.jpg',
   knowsAbout: [
     'Software Development',
     'Web Development',
@@ -35,13 +35,17 @@ export const siteAuthor: Author = {
     'Technical Interview Preparation',
     'Resume Optimization',
     'SEO',
-    'Career Growth'
+    'Career Growth',
+    'Digital Marketing',
+    'E-commerce Development'
   ],
   sameAs: [
+    'https://www.linkedin.com/in/thedeveloperbilal/',
     'https://github.com/TheDeveloperBilal',
-    'https://www.linkedin.com/in/thedeveloperbilal/'
+    'https://x.com/Developer_Bilal',
+    'https://www.behance.net/thedeveloperbilal'
   ],
-  joinedDate: '2024-01-01'
+  joinedDate: '2018-01-01'
 };
 
 export const editorialTeam: Author[] = [
@@ -56,7 +60,7 @@ export const editorialTeam: Author[] = [
       'Fact-Checking',
       'Content Strategy'
     ],
-    image: 'https://developersmatrix.com/team-editorial.jpg',
+    image: '/images/about/bilal-1.jpg',
     knowsAbout: [
       'Technical Writing',
       'Content Quality Assurance',
