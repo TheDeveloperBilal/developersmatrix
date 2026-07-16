@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
   links: {
     twitter: 'https://x.com/Developer_Bilal',
     github: 'https://github.com/TheDeveloperBilal',
-    linkedin: 'https://www.linkedin.com/in/thedeveloperbilal/',
+    linkedin: 'https://linkedin.com/company/developersmatrix',
     facebook: 'https://www.facebook.com/developersmatrix/',
     instagram: 'https://www.instagram.com/developermatrix/',
     pinterest: 'https://www.pinterest.com/developersmatrix/',
