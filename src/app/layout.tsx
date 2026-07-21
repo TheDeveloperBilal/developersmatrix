@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Sora } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
 import { siteConfig } from "@/data/config";
 import { siteAuthor } from "@/data/authors";
 import { OrganizationSchema, PersonSchema } from "@/components/seo/SchemaMarkup";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -191,7 +197,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col`}
+        className={`${inter.variable} ${sora.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         {/* Google Tag Manager (noscript) */}
         <noscript>
@@ -209,11 +215,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="flex-1 pt-16">
+          <SiteHeader />
+          <main className="flex-1">
             {children}
           </main>
-          <Footer />
+          <SiteFooter />
           <Toaster />
           <Analytics />
         </ThemeProvider>

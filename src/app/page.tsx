@@ -1,19 +1,16 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/config";
 import { OrganizationSchema, WebApplicationSchema } from "@/components/seo/SchemaMarkup";
-import { HorizontalAd, InContentAd } from "@/components/ads/AdBanner";
-import { SEOContentSection } from "@/components/home/SEOContentSection";
-import { 
-  HeroSection, 
-  CategoriesSection, 
-  FeaturedToolsSection, 
-  WebsiteAuditSection,
-  TrendingSection, 
-  DashboardSection, 
-  BlogSection, 
-  GTA6Section, 
-  CTASection,
-} from "@/components/home";
+import LiveTicker from "@/components/sections/live-ticker";
+import HeroDiscovery from "@/components/sections/hero-discovery";
+import FeaturedGrid from "@/components/sections/featured-grid";
+import ToolExplorer from "@/components/sections/tool-explorer";
+import TrendingNow from "@/components/sections/trending-now";
+import ExploreByGoal from "@/components/sections/explore-by-goal";
+import ArticlesCarousel from "@/components/sections/articles-carousel";
+import ToolStack from "@/components/sections/tool-stack";
+import LatestUpdates from "@/components/sections/latest-updates";
+import { Newsletter, FinalCta } from "@/components/sections/newsletter-cta";
 
 export const metadata: Metadata = {
   title: "20+ Free AI Tools for Resumes, Budgets & Career Growth | DevelopersMatrix",
@@ -88,55 +85,17 @@ export default function HomePage() {
         offers={{ price: "0", priceCurrency: "USD" }}
       />
 
-      {/* Hero Section */}
-      <HeroSection />
-
-      {/* Ad Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <HorizontalAd />
-      </div>
-
-      {/* Categories Section */}
-      <CategoriesSection />
-
-      {/* Featured AI Tools Section */}
-      <FeaturedToolsSection />
-
-      {/* Website Audit Section */}
-      <WebsiteAuditSection />
-
-      {/* Ad Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <InContentAd />
-      </div>
-
-      {/* Trending Section */}
-      <TrendingSection />
-
-      {/* Daily Dashboard Section */}
-      <DashboardSection />
-
-      {/* Ad Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <HorizontalAd />
-      </div>
-
-      {/* GTA 6 Featured Section */}
-      <GTA6Section />
-
-      {/* Blog Preview Section */}
-      <BlogSection />
-
-      {/* CTA Section */}
-      <CTASection />
-
-      {/* SEO Content Section */}
-      <SEOContentSection />
-
-      {/* Footer Ad */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <HorizontalAd />
-      </div>
+      <LiveTicker />
+      <HeroDiscovery />
+      <FeaturedGrid />
+      <ToolExplorer />
+      <TrendingNow />
+      <ExploreByGoal />
+      <ArticlesCarousel />
+      <ToolStack />
+      <LatestUpdates />
+      <Newsletter />
+      <FinalCta />
     </>
   );
 }
