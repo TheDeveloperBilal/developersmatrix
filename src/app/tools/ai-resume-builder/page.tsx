@@ -65,7 +65,8 @@ export default function ResumeBuilderPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950" id="resume-builder">
       {/* Breadcrumb Schema */}
       <BreadcrumbSchema
         items={[
@@ -694,5 +695,122 @@ export default function ResumeBuilderPage() {
         </div>
       </div>
     </div>
+
+    {/* SEO Content Section */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
+      <div className="max-w-4xl">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+          Free AI Resume Builder: Create an ATS-Optimized Resume in Minutes
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+          In 2026, 75% of resumes never reach a human recruiter because they fail Applicant Tracking Systems. Our <strong>free AI resume builder</strong> solves this by creating single-column, keyword-optimized resumes that pass ATS filters and impress hiring managers. Whether you are applying for frontend, backend, full stack, or DevOps roles, this tool understands tech job descriptions and suggests the right skills, frameworks, and achievements to highlight.
+        </p>
+
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+          Why Developers Need an AI Resume Builder in 2026
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+          The job market has shifted dramatically. With AI-generated resumes flooding the market, recruiters now rely more heavily on ATS filtering to manage volume. A generic resume gets rejected in under 7 seconds. Our <strong>AI resume builder</strong> is trained specifically on 2026 tech job descriptions, so it knows that a React developer resume should mention hooks, state management, and performance optimization — not just "built websites."
+        </p>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+          Research shows resumes with quantified achievements get 40% more callbacks. Instead of "Improved application performance," our AI suggests "Reduced API response time by 35% through caching and query optimization." Specificity wins interviews.
+        </p>
+
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+          How the AI Resume Builder Works
+        </h3>
+        <div className="grid sm:grid-cols-2 gap-4 mb-6">
+          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">1. Enter Your Details</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Fill in your work experience, skills, education, and projects. The AI understands tech roles and formats everything correctly.</p>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2. Get AI Suggestions</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">The builder suggests industry-specific keywords and quantified achievement examples tailored to your target role.</p>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">3. Preview Instantly</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">See your resume formatted in real-time with ATS-safe fonts, spacing, and section ordering.</p>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">4. Download as PDF</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Export a clean, single-column PDF optimized for parsing by Workday, Greenhouse, Lever, and other major ATS platforms.</p>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+          What Makes This Resume Builder ATS-Friendly
+        </h3>
+        <div className="space-y-3 mb-6">
+          <div className="flex items-start gap-3">
+            <span className="text-green-500 font-bold mt-0.5">✓</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Single-column layout</strong> — Multi-column resumes confuse ATS parsers. We use a clean, linear format.</p>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-green-500 font-bold mt-0.5">✓</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard section headers</strong> — "Work Experience," "Technical Skills," "Education" — not creative alternatives that parsers miss.</p>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-green-500 font-bold mt-0.5">✓</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Keyword optimization</strong> — The AI suggests relevant keywords from real 2026 job descriptions for your role.</p>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-green-500 font-bold mt-0.5">✓</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>No graphics or tables</strong> — ATS systems strip images and often misread table layouts. We avoid both.</p>
+          </div>
+          <div className="flex items-start gap-3">
+            <span className="text-green-500 font-bold mt-0.5">✓</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard fonts</strong> — Arial, Calibri, and Georgia ensure consistent rendering across all systems.</p>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+          Related Tools for Your Job Search
+        </h3>
+        <div className="grid sm:grid-cols-2 gap-3 mb-8">
+          <a href="/tools/ai-cover-letter-generator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <span className="text-lg">📝</span>
+            <div>
+              <p className="font-medium text-gray-900 dark:text-white text-sm">Cover Letter Generator</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Personalized letters for each application</p>
+            </div>
+          </a>
+          <a href="/tools/ai-interview-simulator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <span className="text-lg">🎯</span>
+            <div>
+              <p className="font-medium text-gray-900 dark:text-white text-sm">Interview Simulator</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Practice with AI-powered mock interviews</p>
+            </div>
+          </a>
+          <a href="/tools/salary-estimator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <span className="text-lg">💰</span>
+            <div>
+              <p className="font-medium text-gray-900 dark:text-white text-sm">Salary Estimator</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Know your market value before negotiating</p>
+            </div>
+          </a>
+          <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <span className="text-lg">📚</span>
+            <div>
+              <p className="font-medium text-gray-900 dark:text-white text-sm">Career Guides</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Resume tips and industry insights</p>
+            </div>
+          </a>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-6 border border-green-100 dark:border-green-800">
+          <h3 className="text-lg font-semibold text-green-900 dark:text-green-200 mb-2">
+            Build Your Resume Now
+          </h3>
+          <p className="text-green-800 dark:text-green-300 text-sm mb-4">
+            Your next job application deserves a resume that gets past the bots and impresses the humans. Start building for free — no signup required.
+          </p>
+          <p className="text-green-700 dark:text-green-400 text-xs">
+            100% free. ATS-optimized. Developer-focused.
+          </p>
+        </div>
+      </div>
+    </div>
+    </>
   );
 }

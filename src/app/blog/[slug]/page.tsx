@@ -39,8 +39,11 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     description: post.excerpt,
     keywords: post.tags,
     alternates: {
-      canonical: `${siteConfig.url}/blog/${post.slug}`,
+      canonical: post.canonicalUrl || `${siteConfig.url}/blog/${post.slug}`,
     },
+    robots: post.noindex
+      ? { index: false, follow: true }
+      : undefined,
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -77,7 +80,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         description={post.excerpt}
         author={post.author}
         datePublished={post.publishedAt}
-        dateModified={post.publishedAt}
+        dateModified={post.dateModified || post.publishedAt}
         url={postUrl}
         image={`${siteConfig.url}${post.image}`}
         wordCount={post.content.split(/\s+/).length}
@@ -107,6 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             tags={post.tags}
             author={post.author}
             publishedAt={post.publishedAt}
+            dateModified={post.dateModified}
             readTime={post.readTime}
             image={post.image}
             url={postUrl}

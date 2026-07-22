@@ -12,6 +12,7 @@ interface BlogHeroProps {
   tags: string[];
   author: string;
   publishedAt: string;
+  dateModified?: string;
   readTime: number;
   image?: string;
   url: string;
@@ -24,6 +25,7 @@ export function BlogHero({
   tags,
   author,
   publishedAt,
+  dateModified,
   readTime,
   image,
   url
@@ -96,6 +98,15 @@ export function BlogHero({
               day: 'numeric'
             })}
           </span>
+          {dateModified && dateModified !== publishedAt && (
+            <span className="ml-2 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full font-medium">
+              Updated {new Date(dateModified).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              })}
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-1.5">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Sora } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -108,40 +109,11 @@ export default function RootLayout({
         {/* Google Site Verification */}
         <meta name="google-site-verification" content="cT-3Tl1WSPU8XVdWcDf_MGmGZ8GtOiNmBDdBDytV23A" />
         
-        {/* Google Tag Manager */}
+        {/* Google AdSense — async, non-blocking, required for ads to work */}
         <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-N7VXC8SG');
-            `,
-          }}
-        />
-        
-        {/* Google AdSense */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2091805600804724" crossOrigin="anonymous"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (adsbygoogle = window.adsbygoogle || []).push({});
-            `,
-          }}
-        />
-        
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3P7JSPHQ39"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-3P7JSPHQ39');
-            `,
-          }}
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2091805600804724"
+          crossOrigin="anonymous"
         />
         
         {/* Favicon & Icons */}
@@ -159,9 +131,7 @@ export default function RootLayout({
         <meta name="revisit-after" content="1 days" />
         <meta name="author" content={siteAuthor.name} />
         
-        {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect to external domains we actually use */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
@@ -199,7 +169,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${sora.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
-        {/* Google Tag Manager (noscript) */}
+        {/* Google Tag Manager (noscript) — must stay in body for non-JS users */}
         <noscript>
           <iframe 
             src="https://www.googletagmanager.com/ns.html?id=GTM-N7VXC8SG"
@@ -223,6 +193,39 @@ export default function RootLayout({
           <Toaster />
           <Analytics />
         </ThemeProvider>
+
+        {/* Google Tag Manager — afterInteractive so it doesn't block first paint */}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-N7VXC8SG');
+            `,
+          }}
+        />
+
+        {/* Google Analytics — afterInteractive */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-3P7JSPHQ39"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-3P7JSPHQ39');
+            `,
+          }}
+        />
       </body>
     </html>
   );

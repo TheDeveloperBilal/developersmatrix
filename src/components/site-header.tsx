@@ -9,10 +9,7 @@ import {
   Menu,
   Search,
   X,
-  Sun,
-  Moon,
 } from "lucide-react";
-import { useTheme } from "next-themes";
 import { categories, featuredTools, moreTools } from "@/lib/data";
 import SearchModal from "@/components/search-modal";
 
@@ -162,15 +159,8 @@ export default function SiteHeader() {
   const [mobileToolsOpen, setMobileToolsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Keyboard shortcut: Cmd/Ctrl+K to open search
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -293,18 +283,6 @@ export default function SiteHeader() {
               ⌘K
             </kbd>
           </button>
-          <button
-            type="button"
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            aria-label="Toggle dark mode"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-ink-200 text-ink-600 transition-colors hover:border-ink-300 hover:text-ink-900"
-          >
-            {mounted && resolvedTheme === "dark" ? (
-              <Sun className="h-4 w-4" />
-            ) : (
-              <Moon className="h-4 w-4" />
-            )}
-          </button>
           <Link href="/tools" className="btn-primary !px-5 !py-2.5">
             Explore tools
           </Link>
@@ -408,24 +386,6 @@ export default function SiteHeader() {
                 {link.name}
               </Link>
             ))}
-
-            <div className="flex items-center gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-ink-200 py-3 text-sm font-medium text-ink-700"
-              >
-                {mounted && resolvedTheme === "dark" ? (
-                  <>
-                    <Sun className="h-4 w-4" /> Light mode
-                  </>
-                ) : (
-                  <>
-                    <Moon className="h-4 w-4" /> Dark mode
-                  </>
-                )}
-              </button>
-            </div>
 
             <div className="pt-4">
               <Link href="/tools" onClick={() => setMobileOpen(false)} className="btn-primary w-full">

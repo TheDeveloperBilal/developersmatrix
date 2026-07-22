@@ -80,7 +80,7 @@ const stats = [
   { value: "14", label: "Free AI Tools" },
   { value: "$0", label: "Forever Free" },
   { value: "10+", label: "Expert Guides" },
-  { value: "2025", label: "Launched" }
+  { value: "2024", label: "Launched" }
 ];
 
 export default function ConnectWithUsClient() {

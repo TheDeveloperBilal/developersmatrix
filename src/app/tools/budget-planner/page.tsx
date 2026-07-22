@@ -369,6 +369,92 @@ export default function BudgetPlannerPage() {
           </div>
         </div>
       </main>
+
+      {/* SEO Content Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
+        <div className="max-w-4xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Free Budget Planner & Expense Tracker: Take Control of Your Finances in 2026
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            The average developer earns $120,000+ per year but still feels broke by the 25th of each month. The problem is not income — it is visibility. Our <strong>free budget planner</strong> gives you a clear picture of where your money goes, so you can make intentional decisions instead of wondering where it disappeared. No signup, no credit card, and no complicated setup. Just your income, your expenses, and the truth.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Why Developers Need a Budget Planner in 2026
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Tech salaries are high, but so are lifestyle costs in tech hubs. San Francisco developers spend 40-50% of income on rent alone. New York and Seattle are not far behind. Without a budget, even $150,000 per year can feel tight. Our <strong>expense tracker</strong> helps you identify the leaks — subscription services you forgot about, daily $15 lunches that add up to $300 per month, and impulse purchases that derail savings goals.
+          </p>
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Research shows that people who track their spending save 20% more than those who do not. Not because they earn more, but because awareness changes behavior. When you see that $200 monthly coffee habit in a pie chart, you naturally start making different choices. Our tool makes that awareness effortless.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            How the 50-30-20 Rule Works
+          </h3>
+          <div className="grid sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">50% Needs</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Rent, utilities, groceries, insurance, minimum debt payments. These are non-negotiable essentials.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">30% Wants</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Dining out, entertainment, hobbies, subscriptions, travel. These improve quality of life but can be adjusted.</p>
+            </div>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">20% Savings</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Emergency fund, retirement contributions, investments, debt payoff. This builds your financial future.</p>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+            Related Tools for Personal Finance
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-3 mb-8">
+            <a href="/tools/salary-estimator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">💰</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Salary Estimator</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Know your market value</p>
+              </div>
+            </a>
+            <a href="/tools/habit-tracker" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">🎯</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Habit Tracker</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Build financial discipline</p>
+              </div>
+            </a>
+            <a href="/tools/productivity-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">📅</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Productivity Planner</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Plan your financial goals</p>
+              </div>
+            </a>
+            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">📚</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">Finance Guides</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Personal finance tips and insights</p>
+              </div>
+            </a>
+          </div>
+
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-6 border border-green-100 dark:border-green-800">
+            <h3 className="text-lg font-semibold text-green-900 dark:text-green-200 mb-2">
+              Start Budgeting Today
+            </h3>
+            <p className="text-green-800 dark:text-green-300 text-sm mb-4">
+              The best time to start tracking your money was yesterday. The second best time is now. Use our free budget planner to see where every dollar goes.
+            </p>
+            <p className="text-green-700 dark:text-green-400 text-xs">
+              100% free. No signup. No limits. Just clarity.
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

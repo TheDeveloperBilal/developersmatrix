@@ -25,12 +25,15 @@ export interface BlogPost {
   category: string;
   tags: string[];
   publishedAt: string;
+  dateModified?: string;
   readTime: number;
   image: string;
   faqs?: Array<{
     question: string;
     answer: string;
   }>;
+  canonicalUrl?: string;
+  noindex?: boolean;
 }
 
 // Trend Types
@@ -43,6 +46,8 @@ export interface Trend {
   prediction: string;
   icon: string;
   tags: string[];
+  canonicalUrl?: string;
+  noindex?: boolean;
 }
 
 // FAQ Types
@@ -192,5 +197,7 @@ export interface SiteConfig {
     linkedin: string;
     facebook: string;
     instagram: string;
+    pinterest: string;
+    behance: string;
   };
 }

@@ -17,6 +17,14 @@ import {
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { 
   getTrendBySlug, 
   getAllTrendSlugs, 
@@ -26,6 +34,7 @@ import {
 } from '@/data/trends-data';
 import { getRelatedToolsForTrend, getRelatedBlogPostsForTrend } from '@/data/cross-links';
 import { siteConfig } from '@/data/config';
+import { ArticleSchema, BreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 
 interface TrendPageProps {
   params: Promise<{
@@ -53,8 +62,11 @@ export async function generateMetadata({ params }: TrendPageProps): Promise<Meta
     description: trend.metaDescription,
     keywords: trend.keywords,
     alternates: {
-      canonical: `${siteConfig.url}/trends/${resolvedParams.slug}`,
+      canonical: trend.canonicalUrl || `${siteConfig.url}/trends/${resolvedParams.slug}`,
     },
+    robots: trend.noindex
+      ? { index: false, follow: true }
+      : undefined,
     openGraph: {
       title: trend.title,
       description: trend.subtitle,
@@ -118,6 +130,44 @@ export default async function TrendPage({ params }: TrendPageProps) {
 
   return (
     <article className="min-h-screen">
+      {/* Breadcrumb Schema */}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: siteConfig.url },
+          { name: 'Trend Radar', url: `${siteConfig.url}/trends` },
+          { name: trend.title, url: `${siteConfig.url}/trends/${resolvedParams.slug}` }
+        ]}
+      />
+      {/* FAQ Schema JSON-LD */}
+      {trend.content.faqs && trend.content.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: trend.content.faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
+      {/* Article Schema */}
+      <ArticleSchema
+        title={trend.title}
+        description={trend.subtitle}
+        url={`${siteConfig.url}/trends/${resolvedParams.slug}`}
+        publishedAt={trend.publishedAt}
+        dateModified={trend.updatedAt}
+        author={trend.author}
+        tags={trend.tags}
+      />
       {/* Hero Section */}
       <header className="bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-slate-900 dark:via-purple-900/10 dark:to-slate-900 pt-8 pb-12">
         <div className="shell">
@@ -183,6 +233,19 @@ export default async function TrendPage({ params }: TrendPageProps) {
               </span>
             ))}
           </div>
+
+          {/* Quick Answer — Critical for AI Citations & Featured Snippets */}
+          {trend.content.quickAnswer && (
+            <div className="mt-8 p-5 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Quick Answer</span>
+              </div>
+              <p className="text-slate-800 dark:text-slate-200 font-medium leading-relaxed">
+                {trend.content.quickAnswer}
+              </p>
+            </div>
+          )}
         </div>
       </header>
 
@@ -197,6 +260,21 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 {trend.description}
               </p>
             </section>
+
+            {/* Who Should Read This */}
+            {trend.content.whoShouldRead && (
+              <section className="p-5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-500/5 dark:to-orange-500/5 border border-amber-100 dark:border-amber-500/20">
+                <div className="flex items-center gap-2 mb-3">
+                  <svg className="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span className="text-sm font-semibold text-amber-800 dark:text-amber-400 uppercase tracking-wider">Who Should Read This</span>
+                </div>
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {trend.content.whoShouldRead}
+                </p>
+              </section>
+            )}
 
             {/* Why It Matters */}
             <section className="p-6 rounded-2xl bg-purple-50 dark:bg-purple-500/5 border border-purple-100 dark:border-purple-500/20">
@@ -236,6 +314,88 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 {trend.content.advancedInsights}
               </p>
             </section>
+
+            {/* Hustle Comparison Table */}
+            {trend.content.hustleTable && trend.content.hustleTable.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                  15 AI Side Hustles at a Glance
+                </h2>
+                <p className="text-slate-600 dark:text-slate-400 mb-4">
+                  Compare all 15 hustles by tools needed, earning ceiling, barrier to entry, and who each is best for.
+                </p>
+                <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-slate-50 dark:bg-slate-800/50">
+                        <TableHead className="font-bold">Hustle</TableHead>
+                        <TableHead className="font-bold">Top Tools</TableHead>
+                        <TableHead className="font-bold">Earning Ceiling</TableHead>
+                        <TableHead className="font-bold">Barrier</TableHead>
+                        <TableHead className="font-bold">Best For</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {trend.content.hustleTable.map((row, i) => (
+                        <TableRow key={i} className="hover:bg-purple-50/50 dark:hover:bg-purple-500/5">
+                          <TableCell className="font-medium text-slate-900 dark:text-white">{row.name}</TableCell>
+                          <TableCell className="text-slate-600 dark:text-slate-400">{row.tools}</TableCell>
+                          <TableCell className="text-green-600 dark:text-green-400 font-semibold">{row.earningCeiling}</TableCell>
+                          <TableCell>
+                            <Badge className={
+                              row.barrier === 'Low'
+                                ? 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400 border-0'
+                                : row.barrier === 'Medium'
+                                ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 border-0'
+                                : 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400 border-0'
+                            }>
+                              {row.barrier}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-slate-600 dark:text-slate-400">{row.bestFor}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </section>
+            )}
+
+            {/* Earning Ranges by Experience */}
+            {trend.content.earningRanges && trend.content.earningRanges.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                  Real Income Data by Experience Level
+                </h2>
+                <p className="text-slate-600 dark:text-slate-400 mb-4">
+                  See what beginners, intermediates, and pros actually earn — plus how long until your first paid client.
+                </p>
+                <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-slate-50 dark:bg-slate-800/50">
+                        <TableHead className="font-bold">Hustle</TableHead>
+                        <TableHead className="font-bold text-green-700 dark:text-green-400">Beginner</TableHead>
+                        <TableHead className="font-bold text-blue-700 dark:text-blue-400">Intermediate</TableHead>
+                        <TableHead className="font-bold text-purple-700 dark:text-purple-400">Pro</TableHead>
+                        <TableHead className="font-bold">First $</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {trend.content.earningRanges.map((row, i) => (
+                        <TableRow key={i} className="hover:bg-blue-50/50 dark:hover:bg-blue-500/5">
+                          <TableCell className="font-medium text-slate-900 dark:text-white">{row.hustle}</TableCell>
+                          <TableCell className="text-green-600 dark:text-green-400">{row.beginner}</TableCell>
+                          <TableCell className="text-blue-600 dark:text-blue-400">{row.intermediate}</TableCell>
+                          <TableCell className="text-purple-600 dark:text-purple-400 font-semibold">{row.pro}</TableCell>
+                          <TableCell className="text-slate-500 dark:text-slate-400 text-sm">{row.timeToFirstDollar}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </section>
+            )}
 
             {/* Real World Examples */}
             <section>
@@ -313,6 +473,43 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 {trend.content.futureScope}
               </p>
             </section>
+
+            {/* Step-by-Step Guides */}
+            {trend.content.stepByStepGuides && trend.content.stepByStepGuides.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                  Step-by-Step: How to Start Each Hustle
+                </h2>
+                <p className="text-slate-600 dark:text-slate-400 mb-6">
+                  Click-worthy guides for every hustle — follow the exact steps real earners used to get their first clients.
+                </p>
+                <div className="space-y-6">
+                  {trend.content.stepByStepGuides.map((guide, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold">
+                          {idx + 1}
+                        </div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">{guide.hustle}</h3>
+                      </div>
+                      <ol className="space-y-2">
+                        {guide.steps.map((step, sIdx) => (
+                          <li key={sIdx} className="flex items-start gap-3">
+                            <span className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                              {sIdx + 1}
+                            </span>
+                            <span className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">{step}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
         {/* FAQ Section */}
             {trend.content.faqs && trend.content.faqs.length > 0 && (

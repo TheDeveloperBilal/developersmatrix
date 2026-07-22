@@ -29,29 +29,29 @@ export async function GET() {
   } catch (error) {
     console.error('GTA6 news API error:', error);
     
-    // Return fallback news
+    // Return fallback news with latest real information
     return NextResponse.json({
       news: [
         {
-          title: "GTA 6 Release Date Confirmed for Fall 2025",
-          snippet: "Rockstar Games confirms Grand Theft Auto VI will launch in Fall 2025 for PlayStation 5 and Xbox Series X|S.",
-          url: "https://www.rockstargames.com/newswire",
+          title: "GTA 6 Pre-Orders Generate $1 Billion in First Hour",
+          snippet: "Analysts estimate GTA 6 generated approximately $1 billion (£755 million) in revenue within the first hour of pre-orders going live on June 25, 2026. Reports suggest over 39 million copies have been pre-ordered.",
+          url: "https://metro.co.uk/2026/06/29/gta-6-made-1-000-000-000-60-minutes-pre-orders-claim-analysts-28970558/",
+          source: "Metro UK",
+          date: "June 29, 2026"
+        },
+        {
+          title: "GTA 6 Pre-Orders Are Now Live",
+          snippet: "GTA 6 pre-orders opened on June 25, 2026 for PlayStation 5 and Xbox Series X|S. The Standard Edition costs $69.99, with Collector's Edition at $99.99.",
+          url: "https://www.rockstargames.com/gta6",
           source: "Rockstar Games",
-          date: "2024"
+          date: "June 25, 2026"
         },
         {
-          title: "GTA 6 Trailer Breakdown: Everything We Know",
-          snippet: "Detailed analysis of the GTA 6 trailer revealing Vice City location, dual protagonists, and next-gen features.",
-          url: "https://www.ign.com/articles/gta-6-trailer-breakdown",
-          source: "IGN",
-          date: "2024"
-        },
-        {
-          title: "GTA 6 PC Release - What We Know",
-          snippet: "Historical patterns suggest GTA 6 PC version may arrive 6-12 months after console launch.",
-          url: "https://www.pcgamer.com/gta-6-pc",
-          source: "PC Gamer",
-          date: "2024"
+          title: "Take-Two CEO Confirms GTA 6 Marketing Beats for Summer 2026",
+          snippet: "Take-Two Interactive CEO Strauss Zelnick confirmed GTA 6 remains on track for November 19, 2026 release and that marketing beats are planned throughout Summer 2026.",
+          url: "https://www.gamesmarket.global/rockstar-games-postpones-gta-6-until-november-2026/",
+          source: "Games Market",
+          date: "November 7, 2025"
         }
       ]
     });

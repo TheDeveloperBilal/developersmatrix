@@ -6,11 +6,13 @@ export const siteConfig: SiteConfig = {
   url: 'https://developersmatrix.com',
   ogImage: 'https://developersmatrix.com/og-image.png',
   links: {
-    twitter: 'https://twitter.com/developersmatrix',
-    github: 'https://github.com/developersmatrix',
+    twitter: 'https://x.com/Developer_Bilal',
+    github: 'https://github.com/TheDeveloperBilal',
     linkedin: 'https://linkedin.com/company/developersmatrix',
-    facebook: 'https://www.facebook.com/developersmatrix',
-    instagram: 'https://www.instagram.com/developermatrix'
+    facebook: 'https://www.facebook.com/developersmatrix/',
+    instagram: 'https://www.instagram.com/developermatrix/',
+    pinterest: 'https://www.pinterest.com/developersmatrix/',
+    behance: 'https://www.behance.net/thedeveloperbilal'
   }
 };
 

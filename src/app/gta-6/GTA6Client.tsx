@@ -99,6 +99,9 @@ export default function GTA6Client() {
     rating: "Rating Pending (Expected Mature 17+)",
     location: "Vice City, Leonida State (Miami-inspired)",
     protagonists: ["Lucia", "Jason"],
+    preOrderDate: "June 25, 2026",
+    firstHourRevenue: "$1 Billion",
+    preOrderCopies: "39+ Million",
     features: [
       "Massive open world — Vice City and surrounding Leonida State",
       "Dual protagonist system with Lucia and Jason",
@@ -234,7 +237,7 @@ export default function GTA6Client() {
             <div className="text-center md:text-left min-w-0">
               <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 max-w-full">
                 <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 shrink-0" />
-                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Most Anticipated Game of 2026</span>
+                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Pre-Orders Live — $1B First Hour</span>
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 break-words">
                 Grand Theft Auto <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">VI</span>
@@ -243,6 +246,14 @@ export default function GTA6Client() {
                 Check if your PC can run GTA 6 and get the latest news, system requirements, and features.
               </p>
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                  <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
+                  <span className="truncate">$1B First Hour</span>
+                </Badge>
+                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400 shrink-0" />
+                  <span className="truncate">39M+ Pre-Ordered</span>
+                </Badge>
                 <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-400 shrink-0" />
                   <span className="truncate">Console: {gameInfo.consoleRelease}</span>
