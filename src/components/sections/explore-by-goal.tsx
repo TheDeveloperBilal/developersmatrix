@@ -101,7 +101,7 @@ export default function ExploreByGoal() {
                     >
                       <Link
                         href={tool.href}
-                        className="group flex items-center gap-4 rounded-2xl border border-ink-100 p-4 transition-all hover:border-brand-200 hover:bg-brand-50/50"
+                        className="group flex items-center gap-4 rounded-2xl bg-white/90 p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card"
                       >
                         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white">
                           <tool.icon className="h-5 w-5" strokeWidth={1.8} />
@@ -116,7 +116,7 @@ export default function ExploreByGoal() {
                   ))}
                 </ul>
 
-                <div className="mt-6 flex flex-wrap gap-2.5 border-t border-ink-100 pt-5">
+                <div className="mt-6 flex flex-wrap gap-2.5 border-t border-ink-100/50 pt-5">
                   {active.content.map((c) => (
                     <Link
                       key={c.label}

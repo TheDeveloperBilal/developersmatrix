@@ -23,7 +23,7 @@ export default function LatestUpdates() {
     .slice(0, 6);
 
   return (
-    <section className="bg-ink-50/40 py-16 lg:py-20" aria-labelledby="updates-heading">
+    <section className="bg-ink-50/40 py-16 overflow-hidden lg:py-20" aria-labelledby="updates-heading">
       <div className="shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
           <p className="eyebrow">

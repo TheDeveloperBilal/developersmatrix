@@ -27,9 +27,9 @@ function Logo() {
       <Image
         src="/logo.webp"
         alt="DevelopersMatrix"
-        width={160}
-        height={36}
-        className="h-8 w-auto"
+        width={180}
+        height={40}
+        className="h-9 w-auto"
         priority
       />
     </Link>
@@ -247,8 +247,8 @@ export default function SiteHeader() {
               }}
               aria-expanded={toolsOpen}
               aria-haspopup="true"
-              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                toolsOpen ? "bg-brand-50 text-brand-700" : "text-ink-700 hover:bg-ink-50 hover:text-ink-900"
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[0.9375rem] font-medium transition-colors ${
+                toolsOpen ? "bg-brand-50 text-brand-700" : "text-ink-700 hover:bg-brand-50 hover:text-brand-700"
               }`}
             >
               Tools
@@ -263,7 +263,7 @@ export default function SiteHeader() {
             <Link
               key={link.name}
               href={link.href}
-              className="rounded-full px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-ink-50 hover:text-ink-900"
+              className="rounded-full px-4 py-2.5 text-[0.9375rem] font-medium text-ink-700 transition-colors hover:bg-brand-50 hover:text-brand-700"
             >
               {link.name}
             </Link>
@@ -275,7 +275,7 @@ export default function SiteHeader() {
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
-            className="flex items-center gap-2 rounded-full border border-ink-200 px-4 py-2 text-sm font-medium text-ink-600 transition-colors hover:border-ink-300 hover:text-ink-900"
+            className="flex items-center gap-2 rounded-full border border-ink-200/60 bg-white/70 px-4 py-2 text-sm font-medium text-ink-600 shadow-sm backdrop-blur-sm transition-colors hover:border-ink-300 hover:bg-white hover:text-ink-900"
           >
             <Search className="h-3.5 w-3.5" />
             Search
@@ -294,7 +294,7 @@ export default function SiteHeader() {
           onClick={() => setMobileOpen((v) => !v)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-ink-200 text-ink-800 lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/80 text-ink-800 shadow-sm backdrop-blur-sm lg:hidden"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -307,7 +307,7 @@ export default function SiteHeader() {
             <button
               type="button"
               onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
-              className="flex w-full items-center gap-3 rounded-xl border border-ink-200 bg-ink-50/70 px-4 py-3 text-sm font-medium text-ink-700"
+              className="flex w-full items-center gap-3 rounded-xl bg-white/80 px-4 py-3 text-sm font-medium text-ink-700 shadow-sm backdrop-blur-sm"
             >
               <Search className="h-4 w-4" />
               Search tools, articles...

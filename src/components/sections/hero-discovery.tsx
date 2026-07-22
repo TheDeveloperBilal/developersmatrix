@@ -68,7 +68,7 @@ export default function HeroDiscovery() {
       <div aria-hidden="true" className="dot-grid absolute inset-0 [mask-image:radial-gradient(ellipse_75%_70%_at_50%_0%,black,transparent)]" />
       <div aria-hidden="true" className="absolute -top-40 right-0 h-96 w-[40rem] rounded-full bg-brand-100/60 blur-3xl" />
 
-      <div className="shell relative grid items-center gap-16 py-16 sm:py-20 lg:grid-cols-[1fr_1.05fr] lg:py-24">
+      <div className="shell relative grid items-center gap-16 py-16 sm:py-20 lg:grid-cols-[1fr_1.05fr] lg:py-24 overflow-hidden">
         {/* Copy */}
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-sm">
@@ -144,7 +144,7 @@ export default function HeroDiscovery() {
               <circle cx="100" cy="2" r="3.5" fill="#7c3aed" />
             </svg>
 
-            <div className="mt-4 grid grid-cols-3 divide-x divide-ink-100 rounded-xl bg-ink-50/80 py-3 text-center">
+            <div className="mt-4 grid grid-cols-3 divide-x divide-white/10 rounded-xl bg-white/5 py-3 text-center backdrop-blur-sm">
               {[
                 ["86", "Signals tracked"],
                 ["12", "Rising today"],

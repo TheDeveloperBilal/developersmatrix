@@ -34,7 +34,7 @@ export default function ArticlesCarousel() {
   };
 
   return (
-    <section className="bg-ink-50/40 py-16 lg:py-20" aria-labelledby="articles-heading">
+    <section className="bg-ink-50/40 py-16 overflow-hidden lg:py-20" aria-labelledby="articles-heading">
       <div className="shell">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -59,7 +59,7 @@ export default function ArticlesCarousel() {
               onClick={() => scrollBy(-1)}
               disabled={!canPrev}
               aria-label="Previous articles"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-200 bg-white text-ink-700 transition-all hover:border-brand-300 hover:text-brand-600 disabled:opacity-35 disabled:hover:border-ink-200 disabled:hover:text-ink-700"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-ink-700 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-brand-600 disabled:opacity-35"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -68,7 +68,7 @@ export default function ArticlesCarousel() {
               onClick={() => scrollBy(1)}
               disabled={!canNext}
               aria-label="Next articles"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-200 bg-white text-ink-700 transition-all hover:border-brand-300 hover:text-brand-600 disabled:opacity-35 disabled:hover:border-ink-200 disabled:hover:text-ink-700"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-ink-700 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-brand-600 disabled:opacity-35"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -78,7 +78,7 @@ export default function ArticlesCarousel() {
 
       <div
         ref={trackRef}
-        className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:px-8 [&::-webkit-scrollbar]:hidden lg:px-[max(2rem,calc((100vw-76rem)/2+2rem))]"
+        className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:px-8 [&::-webkit-scrollbar]:hidden"
       >
         {articles.map((article) => (
           <Link
@@ -110,7 +110,7 @@ export default function ArticlesCarousel() {
                 <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-500">
                   {article.description}
                 </p>
-                <p className="mt-4 border-t border-ink-100 pt-3.5 text-xs font-medium text-ink-400">
+                <p className="mt-4 pt-3.5 text-xs font-medium text-ink-400">
                   {article.updated}
                 </p>
               </div>

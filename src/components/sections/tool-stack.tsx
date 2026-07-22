@@ -64,7 +64,7 @@ function Connector() {
 
 export default function ToolStack() {
   return (
-    <section className="py-16 lg:py-20" aria-labelledby="stack-heading">
+    <section className="py-16 overflow-hidden lg:py-20" aria-labelledby="stack-heading">
       <div className="shell">
         <Reveal className="max-w-2xl">
           <p className="eyebrow">
@@ -97,7 +97,7 @@ export default function ToolStack() {
                     <div key={step.name} className="contents">
                       <Link
                         href={step.href}
-                        className="flex flex-1 items-center gap-3 rounded-2xl border border-ink-100 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-card lg:flex-col lg:items-center lg:gap-2.5 lg:p-5 lg:text-center"
+                        className="flex flex-1 items-center gap-3 rounded-2xl bg-white/90 p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card lg:flex-col lg:items-center lg:gap-2.5 lg:p-5 lg:text-center"
                       >
                         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white">
                           <step.icon className="h-5 w-5" strokeWidth={1.8} />

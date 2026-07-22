@@ -21,7 +21,7 @@ export default function ToolExplorer() {
     active === "All" ? explorerTools : explorerTools.filter((t) => t.category === active);
 
   return (
-    <section className="bg-ink-50/40 py-16 lg:py-20" aria-labelledby="explorer-heading">
+    <section className="bg-ink-50/40 py-16 overflow-hidden lg:py-20" aria-labelledby="explorer-heading">
       <div className="shell">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
@@ -99,7 +99,7 @@ export default function ToolExplorer() {
                   <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-500">
                     {tool.description}
                   </p>
-                  <div className="mt-5 flex items-center justify-between border-t border-ink-100 pt-4">
+                  <div className="mt-5 flex items-center justify-between border-t border-ink-100/50 pt-4">
                     <span className="text-xs font-medium text-ink-400">
                       {tool.category} · {tool.uses}
                     </span>

@@ -37,6 +37,7 @@ const columns = [
     title: "Company",
     links: [
       { name: "About", href: "/about" },
+      { name: "Connect", href: "/connect" },
       { name: "Contact", href: "/contact" },
       { name: "Privacy Policy", href: "/privacy" },
       { name: "Terms of Service", href: "/terms" },

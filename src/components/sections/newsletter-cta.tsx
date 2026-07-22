@@ -9,10 +9,10 @@ export function Newsletter() {
   const [done, setDone] = useState(false);
 
   return (
-    <section className="pb-4 pt-4" aria-labelledby="newsletter-heading">
+    <section className="pb-4 pt-4 overflow-hidden" aria-labelledby="newsletter-heading">
       <div className="shell">
         <Reveal>
-          <div className="card grid items-center gap-8 !rounded-3xl border-ink-100 p-8 sm:p-12 lg:grid-cols-2 lg:gap-12">
+          <div className="card grid items-center gap-8 !rounded-3xl p-8 sm:p-12 lg:grid-cols-2 lg:gap-12">
             <div>
               <p className="eyebrow">The weekly index</p>
               <h2

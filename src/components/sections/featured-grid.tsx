@@ -20,7 +20,7 @@ const quickAccess = [
 
 export default function FeaturedGrid() {
   return (
-    <section className="py-16 lg:py-20" aria-labelledby="featured-heading">
+    <section className="py-16 overflow-hidden lg:py-20" aria-labelledby="featured-heading">
       <div className="shell">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -77,7 +77,7 @@ export default function FeaturedGrid() {
                 </p>
 
                 {/* Score visual */}
-                <div className="mt-8 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+                <div className="mt-8 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur-sm">
                   <div className="flex items-center justify-between text-xs text-white/50">
                     <span>Overall health</span>
                     <span className="font-sora text-lg font-bold text-white">
@@ -141,7 +141,7 @@ export default function FeaturedGrid() {
                   Release locked for Nov 19, 2026. Check if your PC can run it before launch day.
                 </p>
               </div>
-              <div className="mt-5 flex items-center justify-between border-t border-ink-100 pt-4">
+              <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
                 <span className="text-xs font-medium text-ink-400">Activity: very high</span>
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600">
                   Open the hub <ArrowUpRight className="h-3.5 w-3.5" />
@@ -196,7 +196,7 @@ export default function FeaturedGrid() {
                   <li key={tool.name}>
                     <Link
                       href={tool.href}
-                      className="group flex items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 transition-all hover:border-brand-100 hover:bg-brand-50/60"
+                      className="group flex w-full items-center gap-3 rounded-2xl bg-white/90 px-3 py-2.5 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card"
                     >
                       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 ring-1 ring-brand-100 transition-colors group-hover:bg-brand-600 group-hover:text-white">
                         <tool.icon className="h-4 w-4" strokeWidth={1.8} />
@@ -212,7 +212,7 @@ export default function FeaturedGrid() {
               </ul>
               <Link
                 href="/tools"
-                className="mt-4 inline-flex items-center gap-1.5 border-t border-ink-100 pt-4 text-sm font-semibold text-brand-600 hover:text-brand-700"
+                className="mt-4 inline-flex items-center gap-1.5 border-t border-ink-100/50 pt-4 text-sm font-semibold text-brand-600 hover:text-brand-700"
               >
                 All 20+ tools <ArrowRight className="h-3.5 w-3.5" />
               </Link>

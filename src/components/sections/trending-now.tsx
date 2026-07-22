@@ -26,7 +26,7 @@ function Sparkline({ points }: { points: number[] }) {
 function TrendCardView({ card }: { card: TrendCard }) {
   const status = statusMeta[card.status];
   return (
-    <article className="card group flex w-[19rem] shrink-0 snap-start flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-card-hover sm:w-[21rem]">
+    <article className="card group flex w-[19rem] shrink-0 snap-start flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover sm:w-[21rem]">
       <div className="flex items-center justify-between">
         <span className={`chip ${card.categoryStyle}`}>{card.category}</span>
         <span className={`chip ${status.style}`}>
@@ -67,7 +67,7 @@ function TrendCardView({ card }: { card: TrendCard }) {
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-between border-t border-ink-100 pt-4">
+      <div className="mt-5 flex items-center justify-between border-t border-ink-100/50 pt-4">
         <span className="text-xs text-ink-400">{card.freshness}</span>
         <Link
           href={card.related.href}
@@ -88,7 +88,7 @@ export default function TrendingNow() {
   };
 
   return (
-    <section className="py-16 lg:py-20" aria-labelledby="trending-heading">
+    <section className="py-16 overflow-hidden lg:py-20" aria-labelledby="trending-heading">
       <div className="shell">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
@@ -111,7 +111,7 @@ export default function TrendingNow() {
               type="button"
               onClick={() => scrollBy(-1)}
               aria-label="Previous trends"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-200 bg-white text-ink-700 transition-all hover:border-brand-300 hover:text-brand-600"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-ink-700 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-brand-600"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -119,7 +119,7 @@ export default function TrendingNow() {
               type="button"
               onClick={() => scrollBy(1)}
               aria-label="Next trends"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-200 bg-white text-ink-700 transition-all hover:border-brand-300 hover:text-brand-600"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-ink-700 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-brand-600"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -129,14 +129,14 @@ export default function TrendingNow() {
 
       <div
         ref={trackRef}
-        className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:px-8 [&::-webkit-scrollbar]:hidden lg:px-[max(2rem,calc((100vw-76rem)/2+2rem))]"
+        className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:px-8 [&::-webkit-scrollbar]:hidden"
       >
         {trendCards.map((card) => (
           <TrendCardView key={card.topic} card={card} />
         ))}
         <Link
           href="/trends"
-          className="flex w-40 shrink-0 snap-start flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-ink-200 text-ink-400 transition-colors hover:border-brand-300 hover:text-brand-600"
+          className="flex w-40 shrink-0 snap-start flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-ink-200/60 bg-white/50 text-ink-400 backdrop-blur-sm transition-colors hover:border-brand-300 hover:text-brand-600"
         >
           <ArrowUpRight className="h-6 w-6" />
           <span className="text-sm font-semibold">Open Trend Radar</span>
