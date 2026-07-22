@@ -32,7 +32,7 @@ export default function LiveTicker() {
         </div>
 
         <div className="relative flex-1 overflow-hidden">
-          <div className="flex w-max animate-marquee gap-8 pr-8 group-hover:[animation-play-state:paused]">
+          <div className="flex w-max max-w-full animate-marquee gap-8 pr-8 group-hover:[animation-play-state:paused]">
             {items.map((item, i) => (
               <Link
                 key={`${item.label}-${i}`}

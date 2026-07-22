@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 function PinterestIcon({ className }: { className?: string }) {
@@ -28,7 +29,6 @@ const columns = [
     links: [
       { name: "Trend Radar", href: "/trends" },
       { name: "Blog", href: "/blog" },
-      { name: "Learn", href: "/learn" },
       { name: "GTA 6 hub", href: "/gta-6" },
       { name: "Community", href: "/community" },
     ],
@@ -54,19 +54,29 @@ const socials = [
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-ink-100 bg-ink-50/50">
-      <div className="shell py-14 lg:py-16">
+    <footer className="relative overflow-hidden bg-ink-950">
+      {/* Background decoration matching Explore by goal */}
+      <div
+        aria-hidden="true"
+        className="dot-grid absolute inset-0 opacity-[0.12] [background-image:radial-gradient(circle,rgba(255,255,255,0.6)_1px,transparent_1px)]"
+      />
+      <div aria-hidden="true" className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-brand-600/25 blur-3xl" />
+      <div aria-hidden="true" className="absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-brand-800/30 blur-3xl" />
+
+      <div className="shell relative py-14 lg:py-16">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center gap-2.5" aria-label="DevelopersMatrix home">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 font-sora text-sm font-bold text-white">
-                DM
-              </span>
-              <span className="font-sora text-[1.05rem] font-bold tracking-tight text-ink-900">
-                Developers<span className="text-brand-600">Matrix</span>
-              </span>
+              <Image
+                src="/logo.webp"
+                alt="DevelopersMatrix"
+                width={160}
+                height={36}
+                className="h-8 w-auto brightness-0 invert"
+                priority
+              />
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-500">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
               Free AI tools, daily tech trends and practical guides for developers, creators and
               professionals building better careers and businesses.
             </p>
@@ -78,7 +88,7 @@ export default function SiteFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-ink-200 bg-white text-ink-500 transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-600"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/60 transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/10 hover:text-white"
                 >
                   <s.icon className="h-4 w-4" strokeWidth={1.8} />
                 </a>
@@ -88,7 +98,7 @@ export default function SiteFooter() {
 
           {columns.map((col) => (
             <nav key={col.title} aria-label={col.title}>
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">
+              <p className="font-sora text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-white/40">
                 {col.title}
               </p>
               <ul className="mt-4 space-y-2.5">
@@ -96,7 +106,7 @@ export default function SiteFooter() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-ink-600 transition-colors hover:text-brand-700"
+                      className="text-sm text-white/60 transition-colors hover:text-white"
                     >
                       {link.name}
                     </Link>
@@ -107,11 +117,11 @@ export default function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-200/70 pt-6 sm:flex-row">
-          <p className="text-xs text-ink-400">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
+          <p className="text-xs text-white/40">
             © {new Date().getFullYear()} DevelopersMatrix. All rights reserved.
           </p>
-          <p className="text-xs text-ink-400">Made for the global community</p>
+          <p className="text-xs text-white/40">Made for the global community</p>
         </div>
       </div>
     </footer>

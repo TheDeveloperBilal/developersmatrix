@@ -159,7 +159,7 @@ export default function HeroDiscovery() {
           </div>
 
           {/* Floating card: website audit */}
-          <div className="card absolute -right-2 -top-10 z-20 hidden w-52 !rounded-xl p-4 animate-[float_6s_ease-in-out_infinite] sm:block lg:-right-6">
+          <Link href="/tools/website-audit" className="card absolute -right-2 -top-10 z-20 hidden w-52 !rounded-xl p-4 animate-[float_6s_ease-in-out_infinite] transition-all hover:shadow-lg hover:-translate-y-1 sm:block lg:-right-6">
             <div className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
                 <Gauge className="h-5 w-5" strokeWidth={1.8} />
@@ -175,10 +175,10 @@ export default function HeroDiscovery() {
               </div>
               <span className="text-xs font-bold text-ink-900">78</span>
             </div>
-          </div>
+          </Link>
 
           {/* Floating card: resume builder */}
-          <div className="card absolute -left-2 top-1/2 z-20 hidden w-48 !rounded-xl p-4 animate-[float_7s_ease-in-out_1s_infinite] sm:block lg:-left-10">
+          <Link href="/tools/ai-resume-builder" className="card absolute -left-2 top-1/2 z-20 hidden w-48 !rounded-xl p-4 animate-[float_7s_ease-in-out_1s_infinite] transition-all hover:shadow-lg hover:-translate-y-1 sm:block lg:-left-10">
             <div className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 ring-1 ring-brand-100">
                 <FileText className="h-5 w-5" strokeWidth={1.8} />
@@ -188,17 +188,17 @@ export default function HeroDiscovery() {
                 <p className="text-[0.625rem] font-medium text-ink-400">8.9k created</p>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Floating chip: new tool */}
-          <div className="card absolute -bottom-6 right-8 z-20 hidden items-center gap-2.5 !rounded-full py-2.5 pl-3 pr-4 animate-[float_5s_ease-in-out_0.5s_infinite] sm:flex">
+          <Link href="/tools/ai-content-detector" className="card absolute -bottom-6 right-8 z-20 hidden items-center gap-2.5 !rounded-full py-2.5 pl-3 pr-4 animate-[float_5s_ease-in-out_0.5s_infinite] transition-all hover:shadow-lg sm:flex">
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
               <ScanSearch className="h-3.5 w-3.5" strokeWidth={2} />
             </span>
             <p className="text-xs font-semibold text-ink-800">
               AI Content Detector <span className="font-bold text-emerald-600">NEW</span>
             </p>
-          </div>
+          </Link>
         </div>
       </div>
     </section>
