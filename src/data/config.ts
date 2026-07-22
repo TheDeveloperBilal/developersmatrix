@@ -16,7 +16,6 @@ export const siteConfig: SiteConfig = {
 
 export const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'GTA 6', href: '/gta-6' },
   { 
     name: 'Tools', 
     href: '/tools',
@@ -36,8 +35,9 @@ export const navigation = [
       { name: 'Productivity Planner', href: '/tools/productivity-planner' }
     ]
   },
-  { name: 'Free Website Audit', href: '/tools/website-audit', highlight: true },
   { name: 'Trends', href: '/trends' },
+  { name: 'Free Website Audit', href: '/tools/website-audit', highlight: true },
+  { name: 'GTA 6', href: '/gta-6' },
   { name: 'Blog', href: '/blog' },
   { name: 'Community', href: '/community' }
 ];

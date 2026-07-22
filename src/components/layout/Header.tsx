@@ -88,9 +88,10 @@ const toolCategories = [
 
 const mainNavItems = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'GTA 6', href: '/gta-6', icon: Gamepad2 },
-  { name: 'Free Website Audit', href: '/tools/website-audit', icon: Search },
+  { name: 'Tools', href: '/tools', icon: Wrench },
   { name: 'Trends', href: '/trends', icon: TrendingUp },
+  { name: 'Free Website Audit', href: '/tools/website-audit', icon: Search },
+  { name: 'GTA 6', href: '/gta-6', icon: Gamepad2 },
   { name: 'Blog', href: '/blog', icon: BookOpen },
   { name: 'Community', href: '/community', icon: Users },
 ];
