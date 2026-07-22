@@ -123,7 +123,7 @@ export default function ExploreByGoal() {
                       href={c.href}
                       className="inline-flex items-center gap-2 rounded-full bg-ink-50 px-3.5 py-2 text-xs font-semibold text-ink-700 transition-colors hover:bg-brand-50 hover:text-brand-700"
                     >
-                      <span className="chip bg-white text-ink-400 ring-1 ring-ink-200">{c.type}</span>
+                      <span className="chip bg-ink-50 text-ink-400">{c.type}</span>
                       {c.label}
                     </Link>
                   ))}

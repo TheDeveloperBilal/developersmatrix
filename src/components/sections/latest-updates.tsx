@@ -50,7 +50,7 @@ export default function LatestUpdates() {
                 className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
                   tab === t
                     ? "text-white"
-                    : "bg-white text-ink-600 ring-1 ring-ink-200 hover:text-ink-900"
+                    : "bg-white/80 text-ink-600 shadow-sm backdrop-blur-sm hover:text-ink-900 hover:bg-white"
                 }`}
               >
                 {tab === t && (
@@ -74,7 +74,7 @@ export default function LatestUpdates() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="divide-y divide-ink-100 border-y border-ink-100"
+              className="divide-y divide-ink-100/60"
             >
               {visible.map((item) => (
                 <li key={item.title}>
@@ -83,7 +83,7 @@ export default function LatestUpdates() {
                       {item.kind}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate font-sora text-[0.9375rem] font-semibold text-ink-900 transition-colors group-hover:text-brand-700">
+                      <span className="block font-sora text-[0.9375rem] font-semibold text-ink-900 transition-colors group-hover:text-brand-700 sm:truncate">
                         {item.title}
                       </span>
                       <span className="mt-0.5 block text-xs text-ink-400">{item.meta}</span>

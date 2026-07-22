@@ -87,7 +87,7 @@ export default function ToolStack() {
               <div className="card group h-full p-7 sm:p-8">
                 <div className="flex items-center justify-between">
                   <h3 className="font-sora text-lg font-bold text-ink-950">{stack.title}</h3>
-                  <span className="chip bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+                  <span className="chip bg-brand-50 text-brand-700">
                     {stack.outcome}
                   </span>
                 </div>

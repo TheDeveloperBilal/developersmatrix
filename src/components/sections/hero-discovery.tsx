@@ -71,7 +71,7 @@ export default function HeroDiscovery() {
       <div className="shell relative grid items-center gap-16 py-16 sm:py-20 lg:grid-cols-[1fr_1.05fr] lg:py-24 overflow-hidden">
         {/* Copy */}
         <div className="animate-fade-up">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5" />
             AI tools + trend radar + guides — updated daily
           </div>
@@ -97,7 +97,7 @@ export default function HeroDiscovery() {
             </Link>
           </div>
 
-          <div className="mt-10 flex gap-10 border-t border-ink-200/70 pt-6">
+          <div className="mt-10 flex gap-10 border-t border-ink-100/40 pt-6">
             <Stat value={20} suffix="+" label="Free AI tools" />
             <Stat value={3400} suffix="+" label="Websites audited" />
             <Stat value={4.8} suffix="/5" label="User rating" decimals={1} />
@@ -180,7 +180,7 @@ export default function HeroDiscovery() {
           {/* Floating card: resume builder */}
           <Link href="/tools/ai-resume-builder" className="card absolute -left-2 top-1/2 z-20 hidden w-48 !rounded-xl p-4 animate-[float_7s_ease-in-out_1s_infinite] transition-all hover:shadow-lg hover:-translate-y-1 sm:block lg:-left-10">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
                 <FileText className="h-5 w-5" strokeWidth={1.8} />
               </span>
               <div>

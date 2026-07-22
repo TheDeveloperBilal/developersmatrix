@@ -53,7 +53,7 @@ export default function ToolExplorer() {
                 aria-selected={isActive}
                 onClick={() => setActive(cat)}
                 className={`relative shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
-                  isActive ? "text-white" : "bg-white text-ink-600 ring-1 ring-ink-200 hover:text-ink-900 hover:ring-ink-300"
+                  isActive ? "text-white" : "bg-white/80 text-ink-600 shadow-sm backdrop-blur-sm hover:text-ink-900 hover:bg-white"
                 }`}
               >
                 {isActive && (
@@ -86,7 +86,7 @@ export default function ToolExplorer() {
                   className="card card-hover group flex h-full flex-col p-6"
                 >
                   <div className="flex items-start justify-between">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100 transition-colors group-hover:bg-brand-600 group-hover:text-white group-hover:ring-brand-600">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
                       <tool.icon className="h-5 w-5" strokeWidth={1.8} />
                     </span>
                     {tool.badge && (

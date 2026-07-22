@@ -136,7 +136,7 @@ export default function TrendingNow() {
         ))}
         <Link
           href="/trends"
-          className="flex w-40 shrink-0 snap-start flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-ink-200/60 bg-white/50 text-ink-400 backdrop-blur-sm transition-colors hover:border-brand-300 hover:text-brand-600"
+          className="flex w-40 shrink-0 snap-start flex-col items-center justify-center gap-3 rounded-2xl bg-white/80 text-ink-400 shadow-sm backdrop-blur-sm transition-colors hover:bg-white hover:text-brand-600"
         >
           <ArrowUpRight className="h-6 w-6" />
           <span className="text-sm font-semibold">Open Trend Radar</span>

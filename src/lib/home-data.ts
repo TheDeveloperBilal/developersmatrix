@@ -281,7 +281,9 @@ export const trendCards: TrendCard[] = [
   },
 ];
 
-/* ---------------- Articles (real latest blogs) ---------------- */
+/* ---------------- Articles (all real latest blogs from high-quality-blogs.json) ---------------- */
+
+import blogsJson from "@/data/high-quality-blogs.json";
 
 export type Article = {
   title: string;
@@ -309,69 +311,39 @@ const categoryStyles: Record<string, string> = {
   "Social Media": "bg-pink-50 text-pink-600",
 };
 
-// Real latest blog posts from high-quality-blogs.json (sorted by publishedAt desc)
-export const articles: Article[] = [
-  {
-    title: "On-Site SEO Guide 2026: Complete On-Page Optimization Checklist (With Real Examples)",
-    description: "Master on-site SEO in 2026 with this complete checklist. Real examples from DevelopersMatrix showing exactly how title tags, meta descriptions, heading structures, and internal linking drive rankings.",
-    category: "SEO",
-    categoryStyle: categoryStyles["SEO"] || "bg-emerald-50 text-emerald-600",
-    readTime: "22 min read",
-    updated: "Updated Jun 24",
-    image: "/images/blog/on-site-seo-guide-2026.png",
-    href: "/blog/on-site-seo-guide-2026",
-  },
-  {
-    title: "AI Side Hustles 2026: 15 Proven Ways to Make Money with AI (Real Income Data)",
-    description: "Discover 15 AI side hustles that actually pay in 2026. Real income data, beginner-friendly options, and step-by-step guides to start earning $500-$5,000/month with AI tools.",
-    category: "Career",
-    categoryStyle: categoryStyles["Career"] || "bg-brand-100 text-brand-700",
-    readTime: "18 min read",
-    updated: "Updated Jun 12",
-    image: "/images/blog/ai-side-hustles-2026.png",
-    href: "/blog/ai-side-hustles-2026-make-money",
-  },
-  {
-    title: "AI Freelancing 2026: How to Start a Six-Figure AI Freelance Business (Step-by-Step)",
-    description: "Learn how to start a six-figure AI freelance business in 2026. Discover the top 10 AI freelance services, pricing strategies, 30-day launch plan, and real income data.",
-    category: "Career",
-    categoryStyle: categoryStyles["Career"] || "bg-brand-100 text-brand-700",
-    readTime: "18 min read",
-    updated: "Updated Jun 12",
-    image: "/images/blog/ai-freelancing-2026.png",
-    href: "/blog/ai-freelancing-2026-six-figure-guide",
-  },
-  {
-    title: "AI Automation Business Ideas: 15 Profitable Models for 2026 (Data-Driven)",
-    description: "Discover 15 profitable AI automation business models for 2026. Real pricing data, startup costs, monthly income potential, and step-by-step launch plan.",
-    category: "Career",
-    categoryStyle: categoryStyles["Career"] || "bg-brand-100 text-brand-700",
-    readTime: "20 min read",
-    updated: "Updated Jun 12",
-    image: "/images/blog/ai-automation-ideas-2026.png",
-    href: "/blog/ai-automation-business-ideas-2026",
-  },
-  {
-    title: "Best AI Tools for Making Money Online in 2026: The Complete Stack for Entrepreneurs",
-    description: "Discover the best AI tools for making money online in 2026. Essential free tools, income accelerators, and advanced multipliers with real pricing and ROI data.",
-    category: "Career",
-    categoryStyle: categoryStyles["Career"] || "bg-brand-100 text-brand-700",
-    readTime: "18 min read",
-    updated: "Updated Jun 12",
-    image: "/images/blog/best-ai-tools-2026.png",
-    href: "/blog/best-ai-tools-make-money-2026",
-  },
-  {
-    title: "AI Side Hustles for Beginners: Start with $0 in 2026 (No Experience Needed)",
-    description: "Discover 10 beginner AI side hustles that require $0 startup, no coding, and no experience. Includes 7-day launch plans and realistic first-month income expectations.",
-    category: "Career",
-    categoryStyle: categoryStyles["Career"] || "bg-brand-100 text-brand-700",
-    readTime: "20 min read",
-    updated: "Updated Jun 12",
-    image: "/images/blog/ai-side-hustles-beginners-2026.png",
-    href: "/blog/ai-side-hustles-beginners-2026",
-  },
-];
+function fmtDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+// Build articles dynamically from all real blogs, newest first
+const rawBlogs = blogsJson as Array<{
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  readTime: number;
+  publishedAt: string;
+  dateModified?: string;
+  image: string;
+}>;
+
+export const articles: Article[] = rawBlogs
+  .slice()
+  .sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt))
+  .map((b) => ({
+    title: b.title,
+    description: b.excerpt,
+    category: b.category,
+    categoryStyle: categoryStyles[b.category] || "bg-sky-50 text-sky-600",
+    readTime: `${b.readTime} min read`,
+    updated: `Updated ${fmtDate(b.dateModified || b.publishedAt)}`,
+    image: b.image,
+    href: `/blog/${b.slug}`,
+  }));
+
+// The single newest blog (for featured right-side card)
+export const latestArticle = articles[0];
 
 /* ---------------- Explore by goal ---------------- */
 

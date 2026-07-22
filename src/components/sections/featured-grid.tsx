@@ -11,6 +11,7 @@ import {
   Wallet,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
+import { latestArticle } from "@/lib/home-data";
 
 const quickAccess = [
   { name: "Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, meta: "8.9k created" },
@@ -150,14 +151,14 @@ export default function FeaturedGrid() {
             </Link>
           </Reveal>
 
-          {/* Latest insight with image — pulls the newest real blog */}
+          {/* Latest insight with image — pulls the newest real blog dynamically */}
           <Reveal delay={140} className="lg:row-span-2">
-            <Link href="/blog/on-site-seo-guide-2026" className="group flex h-full flex-col">
+            <Link href={latestArticle.href} className="group flex h-full flex-col">
               <article className="card card-hover flex h-full flex-col overflow-hidden !p-0">
                 <div className="relative h-52 overflow-hidden">
                   <Image
-                    src="/images/blog/on-site-seo-guide-2026.png"
-                    alt="On-Site SEO Guide 2026: Complete On-Page Optimization Checklist"
+                    src={latestArticle.image}
+                    alt={latestArticle.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 1024px) 100vw, 33vw"
@@ -168,14 +169,14 @@ export default function FeaturedGrid() {
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <p className="flex items-center gap-2.5 text-xs text-ink-400">
-                    <span className="chip bg-emerald-100 text-emerald-700">SEO</span>
-                    22 min read
+                    <span className={`chip ${latestArticle.categoryStyle}`}>{latestArticle.category}</span>
+                    {latestArticle.readTime}
                   </p>
                   <h3 className="mt-3 font-sora text-lg font-bold leading-snug text-ink-950 transition-colors group-hover:text-brand-700">
-                    On-Site SEO Guide 2026: Complete On-Page Optimization Checklist (With Real Examples)
+                    {latestArticle.title}
                   </h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
-                    Master on-site SEO in 2026 with this complete checklist. Real examples from DevelopersMatrix showing exactly how title tags, meta descriptions, heading structures, and internal linking drive rankings.
+                    {latestArticle.description}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
                     Read the guide <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -198,7 +199,7 @@ export default function FeaturedGrid() {
                       href={tool.href}
                       className="group flex w-full items-center gap-3 rounded-2xl bg-white/90 px-3 py-2.5 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card"
                     >
-                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 ring-1 ring-brand-100 transition-colors group-hover:bg-brand-600 group-hover:text-white">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
                         <tool.icon className="h-4 w-4" strokeWidth={1.8} />
                       </span>
                       <span className="flex-1">
