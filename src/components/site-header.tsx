@@ -2,34 +2,39 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   ChevronDown,
   Menu,
   Search,
   X,
+  Sun,
+  Moon,
 } from "lucide-react";
+import { useTheme } from "next-themes";
 import { categories, featuredTools, moreTools } from "@/lib/data";
+import SearchModal from "@/components/search-modal";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "GTA 6", href: "/gta-6" },
   { name: "Free Website Audit", href: "/tools/website-audit" },
   { name: "Trends", href: "/trends" },
   { name: "Blog", href: "/blog" },
-  { name: "Learn", href: "/learn" },
   { name: "Community", href: "/community" },
 ];
 
 function Logo() {
   return (
     <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="DevelopersMatrix home">
-      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 font-sora text-sm font-bold text-white shadow-[0_6px_16px_-6px_rgba(124,58,237,0.6)]">
-        DM
-      </span>
-      <span className="font-sora text-[1.05rem] font-bold tracking-tight text-ink-900">
-        Developers<span className="text-brand-600">Matrix</span>
-      </span>
+      <Image
+        src="/logo.webp"
+        alt="DevelopersMatrix"
+        width={160}
+        height={36}
+        className="h-8 w-auto"
+        priority
+      />
     </Link>
   );
 }
@@ -155,8 +160,27 @@ export default function SiteHeader() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileToolsOpen, setMobileToolsOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Keyboard shortcut: Cmd/Ctrl+K to open search
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -258,8 +282,9 @@ export default function SiteHeader() {
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-2.5 lg:flex">
-          <Link
-            href="/tools"
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
             className="flex items-center gap-2 rounded-full border border-ink-200 px-4 py-2 text-sm font-medium text-ink-600 transition-colors hover:border-ink-300 hover:text-ink-900"
           >
             <Search className="h-3.5 w-3.5" />
@@ -267,7 +292,19 @@ export default function SiteHeader() {
             <kbd className="rounded border border-ink-200 bg-ink-50 px-1.5 py-0.5 text-[0.625rem] font-semibold text-ink-400">
               ⌘K
             </kbd>
-          </Link>
+          </button>
+          <button
+            type="button"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            aria-label="Toggle dark mode"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-ink-200 text-ink-600 transition-colors hover:border-ink-300 hover:text-ink-900"
+          >
+            {mounted && resolvedTheme === "dark" ? (
+              <Sun className="h-4 w-4" />
+            ) : (
+              <Moon className="h-4 w-4" />
+            )}
+          </button>
           <Link href="/tools" className="btn-primary !px-5 !py-2.5">
             Explore tools
           </Link>
@@ -289,6 +326,15 @@ export default function SiteHeader() {
       {mobileOpen && (
         <div className="fixed inset-x-0 top-[4.25rem] bottom-0 z-40 overflow-y-auto border-t border-ink-100 bg-white lg:hidden">
           <div className="shell space-y-1 py-6">
+            <button
+              type="button"
+              onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
+              className="flex w-full items-center gap-3 rounded-xl border border-ink-200 bg-ink-50/70 px-4 py-3 text-sm font-medium text-ink-700"
+            >
+              <Search className="h-4 w-4" />
+              Search tools, articles...
+            </button>
+
             <button
               type="button"
               onClick={() => setMobileToolsOpen((v) => !v)}
@@ -363,6 +409,24 @@ export default function SiteHeader() {
               </Link>
             ))}
 
+            <div className="flex items-center gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-ink-200 py-3 text-sm font-medium text-ink-700"
+              >
+                {mounted && resolvedTheme === "dark" ? (
+                  <>
+                    <Sun className="h-4 w-4" /> Light mode
+                  </>
+                ) : (
+                  <>
+                    <Moon className="h-4 w-4" /> Dark mode
+                  </>
+                )}
+              </button>
+            </div>
+
             <div className="pt-4">
               <Link href="/tools" onClick={() => setMobileOpen(false)} className="btn-primary w-full">
                 Explore free tools <ArrowRight className="h-4 w-4" />
@@ -371,6 +435,8 @@ export default function SiteHeader() {
           </div>
         </div>
       )}
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

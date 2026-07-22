@@ -92,7 +92,7 @@ const config: Config = {
         glow: "0 0 0 1px rgba(124, 58, 237, 0.08), 0 24px 64px -24px rgba(124, 58, 237, 0.35)",
       },
       maxWidth: {
-        shell: "76rem",
+        shell: "84rem",
       },
       borderRadius: {
         lg: "var(--radius)",
