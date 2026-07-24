@@ -3,16 +3,36 @@ import type { NextRequest } from 'next/server';
 
 // Spam/foreign URLs that should return 410 Gone (permanent removal)
 const GONE_PATTERNS = [
+  // Gambling / roulette (various languages)
   /^\/roulette-/,
   /^\/european-roulette-/,
   /^\/a-real-super-star-/,
   /^\/ruletka-/,
+  /^\/roleta-/,
+  /^\/apostas-/,
+  /^\/a-roleta-/,
+  /^\/probabilidade-/,
+  /^\/jogos-/,
+  /^\/recenzja-/,
+  /^\/roulette-wetten-ohne-einzahlung/,
+  /^\/roulette-echtgeld-wetten-ein-experte-leitfaden-fur-spieler/,
+  // Foreign language spam
   /^\/kakim-obrazom-/,
   /^\/kak-kontsentratsija-/,
+  /^\/pochemu-/,
+  /^\/vox-/,
+  /^\/elegance-/,
+  /^\/pasiune-/,
+  /^\/boost-your-play-with-a-seamless-hugo-casino-deposit/,
+  // Old site structure (previous domain owner)
   /^\/portfolio\//,
+  /^\/portfolio-category\//,
   /^\/service\//,
   /^\/psd-template\//,
   /^\/author\//,
+  /^\/thankyou\//,
+  /^\/pxl-template\//,
+  // Old blog posts that no longer exist
   /^\/blog\/ukraine-russia-war-/,
   /^\/blog\/health-fitness-technology-/,
   /^\/blog\/5g-networks-go-global-/,

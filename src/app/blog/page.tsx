@@ -14,6 +14,7 @@ export async function generateMetadata({ searchParams }: { searchParams?: Promis
   if (hasQueryParams) {
     return {
       ...baseMetadata,
+      alternates: undefined,
       robots: {
         index: false,
         follow: true,

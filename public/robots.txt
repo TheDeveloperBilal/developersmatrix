@@ -11,12 +11,26 @@ Disallow: /roulette-*
 Disallow: /european-roulette-*
 Disallow: /a-real-super-star-*
 Disallow: /ruletka-*
+Disallow: /roleta-*
+Disallow: /apostas-*
+Disallow: /a-roleta-*
+Disallow: /probabilidade-*
+Disallow: /jogos-*
+Disallow: /recenzja-*
 Disallow: /kakim-obrazom-*
 Disallow: /kak-kontsentratsija-*
+Disallow: /pochemu-*
+Disallow: /vox-*
+Disallow: /elegance-*
+Disallow: /pasiune-*
+Disallow: /boost-your-play-with-a-seamless-hugo-casino-deposit*
 Disallow: /portfolio/
+Disallow: /portfolio-category/
 Disallow: /service/
 Disallow: /psd-template/
 Disallow: /author/
+Disallow: /thankyou/
+Disallow: /pxl-template/
 Disallow: /home
 Disallow: /home/
 
