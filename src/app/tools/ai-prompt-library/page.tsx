@@ -444,13 +444,18 @@ export default function AIPromptLibraryPage() {
                       </a>
                     </li>
                     <li>
-                      <a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📚</span> Content Quality Guides
+                      <a href="/trends/chatgpt-advanced-prompts-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>🤖</span> ChatGPT Advanced Prompts 2026
                       </a>
                     </li>
                     <li>
-                      <a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📈</span> Tech Trends 2026
+                      <a href="/blog/ai-tools-developers-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>🛠️</span> AI Tools for Developers 2026
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/trends/ai-coding-assistants-comparison-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>💻</span> AI Coding Assistants Compared
                       </a>
                     </li>
                   </ul>

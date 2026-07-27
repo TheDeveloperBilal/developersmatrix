@@ -657,13 +657,18 @@ export default function ResumeBuilderPage() {
                     </a>
                   </li>
                   <li>
-                    <a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📚</span> Career Tips & Guides
+                    <a href="/blog/ats-resume-guide-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                      <span>📄</span> ATS Resume Optimization Guide
                     </a>
                   </li>
                   <li>
-                    <a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📈</span> Tech Trends 2026
+                    <a href="/blog/best-free-resume-builders-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                      <span>🏆</span> Best Free Resume Builders 2026
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/trends/tech-skills-demand-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                      <span>📈</span> In-Demand Tech Skills 2026
                     </a>
                   </li>
                 </ul>

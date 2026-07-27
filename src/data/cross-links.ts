@@ -257,3 +257,104 @@ export function getRelatedTrendsForTool(toolSlug: string) {
 
   return related.slice(0, 4);
 }
+
+// NEW: Get related blog posts for a tool (reverse of trend→blog mapping)
+export function getRelatedBlogPostsForTool(toolSlug: string): RelatedBlogPost[] {
+  const toolEntry = tools.find(t => t.slug === toolSlug);
+  if (!toolEntry) return [];
+
+  const toolTags = [
+    toolEntry.category,
+    ...(toolEntry.keywords || []),
+  ].map(t => t.toLowerCase());
+
+  const blogSlugs = new Set<string>();
+  const relevanceMap = new Map<string, 'high' | 'medium'>();
+
+  // Check each trend→blog mapping: if the trend maps to this tool, include its blogs
+  Object.entries(trendToToolsMap).forEach(([trendSlug, mappedTools]) => {
+    if (mappedTools.includes(toolSlug)) {
+      const blogs = trendToBlogsMap[trendSlug] || [];
+      blogs.forEach(s => {
+        if (!blogSlugs.has(s)) {
+          blogSlugs.add(s);
+          relevanceMap.set(s, 'high');
+        }
+      });
+    }
+  });
+
+  // Tag-based matching
+  toolTags.forEach(toolTag => {
+    Object.entries(tagToBlogMap).forEach(([tag, matchedBlogs]) => {
+      if (toolTag.includes(tag.toLowerCase()) || tag.toLowerCase().includes(toolTag)) {
+        matchedBlogs.forEach(s => {
+          if (!blogSlugs.has(s)) {
+            blogSlugs.add(s);
+            relevanceMap.set(s, 'medium');
+          }
+        });
+      }
+    });
+  });
+
+  return Array.from(blogSlugs)
+    .slice(0, 3)
+    .map(blogSlug => {
+      const post = blogPosts.find(p => p.slug === blogSlug);
+      if (!post) return null;
+      return {
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt,
+        path: `/blog/${post.slug}`,
+        relevance: relevanceMap.get(blogSlug) || 'medium',
+      };
+    })
+    .filter((p): p is RelatedBlogPost => p !== null);
+}
+
+// NEW: Get related trends for a tool (with full trend data)
+export function getRelatedTrendPagesForTool(toolSlug: string) {
+  const toolEntry = tools.find(t => t.slug === toolSlug);
+  if (!toolEntry) return [];
+
+  const related: { slug: string; title: string; description: string; category: string }[] = [];
+  const allTrends = getAllTrends();
+
+  allTrends.forEach(trend => {
+    // Skip noindex trends
+    if (trend.noindex) return;
+
+    const mappedTools = trendToToolsMap[trend.slug] || [];
+    if (mappedTools.includes(toolSlug)) {
+      related.push({
+        slug: trend.slug,
+        title: trend.title,
+        description: trend.description,
+        category: trend.category,
+      });
+      return;
+    }
+
+    const toolTags = [
+      toolEntry.category,
+      ...(toolEntry.keywords || []),
+    ].map(t => t.toLowerCase());
+
+    const hasMatch = trend.tags.some(tag =>
+      toolTags.some(toolTag => toolTag.includes(tag.toLowerCase()) || tag.toLowerCase().includes(toolTag))
+    );
+
+    if (hasMatch) {
+      related.push({
+        slug: trend.slug,
+        title: trend.title,
+        description: trend.description,
+        category: trend.category,
+      });
+    }
+  });
+
+  return related.slice(0, 3);
+}

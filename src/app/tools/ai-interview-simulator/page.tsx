@@ -668,13 +668,18 @@ export default function InterviewSimulatorPage() {
                       </a>
                     </li>
                     <li>
-                      <a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📚</span> Career Guides & Tips
+                      <a href="/blog/faang-interview-playbook-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>📘</span> FAANG Interview Playbook 2026
                       </a>
                     </li>
                     <li>
-                      <a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📈</span> Tech Trends 2026
+                      <a href="/blog/technical-interview-prep-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>🎯</span> Technical Interview Prep Guide
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/trends/tech-interview-preparation-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>📈</span> Tech Interview Trends 2026
                       </a>
                     </li>
                   </ul>

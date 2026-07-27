@@ -47,6 +47,10 @@ export interface TrendItem {
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
+  
+  // Optional: for bridge/alias pages that should not be indexed
+  noindex?: boolean;
+  canonicalUrl?: string;
 }
 
 export type TrendCategory = 
@@ -1992,6 +1996,15 @@ export function getTrendBySlug(slug: string): TrendItem | undefined {
 // Get all slugs for static generation
 export function getAllTrendSlugs(): string[] {
   return allTrends.map(trend => trend.slug);
+}
+
+// Get only indexable (non-noindex) trend slugs — use this for sitemaps
+export function getIndexableTrends(): TrendItem[] {
+  return allTrends.filter(trend => !trend.noindex);
+}
+
+export function getIndexableTrendSlugs(): string[] {
+  return getIndexableTrends().map(trend => trend.slug);
 }
 
 // Get related trends

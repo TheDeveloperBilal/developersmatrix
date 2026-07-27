@@ -483,11 +483,18 @@ export default function StartupIdeaPage() {
                 <p className="text-xs text-gray-500 dark:text-gray-400">500+ prompts for building with AI</p>
               </div>
             </a>
-            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <a href="/blog/ai-automation-business-ideas-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               <span className="text-lg">📚</span>
               <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Startup Guides</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Business and tech insights</p>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Automation Business Ideas</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">2026 guide to AI-powered businesses</p>
+              </div>
+            </a>
+            <a href="/blog/ai-side-hustles-2026-make-money" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">💰</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Side Hustles Guide</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Real ways to make money with AI</p>
               </div>
             </a>
           </div>
