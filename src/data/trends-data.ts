@@ -496,7 +496,7 @@ export const allTrends: TrendItem[] = [
   {
     id: '5',
     slug: 'ai-side-hustles-make-money-2026',
-    title: 'AI Side Hustles 2026: 15 Proven Ways to Make Money with AI (Real Income Data)',
+    title: 'AI Side Hustles 2026: Market Overview, Income Trends & Top Opportunities',
     subtitle: 'Real income data from $500-$15,000/month. Beginner-friendly guides included.',
     description: 'Discover 15 AI side hustles that actually pay in 2026. Real income data, beginner-friendly options, and step-by-step guides to start earning $500-$5,000/month with AI tools.',
     category: 'make-money',
@@ -634,9 +634,9 @@ export const allTrends: TrendItem[] = [
         { hustle: 'AI Consulting', steps: ['Build 5+ years of domain expertise first', 'Create a framework for AI readiness assessments', 'Publish thought leadership on LinkedIn and your blog', 'Offer strategy sessions at $500-$1,000/hour', 'Deliver implementation roadmaps, not just advice', 'Productize: sell templates, playbooks, and training programs'] }
       ]
     },
-    metaTitle: 'AI Side Hustles 2026: 15 Proven Ways to Make Money with AI (Real Data)',
+    metaTitle: 'AI Side Hustles 2026: Market Trends & Income Opportunities | DevelopersMatrix',
     metaDescription: 'Discover 15 proven AI side hustles for 2026. Real income data from $500-$15,000/month. Learn how to make money with AI tools through freelancing, automation, content creation, and digital products. Beginner-friendly guides with step-by-step strategies included.',
-    keywords: ['AI side hustles 2026', 'make money with AI 2026', 'AI side hustle', 'how to make money with AI', 'AI income', 'AI freelance', 'AI business ideas', 'AI automation side hustle', 'AI content creation business', 'passive income AI']
+    keywords: ['AI side hustles 2026', 'AI income trends', 'make money with AI market', 'AI freelance opportunities', 'AI side hustle data', 'AI earning potential 2026', 'AI gig economy trends', 'AI business opportunities 2026']
   },
   {
     id: '6',
@@ -1141,7 +1141,7 @@ export const allTrends: TrendItem[] = [
   {
     id: '13',
     slug: 'tiktok-algorithm-2026-complete-guide',
-    title: 'TikTok Algorithm 2026: Complete Guide to Going Viral (Updated July 2026)',
+    title: 'TikTok Algorithm 2026: Latest Updates & Ranking Factors (July Update)',
     subtitle: 'How the TikTok algorithm works and how to work with it — latest ranking factors for July 2026',
     description: 'Master the TikTok algorithm in 2026. Learn what the algorithm prioritizes, content strategies, and proven tactics to grow your audience. Updated with July 2026 changes including AI-powered recommendations and TikTok Search optimization.',
     category: 'social-media',
@@ -1245,9 +1245,9 @@ export const allTrends: TrendItem[] = [
         'Review and update your bio with a clear niche description and searchable keywords'
       ]
     },
-    metaTitle: 'TikTok Algorithm 2026: How to Go Viral & Rank on Search | DevelopersMatrix',
+    metaTitle: 'TikTok Algorithm 2026: Latest Ranking Factors & Updates | DevelopersMatrix',
     metaDescription: 'Master the TikTok algorithm in 2026. Learn July 2026 ranking factors, TikTok SEO strategies, and proven tactics to grow your audience organically. Updated with latest data.',
-    keywords: ['TikTok algorithm', 'TikTok algorithm 2026', 'how to go viral on TikTok', 'TikTok growth', 'TikTok SEO', 'TikTok tips 2026', 'TikTok algorithm how it works', 'TikTok for you page algorithm', 'TikTok search optimization']
+    keywords: ['TikTok algorithm updates 2026', 'TikTok ranking factors', 'TikTok algorithm changes', 'TikTok for you page updates', 'TikTok search ranking', 'TikTok July 2026 update', 'TikTok algorithm news', 'TikTok content distribution']
   },
 
   {
@@ -1797,7 +1797,7 @@ export const allTrends: TrendItem[] = [
   {
     id: '20',
     slug: 'tech-interview-preparation-2026',
-    title: 'Tech Interview Preparation: Land Your Dream Job in 2026',
+    title: 'Tech Interview Trends 2026: How Hiring Is Changing for Developers',
     subtitle: 'Complete guide to acing coding and system design interviews',
     description: 'Master tech interviews with our comprehensive guide. Coding challenges, system design, behavioral questions, and AI-assisted interview prep.',
     category: 'career-growth',
@@ -1918,9 +1918,9 @@ export const allTrends: TrendItem[] = [
         'Record yourself solving a problem and review for filler words, clarity, and structured thinking'
       ]
     },
-    metaTitle: 'Tech Interview Preparation Guide 2026 | DevelopersMatrix',
+    metaTitle: 'Tech Interview Trends 2026: Hiring Changes & New Formats | DevelopersMatrix',
     metaDescription: 'Prepare for tech interviews with our complete guide. Coding challenges, system design, behavioral questions, and AI-powered practice tools.',
-    keywords: ['tech interview prep', 'coding interview', 'system design interview', 'FAANG interview']
+    keywords: ['tech interview trends 2026', 'hiring changes tech', 'interview format updates', 'FAANG hiring trends', 'tech recruitment 2026', 'coding interview changes', 'system design trends']
   }
 ];
 

@@ -31,10 +31,13 @@ const trendToToolsMap: Record<string, string[]> = {
   
   // Gaming trends → gaming/career tools
   'gta-6-release-everything-we-know': ['can-you-run-it'],
+  'gaming-tech-trends-2026': ['can-you-run-it'],
   
   // Career trends → career tools
   'learn-programming-2026-complete-guide': ['ai-resume-builder', 'ai-interview-simulator', 'salary-estimator'],
   'tech-skills-demand-2026': ['salary-estimator', 'ai-resume-builder'],
+  'tech-interview-preparation-2026': ['ai-interview-simulator', 'ai-resume-builder'],
+  'remote-tech-jobs-guide-2026': ['ai-resume-builder', 'salary-estimator', 'ai-cover-letter-generator'],
   
   // Productivity trends → productivity tools
   'productivity-ai-tools-2026': ['productivity-planner', 'habit-tracker', 'ai-email-assistant'],
@@ -48,10 +51,13 @@ const trendToToolsMap: Record<string, string[]> = {
 
 const trendToBlogsMap: Record<string, string[]> = {
   'ai-agents-autonomous-systems-2026': ['autonomous-ai-agents-by-industry'],
-  'ai-coding-assistants-comparison-2026': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
+  'ai-coding-assistants-comparison-2026': ['ai-tools-developers-2026', 'faang-interview-playbook-2026'],
   'learn-programming-2026-complete-guide': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
-  'tech-skills-demand-2026': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
-  'ai-side-hustles-make-money-2026': ['startup-funding-guide-2026'],
+  'tech-skills-demand-2026': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', '5-job-offers-30-days-ai'],
+  'tech-interview-preparation-2026': ['technical-interview-prep-2026', 'faang-interview-playbook-2026'],
+  'ai-side-hustles-make-money-2026': ['ai-side-hustles-2026-make-money', 'ai-freelancing-2026-six-figure-guide'],
+  'tiktok-algorithm-2026-complete-guide': ['tiktok-algorithm-guide-2026'],
+  'creator-economy-trends-2026': ['ai-content-creation-business-2026'],
 };
 
 // Tag-based matching for trends without explicit mappings
@@ -81,22 +87,29 @@ const tagToToolMap: Record<string, string[]> = {
   'speed': ['website-audit'],
   'optimization': ['website-audit'],
   'links': ['link-manager'],
+  'content': ['ai-content-detector'],
+  'prompt': ['ai-prompt-library'],
+  'cover letter': ['ai-cover-letter-generator'],
 };
 
 const tagToBlogMap: Record<string, string[]> = {
-  'ai': ['autonomous-ai-agents-by-industry'],
-  'artificial intelligence': ['autonomous-ai-agents-by-industry'],
+  'ai': ['autonomous-ai-agents-by-industry', 'ai-tools-developers-2026'],
+  'artificial intelligence': ['autonomous-ai-agents-by-industry', 'ai-tools-developers-2026'],
   'agent': ['autonomous-ai-agents-by-industry'],
-  'automation': ['autonomous-ai-agents-by-industry'],
-  'programming': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
-  'coding': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
-  'career': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
-  'interview': ['faang-interview-playbook-2026'],
-  'resume': ['ats-resume-guide-2026'],
-  'startup': ['startup-funding-guide-2026'],
-  'seo': ['how-to-audit-website-2026-guide'],
-  'website': ['how-to-audit-website-2026-guide'],
-  'audit': ['how-to-audit-website-2026-guide'],
+  'automation': ['autonomous-ai-agents-by-industry', 'ai-automation-business-ideas-2026'],
+  'programming': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', 'technical-interview-prep-2026'],
+  'coding': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', 'technical-interview-prep-2026'],
+  'career': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', 'technical-interview-prep-2026', '5-job-offers-30-days-ai'],
+  'interview': ['faang-interview-playbook-2026', 'technical-interview-prep-2026'],
+  'resume': ['ats-resume-guide-2026', 'best-free-resume-builders-2026', 'built-resume-builder-48-hours'],
+  'startup': ['startup-funding-guide-2026', 'ai-automation-business-ideas-2026'],
+  'seo': ['how-to-audit-website-2026-guide', 'website-audit-checklist-2026', 'on-site-seo-guide-2026'],
+  'website': ['how-to-audit-website-2026-guide', 'website-audit-checklist-2026', 'website-code-audit-guide'],
+  'audit': ['how-to-audit-website-2026-guide', 'website-audit-checklist-2026', 'website-code-audit-guide'],
+  'side hustle': ['ai-side-hustles-2026-make-money', 'ai-freelancing-2026-six-figure-guide'],
+  'freelance': ['ai-freelancing-2026-six-figure-guide', 'ai-side-hustles-2026-make-money'],
+  'tiktok': ['tiktok-algorithm-guide-2026'],
+  'content creation': ['ai-content-creation-business-2026'],
 };
 
 export function getRelatedToolsForTrend(slug: string): RelatedTool[] {
