@@ -189,16 +189,53 @@ export default function CanYouRunItPage() {
             {/* Main Content */}
             <div className="flex-1 space-y-16">
 
-              {/* Introduction */}
+              {/* GTA 6 Section */}
               <section>
-                <h2 className="text-2xl font-bold mb-4">Why Checking Game Requirements Saves You Money and Frustration</h2>
+                <h2 className="text-2xl font-bold mb-4">Can You Run GTA 6? Check Your PC Against the Biggest Game of 2026</h2>
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-amber-200 dark:border-amber-800 mb-6">
+                  <div className="flex items-start gap-4">
+                    <span className="text-4xl">🎮</span>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">GTA 6 Releases November 19, 2026</h3>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                        The most anticipated game of the decade is coming. While the initial release is on PS5 and Xbox Series X, the PC version is expected in late 2027 or early 2028. Now is the time to check if your PC is ready.
+                      </p>
+                      <div className="grid sm:grid-cols-2 gap-3 text-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-lg p-3">
+                          <p className="font-medium text-gray-900 dark:text-white">Expected Minimum PC Specs</p>
+                          <p className="text-gray-600 dark:text-gray-400 mt-1">OS: Windows 11 64-bit</p>
+                          <p className="text-gray-600 dark:text-gray-400">CPU: Intel i5-12400 / AMD Ryzen 5 5600X</p>
+                          <p className="text-gray-600 dark:text-gray-400">RAM: 16GB</p>
+                          <p className="text-gray-600 dark:text-gray-400">GPU: NVIDIA RTX 3060 / AMD RX 6700 XT</p>
+                          <p className="text-gray-600 dark:text-gray-400">Storage: 150GB SSD</p>
+                        </div>
+                        <div className="bg-white dark:bg-gray-800 rounded-lg p-3">
+                          <p className="font-medium text-gray-900 dark:text-white">Expected Recommended Specs</p>
+                          <p className="text-gray-600 dark:text-gray-400 mt-1">OS: Windows 11 64-bit</p>
+                          <p className="text-gray-600 dark:text-gray-400">CPU: Intel i7-13700K / AMD Ryzen 7 7800X3D</p>
+                          <p className="text-gray-600 dark:text-gray-400">RAM: 32GB</p>
+                          <p className="text-gray-600 dark:text-gray-400">GPU: NVIDIA RTX 4070 / AMD RX 7800 XT</p>
+                          <p className="text-gray-600 dark:text-gray-400">Storage: 150GB NVMe SSD</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div className="text-muted-foreground leading-relaxed space-y-4">
                   <p>
-                    Nothing is more frustrating than buying a 70-dollar game, waiting for a 100-gigabyte download, and discovering your PC cannot run it properly. The minimum requirements on the store page are often misleading. 'Minimum' frequently means 720p resolution at 30 FPS with all settings on low, which is not how most people want to play. The recommended requirements are closer to a real experience, but even those assume 1080p at 60 FPS, which may not match your expectations if you have a high-refresh monitor or 1440p display.
+                    GTA 6 is expected to be the most demanding game of 2026. Rockstar's open-world games are known for pushing hardware limits, and GTA 6 will likely require a significant upgrade for many PC gamers. Our <strong>PC requirements checker</strong> will help you determine if your current rig can handle it — or if you need to start planning upgrades before the PC release.
                   </p>
                   <p>
-                    The Can You Run It tool solves this by comparing your actual hardware against both minimum and recommended specs, then estimating your expected frame rate. Instead of a vague yes or no, you get specific guidance: 'Your RTX 3060 will run Elden Ring at 1080p High settings with 55 to 65 FPS.' If your hardware falls short, the tool suggests the most cost-effective upgrade path. This prevents both the frustration of unplayable games and the waste of buying unnecessary hardware.
+                    Based on historical patterns, the PC version will arrive 12-19 months after console launch. That gives you a window to plan upgrades strategically. The most impactful upgrades for GTA 6 will likely be: (1) an SSD with at least 150GB free space, (2) 32GB of RAM for smooth open-world streaming, and (3) a GPU that supports ray tracing for the full visual experience.
                   </p>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a href="/gta-6" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium hover:opacity-90 transition-opacity">
+                    🎮 GTA 6 Hub — Full Info
+                  </a>
+                  <a href="/trends/gta-6-release-everything-we-know" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    📰 Latest GTA 6 News
+                  </a>
                 </div>
               </section>
 

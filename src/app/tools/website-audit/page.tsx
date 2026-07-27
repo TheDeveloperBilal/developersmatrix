@@ -337,6 +337,34 @@ export default function WebsiteAuditPage() {
                     </ul>
                   </div>
                 </div>
+
+                {/* Blog Post Promotion - Deep Dive Guide */}
+                <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-6 border border-indigo-200 dark:border-indigo-800 mt-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <div className="p-3 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 shrink-0">
+                      <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                        Want a Step-by-Step Code Audit Walkthrough?
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
+                        Our complete Website Code Audit Guide covers HTML validation, CSS optimization, JavaScript performance, security hardening, and 12 comparison tables — with actionable checklists you can follow today.
+                      </p>
+                      <a
+                        href="/blog/website-code-audit-guide"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+                      >
+                        Read the Full Guide
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
