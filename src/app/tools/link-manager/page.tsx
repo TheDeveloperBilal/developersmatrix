@@ -414,8 +414,9 @@ export default function LinkManagerPage() {
                     <li><a href="/tools/ai-email-assistant" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>📧</span> AI Email Assistant</a></li>
                     <li><a href="/tools/startup-idea-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>💡</span> Startup Idea Generator</a></li>
                     <li><a href="/tools/productivity-planner" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>⏰</span> Productivity Planner</a></li>
-                    <li><a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>📚</span> Creator Guides</a></li>
-                    <li><a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>📈</span> Tech Trends 2026</a></li>
+                    <li><a href="/blog/ai-content-creation-business-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>✍️</span> AI Content Creation Business</a></li>
+                    <li><a href="/trends/creator-economy-trends-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>🎨</span> Creator Economy Trends 2026</a></li>
+                    <li><a href="/blog/how-to-audit-website-2026-guide" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>🔍</span> Website Audit Guide</a></li>
                   </ul>
                 </div>
 

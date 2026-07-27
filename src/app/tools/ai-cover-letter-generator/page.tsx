@@ -668,13 +668,18 @@ export default function CoverLetterPage() {
                       </a>
                     </li>
                     <li>
-                      <a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📚</span> Career Guides & Tips
+                      <a href="/blog/ats-resume-guide-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>📄</span> ATS Resume Optimization Guide
                       </a>
                     </li>
                     <li>
-                      <a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📈</span> Tech Trends 2026
+                      <a href="/blog/5-job-offers-30-days-ai" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>🚀</span> 5 Job Offers in 30 Days
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/trends/remote-tech-jobs-guide-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                        <span>🏠</span> Remote Tech Jobs Guide
                       </a>
                     </li>
                   </ul>

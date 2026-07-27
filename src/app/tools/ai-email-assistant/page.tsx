@@ -431,8 +431,9 @@ export default function AIEmailAssistantPage() {
                     <li><a href="/tools/ai-interview-simulator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>🎯</span> Interview Simulator</a></li>
                     <li><a href="/tools/productivity-planner" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>⏰</span> Productivity Planner</a></li>
                     <li><a href="/tools/ai-content-detector" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>🔍</span> AI Content Detector</a></li>
-                    <li><a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>📚</span> Career Guides</a></li>
-                    <li><a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>📈</span> Tech Trends 2026</a></li>
+                    <li><a href="/trends/productivity-ai-tools-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>⚡</span> AI Productivity Tools 2026</a></li>
+                    <li><a href="/blog/developer-habits-productivity-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>🧠</span> Developer Habits & Productivity</a></li>
+                    <li><a href="/trends/ai-coding-assistants-comparison-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>💻</span> AI Coding Assistants Compared</a></li>
                   </ul>
                 </div>
 

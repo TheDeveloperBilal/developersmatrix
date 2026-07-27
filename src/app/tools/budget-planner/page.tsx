@@ -433,11 +433,18 @@ export default function BudgetPlannerPage() {
                 <p className="text-xs text-gray-500 dark:text-gray-400">Plan your financial goals</p>
               </div>
             </a>
-            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📚</span>
+            <a href="/blog/ai-side-hustles-2026-make-money" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">💰</span>
               <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Finance Guides</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Personal finance tips and insights</p>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Side Hustles 2026</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Real ways to boost your income</p>
+              </div>
+            </a>
+            <a href="/blog/ai-automation-business-ideas-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+              <span className="text-lg">🤖</span>
+              <div>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Automation Business Ideas</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Build passive income with AI tools</p>
               </div>
             </a>
           </div>
