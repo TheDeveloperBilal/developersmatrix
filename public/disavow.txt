@@ -1,0 +1,30 @@
+# Disavow file for developersmatrix.com
+# Generated: 2026-07-29
+# Purpose: Remove spammy staging subdomain backlinks
+#
+# IMPORTANT: These are your own staging subdomains hosting spam content.
+# The disavow file is a temporary measure. The REAL fix is to:
+# 1. Take down or password-protect staging environments
+# 2. Add robots.txt blocking all crawlers to each staging subdomain
+# 3. Submit URL removal requests in GSC for these staging URLs
+#
+# Upload this file to: Google Search Console → Links → Disavow Links
+# ============================================================================
+
+# Staging subdomain 3 - hosting Russian spam / darknet content
+domain:staging3.developersmatrix.com
+
+# Staging subdomain 4 - hosting parameter spam (?_g=...)
+domain:staging4.developersmatrix.com
+
+# Staging subdomain 5 - hosting Russian spam / property spam
+domain:staging5.developersmatrix.com
+
+# Staging subdomain 7 - hosting Nintendo adapter spam & parameter spam
+domain:staging7.developersmatrix.com
+
+# Staging subdomain 8 - hosting spam content
+domain:staging8.developersmatrix.com
+
+# Staging subdomain 9 - hosting spam content
+domain:staging9.developersmatrix.com
