@@ -345,8 +345,6 @@ export const allTrends: TrendItem[] = [
   {
     id: '3',
     slug: 'ai-agents-autonomous-systems-2026',
-    canonicalUrl: 'https://developersmatrix.com/blog/autonomous-ai-agents-by-industry',
-    noindex: true,
     title: 'AI Agents: The Rise of Autonomous Systems in 2026',
     subtitle: 'How autonomous AI agents are transforming business operations',
     description: 'Explore the cutting edge of AI agents that can plan, execute, and learn from tasks autonomously. From AutoGPT to enterprise agent platforms.',

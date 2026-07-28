@@ -338,6 +338,22 @@ export default function WebsiteAuditPage() {
                   </div>
                 </div>
 
+                {/* NEW: What is a Website Code Audit — expanded definition for SEO */}
+                <div className="bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20 rounded-xl p-6 border border-slate-200 dark:border-slate-800 mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                    What Is a Website Code Audit?
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
+                    A <strong>website code audit</strong> is a deep technical inspection of the HTML, CSS, and JavaScript that power your website. Unlike a surface-level visual review, a code audit examines how the site is built, how efficiently it loads, and how correctly search engines and assistive technologies can interpret it. It identifies structural issues that hurt rankings, slow performance, and break user experience — problems that are invisible to the eye but loud signals to Google.
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
+                    The audit covers HTML validation errors like unclosed tags and deprecated attributes, CSS problems such as unused styles that bloat file size, and JavaScript issues including render-blocking scripts and unminified bundles. It also checks heading hierarchy, image alt text, schema markup correctness, ARIA accessibility labels, and security headers. The goal is a prioritized action plan that separates critical technical problems from minor improvements.
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    <strong>How is a code audit different from an SEO audit?</strong> An SEO audit focuses on search visibility — crawlability, indexing, content, and backlinks. A code audit digs into the underlying technical foundation: the actual markup, stylesheets, and scripts. Poor code quality often causes SEO problems, but a code audit catches issues that an SEO-only review misses, such as invalid HTML that breaks rendering, bloated CSS that slows mobile load times, and JavaScript errors that prevent content from appearing in search results. For best results, run both audits together.
+                  </p>
+                </div>
+
                 {/* Blog Post Promotion - Deep Dive Guide */}
                 <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-6 border border-indigo-200 dark:border-indigo-800 mt-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">

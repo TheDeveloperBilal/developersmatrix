@@ -28,25 +28,33 @@ const trendToToolsMap: Record<string, string[]> = {
   'chatgpt-advanced-prompts-2026': ['ai-prompt-library', 'ai-content-detector'],
   'ai-coding-assistants-comparison-2026': ['ai-resume-builder'],
   'ai-side-hustles-make-money-2026': ['startup-idea-generator', 'budget-planner'],
-  
+
   // Gaming trends → gaming/career tools
   'gta-6-release-everything-we-know': ['can-you-run-it'],
   'gaming-tech-trends-2026': ['can-you-run-it'],
-  
+
   // Career trends → career tools
   'learn-programming-2026-complete-guide': ['ai-resume-builder', 'ai-interview-simulator', 'salary-estimator'],
   'tech-skills-demand-2026': ['salary-estimator', 'ai-resume-builder'],
   'tech-interview-preparation-2026': ['ai-interview-simulator', 'ai-resume-builder'],
   'remote-tech-jobs-guide-2026': ['ai-resume-builder', 'salary-estimator', 'ai-cover-letter-generator'],
-  
+
   // Productivity trends → productivity tools
   'productivity-ai-tools-2026': ['productivity-planner', 'habit-tracker', 'ai-email-assistant'],
-  
+
   // Website/SEO trends → audit tool
   'website-speed-optimization-2026': ['website-audit'],
   'seo-trends-2026': ['website-audit'],
-  'web-development-trends-2026': ['website-audit'],
+  'web-development-trends-2026': ['website-audit', 'ai-prompt-library'],
   'mobile-first-design-2026': ['website-audit'],
+
+  // NEW: Additional trend → tool mappings for internal linking blitz
+  'cybersecurity-skills-gap-2026': ['website-audit'],
+  'cloud-computing-trends-2026': ['website-audit', 'ai-email-assistant'],
+  'devops-automation-2026': ['website-audit', 'productivity-planner'],
+  'quantum-computing-explained-2026': ['ai-prompt-library'],
+  'creator-economy-trends-2026': ['link-manager', 'ai-content-detector'],
+  'green-tech-sustainability-2026': ['budget-planner'],
 };
 
 const trendToBlogsMap: Record<string, string[]> = {
@@ -58,6 +66,14 @@ const trendToBlogsMap: Record<string, string[]> = {
   'ai-side-hustles-make-money-2026': ['ai-side-hustles-2026-make-money', 'ai-freelancing-2026-six-figure-guide'],
   'tiktok-algorithm-2026-complete-guide': ['tiktok-algorithm-guide-2026'],
   'creator-economy-trends-2026': ['ai-content-creation-business-2026'],
+
+  // NEW: Additional trend → blog mappings for internal linking blitz
+  'cybersecurity-skills-gap-2026': ['ai-cybersecurity-guide-2026'],
+  'web-development-trends-2026': ['website-code-audit-guide'],
+  'cloud-computing-trends-2026': ['ai-automation-business-ideas-2026'],
+  'devops-automation-2026': ['website-code-audit-guide'],
+  'quantum-computing-explained-2026': ['ai-tools-developers-2026'],
+  'green-tech-sustainability-2026': ['ai-automation-business-ideas-2026'],
 };
 
 // Tag-based matching for trends without explicit mappings
@@ -90,6 +106,18 @@ const tagToToolMap: Record<string, string[]> = {
   'content': ['ai-content-detector'],
   'prompt': ['ai-prompt-library'],
   'cover letter': ['ai-cover-letter-generator'],
+
+  // NEW: Additional tag → tool mappings for internal linking blitz
+  'cybersecurity': ['website-audit'],
+  'cloud': ['website-audit', 'ai-email-assistant'],
+  'devops': ['productivity-planner', 'website-audit'],
+  'quantum': ['ai-prompt-library'],
+  'creator': ['link-manager', 'ai-content-detector'],
+  'green tech': ['budget-planner'],
+  'sustainability': ['budget-planner'],
+  'social media': ['link-manager', 'ai-content-detector'],
+  'mobile': ['website-audit'],
+  'security': ['website-audit'],
 };
 
 const tagToBlogMap: Record<string, string[]> = {
@@ -110,6 +138,18 @@ const tagToBlogMap: Record<string, string[]> = {
   'freelance': ['ai-freelancing-2026-six-figure-guide', 'ai-side-hustles-2026-make-money'],
   'tiktok': ['tiktok-algorithm-guide-2026'],
   'content creation': ['ai-content-creation-business-2026'],
+
+  // NEW: Additional tag → blog mappings for internal linking blitz
+  'cybersecurity': ['ai-cybersecurity-guide-2026'],
+  'cloud': ['ai-automation-business-ideas-2026'],
+  'devops': ['website-code-audit-guide'],
+  'quantum': ['ai-tools-developers-2026'],
+  'creator': ['ai-content-creation-business-2026'],
+  'green tech': ['ai-automation-business-ideas-2026'],
+  'sustainability': ['ai-automation-business-ideas-2026'],
+  'social media': ['tiktok-algorithm-guide-2026'],
+  'mobile': ['website-code-audit-guide'],
+  'security': ['ai-cybersecurity-guide-2026'],
 };
 
 export function getRelatedToolsForTrend(slug: string): RelatedTool[] {

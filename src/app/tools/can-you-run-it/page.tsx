@@ -10,6 +10,18 @@ export const metadata: Metadata = generatePageMetadata(toolMetadata['can-you-run
 
 const toolFaqs = [
   {
+    question: "Will my PC run GTA 6?",
+    answer: "GTA 6 requires at minimum an Intel i5-12400 or AMD Ryzen 5 5600X, 16GB RAM, an NVIDIA RTX 3060 or AMD RX 6700 XT, and 150GB of SSD storage. For the best experience at high settings with ray tracing, aim for an Intel i7-13700K or AMD Ryzen 7 7800X3D, 32GB RAM, and an NVIDIA RTX 4070 or AMD RX 7800 XT. Use our Can You Run It checker above to compare your exact specs and get a personalized verdict with estimated FPS."
+  },
+  {
+    question: "Will my PC run Cyberpunk 2077?",
+    answer: "Cyberpunk 2077 runs on a wide range of hardware but demands more for ray tracing and high settings. Minimum specs are an Intel i5-3570K or AMD FX-8310, 8GB RAM, and a GTX 970 or RX 470. Recommended specs for high settings at 1080p are an Intel i7-4790 or AMD Ryzen 3 3200G, 12GB RAM, and an RTX 2060 or RX 5700. For ray tracing at 1440p, you need an RTX 3070 or better with 16GB RAM."
+  },
+  {
+    question: "How do I check if my PC will run a game before buying?",
+    answer: "Use our free Can You Run It tool above. Enter your CPU, GPU, and RAM, select the game, and get an instant verdict. The tool compares your hardware against official minimum and recommended requirements, shows estimated FPS at different settings, and suggests the most cost-effective upgrade if needed. This saves you from buying games your PC cannot handle and wasting money on unnecessary upgrades."
+  },
+  {
     question: "Is the PC Requirements Checker completely free?",
     answer: "Yes, 100 percent free with no signup required. Check unlimited games against your hardware specs. Unlike premium system requirement tools that charge for detailed analysis, we believe gamers should have access to clear, actionable hardware compatibility information without cost barriers."
   },
