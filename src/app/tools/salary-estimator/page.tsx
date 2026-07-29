@@ -58,10 +58,8 @@ export default function SalaryEstimatorPage() {
         url="https://developersmatrix.com/tools/salary-estimator"
         applicationCategory="BusinessApplication"
         operatingSystem="Any"
-        price="0"
-        priceCurrency="USD"
-        ratingValue="4.7"
-        ratingCount="3420"
+        offers={{ price: "0", priceCurrency: "USD" }}
+        aggregateRating={{ ratingValue: "4.7", ratingCount: "3420" }}
       />
       <BreadcrumbSchema
         items={[

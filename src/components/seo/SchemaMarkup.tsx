@@ -59,11 +59,11 @@ export function OrganizationSchema({
       '@type': 'OfferCatalog',
       name: 'Free AI-Powered Tools',
       itemListElement: [
-        { '@type': 'Offer', itemOffered: { '@type': 'SoftwareApplication', name: 'AI Resume Builder' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'SoftwareApplication', name: 'Website Audit Tool' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'SoftwareApplication', name: 'Interview Simulator' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'SoftwareApplication', name: 'Salary Estimator' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'SoftwareApplication', name: 'Budget Planner' } }
+        { '@type': 'Offer', itemOffered: { '@type': 'Thing', name: 'AI Resume Builder' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Thing', name: 'Website Audit Tool' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Thing', name: 'Interview Simulator' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Thing', name: 'Salary Estimator' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Thing', name: 'Budget Planner' } }
       ]
     }
   };

@@ -56,10 +56,8 @@ export default function StartupIdeaPage() {
         url="https://developersmatrix.com/tools/startup-idea-generator"
         applicationCategory="BusinessApplication"
         operatingSystem="Any"
-        price="0"
-        priceCurrency="USD"
-        ratingValue="4.6"
-        ratingCount="2800"
+        offers={{ price: "0", priceCurrency: "USD" }}
+        aggregateRating={{ ratingValue: "4.6", ratingCount: "2800" }}
       />
       <HowToSchema
         name="How to Find Your Next Startup Idea in 2026"
