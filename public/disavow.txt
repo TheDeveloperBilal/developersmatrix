@@ -1,9 +1,12 @@
 # Disavow file for developersmatrix.com
 # Generated: 2026-07-29
-# Purpose: Remove spammy staging subdomain backlinks
+# Purpose: Disavow spammy backlinks pointing to developersmatrix.com
+# Includes: Our own dead staging subdomains + external spam domains
 #
-# IMPORTANT: These are your own staging subdomains hosting spam content.
-# The disavow file is a temporary measure. The REAL fix is to:
+# IMPORTANT: Some entries are our own dead staging subdomains that no longer exist.
+# Others are external spam domains we do not control.
+# The disavow file tells Google to ignore these backlinks.
+# For staging subdomains that still exist, the REAL fix is to:
 # 1. Take down or password-protect staging environments
 # 2. Add robots.txt blocking all crawlers to each staging subdomain
 # 3. Submit URL removal requests in GSC for these staging URLs
@@ -28,3 +31,6 @@ domain:staging8.developersmatrix.com
 
 # Staging subdomain 9 - hosting spam content
 domain:staging9.developersmatrix.com
+
+# External spam domain - Japanese sakura.ne.jp spam (not controlled by us)
+domain:nenkin-kamakura.sakura.ne.jp
