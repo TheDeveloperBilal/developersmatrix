@@ -16,7 +16,9 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
   return (
     <section className={`${className || ''}`}>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">Related Articles</h2>
+        <h2 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-sora), ui-sans-serif, system-ui, sans-serif' }}>
+          Related Articles
+        </h2>
         <Link
           href="/blog"
           className="text-sm font-medium text-violet-600 hover:text-violet-700 transition-colors flex items-center gap-1"
@@ -32,8 +34,8 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
             href={`/blog/${post.slug}`}
             className="group block"
           >
-            <article className="h-full rounded-xl border bg-card overflow-hidden hover:shadow-xl hover:shadow-violet-500/5 transition-all duration-300 hover:-translate-y-1">
-              <div className="aspect-[16/10] relative overflow-hidden bg-gradient-to-br from-violet-500/10 to-purple-600/10">
+            <article className="h-full rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 bg-white/70 dark:bg-white/[0.03] backdrop-blur-xl border border-white/40 dark:border-white/[0.08] shadow-[0_1px_2px_rgba(20,26,38,0.04),0_8px_24px_-12px_rgba(20,26,38,0.12)] hover:shadow-[0_4px_12px_rgba(20,26,38,0.06),0_20px_48px_-16px_rgba(124,58,237,0.18)]">
+              <div className="aspect-[16/10] relative overflow-hidden bg-gradient-to-br from-violet-100/50 to-purple-100/50 dark:from-violet-950/30 dark:to-purple-950/20">
                 {post.image ? (
                   <img
                     src={post.image}
@@ -46,13 +48,13 @@ export function RelatedPosts({ posts, className }: RelatedPostsProps) {
                     <span className="text-4xl">📰</span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-5">
-                <Badge variant="secondary" className="mb-2 text-xs font-medium">
+                <Badge variant="secondary" className="mb-2.5 text-xs font-medium bg-violet-50/80 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border-0">
                   {post.category}
                 </Badge>
-                <h3 className="font-semibold text-base leading-snug line-clamp-2 group-hover:text-violet-600 transition-colors mb-3">
+                <h3 className="font-semibold text-[15px] leading-snug line-clamp-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors mb-3" style={{ fontFamily: 'var(--font-sora), ui-sans-serif, system-ui, sans-serif' }}>
                   {post.title}
                 </h3>
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">

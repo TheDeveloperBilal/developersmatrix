@@ -440,6 +440,7 @@
 }
 
 .blog-content-wrapper .blog-h1 {
+  font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   font-size: 1.875rem;
   font-weight: 700;
   margin-top: 2.5rem;
@@ -449,6 +450,7 @@
 }
 
 .blog-content-wrapper .blog-h2 {
+  font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 2rem;
@@ -471,6 +473,7 @@
 }
 
 .blog-content-wrapper .blog-h3 {
+  font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   margin-top: 1.5rem;
@@ -479,6 +482,7 @@
 }
 
 .blog-content-wrapper .blog-h4 {
+  font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
   margin-top: 1.25rem;
@@ -486,9 +490,10 @@
 }
 
 .blog-content-wrapper .blog-p {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
   margin-bottom: 1.25rem;
   color: oklch(0.35 0.02 240);
-  font-size: 1.0625rem;
 }
 
 .dark .blog-content-wrapper .blog-p {
@@ -525,10 +530,11 @@
 
 .blog-content-wrapper .blog-li,
 .blog-content-wrapper .blog-oli {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
   padding-left: 0.5rem;
   color: oklch(0.35 0.02 240);
-  font-size: 1.0625rem;
 }
 
 .dark .blog-content-wrapper .blog-li,
