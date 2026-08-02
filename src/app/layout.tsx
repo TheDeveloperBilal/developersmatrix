@@ -165,6 +165,22 @@ export default function RootLayout({
           knowsAbout={siteAuthor.knowsAbout}
           sameAs={siteAuthor.sameAs}
         />
+        {/* Tawk.to Live Chat Widget */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/6a6f2e0f114a271d4a8d8bfc/1jv14nrr2';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${sora.variable} font-sans antialiased min-h-screen flex flex-col`}
