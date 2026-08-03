@@ -53,6 +53,7 @@ const topicClusters = [
       { label: "Trend Radar", href: "/trends" },
       { label: "Blog", href: "/blog" },
       { label: "GTA 6 Hub", href: "/gta-6" },
+      { label: "AI Cybersecurity Threats 2026", href: "/trends/ai-cybersecurity-threats-protection-2026" },
     ],
   },
 ];
