@@ -47,6 +47,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  redirects: async () => {
+    return [
+      {
+        source: "/blog/how-tiktok-algorithm-works-2026",
+        destination: "/blog/tiktok-algorithm-guide-2026",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
