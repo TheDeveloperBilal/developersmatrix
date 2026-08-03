@@ -63,6 +63,34 @@ const toolFaqs = [
     question: "What is the best online website auditor for small businesses?",
     answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with 200+ checks across 7 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full-site technical crawling. Avoid expensive all-in-one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
   },
+  {
+    question: "What does a website audit check?",
+    answer: "A website audit checks your site across four core areas: SEO signals (title tags, meta descriptions, heading structure, internal links), page speed and Core Web Vitals (LCP, CLS, INP, TTFB), mobile usability (viewport settings, tap targets, font sizes), and security (HTTPS, security headers, certificate validity). Each check is scored individually and combined into an overall Site Health Score out of 100."
+  },
+  {
+    question: "How often should I audit my website?",
+    answer: "Run a website audit at minimum once per month if you are actively publishing content or making site changes. Run one immediately after any major update — new theme, plugin install, hosting migration, or URL restructure — to catch issues before they affect rankings. For stable sites, a quarterly audit is sufficient to catch gradual degradation."
+  },
+  {
+    question: "Is this website audit tool really free?",
+    answer: "Yes. The DevelopersMatrix website audit tool is completely free with no signup required. Enter your URL and receive your full 47-point audit report instantly. There are no hidden limits, no trial periods, and no email required to access the results."
+  },
+  {
+    question: "What is a good website audit score?",
+    answer: "A score of 75 to 89 is considered good — it means your site meets most technical standards with minor issues. A score above 90 is excellent. Scores below 60 indicate problems that are likely affecting your rankings and should be addressed within 30 days. Most established websites score between 63 and 79."
+  },
+  {
+    question: "Why is my website audit score low?",
+    answer: "Low scores most commonly result from slow page speed (unoptimized images, render-blocking scripts), missing or duplicate meta descriptions, lack of HTTPS or mixed content warnings, poor mobile usability, and missing security headers. The audit report highlights each failing check with a specific fix recommendation so you can address the highest-impact issues first."
+  },
+  {
+    question: "Can I audit a competitor's website?",
+    answer: "Yes. The tool audits any publicly accessible URL. Enter any website address to see its technical health score, identify weaknesses in its SEO foundation, and benchmark it against your own site."
+  },
+  {
+    question: "How is this different from Google Search Console?",
+    answer: "Google Search Console reports on how Google sees your site after the fact — indexing status, manual actions, and search performance data. The DevelopersMatrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
+  }
 ];
 
 export default function WebsiteAuditPage() {
@@ -140,6 +168,162 @@ export default function WebsiteAuditPage() {
       {/* Main Tool Interface, renders its own full page UI */}
       <div id="website-audit">
         <WebsiteAuditClient />
+      </div>
+
+      {/* Section 1: How Our Audit Works */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
+        <section className="mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            How the DevelopersMatrix Website Audit Works
+          </h2>
+          <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-8">
+            The tool runs a 47-point analysis across four categories and returns a scored report within seconds. Enter any public URL, and our engine crawls the page, measures performance metrics, validates SEO signals, checks mobile usability, and tests security configuration — all in one pass.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">SEO Analysis</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                Checks title tags, meta descriptions, heading structure, canonical tags, robots directives, sitemap presence, keyword density signals, and internal link structure.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Page Speed and Core Web Vitals</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                Measures Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), Interaction to Next Paint (INP), Time to First Byte (TTFB), render-blocking resources, image optimization, and server response times.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Mobile and UX</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                Tests mobile viewport configuration, tap target sizing, font legibility, content width, and mobile-specific usability signals.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Security</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                Validates HTTPS implementation, mixed content warnings, security headers (X-Frame-Options, Content-Security-Policy, Strict-Transport-Security), and certificate validity.
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
+            Each check is scored individually and weighted to produce your overall Site Health Score out of 100.
+          </p>
+        </section>
+      </div>
+
+      {/* Section 2: What Your Score Means */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
+        <section className="mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            What Your Website Audit Score Means
+          </h2>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Score Range</th>
+                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Rating</th>
+                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">What It Means</th>
+                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Priority</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm text-gray-600 dark:text-gray-400">
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">90 to 100</td>
+                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">Excellent</span></td>
+                  <td className="p-4">Your site meets all major technical standards. Focus on content and authority.</td>
+                  <td className="p-4 text-gray-500 dark:text-gray-400">Maintenance mode</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">75 to 89</td>
+                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Good</span></td>
+                  <td className="p-4">Minor issues present. Fix flagged items to protect rankings.</td>
+                  <td className="p-4 text-gray-500 dark:text-gray-400">Low urgency</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">60 to 74</td>
+                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">Needs Work</span></td>
+                  <td className="p-4">Multiple issues affecting crawlability or user experience. Fix within 30 days.</td>
+                  <td className="p-4 text-gray-500 dark:text-gray-400">Medium urgency</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">40 to 59</td>
+                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400">Poor</span></td>
+                  <td className="p-4">Significant technical problems likely suppressing rankings. Fix immediately.</td>
+                  <td className="p-4 text-gray-500 dark:text-gray-400">High urgency</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">Below 40</td>
+                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">Critical</span></td>
+                  <td className="p-4">Severe issues that may be causing Google to deindex or ignore pages. Escalate now.</td>
+                  <td className="p-4 text-gray-500 dark:text-gray-400">Emergency</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
+            Scores are recalculated on each audit run, so improvements are reflected immediately. A score increase of 10 or more points typically corresponds with measurable ranking improvements within 4 to 8 weeks as Google recrawls and reassesses your pages.
+          </p>
+        </section>
+      </div>
+
+      {/* Section 3: Benchmark Data */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
+        <section className="mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Website Health Score Benchmarks: What Is a Good Score?
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+            Based on industry benchmarks from Google&apos;s Core Web Vitals reports, HTTP Archive data, and published research from major SEO platforms, here is how scores are distributed across common site types:
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Site Type</th>
+                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Average Score</th>
+                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Most Common Issue</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm text-gray-600 dark:text-gray-400">
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">New websites (under 1 year)</td>
+                  <td className="p-4">52 to 65</td>
+                  <td className="p-4">Missing meta descriptions and no sitemap</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">Small business sites (1 to 5 years)</td>
+                  <td className="p-4">63 to 74</td>
+                  <td className="p-4">Slow page speed and unoptimized images</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">E-commerce sites</td>
+                  <td className="p-4">58 to 71</td>
+                  <td className="p-4">Duplicate content and missing canonical tags</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">SaaS and tech sites</td>
+                  <td className="p-4">71 to 82</td>
+                  <td className="p-4">CSP headers and INP optimization</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-medium text-gray-900 dark:text-white">Established blogs (3+ years)</td>
+                  <td className="p-4">68 to 79</td>
+                  <td className="p-4">Outdated internal linking and redirect chains</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            Sources: Google Core Web Vitals reports (2025-2026), HTTP Archive Web Almanac, and aggregate data from published SEO platform research. Individual site scores may vary based on platform, hosting, and maintenance history.
+          </p>
+        </section>
       </div>
 
       {/* SEO Content Section */}
