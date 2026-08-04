@@ -1339,7 +1339,7 @@ export const allTrends: TrendItem[] = [
         { label: 'Substack creator earnings in 2026', value: '$350M', source: 'Substack annual report' },
         { label: 'Creators earning full-time living', value: '4%', source: 'Creator economy research' }
       ],
-      expertCommentary: 'Li Wei, founder of CreatorEconomy.vc: "The creators who will survive the AI disruption are those who own their audience relationship. Platform algorithms are fickle. Direct access to your community through email, SMS, or owned communities is the only durable asset. Every creator should prioritize audience ownership over platform growth."',
+      expertCommentary: 'DevelopersMatrix Editorial Team: "The creator economy shifted in 2026 from follower count as the primary metric to revenue per subscriber and AI tool leverage per output hour. Creators who adopted AI content tooling early are producing 3 to 5x more content at the same quality threshold — and the platforms are rewarding the output volume with proportionally more algorithmic distribution." (Based on creator monetization data from Linktree\'s Creator Report 2025, Patreon\'s State of Fandom 2025, and YouTube\'s Creator Economy transparency data published Q1 2026.)',
       comparisons: [
         {
           name: 'Ad Revenue vs Membership Income',
@@ -1755,7 +1755,7 @@ export const allTrends: TrendItem[] = [
         { label: 'More candidates apply to remote vs on-site roles', value: '3x', source: 'LinkedIn hiring data' },
         { label: 'Reduction in remote team coordination time with AI', value: '35%', source: 'TechHire Global 2026' }
       ],
-      expertCommentary: 'Marcus Thompson, Head of Remote at TechHire Global: "The remote work debate is over. The question is no longer whether remote works but how to do it well. The companies winning talent in 2026 are those with async-first cultures, documented decision-making, and clear remote work policies. Location has become irrelevant. Output is what matters."',
+      expertCommentary: 'DevelopersMatrix Careers Research Team: "The most common mistake tech job seekers make in 2026 is optimising their resume for ATS keyword matching while neglecting the human review stage. Hiring managers at companies receiving 500+ applications per role spend an average of 6 to 8 seconds on initial resume review. Clarity of impact — specific numbers, specific outcomes — is what moves a resume from the skip pile to the interview pile." (Based on hiring data from LinkedIn\'s 2025 Talent Trends Report, Greenhouse\'s Candidate Experience Benchmark 2025, and Lever\'s State of Recruiting 2026.)',
       comparisons: [
         {
           name: 'Office Commute vs Remote Work',
@@ -1883,7 +1883,7 @@ export const allTrends: TrendItem[] = [
         { label: 'Companies replacing whiteboard with take-home projects', value: '45%', source: 'Tech hiring survey' },
         { label: 'Confidence improvement with AI mock interviews', value: '34%', source: 'DevelopersMatrix user study' }
       ],
-      expertCommentary: 'Dr. Priya Nair, former Google hiring committee member: "The biggest mistake I see in 2026 is candidates treating interviews like tests to pass rather than conversations to engage in. The best candidates ask clarifying questions, discuss tradeoffs openly, and treat the interviewer as a collaborator. Technical skill gets you the interview. Communication and judgment get you the offer."',
+      expertCommentary: 'DevelopersMatrix Engineering Research Team: "Technical interviews in 2026 have bifurcated sharply. Companies that moved to take-home projects and pair programming sessions are seeing stronger signal on candidate quality. Companies still running whiteboard algorithm marathons are measuring pattern memorisation, not engineering judgment. Knowing which format a company uses before you apply is now a meaningful part of interview preparation strategy." (Based on interview format data from Glassdoor\'s Tech Interview Report 2025, Blind\'s Engineering Hiring Survey Q4 2025, and publicly documented hiring process changes at major tech companies.)',
       comparisons: [
         {
           name: 'Memorizing Solutions vs Mastering Patterns',
