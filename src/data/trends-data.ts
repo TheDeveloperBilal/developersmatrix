@@ -1658,7 +1658,7 @@ export const allTrends: TrendItem[] = [
       ],
       resources: [
         { title: 'Tech Salary Estimator and Comparison Tool', url: 'https://developersmatrix.com/tools/salary-estimator', type: 'article' },
-        { title: 'Developer Roadmaps by Specialization', url: 'https://roadmap.sh', type: 'article' },
+        { title: 'Interactive Developer Roadmaps by Specialization', url: 'https://roadmap.sh', type: 'article' },
         { title: 'AI Interview Simulator Practice', url: 'https://developersmatrix.com/tools/ai-interview-simulator', type: 'tool' }
       ],
       faqs: [
