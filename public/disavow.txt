@@ -15,12 +15,16 @@
 # ============================================================================
 
 # === DEAD STAGING SUBDOMAINS (no longer exist) ===
+domain:staging.developersmatrix.com
+domain:staging1.developersmatrix.com
+domain:staging2.developersmatrix.com
 domain:staging3.developersmatrix.com
 domain:staging4.developersmatrix.com
 domain:staging5.developersmatrix.com
 domain:staging7.developersmatrix.com
 domain:staging8.developersmatrix.com
 domain:staging9.developersmatrix.com
+domain:portfolio.developersmatrix.com
 
 # === EXTERNAL SPAM DOMAINS (not controlled by us) ===
 domain:nenkin-kamakura.sakura.ne.jp
