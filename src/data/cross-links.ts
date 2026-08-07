@@ -39,9 +39,6 @@ const trendToToolsMap: Record<string, string[]> = {
   'tech-interview-preparation-2026': ['ai-interview-simulator', 'ai-resume-builder'],
   'remote-tech-jobs-guide-2026': ['ai-resume-builder', 'salary-estimator', 'ai-cover-letter-generator'],
 
-  // Productivity trends → productivity tools
-  'productivity-ai-tools-2026': ['productivity-planner', 'habit-tracker', 'ai-email-assistant'],
-
   // Website/SEO trends → audit tool
   'website-speed-optimization-2026': ['website-audit'],
   'seo-trends-2026': ['website-audit'],

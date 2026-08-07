@@ -423,14 +423,14 @@ export default function ProductivityPlannerPage() {
                 <p className="text-xs text-gray-500 dark:text-gray-400">Save time on email writing</p>
               </div>
             </a>
-            <a href="/trends/productivity-ai-tools-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <a href="/blog/ai-automation-business-ideas-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               <span className="text-lg">⚡</span>
               <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Productivity Tools 2026</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Top tools to 10x your output</p>
+                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Automation Ideas for Productivity Businesses</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Top strategies to 10x your output</p>
               </div>
             </a>
-            <a href="/blog/developer-habits-productivity-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <a href="/research/developer-habits-productivity-guide-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               <span className="text-lg">🧠</span>
               <div>
                 <p className="font-medium text-gray-900 dark:text-white text-sm">Developer Habits & Productivity</p>
