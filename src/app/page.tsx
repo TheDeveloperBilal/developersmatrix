@@ -14,8 +14,8 @@ import LatestUpdates from "@/components/sections/latest-updates";
 import { Newsletter, FinalCta } from "@/components/sections/newsletter-cta";
 
 export const metadata: Metadata = {
-  title: "20+ Free AI Tools for Resumes, Budgets & Career Growth",
-  description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview preparation, and more. Read latest tech trends. No signup needed.",
+  title: "Free AI Tools, Resources & Trends | DevelopersMatrix",
+  description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
   keywords: [
     "free AI tools",
     "AI resume builder",
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     canonical: siteConfig.url,
   },
   openGraph: {
-    title: "DevelopersMatrix - 20+ Free AI Tools for Everyone",
-    description: "Discover 20+ free AI-powered tools for resume building, budget planning, interview preparation, and more. Read latest tech trends.",
+    title: "Free AI Tools, Resources & Trends | DevelopersMatrix",
+    description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     images: [
@@ -62,8 +62,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DevelopersMatrix - 20+ Free AI Tools for Everyone',
-    description: 'Discover free AI-powered tools for resume building, budget planning, interview prep, and more.',
+    title: 'Free AI Tools, Resources & Trends | DevelopersMatrix',
+    description: 'Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.',
     images: [siteConfig.ogImage],
     creator: '@developersmatrix',
   },

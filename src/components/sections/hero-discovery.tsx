@@ -77,8 +77,8 @@ export default function HeroDiscovery() {
           </div>
 
           <h1 className="mt-6 font-sora text-[2.6rem] font-bold leading-[1.06] tracking-tight text-ink-950 sm:text-5xl lg:text-[3.5rem]">
-            Discover tools, trends and{" "}
-            <span className="text-brand-600">opportunities</span> before everyone else
+            20+ Free AI Tools for{" "}
+            <span className="text-brand-600">Developers, Marketers</span> & Career Builders
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-500 sm:text-lg">
