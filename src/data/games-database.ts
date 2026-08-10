@@ -42,7 +42,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: 'Free to Play',
     platforms: ['PC', 'PS5', 'Xbox Series X'],
-    imageUrl: '/images/games/arc-raiders.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'Arc Raiders is a third-person cooperative action game where you and your squad of Raiders fight to protect your home from the menacing ARC, a mechanized threat descending from space.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -80,7 +80,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: '$69.99',
     platforms: ['PC', 'PS5', 'Xbox Series X'],
-    imageUrl: '/images/games/battlefield6.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'The next generation of Battlefield returns to modern warfare with massive 128-player battles, destructible environments, and the signature all-out warfare experience.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -118,7 +118,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: '$29.99',
     platforms: ['PC', 'PS5', 'Xbox Series X'],
-    imageUrl: '/images/games/strands.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'A surreal sci-fi action adventure from the creators of Hyper Light Drifter. Explore a strange world where reality itself is unraveling.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -156,7 +156,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: '$39.99',
     platforms: ['PC', 'PS5', 'Xbox Series X'],
-    imageUrl: '/images/games/split-fiction.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'From the creators of It Takes Two comes a new co-op adventure that blurs the lines between reality and fiction. Two players must navigate shifting genres and storylines.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -194,7 +194,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: '$49.99',
     platforms: ['PC', 'PS5', 'Xbox Series X'],
-    imageUrl: '/images/games/clair-obscur.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'A unique turn-based RPG with stunning visuals inspired by Belle Époque France. Lead Expedition 33 to stop the Paintress from painting death upon the world.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -232,7 +232,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: 'Free to Play',
     platforms: ['PC', 'PS5', 'Xbox Series X'],
-    imageUrl: '/images/games/poe2.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'The highly anticipated sequel to Path of Exile. A new campaign, new classes, and refined combat systems make this the ultimate ARPG experience.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -311,7 +311,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: '$59.99',
     platforms: ['Switch'],
-    imageUrl: '/images/games/pokemon-za.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'Return to the Kalos region in this new Legends-style adventure. Explore Lumiose City and uncover the mysteries of Mega Evolution in a redesigned open-world experience.',
     minimumRequirements: {
       os: 'Nintendo Switch',
@@ -349,7 +349,7 @@ export const gamesDatabase: Game[] = [
     rating: 4.9,
     price: '$29.99',
     platforms: ['PC', 'PS5', 'PS4', 'Xbox Series X', 'Xbox One', 'Switch', 'Mobile'],
-    imageUrl: '/images/games/minecraft.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'The best-selling video game of all time. Explore infinite worlds and build everything from the simplest of homes to the grandest of castles.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -388,7 +388,7 @@ export const gamesDatabase: Game[] = [
     rating: 4.5,
     price: 'Free to Play',
     platforms: ['PC', 'PS4', 'Xbox One', 'Mobile'],
-    imageUrl: '/images/games/roblox.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'A platform where millions of players create and share experiences. Play games created by other users or build your own with Roblox Studio.',
     minimumRequirements: {
       os: 'Windows 7 64-bit',
@@ -584,7 +584,7 @@ export const gamesDatabase: Game[] = [
     rating: 4.0,
     price: '$69.99',
     platforms: ['PC', 'Xbox Series X'],
-    imageUrl: '/images/games/starfield.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'Starfield is the first new universe in over 25 years from Bethesda Game Studios, the award-winning creators of The Elder Scrolls V: Skyrim and Fallout 4.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',
@@ -623,7 +623,7 @@ export const gamesDatabase: Game[] = [
     rating: 4.7,
     price: '$59.99',
     platforms: ['PC', 'PS5', 'Xbox Series X'],
-    imageUrl: '/images/games/alanwake2.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'A string of ritualistic murders threatens Bright Falls. To stop the darkness, FBI Agent Saga Anderson must investigate and Alan Wake must write his way to freedom.',
     minimumRequirements: {
       os: 'Windows 10/11 64-bit',
@@ -662,7 +662,7 @@ export const gamesDatabase: Game[] = [
     rating: 4.5,
     price: 'Free to Play',
     platforms: ['PC'],
-    imageUrl: '/images/games/cs2.jpg',
+    imageUrl: '/images/games/generic-game.png',
     description: 'Counter-Strike 2 is the largest technical leap forward in Counter-Strike history, ensuring new features and updates for years to come.',
     minimumRequirements: {
       os: 'Windows 10 64-bit',

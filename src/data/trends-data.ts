@@ -549,8 +549,8 @@ export const allTrends: TrendItem[] = [
         { title: 'AI Side Hustles for Beginners: Start with $0', url: '/blog/ai-side-hustles-beginners-2026', type: 'article' },
         { title: 'How to Make Money with ChatGPT in 2026', url: '/blog/make-money-chatgpt-2026', type: 'article' },
         { title: 'AI Content Creation Business: Build a $10K/Month Agency', url: '/blog/ai-content-creation-business-2026', type: 'article' },
-        { title: 'AI Side Hustle Income Report 2026', url: 'https://www.statista.com/outlook/amo/artificial-intelligence', type: 'article' },
-        { title: 'Freelancing with AI Best Practices', url: 'https://www.upwork.com/resources/ai-freelancing', type: 'article' },
+        { title: 'AI Side Hustle Income Report 2026', url: 'https://www.statista.com/topics/3104/artificial-intelligence/', type: 'article' },
+        { title: 'Freelancing with AI Best Practices', url: 'https://www.upwork.com/resources/freelancer-skills', type: 'article' },
         { title: 'Digital Product Creation Guide', url: 'https://www.shopify.com/blog/digital-products', type: 'article' }
       ],
       faqs: [
