@@ -125,7 +125,7 @@ export default function StartupIdeaPage() {
             Free AI Startup Idea Generator 2026
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl">
-            Discover innovative business ideas across AI, SaaS, FinTech, HealthTech, Climate Tech, Robotics, and more. Each idea includes market analysis, monetization strategy, and MVP timeline. Powered by 2026 market trends.
+            A startup idea generator uses AI to produce validated, market-aware business concepts based on your skills, interests, available resources, and target market. Unlike random idea lists, AI-powered generators in 2026 cross-reference current market gaps, search trend data, and competitive landscapes to surface ideas with genuine commercial potential.
           </p>
         </div>
 

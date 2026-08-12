@@ -139,6 +139,7 @@ export default function InterviewSimulatorPage() {
                   <h1 className="text-3xl font-bold">Free AI Interview Simulator for FAANG Prep and Tech Jobs</h1>
                   <Badge>Free</Badge>
                 </div>
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">An AI interview simulator is a practice tool that conducts realistic mock interviews using artificial intelligence, providing instant feedback on your answers, communication style, and technical accuracy. It adapts questions to your target role and experience level, giving you unlimited practice without scheduling a human interviewer.</p>
                 <p className="text-lg text-muted-foreground">{tool?.description}</p>
               </div>
             </div>
