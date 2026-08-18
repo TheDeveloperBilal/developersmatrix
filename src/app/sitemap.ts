@@ -123,13 +123,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Blog pages — use real content dates
-  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.dateModified || post.publishedAt),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
+  // Blog pages — use real content dates, exclude noindex posts
+  const blogPages: MetadataRoute.Sitemap = blogPosts
+    .filter((post) => !post.noindex)
+    .map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.dateModified || post.publishedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
 
   // Tool pages — use stable recent date (all reviewed during July 2026 SEO sprint)
   const toolPages: MetadataRoute.Sitemap = tools.map((tool) => ({
