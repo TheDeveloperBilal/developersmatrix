@@ -695,9 +695,8 @@ export default function ResumeBuilderClient() {
 
               <TabsContent value="experience" className="mt-0 space-y-4 sm:space-y-6">
                 {experiences.map((exp, index) => (
-                  <div key={exp.id} className="p-3 sm:p-4 border rounded-lg space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium">Experience {index + 1}</h4>
+                  <div key={exp.id} className="border border-gray-200 rounded-xl shadow-sm p-4 mb-4 relative bg-white">
+                    <div className="absolute top-3 right-3">
                       {experiences.length > 1 && (
                         <Button 
                           variant="ghost" 
@@ -707,6 +706,16 @@ export default function ResumeBuilderClient() {
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
+                      )}
+                    </div>
+                    <div className="mb-3 pb-2 border-b border-gray-100 pr-8">
+                      <p className="font-semibold text-sm text-gray-700">
+                        {exp.company || exp.position || 'New Experience'}
+                      </p>
+                      {exp.startDate && (
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          {exp.startDate} – {exp.endDate || 'Present'}
+                        </p>
                       )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -788,7 +797,7 @@ export default function ResumeBuilderClient() {
                 <Button 
                   variant="outline" 
                   onClick={addExperience}
-                  className="w-full border-dashed"
+                  className="w-full border-dashed border-2 border-violet-300 text-violet-600 hover:bg-violet-50 hover:border-violet-400 py-3 rounded-xl"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Experience
@@ -797,9 +806,8 @@ export default function ResumeBuilderClient() {
 
               <TabsContent value="education" className="mt-0 space-y-4 sm:space-y-6">
                 {education.map((edu, index) => (
-                  <div key={edu.id} className="p-3 sm:p-4 border rounded-lg space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium">Education {index + 1}</h4>
+                  <div key={edu.id} className="border border-gray-200 rounded-xl shadow-sm p-4 mb-4 relative bg-white">
+                    <div className="absolute top-3 right-3">
                       {education.length > 1 && (
                         <Button 
                           variant="ghost" 
@@ -809,6 +817,16 @@ export default function ResumeBuilderClient() {
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
+                      )}
+                    </div>
+                    <div className="mb-3 pb-2 border-b border-gray-100 pr-8">
+                      <p className="font-semibold text-sm text-gray-700">
+                        {edu.institution || edu.degree || 'New Education'}
+                      </p>
+                      {edu.graduationDate && (
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          {edu.graduationDate}
+                        </p>
                       )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -870,7 +888,7 @@ export default function ResumeBuilderClient() {
                 <Button 
                   variant="outline" 
                   onClick={addEducation}
-                  className="w-full border-dashed"
+                  className="w-full border-dashed border-2 border-violet-300 text-violet-600 hover:bg-violet-50 hover:border-violet-400 py-3 rounded-xl"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Education
@@ -940,9 +958,8 @@ export default function ResumeBuilderClient() {
 
               <TabsContent value="projects" className="mt-0 space-y-4 sm:space-y-6">
                 {projects.map((project, index) => (
-                  <div key={project.id} className="p-3 sm:p-4 border rounded-lg space-y-3 sm:space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium">Project {index + 1}</h4>
+                  <div key={project.id} className="border border-gray-200 rounded-xl shadow-sm p-4 mb-4 relative bg-white">
+                    <div className="absolute top-3 right-3">
                       <Button 
                         variant="ghost" 
                         size="sm" 
@@ -951,6 +968,16 @@ export default function ResumeBuilderClient() {
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
+                    </div>
+                    <div className="mb-3 pb-2 border-b border-gray-100 pr-8">
+                      <p className="font-semibold text-sm text-gray-700">
+                        {project.name || 'New Project'}
+                      </p>
+                      {project.technologies && (
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          {project.technologies}
+                        </p>
+                      )}
                     </div>
                     <div className="grid grid-cols-1 gap-4">
                       <div className="space-y-2">
@@ -1012,7 +1039,7 @@ export default function ResumeBuilderClient() {
                 <Button 
                   variant="outline" 
                   onClick={addProject}
-                  className="w-full border-dashed"
+                  className="w-full border-dashed border-2 border-violet-300 text-violet-600 hover:bg-violet-50 hover:border-violet-400 py-3 rounded-xl"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Project
