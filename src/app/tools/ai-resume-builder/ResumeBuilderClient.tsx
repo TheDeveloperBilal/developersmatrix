@@ -917,14 +917,18 @@ export default function ResumeBuilderClient() {
                   
                   <div className="flex flex-wrap gap-2">
                     {skills.map((skill) => (
-                      <Badge 
-                        key={skill} 
+                      <Badge
+                        key={skill}
                         variant="secondary"
-                        className="px-3 py-1.5 cursor-pointer hover:bg-red-500/10 hover:text-red-500 group"
-                        onClick={() => removeSkill(skill)}
+                        className="bg-violet-50 text-violet-700 border border-violet-200 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1.5"
                       >
                         {skill}
-                        <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity">×</span>
+                        <button
+                          onClick={() => setSkills(skills.filter(s => s !== skill))}
+                          className="text-violet-400 hover:text-violet-600 ml-1 text-xs leading-none"
+                        >
+                          ×
+                        </button>
                       </Badge>
                     ))}
                     {skills.length === 0 && (
@@ -933,6 +937,28 @@ export default function ResumeBuilderClient() {
                       </p>
                     )}
                   </div>
+
+                  {skills.length < 3 && (
+                    <div className="mt-2">
+                      <p className="text-xs text-gray-400 mb-1.5">
+                        Suggested skills:
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {['JavaScript', 'TypeScript', 'React', 'Node.js', 'Python', 'SQL', 'Git', 'Figma']
+                          .filter(s => !skills.includes(s))
+                          .map(s => (
+                            <button
+                              key={s}
+                              onClick={() => setSkills([...skills, s])}
+                              className="text-xs border border-violet-200 text-violet-600 rounded-full px-2.5 py-0.5 hover:bg-violet-50 transition-colors"
+                            >
+                              + {s}
+                            </button>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  )}
 
                   <div className="p-4 bg-muted/50 rounded-lg">
                     <h4 className="font-medium mb-2">Suggested Skills</h4>
