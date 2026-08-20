@@ -604,8 +604,9 @@ export default function ResumeBuilderClient() {
               <TabsContent value="personal" className="mt-0 space-y-4 sm:space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
+                    <Label htmlFor="name">Full Name <span className="text-violet-500">*</span></Label>
                     <Input
+                      className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                       id="name"
                       placeholder="John Doe"
                       value={personalInfo.name}
@@ -613,8 +614,9 @@ export default function ResumeBuilderClient() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
+                    <Label htmlFor="email">Email <span className="text-violet-500">*</span></Label>
                     <Input
+                      className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                       id="email"
                       type="email"
                       placeholder="john@example.com"
@@ -625,6 +627,7 @@ export default function ResumeBuilderClient() {
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone</Label>
                     <Input
+                      className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                       id="phone"
                       placeholder="+1 (555) 000-0000"
                       value={personalInfo.phone}
@@ -634,6 +637,7 @@ export default function ResumeBuilderClient() {
                   <div className="space-y-2">
                     <Label htmlFor="location">Location</Label>
                     <Input
+                      className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                       id="location"
                       placeholder="San Francisco, CA"
                       value={personalInfo.location}
@@ -643,6 +647,7 @@ export default function ResumeBuilderClient() {
                   <div className="space-y-2">
                     <Label htmlFor="linkedin">LinkedIn</Label>
                     <Input
+                      className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                       id="linkedin"
                       placeholder="linkedin.com/in/johndoe"
                       value={personalInfo.linkedin}
@@ -652,6 +657,7 @@ export default function ResumeBuilderClient() {
                   <div className="space-y-2">
                     <Label htmlFor="website">Website/Portfolio</Label>
                     <Input
+                      className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                       id="website"
                       placeholder="johndoe.com"
                       value={personalInfo.website}
@@ -674,6 +680,7 @@ export default function ResumeBuilderClient() {
                     </Button>
                   </div>
                   <Textarea
+                    className="rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 resize-none"
                     id="summary"
                     placeholder="Write a compelling summary of your professional background and goals..."
                     rows={4}
@@ -706,6 +713,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Company</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="Google"
                           value={exp.company}
                           onChange={(e) => {
@@ -718,6 +726,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Position</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="Senior Software Engineer"
                           value={exp.position}
                           onChange={(e) => {
@@ -730,6 +739,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Start Date</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           type="month"
                           value={exp.startDate}
                           onChange={(e) => {
@@ -742,6 +752,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>End Date</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           type="month"
                           placeholder="Present"
                           value={exp.endDate}
@@ -756,6 +767,7 @@ export default function ResumeBuilderClient() {
                     <div className="space-y-2">
                       <Label>Description</Label>
                       <Textarea
+                        className="rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 resize-none"
                         placeholder="• Led development of key features...
 • Improved system performance by 40%...
 • Mentored junior developers..."
@@ -803,6 +815,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Institution</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="Stanford University"
                           value={edu.institution}
                           onChange={(e) => {
@@ -815,6 +828,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Degree</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="Bachelor of Science"
                           value={edu.degree}
                           onChange={(e) => {
@@ -827,6 +841,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Field of Study</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="Computer Science"
                           value={edu.field}
                           onChange={(e) => {
@@ -839,6 +854,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Graduation Date</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           type="month"
                           value={edu.graduationDate}
                           onChange={(e) => {
@@ -874,7 +890,7 @@ export default function ResumeBuilderClient() {
                           addSkill();
                         }
                       }}
-                      className="min-h-[44px]"
+                      className="min-h-[44px] h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                     />
                     <Button onClick={addSkill} variant="outline" className="shrink-0 min-h-[44px] min-w-[44px]">
                       <Plus className="w-4 h-4" />
@@ -940,6 +956,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Project Name</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="E-commerce Platform"
                           value={project.name}
                           onChange={(e) => {
@@ -952,6 +969,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Project Link (optional)</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="github.com/username/project"
                           value={project.link}
                           onChange={(e) => {
@@ -964,6 +982,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Description</Label>
                         <Textarea
+                          className="rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 resize-none"
                           placeholder="Built a full-stack e-commerce platform..."
                           rows={3}
                           value={project.description}
@@ -977,6 +996,7 @@ export default function ResumeBuilderClient() {
                       <div className="space-y-2">
                         <Label>Technologies Used</Label>
                         <Input
+                          className="h-11 rounded-lg focus-visible:ring-violet-400 focus-visible:ring-2 focus-visible:border-violet-400"
                           placeholder="React, Node.js, MongoDB, AWS"
                           value={project.technologies}
                           onChange={(e) => {
