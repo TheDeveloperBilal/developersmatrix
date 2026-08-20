@@ -53,6 +53,9 @@ export default function ResumeBuilderClient() {
   const [showPreview, setShowPreview] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
   
+  const [completedTabs, setCompletedTabs] = useState<string[]>([]);
+  const tabOrder = ['personal', 'experience', 'education', 'skills', 'projects'];
+
   // Personal Info
   const [personalInfo, setPersonalInfo] = useState({
     name: '',
@@ -519,27 +522,79 @@ export default function ResumeBuilderClient() {
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <Tabs value={activeTab} onValueChange={(value) => {
+            const currentIndex = tabOrder.indexOf(activeTab);
+            const newIndex = tabOrder.indexOf(value);
+            if (newIndex > currentIndex && !completedTabs.includes(activeTab)) {
+              setCompletedTabs(prev => [...prev, activeTab]);
+            }
+            setActiveTab(value);
+          }}>
             <div className="border-b px-2 sm:px-4 overflow-x-auto">
               <TabsList className="h-auto sm:h-12 bg-transparent flex flex-nowrap min-w-max sm:min-w-0 sm:flex-wrap gap-1 py-2">
                 <TabsTrigger value="personal" className="data-[state=active]:bg-violet-500/10 data-[state=active]:text-violet-600 px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap">
-                  <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className={`
+                    w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mr-1.5 shrink-0
+                    ${completedTabs.includes('personal')
+                      ? 'bg-violet-600 text-white'
+                      : activeTab === 'personal'
+                        ? 'bg-violet-100 text-violet-600'
+                        : 'bg-gray-100 text-gray-400'}
+                  `}>
+                    {completedTabs.includes('personal') ? '✓' : '1'}
+                  </span>
                   Personal
                 </TabsTrigger>
                 <TabsTrigger value="experience" className="data-[state=active]:bg-violet-500/10 data-[state=active]:text-violet-600 px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap">
-                  <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className={`
+                    w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mr-1.5 shrink-0
+                    ${completedTabs.includes('experience')
+                      ? 'bg-violet-600 text-white'
+                      : activeTab === 'experience'
+                        ? 'bg-violet-100 text-violet-600'
+                        : 'bg-gray-100 text-gray-400'}
+                  `}>
+                    {completedTabs.includes('experience') ? '✓' : '2'}
+                  </span>
                   Experience
                 </TabsTrigger>
                 <TabsTrigger value="education" className="data-[state=active]:bg-violet-500/10 data-[state=active]:text-violet-600 px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap">
-                  <GraduationCap className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className={`
+                    w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mr-1.5 shrink-0
+                    ${completedTabs.includes('education')
+                      ? 'bg-violet-600 text-white'
+                      : activeTab === 'education'
+                        ? 'bg-violet-100 text-violet-600'
+                        : 'bg-gray-100 text-gray-400'}
+                  `}>
+                    {completedTabs.includes('education') ? '✓' : '3'}
+                  </span>
                   Education
                 </TabsTrigger>
                 <TabsTrigger value="skills" className="data-[state=active]:bg-violet-500/10 data-[state=active]:text-violet-600 px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap">
-                  <Code className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className={`
+                    w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mr-1.5 shrink-0
+                    ${completedTabs.includes('skills')
+                      ? 'bg-violet-600 text-white'
+                      : activeTab === 'skills'
+                        ? 'bg-violet-100 text-violet-600'
+                        : 'bg-gray-100 text-gray-400'}
+                  `}>
+                    {completedTabs.includes('skills') ? '✓' : '4'}
+                  </span>
                   Skills
                 </TabsTrigger>
                 <TabsTrigger value="projects" className="data-[state=active]:bg-violet-500/10 data-[state=active]:text-violet-600 px-3 sm:px-4 py-2 text-xs sm:text-sm whitespace-nowrap">
-                  <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                  <span className={`
+                    w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mr-1.5 shrink-0
+                    ${completedTabs.includes('projects')
+                      ? 'bg-violet-600 text-white'
+                      : activeTab === 'projects'
+                        ? 'bg-violet-100 text-violet-600'
+                        : 'bg-gray-100 text-gray-400'}
+                  `}>
+                    {completedTabs.includes('projects') ? '✓' : '5'}
+                  </span>
                   Projects
                 </TabsTrigger>
               </TabsList>
