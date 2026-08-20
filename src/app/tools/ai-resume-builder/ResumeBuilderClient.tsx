@@ -376,6 +376,14 @@ export default function ResumeBuilderClient() {
     }, 250);
   };
 
+  const tabProgress = {
+    personal: 20,
+    experience: 40,
+    education: 60,
+    skills: 80,
+    projects: 100,
+  };
+
   return (
     <>
       <Card>
@@ -499,6 +507,15 @@ export default function ResumeBuilderClient() {
                 Export PDF
               </Button>
             </div>
+          </div>
+          <p className="text-xs text-gray-400 mb-1">
+            Step {Object.keys(tabProgress).indexOf(activeTab) + 1} of 5
+          </p>
+          <div className="w-full bg-gray-100 rounded-full h-1 mb-3">
+            <div
+              className="bg-gradient-to-r from-violet-600 to-purple-600 h-1 rounded-full transition-all duration-500"
+              style={{ width: `${tabProgress[activeTab] ?? 20}%` }}
+            />
           </div>
         </CardHeader>
         <CardContent className="p-0">
