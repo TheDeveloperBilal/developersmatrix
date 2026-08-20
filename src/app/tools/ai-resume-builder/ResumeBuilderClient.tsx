@@ -1081,6 +1081,51 @@ export default function ResumeBuilderClient() {
               </TabsContent>
             </div>
           </Tabs>
+
+          {/* Sticky Bottom Navigation Bar */}
+          <div className="sticky bottom-0 bg-white border-t border-gray-100 px-4 py-3 flex items-center justify-between gap-3 rounded-b-xl">
+            <button
+              onClick={() => {
+                const currentIndex = tabOrder.indexOf(activeTab);
+                if (currentIndex > 0) setActiveTab(tabOrder[currentIndex - 1]);
+              }}
+              disabled={activeTab === 'personal'}
+              className="text-sm text-gray-500 hover:text-gray-700 disabled:opacity-30 flex items-center gap-1"
+            >
+              ← Back
+            </button>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-400">
+                {Object.keys(tabProgress).indexOf(activeTab) + 1} / 5
+              </span>
+            </div>
+
+            {activeTab === 'projects' ? (
+              <button
+                onClick={exportToPDF}
+                className="bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium px-5 py-2 rounded-lg hover:opacity-90 flex items-center gap-1.5"
+              >
+                <Download className="w-4 h-4" />
+                Export PDF
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  const currentIndex = tabOrder.indexOf(activeTab);
+                  if (currentIndex < tabOrder.length - 1) {
+                    if (!completedTabs.includes(activeTab)) {
+                      setCompletedTabs(prev => [...prev, activeTab]);
+                    }
+                    setActiveTab(tabOrder[currentIndex + 1]);
+                  }
+                }}
+                className="bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-medium px-5 py-2 rounded-lg hover:opacity-90 flex items-center gap-1.5"
+              >
+                Next →
+              </button>
+            )}
+          </div>
         </CardContent>
       </Card>
     </>
