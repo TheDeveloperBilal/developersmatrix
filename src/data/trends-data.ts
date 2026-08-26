@@ -305,7 +305,8 @@ export const allTrends: TrendItem[] = [
       resources: [
         { title: 'GitHub Copilot Documentation', url: 'https://docs.github.com/copilot', type: 'article' },
         { title: 'Cursor vs Copilot Deep Dive', url: 'https://github.com/features/copilot', type: 'article' },
-        { title: 'Claude Code Best Practices', url: 'https://docs.anthropic.com', type: 'article' }
+        { title: 'Claude Code Best Practices', url: 'https://docs.anthropic.com', type: 'article' },
+        { title: 'Developer Tools News 2026: 20 AI Tools Every Developer Uses', url: '/blog/ai-tools-developers-2026', type: 'article' }
       ],
       faqs: [
         { question: 'Which AI coding assistant is best for beginners?', answer: 'GitHub Copilot is the easiest entry point for beginners because it integrates into familiar editors like VS Code and requires no new workflow. It simply suggests code as you type, which feels natural. Cursor is excellent for beginners who want to learn faster, because you can ask "why" questions about any piece of code. Claude is best for beginners working on complex projects where understanding architecture matters more than syntax. Start with Copilot, add Cursor when you are working on projects larger than a few files, and use Claude when you are designing systems from scratch.' },
@@ -1007,7 +1008,8 @@ export const allTrends: TrendItem[] = [
       ],
       resources: [
         { title: 'Cybersecurity Best Practices 2026', url: 'https://owasp.org/', type: 'article' },
-        { title: 'NIST Cybersecurity Framework', url: 'https://www.nist.gov/cyberframework', type: 'article' }
+        { title: 'NIST Cybersecurity Framework', url: 'https://www.nist.gov/cyberframework', type: 'article' },
+        { title: 'Cybersecurity AI Automation in 2026', url: '/blog/cybersecurity-ai-automation-2026', type: 'article' }
       ],
       faqs: [
         { question: 'How are AI tools making cyber attacks more dangerous in 2026?', answer: 'AI enables attackers to generate personalized phishing emails that reference real events, create deepfake audio for CEO fraud, and automate vulnerability scanning at speeds impossible for human attackers. The barrier to entry for sophisticated attacks has dropped dramatically. A teenager with AI tools can now launch attacks that previously required nation-state resources.' },

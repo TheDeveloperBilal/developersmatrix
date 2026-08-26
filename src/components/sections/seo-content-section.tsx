@@ -54,6 +54,8 @@ const topicClusters = [
       { label: "Blog", href: "/blog" },
       { label: "GTA 6 Hub", href: "/gta-6" },
       { label: "AI Cybersecurity Threats 2026", href: "/trends/ai-cybersecurity-threats-protection-2026" },
+      { label: "Developer Tools News 2026", href: "/blog/ai-tools-developers-2026" },
+      { label: "Cybersecurity AI Automation 2026", href: "/blog/cybersecurity-ai-automation-2026" },
     ],
   },
 ];
