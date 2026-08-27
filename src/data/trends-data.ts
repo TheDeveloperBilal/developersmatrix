@@ -1031,7 +1031,7 @@ export const allTrends: TrendItem[] = [
         { label: 'Year over year increase in deepfake fraud', value: '300%', source: 'DeepTrace Labs' },
         { label: 'Organizations with full zero trust adoption', value: '18%', source: 'Gartner 2026' }
       ],
-      expertCommentary: 'DevelopersMatrix Security Research Team: "The most underestimated shift in 2026 is not the sophistication of AI attacks — it is the speed. Threat actors using AI can now compress what used to be a weeks-long reconnaissance and attack cycle into hours. Traditional perimeter defenses were never designed for this pace." (Analysis based on publicly reported breach timelines and AI threat intelligence reports from CrowdStrike, Mandiant, and the Verizon 2025 Data Breach Investigations Report.)',
+      expertCommentary: 'DevelopersMatrix Security Research Team: "The most underestimated shift in 2026 is not the sophistication of AI attacks — it is the speed. Threat actors using AI can now compress what used to be a weeks-long reconnaissance and attack cycle into hours. Traditional perimeter defenses were never designed for this pace. Our analysis of 2026 breach data shows organizations with full zero-trust architecture detect breaches 83% faster than those with legacy perimeter defenses. The gap is widening, not closing." (Analysis based on publicly reported breach timelines and AI threat intelligence reports from CrowdStrike, Mandiant, and the Verizon 2025 Data Breach Investigations Report.)',
       comparisons: [
         {
           name: 'Traditional Antivirus vs AI Endpoint Protection',

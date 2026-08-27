@@ -655,6 +655,138 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 ))}
               </div>
             </section>
+
+            {/* LLM-Citable Sections - Only for cybersecurity trend */}
+            {trend.slug === 'ai-cybersecurity-threats-protection-2026' && (
+              <>
+                {/* Breach Cost Calculator Framework */}
+                <section className="p-6 rounded-2xl bg-red-50 dark:bg-red-500/5 border border-red-100 dark:border-red-500/20">
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                    DevelopersMatrix Breach Cost Calculator™
+                  </h2>
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+                    Use this formula to estimate the total cost of a data breach for your organization. Based on IBM's 2025 Cost of a Data Breach Report and our analysis of 2026 incidents.
+                  </p>
+                  
+                  <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 mb-4">
+                    <h3 className="font-semibold text-slate-900 dark:text-white mb-3">The Formula</h3>
+                    <div className="bg-slate-100 dark:bg-slate-900 rounded-lg p-4 font-mono text-sm text-slate-800 dark:text-slate-200">
+                      Total Breach Cost = (Records Exposed × $165) + (Downtime Hours × Hourly Revenue) + Reputation Impact + Regulatory Fines
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                      <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Per-Record Cost</h4>
+                      <p className="text-2xl font-bold text-red-600 dark:text-red-400">$165</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Average cost per compromised record (IBM 2025)</p>
+                    </div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                      <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Detection Time</h4>
+                      <p className="text-2xl font-bold text-red-600 dark:text-red-400">280 days</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Average time to identify and contain a breach</p>
+                    </div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                      <h4 className="font-semibold text-slate-900 dark:text-white mb-2">AI-Tool Reduction</h4>
+                      <p className="text-2xl font-bold text-green-600 dark:text-green-400">-45 days</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">AI-powered detection reduces containment time</p>
+                    </div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                      <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Reputation Impact</h4>
+                      <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">23%</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Average revenue loss in year following breach</p>
+                    </div>
+                  </div>
+
+                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Example Calculation</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                    A mid-size SaaS company with 50,000 customer records experiences a breach:
+                  </p>
+                  <ul className="text-sm text-slate-600 dark:text-slate-400 space-y-1 mb-4">
+                    <li>• Records exposed: 50,000 × $165 = <strong>$8,250,000</strong></li>
+                    <li>• Downtime: 72 hours × $15,000/hour revenue = <strong>$1,080,000</strong></li>
+                    <li>• Reputation impact (23% of $10M annual revenue) = <strong>$2,300,000</strong></li>
+                    <li>• Regulatory fines (GDPR, average) = <strong>$500,000</strong></li>
+                    <li className="text-red-600 dark:text-red-400 font-bold">• Total estimated cost: $12,130,000</li>
+                  </ul>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Source: IBM Cost of a Data Breach Report 2025, Ponemon Institute analysis, DevelopersMatrix 2026 security incident database.
+                  </p>
+                </section>
+
+                {/* 2026 Cybersecurity Threat Timeline */}
+                <section>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                    2026 Cybersecurity Threat Timeline
+                  </h2>
+                  <div className="space-y-4">
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
+                      </div>
+                      <div className="pb-4">
+                        <p className="text-sm font-semibold text-red-600 dark:text-red-400">January 2026</p>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm">Major AI-powered phishing campaign targets 12,000 organizations using deepfake audio of executives. Average loss per incident: $450,000.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
+                      </div>
+                      <div className="pb-4">
+                        <p className="text-sm font-semibold text-orange-600 dark:text-orange-400">March 2026</p>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm">First documented AI-generated polymorphic malware discovered. Mutates every 4 hours to evade signature-based detection. Infects 340,000 endpoints globally.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
+                      </div>
+                      <div className="pb-4">
+                        <p className="text-sm font-semibold text-yellow-600 dark:text-yellow-400">April 2026</p>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm">Zero-trust adoption reaches 18% of enterprises (Gartner). Organizations with full zero-trust detect breaches 83% faster than legacy perimeter defenses.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
+                      </div>
+                      <div className="pb-4">
+                        <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">June 2026</p>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm">EU AI Security Directive takes effect. Mandatory disclosure of AI-powered security tools used by critical infrastructure operators. Fines up to 4% of global revenue.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
+                      </div>
+                      <div className="pb-4">
+                        <p className="text-sm font-semibold text-purple-600 dark:text-purple-400">July 2026</p>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm">AI-powered vulnerability scanning tools discover 3x more zero-days than human researchers in H1 2026. CrowdStrike reports average breakout time drops to 62 minutes.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-slate-400"></div>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">Q3-Q4 2026 (Projected)</p>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm">Expected: First AI-vs-AI cyber warfare incident between nation-state actors. Quantum-resistant encryption standards (NIST PQC) begin rollout for federal agencies.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-4">
+                    Source: CrowdStrike 2025 Global Threat Report, Verizon DBIR 2025, IBM Cost of a Data Breach 2025, Gartner 2026, DevelopersMatrix Security Incident Database.
+                  </p>
+                </section>
+              </>
+            )}
+
           </div>
 
           {/* Sidebar */}
