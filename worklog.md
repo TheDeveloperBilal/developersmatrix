@@ -17,6 +17,11 @@
   - Updated `dateModified` to 2026-08-27
   - Consolidates 13 keywords into single stronger page
 
+- **Deliverable 2: LLM Citation Expansion** (in progress):
+  - **Page 1/7** — `ai-automation-agency-pricing-2026` (`f159359`): Expanded from 10,249 to 22,350 chars (+12,101). Added: agency definition, 4-phase pricing transition guide, 3 detailed case studies (real estate, e-commerce, healthcare), market size trends table (2024-2026), pricing psychology section, monthly revenue benchmarks by agency size, 4 common objections with scripts, tools section with internal links, structured Key Takeaways.
+  - **Page 2/7** — `ai-tools-developers-2026` (`3298808`): Expanded from 13,652 to 22,581 chars (+8,929). Added: 3-step tool selection framework, complete comparison table of all 20 tools, security and privacy deep dive with compliance checklist, 3 sample workflows (full-stack, legacy refactor, quick prototype), Total Cost of Ownership analysis (budget/professional/enterprise stacks), structured Key Takeaways.
+  - Remaining: 3 trend pages (`ai-agents-autonomous-systems-2026`, `tiktok-algorithm-2026-complete-guide`) and `/tools/website-audit` (already optimized). Blog pages in Deliverable 2 are now complete.
+
 **Build verified**: 64 routes generated, exit code 0
 **Status**: Merged `preview` → `master`, pushed to production
 
