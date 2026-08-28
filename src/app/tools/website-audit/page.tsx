@@ -70,7 +70,7 @@ const toolFaqs = [
   },
   {
     question: "How often should I audit my website?",
-    answer: "Run a website audit at minimum once per month if you are actively publishing content or making site changes. Run one immediately after any major update — new theme, plugin install, hosting migration, or URL restructure — to catch issues before they affect rankings. For stable sites, a quarterly audit is sufficient to catch gradual degradation."
+    answer: "Run a website audit at minimum once per month if you are actively publishing content or making site changes. Run one immediately after any major update. New theme, plugin install, hosting migration, or URL restructure. to catch issues before they affect rankings. For stable sites, a quarterly audit is sufficient to catch gradual degradation."
   },
   {
     question: "Is this website audit tool really free?",
@@ -78,7 +78,7 @@ const toolFaqs = [
   },
   {
     question: "What is a good website audit score?",
-    answer: "A score of 75 to 89 is considered good — it means your site meets most technical standards with minor issues. A score above 90 is excellent. Scores below 60 indicate problems that are likely affecting your rankings and should be addressed within 30 days. Most established websites score between 63 and 79."
+    answer: "A score of 75 to 89 is considered good. It means your site meets most technical standards with minor issues. A score above 90 is excellent. Scores below 60 indicate problems that are likely affecting your rankings and should be addressed within 30 days. Most established websites score between 63 and 79."
   },
   {
     question: "Why is my website audit score low?",
@@ -90,7 +90,7 @@ const toolFaqs = [
   },
   {
     question: "How is this different from Google Search Console?",
-    answer: "Google Search Console reports on how Google sees your site after the fact — indexing status, manual actions, and search performance data. The DevelopersMatrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
+    answer: "Google Search Console reports on how Google sees your site after the fact. indexing status, manual actions, and search performance data. The DevelopersMatrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
   },
   {
     question: "What makes the DevelopersMatrix 47-Point Site Health Score™ different from other audit tools?",
@@ -182,7 +182,7 @@ export default function WebsiteAuditPage() {
             How the DevelopersMatrix Website Audit Works
           </h2>
           <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-8">
-            The tool runs a 47-point analysis across four categories and returns a scored report within seconds. Enter any public URL, and our engine crawls the page, measures performance metrics, validates SEO signals, checks mobile usability, and tests security configuration — all in one pass.
+            The tool runs a 47-point analysis across four categories and returns a scored report within seconds. Enter any public URL, and our engine crawls the page, measures performance metrics, validates SEO signals, checks mobile usability, and tests security configuration. all in one pass.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -527,19 +527,19 @@ export default function WebsiteAuditPage() {
                   </div>
                 </div>
 
-                {/* NEW: What is a Website Code Audit — expanded definition for SEO */}
+                {/* NEW: What is a Website Code Audit. expanded definition for SEO */}
                 <div className="bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20 rounded-xl p-6 border border-slate-200 dark:border-slate-800 mt-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                     What Is a Website Code Audit?
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                    A <strong>website code audit</strong> is a deep technical inspection of the HTML, CSS, and JavaScript that power your website. Unlike a surface-level visual review, a code audit examines how the site is built, how efficiently it loads, and how correctly search engines and assistive technologies can interpret it. It identifies structural issues that hurt rankings, slow performance, and break user experience — problems that are invisible to the eye but loud signals to Google.
+                    A <strong>website code audit</strong> is a deep technical inspection of the HTML, CSS, and JavaScript that power your website. Unlike a surface-level visual review, a code audit examines how the site is built, how efficiently it loads, and how correctly search engines and assistive technologies can interpret it. It identifies structural issues that hurt rankings, slow performance, and break user experience. Problems that are invisible to the eye but loud signals to Google.
                   </p>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
                     The audit covers HTML validation errors like unclosed tags and deprecated attributes, CSS problems such as unused styles that bloat file size, and JavaScript issues including render-blocking scripts and unminified bundles. It also checks heading hierarchy, image alt text, schema markup correctness, ARIA accessibility labels, and security headers. The goal is a prioritized action plan that separates critical technical problems from minor improvements.
                   </p>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    <strong>How is a code audit different from an SEO audit?</strong> An SEO audit focuses on search visibility — crawlability, indexing, content, and backlinks. A code audit digs into the underlying technical foundation: the actual markup, stylesheets, and scripts. Poor code quality often causes SEO problems, but a code audit catches issues that an SEO-only review misses, such as invalid HTML that breaks rendering, bloated CSS that slows mobile load times, and JavaScript errors that prevent content from appearing in search results. For best results, run both audits together.
+                    <strong>How is a code audit different from an SEO audit?</strong> An SEO audit focuses on search visibility. crawlability, indexing, content, and backlinks. A code audit digs into the underlying technical foundation: the actual markup, stylesheets, and scripts. Poor code quality often causes SEO problems, but a code audit catches issues that an SEO-only review misses, such as invalid HTML that breaks rendering, bloated CSS that slows mobile load times, and JavaScript errors that prevent content from appearing in search results. For best results, run both audits together.
                   </p>
                 </div>
 
@@ -556,7 +556,7 @@ export default function WebsiteAuditPage() {
                         Want a Step-by-Step Code Audit Walkthrough?
                       </h3>
                       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                        Our complete Website Code Audit Guide covers HTML validation, CSS optimization, JavaScript performance, security hardening, and 12 comparison tables — with actionable checklists you can follow today.
+                        Our complete Website Code Audit Guide covers HTML validation, CSS optimization, JavaScript performance, security hardening, and 12 comparison tables, with actionable checklists you can follow today.
                       </p>
                       <a
                         href="/blog/website-code-audit-guide"
@@ -578,14 +578,14 @@ export default function WebsiteAuditPage() {
             {/* Section: Free Website Health Check */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Free Website Health Check — Monitor Your Site's Vital Signs
+                Free Website Health Check. Monitor Your Site's Vital Signs
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                 <p className="leading-relaxed">
                   A <strong>free website health check</strong> is the fastest way to know if your site is in good shape or bleeding traffic. Think of it like a routine physical for your website. You do not wait for a heart attack to see a doctor, and you should not wait for a ranking drop to audit your site.
                 </p>
                 <p className="leading-relaxed">
-                  Our <strong>free website check</strong> scans the vital signs that matter most in 2026. We check your site's heartbeat — can Google crawl it without hitting walls? We check its blood pressure — is the server responding in under 800ms or is it struggling under load? We check its vision — are images optimized or dragging down every page load? And we check its immune system — are security headers in place or is the site vulnerable to common attacks?
+                  Our <strong>free website check</strong> scans the vital signs that matter most in 2026. We check your site's heartbeat. Can Google crawl it without hitting walls? We check its blood pressure. Is the server responding in under 800ms or is it struggling under load? We check its vision. Are images optimized or dragging down every page load? And we check its immune system. Are security headers in place or is the site vulnerable to common attacks?
                 </p>
                 <p className="leading-relaxed">
                   The best part is there is no commitment. Enter any URL above and get a full report in under 30 seconds. No email gate. No trial expiration. Run a <strong>free website health check</strong> on your homepage, a landing page, or a competitor's site to benchmark where you stand. Many users run weekly checks and track their score over time to measure progress.
@@ -612,11 +612,11 @@ export default function WebsiteAuditPage() {
             {/* Section: Online Website Auditor */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Online Website Auditor — Instant Analysis Without Installing Anything
+                Online Website Auditor. Instant Analysis Without Installing Anything
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                 <p className="leading-relaxed">
-                  Not everyone wants to download software, learn a command line tool, or pay for a subscription just to <strong>analyze a site online</strong>. That is exactly why we built this <strong>online website auditor</strong> — it runs entirely in your browser and delivers the same depth of analysis that desktop tools charge hundreds of dollars for.
+                  Not everyone wants to download software, learn a command line tool, or pay for a subscription just to <strong>analyze a site online</strong>. That is exactly why we built this <strong>online website auditor</strong>. It runs entirely in your browser and delivers the same depth of analysis that desktop tools charge hundreds of dollars for.
                 </p>
                 <p className="leading-relaxed">
                   Traditional <strong>website auditor tools</strong> like Screaming Frog or Sitebulb require installation, configuration, and often a crawling license for larger sites. They are powerful, but overkill if you just want a quick snapshot of what is broken. Our <strong>online website auditor</strong> bridges that gap. You get enterprise-grade checks for technical SEO, performance, accessibility, and security without ever leaving this tab.
@@ -667,11 +667,11 @@ export default function WebsiteAuditPage() {
             {/* Section: URL Audit */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                URL Audit — Check Individual Pages for Deep Insights
+                URL Audit. Check Individual Pages for Deep Insights
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                 <p className="leading-relaxed">
-                  Sometimes you do not need a full site crawl. You need a <strong>URL audit</strong> on a single page that matters — a product page that is not converting, a blog post that dropped in rankings, or a landing page you are about to launch. Our <strong>audit checker</strong> handles both full-site analysis and deep single-page audits with the same precision.
+                  Sometimes you do not need a full site crawl. You need a <strong>URL audit</strong> on a single page that matters: a product page that is not converting, a blog post that dropped in rankings, or a landing page you are about to launch. Our <strong>audit checker</strong> handles both full-site analysis and deep single-page audits with the same precision.
                 </p>
                 <p className="leading-relaxed">
                   A focused <strong>URL audit</strong> is especially powerful for content creators and SEO professionals. You can paste a competitor's top-ranking article and see exactly what technical advantages they have. Do they use FAQ schema? Are their images compressed better? Is their heading hierarchy cleaner? Our tool extracts every signal and presents it in a side-by-side readable format.
@@ -694,7 +694,7 @@ export default function WebsiteAuditPage() {
                   If you have looked up <strong>website audit cost pricing 2026</strong>, you know the range is wild. Professional SEO agencies charge anywhere from $500 to $5,000 for a comprehensive manual audit. Enterprise tools like Ahrefs, SEMrush, and Sitebulb run $99 to $399 per month. Even desktop crawlers like Screaming Frog require a $259 annual license for serious use.
                 </p>
                 <p className="leading-relaxed">
-                  The question is not whether paid tools are better — they often are for massive sites and deep competitive analysis. The question is what you actually need. If you are running a small business site, a portfolio, a blog, or a startup with under 1,000 pages, a <strong>free website audit tool</strong> covers 90 percent of what matters. You can always upgrade to a paid solution once your traffic justifies the investment.
+                  The question is not whether paid tools are better. They often are for massive sites and deep competitive analysis. The question is what you actually need. If you are running a small business site, a portfolio, a blog, or a startup with under 1,000 pages, a <strong>free website audit tool</strong> covers 90 percent of what matters. You can always upgrade to a paid solution once your traffic justifies the investment.
                 </p>
               </div>
 
@@ -764,11 +764,11 @@ export default function WebsiteAuditPage() {
             {/* Section: Site Audit Checklist */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Site Audit Check — Your Complete Technical SEO Checklist for 2026
+                Site Audit Check. Your Complete Technical SEO Checklist for 2026
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                 <p className="leading-relaxed">
-                  A thorough <strong>site audit check</strong> covers more than just page speed. In 2026, Google's algorithm evaluates hundreds of signals across multiple dimensions. Here is the complete <strong>website SEO audit checklist</strong> our tool uses — use it as a reference even if you audit manually.
+                  A thorough <strong>site audit check</strong> covers more than just page speed. In 2026, Google's algorithm evaluates hundreds of signals across multiple dimensions. Here is the complete <strong>website SEO audit checklist</strong> our tool uses. use it as a reference even if you audit manually.
                 </p>
               </div>
               <div className="grid md:grid-cols-2 gap-4 mt-6">
@@ -836,7 +836,7 @@ export default function WebsiteAuditPage() {
                 </div>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mt-6 leading-relaxed">
-                Our tool runs every item on this <strong>website SEO audit checklist performance analysis</strong> automatically and scores your site against each category. You do not need to memorize the checklist — just run the audit and follow the prioritized fix list.
+                Our tool runs every item on this <strong>website SEO audit checklist performance analysis</strong> automatically and scores your site against each category. You do not need to memorize the checklist. just run the audit and follow the prioritized fix list.
               </p>
             </section>
 
@@ -1084,7 +1084,7 @@ export default function WebsiteAuditPage() {
         </section>
       </div>
 
-      {/* Section: Web Health Index — Aggregated Benchmark Data */}
+      {/* Section: Web Health Index: Aggregated Benchmark Data */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
         <section className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
