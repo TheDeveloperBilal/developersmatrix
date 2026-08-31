@@ -8,8 +8,8 @@ import { generatePageMetadata } from '@/lib/seo/metadata';
 import WebsiteAuditClient from './WebsiteAuditClient';
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Free Website Audit Tool 2026 | Check SEO, Speed & Security",
-  description: "Free website audit tool using the DevelopersMatrix 47-Point Site Health Score™. Check SEO, page speed, Core Web Vitals, mobile UX & security. Get instant scores + actionable fixes. No signup needed.",
+  title: "Free Website Audit Tool — Instant SEO & Speed Check",
+  description: "Run a free website audit in seconds. Check SEO scores, page speed, Core Web Vitals, mobile usability, and security. No account needed. Instant results.",
   keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'free website health check', 'free website check', 'online website auditor', 'website auditor tool online', 'analyze site online', 'audit checker', 'url audit', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free', 'website audit cost', 'website audit pricing 2026', 'how to audit my website', 'technical seo audit checklist 2026', 'website code audit', 'audit my site'],
   path: "/tools/website-audit",
   modifiedTime: "2026-08-27",
