@@ -90,7 +90,7 @@ export default function CanYouRunItPage() {
         step={[
           {
             name: "Find your PC hardware specs",
-            text: "Identify your CPU model, GPU model, and RAM amount. On Windows, search 'System Information' in the Start menu, or use free tools like CPU-Z and GPU-Z for detailed specs. For laptops, check the manufacturer's website or system settings. Note whether you have a desktop or laptop GPU — laptop versions are typically 15-30% slower.",
+            text: "Identify your CPU model, GPU model, and RAM amount. On Windows, search 'System Information' in the Start menu, or use free tools like CPU-Z and GPU-Z for detailed specs. For laptops, check the manufacturer's website or system settings. Note whether you have a desktop or laptop GPU. Laptop versions are typically 15-30% slower.",
             url: `${siteConfig.url}/tools/can-you-run-it`
           },
           {
@@ -122,7 +122,7 @@ export default function CanYouRunItPage() {
               <span className="text-xs text-muted-foreground">Updated for 2026</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-              Can You Run It? — Free PC Game Requirements Checker
+              Can You Run It? Free PC Game Requirements Checker
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
               Check your PC specs against game requirements. Get clear answers, FPS estimates, and upgrade suggestions for 1000+ games.
@@ -235,7 +235,7 @@ export default function CanYouRunItPage() {
                 </div>
                 <div className="text-muted-foreground leading-relaxed space-y-4">
                   <p>
-                    GTA 6 is expected to be the most demanding game of 2026. Rockstar's open-world games are known for pushing hardware limits, and GTA 6 will likely require a significant upgrade for many PC gamers. Our <strong>PC requirements checker</strong> will help you determine if your current rig can handle it — or if you need to start planning upgrades before the PC release.
+                    GTA 6 is expected to be the most demanding game of 2026. Rockstar's open-world games are known for pushing hardware limits, and GTA 6 will likely require a significant upgrade for many PC gamers. Our <strong>PC requirements checker</strong> will help you determine if your current rig can handle it, or if you need to start planning upgrades before the PC release.
                   </p>
                   <p>
                     Based on historical patterns, the PC version will arrive 12-19 months after console launch. That gives you a window to plan upgrades strategically. The most impactful upgrades for GTA 6 will likely be: (1) an SSD with at least 150GB free space, (2) 32GB of RAM for smooth open-world streaming, and (3) a GPU that supports ray tracing for the full visual experience.
@@ -243,7 +243,7 @@ export default function CanYouRunItPage() {
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a href="/gta-6" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                    🎮 GTA 6 Hub — Full Info
+                    🎮 GTA 6 Hub. Full Info
                   </a>
                   <a href="/trends/gta-6-release-everything-we-know" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     📰 Latest GTA 6 News
@@ -420,17 +420,17 @@ export default function CanYouRunItPage() {
             Free PC Game Requirements Checker: Can You Run It? Find Out in Seconds
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Nothing is more frustrating than buying a game, downloading 80GB, and discovering your PC cannot run it. Our <strong>free "Can You Run It" tool</strong> checks your hardware against any game's system requirements instantly. Compare your CPU, GPU, RAM, and storage against minimum and recommended specs. Know before you buy — save your money and your time.
+            Nothing is more frustrating than buying a game, downloading 80GB, and discovering your PC cannot run it. Our <strong>free "Can You Run It" tool</strong> checks your hardware against any game's system requirements instantly. Compare your CPU, GPU, RAM, and storage against minimum and recommended specs. Know before you buy. Save your money and your time.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             Why PC Gamers Need a System Requirements Checker
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Modern AAA games require powerful hardware. GTA 6 demands 100GB storage and a high-end GPU. Cyberpunk 2077 needs ray-tracing capable cards for the best experience. Starfield and Baldur's Gate 3 pushed hardware limits in 2024-2025. In 2026, the requirements are only increasing. Our <strong>PC game requirements checker</strong> scans your system specs and compares them against the game's official requirements — giving you a clear yes/no answer with detailed explanations.
+            Modern AAA games require powerful hardware. GTA 6 demands 100GB storage and a high-end GPU. Cyberpunk 2077 needs ray-tracing capable cards for the best experience. Starfield and Baldur's Gate 3 pushed hardware limits in 2024-2025. In 2026, the requirements are only increasing. Our <strong>PC game requirements checker</strong> scans your system specs and compares them against the game's official requirements, giving you a clear yes/no answer with detailed explanations.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The tool also suggests upgrade paths. If your CPU meets requirements but your GPU falls short, you will know exactly which component to upgrade. If you are short on RAM, we recommend the optimal amount. This targeted approach saves money — why replace your entire PC when a $200 GPU upgrade or $60 RAM boost would solve the problem?
+            The tool also suggests upgrade paths. If your CPU meets requirements but your GPU falls short, you will know exactly which component to upgrade. If you are short on RAM, we recommend the optimal amount. This targeted approach saves money. Why replace your entire PC when a $200 GPU upgrade or $60 RAM boost would solve the problem?
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
@@ -451,7 +451,7 @@ export default function CanYouRunItPage() {
             </div>
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-2">4️⃣ Upgrade Smartly</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Get specific upgrade recommendations. Buy only what you need — no unnecessary component replacements.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Get specific upgrade recommendations. Buy only what you need. No unnecessary component replacements.</p>
             </div>
           </div>
 
@@ -603,7 +603,7 @@ export default function CanYouRunItPage() {
                     </tr>
                     <tr>
                       <td className="p-3 font-medium">Average AAA 2026 Title</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3 font-bold">54%</td>
                       <td className="p-3 font-bold">28%</td>
                       <td className="p-3">VRAM capacity</td>
@@ -622,7 +622,7 @@ export default function CanYouRunItPage() {
                 <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-5 border border-blue-200 dark:border-blue-800">
                   <h4 className="font-semibold mb-2">Key Finding: SSD Adoption Reaches 89%</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Among checked configurations, <strong>89% now use SSDs</strong> as primary storage — up from 71% in 2024. Games with open-world streaming (GTA 6, Starfield, Baldur's Gate 3) show 40-60% reduction in texture pop-in and load times on SSD versus HDD. For 2026 gaming, SSD is no longer optional.
+                    Among checked configurations, <strong>89% now use SSDs</strong> as primary storage. up from 71% in 2024. Games with open-world streaming (GTA 6, Starfield, Baldur's Gate 3) show 40-60% reduction in texture pop-in and load times on SSD versus HDD. For 2026 gaming, SSD is no longer optional.
                   </p>
                 </div>
               </div>

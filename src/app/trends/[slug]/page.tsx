@@ -15,6 +15,7 @@ import {
   ExternalLink,
   ChevronRight
 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -284,9 +285,9 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Why This Matters in 2026</h2>
               </div>
-              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              <ReactMarkdown className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300">
                 {trend.content.whyItMatters}
-              </p>
+              </ReactMarkdown>
             </section>
 
             {/* Beginner Explanation */}
@@ -297,9 +298,9 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Getting Started</h2>
               </div>
-              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              <ReactMarkdown className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300">
                 {trend.content.beginnerExplanation}
-              </p>
+              </ReactMarkdown>
             </section>
 
             {/* Advanced Insights */}
@@ -310,9 +311,9 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Advanced Insights</h2>
               </div>
-              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              <ReactMarkdown className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300">
                 {trend.content.advancedInsights}
-              </p>
+              </ReactMarkdown>
             </section>
 
             {/* Hustle Comparison Table */}
