@@ -138,54 +138,6 @@ export function SiteMapHub() {
               <h3 className="font-semibold text-slate-900 dark:text-white">Research & Resources</h3>
             </div>
             <ul className="space-y-2">
-              <li>
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Original Research</span>
-              </li>
-              <li>
-                <Link
-                  href="/research/website-audit-statistics-2026"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 shrink-0" />
-                  Website Audit Statistics 2026
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/research/developer-salary-guide-2026"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 shrink-0" />
-                  Developer Salary Guide 2026
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/research/ats-resume-optimization-guide-2026"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 shrink-0" />
-                  ATS Resume Optimization Guide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/research/developer-habits-productivity-guide-2026"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 shrink-0" />
-                  Developer Habits & Productivity
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/research/developer-financial-planning-guide-2026"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 shrink-0" />
-                  Developer Financial Planning
-                </Link>
-              </li>
               <li className="pt-2 border-t border-slate-200 dark:border-slate-700">
                 <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Legal & Info</span>
               </li>
