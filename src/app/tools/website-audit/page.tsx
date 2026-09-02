@@ -74,7 +74,7 @@ const toolFaqs = [
   },
   {
     question: "Is this website audit tool really free?",
-    answer: "Yes. The DevelopersMatrix website audit tool is completely free with no signup required. Enter your URL and receive your full 47-point audit report instantly. There are no hidden limits, no trial periods, and no email required to access the results."
+    answer: "Yes. The DevelopersMatrix website audit tool is completely free with no signup required. Enter your URL and receive your full audit report with around 150 checks instantly. There are no hidden limits, no trial periods, and no email required to access the results."
   },
   {
     question: "What is a good website audit score?",
@@ -93,7 +93,7 @@ const toolFaqs = [
     answer: "Google Search Console reports on how Google sees your site after the fact. indexing status, manual actions, and search performance data. The DevelopersMatrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
   },
   {
-    question: "What makes the DevelopersMatrix 47-Point Site Health Score different from other audit tools?",
+    question: "What makes the DevelopersMatrix Site Health Score different from other audit tools?",
     answer: "Unlike generic pass-fail checkers, our scoring engine weights each check by its correlation with search ranking performance. For example, missing title tags carry a higher penalty than minor heading hierarchy issues because they impact rankings more severely. The score also factors in industry context: an e-commerce site is evaluated against e-commerce benchmarks, not generic standards."
   },
 ];
@@ -182,7 +182,7 @@ export default function WebsiteAuditPage() {
             How the DevelopersMatrix Website Audit Works
           </h2>
           <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-8">
-            The tool runs a 47-point analysis across four categories and returns a scored report within seconds. Enter any public URL, and our engine crawls the page, measures performance metrics, validates SEO signals, checks mobile usability, and tests security configuration. all in one pass.
+            The tool runs around 150 checks across 8 areas, SEO, technical, performance, mobile, security, accessibility, content and conversion, and returns a scored report within seconds. Enter any public URL, and our engine crawls the page, measures performance metrics, validates SEO signals, checks mobile usability, and tests security configuration, all in one pass.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-6">
