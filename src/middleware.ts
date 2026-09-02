@@ -37,6 +37,8 @@ const GONE_PATTERNS = [
   /^\/blog\/health-fitness-technology-/,
   /^\/blog\/5g-networks-go-global-/,
   /^\/blog\/middle-east-geopolitics-/,
+  // Removed research pages (fabricated statistics)
+  /^\/research\//,
 ];
 
 // Exact paths that should return 410 Gone

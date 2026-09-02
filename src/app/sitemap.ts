@@ -91,36 +91,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    {
-      url: `${baseUrl}/research/website-audit-statistics-2026`,
-      lastModified: DATES.may2026,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/research/developer-salary-guide-2026`,
-      lastModified: DATES.may2026,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/research/ats-resume-optimization-guide-2026`,
-      lastModified: DATES.may2026,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/research/developer-habits-productivity-guide-2026`,
-      lastModified: DATES.may2026,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/research/developer-financial-planning-guide-2026`,
-      lastModified: DATES.may2026,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
   ];
 
   // Blog pages — use real content dates, exclude noindex posts
