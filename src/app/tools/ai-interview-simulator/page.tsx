@@ -113,10 +113,6 @@ export default function InterviewSimulatorPage() {
         operatingSystem="Web"
         description="Free AI-powered interview simulator for developers and tech professionals. Practice behavioral, technical, and system design interviews with instant feedback, adaptive difficulty, and role-specific questions."
         url={`${siteConfig.url}/tools/ai-interview-simulator`}
-        aggregateRating={{
-          ratingValue: "4.8",
-          ratingCount: "2156"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

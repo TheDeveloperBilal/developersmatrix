@@ -120,10 +120,6 @@ export default function WebsiteAuditPage() {
         operatingSystem="Web"
         description="Free AI-powered website audit tool for comprehensive SEO, performance, security, and accessibility analysis. 200+ checks with instant actionable recommendations."
         url={`${siteConfig.url}/tools/website-audit`}
-        aggregateRating={{
-          ratingValue: "4.8",
-          ratingCount: "3427"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

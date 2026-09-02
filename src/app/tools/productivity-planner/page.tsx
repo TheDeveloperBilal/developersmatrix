@@ -60,10 +60,6 @@ export default function ProductivityPlannerPage() {
         operatingSystem="Web"
         description="Free AI-powered productivity planner with smart task prioritization, time blocking, and progress tracking. No signup needed."
         url={`${siteConfig.url}/tools/productivity-planner`}
-        aggregateRating={{
-          ratingValue: "4.7",
-          ratingCount: "1234"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

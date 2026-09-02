@@ -99,10 +99,6 @@ export default function BudgetPlannerPage() {
         operatingSystem="Web"
         description="Free personal budget planner with income and expense tracking, visual spending charts, and savings goal setting. No signup needed."
         url={`${siteConfig.url}/tools/budget-planner`}
-        aggregateRating={{
-          ratingValue: "4.7",
-          ratingCount: "987"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

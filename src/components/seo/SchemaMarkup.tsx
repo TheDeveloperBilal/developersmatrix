@@ -137,11 +137,6 @@ interface WebApplicationSchemaProps {
     price: string;
     priceCurrency: string;
   };
-  aggregateRating?: {
-    ratingValue: string;
-    ratingCount: string;
-    bestRating?: string;
-  };
   featureList?: string[];
 }
 
@@ -152,7 +147,6 @@ export function WebApplicationSchema({
   applicationCategory,
   operatingSystem,
   offers,
-  aggregateRating,
   featureList = []
 }: WebApplicationSchemaProps) {
   const schema: Record<string, unknown> = {
@@ -167,12 +161,6 @@ export function WebApplicationSchema({
       '@type': 'Offer',
       price: offers.price,
       priceCurrency: offers.priceCurrency
-    }}),
-    ...(aggregateRating && { aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: aggregateRating.ratingValue,
-      ratingCount: aggregateRating.ratingCount,
-      bestRating: aggregateRating.bestRating || '5'
     }}),
     ...(featureList.length > 0 && { featureList })
   };

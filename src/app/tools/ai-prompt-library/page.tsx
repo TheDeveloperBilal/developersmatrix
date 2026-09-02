@@ -60,10 +60,6 @@ export default function AIPromptLibraryPage() {
         operatingSystem="Web"
         description="Free AI prompt library with 500+ curated prompts for ChatGPT, Claude, Midjourney. Test in sandbox. No signup needed."
         url={`${siteConfig.url}/tools/ai-prompt-library`}
-        aggregateRating={{
-          ratingValue: "4.8",
-          ratingCount: "1876"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

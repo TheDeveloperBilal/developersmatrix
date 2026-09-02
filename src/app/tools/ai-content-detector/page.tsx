@@ -51,10 +51,6 @@ export default function AIContentDetectorPage() {
         url={`${siteConfig.url}/tools/ai-content-detector`}
         applicationCategory="UtilityApplication"
         operatingSystem="Web"
-        aggregateRating={{
-          ratingValue: "4.6",
-          ratingCount: "987"
-        }}
         offers={{ price: "0", priceCurrency: "USD" }}
       />
       <BreadcrumbSchema
