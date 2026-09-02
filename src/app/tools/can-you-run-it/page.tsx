@@ -490,13 +490,13 @@ export default function CanYouRunItPage() {
           </div>
 
           
-            {/* Section: DevelopersMatrix Compatibility Score™ */}
+            {/* Section: DevelopersMatrix Compatibility Score */}
             <section>
               <h2 className="text-2xl font-bold mb-6">
-                The DevelopersMatrix Compatibility Score™: How We Calculate Your Verdict
+                The DevelopersMatrix Compatibility Score: How We Calculate Your Verdict
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Most PC requirement checkers give you a simple yes or no. The <strong>DevelopersMatrix Compatibility Score™</strong> goes deeper by analyzing how each of your components performs relative to the game's demands, then weighting them by real-world impact on frame rate and playability.
+                Most PC requirement checkers give you a simple yes or no. The <strong>DevelopersMatrix Compatibility Score</strong> goes deeper by analyzing how each of your components performs relative to the game's demands, then weighting them by real-world impact on frame rate and playability.
               </p>
 
               <div className="grid md:grid-cols-3 gap-4 mb-6">
@@ -536,120 +536,14 @@ export default function CanYouRunItPage() {
                   <span><strong>Bottleneck identification:</strong> The tool identifies which single component is holding back your performance and suggests the most cost-effective upgrade.</span>
                 </li>
               </ol>
-
-              <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
-                <h4 className="font-semibold mb-2">Accuracy You Can Trust</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  We verified our FPS estimates against 847 real-world benchmark configurations from the PC gaming community. For 78% of tested hardware combinations, our estimates were within 5 FPS of actual performance. For 94%, within 10 FPS. This is why we can confidently tell you not just whether your PC will run a game, but how well it will run.
-                </p>
-              </div>
             </section>
 
-            {/* Section: Gaming PC Readiness Report */}
-            <section>
-              <h2 className="text-2xl font-bold mb-6">
-                DevelopersMatrix Gaming PC Readiness Report: August 2026
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Based on <strong>3,412 hardware configurations</strong> checked through our tool during July and August 2026, here is how the PC gaming landscape looks for the biggest upcoming releases.
-              </p>
-
-              <div className="overflow-x-auto mb-6">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                      <th className="p-3 text-sm font-semibold">Game</th>
-                      <th className="p-3 text-sm font-semibold">Release</th>
-                      <th className="p-3 text-sm font-semibold">PCs Meeting Minimum</th>
-                      <th className="p-3 text-sm font-semibold">PCs Meeting Recommended</th>
-                      <th className="p-3 text-sm font-semibold">Most Common Bottleneck</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-sm text-muted-foreground">
-                    <tr className="border-b border-gray-100 dark:border-gray-700">
-                      <td className="p-3 font-medium">GTA 6 (PC)</td>
-                      <td className="p-3">Late 2027</td>
-                      <td className="p-3 text-yellow-600 dark:text-yellow-400 font-semibold">34%</td>
-                      <td className="p-3 text-red-600 dark:text-red-400 font-semibold">18%</td>
-                      <td className="p-3">GPU (RTX 3060 or better)</td>
-                    </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-700">
-                      <td className="p-3 font-medium">Cyberpunk 2077</td>
-                      <td className="p-3">Out now</td>
-                      <td className="p-3 text-green-600 dark:text-green-400 font-semibold">67%</td>
-                      <td className="p-3 text-yellow-600 dark:text-yellow-400 font-semibold">41%</td>
-                      <td className="p-3">VRAM (8GB insufficient)</td>
-                    </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-700">
-                      <td className="p-3 font-medium">Black Myth: Wukong</td>
-                      <td className="p-3">Out now</td>
-                      <td className="p-3 text-green-600 dark:text-green-400 font-semibold">72%</td>
-                      <td className="p-3 text-yellow-600 dark:text-yellow-400 font-semibold">38%</td>
-                      <td className="p-3">CPU (6-core minimum)</td>
-                    </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-700">
-                      <td className="p-3 font-medium">Star Wars Outlaws</td>
-                      <td className="p-3">Out now</td>
-                      <td className="p-3 text-green-600 dark:text-green-400 font-semibold">58%</td>
-                      <td className="p-3 text-yellow-600 dark:text-yellow-400 font-semibold">29%</td>
-                      <td className="p-3">RAM (16GB vs 8GB)</td>
-                    </tr>
-                    <tr className="border-b border-gray-100 dark:border-gray-700">
-                      <td className="p-3 font-medium">Assassin's Creed Shadows</td>
-                      <td className="p-3">Nov 2025</td>
-                      <td className="p-3 text-green-600 dark:text-green-400 font-semibold">61%</td>
-                      <td className="p-3 text-yellow-600 dark:text-yellow-400 font-semibold">33%</td>
-                      <td className="p-3">Storage (SSD required)</td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-medium">Average AAA 2026 Title</td>
-                      <td className="p-3">-</td>
-                      <td className="p-3 font-bold">54%</td>
-                      <td className="p-3 font-bold">28%</td>
-                      <td className="p-3">VRAM capacity</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-5 border border-green-200 dark:border-green-800">
-                  <h4 className="font-semibold mb-2">Key Finding: VRAM Is the New Bottleneck</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong>72% of gamers</strong> who failed recommended specs fell short on VRAM, not raw GPU compute. Modern games at high textures require 10-12GB VRAM. An RTX 3060 (12GB) outperforms an RTX 4060 (8GB) in texture-heavy titles despite being a generation older. When upgrading for 2026 titles, prioritize VRAM capacity over generation.
-                  </p>
-                </div>
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-5 border border-blue-200 dark:border-blue-800">
-                  <h4 className="font-semibold mb-2">Key Finding: SSD Adoption Reaches 89%</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Among checked configurations, <strong>89% now use SSDs</strong> as primary storage. up from 71% in 2024. Games with open-world streaming (GTA 6, Starfield, Baldur's Gate 3) show 40-60% reduction in texture pop-in and load times on SSD versus HDD. For 2026 gaming, SSD is no longer optional.
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-xs text-muted-foreground mt-4">
-                Data source: DevelopersMatrix Gaming PC Readiness Report, July-August 2026. 3,412 hardware configurations analyzed.
-              </p>
-            </section>
 
             {/* Section: Expert Commentary */}
             <section>
               <h2 className="text-2xl font-bold mb-6">
                 PC Gaming in 2026: What Hardware Actually Matters
               </h2>
-
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
-                <blockquote className="text-lg text-muted-foreground italic leading-relaxed mb-4">
-                  "After analyzing 3,400+ hardware checks this year, one pattern is clear: gamers consistently overestimate the importance of their GPU generation and underestimate VRAM and storage speed. An RTX 3060 with 12GB VRAM outperforms an RTX 4060 with 8GB in 6 of the 10 most demanding 2026 titles. And moving from HDD to SSD provides a bigger quality-of-life improvement than upgrading from a 3060 to a 3070 for open-world games. My advice: check VRAM first, storage second, then worry about GPU generation."
-                </blockquote>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 font-bold">DM</div>
-                  <div>
-                    <p className="font-semibold text-sm">DevelopersMatrix Hardware Analysis Team</p>
-                    <p className="text-xs text-muted-foreground">3,400+ PC configurations analyzed. Gaming hardware benchmarking since 2024.</p>
-                  </div>
-                </div>
-              </div>
 
               <h3 className="text-xl font-semibold mb-4">Upgrade Priority for 2026-2027 Titles</h3>
               <div className="space-y-3">
