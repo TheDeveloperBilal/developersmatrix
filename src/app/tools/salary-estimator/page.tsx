@@ -59,7 +59,6 @@ export default function SalaryEstimatorPage() {
         applicationCategory="BusinessApplication"
         operatingSystem="Any"
         offers={{ price: "0", priceCurrency: "USD" }}
-        aggregateRating={{ ratingValue: "4.7", ratingCount: "3420" }}
       />
       <BreadcrumbSchema
         items={[

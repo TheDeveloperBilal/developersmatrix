@@ -83,10 +83,6 @@ export default function ResumeBuilderPage() {
         operatingSystem="Web"
         description="Free AI-powered resume builder for developers and tech professionals. Create ATS-optimized resumes with 2026-ready templates and keyword suggestions."
         url={`${siteConfig.url}/tools/ai-resume-builder`}
-        aggregateRating={{
-          ratingValue: "4.8",
-          ratingCount: "2847"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

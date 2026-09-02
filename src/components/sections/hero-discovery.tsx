@@ -100,7 +100,6 @@ export default function HeroDiscovery() {
           <div className="mt-10 flex gap-10 border-t border-ink-100/40 pt-6">
             <Stat value={20} suffix="+" label="Free AI tools" />
             <Stat value={3400} suffix="+" label="Websites audited" />
-            <Stat value={4.8} suffix="/5" label="User rating" decimals={1} />
           </div>
         </div>
 

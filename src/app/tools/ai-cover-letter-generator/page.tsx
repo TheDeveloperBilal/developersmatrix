@@ -106,10 +106,6 @@ export default function CoverLetterPage() {
         operatingSystem="Web"
         description="Free AI-powered cover letter generator for developers and tech professionals. Create personalized, ATS-friendly cover letters tailored to any job description in seconds. No signup needed."
         url={`${siteConfig.url}/tools/ai-cover-letter-generator`}
-        aggregateRating={{
-          ratingValue: "4.7",
-          ratingCount: "1843"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

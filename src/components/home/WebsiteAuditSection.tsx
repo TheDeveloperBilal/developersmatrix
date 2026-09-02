@@ -16,7 +16,6 @@ import {
   Sparkles,
   BarChart3,
   Users,
-  Star,
   Zap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -36,7 +35,6 @@ export function WebsiteAuditSection() {
 
   const trustMetrics = [
     { value: '3,400+', label: 'Websites Audited', icon: <Globe className="w-4 h-4" /> },
-    { value: '4.8/5', label: 'User Rating', icon: <Star className="w-4 h-4" /> },
     { value: '100%', label: 'Free Forever', icon: <Zap className="w-4 h-4" /> },
   ];
 

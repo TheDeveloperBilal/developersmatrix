@@ -60,10 +60,6 @@ export default function HabitTrackerPage() {
         operatingSystem="Web"
         description="Free habit tracker with streak counting, progress visualization, and daily routine tracking. No signup needed."
         url={`${siteConfig.url}/tools/habit-tracker`}
-        aggregateRating={{
-          ratingValue: "4.8",
-          ratingCount: "1432"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

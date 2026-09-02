@@ -72,10 +72,6 @@ export default function CanYouRunItPage() {
         operatingSystem="Web"
         description="Free PC game requirements checker. Compare your hardware specs against game requirements and get upgrade recommendations."
         url={`${siteConfig.url}/tools/can-you-run-it`}
-        aggregateRating={{
-          ratingValue: "4.8",
-          ratingCount: "2100"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

@@ -60,10 +60,6 @@ export default function AIEmailAssistantPage() {
         operatingSystem="Web"
         description="Free AI-powered email assistant that drafts professional emails from brief notes, rewrites for tone, and generates replies. No signup needed."
         url={`${siteConfig.url}/tools/ai-email-assistant`}
-        aggregateRating={{
-          ratingValue: "4.8",
-          ratingCount: "1567"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

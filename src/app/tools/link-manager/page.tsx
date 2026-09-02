@@ -60,10 +60,6 @@ export default function LinkManagerPage() {
         operatingSystem="Web"
         description="Free link shortener with click analytics, QR codes, and smart bio pages. No signup needed."
         url={`${siteConfig.url}/tools/link-manager`}
-        aggregateRating={{
-          ratingValue: "4.7",
-          ratingCount: "892"
-        }}
         offers={{
           price: "0",
           priceCurrency: "USD"

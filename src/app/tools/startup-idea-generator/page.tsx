@@ -57,7 +57,6 @@ export default function StartupIdeaPage() {
         applicationCategory="BusinessApplication"
         operatingSystem="Any"
         offers={{ price: "0", priceCurrency: "USD" }}
-        aggregateRating={{ ratingValue: "4.6", ratingCount: "2800" }}
       />
       <HowToSchema
         name="How to Find Your Next Startup Idea in 2026"
