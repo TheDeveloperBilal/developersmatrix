@@ -1029,7 +1029,7 @@ export default function WebsiteAuditPage() {
                   Audit Your Website in Seconds. It is Free
                 </h2>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                  Join 3,400 website owners who have used our tool to find and fix critical issues. No signup. No credit card. Just actionable insights.
+                  Join thousands of website owners who have used our tool to find and fix critical issues. No signup. No credit card. Just actionable insights.
                 </p>
                 <a
                   href="#website-audit"

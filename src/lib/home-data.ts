@@ -30,7 +30,7 @@ export const liveTickerItems: { tag: TickerTag; label: string; href: string }[] 
   { tag: "UPDATED", label: "Resume Builder now with ATS scoring", href: "/tools/ai-resume-builder" },
   { tag: "TRENDING", label: "Remote hiring rebounds for senior roles", href: "/trends" },
   { tag: "NEW", label: "Prompt Library passes 500 curated prompts", href: "/tools/ai-prompt-library" },
-  { tag: "HOT", label: "Website Audit: 3,400+ sites checked", href: "/tools/website-audit" },
+  { tag: "HOT", label: "Website Audit: free health checks", href: "/tools/website-audit" },
   { tag: "LATEST", label: "Best free resume builders compared", href: "/blog/best-free-resume-builders-2026" },
   { tag: "UPDATED", label: "Salary Estimator refreshed with 2026 data", href: "/tools/salary-estimator" },
 ];

@@ -18,7 +18,7 @@ const topicClusters = [
   {
     icon: Gauge,
     title: "SEO & Website Tools",
-    text: "Run a full website health check covering SEO, performance, security, mobile UX, and content quality. Get a prioritized fix list you can act on the same day. Over 3,400 sites audited.",
+    text: "Run a full website health check covering SEO, performance, security, mobile UX, and content quality. Get a prioritized fix list you can act on the same day.",
     links: [
       { label: "AI Website Audit", href: "/tools/website-audit" },
       { label: "AI Content Detector", href: "/tools/ai-content-detector" },

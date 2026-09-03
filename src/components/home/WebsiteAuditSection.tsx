@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  Globe,
   Search,
   Shield,
   Gauge,
@@ -34,7 +33,6 @@ export function WebsiteAuditSection() {
   ];
 
   const trustMetrics = [
-    { value: '3,400+', label: 'Websites Audited', icon: <Globe className="w-4 h-4" /> },
     { value: '100%', label: 'Free Forever', icon: <Zap className="w-4 h-4" /> },
   ];
 
