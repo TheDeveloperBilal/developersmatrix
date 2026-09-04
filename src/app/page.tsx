@@ -97,7 +97,7 @@ export default function HomePage() {
           },
           {
             question: "How does the AI Resume Builder work?",
-            answer: "Enter your details section by section. The AI helps write bullet points, optimize for ATS scanners, and format your resume in a professional layout. Over 8,900 resumes have been created.",
+            answer: "Enter your details section by section. The AI helps write bullet points, optimize for ATS scanners, and format your resume in a professional layout.",
           },
           {
             question: "What does the Website Audit Tool check?",

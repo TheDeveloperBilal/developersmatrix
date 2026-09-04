@@ -23,7 +23,7 @@ import {
 export type TickerTag = "NEW" | "TRENDING" | "HOT" | "LATEST" | "UPDATED";
 
 export const liveTickerItems: { tag: TickerTag; label: string; href: string }[] = [
-  { tag: "HOT", label: "GTA 6 pre orders cross 39M copies", href: "/gta-6" },
+  { tag: "HOT", label: "GTA 6 releases November 19, 2026", href: "/gta-6" },
   { tag: "NEW", label: "AI Content Detector is live", href: "/tools/ai-content-detector" },
   { tag: "TRENDING", label: "AI agents move into daily workflows", href: "/trends" },
   { tag: "LATEST", label: "Guide: Technical interview prep 2026", href: "/blog/technical-interview-prep-2026" },
@@ -44,7 +44,6 @@ export type ExplorerTool = {
   category: string;
   icon: LucideIcon;
   badge?: "NEW" | "POPULAR" | "TRENDING" | "UPDATED" | "HOT";
-  uses: string;
 };
 
 export const explorerCategories = [
@@ -65,7 +64,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "SEO",
     icon: Gauge,
     badge: "POPULAR",
-    uses: "3.4k audits",
   },
   {
     name: "AI Content Detector",
@@ -74,7 +72,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "AI Tools",
     icon: ScanSearch,
     badge: "NEW",
-    uses: "1.2k checks",
   },
   {
     name: "AI Resume Builder",
@@ -83,7 +80,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "Career",
     icon: FileText,
     badge: "POPULAR",
-    uses: "8.9k resumes",
   },
   {
     name: "Interview Simulator",
@@ -92,7 +88,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "Career",
     icon: MessagesSquare,
     badge: "TRENDING",
-    uses: "4.1k sessions",
   },
   {
     name: "Cover Letter Generator",
@@ -100,7 +95,6 @@ export const explorerTools: ExplorerTool[] = [
     description: "Letters matched to the exact job posting so they never read generic.",
     category: "Career",
     icon: Mail,
-    uses: "5.6k letters",
   },
   {
     name: "AI Prompt Library",
@@ -109,7 +103,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "AI Tools",
     icon: Sparkles,
     badge: "UPDATED",
-    uses: "500+ prompts",
   },
   {
     name: "Link Manager & Smart Bio",
@@ -117,7 +110,6 @@ export const explorerTools: ExplorerTool[] = [
     description: "One smart link for everything you share, with click analytics.",
     category: "SEO",
     icon: Link2,
-    uses: "920 bios",
   },
   {
     name: "Budget Planner",
@@ -125,7 +117,6 @@ export const explorerTools: ExplorerTool[] = [
     description: "Track income, spending and savings goals with clear monthly views.",
     category: "Productivity",
     icon: Wallet,
-    uses: "2.8k budgets",
   },
   {
     name: "Habit Tracker",
@@ -133,7 +124,6 @@ export const explorerTools: ExplorerTool[] = [
     description: "Build streaks and routines with a simple, visual daily tracker.",
     category: "Productivity",
     icon: CalendarCheck,
-    uses: "1.9k trackers",
   },
   {
     name: "Productivity Planner",
@@ -141,7 +131,6 @@ export const explorerTools: ExplorerTool[] = [
     description: "Plan focused weeks with priorities, time blocks and reviews.",
     category: "Productivity",
     icon: ListChecks,
-    uses: "1.4k plans",
   },
   {
     name: "Startup Idea Generator",
@@ -150,7 +139,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "Business",
     icon: Lightbulb,
     badge: "TRENDING",
-    uses: "6.3k ideas",
   },
   {
     name: "Salary Estimator",
@@ -159,7 +147,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "Business",
     icon: CircleDollarSign,
     badge: "UPDATED",
-    uses: "2.2k estimates",
   },
   {
     name: "Can You Run It",
@@ -168,7 +155,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "Developer Tools",
     icon: Gamepad2,
     badge: "HOT",
-    uses: "11k checks",
   },
   {
     name: "JSON Formatter",
@@ -176,7 +162,6 @@ export const explorerTools: ExplorerTool[] = [
     description: "Format, validate and explore JSON payloads instantly in browser.",
     category: "Developer Tools",
     icon: Braces,
-    uses: "3.7k uses",
   },
   {
     name: "Regex Playground",
@@ -185,7 +170,6 @@ export const explorerTools: ExplorerTool[] = [
     category: "Developer Tools",
     icon: TerminalSquare,
     badge: "NEW",
-    uses: "980 uses",
   },
   {
     name: "Code Snippet Vault",
@@ -193,7 +177,6 @@ export const explorerTools: ExplorerTool[] = [
     description: "Save and organize reusable snippets with tags and quick copy.",
     category: "Developer Tools",
     icon: Code2,
-    uses: "1.1k snippets",
   },
 ];
 
@@ -204,7 +187,6 @@ export type TrendCard = {
   category: string;
   categoryStyle: string;
   status: "Rising" | "Hot" | "Stable";
-  change: string;
   summary: string;
   freshness: string;
   activity: number; // 0-100
@@ -219,7 +201,6 @@ export const trendCards: TrendCard[] = [
     category: "AI",
     categoryStyle: "bg-brand-100 text-brand-700",
     status: "Rising",
-    change: "+214%",
     summary: "Agentic tools moved from demos to production. Teams now ship task-running agents for support, research and code review.",
     freshness: "2h ago",
     activity: 92,
@@ -232,8 +213,7 @@ export const trendCards: TrendCard[] = [
     category: "Gaming",
     categoryStyle: "bg-rose-50 text-rose-600",
     status: "Hot",
-    change: "+168%",
-    summary: "Pre orders passed 39M copies with a $1B first hour. PC players are already checking hardware against requirements.",
+    summary: "Rockstar has locked the release for November 19, 2026. PC players are already checking hardware against the published requirements.",
     freshness: "5h ago",
     activity: 88,
     spark: [20, 22, 30, 28, 40, 52, 48, 66, 80, 95],
@@ -245,7 +225,6 @@ export const trendCards: TrendCard[] = [
     category: "Careers",
     categoryStyle: "bg-sky-50 text-sky-600",
     status: "Rising",
-    change: "+86%",
     summary: "Senior engineering postings are up for the third straight month, with remote first companies leading the recovery.",
     freshness: "1d ago",
     activity: 74,
@@ -258,7 +237,6 @@ export const trendCards: TrendCard[] = [
     category: "SEO",
     categoryStyle: "bg-emerald-50 text-emerald-600",
     status: "Stable",
-    change: "+34%",
     summary: "AI Overviews now answer most informational queries. Sites win by earning citations and strengthening technical health.",
     freshness: "1d ago",
     activity: 61,
@@ -271,7 +249,6 @@ export const trendCards: TrendCard[] = [
     category: "AI",
     categoryStyle: "bg-brand-100 text-brand-700",
     status: "Rising",
-    change: "+121%",
     summary: "Small distilled models now run well on consumer hardware, pushing privacy first AI tools into the mainstream.",
     freshness: "2d ago",
     activity: 79,
@@ -492,7 +469,7 @@ export const updates: UpdateItem[] = [
   { kind: "Trending", title: "AI agents move into daily workflows", meta: "Signal · AI", href: "/trends", date: "Jul 19" },
   { kind: "Trending", title: "GTA 6 pre orders pass 39 million", meta: "Signal · Gaming", href: "/gta-6", date: "Jul 18" },
   { kind: "Popular", title: "AI Website Audit", meta: "Tool · 3.4k audits", href: "/tools/website-audit", date: "All time" },
-  { kind: "Popular", title: "AI Resume Builder", meta: "Tool · 8.9k resumes", href: "/tools/ai-resume-builder", date: "All time" },
+  { kind: "Popular", title: "AI Resume Builder", meta: "Tool · Free, no signup", href: "/tools/ai-resume-builder", date: "All time" },
   { kind: "New", title: "Guide: Technical interview prep 2026", meta: "Blog · Career", href: "/blog/technical-interview-prep-2026", date: "Jul 14" },
   { kind: "Updated", title: "Prompt Library grows to 500+ prompts", meta: "Tool · AI", href: "/tools/ai-prompt-library", date: "Jul 13" },
   { kind: "Trending", title: "Local AI models go mainstream", meta: "Signal · AI", href: "/trends", date: "Jul 12" },

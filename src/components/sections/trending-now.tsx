@@ -45,7 +45,7 @@ function TrendCardView({ card }: { card: TrendCard }) {
       <div className="mt-5">
         <div className="flex items-center justify-between text-xs">
           <span className="font-medium text-ink-400">30 day signal</span>
-          <span className="font-bold text-emerald-600">{card.change}</span>
+          <span className="font-bold text-emerald-600">{card.status}</span>
         </div>
         <Sparkline points={card.spark} />
       </div>

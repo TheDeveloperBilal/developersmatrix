@@ -33,7 +33,7 @@ export function GTA6Section() {
             >
               <Badge className="w-fit mb-6 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-500/20 dark:to-emerald-500/20 text-green-600 dark:text-green-300 border-green-200 dark:border-green-500/30">
                 <Gamepad2 className="w-3 h-3 mr-1" />
-                Pre-Orders Live — $1B First Hour Record
+                Pre-Orders Live · Releases November 19, 2026
               </Badge>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -44,19 +44,18 @@ export function GTA6Section() {
               </h2>
 
               <p className="text-slate-600 dark:text-slate-300 text-lg mb-6 leading-relaxed">
-                GTA 6 pre-orders went live June 25, 2026 and shattered records with $1 billion in revenue within the first hour. 
-                Over 39 million copies pre-ordered. Check if your PC can run it and get the latest news.
+                GTA 6 pre-orders went live on June 25, 2026 and Take-Two has called demand unprecedented. The game releases on November 19, 2026. Check if your PC can run it and get the latest news.
               </p>
 
               {/* Sales Record Highlight */}
               <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-500/30">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-500/20 flex items-center justify-center">
-                    <span className="text-green-600 dark:text-green-300 font-bold text-sm">$1B</span>
+                    <span className="text-green-600 dark:text-green-300 font-bold text-sm">19</span>
                   </div>
                   <div>
-                    <p className="font-semibold text-sm text-slate-900 dark:text-white">First Hour Revenue Record</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">39M+ copies pre-ordered · Nov 19, 2026 release</p>
+                    <p className="font-semibold text-sm text-slate-900 dark:text-white">Release Date Confirmed</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">November 19, 2026 · PS5 and Xbox Series X|S</p>
                   </div>
                 </div>
               </div>
@@ -81,7 +80,7 @@ export function GTA6Section() {
                   <Gamepad2 className="w-5 h-5 text-green-500" />
                   <div>
                     <p className="text-xs text-slate-500 dark:text-slate-400">Pre-Orders</p>
-                    <p className="font-semibold text-sm">39M+ Copies</p>
+                    <p className="font-semibold text-sm">Live now</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 shadow-sm">
