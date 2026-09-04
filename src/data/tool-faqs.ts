@@ -265,7 +265,7 @@ export const linkManagerFAQs: ToolFAQ[] = [
 export const canYouRunItFAQs: ToolFAQ[] = [
   {
     question: "Is the PC requirements checker free?",
-    answer: "Yes, the DevelopersMatrix 'Can You Run It?' tool is completely free. Check your hardware compatibility against 1,000+ PC games including AAA titles, indie releases, and upcoming launches. No signup, no software download, and no malware."
+    answer: "Yes, the DevelopersMatrix 'Can You Run It?' tool is completely free. Check your hardware compatibility against popular PC games including AAA titles, indie releases, and upcoming launches. No signup, no software download, and no malware."
   },
   {
     question: "How does the tool know if my PC can run a game?",
@@ -273,7 +273,7 @@ export const canYouRunItFAQs: ToolFAQ[] = [
   },
   {
     question: "What games are in the database?",
-    answer: "The database includes 1,000+ games ranging from current AAA releases like GTA 6, Cyberpunk 2077, and Elden Ring to popular esports titles like Valorant, League of Legends, and Counter-Strike 2, plus indie favorites and classic PC games. New games are added within one week of official system requirements publication. You can request specific games through our community page if a title is missing."
+    answer: "The database includes major releases ranging from current AAA releases like GTA 6, Cyberpunk 2077, and Elden Ring to popular esports titles like Valorant, League of Legends, and Counter-Strike 2, plus indie favorites and classic PC games. New games are added within one week of official system requirements publication. You can request specific games through our community page if a title is missing."
   },
   {
     question: "Does the tool give FPS estimates?",
