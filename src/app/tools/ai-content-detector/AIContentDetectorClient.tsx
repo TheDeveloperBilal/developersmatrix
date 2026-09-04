@@ -77,8 +77,8 @@ export default function AIContentDetectorClient() {
   const [activeTab, setActiveTab] = useState('overview');
   const [copied, setCopied] = useState(false);
   const [stats, setStats] = useState<AnalysisStats>({
-    totalScans: 1247,
-    avgAIScore: 42.3,
+    totalScans: 0,
+    avgAIScore: 0,
     popularMode: 'Blog Content'
   });
   
