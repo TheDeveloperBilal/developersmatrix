@@ -91,7 +91,7 @@ export default function CanYouRunItPage() {
           },
           {
             name: "Search for the game",
-            text: "Enter the game name in the search box. The tool checks a database of 2,000+ games including AAA releases, indie titles, and upcoming launches like GTA 6. Select the correct game from the dropdown to view its official minimum and recommended requirements.",
+            text: "Enter the game name in the search box. The tool checks a curated database of major AAA releases and upcoming launches like GTA 6. Select the correct game from the dropdown to view its official minimum and recommended requirements.",
             url: `${siteConfig.url}/tools/can-you-run-it`
           },
           {
@@ -121,7 +121,7 @@ export default function CanYouRunItPage() {
               Can You Run It? Free PC Game Requirements Checker
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Check your PC specs against game requirements. Get clear answers, FPS estimates, and upgrade suggestions for 1000+ games.
+              Check your PC specs against game requirements. Get clear answers, FPS estimates, and upgrade suggestions.
             </p>
 
             <div className="grid lg:grid-cols-3 gap-8 mt-8">
@@ -156,32 +156,6 @@ export default function CanYouRunItPage() {
                       <span>🔍</span>
                       <span>Website Audit</span>
                     </a>
-                  </div>
-                </div>
-
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold mb-3 text-sm">🎮 2026 Gaming Stats</h3>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">PC gamers who check specs first</span>
-                      <span className="font-semibold">78% fewer refunds</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Avg. hardware upgrade cost</span>
-                      <span className="font-semibold">$200-400</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">AAA games requiring 16GB+ RAM</span>
-                      <span className="font-semibold">65% in 2026</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">SSD now required for most titles</span>
-                      <span className="font-semibold">92%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Gamers who upgrade GPU yearly</span>
-                      <span className="font-semibold">12% (waste of money)</span>
-                    </div>
                   </div>
                 </div>
 
@@ -255,7 +229,7 @@ export default function CanYouRunItPage() {
                     { num: "1", title: "Spec Comparison Engine", color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400", text: "Enter your CPU, GPU, and RAM. The tool compares each component against the game's minimum and recommended requirements. Get a clear verdict: Pass, Partial, or Fail. No technical knowledge required. The comparison accounts for real-world performance, not just model numbers." },
                     { num: "2", title: "FPS Estimator", color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400", text: "Instead of a binary yes or no, get estimated frame rates at different settings. 'Your hardware will achieve 45 FPS at High, 70 FPS at Medium, or 90 FPS at Low.' This helps you decide whether the game is worth buying at your current hardware level or if waiting for an upgrade makes more sense." },
                     { num: "3", title: "Upgrade Suggestions", color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400", text: "If your PC falls short, the tool suggests the single most impactful upgrade. Often this is just one component: upgrading from 8GB to 16GB RAM, or swapping a GTX 1650 for an RTX 3060. The recommendations prioritize cost-effectiveness and include expected performance gains so you can make an informed decision." },
-                    { num: "4", title: "1000+ Games Database", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "From indie darlings to AAA blockbusters, the database covers the full spectrum. New releases are added weekly. Community benchmarks are incorporated to refine estimates. Whether you are checking a 5-year-old classic or a just-announced title, the tool has the data you need." },
+                    { num: "4", title: "Games Database", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "From indie darlings to AAA blockbusters, the database covers the full spectrum. New releases are added weekly. Community benchmarks are incorporated to refine estimates. Whether you are checking a 5-year-old classic or a just-announced title, the tool has the data you need." },
                   ].map((f) => (
                     <div key={f.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
                       <div className="flex items-center gap-3 mb-3">
@@ -348,7 +322,7 @@ export default function CanYouRunItPage() {
                 <div className="grid sm:grid-cols-3 gap-6">
                   {[
                     { num: "1", title: "Enter Your Specs (30 seconds)", text: "Input your CPU model, GPU model, and RAM amount. Be as specific as possible: 'Intel Core i5-12400F' is better than 'Intel i5.' If unsure, press Windows key, type 'System Information,' and your CPU and RAM are listed there. GPU info is under 'Device Manager > Display Adapters.'" },
-                    { num: "2", title: "Select Your Game (15 seconds)", text: "Choose the game you want to check from the database of 1000+ titles. The tool immediately shows the game's minimum and recommended requirements side by side with your hardware." },
+                    { num: "2", title: "Select Your Game (15 seconds)", text: "Choose the game you want to check from the database. The tool immediately shows the game's minimum and recommended requirements side by side with your hardware." },
                     { num: "3", title: "Review Results (15 seconds)", text: "Get a clear verdict: Pass, Partial, or Fail. See estimated FPS at different settings. If you need upgrades, the tool suggests the most impactful component to replace. The entire process takes under a minute and saves you from buying games your PC cannot handle." },
                   ].map((w) => (
                     <div key={w.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 relative">
@@ -384,7 +358,7 @@ export default function CanYouRunItPage() {
               <section className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white text-center">
                 <h2 className="text-2xl font-bold mb-3">Know Before You Buy</h2>
                 <p className="text-white/90 mb-6 max-w-xl mx-auto">
-                  Join 2,000+ gamers who check specs first. Free, instant, and saves you from unplayable games.
+                  Check your specs first. Free, instant, and saves you from unplayable games.
                 </p>
                 <a href="#can-you-run-it" className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-purple-600 font-medium hover:bg-white/90 transition-colors">
                   Check Your PC Now →
@@ -435,7 +409,7 @@ export default function CanYouRunItPage() {
           <div className="grid sm:grid-cols-2 gap-4 mb-6">
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-2">1️⃣ Select Your Game</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Choose from our database of 10,000+ games including new releases, classics, and upcoming titles.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Choose from our database of major releases including new titles, and upcoming titles.</p>
             </div>
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2️⃣ Enter Your Specs</h4>
@@ -499,7 +473,7 @@ export default function CanYouRunItPage() {
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
                   <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">0-100</div>
                   <h3 className="font-semibold mb-2">Compatibility Score Range</h3>
-                  <p className="text-sm text-muted-foreground">0-39: Will not run. 40-59: Runs at minimum settings. 60-79: Runs at medium settings. 80-100: Runs at high/ultra settings.</p>
+                  <p className="text-sm text-muted-foreground">80 and above means comfortable headroom. 60 to 79 is playable with settings adjustments. Below 60 means you will struggle.</p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
                   <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">40%</div>
@@ -507,9 +481,9 @@ export default function CanYouRunItPage() {
                   <p className="text-sm text-muted-foreground">The graphics card is the single most important component for gaming performance. It carries the highest weight in our scoring algorithm.</p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">8%</div>
-                  <h3 className="font-semibold mb-2">FPS Estimate Accuracy</h3>
-                  <p className="text-sm text-muted-foreground">Our FPS predictions are within 8% of actual benchmarks for 847 tested hardware configurations, verified against community data.</p>
+                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">4</div>
+                  <h3 className="font-semibold mb-2">Components Scored</h3>
+                  <p className="text-sm text-muted-foreground">Your GPU, CPU, RAM and storage speed are each scored against the game requirements, then weighted into one number.</p>
                 </div>
               </div>
 
@@ -521,11 +495,11 @@ export default function CanYouRunItPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">2</span>
-                  <span><strong>Weighted scoring:</strong> GPU contributes 40% of the score, CPU contributes 30%, RAM contributes 20%, and storage speed contributes 10%.</span>
+                  <span><strong>Weighted scoring:</strong> GPU contributes 40% of the score, CPU contributes 30%, RAM contributes 15%, and storage speed contributes 15%.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">3</span>
-                  <span><strong>FPS estimation:</strong> Based on 847 tested configurations, we estimate expected frame rates at low, medium, high, and ultra settings for your exact hardware.</span>
+                  <span><strong>FPS estimation:</strong> We estimate expected frame rates at low, medium, high, and ultra settings for your exact hardware.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">4</span>
@@ -582,7 +556,7 @@ export default function CanYouRunItPage() {
               Stop guessing. Stop wasting money on games your PC cannot run. Use our free tool and know for sure in seconds.
             </p>
             <p className="text-purple-700 dark:text-purple-400 text-xs">
-              100% free. 10,000+ games. Instant results.
+              100% free. Instant results.
             </p>
           </div>
         </div>

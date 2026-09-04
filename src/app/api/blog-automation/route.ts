@@ -96,7 +96,7 @@ function getAuthorForCategory(category: string): string {
     'World News': 'Global Affairs Reporter',
     'Entertainment': 'Entertainment Writer',
     'Career': 'Career Expert',
-    'AI': 'AI Research Team',
+    'AI': 'Syed Bilal Shah',
     'Science': 'Science Editor',
     'Health': 'Health Correspondent'
   };
