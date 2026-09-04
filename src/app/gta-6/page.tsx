@@ -1,19 +1,19 @@
 import { Metadata } from 'next';
 import GTA6Client from './GTA6Client';
-import { FAQSchema, BreadcrumbSchema, ArticleSchema, ClaimReviewSchema } from '@/components/seo/SchemaMarkup';
+import { FAQSchema, BreadcrumbSchema, ArticleSchema } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/data/config';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: "GTA 6 Pre-Orders Live: $1 Billion First Hour Sales Record | Release Date Nov 19 2026",
-  description: "GTA 6 pre-orders are live and broke records with $1 billion in revenue within the first hour. Release date November 19, 2026 for PS5 and Xbox Series X. Check system requirements, gameplay features, and the latest confirmed news about Grand Theft Auto VI.",
+  title: "GTA 6 Release Date Nov 19 2026: PC Requirements & Pre-Orders",
+  description: "GTA 6 releases November 19, 2026 on PS5 and Xbox Series X. Check system requirements, gameplay features, and the latest confirmed news about Grand Theft Auto VI.",
   keywords: ['GTA 6 pre order live', 'GTA 6 sales record', 'GTA 6 release date november 19 2026', 'GTA 6 release date confirmed', 'GTA 6 PC requirements', 'GTA 6 gameplay', 'Grand Theft Auto 6', 'GTA 6 news 2026', 'GTA 6 system requirements', 'when is GTA 6 coming out', 'GTA 6 release date november 2026', 'GTA VI confirmed', 'GTA 6 pre order sales', 'GTA 6 billion dollars', 'GTA 6 copies sold'],
   alternates: {
     canonical: 'https://developersmatrix.com/gta-6'
   },
   openGraph: {
     title: "GTA 6 Pre-Orders Live: $1 Billion First Hour Sales Record | Nov 19 2026",
-    description: "GTA 6 pre-orders broke records with $1 billion revenue in the first hour. Official release date November 19, 2026.",
+    description: "GTA 6 pre-orders are live. Official release date November 19, 2026.",
     images: ['/og-gta6.png'],
   },
 };
@@ -73,20 +73,6 @@ export default function GTA6Page() {
         authorUrl={`${siteConfig.url}/about`}
         authorJobTitle="Founder & Lead Editor"
         articleSection="Gaming News"
-      />
-      <ClaimReviewSchema
-        claimReviewed="GTA 6 will release on November 19, 2026"
-        reviewRating={{ ratingValue: 5, alternateName: 'True' }}
-        author="DevelopersMatrix"
-        datePublished="2026-05-08T00:00:00+00:00"
-        url={`${siteConfig.url}/gta-6`}
-      />
-      <ClaimReviewSchema
-        claimReviewed="GTA 6 PC version will release in 2027"
-        reviewRating={{ ratingValue: 4, alternateName: 'Mostly True' }}
-        author="DevelopersMatrix"
-        datePublished="2026-05-08T00:00:00+00:00"
-        url={`${siteConfig.url}/gta-6`}
       />
       <FAQSchema faqs={gta6Faqs} />
       <GTA6Client />

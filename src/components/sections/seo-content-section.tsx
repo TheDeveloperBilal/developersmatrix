@@ -18,7 +18,7 @@ const topicClusters = [
   {
     icon: Gauge,
     title: "SEO & Website Tools",
-    text: "Run a full website health check covering SEO, performance, security, mobile UX, and content quality. Get a prioritized fix list you can act on the same day. Over 3,400 sites audited.",
+    text: "Run a full website health check covering SEO, performance, security, mobile UX, and content quality. Get a prioritized fix list you can act on the same day.",
     links: [
       { label: "AI Website Audit", href: "/tools/website-audit" },
       { label: "AI Content Detector", href: "/tools/ai-content-detector" },
@@ -71,7 +71,7 @@ const faqs = [
   },
   {
     question: "How does the AI Resume Builder work?",
-    answer: "Enter your details section by section. The AI helps write bullet points, optimize for ATS scanners, and format your resume in a professional layout. Over 8,900 resumes have been created.",
+    answer: "Enter your details section by section. The AI helps write bullet points, optimize for ATS scanners, and format your resume in a professional layout.",
   },
   {
     question: "What does the Website Audit Tool check?",

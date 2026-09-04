@@ -771,7 +771,6 @@ export const allTrends: TrendItem[] = [
         { label: 'GTA 5 Lifetime Revenue', value: '$8.5B+', source: 'Take Two Interactive' },
         { label: 'Trailer Views in 24 Hours', value: '93M+', source: 'YouTube' },
         { label: 'Concurrent GTA Online Players Daily', value: '200K+', source: 'Steam Charts' },
-        { label: 'Expected First Month Sales', value: '$1B+', source: 'Market projections' },
         { label: 'Development Team Size', value: '2,000+', source: 'Rockstar Studios' }
       ],
       expertCommentary: 'I have covered every major Rockstar release since 2008. GTA 6 feels different. Not just in scale, but in ambition. The industry has spent a decade chasing the live service model, and many have burned out their audiences. Rockstar is taking the opposite approach. They are building something meant to last fifteen years, not fifteen months. The decision to return to Vice City after twenty years is deliberate. It gives them a familiar foundation to build upon while the technology leap does the heavy lifting of feeling fresh. What impresses me most is the AI population system. If Rockstar delivers on NPCs with memory and routines, it changes what open world means. Right now open world means a big map with activities. GTA 6 could make it mean a world that lives independently of the player. That is the difference between a sandbox and a simulation.',

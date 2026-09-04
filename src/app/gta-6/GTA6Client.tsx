@@ -237,7 +237,7 @@ export default function GTA6Client() {
             <div className="text-center md:text-left min-w-0">
               <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 max-w-full">
                 <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 shrink-0" />
-                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Pre-Orders Live — $1B First Hour</span>
+                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Pre-Orders Live · Releases Nov 19, 2026</span>
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 break-words">
                 Grand Theft Auto <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">VI</span>
@@ -248,11 +248,11 @@ export default function GTA6Client() {
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
                 <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
-                  <span className="truncate">$1B First Hour</span>
+                  <span className="truncate">Pre-Orders Live</span>
                 </Badge>
                 <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400 shrink-0" />
-                  <span className="truncate">39M+ Pre-Ordered</span>
+                  <span className="truncate">Nov 19, 2026 Release</span>
                 </Badge>
                 <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-400 shrink-0" />

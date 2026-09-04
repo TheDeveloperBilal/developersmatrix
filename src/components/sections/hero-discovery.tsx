@@ -83,7 +83,7 @@ export default function HeroDiscovery() {
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-500 sm:text-lg">
             DevelopersMatrix combines 20+ free AI tools, a live technology trend radar and
-            practical career guides into one platform — everything free, everything in your
+            practical career guides into one platform. Everything free, everything in your
             browser.
           </p>
 
@@ -99,7 +99,7 @@ export default function HeroDiscovery() {
 
           <div className="mt-10 flex gap-10 border-t border-ink-100/40 pt-6">
             <Stat value={20} suffix="+" label="Free AI tools" />
-            <Stat value={3400} suffix="+" label="Websites audited" />
+            <Stat value={30} suffix="" label="Guides published" />
           </div>
         </div>
 
@@ -123,11 +123,11 @@ export default function HeroDiscovery() {
                 <p className="font-sora text-[1.05rem] font-bold leading-snug text-ink-950">
                   AI agents in workflows
                 </p>
-                <p className="mt-1 text-xs text-ink-400">Search interest · 30 days</p>
+                <p className="mt-1 text-xs text-ink-400">Featured trend report</p>
               </div>
               <span className="flex items-center gap-1 rounded-lg bg-emerald-50 px-2.5 py-1.5 text-sm font-bold text-emerald-600">
                 <TrendingUp className="h-4 w-4" />
-                +214%
+                Rising
               </span>
             </div>
 
@@ -145,9 +145,9 @@ export default function HeroDiscovery() {
 
             <div className="mt-4 grid grid-cols-3 divide-x divide-white/10 rounded-xl bg-white/5 py-3 text-center backdrop-blur-sm">
               {[
-                ["86", "Signals tracked"],
-                ["12", "Rising today"],
-                ["4", "Hot topics"],
+                ["20", "Topics tracked"],
+                ["5", "Trend reports"],
+                ["4", "Categories"],
               ].map(([v, l]) => (
                 <div key={l}>
                   <p className="font-sora text-base font-bold text-ink-900">{v}</p>
@@ -184,7 +184,7 @@ export default function HeroDiscovery() {
               </span>
               <div>
                 <p className="text-xs font-bold text-ink-900">Resume Builder</p>
-                <p className="text-[0.625rem] font-medium text-ink-400">8.9k created</p>
+                <p className="text-[0.625rem] font-medium text-ink-400">Free, no signup</p>
               </div>
             </div>
           </Link>

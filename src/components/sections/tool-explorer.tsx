@@ -101,7 +101,7 @@ export default function ToolExplorer() {
                   </p>
                   <div className="mt-5 flex items-center justify-between border-t border-ink-100/50 pt-4">
                     <span className="text-xs font-medium text-ink-400">
-                      {tool.category} · {tool.uses}
+                      {tool.category}
                     </span>
                     <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600">
                       Open
