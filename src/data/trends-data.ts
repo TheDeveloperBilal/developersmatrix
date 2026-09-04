@@ -1109,9 +1109,9 @@ export const allTrends: TrendItem[] = [
         'Set up automated security alert routing to ensure the right person responds within an hour. Configure escalation paths for after-hours incidents, and test the alerting pipeline monthly with a simulated breach scenario to verify response times.'
       ]
     },
-    metaTitle: 'AI Cybersecurity 2026: Threats & Defense | DevelopersMatrix',
-    metaDescription: 'Protect against AI-powered cyber threats in 2026. Learn about deepfake attacks, AI phishing, and modern security practices.',
-    keywords: ['AI cybersecurity', 'cybersecurity threats 2026', 'AI security', 'deepfake attacks']
+    metaTitle: 'AI Cybersecurity Threats 2026: Attacks and Defenses',
+    metaDescription: 'AI cybersecurity threats in 2026: deepfake attacks, AI phishing and automated intrusion. What the attacks look like and how to defend against them.',
+    keywords: ['ai cybersecurity threats 2026', 'ai cyber attacks 2026', 'ai threat intelligence 2026', 'ai security threats 2026', 'deepfake attacks']
   },
   {
     id: '12',
