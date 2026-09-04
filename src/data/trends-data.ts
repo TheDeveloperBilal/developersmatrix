@@ -898,7 +898,7 @@ export const allTrends: TrendItem[] = [
         { value: '1,121', label: 'Physical qubits in IBM Condor processor', source: 'IBM Quantum Roadmap 2026' }
       ],
     },
-    metaTitle: 'Quantum Computing 2026: Practical Guide | DevelopersMatrix',
+    metaTitle: 'Quantum Computing Applications 2026',
     metaDescription: 'Understand quantum computing in 2026. Learn what quantum computers can do, real-world applications, and how to get started with quantum programming.',
     keywords: ['quantum computing', 'quantum computers explained', 'quantum technology', 'qubits', 'latest advancements quantum computing applications 2026', 'quantum computing platforms 2026', 'quantum computing drug discovery 2026']
   },
@@ -1109,7 +1109,7 @@ export const allTrends: TrendItem[] = [
         'Set up automated security alert routing to ensure the right person responds within an hour. Configure escalation paths for after-hours incidents, and test the alerting pipeline monthly with a simulated breach scenario to verify response times.'
       ]
     },
-    metaTitle: 'AI Cybersecurity Threats 2026: Attacks and Defenses',
+    metaTitle: 'AI Cybersecurity Threats 2026',
     metaDescription: 'AI cybersecurity threats in 2026: deepfake attacks, AI phishing and automated intrusion. What the attacks look like and how to defend against them.',
     keywords: ['ai cybersecurity threats 2026', 'ai cyber attacks 2026', 'ai threat intelligence 2026', 'ai security threats 2026', 'deepfake attacks']
   },
