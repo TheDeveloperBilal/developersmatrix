@@ -432,7 +432,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'can-you-run-it': {
     title: 'Can You Run It? — Free PC Game Requirements Checker | DevelopersMatrix',
-    description: 'Free PC game requirements checker for 2026. Compare your hardware specs against minimum and recommended requirements for 1000+ games including GTA 6, Cyberpunk, Elden Ring, and more. Get FPS estimates and upgrade suggestions. No signup needed.',
+    description: 'Free PC game requirements checker for 2026. Compare your hardware specs against minimum and recommended requirements for popular games including GTA 6, Cyberpunk, Elden Ring, and more. Get FPS estimates and upgrade suggestions. No signup needed.',
     keywords: [
       'can you run it free',
       'pc game requirements checker',

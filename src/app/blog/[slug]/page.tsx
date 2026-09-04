@@ -130,7 +130,7 @@ function getMidArticleCTA(tags: string[]): { title: string; description: string;
   if (tagStr.includes('gaming') || tagStr.includes('gta') || tagStr.includes('pc')) {
     return {
       title: 'Can Your PC Run the Latest Games?',
-      description: 'Compare your specs against 1000+ games including GTA 6. Get FPS estimates instantly.',
+      description: 'Compare your specs against popular games including GTA 6. Get FPS estimates instantly.',
       buttonText: 'Check Your PC →',
       href: '/tools/can-you-run-it',
     };
