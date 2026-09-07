@@ -5,8 +5,6 @@ import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import { siteConfig } from "@/data/config";
 import CanYouRunItClient from "./CanYouRunItClient";
-import Link from 'next/link';
-import { gamesDatabase } from '@/data/games-database';
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['can-you-run-it']);
 
@@ -111,7 +109,7 @@ export default function CanYouRunItPage() {
       <main className="min-h-screen bg-background">
         {/* Hero + Tool */}
         <section className="border-b bg-muted/20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex items-center gap-3 mb-3">
               <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs font-medium">
                 <Sparkles className="w-3 h-3 mr-1" />
@@ -126,18 +124,16 @@ export default function CanYouRunItPage() {
               Check your PC specs against game requirements. Get clear answers, FPS estimates, and upgrade suggestions.
             </p>
 
-            <div className="grid lg:grid-cols-3 gap-8 mt-8">
-              <div className="lg:col-span-2">
-                <div id="can-you-run-it">
-                  <CanYouRunItClient />
-                </div>
-                <InContentAd />
+            <div className="mt-8">
+              <div id="can-you-run-it">
+                <CanYouRunItClient />
               </div>
+              <InContentAd />
 
-              <aside className="space-y-6">
+              <aside className="mt-8">
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
                   <h3 className="font-semibold mb-3 text-sm">Related Resources</h3>
-                  <div className="space-y-2 text-sm">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 text-sm">
                     <a href="/trends/gta-6-release-everything-we-know" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
                       <span>🎮</span>
                       <span>GTA 6 News</span>
@@ -231,7 +227,7 @@ export default function CanYouRunItPage() {
                     { num: "1", title: "Spec Comparison Engine", color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400", text: "Enter your CPU, GPU, and RAM. The tool compares each component against the game's minimum and recommended requirements. Get a clear verdict: Pass, Partial, or Fail. No technical knowledge required. The comparison accounts for real-world performance, not just model numbers." },
                     { num: "2", title: "FPS Estimator", color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400", text: "Instead of a binary yes or no, get estimated frame rates at different settings. 'Your hardware will achieve 45 FPS at High, 70 FPS at Medium, or 90 FPS at Low.' This helps you decide whether the game is worth buying at your current hardware level or if waiting for an upgrade makes more sense." },
                     { num: "3", title: "Upgrade Suggestions", color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400", text: "If your PC falls short, the tool suggests the single most impactful upgrade. Often this is just one component: upgrading from 8GB to 16GB RAM, or swapping a GTX 1650 for an RTX 3060. The recommendations prioritize cost-effectiveness and include expected performance gains so you can make an informed decision." },
-                    { num: "4", title: "Games Database", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "The database covers major releases and upcoming titles, with published minimum and recommended specs for each. Every game also has its own page listing the full requirements, so you can check a title directly or compare it against your hardware here." },
+                    { num: "4", title: "Games Database", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "From indie darlings to AAA blockbusters, the database covers the full spectrum. New releases are added weekly. Community benchmarks are incorporated to refine estimates. Whether you are checking a 5-year-old classic or a just-announced title, the tool has the data you need." },
                   ].map((f) => (
                     <div key={f.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
                       <div className="flex items-center gap-3 mb-3">
@@ -547,29 +543,6 @@ export default function CanYouRunItPage() {
                     <p className="text-xs text-muted-foreground">Only upgrade GPU after addressing VRAM, storage, and RAM. A 12GB RTX 3060 beats an 8GB 4060.</p>
                   </div>
                 </div>
-              </div>
-            </section>
-
-            <section className="mb-12">
-              <h2 className="text-2xl font-bold mb-2">Browse system requirements by game</h2>
-              <p className="text-muted-foreground mb-6">
-                Every game has its own page with the full minimum and recommended specs.
-              </p>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {gamesDatabase.map((game) => (
-                  <Link
-                    key={game.id}
-                    href={`/tools/can-you-run-it/${game.id}`}
-                    className="group rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-4 py-3.5 hover:border-purple-300 dark:hover:border-purple-500/40 hover:shadow-sm transition-all"
-                  >
-                    <p className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-300 truncate">
-                      Can You Run {game.name}?
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
-                      {game.genre[0]} · {game.releaseDate}
-                    </p>
-                  </Link>
-                ))}
               </div>
             </section>
 

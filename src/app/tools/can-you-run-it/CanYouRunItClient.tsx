@@ -159,9 +159,9 @@ export default function CanYouRunItClient() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <div className={selectedGame ? "grid grid-cols-1 lg:grid-cols-2 gap-8" : "grid grid-cols-1 gap-8"}>
+          <div className={selectedGame ? "grid grid-cols-1 lg:grid-cols-3 gap-8" : "grid grid-cols-1 gap-8"}>
             {/* Game Selection */}
-            <div className="space-y-6">
+            <div className="space-y-6 lg:col-span-1">
               <div className="space-y-4">
                 <Label className="text-base font-semibold">Select a Game</Label>
                 
@@ -188,8 +188,8 @@ export default function CanYouRunItClient() {
                 
                 {/* Games Grid */}
                 <div className={selectedGame
-                  ? "grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[26rem] overflow-y-auto pr-1"
-                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"}>
+                  ? "grid grid-cols-1 gap-2.5 max-h-[30rem] overflow-y-auto pr-1"
+                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"}>
                   {filteredGames.map(game => (
                     <button
                       key={game.id}
@@ -210,24 +210,24 @@ export default function CanYouRunItClient() {
                         </span>
                       )}
 
-                      <span
-                        aria-hidden="true"
-                        className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 text-base font-bold text-purple-700 dark:bg-purple-500/20 dark:text-purple-300"
-                      >
-                        {game.name.replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase()}
-                      </span>
-
-                      <p className="pr-10 font-semibold leading-snug text-foreground group-hover:text-purple-700 dark:group-hover:text-purple-300">
-                        {game.name}
-                      </p>
-                      <p className="mt-1 text-xs text-muted-foreground truncate">
-                        {game.genre[0]}
-                      </p>
-
-                      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-                        <span className="truncate">{game.releaseDate}</span>
-                        <span aria-hidden="true" className="opacity-40">|</span>
-                        <span className="font-medium text-foreground truncate">{game.price}</span>
+                      <div className="flex items-start gap-3">
+                        <span
+                          aria-hidden="true"
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-sm font-bold text-purple-700 dark:bg-purple-500/20 dark:text-purple-300"
+                        >
+                          {game.name.replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase()}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="pr-8 font-semibold leading-snug text-foreground group-hover:text-purple-700 dark:group-hover:text-purple-300">
+                            {game.name}
+                          </p>
+                          <p className="mt-0.5 text-xs text-muted-foreground truncate">
+                            {game.genre[0]} · {game.releaseDate}
+                          </p>
+                          <p className="mt-1.5 text-xs font-medium text-foreground">
+                            {game.price}
+                          </p>
+                        </div>
                       </div>
                     </button>
                   ))}
@@ -273,7 +273,7 @@ export default function CanYouRunItClient() {
             </div>
 
             {/* User Specs Input & Results */}
-            <div className="space-y-6">
+            <div className="space-y-6 lg:col-span-2">
               {showForm && selectedGame ? (
                 <>
                   <div className="space-y-4">
