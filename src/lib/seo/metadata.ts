@@ -145,7 +145,7 @@ export const pageMetadata = {
 // Tool-specific metadata
 export const toolMetadata: Record<string, PageMetadataOptions> = {
   'website-audit': {
-    title: 'Free Website Audit Tool — Check SEO, Speed & Security Instantly | DevelopersMatrix',
+    title: 'Free Website Audit Tool: SEO and Speed Check',
     description: 'Free AI-powered website audit tool. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.',
     keywords: [
       'free website audit tool',
@@ -167,7 +167,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/website-audit'
   },
   'ai-content-detector': {
-    title: 'Free AI Content Detector — Check Text Authenticity Instantly | DevelopersMatrix',
+    title: 'Free AI Content Detector: Check Any Text',
     description: 'Free AI content detector with real perplexity and burstiness analysis. Detect ChatGPT, GPT-4, Claude, and Gemini text instantly. 7 content modes, sentence-level breakdown, SEO issue detection. No signup, no credit card, 100% free.',
     keywords: [
       'free ai content detector',
@@ -189,7 +189,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-content-detector'
   },
   'ai-resume-builder': {
-    title: 'Free AI Resume Builder — Create ATS-Friendly Resumes Online | DevelopersMatrix',
+    title: 'Free AI Resume Builder for ATS Resumes',
     description: 'Build an ATS-friendly resume in minutes with our free AI resume builder. Tailored for developers, software engineers, and tech professionals. 2026-ready templates, keyword optimization, and instant PDF export.',
     keywords: [
       'free resume builder online',
@@ -211,7 +211,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-resume-builder'
   },
   'ai-cover-letter-generator': {
-    title: 'Free AI Cover Letter Generator — Create Cover Letters in 60 Seconds | DevelopersMatrix',
+    title: 'Free AI Cover Letter Generator',
     description: 'Free AI cover letter generator for developers, engineers, and tech professionals. Create personalized, ATS-friendly cover letters tailored to any job description in under 60 seconds. No signup, no credit card, unlimited use.',
     keywords: [
       'free cover letter generator',
@@ -233,7 +233,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-cover-letter-generator'
   },
   'ai-interview-simulator': {
-    title: 'Free AI Interview Simulator — Practice Tech Interviews Online | DevelopersMatrix',
+    title: 'Free AI Interview Simulator for Tech Jobs',
     description: 'Free AI-powered interview simulator for developers and tech professionals. Practice behavioral, technical, and system design interviews with instant feedback. Role-specific questions for frontend, backend, DevOps, and data roles. No signup needed.',
     keywords: [
       'free interview simulator',
@@ -255,7 +255,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-interview-simulator'
   },
   'salary-estimator': {
-    title: 'Free Tech Salary Calculator — Check Salaries by Role & City | DevelopersMatrix',
+    title: 'Free Tech Salary Calculator by Role and City',
     description: 'Free tech salary estimator for 2026. Calculate software engineer, developer, data scientist, and tech role salaries by city and experience. Compare compensation across San Francisco, New York, Seattle, Austin, and remote. Updated with 2026 market data. No signup needed.',
     keywords: [
       'free salary calculator',
@@ -277,7 +277,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/salary-estimator'
   },
   'budget-planner': {
-    title: 'Free Budget Planner — Track Income, Expenses & Savings Goals | DevelopersMatrix',
+    title: 'Free Budget Planner: Income and Savings',
     description: 'Free AI-powered budget planner for 2026. Track income and expenses, visualize spending patterns, calculate savings goals, and get personalized financial insights. Perfect for developers, freelancers, and professionals managing variable income. No signup needed.',
     keywords: [
       'free budget planner online',
@@ -299,7 +299,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/budget-planner'
   },
   'habit-tracker': {
-    title: 'Free Habit Tracker — Build Daily Routines & Track Streaks | DevelopersMatrix',
+    title: 'Free Habit Tracker with Daily Streaks',
     description: 'Free habit tracker for 2026. Build positive daily routines, break bad habits, track streaks, and visualize your progress with beautiful charts. Perfect for developers and professionals seeking consistency. No signup needed, works offline.',
     keywords: [
       'free habit tracker online',
@@ -321,7 +321,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/habit-tracker'
   },
   'productivity-planner': {
-    title: 'Free Productivity Planner — AI Task Manager & Daily Schedule | DevelopersMatrix',
+    title: 'Free Productivity Planner and Task Manager',
     description: 'Free AI-powered productivity planner for 2026. Smart task management, priority optimization, intelligent scheduling, and deep work blocks. Perfect for developers, freelancers, and remote workers. No signup, no credit card, unlimited use.',
     keywords: [
       'free productivity planner online',
@@ -343,7 +343,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/productivity-planner'
   },
   'startup-idea-generator': {
-    title: 'Free Startup Idea Generator — AI Business Ideas by Industry | DevelopersMatrix',
+    title: 'Free Startup Idea Generator by Industry',
     description: 'Free AI startup idea generator for 2026. Discover innovative business ideas across AI, SaaS, FinTech, HealthTech, Climate Tech, Robotics, and more. Each idea includes market analysis, monetization strategy, competition level, and MVP timeline. No signup needed.',
     keywords: [
       'free startup idea generator',
@@ -365,7 +365,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/startup-idea-generator'
   },
   'ai-prompt-library': {
-    title: 'Free AI Prompt Library — 500+ Prompts for ChatGPT & Claude | DevelopersMatrix',
+    title: 'Free AI Prompt Library for ChatGPT and Claude',
     description: 'Free AI prompt library with 500+ tested prompts for ChatGPT, Claude, Midjourney, DALL-E, and more. Organized by category with copy-paste ease. Test prompts in our live sandbox. No signup needed. Updated for 2026 AI models.',
     keywords: [
       'free ai prompt library',
@@ -387,7 +387,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-prompt-library'
   },
   'ai-email-assistant': {
-    title: 'Free AI Email Assistant — Write Professional Emails Instantly | DevelopersMatrix',
+    title: 'Free AI Email Assistant for Fast Replies',
     description: 'Free AI email assistant that writes professional emails from brief notes in seconds. Rewrite for tone, draft follow-ups, and generate cold outreach. Perfect for developers, freelancers, and professionals. No signup, no credit card, unlimited use.',
     keywords: [
       'free ai email assistant',
@@ -409,7 +409,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-email-assistant'
   },
   'link-manager': {
-    title: 'Free Link Shortener & Bio Page Builder — Branded Links | DevelopersMatrix',
+    title: 'Free Link Shortener and Bio Page Builder',
     description: 'Free branded link shortener with click analytics, QR codes, and smart bio pages. Create custom short links, track clicks in real-time, and build auto-updating link-in-bio pages. Perfect for creators, developers, and businesses. No signup needed.',
     keywords: [
       'free link shortener',
@@ -431,7 +431,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/link-manager'
   },
   'can-you-run-it': {
-    title: 'Can You Run It? — Free PC Game Requirements Checker | DevelopersMatrix',
+    title: 'Can You Run It? Free PC Requirements Checker',
     description: 'Free PC game requirements checker for 2026. Compare your hardware specs against minimum and recommended requirements for popular games including GTA 6, Cyberpunk, Elden Ring, and more. Get FPS estimates and upgrade suggestions. No signup needed.',
     keywords: [
       'can you run it free',

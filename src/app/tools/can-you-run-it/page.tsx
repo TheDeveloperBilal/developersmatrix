@@ -27,7 +27,7 @@ const toolFaqs = [
   },
   {
     question: "How accurate are the hardware requirements?",
-    answer: "The requirements are sourced from official publisher data and continuously updated community benchmarks. For each game, we provide minimum requirements (what you need to run the game at all) and recommended requirements (what you need for a smooth, enjoyable experience). The checker also estimates expected frame rates based on your hardware, which is more useful than a simple yes or no answer."
+    answer: "Requirements come from the specs the publisher published for each game. For every title you see the minimum requirements, meaning what you need to launch the game at all, and the recommended requirements, meaning what you need for a smooth session at higher settings. The checker then estimates frame rates from your hardware, which tells you more than a plain yes or no."
   },
   {
     question: "Can I check if my laptop can run a specific game?",
@@ -43,7 +43,7 @@ const toolFaqs = [
   },
   {
     question: "How often is the game database updated?",
-    answer: "The game database is updated weekly with new releases, patches that change requirements, and community benchmark data. Major upcoming releases like GTA 6 are tracked with the latest available information from official sources and hardware analysis from the PC gaming community."
+    answer: "The database is refreshed when publishers announce new titles or revise the specs on existing ones. Major upcoming releases such as GTA 6 carry the latest figures published by the developer, and the entry is updated as soon as those change."
   },
   {
     question: "Do I need to know my exact hardware model?",
@@ -113,7 +113,7 @@ export default function CanYouRunItPage() {
             <div className="flex items-center gap-3 mb-3">
               <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs font-medium">
                 <Sparkles className="w-3 h-3 mr-1" />
-                AI-Powered
+                Instant Results
               </span>
               <span className="text-xs text-muted-foreground">Updated for 2026</span>
             </div>
@@ -227,7 +227,7 @@ export default function CanYouRunItPage() {
                     { num: "1", title: "Spec Comparison Engine", color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400", text: "Enter your CPU, GPU, and RAM. The tool compares each component against the game's minimum and recommended requirements. Get a clear verdict: Pass, Partial, or Fail. No technical knowledge required. The comparison accounts for real-world performance, not just model numbers." },
                     { num: "2", title: "FPS Estimator", color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400", text: "Instead of a binary yes or no, get estimated frame rates at different settings. 'Your hardware will achieve 45 FPS at High, 70 FPS at Medium, or 90 FPS at Low.' This helps you decide whether the game is worth buying at your current hardware level or if waiting for an upgrade makes more sense." },
                     { num: "3", title: "Upgrade Suggestions", color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400", text: "If your PC falls short, the tool suggests the single most impactful upgrade. Often this is just one component: upgrading from 8GB to 16GB RAM, or swapping a GTX 1650 for an RTX 3060. The recommendations prioritize cost-effectiveness and include expected performance gains so you can make an informed decision." },
-                    { num: "4", title: "Games Database", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "From indie darlings to AAA blockbusters, the database covers the full spectrum. New releases are added weekly. Community benchmarks are incorporated to refine estimates. Whether you are checking a 5-year-old classic or a just-announced title, the tool has the data you need." },
+                    { num: "4", title: "Games Database", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "The database covers major PC releases across genres, from long running classics to titles that have not shipped yet. Each entry lists the publisher stated minimum and recommended specs so you are comparing your hardware against the numbers the developer actually published." },
                   ].map((f) => (
                     <div key={f.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
                       <div className="flex items-center gap-3 mb-3">
