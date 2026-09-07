@@ -3,6 +3,7 @@ import { blogPosts } from '@/data/blog';
 import { tools } from '@/data/tools';
 import { getIndexableTrends, getIndexableTrendSlugs } from '@/data/trends-data';
 import { siteConfig } from '@/data/config';
+import { gamesDatabase } from '@/data/games-database';
 
 // Stable dates reflecting actual last meaningful updates — NOT regenerated per build
 const DATES = {
@@ -120,5 +121,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: trend.featured ? 0.75 : 0.7,
   }));
 
-  return [...staticPages, ...blogPages, ...toolPages, ...trendPages];
+  // Game requirement pages under the Can You Run It tool
+  const gamePages: MetadataRoute.Sitemap = gamesDatabase.map((game) => ({
+    url: `${baseUrl}/tools/can-you-run-it/${game.id}`,
+    lastModified: DATES.recent,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...blogPages, ...toolPages, ...trendPages, ...gamePages];
 }
