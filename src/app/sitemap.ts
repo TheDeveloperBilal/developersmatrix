@@ -121,6 +121,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: trend.featured ? 0.75 : 0.7,
   }));
 
+  // Tool pages that are live but not listed in src/data/tools.ts.
+  // Without these entries they never reach the sitemap even though they are
+  // linked internally. Move them into tools.ts if they are ever added there.
+  const unlistedToolPages: MetadataRoute.Sitemap = [
+    `${baseUrl}/tools/website-audit`,
+    `${baseUrl}/tools/ai-content-detector`,
+  ]
+    .filter((url) => !toolPages.some((page) => page.url === url))
+    .map((url) => ({
+      url,
+      lastModified: DATES.recent,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }));
+
   // Game requirement pages under the Can You Run It tool
   const gamePages: MetadataRoute.Sitemap = gamesDatabase.map((game) => ({
     url: `${baseUrl}/tools/can-you-run-it/${game.id}`,
@@ -129,5 +144,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages, ...toolPages, ...trendPages, ...gamePages];
+  return [...staticPages, ...blogPages, ...toolPages, ...unlistedToolPages, ...trendPages, ...gamePages];
 }

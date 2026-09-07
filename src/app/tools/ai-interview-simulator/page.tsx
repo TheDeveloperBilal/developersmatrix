@@ -12,7 +12,7 @@ import { generatePageMetadata } from "@/lib/seo/metadata";
 import InterviewSimulatorClient from "./InterviewSimulatorClient";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Free AI Interview Simulator 2026 | FAANG Interview Prep, Mock Practice & Coding Questions",
+  title: "Free AI Interview Simulator for FAANG Prep",
   description: "Free AI interview simulator for FAANG and tech job prep. Practice behavioral, technical, and system design interviews with instant scoring. Build your 2026 interview roadmap with role-specific questions for Google, Amazon, Meta, Netflix, and Apple.",
   keywords: ['faang interview preparation roadmap 2026', 'ai interview simulator free', 'mock interview practice online', 'coding interview prep 2026', 'technical interview practice free', 'behavioral interview questions and answers', 'star method interview examples', 'system design interview prep', 'software engineer interview questions', 'free interview preparation tool', 'ai mock interview', 'interview feedback tool', 'practice coding interviews', 'google interview prep', 'amazon interview questions', 'meta interview practice', 'netflix interview preparation', 'frontend developer interview questions', 'backend developer interview questions', 'full stack interview questions'],
   path: "/tools/ai-interview-simulator",
