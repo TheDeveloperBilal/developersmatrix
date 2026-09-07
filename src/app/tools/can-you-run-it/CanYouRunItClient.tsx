@@ -159,7 +159,7 @@ export default function CanYouRunItClient() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className={selectedGame ? "grid grid-cols-1 lg:grid-cols-2 gap-8" : "grid grid-cols-1 gap-8"}>
             {/* Game Selection */}
             <div className="space-y-6">
               <div className="space-y-4">
@@ -187,7 +187,9 @@ export default function CanYouRunItClient() {
                 </div>
                 
                 {/* Games Grid */}
-                <div className="grid grid-cols-2 gap-3 max-h-80 overflow-y-auto pr-1">
+                <div className={selectedGame
+                  ? "grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[26rem] overflow-y-auto pr-1"
+                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"}>
                   {filteredGames.map(game => (
                     <button
                       key={game.id}
@@ -196,38 +198,36 @@ export default function CanYouRunItClient() {
                         setResult(null);
                         setShowForm(true);
                       }}
-                      className={`p-2 rounded-lg border text-left transition-all hover:border-purple-500/50 overflow-hidden ${
-                        selectedGame?.id === game.id ? 'border-purple-500 bg-purple-500/10 dark:bg-purple-500/10' : 'border-border'
+                      className={`group relative flex flex-col rounded-xl border p-4 text-left transition-all hover:border-purple-400 hover:shadow-sm ${
+                        selectedGame?.id === game.id
+                          ? 'border-purple-500 bg-purple-50 dark:bg-purple-500/10 ring-1 ring-purple-500/30'
+                          : 'border-border bg-card'
                       }`}
                     >
-                      <div className="relative h-20 mb-2 rounded overflow-hidden bg-muted">
-                        {game.imageUrl ? (
-                          <img 
-                            src={game.imageUrl} 
-                            alt={game.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = '/images/games/generic-game.png';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Gamepad2 className="w-8 h-8 text-muted-foreground/30" />
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                        <div className="absolute bottom-1 left-2 right-2">
-                          <p className="font-medium text-xs text-white truncate">{game.name}</p>
-                        </div>
-                        {game.trending && (
-                          <div className="absolute top-1 right-1">
-                            <Badge className="bg-orange-500 text-[10px] px-1 py-0">HOT</Badge>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between text-xs text-muted-foreground px-1">
-                        <span>{game.releaseDate}</span>
-                        <span className="font-medium">{game.price}</span>
+                      {game.trending && (
+                        <span className="absolute top-3 right-3 rounded-full bg-orange-500 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-white">
+                          Hot
+                        </span>
+                      )}
+
+                      <span
+                        aria-hidden="true"
+                        className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 text-base font-bold text-purple-700 dark:bg-purple-500/20 dark:text-purple-300"
+                      >
+                        {game.name.replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase()}
+                      </span>
+
+                      <p className="pr-10 font-semibold leading-snug text-foreground group-hover:text-purple-700 dark:group-hover:text-purple-300">
+                        {game.name}
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground truncate">
+                        {game.genre[0]}
+                      </p>
+
+                      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+                        <span className="truncate">{game.releaseDate}</span>
+                        <span aria-hidden="true" className="opacity-40">|</span>
+                        <span className="font-medium text-foreground truncate">{game.price}</span>
                       </div>
                     </button>
                   ))}
@@ -237,23 +237,6 @@ export default function CanYouRunItClient() {
               {/* Selected Game Info */}
               {selectedGame && (
                 <Card className="bg-muted/30 overflow-hidden">
-                  <div className="relative h-32">
-                    {selectedGame.imageUrl ? (
-                      <img 
-                        src={selectedGame.imageUrl} 
-                        alt={selectedGame.name}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-muted flex items-center justify-center">
-                        <Gamepad2 className="w-12 h-12 text-muted-foreground/30" />
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-muted/30 via-muted/30 to-transparent" />
-                  </div>
                   <CardContent className="p-4">
                     <div className="flex items-start gap-4">
                       <div className="flex-1">
@@ -265,6 +248,13 @@ export default function CanYouRunItClient() {
                             <Badge key={g} variant="secondary">{g}</Badge>
                           ))}
                         </div>
+                        <a
+                          href={`/tools/can-you-run-it/${selectedGame.id}`}
+                          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-purple-700 hover:text-purple-800 dark:text-purple-300"
+                        >
+                          Full {selectedGame.name} requirements
+                          <span aria-hidden="true">&rarr;</span>
+                        </a>
                       </div>
                     </div>
                     
@@ -478,14 +468,7 @@ export default function CanYouRunItClient() {
                     </Card>
                   )}
                 </>
-              ) : (
-                <div className="flex items-center justify-center h-64 bg-muted/30 rounded-xl">
-                  <div className="text-center text-muted-foreground">
-                    <Gamepad2 className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                    <p>Select a game to check compatibility</p>
-                  </div>
-                </div>
-              )}
+              ) : null}
             </div>
           </div>
         </CardContent>
