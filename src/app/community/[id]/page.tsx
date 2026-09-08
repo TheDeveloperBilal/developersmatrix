@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, MessageSquare, ThumbsUp, Eye, Clock, Sparkles, User } from "lucide-react";
+import { ArrowLeft, MessageSquare, ThumbsUp, Clock, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,7 +24,6 @@ const questionData = {
   author: 'Alex Developer',
   tags: ['Career', 'Full-Stack', 'Learning'],
   createdAt: '2024-01-15',
-  views: 1250,
   votes: 42,
   answers: [
     {
@@ -84,8 +83,7 @@ export default function QuestionPage() {
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1"><User className="w-4 h-4" />{questionData.author}</span>
               <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{questionData.createdAt}</span>
-              <span className="flex items-center gap-1"><Eye className="w-4 h-4" />{questionData.views} views</span>
-            </div>
+                          </div>
             <div className="flex flex-wrap gap-2 mt-4">
               {questionData.tags.map(tag => (<Badge key={tag} variant="secondary">{tag}</Badge>))}
             </div>

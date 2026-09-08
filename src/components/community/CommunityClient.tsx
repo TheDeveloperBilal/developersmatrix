@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import {
-  MessageSquare, Search, Plus, Users, ThumbsUp, ThumbsDown, Eye, Clock,
+  MessageSquare, Search, Plus, Users, ThumbsUp, ThumbsDown, Clock,
   Sparkles, ChevronDown, ChevronUp, Filter, TrendingUp, MessageCircle,
   Send, Trash2, Award
 } from 'lucide-react';
@@ -54,8 +54,7 @@ const sampleThreads: Thread[] = [
         upvotes: 8,
         downvotes: 0
       }
-    ],
-    views: 1250
+    ]
   },
   {
     id: '2',
@@ -75,8 +74,7 @@ const sampleThreads: Thread[] = [
         upvotes: 25,
         downvotes: 1
       }
-    ],
-    views: 2100
+    ]
   },
   {
     id: '3',
@@ -87,8 +85,7 @@ const sampleThreads: Thread[] = [
     createdAt: new Date(Date.now() - 86400000).toISOString(),
     upvotes: 34,
     downvotes: 1,
-    replies: [],
-    views: 890
+    replies: []
   },
   {
     id: '4',
@@ -108,8 +105,7 @@ const sampleThreads: Thread[] = [
         upvotes: 45,
         downvotes: 2
       }
-    ],
-    views: 3400
+    ]
   },
   {
     id: '5',
@@ -120,8 +116,7 @@ const sampleThreads: Thread[] = [
     createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
     upvotes: 28,
     downvotes: 0,
-    replies: [],
-    views: 670
+    replies: []
   }
 ];
 
@@ -129,7 +124,7 @@ export default function CommunityClient() {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<ThreadCategory | 'all'>('all');
-  const [sortBy, setSortBy] = useState<'latest' | 'top' | 'views'>('latest');
+  const [sortBy, setSortBy] = useState<'latest' | 'top'>('latest');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [expandedThread, setExpandedThread] = useState<string | null>(null);
   const [newThread, setNewThread] = useState({ title: '', content: '', category: 'General' as ThreadCategory });
@@ -183,9 +178,6 @@ export default function CommunityClient() {
       case 'top':
         result.sort((a, b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes));
         break;
-      case 'views':
-        result.sort((a, b) => b.views - a.views);
-        break;
       case 'latest':
       default:
         result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -198,7 +190,6 @@ export default function CommunityClient() {
   const stats = useMemo(() => ({
     totalThreads: threads.length,
     totalReplies: threads.reduce((acc, t) => acc + t.replies.length, 0),
-    totalViews: threads.reduce((acc, t) => acc + t.views, 0),
     categories: CATEGORIES.map(cat => ({
       name: cat,
       count: threads.filter(t => t.category === cat).length
@@ -218,8 +209,7 @@ export default function CommunityClient() {
       createdAt: new Date().toISOString(),
       upvotes: 0,
       downvotes: 0,
-      replies: [],
-      views: 0
+      replies: []
     };
 
     setThreads(prev => [thread, ...prev]);
@@ -296,12 +286,6 @@ export default function CommunityClient() {
 
   // View thread
   const handleViewThread = (threadId: string) => {
-    setThreads(prev => prev.map(t => {
-      if (t.id === threadId) {
-        return { ...t, views: t.views + 1 };
-      }
-      return t;
-    }));
     setExpandedThread(threadId);
   };
 
@@ -348,7 +332,7 @@ export default function CommunityClient() {
       {/* Stats */}
       <section className="py-6 border-b bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <p className="text-2xl font-bold text-violet-600 dark:text-violet-400">{stats.totalThreads}</p>
               <p className="text-sm text-muted-foreground">Threads</p>
@@ -356,10 +340,6 @@ export default function CommunityClient() {
             <div>
               <p className="text-2xl font-bold text-violet-600 dark:text-violet-400">{stats.totalReplies}</p>
               <p className="text-sm text-muted-foreground">Replies</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-violet-600 dark:text-violet-400">{stats.totalViews.toLocaleString()}</p>
-              <p className="text-sm text-muted-foreground">Views</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-violet-600 dark:text-violet-400">{CATEGORIES.length}</p>
@@ -393,15 +373,6 @@ export default function CommunityClient() {
               >
                 <TrendingUp className="w-3 h-3 mr-1" />
                 Top Voted
-              </Button>
-              <Button
-                variant={sortBy === 'views' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSortBy('views')}
-                className={sortBy === 'views' ? 'bg-violet-500 hover:bg-violet-600' : ''}
-              >
-                <Eye className="w-3 h-3 mr-1" />
-                Most Viewed
               </Button>
 
               <div className="ml-auto">
@@ -696,10 +667,6 @@ function ThreadCard({
                 <span className="flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {formatRelativeTime(thread.createdAt)}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Eye className="w-3 h-3" />
-                  {thread.views}
                 </span>
               </div>
 
