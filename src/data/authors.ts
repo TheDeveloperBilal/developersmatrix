@@ -48,30 +48,9 @@ export const siteAuthor: Author = {
   joinedDate: '2018-01-01'
 };
 
-export const editorialTeam: Author[] = [
-  siteAuthor,
-  {
-    name: 'DevelopersMatrix Editorial Team',
-    slug: 'editorial-team',
-    jobTitle: 'Content Review Board',
-    bio: 'The DevelopersMatrix editorial team reviews all technical content for accuracy, relevance, and usefulness. Articles are fact-checked against primary sources and updated quarterly to maintain freshness.',
-    credentials: [
-      'Technical Review',
-      'Fact-Checking',
-      'Content Strategy'
-    ],
-    image: '/images/about/bilal-1.jpg',
-    knowsAbout: [
-      'Technical Writing',
-      'Content Quality Assurance',
-      'Developer Education'
-    ],
-    sameAs: [
-      'https://developersmatrix.com/about'
-    ],
-    joinedDate: '2024-01-01'
-  }
-];
+// Every article on the site is written and reviewed by the named author above.
+// There is no separate editorial board, so no persona is defined for one.
+export const editorialTeam: Author[] = [siteAuthor];
 
 export function getAuthorBySlug(slug: string): Author | undefined {
   return editorialTeam.find(a => a.slug === slug);
