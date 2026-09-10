@@ -136,6 +136,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
+  // Service pages
+  const servicePages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/services/website-audit`,
+      lastModified: DATES.recent,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+  ];
+
   // Game requirement pages under the Can You Run It tool
   const gamePages: MetadataRoute.Sitemap = gamesDatabase.map((game) => ({
     url: `${baseUrl}/tools/can-you-run-it/${game.id}`,
@@ -144,5 +154,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages, ...toolPages, ...unlistedToolPages, ...trendPages, ...gamePages];
+  return [...staticPages, ...blogPages, ...toolPages, ...unlistedToolPages, ...servicePages, ...trendPages, ...gamePages];
 }
