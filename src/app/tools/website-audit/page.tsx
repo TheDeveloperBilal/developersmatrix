@@ -22,7 +22,7 @@ const toolFaqs = [
   },
   {
     question: "What does the website audit tool check in 2026?",
-    answer: "Our AI website audit tool performs over 200 checks across 7 critical categories. For Technical SEO, we examine title tags, meta descriptions, headings, canonical URLs, schema markup, and internal links. For Performance, we look at page size, load time, render-blocking resources, image optimization, and caching. Mobile UX covers viewport settings, touch targets, responsive design, and mobile meta tags. Security checks include HTTPS enforcement, security headers, mixed content detection, and TLS version. Accessibility tests cover alt text, form labels, ARIA roles, heading hierarchy, and color contrast. Content Quality analyzes readability, word count, calls to action, and trust signals. Finally, Conversion Optimization checks value propositions, social proof, and form security."
+    answer: "Our AI website audit tool performs around 150 checks across 8 categories. For Technical SEO, we examine title tags, meta descriptions, headings, canonical URLs, schema markup, and internal links. For Performance, we look at page size, load time, render-blocking resources, image optimization, and caching. Mobile UX covers viewport settings, touch targets, responsive design, and mobile meta tags. Security checks include HTTPS enforcement, security headers, mixed content detection, and TLS version. Accessibility tests cover alt text, form labels, ARIA roles, heading hierarchy, and color contrast. Content Quality analyzes readability, word count, calls to action, and trust signals. Finally, Conversion Optimization checks value propositions, social proof, and form security."
   },
   {
     question: "How accurate is this compared to Google Lighthouse?",
@@ -62,7 +62,7 @@ const toolFaqs = [
   },
   {
     question: "What is the best online website auditor for small businesses?",
-    answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with 200+ checks across 7 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full-site technical crawling. Avoid expensive all-in-one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
+    answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with around 150 checks across 8 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full-site technical crawling. Avoid expensive all-in-one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
   },
   {
     question: "What does a website audit check?",
@@ -118,7 +118,7 @@ export default function WebsiteAuditPage() {
         name="DevelopersMatrix AI Website Audit Tool"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
-        description="Free AI-powered website audit tool for comprehensive SEO, performance, security, and accessibility analysis. 200+ checks with instant actionable recommendations."
+        description="Free AI-powered website audit tool for comprehensive SEO, performance, security, and accessibility analysis. Around 150 checks with instant actionable recommendations."
         url={`${siteConfig.url}/tools/website-audit`}
         offers={{
           price: "0",
@@ -141,7 +141,7 @@ export default function WebsiteAuditPage() {
           },
           {
             name: "Enter the URL and start the audit",
-            text: "Paste your URL into the audit input field and click 'Run Audit'. The tool will crawl your page, analyze the HTML structure, run JavaScript where needed, and perform 200+ checks across 7 categories. This typically takes 10 to 30 seconds depending on page complexity. Do not refresh the page during the scan."
+            text: "Paste your URL into the audit input field and click 'Run Audit'. The tool will crawl your page, analyze the HTML structure, run JavaScript where needed, and perform around 150 checks across 8 categories. This typically takes 10 to 30 seconds depending on page complexity. Do not refresh the page during the scan."
           },
           {
             name: "Review your overall score and category breakdown",
@@ -345,7 +345,7 @@ export default function WebsiteAuditPage() {
                   Most website owners have no idea what is broken on their site until Google stops sending traffic. By then the damage is done. Rankings have dropped, competitors have moved up, and you are left wondering what happened.
                 </p>
                 <p className="leading-relaxed">
-                  That is exactly why we built the <strong>DevelopersMatrix AI Website Audit Tool</strong>. It is not just another page speed checker. We analyze over <strong>200 technical factors</strong> across 7 categories that directly impact your Google rankings, user experience, and conversion rates. From missing meta descriptions and broken internal links to slow server response times and security vulnerabilities, we catch the issues that actually matter.
+                  That is exactly why we built the <strong>DevelopersMatrix AI Website Audit Tool</strong>. It is not just another page speed checker. We analyze over <strong>200 technical factors</strong> across 8 categories that directly impact your Google rankings, user experience, and conversion rates. From missing meta descriptions and broken internal links to slow server response times and security vulnerabilities, we catch the issues that actually matter.
                 </p>
                 <p className="leading-relaxed">
                   In 2026, Google's algorithm is more complex than ever. <strong>Core Web Vitals</strong> are confirmed ranking factors. <strong>Mobile-first indexing</strong> is the default. <strong>HTTPS and security headers</strong> are non-negotiable. And <strong>accessibility</strong> is not just ethical, it affects your reach and legal compliance. Our audit checks all of these and tells you exactly what to fix, in order of impact.
