@@ -200,6 +200,12 @@ export default function WebsiteAuditServicesPage() {
               >
                 Run the free audit first
               </Link>
+              <a
+                href="/sample-website-audit-report.pdf"
+                className="inline-flex items-center px-5 py-2.5 rounded-lg border font-medium hover:bg-muted transition-colors"
+              >
+                See a sample report
+              </a>
             </div>
           </div>
         </section>
@@ -315,6 +321,29 @@ export default function WebsiteAuditServicesPage() {
                   <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Sample report */}
+        <section className="border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="rounded-xl border p-6 sm:p-8 max-w-4xl">
+              <h2 className="text-2xl font-bold mb-3">Read a real report before you buy</h2>
+              <p className="text-muted-foreground mb-5">
+                Three pages from an actual Complete Audit, with the client name and URLs
+                removed. It shows the priority table and three full findings so you can judge
+                the depth for yourself rather than taking our word for it. No email required.
+              </p>
+              <a
+                href="/sample-website-audit-report.pdf"
+                className="inline-flex items-center px-5 py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
+              >
+                Download the sample report
+              </a>
+              <p className="text-xs text-muted-foreground mt-3">
+                PDF, 3 pages. Opens in a new tab.
+              </p>
             </div>
           </div>
         </section>

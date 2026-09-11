@@ -50,7 +50,10 @@ export class SEOAuditor {
     
     // Calculate score
     const totalChecks = 25;
-    const passedChecks = totalChecks - issues.filter(i => i.severity === 'high' || i.severity === 'critical').length;
+    // A check counts as passed only if it raised no finding at all. Previously this
+    // subtracted high and critical issues only, so a site with a dozen medium
+    // findings still reported every check as passing.
+    const passedChecks = Math.max(0, totalChecks - issues.length);
     const score = this.createScore(
       Math.max(0, 100 - (issues.reduce((sum, i) => sum + this.getSeverityWeight(i.severity), 0))),
       totalChecks,
