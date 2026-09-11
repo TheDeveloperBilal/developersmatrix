@@ -33,11 +33,11 @@ const gta6Faqs = [
   },
   {
     question: "When is the GTA 6 PC release date?",
-    answer: "The PC version of GTA 6 is expected to release in late 2027 or early 2028, based on Rockstar's historical pattern. GTA 5 launched on PC 19 months after console release, and Red Dead Redemption 2 had a 13 month gap. Industry analyst David Cole of DFC Intelligence suggests the gap may be shorter this time because the PC gaming market is considerably larger relative to console than it was in 2013."
+    answer: "Rockstar has not announced a PC version, so there is no date. What exists is a pattern. Grand Theft Auto V reached consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 reached consoles in October 2018 and PC in November 2019, a gap of thirteen months. Applying the same range to a 19 November 2026 console launch points somewhere between late 2027 and early 2028. That is arithmetic on past releases, not information from Rockstar, and the company has committed to nothing."
   },
   {
     question: "What are the GTA 6 system requirements for PC?",
-    answer: "While official PC specs are not confirmed, we expect minimum requirements to include Windows 11 64-bit, an Intel Core i5-12400 or AMD Ryzen 5 5600X, 16GB RAM, and an NVIDIA RTX 3060 or AMD RX 6700 XT. Recommended specs will likely require an Intel Core i7-13700K or AMD Ryzen 7 7800X3D, 32GB RAM, and an NVIDIA RTX 4070 or AMD RX 7800 XT. Storage will be 150GB or more on an SSD."
+    answer: "There are none. Rockstar has published no PC system requirements for GTA 6, because no PC version has been announced. Any spec chart you find online, including ones formatted to look official, is a third party estimate. The useful comparison is what Rockstar asks for on its current PC titles: Grand Theft Auto V Enhanced recommends a Core i5-9600K or Ryzen 5 3600, 16GB of memory and an RTX 3060 or RX 6600 XT, and it requires an SSD even at minimum. Red Dead Redemption 2 asks for 150GB of space. A machine that clears those comfortably is in sensible shape."
   },
   {
     question: "How much will GTA 6 cost?",
@@ -49,7 +49,7 @@ const gta6Faqs = [
   },
   {
     question: "What platforms will GTA 6 launch on?",
-    answer: "GTA 6 will launch on PlayStation 5 and Xbox Series X at minimum on November 19, 2026. There is no confirmation of a PlayStation 4, Xbox One, or Nintendo Switch release. The game is built for next-generation hardware and requires the SSD speeds and CPU power of modern consoles. A PC version is expected in late 2027 or early 2028."
+    answer: "Rockstar lists PlayStation 5 and Xbox Series X|S, launching 19 November 2026. That is the entire announced platform list. There is no PlayStation 4, Xbox One or Nintendo Switch version, and no PC version has been announced either. If Rockstar follows the pattern it set with Grand Theft Auto V and Red Dead Redemption 2, a PC release would land roughly thirteen to nineteen months after the console launch, but the company has said nothing on the subject."
   }
 ];
 
@@ -119,7 +119,7 @@ export default function GTA6Page() {
           </h2>
           <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
             <p className="leading-relaxed">
-              PC gamers are asking the same question they have asked for every Rockstar release: when do we get ours? Based on Rockstar's historical release pattern, expect the GTA 6 PC release in late 2027 or early 2028. The evidence is clear. GTA 5 launched on consoles in September 2013 and arrived on PC in April 2015, a 19 month gap. Red Dead Redemption 2 released on consoles in October 2018 and came to PC in November 2019, a 13 month gap.
+              PC players are asking the same question they ask before every Rockstar release: when do we get ours? The honest answer is that nobody outside Rockstar knows, because no PC version has been announced. What we have is the pattern. Grand Theft Auto V hit consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 hit consoles in October 2018 and PC in November 2019, a gap of thirteen months. Apply that range to 19 November 2026 and you land somewhere between late 2027 and early 2028. Treat that as arithmetic, not as news.
             </p>
             <p className="leading-relaxed">
               Rockstar has reasons for this delay. Piracy concerns are higher on PC. Console sales drive the initial revenue spike. And the PC version requires additional optimization for the wide variety of hardware configurations. The upside for PC players is that the delayed release usually comes with superior graphics, mod support eventually, and all the updates and content that launched during the console exclusive period.
@@ -133,13 +133,13 @@ export default function GTA6Page() {
           </h2>
           <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
             <p className="leading-relaxed">
-              Rockstar has not published official PC requirements yet, but we can make reliable predictions based on the RAGE 9 engine capabilities and the visual fidelity shown in trailers. Minimum requirements will likely include an Intel Core i5-12400 or AMD Ryzen 5 5600X processor, 16GB of system memory, and a graphics card equivalent to the NVIDIA RTX 3060 or AMD RX 6700 XT. You will need Windows 11 64-bit and at least 150GB of SSD storage.
+              Rockstar has published nothing here, and we are not going to invent it. There are no official GTA 6 PC requirements because there is no announced PC version. What we can give you is the real thing: the specs Rockstar publishes for the titles it already sells on PC.
             </p>
             <p className="leading-relaxed">
-              For recommended settings at 1080p high or 1440p medium, expect to need an Intel Core i7-13700K or AMD Ryzen 7 7800X3D, 32GB of RAM, and an NVIDIA RTX 4070 or AMD RX 7800 XT. Ray tracing support will likely require an RTX 4080 or better for stable 60 frames per second. The game will almost certainly require an SSD due to the massive world streaming demands. A traditional hard drive will not be sufficient.
+              Grand Theft Auto V Enhanced, released in 2025, asks for a Core i7-4770 or FX-9590 with 8GB of memory and a GTX 1630 at minimum, and recommends a Core i5-9600K or Ryzen 5 3600 with 16GB and an RTX 3060 or RX 6600 XT. It needs 105GB and will not install on a mechanical drive. Red Dead Redemption 2, from 2019, asks for 150GB of space and recommends a GTX 1060 with 12GB of memory. Six years moved Rockstar&rsquo;s floor up roughly two graphics card generations and made solid state storage compulsory.
             </p>
             <p className="leading-relaxed">
-              Not sure if your rig can handle it? Use our <Link href="/tools/can-you-run-it" className="text-blue-600 dark:text-blue-400 hover:underline">Can You Run It tool</Link> to compare your exact hardware against predicted requirements and get a personalized compatibility score.
+              If you want to prepare, that direction of travel is the only honest guide: 16GB of memory, an SSD with at least 150GB free, and a graphics card at or above the RTX 3060 class. Read the full breakdown on our <Link href="/tools/can-you-run-it/gta-6" className="text-blue-600 dark:text-blue-400 hover:underline">GTA 6 PC requirements page</Link>, or test your machine against the Rockstar games that do have published specs in the <Link href="/tools/can-you-run-it" className="text-blue-600 dark:text-blue-400 hover:underline">Can You Run It tool</Link>.
             </p>
           </div>
         </section>
