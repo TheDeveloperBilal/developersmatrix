@@ -67,21 +67,25 @@ export default function GTA6Client() {
   const [loadingNews, setLoadingNews] = useState(false);
   const [activeTab, setActiveTab] = useState('requirements');
 
-  // GTA 6 system requirements (official as of May 2026)
+  // Rockstar has published NO PC requirements for GTA 6 and has not announced a PC
+  // version. These figures are Rockstar's own published specs for Grand Theft Auto V
+  // Enhanced (2025), used as a preparation baseline and labelled as such everywhere
+  // they appear. Do not relabel them as GTA 6 requirements.
+  // Source: https://support.rockstargames.com/articles/lMQXeP2Z1mN3g9oZiBZFR/grand-theft-auto-v-pc-system-requirements
   const requirements: SystemRequirements = {
     minimum: {
-      os: 'Windows 11 64-bit (PC releases later)',
-      processor: 'TBD — Likely Intel Core i5-12400 / AMD Ryzen 5 5600X equivalent',
-      memory: '16 GB RAM',
-      graphics: 'TBD — Likely NVIDIA RTX 3060 / AMD RX 6700 XT equivalent',
-      storage: '150+ GB available space (SSD required)'
+      os: 'Windows 10 (build 1909 or above)',
+      processor: 'Intel Core i7-4770 / AMD FX-9590',
+      memory: '8 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1630 4GB / AMD Radeon RX 6400',
+      storage: '105 GB, SSD required'
     },
     recommended: {
-      os: 'Windows 11 64-bit',
-      processor: 'TBD — Likely Intel Core i7-13700K / AMD Ryzen 7 7800X3D',
-      memory: '32 GB RAM',
-      graphics: 'TBD — Likely NVIDIA RTX 4070 / AMD RX 7800 XT',
-      storage: '150+ GB NVMe SSD'
+      os: 'Windows 11',
+      processor: 'Intel Core i5-9600K / AMD Ryzen 5 3600',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 3060 8GB / AMD Radeon RX 6600 XT',
+      storage: '105 GB, DirectStorage compatible drive'
     }
   };
 
@@ -94,7 +98,7 @@ export default function GTA6Client() {
     pcRelease: "Expected Late 2027 / Early 2028 (based on Rockstar historical pattern)",
     price: "$69.99 - $99.99 (Standard to Collector's Edition)",
     platforms: ["PlayStation 5", "Xbox Series X|S"],
-    pcPlatforms: ["PC (Steam, Rockstar Launcher) — TBD 2027+"],
+    pcPlatforms: ["PC: no version announced, no store listing"],
     genres: ["Action", "Adventure", "Open World"],
     rating: "Rating Pending (Expected Mature 17+)",
     location: "Vice City, Leonida State (Miami-inspired)",
@@ -103,7 +107,7 @@ export default function GTA6Client() {
     firstHourRevenue: "$1 Billion",
     preOrderCopies: "39+ Million",
     features: [
-      "Massive open world — Vice City and surrounding Leonida State",
+      "Massive open world covering Vice City and the surrounding Leonida State",
       "Dual protagonist system with Lucia and Jason",
       "Next-gen graphics with ray tracing support",
       "Enhanced physics, destruction, and AI systems",
@@ -318,12 +322,30 @@ export default function GTA6Client() {
 
           {/* System Requirements Tab */}
           <TabsContent value="requirements">
+            <div className="mb-5 rounded-xl border border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 p-5">
+              <p className="font-semibold text-gray-900 dark:text-white mb-1">
+                Rockstar has not published PC requirements for GTA 6
+              </p>
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                No PC version has been announced, so no specs exist. The figures below are
+                Rockstar&rsquo;s published requirements for Grand Theft Auto V Enhanced, its most
+                recent PC release, shown here as a preparation baseline. They are not GTA 6
+                requirements and nobody has those yet.{' '}
+                <a
+                  href="/tools/can-you-run-it/gta-6"
+                  className="font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Full explanation here
+                </a>
+                .
+              </p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <Card className="border-yellow-500/30">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
-                    Minimum Requirements
+                    Baseline minimum (GTA V Enhanced)
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -356,7 +378,7 @@ export default function GTA6Client() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
-                    Recommended Requirements
+                    Baseline recommended (GTA V Enhanced)
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -406,10 +428,10 @@ export default function GTA6Client() {
                 </div>
                 <div className="mt-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
                   <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">
-                    ℹ️ PC Release Delayed
+                    ℹ️ No PC version announced
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Rockstar has a consistent history of delaying PC releases: GTA V had a 19-month gap, Red Dead Redemption 2 had 13 months. Expect GTA 6 PC between late 2027 and early 2028.
+                    Rockstar lists PS5 and Xbox Series X|S only. It brought GTA V to PC nineteen months after consoles and Red Dead Redemption 2 thirteen months after. The same range would put a GTA 6 PC release in late 2027 or early 2028, which is arithmetic on past releases rather than anything Rockstar has said.
                   </p>
                 </div>
               </CardContent>

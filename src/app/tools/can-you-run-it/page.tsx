@@ -11,7 +11,7 @@ export const metadata: Metadata = generatePageMetadata(toolMetadata['can-you-run
 const toolFaqs = [
   {
     question: "Will my PC run GTA 6?",
-    answer: "GTA 6 requires at minimum an Intel i5-12400 or AMD Ryzen 5 5600X, 16GB RAM, an NVIDIA RTX 3060 or AMD RX 6700 XT, and 150GB of SSD storage. For the best experience at high settings with ray tracing, aim for an Intel i7-13700K or AMD Ryzen 7 7800X3D, 32GB RAM, and an NVIDIA RTX 4070 or AMD RX 7800 XT. Use our Can You Run It checker above to compare your exact specs and get a personalized verdict with estimated FPS."
+    answer: "Nobody can answer that yet. Rockstar has published no PC system requirements for GTA 6, and no PC version has been announced. Grand Theft Auto VI is listed for PlayStation 5 and Xbox Series X|S on 19 November 2026. Every GTA 6 PC spec chart online is a third party estimate. What you can do is measure your machine against what Rockstar asks for today: Grand Theft Auto V Enhanced recommends a Core i5-9600K or Ryzen 5 3600, 16GB of memory and an RTX 3060 or RX 6600 XT, and it requires an SSD even at minimum. Both that game and Red Dead Redemption 2 are in the checker above."
   },
   {
     question: "Will my PC run Cyberpunk 2077?",
@@ -424,7 +424,7 @@ export default function CanYouRunItPage() {
             Why PC Gamers Need a System Requirements Checker
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Modern AAA games require powerful hardware. GTA 6 demands 100GB storage and a high-end GPU. Cyberpunk 2077 needs ray-tracing capable cards for the best experience. Starfield and Baldur's Gate 3 pushed hardware limits in 2024-2025. In 2026, the requirements are only increasing. Our <strong>PC game requirements checker</strong> scans your system specs and compares them against the game's official requirements, giving you a clear yes/no answer with detailed explanations.
+            Modern AAA games require powerful hardware. Red Dead Redemption 2 asks for 150GB of space. Cyberpunk 2077 needs ray tracing capable cards for the best experience. Starfield and Baldur&rsquo;s Gate 3 pushed hardware limits in 2024 and 2025. In 2026 the requirements keep climbing. Our <strong>PC game requirements checker</strong> reads your system specs and compares them against the requirements the publisher actually released, giving you a clear verdict with the reasoning behind it.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
             The tool also suggests upgrade paths. If your CPU meets requirements but your GPU falls short, you will know exactly which component to upgrade. If you are short on RAM, we recommend the optimal amount. This targeted approach saves money. Why replace your entire PC when a $200 GPU upgrade or $60 RAM boost would solve the problem?
