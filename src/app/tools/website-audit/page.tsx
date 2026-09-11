@@ -211,6 +211,24 @@ export default function WebsiteAuditPage() {
           <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
             Each check is scored individually and weighted to produce your overall Site Health Score out of 100.
           </p>
+
+          <div className="mt-8 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              Want a person to read the report with you?
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+              The free tool tells you what is broken. It cannot tell you which three fixes
+              will move your rankings first, or rewrite the pages for you. Run the free audit
+              above, and if you want the findings turned into a prioritised plan, see our
+              paid <a href="/services/website-audit" className="font-semibold text-blue-600 dark:text-blue-400 underline underline-offset-2">website audit services and pricing</a>.
+            </p>
+            <a
+              href="/services/website-audit"
+              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            >
+              See audit pricing
+            </a>
+          </div>
         </section>
       </div>
 
