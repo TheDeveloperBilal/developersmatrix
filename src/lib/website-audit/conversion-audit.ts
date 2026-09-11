@@ -855,7 +855,7 @@ export class ConversionAuditor {
     return {
       category: 'conversion',
       score: Math.min(100, Math.max(0, Math.round(score))),
-      maxScore: 100,
+      maxScore: totalChecks,
       issues,
       criticalIssues: 0,
       passed: passedChecks,
