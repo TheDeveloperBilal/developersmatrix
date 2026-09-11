@@ -28,6 +28,14 @@ export interface Game {
   tags: string[];
   trending?: boolean;
   popularity?: number; // 0-100 score
+  // 'unannounced' means the publisher has not released PC specs for this title.
+  // Never fill the requirement fields with estimates when this is set: the page
+  // renders an honest "not published" answer instead, and the checker skips it.
+  // Short name people actually type into search, e.g. 'GTA 6' for Grand Theft Auto VI.
+  searchName?: string;
+  requirementsStatus?: 'official' | 'unannounced';
+  requirementsSource?: { label: string; url: string };
+  platformNote?: string;
 }
 
 export const gamesDatabase: Game[] = [
@@ -265,28 +273,34 @@ export const gamesDatabase: Game[] = [
     name: 'Grand Theft Auto VI',
     developer: 'Rockstar Games',
     publisher: 'Rockstar Games',
-    releaseDate: 'Fall 2025',
+    searchName: 'GTA 6',
+    releaseDate: 'November 19, 2026',
     genre: ['Action', 'Adventure', 'Open World'],
     rating: 0,
     price: '$69.99',
-    platforms: ['PC', 'PS5', 'Xbox Series X'],
+    platforms: ['PS5', 'Xbox Series X|S'],
+    platformNote: 'Rockstar lists PlayStation 5 and Xbox Series X|S only. No PC version has been announced.',
     imageUrl: '/images/games/gta6.png',
     description: 'Grand Theft Auto VI heads to the state of Leonida, home to the neon-soaked streets of Vice City and beyond in the biggest, most immersive evolution of the Grand Theft Auto series yet.',
+    requirementsStatus: 'unannounced',
+    requirementsSource: { label: 'Rockstar Games', url: 'https://www.rockstargames.com/VI' },
+    // Rockstar has published no PC specs for this title. These placeholders exist
+    // so the type stays consistent. Do not replace them with estimates.
     minimumRequirements: {
-      os: 'Windows 10 64-bit',
-      processor: 'Intel Core i5-8600K / AMD Ryzen 5 3600',
-      memory: '16 GB RAM',
-      graphics: 'NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580 8GB',
-      directX: 'Version 12',
-      storage: '150 GB available space'
+      os: 'Not announced',
+      processor: 'Not announced',
+      memory: 'Not announced',
+      graphics: 'Not announced',
+      directX: 'Not announced',
+      storage: 'Not announced'
     },
     recommendedRequirements: {
-      os: 'Windows 11 64-bit',
-      processor: 'Intel Core i7-10700K / AMD Ryzen 7 5800X',
-      memory: '32 GB RAM',
-      graphics: 'NVIDIA GeForce RTX 4070 / AMD Radeon RX 7800 XT',
-      directX: 'Version 12',
-      storage: '150 GB SSD'
+      os: 'Not announced',
+      processor: 'Not announced',
+      memory: 'Not announced',
+      graphics: 'Not announced',
+      directX: 'Not announced',
+      storage: 'Not announced'
     },
     features: [
       'Massive open world map covering Vice City and beyond',

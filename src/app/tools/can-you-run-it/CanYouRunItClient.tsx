@@ -77,6 +77,10 @@ export default function CanYouRunItClient() {
   const [showTrendingOnly, setShowTrendingOnly] = useState(false);
 
   const filteredGames = gamesDatabase.filter(game => {
+    // Titles whose publisher has not released PC specs cannot be checked against
+    // real hardware, so they stay out of the picker rather than returning a score
+    // built on nothing.
+    if (game.requirementsStatus === 'unannounced') return false;
     const matchesSearch = game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       game.genre.some(g => g.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesTrending = showTrendingOnly ? game.trending : true;
