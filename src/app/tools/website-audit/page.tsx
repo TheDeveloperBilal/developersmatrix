@@ -592,7 +592,7 @@ export default function WebsiteAuditPage() {
                     <div className="text-sm text-gray-600 dark:text-gray-400">Average scan time</div>
                   </div>
                   <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
-                    <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-1">200+</div>
+                    <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-1">~150</div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">Checks per audit</div>
                   </div>
                   <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">

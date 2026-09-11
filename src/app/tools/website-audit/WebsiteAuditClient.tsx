@@ -90,7 +90,7 @@ export default function WebsiteAuditClient() {
     },
     {
       question: "What does the website audit check?",
-      answer: "Our tool performs over 200 checks across 7 categories: Technical SEO (meta tags, headings, canonicals, schema), Performance (page speed, resource optimization, caching), Mobile UX (viewport, touch targets, responsive design), Security (HTTPS, headers, mixed content), Accessibility (alt text, ARIA, color contrast), Content Quality (readability, word count, CTAs), and Conversion Optimization (trust signals, value propositions)."
+      answer: "Our tool performs around 150 checks across 8 categories: SEO (meta tags, headings, canonicals, schema), Technical (crawlability, indexing, structured data, internal links), Performance (page speed, resource optimization, caching), Mobile UX (viewport, touch targets, responsive design), Security (HTTPS, headers, mixed content), Accessibility (alt text, ARIA, color contrast), Content Quality (readability, word count, CTAs), and Conversion Optimization (trust signals, value propositions)."
     },
     {
       question: "How accurate is the audit score?",
@@ -492,7 +492,7 @@ export default function WebsiteAuditClient() {
               </h2>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                 A comprehensive website audit is the foundation of any successful digital strategy. 
-                Our free AI-powered website audit tool analyzes over 200+ technical and on-page factors 
+                Our free AI-powered website audit tool analyzes around 150 technical and on-page factors 
                 that search engines like Google use to rank your site. From broken links and slow page speeds 
                 to missing meta tags and poor mobile usability — we catch issues that could be holding 
                 your site back from reaching its full potential.
@@ -549,7 +549,7 @@ export default function WebsiteAuditClient() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>200+ Checks:</strong> SEO, speed, mobile, security, accessibility, content</span>
+                  <span><strong>Around 150 Checks:</strong> SEO, technical, speed, mobile, security, accessibility, content, conversion</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
