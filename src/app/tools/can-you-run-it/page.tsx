@@ -169,33 +169,59 @@ export default function CanYouRunItPage() {
             {/* Main Content */}
             <div className="flex-1 space-y-16">
 
+              {/* Direct answer */}
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Can My PC Handle This Game?</h2>
+                <div className="rounded-xl border border-purple-200 dark:border-purple-500/30 bg-purple-50/60 dark:bg-purple-500/5 p-6 mb-6">
+                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-purple-700 dark:text-purple-300 mb-2">
+                    Short answer
+                  </p>
+                  <p className="text-base leading-relaxed text-gray-800 dark:text-gray-100">
+                    Four things decide it: your graphics card, your processor, how much memory you have, and whether your storage is solid state. Enter those four above and you get a pass, partial or fail against the specs the publisher actually released, plus an estimated frame rate. Most machines that fail do so on one component, not four, and it is usually memory or the drive rather than the graphics card people assume.
+                  </p>
+                </div>
+                <div className="text-muted-foreground leading-relaxed space-y-4">
+                  <p>
+                    A minimum requirement is a floor, not a target. Hitting it means the game starts and stays playable, normally at low settings and somewhere near 30 frames per second. If your hardware only just clears the minimum, drop the resolution before you touch anything else, because resolution costs more performance than almost any other setting you can change.
+                  </p>
+                  <p>
+                    The graphics card carries the most weight in our scoring at 40 percent, the processor 30 percent, and memory and storage speed 15 percent each. A fast processor cannot rescue a card that sits below the minimum. A slow processor can hold back a strong card, but only at lower resolutions where the card is waiting on the rest of the system.
+                  </p>
+                  <p>
+                    Storage is the requirement people skip. Games stream textures and world data off the drive while you play, so a mechanical hard disk produces stuttering and texture pop in even when every other component is comfortably above spec. If you are running a hard drive, that is the cheapest fix on the list and usually the one you feel most.
+                  </p>
+                  <p>
+                    On a laptop, compare the actual mobile chip rather than the desktop card with a similar name. Laptop graphics run roughly 15 to 30 percent slower than their desktop namesakes because of power and heat limits, so a laptop card that matches the recommended spec on paper often behaves closer to the minimum in practice.
+                  </p>
+                </div>
+              </section>
+
               {/* GTA 6 Section */}
               <section>
-                <h2 className="text-2xl font-bold mb-4">Can You Run GTA 6? Check Your PC Against the Biggest Game of 2026</h2>
+                <h2 className="text-2xl font-bold mb-4">GTA 6 System Requirements: What Rockstar Has Actually Published</h2>
                 <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-amber-200 dark:border-amber-800 mb-6">
                   <div className="flex items-start gap-4">
                     <span className="text-4xl">🎮</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">GTA 6 Releases November 19, 2026</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">No PC specs exist yet, and no PC version has been announced</h3>
                       <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
-                        The most anticipated game of the decade is coming. While the initial release is on PS5 and Xbox Series X, the PC version is expected in late 2027 or early 2028. Now is the time to check if your PC is ready.
+                        Rockstar lists Grand Theft Auto VI for PlayStation 5 and Xbox Series X|S on 19 November 2026. PC is not on that list, and Rockstar has published no minimum or recommended PC requirements. Every GTA 6 PC spec table circulating online is a third party estimate.
                       </p>
                       <div className="grid sm:grid-cols-2 gap-3 text-sm">
                         <div className="bg-white dark:bg-gray-800 rounded-lg p-3">
-                          <p className="font-medium text-gray-900 dark:text-white">Expected Minimum PC Specs</p>
-                          <p className="text-gray-600 dark:text-gray-400 mt-1">OS: Windows 11 64-bit</p>
-                          <p className="text-gray-600 dark:text-gray-400">CPU: Intel i5-12400 / AMD Ryzen 5 5600X</p>
-                          <p className="text-gray-600 dark:text-gray-400">RAM: 16GB</p>
-                          <p className="text-gray-600 dark:text-gray-400">GPU: NVIDIA RTX 3060 / AMD RX 6700 XT</p>
-                          <p className="text-gray-600 dark:text-gray-400">Storage: 150GB SSD</p>
+                          <p className="font-medium text-gray-900 dark:text-white">Confirmed by Rockstar</p>
+                          <p className="text-gray-600 dark:text-gray-400 mt-1">Release: 19 November 2026</p>
+                          <p className="text-gray-600 dark:text-gray-400">Platforms: PS5, Xbox Series X|S</p>
+                          <p className="text-gray-600 dark:text-gray-400">PC version: not announced</p>
+                          <p className="text-gray-600 dark:text-gray-400">PC specs: not published</p>
                         </div>
                         <div className="bg-white dark:bg-gray-800 rounded-lg p-3">
-                          <p className="font-medium text-gray-900 dark:text-white">Expected Recommended Specs</p>
-                          <p className="text-gray-600 dark:text-gray-400 mt-1">OS: Windows 11 64-bit</p>
-                          <p className="text-gray-600 dark:text-gray-400">CPU: Intel i7-13700K / AMD Ryzen 7 7800X3D</p>
-                          <p className="text-gray-600 dark:text-gray-400">RAM: 32GB</p>
-                          <p className="text-gray-600 dark:text-gray-400">GPU: NVIDIA RTX 4070 / AMD RX 7800 XT</p>
-                          <p className="text-gray-600 dark:text-gray-400">Storage: 150GB NVMe SSD</p>
+                          <p className="font-medium text-gray-900 dark:text-white">What Rockstar asks for today</p>
+                          <p className="text-gray-600 dark:text-gray-400 mt-1">From GTA V Enhanced, recommended:</p>
+                          <p className="text-gray-600 dark:text-gray-400">CPU: Core i5-9600K / Ryzen 5 3600</p>
+                          <p className="text-gray-600 dark:text-gray-400">RAM: 16GB</p>
+                          <p className="text-gray-600 dark:text-gray-400">GPU: RTX 3060 8GB / RX 6600 XT</p>
+                          <p className="text-gray-600 dark:text-gray-400">Storage: 105GB, SSD required</p>
                         </div>
                       </div>
                     </div>
@@ -203,18 +229,21 @@ export default function CanYouRunItPage() {
                 </div>
                 <div className="text-muted-foreground leading-relaxed space-y-4">
                   <p>
-                    GTA 6 is expected to be the most demanding game of 2026. Rockstar's open-world games are known for pushing hardware limits, and GTA 6 will likely require a significant upgrade for many PC gamers. Our <strong>PC requirements checker</strong> will help you determine if your current rig can handle it, or if you need to start planning upgrades before the PC release.
+                    We are not going to invent a spec sheet for you. What we can do is show you the numbers Rockstar has actually published for its current PC titles, and let you measure your machine against those. Grand Theft Auto V Enhanced and Red Dead Redemption 2 both have real requirements on Rockstar&rsquo;s support site, and both are in our checker.
                   </p>
                   <p>
-                    Based on historical patterns, the PC version will arrive 12-19 months after console launch. That gives you a window to plan upgrades strategically. The most impactful upgrades for GTA 6 will likely be: (1) an SSD with at least 150GB free space, (2) 32GB of RAM for smooth open-world streaming, and (3) a GPU that supports ray tracing for the full visual experience.
+                    Rockstar has brought its last two big titles to PC roughly thirteen months after console launch. Grand Theft Auto V reached consoles in September 2013 and PC in April 2015. Red Dead Redemption 2 reached consoles in October 2018 and PC in November 2019. That is a pattern worth knowing, not a promise, and Rockstar has committed to nothing.
+                  </p>
+                  <p>
+                    If you want to prepare anyway, put the money where Rockstar has already moved the floor: 16GB of memory, an SSD with at least 150GB free, and a graphics card at or above the RTX 3060 class. Those three cover the gap on almost every older build.
                   </p>
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <a href="/gta-6" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                    🎮 GTA 6 Hub. Full Info
+                  <a href="/tools/can-you-run-it/gta-6" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium hover:opacity-90 transition-opacity">
+                    🎮 Full GTA 6 PC requirements breakdown
                   </a>
-                  <a href="/trends/gta-6-release-everything-we-know" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    📰 Latest GTA 6 News
+                  <a href="/gta-6" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    📰 Latest GTA 6 news
                   </a>
                 </div>
               </section>

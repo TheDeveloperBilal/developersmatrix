@@ -432,14 +432,16 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'can-you-run-it': {
     title: 'Can You Run It? Free PC Requirements Checker',
-    description: 'Free PC game requirements checker for 2026. Compare your hardware specs against minimum and recommended requirements for popular games including GTA 6, Cyberpunk, Elden Ring, and more. Get FPS estimates and upgrade suggestions. No signup needed.',
+    description: 'Can my PC handle this game? Enter your CPU, GPU and RAM and compare them against the specs publishers actually published, for Cyberpunk 2077, Elden Ring, Battlefield 6 and more. Free, instant, no signup.',
     keywords: [
+      'can you run it',
       'can you run it free',
+      'can my pc handle this game',
+      'can my pc run this game',
       'pc game requirements checker',
       'system requirements checker',
       'game compatibility test',
       'fps estimator tool',
-      'gta 6 requirements check',
       'cyberpunk 2077 specs check',
       'pc hardware checker',
       'game performance predictor',
@@ -447,7 +449,6 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
       'cpu compatibility tool',
       'ram requirements game',
       'upgrade suggestions pc gaming',
-      'can my pc run this game',
       'free system spec checker'
     ],
     path: '/tools/can-you-run-it'
