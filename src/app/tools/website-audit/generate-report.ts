@@ -255,7 +255,7 @@ export function generateHTMLReport(result: WebsiteAuditResult): string {
     
     <p style="font-size:15px;color:#475569;margin-bottom:24px;">
       This report provides a comprehensive technical analysis of <strong>${result.domain}</strong>. 
-      The site was audited across 7 categories with ${result.issues.length} total issues identified, 
+      The site was audited across 8 categories with ${result.issues.length} total issues identified, 
       including ${result.criticalIssues.length} critical issues requiring immediate attention.
     </p>
     
