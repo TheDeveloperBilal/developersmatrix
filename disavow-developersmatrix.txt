@@ -1,0 +1,74 @@
+# Disavow file for developersmatrix.com
+# Prepared 8 September 2026
+# Upload at: https://search.google.com/search-console/disavow-links
+# Select the sc-domain:developersmatrix.com property before uploading.
+#
+# Uploading REPLACES any previous disavow file. Keep this file as the master
+# copy and re-upload the whole thing whenever you add a domain.
+
+# ---------------------------------------------------------------------------
+# Paid PBN network. Anchor text on every one of these reads
+# "High Quality Dofollow Backlinks DA 50 PA 40 Premium PBN Network Service ...
+# Buy Backlinks Online Cheap", which is the vendor's own sales copy used as
+# the link text. Spam scores 60 to 70. All dofollow, all pointing at the
+# homepage. Several first appeared in late August and early September 2026.
+# ---------------------------------------------------------------------------
+domain:fashionclothingnews.com
+domain:betwinnermirror.com
+domain:homesforsaleoldgreenwichct.com
+domain:uncledspizza.com
+domain:fittyfoody.com
+domain:quotesblom.com
+domain:theforbestimes.com
+domain:betulcrime.com
+domain:hostprinter.com
+domain:bazerdaily.com
+domain:ggmap.us.com
+
+# ---------------------------------------------------------------------------
+# Automated link directories and scraped listing pages. Spam scores 60 to 70,
+# dofollow, generic domain-name anchors, machine generated URL patterns.
+# ---------------------------------------------------------------------------
+domain:australianwebdirectory.shop
+domain:australianwebdirectory.pro
+domain:way2check.cv
+domain:read.org.in
+domain:getwebsiteworth.com
+domain:globalecommerce.org
+domain:sergechel.info
+domain:musweb.org
+domain:booksreadr.org
+domain:businessvocal.com
+
+# ---------------------------------------------------------------------------
+# Disposable URL shortener and redirect networks. Spam score 50. All nofollow,
+# so the direct risk is low, but they are part of the same automated footprint
+# and share identical URL patterns across domains.
+# ---------------------------------------------------------------------------
+domain:jake.eu
+domain:buzzshrink.website
+domain:quero.party
+domain:drjack.world
+domain:shortenurls.eu
+domain:anchorurl.cloud
+domain:bye.fyi
+domain:urls-shortener.eu
+
+# ---------------------------------------------------------------------------
+# NOT disavowed, deliberately. Recording the decision here so nobody adds them
+# to this file later by mistake:
+#
+# gamingsorted.com   spam score 10, nofollow. Scraper site. 132 links but they
+#                    are harmless and carry no risk.
+# oppalerts.com      spam score 0, nofollow. An "AI search visibility" scraper
+#                    that lists backlink sources. Harmless.
+# robuta.com         spam score 35, but the anchor is your real page title and
+#                    the site is a search aggregator, not a link scheme.
+# ovitech.co         your own company site. Never disavow this.
+# soft2share.com     spam score 0, editorial link, real referring traffic.
+# xuzpost.com        spam score 0, relevant anchor, genuine link.
+# kontentz.xzero.co.uk  spam score 5, topical blog link.
+#
+# Disavowing good links is the most common way people make this worse. If in
+# doubt, leave a domain out. A disavow is reversible but the lost equity while
+# it is in place is not.

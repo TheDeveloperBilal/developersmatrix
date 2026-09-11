@@ -59,9 +59,10 @@ export class TechnicalAuditor {
 
     // Calculate score
     const totalChecks = 32;
-    const criticalCount = issues.filter(i => i.severity === 'critical').length;
-    const highCount = issues.filter(i => i.severity === 'high').length;
-    const passedChecks = Math.max(0, totalChecks - criticalCount * 3 - highCount * 2);
+    // A check counts as passed only if it raised no finding at all. Previously this
+    // applied a weighted penalty (critical x3, high x2) and ignored medium and low
+    // findings entirely, so the number was not a count of passed checks.
+    const passedChecks = Math.max(0, totalChecks - issues.length);
     
     const score = this.createScore(
       Math.max(0, 100 - (issues.reduce((sum, i) => sum + this.getSeverityWeight(i.severity), 0))),
