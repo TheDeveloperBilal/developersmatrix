@@ -93,7 +93,7 @@ export const pageMetadata = {
     path: '/tools'
   },
   blog: {
-    title: 'Blog - Tech News, Career Tips & Industry Insights',
+    title: 'Blog: Tech News and Career Insights',
     description: 'Stay updated with the latest tech news, career advice, productivity tips, and industry insights. Expert articles on AI, development, and professional growth.',
     keywords: ['tech blog', 'career tips', 'tech news', 'productivity tips', 'AI news', 'developer blog'],
     path: '/blog'
@@ -105,7 +105,7 @@ export const pageMetadata = {
     path: '/trends'
   },
   community: {
-    title: 'Community Q&A - Ask & Answer Questions',
+    title: 'Community Q&A: Ask and Answer',
     description: 'Join our community of developers, entrepreneurs, and tech professionals. Ask questions, share knowledge, and connect with like-minded individuals.',
     keywords: ['tech community', 'developer community', 'Q&A', 'tech questions', 'programming help'],
     path: '/community'
@@ -129,7 +129,7 @@ export const pageMetadata = {
     path: '/contact'
   },
   connect: {
-    title: 'Connect With Us - Collaborate & Partner',
+    title: 'Connect: Collaborate and Partner',
     description: 'Connect with DevelopersMatrix for collaboration opportunities, partnerships, sponsorships, or just to say hello. We would love to hear from you.',
     keywords: ['connect', 'partnership', 'collaboration', 'sponsorship', 'business inquiry'],
     path: '/connect'

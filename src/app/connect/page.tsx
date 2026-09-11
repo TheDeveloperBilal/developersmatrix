@@ -4,7 +4,7 @@ import { siteConfig } from "@/data/config";
 import ConnectWithUsClient from "./ConnectWithUsClient";
 
 export const metadata: Metadata = {
-  title: "Connect With Us - Advertise, Partner & Collaborate",
+  title: "Connect: Advertise and Partner",
   description: "Partner with DevelopersMatrix for advertising, sponsored content, AI tool promotion, guest posting opportunities, and more. Reach thousands of developers and tech professionals.",
   alternates: {
     canonical: `${siteConfig.url}/connect`,

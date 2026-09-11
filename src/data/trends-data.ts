@@ -251,7 +251,7 @@ export const allTrends: TrendItem[] = [
         'Review a poor AI response and identify exactly what was missing from your prompt. Rewrite it and compare the results'
       ]
     },
-    metaTitle: 'ChatGPT Advanced Prompts Guide 2026 | DevelopersMatrix',
+    metaTitle: 'ChatGPT Advanced Prompts Guide 2026',
     metaDescription: 'Master ChatGPT prompt engineering in 2026. Learn advanced techniques, real-world examples, and tools to maximize your AI productivity.',
     keywords: ['ChatGPT prompts', 'prompt engineering', 'AI tools', 'ChatGPT tutorial', 'AI productivity']
   },
@@ -336,7 +336,7 @@ export const allTrends: TrendItem[] = [
         'Join communities like r/cursor or GitHub Discussions to learn advanced prompting techniques from power users'
       ]
     },
-    metaTitle: 'AI Coding Assistants Comparison 2026 | DevelopersMatrix',
+    metaTitle: 'AI Coding Assistants Compared for 2026',
     metaDescription: 'Compare GitHub Copilot, Cursor, Claude, and more. Find the best AI coding assistant for your development workflow in 2026.',
     keywords: ['AI coding assistant', 'GitHub Copilot alternative', 'Cursor AI', 'AI developer tools', 'coding AI']
   },
@@ -433,7 +433,7 @@ export const allTrends: TrendItem[] = [
         'Experiment with different models for different subtasks. Use small, fast models for simple decisions and large models for complex reasoning'
       ]
     },
-    metaTitle: 'Autonomous AI Agents by Industry 2026 | Examples & Agency Niches',
+    metaTitle: 'Autonomous AI Agents by Industry 2026',
     metaDescription: 'Explore autonomous AI agents examples by industry in 2026. See use cases in retail, finance, software, marketing, and logistics. Discover the best niches for AI automation agencies and how to build agent-powered businesses.',
     keywords: ['autonomous ai agents', 'autonomous agents examples by industry 2026', 'AI agents', 'AutoGPT', 'AI automation', 'future of work', 'AI agents by industry', 'best niches for ai automation agencies 2026', 'ai automation agency']
   },
@@ -490,7 +490,7 @@ export const allTrends: TrendItem[] = [
         { title: 'Enterprise AI Agents Case Studies', url: 'https://www.gartner.com/en/newsroom/artificial-intelligence', type: 'article' }
       ]
     },
-    metaTitle: 'Multi-Agent Systems Enterprise Guide 2026 | DevelopersMatrix',
+    metaTitle: 'Multi Agent Systems for Enterprise 2026',
     metaDescription: 'Implement multi-agent systems in your enterprise. Architecture patterns, tools, and real-world case studies for scaling AI automation.',
     keywords: ['multi-agent systems', 'enterprise AI', 'AI architecture', 'agent orchestration']
   },
@@ -641,7 +641,7 @@ export const allTrends: TrendItem[] = [
         { hustle: 'AI Consulting', steps: ['Build 5+ years of domain expertise first', 'Create a framework for AI readiness assessments', 'Publish thought leadership on LinkedIn and your blog', 'Offer strategy sessions at $500-$1,000/hour', 'Deliver implementation roadmaps, not just advice', 'Productize: sell templates, playbooks, and training programs'] }
       ]
     },
-    metaTitle: 'AI Side Hustles 2026: Make $500-$15K/Month With AI Tools',
+    metaTitle: 'AI Side Hustles 2026: Make Money With AI',
     metaDescription: '15 proven AI side hustles paying real income in 2026. See exact earnings, time to first dollar, and step-by-step starting guides for each method. No fluff.',
     keywords: ['AI side hustles 2026', 'AI income trends', 'make money with AI market', 'AI freelance opportunities', 'AI side hustle data', 'AI earning potential 2026', 'AI gig economy trends', 'AI business opportunities 2026']
   },
@@ -701,7 +701,7 @@ export const allTrends: TrendItem[] = [
         { title: 'Make.com Certification', url: 'https://academy.make.com', type: 'course' }
       ]
     },
-    metaTitle: 'AI Automation Agency 2026: Full Guide | DevelopersMatrix',
+    metaTitle: 'AI Automation Agency 2026: Full Guide',
     metaDescription: 'Learn how to start and scale an AI automation agency. Find clients, deliver results, and build a profitable business helping companies implement AI.',
     keywords: ['AI automation agency', 'AI consulting business', 'start AI agency', 'AI business']
   },
@@ -782,7 +782,7 @@ export const allTrends: TrendItem[] = [
         'Consider upgrading your storage. GTA 6 is expected to require 150GB to 200GB of space'
       ]
     },
-    metaTitle: 'GTA 6 2026: Release Date, Gameplay & News | DevelopersMatrix',
+    metaTitle: 'GTA 6 2026: Release Date and News',
     metaDescription: 'Complete GTA 6 guide: release date, gameplay features, story, characters, and PC requirements. Everything about the most anticipated game ever.',
     keywords: ['GTA 6', 'GTA 6 release date', 'GTA 6 gameplay', 'Grand Theft Auto 6', 'GTA VI']
   },
@@ -839,7 +839,7 @@ export const allTrends: TrendItem[] = [
         { title: 'GDC 2026 Keynotes', url: 'https://gdconf.com', type: 'video' }
       ]
     },
-    metaTitle: 'Gaming Technology Trends 2026 | DevelopersMatrix',
+    metaTitle: 'Gaming Technology Trends 2026',
     metaDescription: 'Discover the latest gaming technology trends in 2026: cloud gaming, AI NPCs, VR/AR gaming, and next-gen hardware innovations.',
     keywords: ['gaming trends 2026', 'cloud gaming', 'AI gaming', 'VR gaming', 'gaming technology']
   },
@@ -971,7 +971,7 @@ export const allTrends: TrendItem[] = [
         { title: 'Ethereum Documentation', url: 'https://docs.ethereum.org', type: 'article' }
       ]
     },
-    metaTitle: 'Web3 2026: Beyond Hype to Real Utility | DevelopersMatrix',
+    metaTitle: 'Web3 in 2026: Beyond the Hype',
     metaDescription: 'Explore how Web3 has matured in 2026. Practical applications in identity, finance, and infrastructure beyond crypto speculation.',
     keywords: ['Web3 2026', 'blockchain applications', 'decentralized web', 'DeFi']
   },
@@ -1182,7 +1182,7 @@ export const allTrends: TrendItem[] = [
         { title: 'FIDO Alliance Resources', url: 'https://fidoalliance.org', type: 'article' }
       ]
     },
-    metaTitle: 'Passwordless Authentication Guide 2026 | DevelopersMatrix',
+    metaTitle: 'Passwordless Authentication in 2026',
     metaDescription: 'Learn about passwordless authentication with passkeys. How it works, implementation guide, and why passwords are becoming obsolete.',
     keywords: ['passwordless authentication', 'passkeys', 'WebAuthn', 'biometric login']
   },
@@ -1294,7 +1294,7 @@ export const allTrends: TrendItem[] = [
         'Review and update your bio with a clear niche description and searchable keywords'
       ]
     },
-    metaTitle: 'TikTok Algorithm 2026: Latest Ranking Factors & Updates | DevelopersMatrix',
+    metaTitle: 'TikTok Algorithm 2026: Ranking Factors',
     metaDescription: 'Master the TikTok algorithm in 2026. Learn July 2026 ranking factors, TikTok SEO strategies, and proven tactics to grow your audience organically. Updated with latest data.',
     keywords: ['TikTok algorithm updates 2026', 'TikTok ranking factors', 'TikTok algorithm changes', 'TikTok for you page updates', 'TikTok search ranking', 'TikTok July 2026 update', 'TikTok algorithm news', 'TikTok content distribution']
   },
@@ -1422,7 +1422,7 @@ export const allTrends: TrendItem[] = [
         'Spend 50 percent of your time on content and 50 percent on community engagement and distribution'
       ]
     },
-    metaTitle: 'Creator Economy 2026: Monetize & Grow | DevelopersMatrix',
+    metaTitle: 'Creator Economy 2026: Monetize and Grow',
     metaDescription: 'Explore the creator economy in 2026. New monetization models, platforms, and how creators are building sustainable businesses online.',
     keywords: ['creator economy', 'content creator monetization', 'creator income', 'make money as creator']
   },
@@ -1508,7 +1508,7 @@ export const allTrends: TrendItem[] = [
         'Create a GitHub account immediately and push every project. Your GitHub profile is your portfolio and your resume'
       ]
     },
-    metaTitle: 'Learn Programming 2026: Beginner Guide | DevelopersMatrix',
+    metaTitle: 'Learn Programming in 2026: A Beginner Guide',
     metaDescription: 'Learn programming from scratch in 2026. Choose the right language, find free resources, and build a portfolio that gets you hired.',
     keywords: ['learn programming', 'how to code', 'programming for beginners', 'learn to code 2026']
   },
@@ -1566,7 +1566,7 @@ export const allTrends: TrendItem[] = [
         { title: 'Bubble Academy', url: 'https://bubble.io/academy', type: 'course' }
       ]
     },
-    metaTitle: 'No-Code Tools 2026: Complete Guide | DevelopersMatrix',
+    metaTitle: 'No Code Tools 2026: Complete Guide',
     metaDescription: 'Build websites, apps, and automations without coding. Complete guide to the best no-code tools and how to use them effectively.',
     keywords: ['no-code tools', 'no-code app builder', 'Bubble', 'Webflow', 'build without code']
   },
@@ -1623,7 +1623,7 @@ export const allTrends: TrendItem[] = [
         { title: 'Sustainable Computing Course', url: 'https://www.coursera.org', type: 'course' }
       ]
     },
-    metaTitle: 'Green Tech & Sustainable Computing 2026 | DevelopersMatrix',
+    metaTitle: 'Green Tech and Sustainable Computing 2026',
     metaDescription: 'Explore green technology and sustainable computing. Learn how tech is becoming more environmentally friendly and reducing carbon footprint.',
     keywords: ['green technology', 'sustainable computing', 'green tech', 'carbon footprint']
   },
@@ -1709,7 +1709,7 @@ export const allTrends: TrendItem[] = [
         'Join a professional community focused on your target skill. Discord servers, Reddit communities, and local meetups provide accountability and insider knowledge'
       ]
     },
-    metaTitle: 'Most In-Demand Tech Skills 2026 | DevelopersMatrix',
+    metaTitle: 'Most In Demand Tech Skills 2026',
     metaDescription: 'Discover the most in-demand tech skills for 2026. AI/ML, cloud, cybersecurity, and more. Plan your learning for maximum career impact.',
     keywords: ['tech skills 2026', 'in-demand skills', 'tech careers', 'AI skills', 'programming jobs']
   },
@@ -1835,7 +1835,7 @@ export const allTrends: TrendItem[] = [
         'Practice explaining your work in writing; remote teams value documentation over verbal updates'
       ]
     },
-    metaTitle: 'Remote Tech Jobs Guide 2026 | DevelopersMatrix',
+    metaTitle: 'Remote Tech Jobs Guide 2026',
     metaDescription: 'Find and succeed in remote tech jobs in 2026. Where to look, how to interview, and tips for building a successful work-from-anywhere career.',
     keywords: ['remote tech jobs', 'work from home jobs', 'remote developer jobs', 'remote work']
   },
@@ -1962,7 +1962,7 @@ export const allTrends: TrendItem[] = [
         'Record yourself solving a problem and review for filler words, clarity, and structured thinking'
       ]
     },
-    metaTitle: 'Tech Interview Trends 2026: Hiring Changes & New Formats | DevelopersMatrix',
+    metaTitle: 'Tech Interview Trends 2026: What Changed',
     metaDescription: 'Prepare for tech interviews with our complete guide. Coding challenges, system design, behavioral questions, and AI-powered practice tools.',
     keywords: ['tech interview trends 2026', 'hiring changes tech', 'interview format updates', 'FAANG hiring trends', 'tech recruitment 2026', 'coding interview changes', 'system design trends']
   }
