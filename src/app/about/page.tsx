@@ -16,7 +16,7 @@ import { siteConfig } from "@/data/config";
 import { siteAuthor } from "@/data/authors";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: 'About Syed Bilal Shah — Founder of DevelopersMatrix',
+  title: 'About Syed Bilal Shah, Founder',
   description: 'Meet Syed Bilal Shah, founder of DevelopersMatrix and co-founder of OviTech Global. Read his journey from intern to entrepreneur, and learn the mission behind making AI tools free for everyone.',
   path: '/about',
 });

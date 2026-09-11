@@ -4,7 +4,7 @@ import { siteConfig } from "@/data/config";
 import CommunityClient from "@/components/community/CommunityClient";
 
 export const metadata: Metadata = {
-  title: "Community Threads - Ask Questions, Share Knowledge",
+  title: "Community Threads: Ask and Answer",
   description: "Join our community of developers, entrepreneurs, and tech professionals. Create threads, reply to discussions, and share your knowledge.",
   alternates: {
     canonical: `${siteConfig.url}/community`,

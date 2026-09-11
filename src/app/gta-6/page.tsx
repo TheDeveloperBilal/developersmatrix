@@ -5,14 +5,14 @@ import { siteConfig } from '@/data/config';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: "GTA 6 Release Date Nov 19 2026: PC Requirements & Pre-Orders",
+  title: "GTA 6 Release Date and PC Requirements",
   description: "GTA 6 releases November 19, 2026 on PS5 and Xbox Series X. Check system requirements, gameplay features, and the latest confirmed news about Grand Theft Auto VI.",
   keywords: ['GTA 6 pre order live', 'GTA 6 sales record', 'GTA 6 release date november 19 2026', 'GTA 6 release date confirmed', 'GTA 6 PC requirements', 'GTA 6 gameplay', 'Grand Theft Auto 6', 'GTA 6 news 2026', 'GTA 6 system requirements', 'when is GTA 6 coming out', 'GTA 6 release date november 2026', 'GTA VI confirmed', 'GTA 6 pre order sales', 'GTA 6 billion dollars', 'GTA 6 copies sold'],
   alternates: {
     canonical: 'https://developersmatrix.com/gta-6'
   },
   openGraph: {
-    title: "GTA 6 Pre-Orders Live: $1 Billion First Hour Sales Record | Nov 19 2026",
+    title: "GTA 6 Pre-Orders: Analysts Estimate a Record First Hour",
     description: "GTA 6 pre-orders are live. Official release date November 19, 2026.",
     images: ['/og-gta6.png'],
   },
@@ -81,7 +81,7 @@ export default function GTA6Page() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <section className="mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            GTA 6 Pre-Orders Live: $1 Billion First Hour Sales Record Shattered
+            GTA 6 Pre-Orders: Analysts Estimate $1 Billion in the First Hour
           </h2>
           <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
             <p className="text-lg leading-relaxed">
