@@ -36,6 +36,10 @@ export interface BlogPost {
   noindex?: boolean;
 }
 
+// A blog post without its body. Used anywhere a list, card or sidebar only needs
+// the metadata, so the full article text never has to be shipped to the browser.
+export type BlogSummary = Omit<BlogPost, 'content' | 'faqs'>;
+
 // Trend Types
 export interface Trend {
   id: string;

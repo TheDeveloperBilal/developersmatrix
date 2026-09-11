@@ -27,7 +27,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Tool, BlogPost, Trend } from '@/types';
+import { Tool, BlogSummary, Trend } from '@/types';
 
 const iconMap: Record<string, React.ReactNode> = {
   FileText: <FileText className="w-5 h-5" />,
@@ -97,7 +97,7 @@ export function ToolCard({ tool }: ToolCardProps) {
 }
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: BlogSummary;
 }
 
 export function BlogCard({ post }: BlogCardProps) {

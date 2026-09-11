@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { BlogPost } from '@/types';
+import { BlogSummary } from '@/types';
 
 interface RelatedPostsProps {
-  posts: BlogPost[];
+  posts: BlogSummary[];
   className?: string;
 }
 

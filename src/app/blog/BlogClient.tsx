@@ -9,13 +9,14 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { BlogCard } from '@/components/shared/Cards';
 import { InContentAd } from '@/components/ads/AdBanner';
-import { blogPosts, blogCategories } from '@/data/blog';
+import { blogCategories } from '@/data/blog-categories';
+import type { BlogSummary } from '@/types';
 import { BlogCardSkeleton } from '@/components/blog/BlogCardSkeleton';
 
 const POSTS_PER_PAGE = 6;
 
 interface BlogClientProps {
-  initialPosts: typeof blogPosts;
+  initialPosts: BlogSummary[];
 }
 
 export default function BlogClient({ initialPosts }: BlogClientProps) {

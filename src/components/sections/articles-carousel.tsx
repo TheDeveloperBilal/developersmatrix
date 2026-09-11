@@ -4,9 +4,9 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, Clock } from "lucide-react";
-import { articles } from "@/lib/home-data";
+import type { Article } from "@/lib/home-articles";
 
-export default function ArticlesCarousel() {
+export default function ArticlesCarousel({ articles }: { articles: Article[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);

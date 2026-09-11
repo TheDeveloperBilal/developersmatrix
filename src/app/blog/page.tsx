@@ -1,7 +1,7 @@
 import { generatePageMetadata, pageMetadata } from '@/lib/seo/metadata';
 import { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
-import { blogPosts } from "@/data/blog";
+import { getBlogSummaries } from "@/data/blog";
 import { siteConfig } from "@/data/config";
 import BlogClient from "./BlogClient";
 
@@ -34,7 +34,7 @@ export default function BlogPage() {
           { name: "Blog", url: `${siteConfig.url}/blog` }
         ]}
       />
-      <BlogClient initialPosts={blogPosts} />
+      <BlogClient initialPosts={getBlogSummaries()} />
     </>
   );
 }

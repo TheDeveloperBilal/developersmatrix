@@ -11,7 +11,7 @@ import {
   Wallet,
 } from "lucide-react";
 import Reveal from "@/components/reveal";
-import { latestArticle } from "@/lib/home-data";
+import { latestArticle } from "@/lib/home-articles";
 
 const quickAccess = [
   { name: "Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, meta: "Free, no signup" },
