@@ -10,7 +10,7 @@ const staticBlogPosts: BlogPost[] = [
   {
     id: '3',
     slug: 'startup-funding-guide-2026',
-    title: 'The Complete Guide to Startup Funding in 2026: From Bootstrapping to Series A',
+    title: 'Startup Funding in 2026: A Complete Guide',
     excerpt: 'Navigate the complex world of startup funding with this comprehensive guide covering all stages.',
     content: `
 # The Complete Guide to Startup Funding in 2026
@@ -33,7 +33,7 @@ Angel investors typically provide $25,000 to $500,000 and bring valuable mentors
 
 Series A funding marks the transition from startup to scale-up.
     `,
-    author: 'Jennifer Walsh',
+    author: 'Syed Bilal Shah',
     category: 'Startup',
     tags: ['Startup', 'Funding', 'Investment', 'Entrepreneurship'],
     publishedAt: '2026-01-10',
