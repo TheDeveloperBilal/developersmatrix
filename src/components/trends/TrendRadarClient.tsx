@@ -24,15 +24,12 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  getShuffledTrends, 
-  getHotTrends, 
-  getFeaturedTrends, 
-  getAllCategories,
-  TrendItem,
-  TrendCategoryInfo,
-  getTrendsByCategory
-} from '@/data/trends-data';
+// Type only imports are erased at build time, so these cost nothing in the bundle.
+import type { TrendSummary } from '@/data/trends-data';
+import type { TrendCategoryInfo } from '@/data/trend-categories';
+// The category list is a value, so it comes from the light file. Importing it
+// from trends-data would pull all 268 KB of trend bodies into this page.
+import { trendCategories } from '@/data/trend-categories';
 
 const iconMap: Record<string, React.ReactNode> = {
   Brain: <Brain className="w-5 h-5" />,
@@ -69,19 +66,24 @@ const heroTexts = [
   "AI & Innovation Daily"
 ];
 
-export function TrendRadarClient() {
+interface TrendRadarClientProps {
+  // Card data only, handed over by the server page. Reading the trend file here
+  // would ship every article body to the browser.
+  trends: TrendSummary[];
+}
+
+export function TrendRadarClient({ trends }: TrendRadarClientProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [currentHeroText, setCurrentHeroText] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  
-  const trends = useMemo(() => getShuffledTrends(), []);
-  const hotTrends = useMemo(() => getHotTrends(5), []);
-  const featuredTrends = useMemo(() => getFeaturedTrends(6), []);
-  const categories = useMemo(() => getAllCategories(), []);
-  
+
+  const hotTrends = useMemo(() => trends.filter((t) => t.hot).slice(0, 5), [trends]);
+  const featuredTrends = useMemo(() => trends.filter((t) => t.featured).slice(0, 6), [trends]);
+  const categories = trendCategories;
+
   const filteredTrends = useMemo(() => {
     if (!selectedCategory) return trends;
-    return getTrendsByCategory(selectedCategory as any);
+    return trends.filter((t) => t.category === selectedCategory);
   }, [trends, selectedCategory]);
 
   // Hero text animation
@@ -384,7 +386,7 @@ export function TrendRadarClient() {
 }
 
 // Large Trend Card Component
-function TrendCardLarge({ trend, categories, index }: { trend: TrendItem; categories: TrendCategoryInfo[]; index: number }) {
+function TrendCardLarge({ trend, categories, index }: { trend: TrendSummary; categories: TrendCategoryInfo[]; index: number }) {
   const categoryInfo = categories.find(c => c.id === trend.category);
   const colors = colorMap[categoryInfo?.color || 'violet'];
 
@@ -439,7 +441,7 @@ function TrendCardLarge({ trend, categories, index }: { trend: TrendItem; catego
 }
 
 // Medium Trend Card Component
-function TrendCardMedium({ trend, categories, index }: { trend: TrendItem; categories: TrendCategoryInfo[]; index: number }) {
+function TrendCardMedium({ trend, categories, index }: { trend: TrendSummary; categories: TrendCategoryInfo[]; index: number }) {
   const categoryInfo = categories.find(c => c.id === trend.category);
   const colors = colorMap[categoryInfo?.color || 'violet'];
 
