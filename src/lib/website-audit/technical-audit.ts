@@ -1179,9 +1179,9 @@ export class TechnicalAuditor {
 
   private createScore(score: number, totalChecks: number, passedChecks: number, issues: number): AuditScore {
     return {
-      category: 'seo',
+      category: 'technical',
       score: Math.min(100, Math.max(0, Math.round(score))),
-      maxScore: 100,
+      maxScore: totalChecks,
       issues,
       criticalIssues: 0,
       passed: passedChecks,
