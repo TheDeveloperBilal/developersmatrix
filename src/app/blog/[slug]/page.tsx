@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getBlogPostBySlug, getRecentBlogPosts, getAllBlogSlugs } from "@/data/blog";
+import { getBlogPostBySlug, getRecentBlogSummaries, getAllBlogSlugs } from "@/data/blog";
 import { siteConfig } from "@/data/config";
 import { ArticleSchema, BreadcrumbSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 
@@ -225,7 +225,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const relatedPosts = getRecentBlogPosts(6).filter(p => p.id !== post.id).slice(0, 3);
+  // Summaries only. Sending full posts would serialise every article body into
+  // this page's payload on top of the one the reader actually asked for.
+  const sidebarPosts = getRecentBlogSummaries(4);
+  const relatedPosts = getRecentBlogSummaries(6).filter(p => p.id !== post.id).slice(0, 3);
   const postUrl = `${siteConfig.url}/blog/${post.slug}`;
   const toolRecs = getToolRecommendations(post.tags);
   const midCTA = getMidArticleCTA(post.tags);
@@ -352,7 +355,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="hidden lg:block lg:col-span-4 xl:col-span-4">
               <div className="sticky top-24 space-y-6">
                 <TableOfContents content={post.content} />
-                <BlogSidebar currentSlug={post.slug} />
+                <BlogSidebar currentSlug={post.slug} recentPosts={sidebarPosts} />
               </div>
             </div>
           </div>

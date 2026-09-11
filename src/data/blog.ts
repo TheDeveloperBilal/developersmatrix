@@ -1,4 +1,5 @@
-import { BlogPost } from '@/types';
+import { BlogPost, BlogSummary } from '@/types';
+import { blogCategories } from './blog-categories';
 import generatedBlogs from './generated-blogs.json';
 import highQualityBlogs from './high-quality-blogs.json';
 
@@ -50,7 +51,38 @@ export function getAllBlogPosts(): BlogPost[] {
 // Export merged blog posts
 export const blogPosts = getAllBlogPosts();
 
-export const blogCategories = ['Gaming', 'Technology', 'Politics', 'World News', 'Entertainment', 'Career', 'Productivity', 'Startup', 'Finance', 'Health', 'Education', 'Environment', 'Science', 'SEO'];
+// Re-exported so existing server side imports keep working. Client components
+// should import it from '@/data/blog-categories' instead, otherwise they drag the
+// whole blog corpus into their bundle.
+export { blogCategories };
+
+// Strip the article body and FAQ block. Anything that only renders a card, a list
+// row or a sidebar link should use this, never the full post.
+export function toBlogSummary(post: BlogPost): BlogSummary {
+  return {
+    id: post.id,
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    author: post.author,
+    category: post.category,
+    tags: post.tags,
+    publishedAt: post.publishedAt,
+    dateModified: post.dateModified,
+    readTime: post.readTime,
+    image: post.image,
+    canonicalUrl: post.canonicalUrl,
+    noindex: post.noindex,
+  };
+}
+
+export function getBlogSummaries(): BlogSummary[] {
+  return blogPosts.map(toBlogSummary);
+}
+
+export function getRecentBlogSummaries(count: number = 3): BlogSummary[] {
+  return getRecentBlogPosts(count).map(toBlogSummary);
+}
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find(post => post.slug === slug);
@@ -65,7 +97,7 @@ export function getBlogPostsByCategory(category: string): BlogPost[] {
 }
 
 export function getRecentBlogPosts(count: number = 3): BlogPost[] {
-  return blogPosts
+  return [...blogPosts]
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, count);
 }

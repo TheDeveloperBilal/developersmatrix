@@ -4,8 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Search, Wrench, FileText, TrendingUp, X } from "lucide-react";
 import { featuredTools, moreTools } from "@/lib/data";
-import { getAllBlogPosts } from "@/data/blog";
-import { allTrends } from "@/data/trends-data";
 
 type SearchTab = "all" | "tools" | "articles" | "trends";
 
@@ -19,40 +17,64 @@ interface SearchItem {
 }
 
 const allTools = [...featuredTools, ...moreTools];
-const allArticles = getAllBlogPosts();
-const allTrendsData = allTrends;
 
-function useSearchData() {
-  return useMemo(() => {
-    const tools: SearchItem[] = allTools.map((t, i) => ({
-      id: `tool-${i}`,
-      name: t.name,
-      href: t.href,
-      category: "TOOLS",
-      type: "tools" as SearchTab,
-      description: t.description,
-    }));
+const toolItems: SearchItem[] = allTools.map((t, i) => ({
+  id: `tool-${i}`,
+  name: t.name,
+  href: t.href,
+  category: "TOOLS",
+  type: "tools" as SearchTab,
+  description: t.description,
+}));
 
-    const articles: SearchItem[] = allArticles.map((a, i) => ({
-      id: `article-${i}`,
-      name: a.title,
-      href: `/blog/${a.slug}`,
-      category: (a.category || "ARTICLE").toUpperCase(),
-      type: "articles" as SearchTab,
-      description: a.excerpt?.slice(0, 80) + "...",
-    }));
+type ContentItems = { articles: SearchItem[]; trends: SearchItem[] };
 
-    const trends: SearchItem[] = allTrendsData.map((t, i) => ({
-      id: `trend-${i}`,
-      name: t.title,
-      href: `/trends/${t.slug}`,
-      category: t.category?.toUpperCase().replace(/-/g, " ") || "TRENDS",
-      type: "trends" as SearchTab,
-      description: t.subtitle?.slice(0, 80) + "...",
-    }));
+// Articles and trends are the two heaviest data files in the project. This modal
+// sits in the header, so importing them at the top would ship the entire blog
+// corpus and every trend body on every single page load. They are pulled in the
+// first time someone actually opens search, then cached for the rest of the visit.
+let contentCache: ContentItems | null = null;
+let contentPromise: Promise<ContentItems> | null = null;
 
-    return { tools, articles, trends, all: [...tools, ...articles, ...trends] };
-  }, []);
+function loadSearchContent(): Promise<ContentItems> {
+  if (contentPromise) return contentPromise;
+
+  contentPromise = Promise.all([
+    import("@/data/blog"),
+    import("@/data/trends-data"),
+  ])
+    .then(([blogModule, trendsModule]) => {
+      const articles: SearchItem[] = blogModule.getAllBlogPosts().map((a, i) => ({
+        id: `article-${i}`,
+        name: a.title,
+        href: `/blog/${a.slug}`,
+        category: (a.category || "ARTICLE").toUpperCase(),
+        type: "articles" as SearchTab,
+        description: a.excerpt?.slice(0, 80) + "...",
+      }));
+
+      const trends: SearchItem[] = trendsModule.allTrends.map((t, i) => ({
+        id: `trend-${i}`,
+        name: t.title,
+        href: `/trends/${t.slug}`,
+        category: t.category?.toUpperCase().replace(/-/g, " ") || "TRENDS",
+        type: "trends" as SearchTab,
+        description: t.subtitle?.slice(0, 80) + "...",
+      }));
+
+      const loaded = { articles, trends };
+      contentCache = loaded;
+      return loaded;
+    })
+    .catch(() => {
+      // Search still works across tools if the content chunk fails to load.
+      contentPromise = null;
+      const empty = { articles: [], trends: [] };
+      contentCache = empty;
+      return empty;
+    });
+
+  return contentPromise;
 }
 
 function filterItems(items: SearchItem[], query: string) {
@@ -75,13 +97,43 @@ export default function SearchModal({
 }) {
   const [query, setQuery] = useState("");
   const [activeTab, setActiveTab] = useState<SearchTab>("all");
+  const [content, setContent] = useState<ContentItems | null>(contentCache);
+  const [loadingContent, setLoadingContent] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const data = useSearchData();
+
+  const data = useMemo(() => {
+    const articles = content?.articles ?? [];
+    const trends = content?.trends ?? [];
+    return {
+      tools: toolItems,
+      articles,
+      trends,
+      all: [...toolItems, ...articles, ...trends],
+    };
+  }, [content]);
 
   useEffect(() => {
     if (open) {
       setQuery("");
       setActiveTab("all");
+
+      if (!contentCache) {
+        setLoadingContent(true);
+        let cancelled = false;
+        loadSearchContent().then((loaded) => {
+          if (!cancelled) {
+            setContent(loaded);
+            setLoadingContent(false);
+          }
+        });
+        const timer = setTimeout(() => inputRef.current?.focus(), 100);
+        return () => {
+          cancelled = true;
+          clearTimeout(timer);
+        };
+      }
+
+      setContent(contentCache);
       // Focus input after animation
       const timer = setTimeout(() => inputRef.current?.focus(), 100);
       return () => clearTimeout(timer);
@@ -182,7 +234,11 @@ export default function SearchModal({
         <div className="max-h-[50vh] overflow-y-auto">
           {results.length === 0 ? (
             <div className="px-5 py-8 text-center text-sm text-ink-400">
-              {query ? `No results for "${query}"` : "Start typing to search..."}
+              {loadingContent
+                ? "Loading articles and trends..."
+                : query
+                ? `No results for "${query}"`
+                : "Start typing to search..."}
             </div>
           ) : (
             <div className="py-2">

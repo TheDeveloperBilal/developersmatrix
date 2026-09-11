@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/config";
+import { articles } from "@/lib/home-articles";
 import { OrganizationSchema, WebApplicationSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 import SeoContentSection from "@/components/sections/seo-content-section";
 import LiveTicker from "@/components/sections/live-ticker";
@@ -116,7 +117,7 @@ export default function HomePage() {
       <ToolExplorer />
       <TrendingNow />
       <ExploreByGoal />
-      <ArticlesCarousel />
+      <ArticlesCarousel articles={articles} />
       <ToolStack />
       <LatestUpdates />
       <SeoContentSection />

@@ -7,16 +7,19 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { BlogPost } from '@/types';
-import { blogCategories, getRecentBlogPosts } from '@/data/blog';
+import { BlogSummary } from '@/types';
+import { blogCategories } from '@/data/blog-categories';
 
 interface BlogSidebarProps {
   currentSlug?: string;
   className?: string;
+  // Passed in from the server page. Reading the corpus here would pull every
+  // article body into the client bundle of every blog post.
+  recentPosts?: BlogSummary[];
 }
 
-export function BlogSidebar({ currentSlug, className }: BlogSidebarProps) {
-  const recentPosts = getRecentBlogPosts(4).filter(p => p.slug !== currentSlug).slice(0, 3);
+export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsProp }: BlogSidebarProps) {
+  const recentPosts = (recentPostsProp ?? []).filter(p => p.slug !== currentSlug).slice(0, 3);
 
   // Popular tags based on actual data
   const popularTags = [
