@@ -249,35 +249,42 @@ export default function GTA6Client() {
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-xl mb-4 sm:mb-8">
                 Check if your PC can run GTA 6 and get the latest news, system requirements, and features.
               </p>
-              <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+              {/* Flex wrap, not a two column grid. The Badge component is w-fit and
+                  whitespace-nowrap, so a long badge ignores a fixed grid track and runs
+                  underneath the badge in the next column. Wrapping lets long badges take
+                  their own line instead. max-w-full and min-w-0 let the text truncate
+                  rather than push past the viewport. */}
+              <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
+                <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
                   <span className="truncate">Pre-Orders Live</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400 shrink-0" />
                   <span className="truncate">Nov 19, 2026 Release</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-400 shrink-0" />
                   <span className="truncate">Console: {gameInfo.consoleRelease}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-orange-400 shrink-0" />
-                  <span className="sm:hidden">PC: Late 2027+</span>
-                  <span className="hidden sm:inline">PC: {gameInfo.pcRelease}</span>
+                  <span className="truncate sm:hidden">PC: not announced</span>
+                  <span className="truncate hidden sm:inline">PC: {gameInfo.pcRelease}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
-                  <span className="truncate">{gameInfo.price}</span>
+                  <span className="truncate sm:hidden">$69.99 to $99.99</span>
+                  <span className="truncate hidden sm:inline">{gameInfo.price}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
+                <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Building className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400 shrink-0" />
                   <span className="truncate">{gameInfo.developer}</span>
                 </Badge>
-                <Badge variant="outline" className="px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center col-span-2 sm:col-span-1">
+                <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-yellow-400 shrink-0" />
-                  <span className="truncate">{gameInfo.location}</span>
+                  <span className="truncate sm:hidden">Vice City, Leonida</span>
+                  <span className="truncate hidden sm:inline">{gameInfo.location}</span>
                 </Badge>
               </div>
             </div>
@@ -349,7 +356,12 @@ export default function GTA6Client() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
+                  {/* Flex column at mobile, two column grid from sm up. A grid here
+                      broke on phones: the storage row carried col-span-2, which forces a
+                      two track grid even when the single column rule does not apply, and
+                      the first track collapsed to zero width so every label sat on top of
+                      the one beside it. */}
+                  <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
                     <div>
                       <p className="text-muted-foreground">OS</p>
                       <p className="font-medium">{requirements.minimum.os}</p>
@@ -366,7 +378,7 @@ export default function GTA6Client() {
                       <p className="text-muted-foreground">Graphics</p>
                       <p className="font-medium">{requirements.minimum.graphics}</p>
                     </div>
-                    <div className="col-span-2">
+                    <div className="sm:col-span-2">
                       <p className="text-muted-foreground">Storage</p>
                       <p className="font-medium">{requirements.minimum.storage}</p>
                     </div>
@@ -382,7 +394,12 @@ export default function GTA6Client() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
+                  {/* Flex column at mobile, two column grid from sm up. A grid here
+                      broke on phones: the storage row carried col-span-2, which forces a
+                      two track grid even when the single column rule does not apply, and
+                      the first track collapsed to zero width so every label sat on top of
+                      the one beside it. */}
+                  <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
                     <div>
                       <p className="text-muted-foreground">OS</p>
                       <p className="font-medium">{requirements.recommended.os}</p>
@@ -399,7 +416,7 @@ export default function GTA6Client() {
                       <p className="text-muted-foreground">Graphics</p>
                       <p className="font-medium">{requirements.recommended.graphics}</p>
                     </div>
-                    <div className="col-span-2">
+                    <div className="sm:col-span-2">
                       <p className="text-muted-foreground">Storage</p>
                       <p className="font-medium">{requirements.recommended.storage}</p>
                     </div>
