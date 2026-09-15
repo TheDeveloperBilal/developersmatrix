@@ -61,6 +61,11 @@ const REDIRECTS: Record<string, string> = {
   '/home/': '/',
   '/blog/how-tiktok-algorithm-works-2026': '/blog/tiktok-algorithm-guide-2026',
   '/trends/cybersecurity-skills-gap': '/trends/ai-cybersecurity-threats-protection-2026',
+  // Audit cluster consolidated 15 September 2026. These two ranked for the same
+  // checklist queries as the target and always ranked worse, so they were merged
+  // into it rather than left to split the signal.
+  '/blog/how-to-audit-my-website-2026': '/blog/website-audit-checklist-2026',
+  '/blog/how-to-audit-website-2026-guide': '/blog/website-audit-checklist-2026',
 };
 
 export function middleware(request: NextRequest) {
