@@ -228,7 +228,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
               </CardHeader>
               <CardContent className="space-y-3">
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Get curated articles on tech careers, AI tools, and productivity hacks — delivered every Tuesday.
+                  Get curated articles on tech careers, AI tools, and productivity hacks, delivered every Tuesday.
                 </p>
                 <div className="space-y-2">
                   <Input

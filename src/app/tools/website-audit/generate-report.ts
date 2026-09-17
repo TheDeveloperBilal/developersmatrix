@@ -48,7 +48,7 @@ ${result.recommendations.map((r, i) => `${i + 1}. ${r}`).join('\n')}
 QUICK WINS
 ----------
 ${result.quickWins?.slice(0, 8).map((issue, i) => 
-  `${i + 1}. ${issue.title} — ${issue.suggestion}${issue.timeToFix ? ` (${issue.timeToFix})` : ''}`
+  `${i + 1}. ${issue.title}: ${issue.suggestion}${issue.timeToFix ? ` (${issue.timeToFix})` : ''}`
 ).join('\n') || 'No quick wins identified.'}
 
 CONTENT ANALYSIS
@@ -135,7 +135,7 @@ export function generateHTMLReport(result: WebsiteAuditResult): string {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Website Audit Report — ${result.domain}</title>
+  <title>Website Audit Report for ${result.domain}</title>
   <style>
     @page { size: A4; margin: 20mm; }
     @page :first { margin: 0; }
@@ -372,7 +372,7 @@ export function generateHTMLReport(result: WebsiteAuditResult): string {
     ${result.quickWins && result.quickWins.length > 0 ? result.quickWins.slice(0, 8).map((issue, i) => `
       <div class="rec-item">
         <div class="rec-number" style="background:#10b981;">${i + 1}</div>
-        <div class="rec-text"><strong>${issue.title}</strong> — ${issue.suggestion} ${issue.timeToFix ? `<span style="color:#64748b;">(${issue.timeToFix})</span>` : ''}</div>
+        <div class="rec-text"><strong>${issue.title}</strong>: ${issue.suggestion} ${issue.timeToFix ? `<span style="color:#64748b;">(${issue.timeToFix})</span>` : ''}</div>
       </div>
     `).join('') : '<p style="color:#64748b;font-size:14px;">No quick wins identified.</p>'}
   </div>
@@ -422,7 +422,7 @@ export function generateHTMLReport(result: WebsiteAuditResult): string {
     <h2>Sentiment</h2>
     <p style="font-size:14px;color:#475569;">
       ${result.contentAnalysis.sentimentScore > 0 ? `<span style="color:#10b981;font-weight:600;">Positive (${result.contentAnalysis.sentimentScore > 5 ? 'Strongly' : 'Moderately'})</span>` : result.contentAnalysis.sentimentScore < 0 ? `<span style="color:#ef4444;font-weight:600;">Negative</span>` : `<span style="color:#64748b;">Neutral</span>`}
-      — The content tone is ${result.contentAnalysis.sentimentScore > 0 ? 'optimistic and encouraging' : result.contentAnalysis.sentimentScore < 0 ? 'critical or cautionary' : 'balanced and factual'}.
+      The content tone is ${result.contentAnalysis.sentimentScore > 0 ? 'optimistic and encouraging' : result.contentAnalysis.sentimentScore < 0 ? 'critical or cautionary' : 'balanced and factual'}.
     </p>
   </div>
 

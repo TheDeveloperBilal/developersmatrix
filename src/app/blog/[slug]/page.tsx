@@ -121,7 +121,7 @@ function getMidArticleCTA(tags: string[]): { title: string; description: string;
   if (tagStr.includes('website') || tagStr.includes('seo') || tagStr.includes('audit')) {
     return {
       title: 'Audit Your Website in 60 Seconds',
-      description: 'Check SEO, speed, mobile UX, and security — completely free. Get actionable fixes.',
+      description: 'Check SEO, speed, mobile UX, and security, completely free. Get actionable fixes.',
       buttonText: 'Run Free Audit →',
       href: '/tools/website-audit',
     };
@@ -166,7 +166,7 @@ function getMidArticleCTA(tags: string[]): { title: string; description: string;
   // Default
   return {
     title: 'Audit Your Website in 60 Seconds',
-    description: 'Check SEO, speed, mobile UX, and security — completely free. Get actionable fixes to improve your rankings.',
+    description: 'Check SEO, speed, mobile UX, and security, completely free. Get actionable fixes to improve your rankings.',
     buttonText: 'Run Free Audit →',
     href: '/tools/website-audit',
   };
@@ -293,7 +293,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm text-foreground mb-1">Related tools for this topic</p>
                       <p className="text-sm text-muted-foreground mb-3">
-                        Use our free AI tools to apply what you just read — no signup required.
+                        Use our free AI tools to apply what you just read. No signup required.
                       </p>
                       <div className="flex flex-wrap gap-x-4 gap-y-2">
                         {toolRecs.map((tool, i) => (

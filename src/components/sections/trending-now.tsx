@@ -102,7 +102,7 @@ export default function TrendingNow() {
               Trending now, tracked live
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink-500">
-              Signals across AI, careers, SEO and gaming — scored by momentum so you can act
+              Signals across AI, careers, SEO and gaming, scored by momentum so you can act
               before the crowd.
             </p>
           </div>
