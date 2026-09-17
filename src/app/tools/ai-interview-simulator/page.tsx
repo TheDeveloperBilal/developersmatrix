@@ -90,7 +90,7 @@ export default function InterviewSimulatorPage() {
           },
           {
             name: "Review the AI feedback and scoring",
-            text: "After submitting your answer, the AI evaluates four dimensions: relevance to the question asked, depth of technical detail, structure and clarity, and completeness. You receive a score out of 10 and specific feedback on what you did well and what needs improvement. Pay special attention to the structure feedback for behavioral answers — interviewers consistently rate STAR method compliance as the top differentiator between good and great candidates."
+            text: "After submitting your answer, the AI evaluates four dimensions: relevance to the question asked, depth of technical detail, structure and clarity, and completeness. You receive a score out of 10 and specific feedback on what you did well and what needs improvement. Pay special attention to the structure feedback for behavioral answers. Interviewers consistently rate STAR method compliance as the top differentiator between good and great candidates."
           },
           {
             name: "Practice follow-up questions",
@@ -98,7 +98,7 @@ export default function InterviewSimulatorPage() {
           },
           {
             name: "Track progress over multiple sessions",
-            text: "Use the simulator 2-3 times per week for 3-4 weeks before your interview. Track your average scores per category and watch for improvement trends. A score increase from 5.0 to 7.5 over two weeks indicates you are approaching interview-ready status. Scores above 8.0 across all categories mean you are well-prepared. Do not aim for perfection — aim for consistency above 7.0 with strong structure and specific examples."
+            text: "Use the simulator 2-3 times per week for 3-4 weeks before your interview. Track your average scores per category and watch for improvement trends. A score increase from 5.0 to 7.5 over two weeks indicates you are approaching interview-ready status. Scores above 8.0 across all categories mean you are well-prepared. Do not aim for perfection. Aim for consistency above 7.0 with strong structure and specific examples."
           }
         ]}
       />
@@ -216,7 +216,7 @@ export default function InterviewSimulatorPage() {
                     That is why the gap between wanting a software engineering job and actually landing one has never been wider. It is not enough to know React or Python. You need to explain your thinking under pressure, handle unexpected follow-up questions, and demonstrate genuine understanding rather than memorized answers.
                   </p>
                   <p className="leading-relaxed">
-                    The <strong>DevelopersMatrix AI Interview Simulator</strong> was built for this exact moment. It is not a static question bank. Our AI generates realistic questions tailored to your target role and experience level, evaluates your answers across three dimensions: relevance, quality, and depth — and gives you actionable feedback that improves your performance. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
+                    The <strong>DevelopersMatrix AI Interview Simulator</strong> was built for this exact moment. It is not a static question bank. Our AI generates realistic questions tailored to your target role and experience level, evaluates your answers across three dimensions: relevance, quality, and depth, and gives you actionable feedback that improves your performance. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
                   </p>
                   <p className="leading-relaxed">
                     Best part? It is completely free. No signup. No credit card. No scheduling. Just pick your role, select a category, and start practicing.
@@ -739,7 +739,7 @@ export default function InterviewSimulatorPage() {
             </div>
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2. Choose Question Type</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Behavioral, technical, or system design — each with entry, mid, and senior difficulty levels.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Behavioral, technical, or system design, each with entry, mid, and senior difficulty levels.</p>
             </div>
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-2">3. Answer Out Loud</h4>

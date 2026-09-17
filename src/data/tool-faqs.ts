@@ -1,4 +1,4 @@
-// FAQ data for tool pages — comprehensive questions that AI systems extract for answers
+// FAQ data for tool pages, comprehensive questions that AI systems extract for answers
 // Each tool gets 6-8 FAQs with detailed, citation-worthy answers
 
 export interface ToolFAQ {
@@ -13,11 +13,11 @@ export const resumeBuilderFAQs: ToolFAQ[] = [
   },
   {
     question: "How does the AI resume builder optimize for ATS systems?",
-    answer: "Our AI resume builder optimizes for Applicant Tracking Systems (ATS) in four ways. First, it uses clean, single-column layouts that ATS parsers can read without confusion — avoiding tables, text boxes, and graphics that cause parsing errors. Second, it suggests role-specific keywords drawn from real job descriptions, increasing keyword match scores. Third, it structures sections with standard headings like 'Work Experience' and 'Education' that all major ATS platforms recognize. Fourth, it avoids creative fonts and special characters that ATS software often fails to process. Testing shows resumes built with our tool achieve 90%+ parse accuracy on Taleo, Workday, Greenhouse, and Lever ATS platforms."
+    answer: "Our AI resume builder optimizes for Applicant Tracking Systems (ATS) in four ways. First, it uses clean, single-column layouts that ATS parsers can read without confusion, avoiding tables, text boxes, and graphics that cause parsing errors. Second, it suggests role-specific keywords drawn from real job descriptions, increasing keyword match scores. Third, it structures sections with standard headings like 'Work Experience' and 'Education' that all major ATS platforms recognize. Fourth, it avoids creative fonts and special characters that ATS software often fails to process. Testing shows resumes built with our tool achieve 90%+ parse accuracy on Taleo, Workday, Greenhouse, and Lever ATS platforms."
   },
   {
     question: "Can I customize the resume template and sections?",
-    answer: "Absolutely. You can add, remove, and reorder sections including Summary, Experience, Education, Skills, Projects, Certifications, and Languages. Each section supports rich text formatting, bullet points, and date ranges. You can also choose from multiple professional templates optimized for different career stages — entry-level developers, senior engineers, and technical managers. Color accents are customizable while maintaining ATS-safe formatting."
+    answer: "Absolutely. You can add, remove, and reorder sections including Summary, Experience, Education, Skills, Projects, Certifications, and Languages. Each section supports rich text formatting, bullet points, and date ranges. You can also choose from multiple professional templates optimized for different career stages, entry-level developers, senior engineers, and technical managers. Color accents are customizable while maintaining ATS-safe formatting."
   },
   {
     question: "What file format does the resume builder export?",
@@ -56,18 +56,18 @@ export const interviewSimulatorFAQs: ToolFAQ[] = [
   },
   {
     question: "How should I use the simulator for best results?",
-    answer: "For optimal preparation, use the simulator in three phases. Phase one (2 weeks before interview): Complete 2-3 full sessions daily across all categories to identify weak areas. Phase two (1 week before): Focus on your weakest category with 5+ targeted sessions, reviewing AI feedback after each answer. Phase three (2-3 days before): Do one full mock interview under timed conditions to build stamina. Record yourself speaking aloud — verbal practice builds confidence faster than silent reading. Review the feedback summary after each session to track improvement."
+    answer: "For optimal preparation, use the simulator in three phases. Phase one (2 weeks before interview): Complete 2-3 full sessions daily across all categories to identify weak areas. Phase two (1 week before): Focus on your weakest category with 5+ targeted sessions, reviewing AI feedback after each answer. Phase three (2-3 days before): Do one full mock interview under timed conditions to build stamina. Record yourself speaking aloud, verbal practice builds confidence faster than silent reading. Review the feedback summary after each session to track improvement."
   }
 ];
 
 export const aiContentDetectorFAQs: ToolFAQ[] = [
   {
     question: "How accurate is the AI content detector?",
-    answer: "The DevelopersMatrix AI Content Detector analyzes text using perplexity and burstiness scoring, two established statistical methods for detecting AI-generated content. Perplexity measures how predictable the text is — AI models like GPT-4 produce more predictable sequences than human writers. Burstiness measures variation in sentence complexity and length — humans naturally vary their writing rhythm more than AI. Our tool achieves approximately 85-90% accuracy on ChatGPT and GPT-4 text, 80-85% on Claude, and 75-80% on Gemini content in controlled tests. However, no detector is 100% accurate. Human writers with formal or technical styles may trigger false positives, and heavily edited AI text may evade detection. We recommend using the tool as one signal among several, not as definitive proof."
+    answer: "The DevelopersMatrix AI Content Detector analyzes text using perplexity and burstiness scoring, two established statistical methods for detecting AI-generated content. Perplexity measures how predictable the text is. AI models like GPT-4 produce more predictable sequences than human writers. Burstiness measures variation in sentence complexity and length. Humans naturally vary their writing rhythm more than AI. Our tool achieves approximately 85-90% accuracy on ChatGPT and GPT-4 text, 80-85% on Claude, and 75-80% on Gemini content in controlled tests. However, no detector is 100% accurate. Human writers with formal or technical styles may trigger false positives, and heavily edited AI text may evade detection. We recommend using the tool as one signal among several, not as definitive proof."
   },
   {
     question: "What AI models can the detector identify?",
-    answer: "The detector is trained to identify text patterns from major large language models including OpenAI's GPT-3.5 and GPT-4, Anthropic's Claude 3 family, Google's Gemini Pro, Meta's Llama 2 and 3, and Mistral models. It can also flag content from older models like GPT-2 and GPT-3. The underlying statistical patterns differ slightly between models — GPT-4 tends to have lower perplexity than Claude, while Gemini often shows different burstiness profiles. The tool provides a general AI probability score rather than identifying the specific model, as model-specific detection requires training data that is not always publicly available."
+    answer: "The detector is trained to identify text patterns from major large language models including OpenAI's GPT-3.5 and GPT-4, Anthropic's Claude 3 family, Google's Gemini Pro, Meta's Llama 2 and 3, and Mistral models. It can also flag content from older models like GPT-2 and GPT-3. The underlying statistical patterns differ slightly between models. GPT-4 tends to have lower perplexity than Claude, while Gemini often shows different burstiness profiles. The tool provides a general AI probability score rather than identifying the specific model, as model-specific detection requires training data that is not always publicly available."
   },
   {
     question: "Can the detector analyze code as well as prose?",
@@ -79,11 +79,11 @@ export const aiContentDetectorFAQs: ToolFAQ[] = [
   },
   {
     question: "Why did the detector flag my human-written text as AI?",
-    answer: "False positives occur for several reasons. Highly formal or technical writing naturally has lower perplexity because professional language follows predictable patterns. Writers who outline carefully before writing may produce more structured, consistent text that resembles AI output. Non-native English speakers sometimes write with simpler, more regular sentence structures. Journalists and academics trained to write clearly and concisely may trigger lower burstiness scores. If you receive a false positive, try varying sentence length, adding personal anecdotes, or including colloquial expressions — these human touches typically reset the scores."
+    answer: "False positives occur for several reasons. Highly formal or technical writing naturally has lower perplexity because professional language follows predictable patterns. Writers who outline carefully before writing may produce more structured, consistent text that resembles AI output. Non-native English speakers sometimes write with simpler, more regular sentence structures. Journalists and academics trained to write clearly and concisely may trigger lower burstiness scores. If you receive a false positive, try varying sentence length, adding personal anecdotes, or including colloquial expressions. These human touches typically reset the scores."
   },
   {
     question: "What do perplexity and burstiness scores actually mean?",
-    answer: "Perplexity is a measure of text predictability. Lower perplexity means the text follows highly predictable patterns — AI models excel at this because they are trained to produce the most statistically likely next word at every step. Human perplexity typically ranges from 40-80, while AI text often falls between 10-40. Burstiness measures the variation in sentence complexity across a text. Humans naturally alternate between short, punchy sentences and longer, complex ones. AI tends toward more consistent sentence structures. A high burstiness score (above 60) strongly suggests human authorship, while very low burstiness (below 20) is a reliable AI signal."
+    answer: "Perplexity is a measure of text predictability. Lower perplexity means the text follows highly predictable patterns. AI models excel at this because they are trained to produce the most statistically likely next word at every step. Human perplexity typically ranges from 40-80, while AI text often falls between 10-40. Burstiness measures the variation in sentence complexity across a text. Humans naturally alternate between short, punchy sentences and longer, complex ones. AI tends toward more consistent sentence structures. A high burstiness score (above 60) strongly suggests human authorship, while very low burstiness (below 20) is a reliable AI signal."
   }
 ];
 
@@ -94,19 +94,19 @@ export const coverLetterFAQs: ToolFAQ[] = [
   },
   {
     question: "How does the AI personalize the cover letter to a specific job?",
-    answer: "The generator analyzes the job description you provide and extracts key requirements, skills, and company values. It then matches these against your input background — including your experience, skills, and achievements — to create a targeted narrative. The AI weaves in specific keywords from the job posting, references the company's stated mission or values when available, and structures the letter to address the hiring manager's likely priorities. The result reads as if written specifically for that role rather than being a generic template with company name swapped in."
+    answer: "The generator analyzes the job description you provide and extracts key requirements, skills, and company values. It then matches these against your input background, including your experience, skills, and achievements, to create a targeted narrative. The AI weaves in specific keywords from the job posting, references the company's stated mission or values when available, and structures the letter to address the hiring manager's likely priorities. The result reads as if written specifically for that role rather than being a generic template with company name swapped in."
   },
   {
     question: "Can I edit the generated cover letter before downloading?",
-    answer: "Yes, the generated cover letter is fully editable before export. You can modify any section, adjust the tone, add specific project references, or rewrite paragraphs in your own voice. We recommend always reviewing and personalizing AI-generated cover letters — hiring managers can detect generic AI content, and your unique voice and specific examples make the difference between a good cover letter and a great one."
+    answer: "Yes, the generated cover letter is fully editable before export. You can modify any section, adjust the tone, add specific project references, or rewrite paragraphs in your own voice. We recommend always reviewing and personalizing AI-generated cover letters. Hiring managers can detect generic AI content, and your unique voice and specific examples make the difference between a good cover letter and a great one."
   },
   {
     question: "What tone and format does the generator use?",
-    answer: "The default tone is professional yet personable — confident without being arrogant, enthusiastic without being desperate. The format follows standard business letter conventions: your contact information, date, hiring manager greeting (or 'Dear Hiring Team' when name unknown), 3-4 concise paragraphs, and a professional sign-off. Paragraph one introduces your interest and relevant top qualification. Paragraph two connects your experience to the role's key requirements. Paragraph three demonstrates knowledge of the company. The closing reiterates enthusiasm and requests an interview."
+    answer: "The default tone is professional yet personable, confident without being arrogant, enthusiastic without being desperate. The format follows standard business letter conventions: your contact information, date, hiring manager greeting (or 'Dear Hiring Team' when name unknown), 3-4 concise paragraphs, and a professional sign-off. Paragraph one introduces your interest and relevant top qualification. Paragraph two connects your experience to the role's key requirements. Paragraph three demonstrates knowledge of the company. The closing reiterates enthusiasm and requests an interview."
   },
   {
     question: "Will recruiters know I used an AI cover letter generator?",
-    answer: "If you use the generated text without editing, experienced recruiters may recognize AI patterns — overly formal language, generic phrasing, and lack of specific personal anecdotes. However, the generator is designed as a starting point, not a final product. When you edit the output to add your own projects, adjust the tone to match your personality, and include specific metrics from your career, the result becomes indistinguishable from a self-written letter. Think of it as a smart template that does 70% of the work, with your edits providing the essential 30% that makes it authentic."
+    answer: "If you use the generated text without editing, experienced recruiters may recognize AI patterns, overly formal language, generic phrasing, and lack of specific personal anecdotes. However, the generator is designed as a starting point, not a final product. When you edit the output to add your own projects, adjust the tone to match your personality, and include specific metrics from your career, the result becomes indistinguishable from a self-written letter. Think of it as a smart template that does 70% of the work, with your edits providing the essential 30% that makes it authentic."
   }
 ];
 
@@ -125,7 +125,7 @@ export const salaryEstimatorFAQs: ToolFAQ[] = [
   },
   {
     question: "How often is the salary data updated?",
-    answer: "Salary data is refreshed quarterly using the most recent public compensation reports, job posting analysis, and crowdsourced submissions. Major market shifts — such as the 2022-2023 tech layoffs and subsequent recovery — are reflected within one quarter. Cost of living adjustments use the latest Consumer Price Index and housing cost data for each metro area."
+    answer: "Salary data is refreshed quarterly using the most recent public compensation reports, job posting analysis, and crowdsourced submissions. Major market shifts, such as the 2022-2023 tech layoffs and subsequent recovery, are reflected within one quarter. Cost of living adjustments use the latest Consumer Price Index and housing cost data for each metro area."
   }
 ];
 
@@ -136,7 +136,7 @@ export const budgetPlannerFAQs: ToolFAQ[] = [
   },
   {
     question: "What budgeting method does the tool use?",
-    answer: "The planner supports multiple budgeting frameworks. The default is the 50/30/20 rule — 50% for needs (rent, food, utilities), 30% for wants (entertainment, dining out), and 20% for savings and debt repayment. You can also switch to zero-based budgeting where every dollar is assigned a job, or the envelope method where you allocate fixed amounts to spending categories. The tool visualizes your actual spending against whichever framework you choose, highlighting areas where you are over or under your targets."
+    answer: "The planner supports multiple budgeting frameworks. The default is the 50/30/20 rule, 50% for needs (rent, food, utilities), 30% for wants (entertainment, dining out), and 20% for savings and debt repayment. You can also switch to zero-based budgeting where every dollar is assigned a job, or the envelope method where you allocate fixed amounts to spending categories. The tool visualizes your actual spending against whichever framework you choose, highlighting areas where you are over or under your targets."
   },
   {
     question: "Can I track variable income like freelancing?",
@@ -144,7 +144,7 @@ export const budgetPlannerFAQs: ToolFAQ[] = [
   },
   {
     question: "Does the planner connect to bank accounts?",
-    answer: "No, and this is intentional. Bank connections require Plaid or similar services that charge fees, introduce security risks, and often fail with international accounts. Our manual entry approach takes 5 minutes per week, keeps your banking credentials completely private, and works regardless of which country or bank you use. For users who want automatic import, we recommend exporting bank CSVs and importing them manually — a feature we may add in the future."
+    answer: "No, and this is intentional. Bank connections require Plaid or similar services that charge fees, introduce security risks, and often fail with international accounts. Our manual entry approach takes 5 minutes per week, keeps your banking credentials completely private, and works regardless of which country or bank you use. For users who want automatic import, we recommend exporting bank CSVs and importing them manually, a feature we may add in the future."
   }
 ];
 
@@ -159,18 +159,18 @@ export const habitTrackerFAQs: ToolFAQ[] = [
   },
   {
     question: "Can I track negative habits I want to break?",
-    answer: "Yes, the tracker includes a 'break mode' for habits you want to eliminate rather than build. In break mode, you mark days where you successfully avoided the negative habit, and the tool tracks your 'sober streak' — consecutive days without the behavior. This is useful for habits like social media scrolling, late-night coding, excessive caffeine, or any behavior you want to reduce."
+    answer: "Yes, the tracker includes a 'break mode' for habits you want to eliminate rather than build. In break mode, you mark days where you successfully avoided the negative habit, and the tool tracks your 'sober streak', consecutive days without the behavior. This is useful for habits like social media scrolling, late-night coding, excessive caffeine, or any behavior you want to reduce."
   },
   {
     question: "How does the streak system work?",
-    answer: "A streak counts consecutive days where you complete a positive habit or avoid a negative one. Missing one day breaks the streak and resets the counter to zero — this is the classic 'don't break the chain' method popularized by Jerry Seinfeld. Research shows visible streaks are one of the most effective motivation tools for habit formation because loss aversion makes people reluctant to break a long chain. The tracker also shows your personal best streak for each habit, giving you a secondary goal to beat."
+    answer: "A streak counts consecutive days where you complete a positive habit or avoid a negative one. Missing one day breaks the streak and resets the counter to zero. This is the classic 'don't break the chain' method popularized by Jerry Seinfeld. Research shows visible streaks are one of the most effective motivation tools for habit formation because loss aversion makes people reluctant to break a long chain. The tracker also shows your personal best streak for each habit, giving you a secondary goal to beat."
   }
 ];
 
 export const productivityPlannerFAQs: ToolFAQ[] = [
   {
     question: "Is the productivity planner free to use?",
-    answer: "Yes, the DevelopersMatrix Productivity Planner is 100% free with no signup required. Plan your day, manage tasks, and track productivity without any cost. All features are fully accessible — task creation, priority setting, time blocking, and weekly review — with no premium tier or paywall."
+    answer: "Yes, the DevelopersMatrix Productivity Planner is 100% free with no signup required. Plan your day, manage tasks, and track productivity without any cost. All features are fully accessible, task creation, priority setting, time blocking, and weekly review, with no premium tier or paywall."
   },
   {
     question: "What productivity methods does the planner incorporate?",
@@ -220,7 +220,7 @@ export const promptLibraryFAQs: ToolFAQ[] = [
   },
   {
     question: "Are the prompts tested against current AI models?",
-    answer: "Prompts are regularly reviewed and updated to ensure compatibility with the latest model versions including GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro. However, AI model behavior changes over time — a prompt that worked perfectly three months ago may produce different output today. We mark each prompt with its last verified date and the model version it was tested against. Community feedback helps us identify prompts that need updating."
+    answer: "Prompts are regularly reviewed and updated to ensure compatibility with the latest model versions including GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro. However, AI model behavior changes over time, a prompt that worked perfectly three months ago may produce different output today. We mark each prompt with its last verified date and the model version it was tested against. Community feedback helps us identify prompts that need updating."
   }
 ];
 
@@ -269,7 +269,7 @@ export const canYouRunItFAQs: ToolFAQ[] = [
   },
   {
     question: "How does the tool know if my PC can run a game?",
-    answer: "The tool compares your submitted hardware specifications against the official minimum and recommended requirements published by game developers. It checks CPU generation and clock speed, GPU model and VRAM, RAM capacity, and available storage space. For each component, it determines whether you meet minimum requirements (game will run at low settings), recommended requirements (game will run well at medium-high settings), or exceed requirements (game will run at ultra settings). The tool also identifies specific bottlenecks — for example, if your GPU meets recommended specs but your CPU falls below minimum, it will flag the CPU as the limiting factor."
+    answer: "The tool compares your submitted hardware specifications against the official minimum and recommended requirements published by game developers. It checks CPU generation and clock speed, GPU model and VRAM, RAM capacity, and available storage space. For each component, it determines whether you meet minimum requirements (game will run at low settings), recommended requirements (game will run well at medium-high settings), or exceed requirements (game will run at ultra settings). The tool also identifies specific bottlenecks, for example, if your GPU meets recommended specs but your CPU falls below minimum, it will flag the CPU as the limiting factor."
   },
   {
     question: "What games are in the database?",
@@ -281,6 +281,6 @@ export const canYouRunItFAQs: ToolFAQ[] = [
   },
   {
     question: "Can I check laptop compatibility?",
-    answer: "Yes, the tool works for both desktop and laptop hardware. Laptop GPUs and CPUs often have lower clock speeds than their desktop counterparts despite sharing the same model name — for example, a laptop RTX 4060 performs approximately 15-20% below a desktop RTX 4060. The tool factors in these mobile performance differences when making compatibility assessments."
+    answer: "Yes, the tool works for both desktop and laptop hardware. Laptop GPUs and CPUs often have lower clock speeds than their desktop counterparts despite sharing the same model name, for example, a laptop RTX 4060 performs approximately 15-20% below a desktop RTX 4060. The tool factors in these mobile performance differences when making compatibility assessments."
   }
 ];

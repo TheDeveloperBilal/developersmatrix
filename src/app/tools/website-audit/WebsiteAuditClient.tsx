@@ -98,7 +98,7 @@ export default function WebsiteAuditClient() {
     },
     {
       question: "Can I export the audit report?",
-      answer: "Yes! After running an audit, you can copy the full text report to clipboard or download a professionally formatted PDF report. The PDF includes your scores, issues, recommendations, and content analysis — perfect for sharing with clients or team members."
+      answer: "Yes! After running an audit, you can copy the full text report to clipboard or download a professionally formatted PDF report. The PDF includes your scores, issues, recommendations, and content analysis, perfect for sharing with clients or team members."
     },
     {
       question: "How often should I audit my website?",
@@ -106,11 +106,11 @@ export default function WebsiteAuditClient() {
     },
     {
       question: "Does the audit work for any type of website?",
-      answer: "Yes, our tool works with any publicly accessible website — WordPress, Shopify, Next.js, React, Vue, plain HTML, and more. It checks the rendered output, so it works regardless of what technology powers your site."
+      answer: "Yes, our tool works with any publicly accessible website: WordPress, Shopify, Next.js, React, Vue, plain HTML, and more. It checks the rendered output, so it works regardless of what technology powers your site."
     },
     {
       question: "What is a 'good' website audit score?",
-      answer: "Scores break down as: 90-100 (Excellent — minimal issues, well-optimized), 70-89 (Good — some improvements needed), 50-69 (Fair — significant issues affecting performance/SEO), 0-49 (Poor — critical issues requiring immediate attention). Most websites score between 60-80 on first audit."
+      answer: "Scores break down as: 90-100 (Excellent, minimal issues, well-optimized), 70-89 (Good, some improvements needed), 50-69 (Fair, significant issues affecting performance/SEO), 0-49 (Poor, critical issues requiring immediate attention). Most websites score between 60-80 on first audit."
     },
     {
       question: "Will fixing these issues improve my Google rankings?",
@@ -494,7 +494,7 @@ export default function WebsiteAuditClient() {
                 A comprehensive website audit is the foundation of any successful digital strategy. 
                 Our free AI-powered website audit tool analyzes around 150 technical and on-page factors 
                 that search engines like Google use to rank your site. From broken links and slow page speeds 
-                to missing meta tags and poor mobile usability — we catch issues that could be holding 
+                to missing meta tags and poor mobile usability. We catch issues that could be holding 
                 your site back from reaching its full potential.
               </p>
             </div>

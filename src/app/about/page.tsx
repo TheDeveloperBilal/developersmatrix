@@ -49,15 +49,15 @@ const milestones = [
     icon: <Code className="w-5 h-5" />
   },
   {
-    year: "2018–2023",
+    year: "2018 to 2023",
     title: "Building Experience",
     description: "Worked with three software companies, expanded skills to WordPress, Shopify, Magento, and modern frameworks. Worked with local and international clients across industries.",
     icon: <Briefcase className="w-5 h-5" />
   },
   {
-    year: "2018–2023",
+    year: "2018 to 2023",
     title: "Freelancing & Experimenting",
-    description: "Started freelancing with global clients. Launched Leather Craftly — a leather products brand that ultimately failed but became the greatest learning experience. Became obsessed with SEO and digital marketing.",
+    description: "Started freelancing with global clients. Launched Leather Craftly, a leather products brand that ultimately failed but became the greatest learning experience. Became obsessed with SEO and digital marketing.",
     icon: <Lightbulb className="w-5 h-5" />
   },
   {
@@ -120,7 +120,7 @@ export default function AboutPage() {
                   <div className="col-span-2">
                     <Image
                       src="/images/about/bilal-1.jpg"
-                      alt="Syed Bilal Shah — Founder of DevelopersMatrix"
+                      alt="Syed Bilal Shah, Founder of DevelopersMatrix"
                       width={600}
                       height={400}
                       className="w-full h-64 object-cover rounded-2xl shadow-lg"
@@ -227,7 +227,7 @@ export default function AboutPage() {
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">From Intern to Entrepreneur</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              This is the real story of how DevelopersMatrix came to be — told without the polished startup narrative.
+              This is the real story of how DevelopersMatrix came to be, told without the polished startup narrative.
             </p>
           </div>
 
@@ -310,7 +310,7 @@ export default function AboutPage() {
             </p>
 
             <p className="text-muted-foreground leading-relaxed">
-              Working closely with clients gave me another important realization. Many businesses spend thousands of dollars on websites but struggle to generate traffic because they don't have access to professional SEO tools or actionable insights. Almost every platform had the same limitation — the free version only showed basic information. The features that actually solved problems were locked behind expensive subscriptions.
+              Working closely with clients gave me another important realization. Many businesses spend thousands of dollars on websites but struggle to generate traffic because they don't have access to professional SEO tools or actionable insights. Almost every platform had the same limitation. The free version only showed basic information. The features that actually solved problems were locked behind expensive subscriptions.
             </p>
 
             <div className="my-8 p-6 rounded-2xl bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 border border-violet-200 dark:border-violet-800/50">
@@ -327,7 +327,7 @@ export default function AboutPage() {
             </p>
 
             <p className="text-muted-foreground leading-relaxed">
-              Every tool on the platform is designed to solve a practical problem. Whether it's auditing a website, generating a professional resume, creating an effective cover letter, improving content quality, discovering AI prompts, or exploring the latest technology trends — my goal is simple: build tools that are genuinely useful, accessible, and free for everyone.
+              Every tool on the platform is designed to solve a practical problem. Whether it's auditing a website, generating a professional resume, creating an effective cover letter, improving content quality, discovering AI prompts, or exploring the latest technology trends, my goal is simple: build tools that are genuinely useful, accessible, and free for everyone.
             </p>
 
             <p className="text-muted-foreground leading-relaxed">

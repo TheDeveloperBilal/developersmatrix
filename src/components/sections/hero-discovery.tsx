@@ -73,7 +73,7 @@ export default function HeroDiscovery() {
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5" />
-            AI tools + trend radar + guides — updated daily
+            AI tools + trend radar + guides, updated daily
           </div>
 
           <h1 className="mt-6 font-sora text-[2.6rem] font-bold leading-[1.06] tracking-tight text-ink-950 sm:text-5xl lg:text-[3.5rem]">

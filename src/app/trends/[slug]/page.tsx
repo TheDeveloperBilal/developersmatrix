@@ -369,7 +369,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                   Real Income Data by Experience Level
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 mb-4">
-                  See what beginners, intermediates, and pros actually earn — plus how long until your first paid client.
+                  See what beginners, intermediates, and pros actually earn, plus how long until your first paid client.
                 </p>
                 <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
                   <Table>
@@ -482,7 +482,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                   Step-by-Step: How to Start Each Hustle
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
-                  Click-worthy guides for every hustle — follow the exact steps real earners used to get their first clients.
+                  Click-worthy guides for every hustle. Follow the exact steps real earners used to get their first clients.
                 </p>
                 <div className="space-y-6">
                   {trend.content.stepByStepGuides.map((guide, idx) => (
