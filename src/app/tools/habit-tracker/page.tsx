@@ -79,7 +79,7 @@ export default function HabitTrackerPage() {
           },
           {
             name: "Mark habits complete each day",
-            text: "Check off your habit each day you complete it. The streak counter starts immediately — seeing a growing streak creates psychological commitment that makes skipping feel like a real loss. If you miss a day, restart immediately. Missing one day is fine. Missing two days in a row is the danger zone.",
+            text: "Check off your habit each day you complete it. The streak counter starts immediately, seeing a growing streak creates psychological commitment that makes skipping feel like a real loss. If you miss a day, restart immediately. Missing one day is fine. Missing two days in a row is the danger zone.",
             url: `${siteConfig.url}/tools/habit-tracker`
           },
           {
@@ -107,7 +107,7 @@ export default function HabitTrackerPage() {
               <span className="text-xs text-muted-foreground">Updated for 2026</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-              Free Habit Tracker — Build Better Daily Routines
+              Free Habit Tracker: Build Better Daily Routines
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
               Track daily habits, build streaks, and visualize your progress. One habit at a time, until consistency becomes automatic.
@@ -363,17 +363,17 @@ export default function HabitTrackerPage() {
             Free Habit Tracker: Build Better Daily Routines in 2026
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The most successful developers do not rely on willpower — they rely on systems. Our <strong>free habit tracker</strong> helps you build the daily routines that compound into massive long-term results. Track coding practice, exercise, reading, or any custom habit. No signup, no premium tiers, just a simple tool that works.
+            The most successful developers do not rely on willpower. They rely on systems. Our <strong>free habit tracker</strong> helps you build the daily routines that compound into massive long-term results. Track coding practice, exercise, reading, or any custom habit. No signup, no premium tiers, just a simple tool that works.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             Why Habit Tracking Works for Developers
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Research shows that tracking a behavior increases the likelihood of maintaining it by 65%. When you see a streak of 30 consecutive days, you are far less likely to break it. Our <strong>daily habit tracker</strong> uses visual progress indicators, streak counters, and weekly summaries to make your consistency visible. The dopamine hit from checking off a daily habit is real — and it is a powerful motivator.
+            Research shows that tracking a behavior increases the likelihood of maintaining it by 65%. When you see a streak of 30 consecutive days, you are far less likely to break it. Our <strong>daily habit tracker</strong> uses visual progress indicators, streak counters, and weekly summaries to make your consistency visible. The dopamine hit from checking off a daily habit is real, and it is a powerful motivator.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            For developers specifically, habit tracking is especially valuable for technical skills. LeetCode problems, open-source contributions, reading documentation, and learning new frameworks all benefit from consistent practice. A developer who solves 2 LeetCode problems daily will have completed 730 problems in a year — enough to crack any technical interview. The key is not intensity, it is consistency.
+            For developers specifically, habit tracking is especially valuable for technical skills. LeetCode problems, open-source contributions, reading documentation, and learning new frameworks all benefit from consistent practice. A developer who solves 2 LeetCode problems daily will have completed 730 problems in a year, enough to crack any technical interview. The key is not intensity, it is consistency.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">

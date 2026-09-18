@@ -58,7 +58,7 @@ export default function BudgetPlannerPage() {
         step={[
           {
             name: "List all income sources",
-            text: "Start by adding every source of income you receive in a typical month. Include your primary salary, freelance payments, investment dividends, side business revenue, and any other regular income. For variable income like freelance work, enter your average monthly amount or your minimum guaranteed amount. Be honest — an unrealistic budget fails faster than no budget."
+            text: "Start by adding every source of income you receive in a typical month. Include your primary salary, freelance payments, investment dividends, side business revenue, and any other regular income. For variable income like freelance work, enter your average monthly amount or your minimum guaranteed amount. Be honest, an unrealistic budget fails faster than no budget."
           },
           {
             name: "Add your fixed expenses",
@@ -66,7 +66,7 @@ export default function BudgetPlannerPage() {
           },
           {
             name: "Add variable expenses",
-            text: "Enter expenses that fluctuate monthly. Food, transportation, entertainment, personal care, and utilities often vary. Use last month's actual spending or a 3-month average for accuracy. Do not guess — look at your bank statements or transaction history. Many people underestimate their variable spending by 20 to 30 percent."
+            text: "Enter expenses that fluctuate monthly. Food, transportation, entertainment, personal care, and utilities often vary. Use last month's actual spending or a 3-month average for accuracy. Do not guess. Look at your bank statements or transaction history. Many people underestimate their variable spending by 20 to 30 percent."
           },
           {
             name: "Set a realistic savings goal",
@@ -373,14 +373,14 @@ export default function BudgetPlannerPage() {
             Free Budget Planner & Expense Tracker: Take Control of Your Finances in 2026
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The average developer earns $120,000+ per year but still feels broke by the 25th of each month. The problem is not income — it is visibility. Our <strong>free budget planner</strong> gives you a clear picture of where your money goes, so you can make intentional decisions instead of wondering where it disappeared. No signup, no credit card, and no complicated setup. Just your income, your expenses, and the truth.
+            The average developer earns $120,000+ per year but still feels broke by the 25th of each month. The problem is not income. It is visibility. Our <strong>free budget planner</strong> gives you a clear picture of where your money goes, so you can make intentional decisions instead of wondering where it disappeared. No signup, no credit card, and no complicated setup. Just your income, your expenses, and the truth.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             Why Developers Need a Budget Planner in 2026
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Tech salaries are high, but so are lifestyle costs in tech hubs. San Francisco developers spend 40-50% of income on rent alone. New York and Seattle are not far behind. Without a budget, even $150,000 per year can feel tight. Our <strong>expense tracker</strong> helps you identify the leaks — subscription services you forgot about, daily $15 lunches that add up to $300 per month, and impulse purchases that derail savings goals.
+            Tech salaries are high, but so are lifestyle costs in tech hubs. San Francisco developers spend 40-50% of income on rent alone. New York and Seattle are not far behind. Without a budget, even $150,000 per year can feel tight. Our <strong>expense tracker</strong> helps you identify the leaks: subscription services you forgot about, daily $15 lunches that add up to $300 per month, and impulse purchases that derail savings goals.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
             Research shows that people who track their spending save 20% more than those who do not. Not because they earn more, but because awareness changes behavior. When you see that $200 monthly coffee habit in a pie chart, you naturally start making different choices. Our tool makes that awareness effortless.

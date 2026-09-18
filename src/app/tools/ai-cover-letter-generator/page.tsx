@@ -36,7 +36,7 @@ const toolFaqs = [
   },
   {
     question: "Can I use this for non-tech jobs too?",
-    answer: "Absolutely. While the tool is optimized for developer and tech professional roles, it works for any job application. Marketing managers, product managers, designers, sales professionals, and operations roles all benefit from structured, personalized cover letters. The key inputs — job title, company name, experience summary, and skills — apply to every industry."
+    answer: "Absolutely. While the tool is optimized for developer and tech professional roles, it works for any job application. Marketing managers, product managers, designers, sales professionals, and operations roles all benefit from structured, personalized cover letters. The key inputs, job title, company name, experience summary and skills, apply to every industry."
   },
   {
     question: "Should I customize the generated cover letter before sending?",
@@ -73,7 +73,7 @@ export default function CoverLetterPage() {
         step={[
           {
             name: "Paste the full job description",
-            text: "Copy the complete job description from the company's careers page or job board posting and paste it into the tool. The AI extracts key requirements, preferred qualifications, and company values from the description to tailor the cover letter. Including the full description rather than just the title produces significantly more relevant output — a cover letter referencing specific technologies and responsibilities outperforms generic ones by 3x in hiring manager evaluations."
+            text: "Copy the complete job description from the company's careers page or job board posting and paste it into the tool. The AI extracts key requirements, preferred qualifications, and company values from the description to tailor the cover letter. Including the full description rather than just the title produces significantly more relevant output. A cover letter referencing specific technologies and responsibilities outperforms generic ones by 3x in hiring manager evaluations."
           },
           {
             name: "Enter your experience and skills",
@@ -81,15 +81,15 @@ export default function CoverLetterPage() {
           },
           {
             name: "Generate the cover letter",
-            text: "Click Generate to produce a complete cover letter with subject line, greeting, 3-4 paragraph body, and professional closing. The letter follows tech industry conventions: it opens with a hook referencing the specific role, highlights your two most relevant achievements, explains why the company's mission or technology excites you, and closes with a confident call to action. The generated draft typically runs 250-350 words — the optimal length for tech cover letters in 2026."
+            text: "Click Generate to produce a complete cover letter with subject line, greeting, 3-4 paragraph body, and professional closing. The letter follows tech industry conventions: it opens with a hook referencing the specific role, highlights your two most relevant achievements, explains why the company's mission or technology excites you, and closes with a confident call to action. The generated draft typically runs 250 to 350 words, the optimal length for tech cover letters in 2026."
           },
           {
             name: "Add personal touches",
-            text: "This step is critical — 74% of hiring managers detect unedited AI-generated cover letters, and 57% say it negatively affects their decision. Add specific details only you know: mention a company product you use, reference a blog post the CTO wrote, explain why their tech stack aligns with your interests, or share a connection to their mission. These touches transform a generic draft into a compelling personal narrative. Spend 5 minutes on this step; it determines whether the cover letter gets you an interview."
+            text: "This step is critical, because 74% of hiring managers detect unedited AI-generated cover letters, and 57% say it negatively affects their decision. Add specific details only you know: mention a company product you use, reference a blog post the CTO wrote, explain why their tech stack aligns with your interests, or share a connection to their mission. These touches transform a generic draft into a compelling personal narrative. Spend 5 minutes on this step; it determines whether the cover letter gets you an interview."
           },
           {
             name: "Review and submit",
-            text: "Proofread for accuracy: verify company name spelling, confirm job title matches the posting, and check that technical terms are correct. Ensure the tone matches the company culture — startups prefer conversational and enthusiastic, while enterprise companies expect formal and measured. Copy the final letter into your email or application portal. Save the prompt and settings in the tool for future applications, refining your input template with each use."
+            text: "Proofread for accuracy: verify company name spelling, confirm job title matches the posting, and check that technical terms are correct. Ensure the tone matches the company culture. Startups prefer conversational and enthusiastic, while enterprise companies expect formal and measured. Copy the final letter into your email or application portal. Save the prompt and settings in the tool for future applications, refining your input template with each use."
           }
         ]}
       />
@@ -289,7 +289,7 @@ export default function CoverLetterPage() {
                       They Influence ATS Ranking
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Modern ATS systems do not just check if keywords exist. They rank applications by keyword density, contextual relevance, and match percentage. A cover letter that naturally weaves in keywords from the job description. Terms like "React," "microservices," and "CI/CD" — boosts your overall application score. A resume alone might hit 60 percent match. A resume plus a keyword-optimized cover letter can push that to 85 percent.
+                      Modern ATS systems do not just check if keywords exist. They rank applications by keyword density, contextual relevance, and match percentage. A cover letter that naturally weaves in keywords from the job description. Terms like "React," "microservices," and "CI/CD", boosts your overall application score. A resume alone might hit 60 percent match. A resume plus a keyword-optimized cover letter can push that to 85 percent.
                     </p>
                   </div>
                 </div>

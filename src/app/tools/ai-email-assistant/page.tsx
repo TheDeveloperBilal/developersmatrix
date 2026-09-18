@@ -14,7 +14,7 @@ const toolFaqs = [
   },
   {
     question: "How does the AI Email Assistant actually work?",
-    answer: "You choose a mode — draft, rewrite, reply, or tone adjust — then enter your input. For drafts, you write a brief note like 'ask John for the API docs by Friday' and the tool generates a complete professional email with subject line, greeting, body, and sign-off. For rewrites, you paste an existing email and select a new tone. The AI restructures sentences, adjusts formality, and polishes the message while preserving your core intent. For replies, you paste the email you received and describe how you want to respond. For tone adjustment, you pick from professional, friendly, formal, casual, persuasive, or empathetic. The tool processes everything locally in your browser, so your content never leaves your device."
+    answer: "You choose a mode, draft, rewrite, reply or tone adjust, then enter your input. For drafts, you write a brief note like 'ask John for the API docs by Friday' and the tool generates a complete professional email with subject line, greeting, body, and sign-off. For rewrites, you paste an existing email and select a new tone. The AI restructures sentences, adjusts formality, and polishes the message while preserving your core intent. For replies, you paste the email you received and describe how you want to respond. For tone adjustment, you pick from professional, friendly, formal, casual, persuasive, or empathetic. The tool processes everything locally in your browser, so your content never leaves your device."
   },
   {
     question: "Will people know I used AI to write my emails?",
@@ -93,7 +93,7 @@ export default function AIEmailAssistantPage() {
           },
           {
             name: "Copy and send",
-            text: "Copy the finalized email to your clipboard and paste it into your email client. The tool does not send emails directly — this ensures you maintain full control over your communication channel and records. For frequently used templates, save the prompt and settings in the tool for future reuse. Track which templates you use most and refine them over time."
+            text: "Copy the finalized email to your clipboard and paste it into your email client. The tool does not send emails directly. This ensures you maintain full control over your communication channel and records. For frequently used templates, save the prompt and settings in the tool for future reuse. Track which templates you use most and refine them over time."
           }
         ]}
       />
@@ -232,7 +232,7 @@ export default function AIEmailAssistantPage() {
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Vague Subject Lines</h3>
                       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Subject lines like "Update" or "Question" get ignored. Busy professionals decide whether to open an email in under 2 seconds based on the subject alone.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Use specific, actionable subjects. Instead of "Update," write "Backend API Migration Complete — QA Ready for Testing." The AI generates these automatically.</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Use specific, actionable subjects. Instead of "Update," write "Backend API Migration Complete: QA Ready for Testing." The AI generates these automatically.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 items-start">
@@ -465,14 +465,14 @@ export default function AIEmailAssistantPage() {
             Free AI Email Assistant: Write Professional Emails in Seconds
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Writing emails is one of the most time-consuming parts of professional life. The average developer spends 2-3 hours per week on email alone — drafting project updates, responding to stakeholders, and following up on meetings. Our <strong>free AI email assistant</strong> eliminates that friction by generating professional, context-aware emails instantly. Whether you need a formal project update, a polite follow-up, or a cold outreach message, this tool handles the structure and tone so you can focus on what matters.
+            Writing emails is one of the most time-consuming parts of professional life. The average developer spends 2-3 hours per week on email alone, drafting project updates, responding to stakeholders, and following up on meetings. Our <strong>free AI email assistant</strong> eliminates that friction by generating professional, context-aware emails instantly. Whether you need a formal project update, a polite follow-up, or a cold outreach message, this tool handles the structure and tone so you can focus on what matters.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             Why Professionals Need an AI Email Assistant in 2026
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Email volume has increased 40% since 2020. Remote work means more async communication, more status updates, and more cross-functional coordination. At the same time, attention spans have decreased — the average person reads an email in 8 seconds. Your messages need to be clear, concise, and actionable. Our <strong>AI email writer</strong> understands professional context and generates emails that get responses, not confusion.
+            Email volume has increased 40% since 2020. Remote work means more async communication, more status updates, and more cross-functional coordination. At the same time, attention spans have decreased. The average person reads an email in 8 seconds. Your messages need to be clear, concise, and actionable. Our <strong>AI email writer</strong> understands professional context and generates emails that get responses, not confusion.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
             Research shows that emails with typos get 24% fewer responses. Emails that are too long get skimmed and misunderstood. The sweet spot is 50-125 words with a clear call-to-action. Our AI assistant is calibrated to hit this range while maintaining professionalism and warmth.

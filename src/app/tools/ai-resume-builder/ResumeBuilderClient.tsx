@@ -714,7 +714,7 @@ export default function ResumeBuilderClient() {
                       </p>
                       {exp.startDate && (
                         <p className="text-xs text-gray-400 mt-0.5">
-                          {exp.startDate} – {exp.endDate || 'Present'}
+                          {exp.startDate} to {exp.endDate || 'Present'}
                         </p>
                       )}
                     </div>
