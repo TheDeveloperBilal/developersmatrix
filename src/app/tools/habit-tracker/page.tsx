@@ -79,7 +79,7 @@ export default function HabitTrackerPage() {
           },
           {
             name: "Mark habits complete each day",
-            text: "Check off your habit each day you complete it. The streak counter starts immediately, seeing a growing streak creates psychological commitment that makes skipping feel like a real loss. If you miss a day, restart immediately. Missing one day is fine. Missing two days in a row is the danger zone.",
+            text: "Check off your habit each day you complete it. The streak counter starts immediately. Seeing a growing streak creates psychological commitment that makes skipping feel like a real loss. If you miss a day, restart immediately. Missing one day is fine. Missing two days in a row is the danger zone.",
             url: `${siteConfig.url}/tools/habit-tracker`
           },
           {

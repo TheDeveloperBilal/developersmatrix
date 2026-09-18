@@ -36,7 +36,7 @@ const toolFaqs = [
   },
   {
     question: "Can I use this for non-tech jobs too?",
-    answer: "Absolutely. While the tool is optimized for developer and tech professional roles, it works for any job application. Marketing managers, product managers, designers, sales professionals, and operations roles all benefit from structured, personalized cover letters. The key inputs, job title, company name, experience summary and skills, apply to every industry."
+    answer: "Absolutely. While the tool is optimized for developer and tech professional roles, it works for any job application. Marketing managers, product managers, designers, sales professionals, and operations roles all benefit from structured, personalized cover letters. The key inputs (job title, company name, experience summary and skills) apply to every industry."
   },
   {
     question: "Should I customize the generated cover letter before sending?",
@@ -289,7 +289,7 @@ export default function CoverLetterPage() {
                       They Influence ATS Ranking
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Modern ATS systems do not just check if keywords exist. They rank applications by keyword density, contextual relevance, and match percentage. A cover letter that naturally weaves in keywords from the job description. Terms like "React," "microservices," and "CI/CD", boosts your overall application score. A resume alone might hit 60 percent match. A resume plus a keyword-optimized cover letter can push that to 85 percent.
+                      Modern ATS systems do not just check if keywords exist. They rank applications by keyword density, contextual relevance, and match percentage. A cover letter that naturally weaves in keywords from the job description boosts your overall application score. Terms like "React," "microservices" and "CI/CD" all count. A resume alone might hit 60 percent match. A resume plus a keyword-optimized cover letter can push that to 85 percent.
                     </p>
                   </div>
                 </div>
