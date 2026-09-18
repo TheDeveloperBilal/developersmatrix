@@ -1,0 +1,95 @@
+# Disavow file for developersmatrix.com
+# Prepared 18 September 2026
+# Source: full referring domain profile, 53 domains reviewed
+#
+# Upload at: https://search.google.com/search-console/disavow-links
+# Select the sc-domain:developersmatrix.com property.
+# Uploading REPLACES the previous file. Always upload the complete list.
+#
+# ---------------------------------------------------------------
+# BLOCK 1: August 2026 spam burst
+# 185 new backlinks appeared in August across unrelated niches.
+# None of these were purchased. Pizza, betting, real estate,
+# fashion, none of it touches this site's topic.
+# ---------------------------------------------------------------
+domain:fashionclothingnews.com
+domain:betwinnermirror.com
+domain:homesforsaleoldgreenwichct.com
+domain:uncledspizza.com
+domain:fittyfoody.com
+domain:quotesblom.com
+domain:theforbestimes.com
+domain:betulcrime.com
+domain:bazerdaily.com
+domain:way2check.cv
+domain:hostprinter.com
+domain:ggmap.us.com
+domain:buzzshrink.website
+domain:tokoseo.com
+
+# ---------------------------------------------------------------
+# BLOCK 2: Directory and link farm spam, older
+# Low quality directories and scraped listing sites.
+# ---------------------------------------------------------------
+domain:australianwebdirectory.pro
+domain:australianwebdirectory.shop
+domain:globalecommerce.org
+domain:booksreadr.org
+domain:businessvocal.com
+domain:musweb.org
+domain:read.org.in
+domain:sergechel.info
+domain:getwebsiteworth.com
+domain:marinecommand.com
+domain:robuta.com
+domain:freeflarum.com
+
+# ---------------------------------------------------------------
+# BLOCK 3: URL shortener and redirect spam
+# These pass no value and are a common spam network signature.
+# ---------------------------------------------------------------
+domain:shortenurls.eu
+domain:urls-shortener.eu
+domain:anchorurl.cloud
+domain:bye.fyi
+domain:quero.party
+domain:drjack.world
+domain:jake.eu
+
+# ---------------------------------------------------------------
+# BLOCK 4: User generated content network
+# gamingsorted.com runs Sngine, an off the shelf social network
+# script where anyone can register and post links. It accounts for
+# 129 of the 265 backlinks to this site, spread over 43 pages.
+# That volume from one UGC site is an unnatural pattern and the
+# links carry no value even if they are followed.
+# Remove this line only if you deliberately built these and want
+# to keep them.
+# ---------------------------------------------------------------
+domain:gamingsorted.com
+
+# ---------------------------------------------------------------
+# NOT DISAVOWED, deliberately:
+#
+#   stackscope.dev      automated technographics crawler, it
+#                       publishes a page per site it finds. Neutral.
+#   oppalerts.com       real SaaS product, auto generated report
+#                       pages. Neutral.
+#   behance.net         legitimate.
+#   soft2share.com      legitimate, domain rank 8.
+#   xzero.co.uk         legitimate, domain rank 8.
+#   ovitech.co          your own domain.
+#   xuzpost.com, tools.cafe, jakeinsight.com, wahresume.com,
+#   cloudfusionglobal.com, callings.ai, streetvibex.com,
+#   mental-momentum.ai, heymuse.com, acquire.co.in, pertua.com
+#                       clean, spam score 20 or below.
+#
+# NEEDS YOUR EYES, not added yet:
+#
+#   tottori-u.ac.jp     Japanese university, spam score 40.
+#                       A .ac.jp link would normally be valuable.
+#                       A score of 40 on a university domain usually
+#                       means the linking page is compromised or is
+#                       an open upload directory. Check the actual
+#                       page before deciding. If it is a hacked page,
+#                       add: domain:tottori-u.ac.jp
