@@ -452,7 +452,7 @@ export default function ResumeBuilderPage() {
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Step 5: Test Before You Submit</h3>
                 <p className="leading-relaxed">
-                  Before sending your resume, copy-paste it into a plain text editor like Notepad. If sections get jumbled or disappear, ATS will struggle too. Also run it through a free ATS checker, our <a href="/tools/ai-content-detector" className="text-blue-600 dark:text-blue-400 hover:underline">AI Content Detector</a> can analyze readability, while dedicated tools like Jobscan give you match scores against specific job descriptions.
+                  Before sending your resume, copy-paste it into a plain text editor like Notepad. If sections get jumbled or disappear, ATS will struggle too. Also run it through a free ATS checker. Our <a href="/tools/ai-content-detector" className="text-blue-600 dark:text-blue-400 hover:underline">AI Content Detector</a> can analyze readability, while dedicated tools like Jobscan give you match scores against specific job descriptions.
                 </p>
                 <p className="leading-relaxed">
                   Aim for an ATS match rate of <strong>80% or higher</strong>. Anything below 60% and your resume might get auto-rejected regardless of your qualifications.
@@ -567,7 +567,7 @@ export default function ResumeBuilderPage() {
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">6</span>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Using the Same Resume for Every Application</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">A tailored resume that mirrors a specific job description outperforms a generic one every single time. Even small adjustments like reordering skills, tweaking your summary, emphasizing relevant projects, can triple your callback rate. Our builder lets you save multiple versions for this exact reason.</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">A tailored resume that mirrors a specific job description outperforms a generic one every single time. Even small adjustments can triple your callback rate: reordering skills, tweaking your summary, emphasizing relevant projects. Our builder lets you save multiple versions for this exact reason.</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
@@ -749,7 +749,7 @@ export default function ResumeBuilderPage() {
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
-            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard section headers</strong>: "Work Experience," "Technical Skills," "Education", not creative alternatives that parsers miss.</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard section headers</strong>: "Work Experience," "Technical Skills" and "Education," not creative alternatives that parsers miss.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>

@@ -14,7 +14,7 @@ const toolFaqs = [
   },
   {
     question: "How does the AI Email Assistant actually work?",
-    answer: "You choose a mode, draft, rewrite, reply or tone adjust, then enter your input. For drafts, you write a brief note like 'ask John for the API docs by Friday' and the tool generates a complete professional email with subject line, greeting, body, and sign-off. For rewrites, you paste an existing email and select a new tone. The AI restructures sentences, adjusts formality, and polishes the message while preserving your core intent. For replies, you paste the email you received and describe how you want to respond. For tone adjustment, you pick from professional, friendly, formal, casual, persuasive, or empathetic. The tool processes everything locally in your browser, so your content never leaves your device."
+    answer: "You choose a mode (draft, rewrite, reply or tone adjust), then enter your input. For drafts, you write a brief note like 'ask John for the API docs by Friday' and the tool generates a complete professional email with subject line, greeting, body, and sign-off. For rewrites, you paste an existing email and select a new tone. The AI restructures sentences, adjusts formality, and polishes the message while preserving your core intent. For replies, you paste the email you received and describe how you want to respond. For tone adjustment, you pick from professional, friendly, formal, casual, persuasive, or empathetic. The tool processes everything locally in your browser, so your content never leaves your device."
   },
   {
     question: "Will people know I used AI to write my emails?",
