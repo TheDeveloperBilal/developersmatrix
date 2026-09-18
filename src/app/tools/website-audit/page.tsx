@@ -8,9 +8,9 @@ import { generatePageMetadata } from '@/lib/seo/metadata';
 import WebsiteAuditClient from './WebsiteAuditClient';
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Free Website Audit Tool: Instant SEO Check",
-  description: "Run a free website audit in seconds. Check SEO scores, page speed, Core Web Vitals, mobile usability, and security. No account needed. Instant results.",
-  keywords: ['free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'free website health check', 'free website check', 'online website auditor', 'website auditor tool online', 'analyze site online', 'audit checker', 'url audit', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free', 'website audit cost', 'website audit pricing 2026', 'how to audit my website', 'technical seo audit checklist 2026', 'website code audit', 'audit my site'],
+  title: "Free Website Grader and Audit Tool: Score Your Site",
+  description: "Free website grader that scores your site out of 100 in seconds. Around 150 checks across SEO, page speed, Core Web Vitals, mobile and security. No signup, full report.",
+  keywords: ['website grader', 'free website grader', 'website grader tool', 'website score checker', 'grade my website', 'website grade check', 'free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'free website health check', 'free website check', 'online website auditor', 'website auditor tool online', 'analyze site online', 'audit checker', 'url audit', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free', 'website audit cost', 'website audit pricing 2026', 'how to audit my website', 'technical seo audit checklist 2026', 'website code audit', 'audit my site'],
   path: "/tools/website-audit",
   modifiedTime: "2026-08-27",
 });
@@ -19,6 +19,14 @@ const toolFaqs = [
   {
     question: "Is this website audit tool completely free?",
     answer: "Yes, 100% free. No signup required, no credit card needed, and no usage limits. We believe every website owner deserves access to professional-grade audit tools regardless of budget. Run as many audits as you want on as many sites as you own."
+  },
+  {
+    question: "Is this a website grader?",
+    answer: "Yes. A website grader scores your site out of 100 and tells you what is holding the score down. That is exactly what this tool does, across eight categories: technical SEO, performance, mobile usability, security, accessibility, content quality, conversion and Core Web Vitals. The difference is what happens after the grade. Most website graders show you a number and then ask for your email to see the detail. You get the full breakdown here, every failing check with the specific fix, with no signup."
+  },
+  {
+    question: "How is a website grade calculated?",
+    answer: "Each of the around 150 checks passes or fails, and each category produces its own score from the checks inside it. The overall grade is the weighted average, with technical SEO and performance carrying the most weight because they have the clearest relationship to rankings. A failing check on something Google uses directly, such as a missing title tag or an LCP over 2.5 seconds, costs more than a failing check on something advisory. The report shows every category score alongside the overall grade so you can see which area is dragging you down."
   },
   {
     question: "What does the website audit tool check in 2026?",
@@ -63,22 +71,6 @@ const toolFaqs = [
   {
     question: "What is the best online website auditor for small businesses?",
     answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with around 150 checks across 8 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full-site technical crawling. Avoid expensive all-in-one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
-  },
-  {
-    question: "What does a website audit check?",
-    answer: "A website audit checks your site across four core areas: SEO signals (title tags, meta descriptions, heading structure, internal links), page speed and Core Web Vitals (LCP, CLS, INP, TTFB), mobile usability (viewport settings, tap targets, font sizes), and security (HTTPS, security headers, certificate validity). Each check is scored individually and combined into an overall Site Health Score out of 100."
-  },
-  {
-    question: "How often should I audit my website?",
-    answer: "Run a website audit at minimum once per month if you are actively publishing content or making site changes. Run one immediately after any major update. New theme, plugin install, hosting migration, or URL restructure. to catch issues before they affect rankings. For stable sites, a quarterly audit is sufficient to catch gradual degradation."
-  },
-  {
-    question: "Is this website audit tool really free?",
-    answer: "Yes. The DevelopersMatrix website audit tool is completely free with no signup required. Enter your URL and receive your full audit report with around 150 checks instantly. There are no hidden limits, no trial periods, and no email required to access the results."
-  },
-  {
-    question: "What is a good website audit score?",
-    answer: "A score of 75 to 89 is considered good. It means your site meets most technical standards with minor issues. A score above 90 is excellent. Scores below 60 indicate problems that are likely affecting your rankings and should be addressed within 30 days. Most established websites score between 63 and 79."
   },
   {
     question: "Why is my website audit score low?",
@@ -622,6 +614,50 @@ export default function WebsiteAuditPage() {
             </section>
 
             <InContentAd />
+
+            {/* Section: Website Grader */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Free Website Grader: What Your Score Actually Means
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <p className="leading-relaxed">
+                  A <strong>website grader</strong> gives your site a number out of 100. That number is only useful if you can see what produced it. Most graders show you the score, colour it red, and then ask for your email before they will tell you which checks failed. This one does not. Enter a URL and you get the grade and the full breakdown in the same screen, with no signup.
+                </p>
+                <p className="leading-relaxed">
+                  The grade comes from around 150 individual checks grouped into eight categories. Each category is scored on its own, then weighted into the overall number. Technical SEO and performance carry the most weight, because those two have the clearest and most direct relationship with how Google ranks you. A missing title tag or a Largest Contentful Paint above 2.5 seconds costs you more than an advisory warning does.
+                </p>
+                <p className="leading-relaxed">
+                  Most real websites land between 60 and 80 on first run. If you score in that range, you are normal, not broken. What matters is which category is dragging the average down, because that tells you where an afternoon of work buys the most. A site scoring 72 with a performance score of 40 has a completely different to do list from a site scoring 72 with an accessibility score of 40.
+                </p>
+                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                    How to Read Your Website Grade
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <span className="font-bold text-emerald-600 dark:text-emerald-400 w-20 shrink-0">90 to 100</span>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Excellent. Fix the remaining items when convenient. Your time is better spent on content and links.</div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="font-bold text-blue-600 dark:text-blue-400 w-20 shrink-0">75 to 89</span>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Good. A solid foundation with specific gaps. Work the highest weighted failures first.</div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="font-bold text-amber-600 dark:text-amber-400 w-20 shrink-0">60 to 74</span>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Fair, and the most common range. Real issues are costing you rankings. Budget a week.</div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="font-bold text-red-600 dark:text-red-400 w-20 shrink-0">Under 60</span>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">Something structural is wrong. Check indexability and HTTPS before anything else.</div>
+                    </div>
+                  </div>
+                </div>
+                <p className="leading-relaxed">
+                  One caution worth stating plainly: a high grade does not guarantee rankings, and a mediocre grade does not prevent them. A site scoring 85 with genuinely useful content will outrank a site scoring 98 with thin content every time. Treat the grade as a list of things that could be holding you back, not as a score you are trying to max out.
+                </p>
+              </div>
+            </section>
 
             {/* Section: Online Website Auditor */}
             <section className="mb-12">
