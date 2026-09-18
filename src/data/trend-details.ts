@@ -79,7 +79,7 @@ export const trendDetails: TrendDetail[] = [
           },
           {
             title: 'Build vs Buy Decisions',
-            content: 'Companies face a choice: use existing platforms (ChatGPT Enterprise, Microsoft Copilot, Google Duet) or build custom solutions. Most enterprises end up with a hybrid approach—buying for common use cases and building for competitive differentiation.'
+            content: 'Companies face a choice: use existing platforms (ChatGPT Enterprise, Microsoft Copilot, Google Duet) or build custom solutions. Most enterprises end up with a hybrid approach, buying for common use cases and building for competitive differentiation.'
           }
         ]
       },
@@ -97,7 +97,7 @@ export const trendDetails: TrendDetail[] = [
           },
           {
             title: 'AI Agents',
-            content: 'Agents go beyond single responses. They can take actions—sending emails, updating databases, calling APIs. This autonomous capability is where enterprise AI is heading in 2026.'
+            content: 'Agents go beyond single responses. They can take actions: sending emails, updating databases, calling APIs. This autonomous capability is where enterprise AI is heading in 2026.'
           }
         ]
       }
@@ -133,7 +133,7 @@ export const trendDetails: TrendDetail[] = [
       intermediate: [
         'Learn to build RAG applications using LangChain or similar frameworks',
         'Get hands-on with model fine-tuning for specific domains',
-        'Study prompt engineering at scale—managing prompts as code',
+        'Study prompt engineering at scale, managing prompts as code',
         'Build a simple AI-powered internal tool for your team',
         'Understand AI safety, ethics, and responsible deployment practices'
       ],
@@ -186,7 +186,7 @@ export const trendDetails: TrendDetail[] = [
       'Regulatory uncertainty in healthcare, finance, and legal sectors',
       'Workforce displacement concerns require proactive management'
     ],
-    futureOutlook: 'By 2027, expect AI agents to handle multi-step workflows autonomously. The distinction between "AI tools" and regular software will blur—AI capabilities will become embedded in every enterprise application. Competitive advantage will shift from "having AI" to "using AI better than competitors."',
+    futureOutlook: 'By 2027, expect AI agents to handle multi-step workflows autonomously. The distinction between "AI tools" and regular software will blur. AI capabilities will become embedded in every enterprise application. Competitive advantage will shift from "having AI" to "using AI better than competitors."',
     relatedTrends: ['ai-augmented-development', 'cybersecurity-skills-gap', 'platform-engineering'],
     tags: ['AI', 'Enterprise', 'Automation', 'LLM', 'RAG', 'Agents']
   },
@@ -356,7 +356,7 @@ export const trendDetails: TrendDetail[] = [
     icon: 'Cpu',
     heroGradient: 'from-orange-600 to-amber-600',
     introduction: {
-      what: 'Edge computing moves processing from centralized data centers to locations closer to data sources—factories, retail stores, cell towers, or even the devices themselves. Instead of sending data to the cloud for processing, you process it locally and send only results.',
+      what: 'Edge computing moves processing from centralized data centers to locations closer to data sources: factories, retail stores, cell towers, or even the devices themselves. Instead of sending data to the cloud for processing, you process it locally and send only results.',
       whyItMatters: 'As devices proliferate and applications demand real-time responses, shipping all data to centralized clouds becomes impractical. Edge computing enables new use cases in autonomous vehicles, industrial automation, and immersive experiences that require milliseconds-latency responses.'
     },
     sections: [
@@ -439,7 +439,7 @@ export const trendDetails: TrendDetail[] = [
     howToGetStarted: {
       beginner: [
         'Understand the difference between cloud, edge, and device computing',
-        'Learn about containerization with Docker—key technology for edge deployments',
+        'Learn about containerization with Docker, key technology for edge deployments',
         'Study IoT fundamentals and common protocols (MQTT, CoAP)',
         'Experiment with running AI models on Raspberry Pi or similar devices',
         'Take a course on distributed systems concepts'
@@ -845,7 +845,7 @@ export const trendDetails: TrendDetail[] = [
     heroGradient: 'from-indigo-600 to-violet-600',
     introduction: {
       what: 'Platform engineering is the discipline of designing and building internal platforms that make developers more productive. Instead of each team managing their own infrastructure, a dedicated platform team creates self-service tools and capabilities that other teams consume.',
-      whyItMatters: 'As systems grow more complex with microservices, containers, and cloud resources, the cognitive load on developers increases. Platform engineering reduces this load by providing golden paths—paved roads that make the right thing the easy thing. Organizations with strong platform practices ship faster with fewer incidents.'
+      whyItMatters: 'As systems grow more complex with microservices, containers, and cloud resources, the cognitive load on developers increases. Platform engineering reduces this load by providing golden paths, paved roads that make the right thing the easy thing. Organizations with strong platform practices ship faster with fewer incidents.'
     },
     sections: [
       {

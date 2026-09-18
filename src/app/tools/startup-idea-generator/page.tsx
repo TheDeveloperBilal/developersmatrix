@@ -79,7 +79,7 @@ export default function StartupIdeaPage() {
           },
           {
             name: "Save promising ideas and take action",
-            text: "Save ideas you like to your browser's local storage for later review. When you are ready to start, use the action plan to break the idea into concrete first steps. The generator is a starting point — successful execution depends on customer validation, market research, and consistent execution."
+            text: "Save ideas you like to your browser's local storage for later review. When you are ready to start, use the action plan to break the idea into concrete first steps. The generator is a starting point. Successful execution depends on customer validation, market research, and consistent execution."
           }
         ]}
       />
@@ -420,14 +420,14 @@ export default function StartupIdeaPage() {
             Free Startup Idea Generator: Discover Your Next Business Venture in 2026
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Every successful startup begins with a single idea. But finding that idea — one that matches your skills, interests, and market timing — is the hardest part. Our <strong>free startup idea generator</strong> uses AI to combine trending industries, emerging technologies, and real market gaps into actionable business concepts. No brainstorming sessions, no blank page anxiety, just validated ideas you can research and build.
+            Every successful startup begins with a single idea. But finding that idea, one that matches your skills, interests and market timing, is the hardest part. Our <strong>free startup idea generator</strong> uses AI to combine trending industries, emerging technologies, and real market gaps into actionable business concepts. No brainstorming sessions, no blank page anxiety, just validated ideas you can research and build.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             Why Use a Startup Idea Generator in 2026
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            The startup landscape is changing rapidly. AI agents, climate tech, biotech, and robotics are creating new opportunities faster than traditional market research can track. Our <strong>AI startup idea generator</strong> synthesizes data from trending industries, emerging technologies, and consumer pain points to generate ideas that are timely and relevant. Each idea includes a problem statement, target audience, revenue model, and implementation difficulty — so you can evaluate before committing months of effort.
+            The startup landscape is changing rapidly. AI agents, climate tech, biotech, and robotics are creating new opportunities faster than traditional market research can track. Our <strong>AI startup idea generator</strong> synthesizes data from trending industries, emerging technologies, and consumer pain points to generate ideas that are timely and relevant. Each idea includes a problem statement, target audience, revenue model, and implementation difficulty, so you can evaluate before committing months of effort.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
             In 2026, solo founders and small teams are building million-dollar businesses with AI tools. The barrier to entry has never been lower. What matters now is choosing the right problem to solve. Our generator helps you skip the ideation paralysis and move straight to validation and building.

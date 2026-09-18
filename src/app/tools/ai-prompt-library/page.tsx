@@ -89,7 +89,7 @@ export default function AIPromptLibraryPage() {
           },
           {
             name: "Test in the AI Playground",
-            text: "Paste your customized prompt into the built-in AI Playground to test output quality before using it in production. The playground supports text generation, code generation, and creative writing. Iterate on the prompt 2-3 times if the first output is not satisfactory — small wording changes often produce dramatically different results."
+            text: "Paste your customized prompt into the built-in AI Playground to test output quality before using it in production. The playground supports text generation, code generation, and creative writing. Iterate on the prompt 2-3 times if the first output is not satisfactory. Small wording changes often produce dramatically different results."
           },
           {
             name: "Save to your personal library",

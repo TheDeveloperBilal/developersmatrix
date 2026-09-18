@@ -195,7 +195,7 @@ export default function LinkManagerPage() {
                       Smart Bio Pages
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Build a single page that contains all your important links. YouTube, Instagram, portfolio, store, newsletter, GitHub, LinkedIn — everything in one place. Auto-update features pull your latest content from connected platforms.
+                      Build a single page that contains all your important links. YouTube, Instagram, portfolio, store, newsletter, GitHub, LinkedIn. Everything in one place. Auto-update features pull your latest content from connected platforms.
                     </p>
                   </div>
                 </div>
@@ -438,17 +438,17 @@ export default function LinkManagerPage() {
             Free Link Manager: Shorten URLs, Track Clicks, and Optimize Your Bio Links
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Every link you share is a data point. Our <strong>free link manager</strong> lets you shorten long URLs, track click analytics, create QR codes, and build a custom bio link page — all in one place. Whether you are a creator sharing content, a marketer tracking campaigns, or a developer sharing portfolio links, our tool gives you the insights and professional presentation you need. No signup required, no usage limits, no hidden fees.
+            Every link you share is a data point. Our <strong>free link manager</strong> lets you shorten long URLs, track click analytics, create QR codes, and build a custom bio link page, all in one place. Whether you are a creator sharing content, a marketer tracking campaigns, or a developer sharing portfolio links, our tool gives you the insights and professional presentation you need. No signup required, no usage limits, no hidden fees.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             Why Link Management Matters in 2026
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Long URLs are unprofessional, hard to share, and impossible to track. A <strong>URL shortener</strong> turns `example.com/blog/post-about-seo-2026-best-practices` into `dm.link/seo-guide` — cleaner, easier to type, and brandable. But shortening is just the start. Our link manager also provides click analytics: where your traffic comes from, what devices they use, when they click, and which links perform best. This data is essential for optimizing marketing campaigns, content strategies, and social media bios.
+            Long URLs are unprofessional, hard to share, and impossible to track. A <strong>URL shortener</strong> turns `example.com/blog/post-about-seo-2026-best-practices` into `dm.link/seo-guide`, cleaner, easier to type, and brandable. But shortening is just the start. Our link manager also provides click analytics: where your traffic comes from, what devices they use, when they click, and which links perform best. This data is essential for optimizing marketing campaigns, content strategies, and social media bios.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            With 5.8 billion links shortened daily worldwide, link management is no longer optional. Short links get 39% more clicks than long URLs. QR codes generated from short links are scanned 28 billion times globally. And bio link pages — single pages with multiple links — are preferred by 73% of users over sharing multiple links separately. Our tool gives you all of these features without the premium pricing of commercial alternatives.
+            With 5.8 billion links shortened daily worldwide, link management is no longer optional. Short links get 39% more clicks than long URLs. QR codes generated from short links are scanned 28 billion times globally. And bio link pages, single pages with multiple links, are preferred by 73% of users over sharing multiple links separately. Our tool gives you all of these features without the premium pricing of commercial alternatives.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">

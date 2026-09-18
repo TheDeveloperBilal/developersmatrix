@@ -122,7 +122,7 @@ export default function ResumeBuilderPage() {
           },
           {
             name: "Include relevant projects and open source contributions",
-            text: "List 2-3 standout projects with brief descriptions, your specific contribution, and the technologies used. Include links to live projects or GitHub repositories. Open source contributions are powerful signals of technical engagement. If you contributed to a well-known library or fixed bugs in a popular project, mention the specific impact — even a merged PR with 50+ stars is worth noting.",
+            text: "List 2-3 standout projects with brief descriptions, your specific contribution, and the technologies used. Include links to live projects or GitHub repositories. Open source contributions are powerful signals of technical engagement. If you contributed to a well-known library or fixed bugs in a popular project, mention the specific impact, even a merged PR with 50+ stars is worth noting.",
             url: `${siteConfig.url}/tools/ai-resume-builder`
           },
           {
@@ -137,7 +137,7 @@ export default function ResumeBuilderPage() {
           },
           {
             name: "Download as PDF and test with an ATS parser",
-            text: "Download your resume as a PDF and run it through a free ATS parser test to confirm proper parsing. Check that section headers, dates, and bullet points extract correctly. Save multiple versions tailored to different job descriptions — custom resumes get 3x more callbacks than generic ones.",
+            text: "Download your resume as a PDF and run it through a free ATS parser test to confirm proper parsing. Check that section headers, dates, and bullet points extract correctly. Save multiple versions tailored to different job descriptions. Custom resumes get 3x more callbacks than generic ones.",
             url: `${siteConfig.url}/tools/ai-resume-builder`
           }
         ]}
@@ -447,12 +447,12 @@ export default function ResumeBuilderPage() {
                   I know. You want your resume to look cool. But tables, columns, text boxes, graphics, and custom fonts break ATS parsing. In 2026, up to <strong>30% of resumes with complex layouts</strong> are misread by ATS systems.
                 </p>
                 <p className="leading-relaxed">
-                  Stick to standard fonts (Arial, Calibri, Times New Roman at 10.5–12pt). Use simple bullet points. Keep everything in a single column. Our templates are designed by people who've tested them against real ATS systems. They work.
+                  Stick to standard fonts (Arial, Calibri, Times New Roman at 10.5 to 12pt). Use simple bullet points. Keep everything in a single column. Our templates are designed by people who've tested them against real ATS systems. They work.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Step 5: Test Before You Submit</h3>
                 <p className="leading-relaxed">
-                  Before sending your resume, copy-paste it into a plain text editor like Notepad. If sections get jumbled or disappear, ATS will struggle too. Also run it through a free ATS checker — our <a href="/tools/ai-content-detector" className="text-blue-600 dark:text-blue-400 hover:underline">AI Content Detector</a> can analyze readability, while dedicated tools like Jobscan give you match scores against specific job descriptions.
+                  Before sending your resume, copy-paste it into a plain text editor like Notepad. If sections get jumbled or disappear, ATS will struggle too. Also run it through a free ATS checker, our <a href="/tools/ai-content-detector" className="text-blue-600 dark:text-blue-400 hover:underline">AI Content Detector</a> can analyze readability, while dedicated tools like Jobscan give you match scores against specific job descriptions.
                 </p>
                 <p className="leading-relaxed">
                   Aim for an ATS match rate of <strong>80% or higher</strong>. Anything below 60% and your resume might get auto-rejected regardless of your qualifications.
@@ -567,7 +567,7 @@ export default function ResumeBuilderPage() {
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">6</span>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Using the Same Resume for Every Application</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">A tailored resume that mirrors a specific job description outperforms a generic one every single time. Even small adjustments like reordering skills, tweaking your summary, emphasizing relevant projects — can triple your callback rate. Our builder lets you save multiple versions for this exact reason.</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">A tailored resume that mirrors a specific job description outperforms a generic one every single time. Even small adjustments like reordering skills, tweaking your summary, emphasizing relevant projects, can triple your callback rate. Our builder lets you save multiple versions for this exact reason.</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
@@ -711,7 +711,7 @@ export default function ResumeBuilderPage() {
           Why Developers Need an AI Resume Builder in 2026
         </h3>
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-          The job market has shifted dramatically. With AI-generated resumes flooding the market, recruiters now rely more heavily on ATS filtering to manage volume. A generic resume gets rejected in under 7 seconds. Our <strong>AI resume builder</strong> is trained specifically on 2026 tech job descriptions, so it knows that a React developer resume should mention hooks, state management, and performance optimization — not just "built websites."
+          The job market has shifted dramatically. With AI-generated resumes flooding the market, recruiters now rely more heavily on ATS filtering to manage volume. A generic resume gets rejected in under 7 seconds. Our <strong>AI resume builder</strong> is trained specifically on 2026 tech job descriptions, so it knows that a React developer resume should mention hooks, state management, and performance optimization, not just "built websites."
         </p>
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
           Research shows resumes with quantified achievements get 40% more callbacks. Instead of "Improved application performance," our AI suggests "Reduced API response time by 35% through caching and query optimization." Specificity wins interviews.
@@ -745,23 +745,23 @@ export default function ResumeBuilderPage() {
         <div className="space-y-3 mb-6">
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
-            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Single-column layout</strong> — Multi-column resumes confuse ATS parsers. We use a clean, linear format.</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Single column layout</strong>: Multi column resumes confuse ATS parsers. We use a clean, linear format.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
-            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard section headers</strong> — "Work Experience," "Technical Skills," "Education" — not creative alternatives that parsers miss.</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard section headers</strong>: "Work Experience," "Technical Skills," "Education", not creative alternatives that parsers miss.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
-            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Keyword optimization</strong> — The AI suggests relevant keywords from real 2026 job descriptions for your role.</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Keyword optimization</strong>: The AI suggests relevant keywords from real 2026 job descriptions for your role.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
-            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>No graphics or tables</strong> — ATS systems strip images and often misread table layouts. We avoid both.</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>No graphics or tables</strong>: ATS systems strip images and often misread table layouts. We avoid both.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
-            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard fonts</strong> — Arial, Calibri, and Georgia ensure consistent rendering across all systems.</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Standard fonts</strong>: Arial, Calibri, and Georgia ensure consistent rendering across all systems.</p>
           </div>
         </div>
 
@@ -804,7 +804,7 @@ export default function ResumeBuilderPage() {
             Build Your Resume Now
           </h3>
           <p className="text-green-800 dark:text-green-300 text-sm mb-4">
-            Your next job application deserves a resume that gets past the bots and impresses the humans. Start building for free — no signup required.
+            Your next job application deserves a resume that gets past the bots and impresses the humans. Start building for free, no signup required.
           </p>
           <p className="text-green-700 dark:text-green-400 text-xs">
             100% free. ATS-optimized. Developer-focused.

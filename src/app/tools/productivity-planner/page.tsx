@@ -74,7 +74,7 @@ export default function ProductivityPlannerPage() {
         step={[
           {
             name: "List all your tasks",
-            text: "Enter every task you need to complete today, tomorrow, or this week. Be specific — 'write API documentation' is better than 'work on project.' Include estimated time for each task. The planner accepts tasks of any size, from quick 5-minute emails to multi-day projects."
+            text: "Enter every task you need to complete today, tomorrow, or this week. Be specific: 'write API documentation' is better than 'work on project.' Include estimated time for each task. The planner accepts tasks of any size, from quick 5-minute emails to multi-day projects."
           },
           {
             name: "Assign priority and urgency",
@@ -82,7 +82,7 @@ export default function ProductivityPlannerPage() {
           },
           {
             name: "Review AI-suggested schedule",
-            text: "The planner generates a realistic daily schedule based on your tasks and priorities. It prevents overcommitting by estimating your actual capacity. Review the suggestions and adjust as needed. You maintain full control — the AI suggests, you decide."
+            text: "The planner generates a realistic daily schedule based on your tasks and priorities. It prevents overcommitting by estimating your actual capacity. Review the suggestions and adjust as needed. You maintain full control. The AI suggests, you decide."
           },
           {
             name: "Track progress and adjust",
@@ -359,17 +359,17 @@ export default function ProductivityPlannerPage() {
             Free Productivity Planner: Plan Your Days for Maximum Impact
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The most productive people do not work harder — they work with intention. Our <strong>free productivity planner</strong> helps you structure your day around what actually matters, using time-blocking, priority matrices, and goal-tracking frameworks. Stop reacting to notifications and start designing your day. No signup, no premium tiers, just a practical tool that respects your time.
+            The most productive people do not work harder. They work with intention. Our <strong>free productivity planner</strong> helps you structure your day around what actually matters, using time-blocking, priority matrices, and goal-tracking frameworks. Stop reacting to notifications and start designing your day. No signup, no premium tiers, just a practical tool that respects your time.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             Why Time Blocking Works in 2026
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Context switching costs 23 minutes per interruption. A developer checking Slack "just for a second" loses 23 minutes of deep focus. Our <strong>daily productivity planner</strong> uses time-blocking to protect your focus hours — scheduling specific blocks for deep work, meetings, email, and breaks. Research from Cal Newport and others shows that deep work blocks of 90-120 minutes produce 2-3x more output than fragmented work sessions.
+            Context switching costs 23 minutes per interruption. A developer checking Slack "just for a second" loses 23 minutes of deep focus. Our <strong>daily productivity planner</strong> uses time-blocking to protect your focus hours, scheduling specific blocks for deep work, meetings, email, and breaks. Research from Cal Newport and others shows that deep work blocks of 90-120 minutes produce 2-3x more output than fragmented work sessions.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The planner also includes an Eisenhower Matrix (urgent/important) for prioritization, a Pomodoro timer for sustained focus, and a daily review section for reflection. These are not gimmicks — they are battle-tested frameworks used by top performers across industries.
+            The planner also includes an Eisenhower Matrix (urgent/important) for prioritization, a Pomodoro timer for sustained focus, and a daily review section for reflection. These are not gimmicks. They are battle tested frameworks used by top performers across industries.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">

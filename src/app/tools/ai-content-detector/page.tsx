@@ -226,7 +226,7 @@ export default function AIContentDetectorPage() {
 
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">False Positives on Human Text</h3>
                   <p className="leading-relaxed">
-                    Independent testing of ZeroGPT, one of the most widely used free detectors — found it incorrectly flags 14.6 percent of human-written text as AI-generated. That rate jumps to 21 percent for non-native English speakers. Academic writing and technical documentation also trigger false positives because formal, structured prose naturally has low burstiness that resembles AI output. If your human text is flagged, do not panic. Add more sentence length variation, include a personal anecdote, or rewrite a few sentences with more unexpected word choices.
+                    Independent testing of ZeroGPT, one of the most widely used free detectors, found it incorrectly flags 14.6 percent of human-written text as AI-generated. That rate jumps to 21 percent for non-native English speakers. Academic writing and technical documentation also trigger false positives because formal, structured prose naturally has low burstiness that resembles AI output. If your human text is flagged, do not panic. Add more sentence length variation, include a personal anecdote, or rewrite a few sentences with more unexpected word choices.
                   </p>
 
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Edited and Paraphrased AI Text</h3>
@@ -449,7 +449,7 @@ export default function AIContentDetectorPage() {
             Why AI Detection Matters in 2026
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            AI-generated content is everywhere — and not always labeled. Search engines like Google have stated they prioritize helpful content regardless of how it is created, but quality matters. Low-quality AI spam is being penalized. Publishers need to verify that submitted content meets editorial standards. Educators need to ensure academic integrity. Our <strong>AI text detector</strong> uses multiple linguistic signals to provide a probability score, not a binary yes/no. This nuanced approach acknowledges that human editing of AI drafts is common and legitimate.
+            AI-generated content is everywhere, and not always labeled. Search engines like Google have stated they prioritize helpful content regardless of how it is created, but quality matters. Low-quality AI spam is being penalized. Publishers need to verify that submitted content meets editorial standards. Educators need to ensure academic integrity. Our <strong>AI text detector</strong> uses multiple linguistic signals to provide a probability score, not a binary yes/no. This nuanced approach acknowledges that human editing of AI drafts is common and legitimate.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
             It is important to understand the limitations. No AI detector is 100% accurate. Even the best tools have a 5-10% error rate. Non-native English speakers face false positive rates of 21% in some studies. Our tool provides confidence scores and explains the indicators found, so you can make informed decisions rather than relying on a single number. Use it as a screening tool, not a definitive verdict.

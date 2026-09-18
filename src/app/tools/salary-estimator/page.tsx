@@ -95,7 +95,7 @@ export default function SalaryEstimatorPage() {
           },
           {
             name: "Review your personalized range",
-            text: "The estimator returns a salary range representing the 25th to 75th percentile for your exact profile. The range shows what 50% of developers with your role, experience, location, and skills earn. It also displays how your profile compares to the national median and the top 10% for your role. Use this range as a negotiation anchor, not a ceiling — exceptional candidates with strong negotiation skills often exceed the 75th percentile."
+            text: "The estimator returns a salary range representing the 25th to 75th percentile for your exact profile. The range shows what 50% of developers with your role, experience, location, and skills earn. It also displays how your profile compares to the national median and the top 10% for your role. Use this range as a negotiation anchor, not a ceiling. Exceptional candidates with strong negotiation skills often exceed the 75th percentile."
           }
         ]}
       />
@@ -424,7 +424,7 @@ export default function SalaryEstimatorPage() {
           Free Tech Salary Estimator: Know Your Market Value in 2026
         </h2>
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-          Negotiating a salary without data is like coding without a debugger — you are flying blind. Our <strong>free tech salary estimator</strong> gives you accurate, location-adjusted salary ranges for 17+ technology roles based on real 2026 market data. Whether you are preparing for a job offer discussion, planning a career move, or benchmarking your current compensation, this tool shows you what you should be earning.
+          Negotiating a salary without data is like coding without a debugger. You are flying blind. Our <strong>free tech salary estimator</strong> gives you accurate, location-adjusted salary ranges for 17+ technology roles based on real 2026 market data. Whether you are preparing for a job offer discussion, planning a career move, or benchmarking your current compensation, this tool shows you what you should be earning.
         </p>
 
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
