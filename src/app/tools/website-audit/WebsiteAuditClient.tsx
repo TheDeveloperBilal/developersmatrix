@@ -1,6 +1,12 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect } from 'react';
+import {
+  trackAuditCompleted,
+  trackAuditFailed,
+  trackReportExported,
+  safeHost,
+} from '@/lib/analytics';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
@@ -133,6 +139,9 @@ export default function WebsiteAuditClient() {
       return;
     }
 
+    const startedAt = Date.now();
+    const targetHost = safeHost(url.trim());
+
     setIsAuditing(true);
     setError(null);
     setResult(null);
@@ -178,9 +187,18 @@ export default function WebsiteAuditClient() {
       setProgressLog(prev => [...prev, 'Done! Analysis complete.']);
       setResult(data.result);
       setActiveTab('all-issues');
+
+      trackAuditCompleted({
+        targetHost,
+        score: data.result?.overallScore ?? 0,
+        durationMs: Date.now() - startedAt,
+        issueCount: Array.isArray(data.result?.issues) ? data.result.issues.length : 0,
+      });
     } catch (err) {
       clearInterval(progressInterval);
-      setError(err instanceof Error ? err.message : 'Audit failed. Please try again.');
+      const message = err instanceof Error ? err.message : 'Audit failed. Please try again.';
+      setError(message);
+      trackAuditFailed({ targetHost, reason: message });
     } finally {
       setIsAuditing(false);
     }
@@ -191,6 +209,7 @@ export default function WebsiteAuditClient() {
     if (!result) return;
     const report = generateTextReport(result);
     navigator.clipboard.writeText(report);
+    trackReportExported({ format: 'text', score: result.overallScore ?? 0 });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [result]);
@@ -203,6 +222,7 @@ export default function WebsiteAuditClient() {
     printWindow.document.write(generateHTMLReport(result));
     printWindow.document.close();
     printWindow.print();
+    trackReportExported({ format: 'pdf', score: result.overallScore ?? 0 });
   }, [result]);
 
   // Handle clear
