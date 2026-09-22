@@ -81,48 +81,9 @@ export default function WebsiteAuditClient() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('all-issues');
   const [copied, setCopied] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [progressLog, setProgressLog] = useState<string[]>([]);
 
-  const toggleFaq = (index: number) => {
-    setOpenFaq(prev => prev === index ? null : index);
-  };
 
-  // FAQ data for the website audit tool
-  const websiteAuditFaqs = [
-    {
-      question: "Is this website audit tool really free?",
-      answer: "Yes, completely free. No signup required, no credit card needed, and no usage limits. We believe every website owner deserves access to professional-grade audit tools regardless of budget."
-    },
-    {
-      question: "What does the website audit check?",
-      answer: "Our tool performs around 150 checks across 8 categories: SEO (meta tags, headings, canonicals, schema), Technical (crawlability, indexing, structured data, internal links), Performance (page speed, resource optimization, caching), Mobile UX (viewport, touch targets, responsive design), Security (HTTPS, headers, mixed content), Accessibility (alt text, ARIA, color contrast), Content Quality (readability, word count, CTAs), and Conversion Optimization (trust signals, value propositions)."
-    },
-    {
-      question: "How accurate is the audit score?",
-      answer: "The audit score is calculated based on industry-standard best practices from Google Lighthouse, PageSpeed Insights, and WCAG guidelines. While no automated tool can catch everything, our scoring correlates strongly with real search engine ranking factors and Core Web Vitals."
-    },
-    {
-      question: "Can I export the audit report?",
-      answer: "Yes! After running an audit, you can copy the full text report to clipboard or download a professionally formatted PDF report. The PDF includes your scores, issues, recommendations, and content analysis, perfect for sharing with clients or team members."
-    },
-    {
-      question: "How often should I audit my website?",
-      answer: "For active websites, we recommend monthly audits to catch issues early. After any major update (new design, CMS upgrade, content migration), run an audit immediately. E-commerce sites should audit weekly during high-traffic periods like holidays."
-    },
-    {
-      question: "Does the audit work for any type of website?",
-      answer: "Yes, our tool works with any publicly accessible website: WordPress, Shopify, Next.js, React, Vue, plain HTML, and more. It checks the rendered output, so it works regardless of what technology powers your site."
-    },
-    {
-      question: "What is a 'good' website audit score?",
-      answer: "Scores break down as: 90-100 (Excellent, minimal issues, well-optimized), 70-89 (Good, some improvements needed), 50-69 (Fair, significant issues affecting performance/SEO), 0-49 (Poor, critical issues requiring immediate attention). Most websites score between 60-80 on first audit."
-    },
-    {
-      question: "Will fixing these issues improve my Google rankings?",
-      answer: "Yes, especially for technical SEO and performance issues. Google explicitly uses page speed, mobile-friendliness, and Core Web Vitals as ranking factors. Fixing critical and high-priority issues typically leads to measurable ranking improvements within 2-4 weeks."
-    }
-  ];
 
   const [stats] = useState<AuditStats>({
     totalAudits: 3427,
@@ -579,47 +540,9 @@ export default function WebsiteAuditClient() {
             </div>
           </div>
 
-          {/* FAQs */}
+          {/* The FAQ section lives in page.tsx so the answers render server side
+              and match the FAQPage schema exactly. Do not add a second set here. */}
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-6">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-4">
-              {websiteAuditFaqs.map((faq, i) => (
-                <div 
-                  key={i} 
-                  className="rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 overflow-hidden"
-                >
-                  <button
-                    onClick={() => toggleFaq(i)}
-                    className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors"
-                  >
-                    <span className="font-medium text-slate-900 dark:text-white pr-4">{faq.question}</span>
-                    <ChevronDown 
-                      className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                        openFaq === i ? 'rotate-180' : ''
-                      }`} 
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {openFaq === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-5 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
-                          {faq.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
-            </div>
-
             <div className="mt-8 p-6 rounded-xl bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-800">
               <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
                 Still have questions?
