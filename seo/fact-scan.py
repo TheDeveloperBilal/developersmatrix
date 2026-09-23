@@ -29,9 +29,21 @@ def analyse(name, text, url=None):
                 orphan=orphan,fake=fake,stale=stale,named_unlinked=named_unlinked,score=score)
 
 rows=[]
+def alltext(post):
+    # content is not the only place claims hide: faqs, excerpt and title count too
+    parts=[]
+    for k,v in post.items():
+        if k in ('id','slug','image','canonicalUrl','publishedAt','dateModified','noindex','readTime'): continue
+        if isinstance(v,str): parts.append(v)
+        elif isinstance(v,list):
+            for item in v:
+                if isinstance(item,str): parts.append(item)
+                elif isinstance(item,dict): parts.extend(str(x) for x in item.values() if isinstance(x,str))
+    return '\n\n'.join(parts)
+
 for f,base in [('src/data/high-quality-blogs.json','/blog/'),('src/data/generated-blogs.json','/blog/')]:
     for p in json.load(open(f,encoding='utf-8')):
-        rows.append(analyse(p['slug'], p.get('content',''), base+p['slug']))
+        rows.append(analyse(p['slug'], alltext(p), base+p['slug']))
 
 ts=open('src/data/trends-data.ts',encoding='utf-8').read()
 for m in re.finditer(r"slug:\s*'([a-z0-9-]+)'", ts):
