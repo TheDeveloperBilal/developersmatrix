@@ -27,10 +27,10 @@ export interface TrendItem {
     tools: { name: string; description: string; url?: string }[];
     futureScope: string;
     keyTakeaways: string[];
-    resources: { title: string; url: string; type: 'article' | 'video' | 'course' }[];
+    resources: { title: string; url: string; type: 'article' | 'video' | 'course' | 'tool' }[];
     // Rich SEO content additions
     faqs?: { question: string; answer: string }[];
-    statistics?: { label: string; value: string; source?: string }[];
+    statistics?: { label: string; value: string; source?: string; context?: string }[];
     expertCommentary?: string;
     comparisons?: { name: string; pros: string[]; cons: string[] }[];
     actionSteps?: string[];
@@ -57,7 +57,7 @@ export interface TrendItem {
 // import them without pulling in every trend body. Re-exported here so existing
 // server side imports keep working.
 export type { TrendCategory, TrendCategoryInfo } from './trend-categories';
-import type { TrendCategory } from './trend-categories';
+import type { TrendCategory, TrendCategoryInfo } from './trend-categories';
 export { trendCategories } from './trend-categories';
 import { trendCategories } from './trend-categories';
 
@@ -391,7 +391,6 @@ export const allTrends: TrendItem[] = [
   {
     id: '5',
     slug: 'ai-side-hustles-make-money-2026',
-    quickAnswer: "AI side hustles in 2026 are income-generating activities that use artificial intelligence tools to deliver services or create products faster and at lower cost than traditional methods. The most profitable include AI-assisted content creation, AI automation agency services, AI-generated design and media, AI tutoring and consulting, and building and selling AI-powered micro-tools.",
     title: 'AI Side Hustles 2026: Market Overview, Income Trends & Top Opportunities',
     subtitle: 'Real income data from $500-$15,000/month. Beginner-friendly guides included.',
     description: 'Discover 15 AI side hustles that actually pay in 2026. Real income data, beginner-friendly options, and step-by-step guides to start earning $500-$5,000/month with AI tools.',
@@ -744,7 +743,7 @@ export const allTrends: TrendItem[] = [
     title: 'Quantum Computing: A Practical Guide for 2026',
     subtitle: 'What changed in 2026, what these machines can actually do, and what is still unproven',
     description: 'Explore the latest advancements in quantum computing applications in 2026. Compare IBM, Google, and IonQ platforms. Discover real-world use cases in drug discovery, finance, and climate modeling.',
-    category: 'tech',
+    category: 'future-tech',
     tags: ['Quantum Computing', 'Future Tech', 'IBM Quantum', 'Google Willow'],
     trending: true,
     hot: false,

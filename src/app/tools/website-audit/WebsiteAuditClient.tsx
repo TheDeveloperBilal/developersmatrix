@@ -8,6 +8,7 @@ import {
   safeHost,
 } from '@/lib/analytics';
 import AuditReport from './AuditReport';
+import { generateTextReport, generateHTMLReport } from './generate-report';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
@@ -63,6 +64,8 @@ export default function WebsiteAuditClient() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('all-issues');
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
+  const [psiStatus, setPsiStatus] = useState<'idle' | 'loading' | 'ready' | 'failed'>('idle');
   const [progressLog, setProgressLog] = useState<string[]>([]);
 
 
@@ -94,6 +97,7 @@ export default function WebsiteAuditClient() {
     setIsAuditing(true);
     setError(null);
     setResult(null);
+    setPsiStatus('idle');
     setProgressLog(['Initializing audit engine...', `Targeting ${url.trim()}...`]);
 
     const auditSteps = [
@@ -150,16 +154,27 @@ export default function WebsiteAuditClient() {
       // report is already on screen by now, so it fills its section in when it
       // arrives. If it never does, every other section still works.
       const auditedUrl = data.result?.url || url.trim();
-      fetch(`/api/website-audit/pagespeed?url=${encodeURIComponent(auditedUrl)}`)
+      setPsiStatus('loading');
+
+      // 50s ceiling. Google can simply not answer, and a spinner that spins
+      // for ever is worse than saying the data did not arrive.
+      const psiController = new AbortController();
+      const psiTimeout = setTimeout(() => psiController.abort(), 50000);
+
+      fetch(`/api/website-audit/pagespeed?url=${encodeURIComponent(auditedUrl)}`, {
+        signal: psiController.signal,
+      })
         .then((res) => res.json())
         .then((psi) => {
           if (psi?.success && psi.pagespeed) {
             setResult((prev) => (prev ? { ...prev, pagespeed: psi.pagespeed } : prev));
+            setPsiStatus('ready');
+          } else {
+            setPsiStatus('failed');
           }
         })
-        .catch(() => {
-          // A missing PageSpeed section is not worth an error message.
-        });
+        .catch(() => setPsiStatus('failed'))
+        .finally(() => clearTimeout(psiTimeout));
 
       trackAuditCompleted({
         targetHost,
@@ -186,10 +201,35 @@ export default function WebsiteAuditClient() {
   }, [url]);
 
   // Handle copy
-  const handleCopy = useCallback(() => {
+  const handleCopy = useCallback(async () => {
     if (!result) return;
+
     const report = generateTextReport(result);
-    navigator.clipboard.writeText(report);
+    setCopyFailed(false);
+
+    try {
+      await navigator.clipboard.writeText(report);
+    } catch {
+      // The clipboard API refuses when the document is not focused, and some
+      // browsers block it outright. Fall back to the old selection trick
+      // rather than telling the user it worked when it did not.
+      try {
+        const area = document.createElement('textarea');
+        area.value = report;
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(area);
+        if (!ok) throw new Error('copy-rejected');
+      } catch {
+        setCopyFailed(true);
+        setTimeout(() => setCopyFailed(false), 4000);
+        return;
+      }
+    }
+
     trackReportExported({ format: 'text', score: result.overallScore ?? 0 });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -198,11 +238,43 @@ export default function WebsiteAuditClient() {
   // Handle PDF export
   const handleExportPDF = useCallback(() => {
     if (!result) return;
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
-    printWindow.document.write(generateHTMLReport(result));
-    printWindow.document.close();
-    printWindow.print();
+
+    // This used to call window.open, which popup blockers stop, and then
+    // print() before the page had rendered, which produced a blank sheet on
+    // the browsers that did let it through. A hidden iframe is never blocked
+    // and we wait for its load event before printing.
+    const frame = document.createElement('iframe');
+    frame.setAttribute('aria-hidden', 'true');
+    frame.style.position = 'fixed';
+    frame.style.right = '0';
+    frame.style.bottom = '0';
+    frame.style.width = '0';
+    frame.style.height = '0';
+    frame.style.border = '0';
+
+    frame.onload = () => {
+      try {
+        frame.contentWindow?.focus();
+        frame.contentWindow?.print();
+      } catch {
+        // Nothing useful to do; the frame is cleaned up either way.
+      }
+      // Give the print dialog time to take its snapshot before removal.
+      setTimeout(() => frame.remove(), 60000);
+    };
+
+    document.body.appendChild(frame);
+
+    const doc = frame.contentDocument;
+    if (!doc) {
+      frame.remove();
+      return;
+    }
+
+    doc.open();
+    doc.write(generateHTMLReport(result));
+    doc.close();
+
     trackReportExported({ format: 'pdf', score: result.overallScore ?? 0 });
   }, [result]);
 
@@ -409,6 +481,8 @@ export default function WebsiteAuditClient() {
               onReset={handleClear}
               onExportPdf={handleExportPDF}
               onCopy={handleCopy}
+              copyFailed={copyFailed}
+              psiStatus={psiStatus}
               copied={copied}
             />
           </div>

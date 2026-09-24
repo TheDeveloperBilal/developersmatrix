@@ -301,6 +301,8 @@ export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
 interface HowToSchemaProps {
   name: string;
   description: string;
+  /** Canonical page the HowTo lives on. */
+  url?: string;
   image?: string;
   totalTime?: string;
   estimatedCost?: {
@@ -320,6 +322,7 @@ interface HowToSchemaProps {
 export function HowToSchema({
   name,
   description,
+  url,
   image,
   totalTime,
   estimatedCost,
@@ -332,6 +335,7 @@ export function HowToSchema({
     '@type': 'HowTo',
     name,
     description,
+    ...(url && { mainEntityOfPage: { '@type': 'WebPage', '@id': url } }),
     ...(image && { image }),
     ...(totalTime && { totalTime }),
     ...(estimatedCost && { estimatedCost: {

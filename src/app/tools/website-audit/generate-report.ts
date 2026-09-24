@@ -1,3 +1,4 @@
+import type { AuditScore, AuditIssue, WebsiteAuditResult } from '@/lib/website-audit/types';
 // Generate text report for clipboard copy
 export function generateTextReport(result: WebsiteAuditResult): string {
   return `
@@ -14,7 +15,7 @@ OVERALL SCORE: ${result.overallScore}/100 (Grade: ${result.overallScore >= 90 ? 
 CATEGORY SCORES
 ---------------
 ${Object.entries(result.scores).map(([cat, score]) => 
-  `${cat.toUpperCase()}: ${score.score}/100 (${score.issues} issues, ${score.passedChecks}/${score.totalChecks} checks passed)`
+  `${cat.toUpperCase()}: ${score.score}/100 (${score.issues} issues, ${score.passed}/${score.passed + score.failed} checks passed)`
 ).join('\n')}
 
 ISSUE SEVERITY BREAKDOWN
@@ -261,14 +262,14 @@ export function generateHTMLReport(result: WebsiteAuditResult): string {
     
     <h2>Score Breakdown</h2>
     <div class="score-grid">
-      ${Object.entries(result.scores).map(([cat, score]) => `
+      ${(Object.entries(result.scores) as Array<[string, AuditScore]>).map(([cat, score]) => `
         <div class="score-item">
           <div class="score-item-header">
             <div class="score-item-name">${cat}</div>
             <div class="score-item-value" style="color:${score.score >= 70 ? '#10b981' : score.score >= 50 ? '#eab308' : '#ef4444'};">${score.score}<span style="font-size:14px;color:#94a3b8;font-weight:400;">/100</span></div>
           </div>
           <div class="score-item-bar">${scoreBar(score.score)}</div>
-          <div class="score-item-issues">${score.issues} issues &nbsp;|&nbsp; ${score.passedChecks}/${score.totalChecks} checks passed</div>
+          <div class="score-item-issues">${score.issues} issues &nbsp;|&nbsp; ${score.passed}/${score.passed + score.failed} checks passed</div>
         </div>
       `).join('')}
     </div>

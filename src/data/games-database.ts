@@ -723,4 +723,4 @@ export const getGamesByGenre = (genre: string) =>
 
 // Export for backward compatibility
 export const popularGames = gamesDatabase;
-export type { Game } from './games-database';
+// Game is declared above in this file, so it needs no re-export.

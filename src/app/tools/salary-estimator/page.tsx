@@ -103,7 +103,7 @@ export default function SalaryEstimatorPage() {
       {/* Top Ad Banner */}
       <div className="w-full bg-muted/30 border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-          <SidebarAd slot="1234567890" />
+          <SidebarAd />
         </div>
       </div>
 
@@ -168,7 +168,7 @@ export default function SalaryEstimatorPage() {
 
             {/* In-Content Ad */}
             <div className="mt-8">
-              <InContentAd slot="5678901234" />
+              <InContentAd />
             </div>
 
             {/* What Makes Our Tool Different */}
@@ -379,7 +379,7 @@ export default function SalaryEstimatorPage() {
               </CardContent>
             </Card>
 
-            <SidebarAd slot="3456789012" />
+            <SidebarAd />
 
             <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
               <CardContent className="p-4">

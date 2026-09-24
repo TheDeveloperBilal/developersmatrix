@@ -268,7 +268,16 @@ export function analyzeContent(
   
   // Generate recommendations
   const recommendations = generateRecommendations(
-    { perplexity, burstiness, vocabularyDiversity, repetitionScore, predictability, writingRhythm },
+    {
+      perplexity,
+      burstiness,
+      sentenceConsistency,
+      vocabularyDiversity,
+      repetitionScore,
+      predictability,
+      writingRhythm,
+      humanLikeness: humanProbability,
+    },
     sentenceAnalysis
   );
   

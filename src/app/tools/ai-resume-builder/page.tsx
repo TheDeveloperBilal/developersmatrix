@@ -145,7 +145,7 @@ export default function ResumeBuilderPage() {
 
       {/* Main Tool Interface, wrapped in container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <ResumeBuilderClient tool={tool} />
+        <ResumeBuilderClient />
       </div>
 
       {/* SEO Content Section */}

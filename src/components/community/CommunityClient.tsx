@@ -37,6 +37,7 @@ const sampleThreads: Thread[] = [
     createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
     upvotes: 42,
     downvotes: 3,
+    views: 0,
     replies: [
       {
         id: 'r1',
@@ -65,6 +66,7 @@ const sampleThreads: Thread[] = [
     createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
     upvotes: 67,
     downvotes: 2,
+    views: 0,
     replies: [
       {
         id: 'r3',
@@ -85,6 +87,7 @@ const sampleThreads: Thread[] = [
     createdAt: new Date(Date.now() - 86400000).toISOString(),
     upvotes: 34,
     downvotes: 1,
+    views: 0,
     replies: []
   },
   {
@@ -96,6 +99,7 @@ const sampleThreads: Thread[] = [
     createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
     upvotes: 89,
     downvotes: 4,
+    views: 0,
     replies: [
       {
         id: 'r4',
@@ -116,6 +120,7 @@ const sampleThreads: Thread[] = [
     createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
     upvotes: 28,
     downvotes: 0,
+    views: 0,
     replies: []
   }
 ];
@@ -209,6 +214,7 @@ export default function CommunityClient() {
       createdAt: new Date().toISOString(),
       upvotes: 0,
       downvotes: 0,
+      views: 0,
       replies: []
     };
 

@@ -161,13 +161,13 @@ export default async function TrendPage({ params }: TrendPageProps) {
       )}
       {/* Article Schema */}
       <ArticleSchema
-        title={trend.title}
+        headline={trend.title}
         description={trend.subtitle}
         url={`${siteConfig.url}/trends/${resolvedParams.slug}`}
-        publishedAt={trend.publishedAt}
+        datePublished={trend.publishedAt}
         dateModified={trend.updatedAt}
         author={trend.author}
-        tags={trend.tags}
+        articleSection={trend.tags?.[0]}
       />
       {/* Hero Section */}
       <header className="bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-slate-900 dark:via-purple-900/10 dark:to-slate-900 pt-8 pb-12">
@@ -285,9 +285,9 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Why This Matters in 2026</h2>
               </div>
-              <ReactMarkdown className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300">
+              <div className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300"><ReactMarkdown>
                 {trend.content.whyItMatters}
-              </ReactMarkdown>
+              </ReactMarkdown></div>
             </section>
 
             {/* Beginner Explanation */}
@@ -298,9 +298,9 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Getting Started</h2>
               </div>
-              <ReactMarkdown className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300">
+              <div className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300"><ReactMarkdown>
                 {trend.content.beginnerExplanation}
-              </ReactMarkdown>
+              </ReactMarkdown></div>
             </section>
 
             {/* Advanced Insights */}
@@ -311,9 +311,9 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Advanced Insights</h2>
               </div>
-              <ReactMarkdown className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300">
+              <div className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300"><ReactMarkdown>
                 {trend.content.advancedInsights}
-              </ReactMarkdown>
+              </ReactMarkdown></div>
             </section>
 
             {/* Hustle Comparison Table */}

@@ -31,12 +31,27 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "middleware.ts",
+    "next.config.ts",
+    "tailwind.config.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".next",
+    "examples",
+    "skills",
+    "scripts",
+    "mini-services",
+    "deploy",
+    "download",
+    "upload",
+    "preview",
+    "memory",
+    "db",
+    ".zscripts"
   ]
 }
