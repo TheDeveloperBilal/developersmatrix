@@ -22,7 +22,7 @@ export class TechnicalAuditor {
     this.domain = new URL(mainPage.url).hostname;
     
     // robots.txt Analysis
-    this.analyzeRobotsTxt(issues, robotsTxt, pages);
+    this.analyzeRobotsTxt(issues, robotsTxt, pages, sitemapUrls);
     
     // Sitemap Validation
     this.analyzeSitemap(issues, sitemapUrls, pages);
@@ -76,7 +76,7 @@ export class TechnicalAuditor {
 
   // --- robots.txt Deep Analysis ---
 
-  private analyzeRobotsTxt(issues: AuditIssue[], robotsTxt: string | null, pages: PageData[]) {
+  private analyzeRobotsTxt(issues: AuditIssue[], robotsTxt: string | null, pages: PageData[], sitemapUrls: string[] = []) {
     // Missing robots.txt
     if (!robotsTxt) {
       issues.push({
@@ -1021,7 +1021,10 @@ export class TechnicalAuditor {
     
     // Check for required properties in common schema types
     for (const schema of mainPage.structured_data) {
-      const type = schema.type.toLowerCase();
+      // JSON-LD allows @type to be a string OR an array of strings, and some
+      // sites emit neither. Normalise before touching it.
+      const type = normaliseSchemaType(schema.type);
+      if (!type) continue;
       const json = schema.json;
       
       // Organization schema validation
@@ -1198,4 +1201,18 @@ export class TechnicalAuditor {
       default: return 0;
     }
   }
+}
+
+
+/**
+ * Turn whatever a page put in @type into a single lowercase string.
+ * Accepts "Organization", ["Organization","LocalBusiness"], or junk.
+ * Returns '' when there is nothing usable, so callers can skip the entry.
+ */
+function normaliseSchemaType(raw: unknown): string {
+  if (typeof raw === 'string') return raw.toLowerCase();
+  if (Array.isArray(raw)) {
+    return raw.filter((x): x is string => typeof x === 'string').join(' ').toLowerCase();
+  }
+  return '';
 }
