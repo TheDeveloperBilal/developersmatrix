@@ -74,6 +74,12 @@ export default function WebsiteAuditClient() {
   });
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+
+  // The server route is capped at 120s. Give the browser a slightly shorter
+  // ceiling so a hung request surfaces as a real error instead of a spinner
+  // that never stops.
+  const CLIENT_TIMEOUT_MS = 110000;
 
   // Handle audit
   const handleAudit = useCallback(async () => {
@@ -113,17 +119,26 @@ export default function WebsiteAuditClient() {
       }
     }, 400);
 
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const timeoutId = setTimeout(() => controller.abort(), CLIENT_TIMEOUT_MS);
+
     try {
       const response = await fetch('/api/website-audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: url.trim() }),
+        signal: controller.signal,
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => null);
 
-      if (!data.success) {
-        throw new Error(data.error || 'Audit failed');
+      if (!response.ok || !data || !data.success) {
+        throw new Error(
+          (data && data.error) ||
+            `The audit service returned an error (${response.status}). Please try again.`
+        );
       }
 
       clearInterval(progressInterval);
@@ -139,10 +154,18 @@ export default function WebsiteAuditClient() {
       });
     } catch (err) {
       clearInterval(progressInterval);
-      const message = err instanceof Error ? err.message : 'Audit failed. Please try again.';
+      const aborted = err instanceof DOMException && err.name === 'AbortError';
+      const message = aborted
+        ? 'This site took too long to analyse and the audit was stopped. Large or slow sites can exceed the limit. Try again, or try a single page URL.'
+        : err instanceof Error
+          ? err.message
+          : 'Audit failed. Please try again.';
       setError(message);
-      trackAuditFailed({ targetHost, reason: message });
+      trackAuditFailed({ targetHost, reason: aborted ? 'timeout' : message });
     } finally {
+      clearTimeout(timeoutId);
+      clearInterval(progressInterval);
+      abortRef.current = null;
       setIsAuditing(false);
     }
   }, [url]);
@@ -170,6 +193,7 @@ export default function WebsiteAuditClient() {
 
   // Handle clear
   const handleClear = useCallback(() => {
+    abortRef.current?.abort();
     setUrl('');
     setResult(null);
     setError(null);

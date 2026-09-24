@@ -500,9 +500,25 @@ export class ContentAuditor {
     const mainPage = pages[0];
     if (!mainPage) return;
     
-    // Check for keyword stuffing
+    // Check for keyword stuffing.
+    // Density on its own is meaningless on a short page: a 30 word page that
+    // says "example" twice reads as 6.7% and used to get flagged HIGH. Real
+    // stuffing needs enough text to judge and enough repetitions to be a
+    // pattern, so require both before raising anything.
+    const MIN_WORDS_FOR_DENSITY = 300;
+    const MIN_OCCURRENCES = 10;
+
     const topKeyword = Object.entries(analysis.keywordDensity)[0];
-    if (topKeyword && topKeyword[1] > 3) {
+    const topOccurrences = topKeyword
+      ? Math.round((topKeyword[1] / 100) * analysis.wordCount)
+      : 0;
+
+    if (
+      topKeyword &&
+      topKeyword[1] > 3 &&
+      analysis.wordCount >= MIN_WORDS_FOR_DENSITY &&
+      topOccurrences >= MIN_OCCURRENCES
+    ) {
       issues.push({
         id: 'keyword_stuffing',
         category: 'content',

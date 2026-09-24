@@ -232,11 +232,22 @@ export interface GroupResult {
   failed: number;
 }
 
-function matches(issue: AuditIssue, m: Matcher): boolean {
+/**
+ * Specific match: this finding is exactly what the check is about.
+ * The engine reuses IssueType across many unrelated findings (missing_viewport
+ * covers theme-colour and iOS meta as well as an actually missing viewport),
+ * so an id match has to outrank a type match or checks steal each other's
+ * findings and the same issue gets counted twice.
+ */
+function matchesSpecific(issue: AuditIssue, m: Matcher): boolean {
   if (m.ids?.includes(issue.id)) return true;
-  if (m.types?.includes(issue.type)) return true;
   if (m.idPrefix?.some((p) => issue.id.startsWith(p))) return true;
   return false;
+}
+
+/** Generic match, only consulted for findings no specific check claimed. */
+function matchesGeneric(issue: AuditIssue, m: Matcher): boolean {
+  return m.types?.includes(issue.type) ?? false;
 }
 
 /** Severity decides whether a finding is a hard fail or a warning. */
@@ -262,16 +273,29 @@ export interface BuiltReport {
 
 export function buildReport(result: WebsiteAuditResult): BuiltReport {
   const issues = result.issues ?? [];
-  const claimed = new Set<AuditIssue>();
+  const defs = CHECK_DEFINITIONS;
+
+  // Every finding belongs to exactly one check. Two passes so that a check
+  // naming an id beats a check naming only the shared type.
+  const owner = new Map<AuditIssue, string>();
+
+  for (const issue of issues) {
+    const hit = defs.find((d) => matchesSpecific(issue, d.match));
+    if (hit) owner.set(issue, hit.id);
+  }
+  for (const issue of issues) {
+    if (owner.has(issue)) continue;
+    const hit = defs.find((d) => matchesGeneric(issue, d.match));
+    if (hit) owner.set(issue, hit.id);
+  }
 
   const groups: GroupResult[] = CHECK_GROUPS.map((group) => {
-    const defs = CHECK_DEFINITIONS.filter((d) => d.group === group.id);
-
-    const checks: CheckResult[] = defs.map((definition) => {
-      const findings = issues.filter((i) => matches(i, definition.match));
-      findings.forEach((f) => claimed.add(f));
-      return { definition, status: statusFor(findings), findings };
-    });
+    const checks: CheckResult[] = defs
+      .filter((d) => d.group === group.id)
+      .map((definition) => {
+        const findings = issues.filter((i) => owner.get(i) === definition.id);
+        return { definition, status: statusFor(findings), findings };
+      });
 
     return {
       group,
@@ -283,9 +307,9 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
     };
   });
 
-  // Anything the catalogue did not claim still belongs somewhere.
-  const unclaimed = issues.filter((i) => !claimed.has(i));
-  for (const issue of unclaimed) {
+  // Findings no check claimed still have to appear somewhere.
+  for (const issue of issues) {
+    if (owner.has(issue)) continue;
     const target =
       groups.find((g) => GROUP_CATEGORIES[g.group.id].includes(issue.category)) ??
       groups.find((g) => g.group.id === 'advanced-seo')!;
