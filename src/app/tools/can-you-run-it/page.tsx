@@ -5,6 +5,7 @@ import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import { siteConfig } from "@/data/config";
 import CanYouRunItClient from "./CanYouRunItClient";
+import { gamesDatabase } from "@/data/games-database";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['can-you-run-it']);
 
@@ -245,6 +246,36 @@ export default function CanYouRunItPage() {
                   <a href="/gta-6" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     📰 Latest GTA 6 news
                   </a>
+                </div>
+              </section>
+
+              {/* Every game page, as real links. These pages were orphaned before:
+                  in the sitemap but with no internal link pointing at them. */}
+              <section>
+                <h2 className="text-2xl font-bold mb-2">Check a Specific Game</h2>
+                <p className="text-muted-foreground mb-6">
+                  Every game below has its own page with the publisher stated minimum and recommended specs, what each requirement actually means, and the cheapest upgrade if your machine falls short.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {gamesDatabase.map((game) => (
+                    <a
+                      key={game.id}
+                      href={`/tools/can-you-run-it/${game.id}`}
+                      className="group flex items-center justify-between gap-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-sm transition-all"
+                    >
+                      <span className="min-w-0">
+                        <span className="block font-medium text-sm text-gray-900 dark:text-white truncate">
+                          Can you run {game.name}?
+                        </span>
+                        <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                          {game.requirementsStatus === 'unannounced'
+                            ? 'No PC specs published yet'
+                            : 'Official PC requirements'}
+                        </span>
+                      </span>
+                      <span className="text-gray-400 group-hover:text-purple-600 transition-colors shrink-0" aria-hidden="true">&rarr;</span>
+                    </a>
+                  ))}
                 </div>
               </section>
 
