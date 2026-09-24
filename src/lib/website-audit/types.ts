@@ -230,6 +230,51 @@ export interface ContentAnalysis {
   readingTime: number;
 }
 
+// --- PageSpeed Insights ---------------------------------------------------
+// Real Core Web Vitals, which an HTML only audit cannot measure for itself.
+
+export interface PageSpeedMetric {
+  id: string;
+  label: string;
+  value: number;
+  displayValue: string;
+  rating: 'good' | 'needs-improvement' | 'poor';
+  isCoreWebVital: boolean;
+}
+
+export interface PageSpeedOpportunity {
+  id: string;
+  title: string;
+  description: string;
+  displayValue: string;
+  savingsMs: number;
+  savingsBytes: number;
+}
+
+export interface PageSpeedData {
+  available: boolean;
+  strategy: 'mobile' | 'desktop';
+  fetchedAt: string;
+  /** True when Chrome has enough real user data for this site. */
+  hasFieldData: boolean;
+  /** Whether field data describes this page or the whole origin. */
+  fieldDataScope?: 'page' | 'origin';
+  /** What real Chrome users experienced. This is what Google ranks on. */
+  fieldData: PageSpeedMetric[];
+  /** One simulated load. Useful for diagnosis, not a ranking input. */
+  labMetrics: PageSpeedMetric[];
+  opportunities: PageSpeedOpportunity[];
+  scores: {
+    performance: number | null;
+    accessibility: number | null;
+    bestPractices: number | null;
+    seo: number | null;
+  };
+  finalUrl?: string;
+  unavailableReason?: string;
+  rawError?: string;
+}
+
 export interface WebsiteAuditResult {
   url: string;
   domain: string;
@@ -267,6 +312,9 @@ export interface WebsiteAuditResult {
     weaknesses: string[];
     opportunities: string[];
   };
+
+  /** Absent when PageSpeed Insights could not be reached. Never blocks the audit. */
+  pagespeed?: PageSpeedData;
 }
 
 export interface CrawlProgress {

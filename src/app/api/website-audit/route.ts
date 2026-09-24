@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { WebsiteAuditEngine } from '@/lib/website-audit/engine';
 import type { CrawlProgress } from '@/lib/website-audit/types';
+import { fetchPageSpeed } from '@/lib/website-audit/pagespeed';
 
 export const runtime = 'nodejs';
-export const maxDuration = 120; // 2 minutes max
+export const maxDuration = 120; // 2 minutes. PSI alone can take 45s.
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,11 +42,20 @@ export async function POST(request: NextRequest) {
       timeout: 30000,
     });
 
-    // Run audit with progress tracking
-    const result = await engine.audit((progress: CrawlProgress) => {
-      // In a real-time implementation, this could use Server-Sent Events or WebSockets
-      console.log(`[Audit Progress] ${progress.status}: ${progress.message}`);
-    });
+    // The crawl and the PageSpeed call are independent, so run them together.
+    // PSI is the slow one (10 to 40 seconds); doing it in series would roughly
+    // double the wait for no reason. fetchPageSpeed never throws, so a PSI
+    // failure degrades that one section instead of failing the whole audit.
+    const [result, pagespeed] = await Promise.all([
+      engine.audit((progress: CrawlProgress) => {
+        console.log(`[Audit Progress] ${progress.status}: ${progress.message}`);
+      }),
+      fetchPageSpeed(normalizedUrl, { strategy: 'mobile', timeoutMs: 45000 }),
+    ]);
+
+    if (pagespeed) {
+      result.pagespeed = pagespeed;
+    }
 
     return NextResponse.json({
       success: true,

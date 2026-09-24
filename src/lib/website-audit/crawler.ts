@@ -253,8 +253,19 @@ export class WebsiteCrawler {
     $('script[type="application/ld+json"]').each((_, el) => {
       try {
         const json = JSON.parse($(el).html() || '{}');
-        const type = json['@type'] || 'Unknown';
-        structuredData.push({ type, json });
+        // A single block can hold @graph with many nodes, and @type can be an
+        // array. Flatten both so every consumer sees { type: string, json }.
+        const nodes = Array.isArray(json['@graph']) ? json['@graph'] : [json];
+        for (const node of nodes) {
+          if (!node || typeof node !== 'object') continue;
+          const rawType = (node as Record<string, unknown>)['@type'];
+          const type = Array.isArray(rawType)
+            ? rawType.filter((x): x is string => typeof x === 'string').join(', ')
+            : typeof rawType === 'string'
+              ? rawType
+              : 'Unknown';
+          structuredData.push({ type, json: node });
+        }
       } catch {
         // Invalid JSON
       }
