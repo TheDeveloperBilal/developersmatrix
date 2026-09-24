@@ -15,7 +15,10 @@ export class WebsiteCrawler {
   constructor(config: AuditConfig) {
     this.config = {
       maxPages: config.maxPages ?? 10,
-      timeout: config.timeout ?? 30000,
+      // 12s per page. A page that has not answered in 12 seconds is not
+      // going to change the verdict, and five of them at 30s each used to blow
+      // straight past the function's own time limit.
+      timeout: config.timeout ?? 12000,
       userAgent: config.userAgent ?? 'DevelopersMatrix-Audit-Bot/1.0 (+https://developersmatrix.com)',
       followRedirects: config.followRedirects ?? true,
       ...config,
@@ -61,7 +64,7 @@ export class WebsiteCrawler {
       const robotsUrl = `${this.baseUrl}/robots.txt`;
       const response = await fetch(robotsUrl, {
         headers: { 'User-Agent': this.config.userAgent },
-        signal: AbortSignal.timeout(10000),
+        signal: AbortSignal.timeout(6000),
       });
       if (response.ok) {
         this.robotsTxt = await response.text();
@@ -352,35 +355,46 @@ export class WebsiteCrawler {
       errors: [],
     });
 
-    while (queue.length > 0 && pagesScanned < this.config.maxPages) {
-      const url = queue.shift()!;
-      
+    // The homepage has to come first, because it is what tells us which other
+    // pages exist. Everything after it is fetched together instead of one at a
+    // time: four extra pages used to cost four round trips end to end, and on a
+    // slow host that alone could push the whole audit past a minute.
+    const first = await this.fetchPage(queue.shift()!);
+
+    if (first) {
+      pages.push(first);
+      pagesScanned++;
+
+      for (const link of first.links) {
+        if (
+          link.isInternal &&
+          !this.visitedUrls.has(link.href) &&
+          !queue.includes(link.href) &&
+          queue.length < this.config.maxPages * 2
+        ) {
+          queue.push(link.href);
+        }
+      }
+    }
+
+    const remaining = queue.slice(0, Math.max(0, this.config.maxPages - pagesScanned));
+
+    if (remaining.length > 0) {
       onProgress?.({
         status: 'crawling',
-        message: `Scanning ${new URL(url).pathname}...`,
-        progress: Math.min(95, 5 + (pagesScanned / this.config.maxPages) * 50),
+        message: `Scanning ${remaining.length} more pages...`,
+        progress: 30,
         pagesScanned,
         totalPages: this.config.maxPages,
-        currentPage: url,
         errors: [],
       });
 
-      const pageData = await this.fetchPage(url);
-      
-      if (pageData) {
-        pages.push(pageData);
-        pagesScanned++;
+      const fetched = await Promise.all(remaining.map((url) => this.fetchPage(url)));
 
-        // Add internal links to queue
-        for (const link of pageData.links) {
-          if (
-            link.isInternal && 
-            !this.visitedUrls.has(link.href) && 
-            !queue.includes(link.href) &&
-            queue.length < this.config.maxPages * 2
-          ) {
-            queue.push(link.href);
-          }
+      for (const pageData of fetched) {
+        if (pageData) {
+          pages.push(pageData);
+          pagesScanned++;
         }
       }
     }
@@ -411,13 +425,15 @@ export class WebsiteCrawler {
     }
 
     // Check each link (with concurrency limit)
-    const linksArray = Array.from(uniqueLinks).slice(0, 50); // Limit to 50 external links
+    // 25 links at 6s each. This runs against third party hosts we do not
+    // control, so it is the easiest part of the audit to let run away.
+    const linksArray = Array.from(uniqueLinks).slice(0, 25);
     await Promise.all(
       linksArray.map(async (url) => {
         try {
           const response = await fetch(url, {
             method: 'HEAD',
-            signal: AbortSignal.timeout(10000),
+            signal: AbortSignal.timeout(6000),
             headers: { 'User-Agent': this.config.userAgent },
           });
           results.set(url, { status: response.status });
