@@ -64,16 +64,28 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Website audit error:', error);
-    
+
     const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-    
+
+    // A site we cannot reach is the caller's input being wrong, not our server
+    // breaking. Returning 500 for it makes real outages impossible to spot in
+    // the logs, so unreachable targets get a 422 and a message a user can act on.
+    const unreachable =
+      /failed to fetch any pages|enotfound|econnrefused|getaddrinfo|certificate|ssl|abort|timeout|etimedout|socket hang up/i.test(
+        errorMessage
+      );
+
+    const friendly = unreachable
+      ? 'We could not reach that website. Check the address is correct and that the site is online, then try again.'
+      : errorMessage;
+
     return NextResponse.json(
-      { 
-        success: false, 
-        error: errorMessage,
-        details: error instanceof Error ? error.stack : undefined
+      {
+        success: false,
+        error: friendly,
+        details: process.env.NODE_ENV === 'development' && error instanceof Error ? error.stack : undefined,
       },
-      { status: 500 }
+      { status: unreachable ? 422 : 500 }
     );
   }
 }
