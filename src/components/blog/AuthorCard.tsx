@@ -24,7 +24,7 @@ export function AuthorCard({ author, publishedAt, readTime, updatedAt, className
       <div className="flex-1 min-w-0">
         <p className="font-semibold text-foreground">{displayName}</p>
         <p className="text-sm text-muted-foreground">
-          {authorData?.role || 'Writer at DevelopersMatrix'}
+          {authorData?.jobTitle || 'Writer at DevelopersMatrix'}
         </p>
         {authorData?.credentials && authorData.credentials.length > 0 && (
           <p className="text-xs text-muted-foreground mt-1">

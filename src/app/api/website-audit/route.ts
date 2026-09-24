@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { WebsiteAuditEngine } from '@/lib/website-audit/engine';
 import type { CrawlProgress } from '@/lib/website-audit/types';
+import { rateLimit, callerKey } from '@/lib/website-audit/rate-limit';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
+
+// A full crawl costs us function time and costs the target site bandwidth.
+// Six a minute is generous for a person and useless for a scraper.
+const AUDIT_LIMIT = 6;
+const AUDIT_WINDOW_MS = 60_000;
 
 /** Hard ceiling on the crawl. Past this we stop and say so. */
 const AUDIT_BUDGET_MS = 45000;
@@ -37,6 +43,15 @@ function withDeadline<T>(work: Promise<T>, ms: number): Promise<T> {
 }
 
 export async function POST(request: NextRequest) {
+  const limit = rateLimit(`audit:${callerKey(request)}`, AUDIT_LIMIT, AUDIT_WINDOW_MS);
+
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { success: false, error: 'Too many audits in a short time. Please wait a moment and try again.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } }
+    );
+  }
+
   try {
     const body = await request.json();
     const { url, maxPages = 5 } = body;

@@ -1,5 +1,6 @@
 'use client';
 
+import type React from 'react';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link, Copy, Check, Quote, Info, AlertTriangle, Lightbulb, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -23,7 +24,7 @@ function HeadingWithCopy({ level, children, id }: { level: number; children: Rea
     4: 'text-lg font-semibold mt-6 mb-2'
   };
 
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+  const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
   return (
     <Tag id={id} className={cn(baseClasses, textClasses[level as keyof typeof textClasses] || textClasses[2])}>

@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchPageSpeed } from '@/lib/website-audit/pagespeed';
+import { rateLimit, callerKey, isOffSiteRequest } from '@/lib/website-audit/rate-limit';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
+
+const ALLOWED_HOSTS = ['developersmatrix.com', 'localhost'];
+
+// This endpoint spends our Google quota, so it is the one worth guarding.
+const PSI_LIMIT = 10;
+const PSI_WINDOW_MS = 60_000;
 
 /**
  * PageSpeed lives on its own endpoint so the crawl report can render first.
@@ -14,6 +21,22 @@ export const maxDuration = 60;
  * call and the second visitor gets an instant answer.
  */
 export async function GET(request: NextRequest) {
+  if (isOffSiteRequest(request, ALLOWED_HOSTS)) {
+    return NextResponse.json(
+      { success: false, error: 'This endpoint is only available from the audit tool.' },
+      { status: 403 }
+    );
+  }
+
+  const limit = rateLimit(`psi:${callerKey(request)}`, PSI_LIMIT, PSI_WINDOW_MS);
+
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { success: false, error: 'Too many speed checks in a short time. Please wait a moment and try again.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const raw = searchParams.get('url');
 

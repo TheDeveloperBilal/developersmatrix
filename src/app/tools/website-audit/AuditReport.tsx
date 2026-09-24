@@ -99,12 +99,40 @@ function MetricCard({ metric }: { metric: PageSpeedMetric }) {
   );
 }
 
-function PageSpeedSection({ result }: { result: WebsiteAuditResult }) {
+function PageSpeedSection({
+  result,
+  status = 'ready',
+}: {
+  result: WebsiteAuditResult;
+  status?: 'idle' | 'loading' | 'ready' | 'failed';
+}) {
   const psi = result.pagespeed;
 
   // The rest of the report lands first and PageSpeed follows a few seconds
   // later, so this holds the space instead of the page jumping when it lands.
+  // A spinner that never stops is worse than no section at all, so a failed
+  // or abandoned request says so and offers the real tool instead.
   if (!psi) {
+    if (status === 'failed') {
+      return (
+        <section className="rounded-lg border border-gray-200 bg-white p-6">
+          <h2 className="text-base font-semibold text-gray-900">Core Web Vitals</h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Google did not return speed data for this site. That usually means PageSpeed Insights is busy or the site
+            blocked its crawler. Every other check in this report ran normally.
+          </p>
+          <a
+            href={`https://pagespeed.web.dev/analysis?url=${encodeURIComponent(result.url)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-block text-sm font-medium text-blue-700 underline underline-offset-2"
+          >
+            Check it directly on PageSpeed Insights
+          </a>
+        </section>
+      );
+    }
+
     return (
       <section className="rounded-lg border border-gray-200 bg-white p-6">
         <div className="flex items-center gap-3">
@@ -367,12 +395,16 @@ export default function AuditReport({
   onReset,
   onExportPdf,
   onCopy,
+  copyFailed = false,
+  psiStatus = 'ready',
   copied,
 }: {
   result: WebsiteAuditResult;
   onReset?: () => void;
   onExportPdf?: () => void;
   onCopy?: () => void;
+  copyFailed?: boolean;
+  psiStatus?: 'idle' | 'loading' | 'ready' | 'failed';
   copied?: boolean;
 }) {
   const report = useMemo(() => buildReport(result), [result]);
@@ -422,7 +454,7 @@ export default function AuditReport({
           {onCopy && (
             <button type="button" onClick={onCopy}
               className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              {copied ? 'Copied' : 'Copy report'}
+              {copyFailed ? 'Copy failed, select manually' : copied ? 'Copied' : 'Copy report'}
             </button>
           )}
           {onReset && (
@@ -434,7 +466,7 @@ export default function AuditReport({
         </div>
       </section>
 
-      <PageSpeedSection result={result} />
+      <PageSpeedSection result={result} status={psiStatus} />
 
       {report.groups.map((g) => <GroupSection key={g.group.id} group={g} />)}
 
