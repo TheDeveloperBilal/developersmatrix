@@ -101,7 +101,22 @@ function MetricCard({ metric }: { metric: PageSpeedMetric }) {
 
 function PageSpeedSection({ result }: { result: WebsiteAuditResult }) {
   const psi = result.pagespeed;
-  if (!psi) return null;
+
+  // The rest of the report lands first and PageSpeed follows a few seconds
+  // later, so this holds the space instead of the page jumping when it lands.
+  if (!psi) {
+    return (
+      <section className="rounded-lg border border-gray-200 bg-white p-6">
+        <div className="flex items-center gap-3">
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
+          <h2 className="text-base font-semibold text-gray-900">Core Web Vitals</h2>
+        </div>
+        <p className="mt-2 text-sm text-gray-600">
+          Fetching speed data from Google. This takes a few more seconds and the rest of the report is ready below.
+        </p>
+      </section>
+    );
+  }
 
   if (!psi.available) {
     return (

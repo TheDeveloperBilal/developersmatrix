@@ -76,10 +76,10 @@ export default function WebsiteAuditClient() {
   const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
-  // The server route is capped at 120s. Give the browser a slightly shorter
-  // ceiling so a hung request surfaces as a real error instead of a spinner
-  // that never stops.
-  const CLIENT_TIMEOUT_MS = 110000;
+  // The crawl route now budgets 45s and the function is capped at 60s. The
+  // browser gives it a little more than that, so a network stall still ends in
+  // a real error instead of a spinner that never stops.
+  const CLIENT_TIMEOUT_MS = 70000;
 
   // Handle audit
   const handleAudit = useCallback(async () => {
@@ -145,6 +145,21 @@ export default function WebsiteAuditClient() {
       setProgressLog(prev => [...prev, 'Done! Analysis complete.']);
       setResult(data.result);
       setActiveTab('all-issues');
+
+      // PageSpeed comes from Google and can take 40 seconds on its own. The
+      // report is already on screen by now, so it fills its section in when it
+      // arrives. If it never does, every other section still works.
+      const auditedUrl = data.result?.url || url.trim();
+      fetch(`/api/website-audit/pagespeed?url=${encodeURIComponent(auditedUrl)}`)
+        .then((res) => res.json())
+        .then((psi) => {
+          if (psi?.success && psi.pagespeed) {
+            setResult((prev) => (prev ? { ...prev, pagespeed: psi.pagespeed } : prev));
+          }
+        })
+        .catch(() => {
+          // A missing PageSpeed section is not worth an error message.
+        });
 
       trackAuditCompleted({
         targetHost,

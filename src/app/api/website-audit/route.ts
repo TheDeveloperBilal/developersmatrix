@@ -1,10 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { WebsiteAuditEngine } from '@/lib/website-audit/engine';
 import type { CrawlProgress } from '@/lib/website-audit/types';
-import { fetchPageSpeed } from '@/lib/website-audit/pagespeed';
 
 export const runtime = 'nodejs';
-export const maxDuration = 120; // 2 minutes. PSI alone can take 45s.
+export const maxDuration = 60;
+
+/** Hard ceiling on the crawl. Past this we stop and say so. */
+const AUDIT_BUDGET_MS = 45000;
+
+class AuditTimeout extends Error {
+  constructor() {
+    super('audit-timeout');
+    this.name = 'AuditTimeout';
+  }
+}
+
+/**
+ * A promise that never settles will sit there until the platform kills the
+ * function, and the caller gets nothing at all: no status, no message, just a
+ * request that hangs. Every slow step gets a ceiling of its own.
+ */
+function withDeadline<T>(work: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(new AuditTimeout()), ms);
+    work.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error);
+      }
+    );
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,20 +72,16 @@ export async function POST(request: NextRequest) {
       timeout: 30000,
     });
 
-    // The crawl and the PageSpeed call are independent, so run them together.
-    // PSI is the slow one (10 to 40 seconds); doing it in series would roughly
-    // double the wait for no reason. fetchPageSpeed never throws, so a PSI
-    // failure degrades that one section instead of failing the whole audit.
-    const [result, pagespeed] = await Promise.all([
+    // PageSpeed used to run here alongside the crawl. It now has its own
+    // endpoint that the browser calls once the report is on screen, because
+    // waiting 40 seconds for Google before showing anything was the single
+    // biggest reason this tool felt slow.
+    const result = await withDeadline(
       engine.audit((progress: CrawlProgress) => {
         console.log(`[Audit Progress] ${progress.status}: ${progress.message}`);
       }),
-      fetchPageSpeed(normalizedUrl, { strategy: 'mobile', timeoutMs: 45000 }),
-    ]);
-
-    if (pagespeed) {
-      result.pagespeed = pagespeed;
-    }
+      AUDIT_BUDGET_MS
+    );
 
     return NextResponse.json({
       success: true,
@@ -70,6 +96,17 @@ export async function POST(request: NextRequest) {
     // A site we cannot reach is the caller's input being wrong, not our server
     // breaking. Returning 500 for it makes real outages impossible to spot in
     // the logs, so unreachable targets get a 422 and a message a user can act on.
+    if (error instanceof AuditTimeout) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            'This site took too long to scan and the audit was stopped. Very large or very slow sites can exceed the limit. Try a single page URL instead.',
+        },
+        { status: 504 }
+      );
+    }
+
     const unreachable =
       /failed to fetch any pages|enotfound|econnrefused|getaddrinfo|certificate|ssl|abort|timeout|etimedout|socket hang up/i.test(
         errorMessage
