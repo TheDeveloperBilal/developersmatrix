@@ -66,10 +66,16 @@ export async function GET(request: NextRequest) {
     timeoutMs: 45000,
   });
 
-  if (!pagespeed) {
-    // Not an error the user can fix, and not worth caching.
+  // fetchPageSpeed never returns null; a Google failure comes back as an
+  // object with available: false. That used to fall through to the cached
+  // branch below, so one Lighthouse hiccup was served to every visitor
+  // auditing that URL for the next hour. Only a real result is cacheable.
+  if (!pagespeed || !pagespeed.available) {
     return NextResponse.json(
-      { success: false, error: 'PageSpeed data is not available for this URL right now.' },
+      {
+        success: false,
+        error: pagespeed?.unavailableReason || 'PageSpeed data is not available for this URL right now.',
+      },
       { status: 200, headers: { 'Cache-Control': 'no-store' } }
     );
   }
