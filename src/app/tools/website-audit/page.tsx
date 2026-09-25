@@ -167,10 +167,10 @@ export default function WebsiteAuditPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
         <section className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            How the DevelopersMatrix Website Audit Works
+            How to Audit a Website Online With This Tool
           </h2>
           <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-8">
-            The tool runs around 150 checks across 8 areas, SEO, technical, performance, mobile, security, accessibility, content and conversion, and returns a scored report within seconds. Enter any public URL, and our engine crawls the page, measures performance metrics, validates SEO signals, checks mobile usability, and tests security configuration, all in one pass.
+            To audit a website, paste its URL into the box at the top of this page and press Audit Website. The tool runs around 150 checks across 8 areas: SEO, technical, performance, mobile, security, accessibility, content and conversion. It crawls the page, measures speed, validates SEO signals, checks mobile usability and tests the security setup in one pass, then returns a scored report within seconds.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-6">
