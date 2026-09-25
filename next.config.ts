@@ -54,6 +54,16 @@ const nextConfig: NextConfig = {
         destination: "/blog/tiktok-algorithm-guide-2026",
         permanent: true,
       },
+      {
+        source: "/blog/how-to-audit-my-website-2026",
+        destination: "/blog/website-audit-checklist-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/how-to-audit-website-2026-guide",
+        destination: "/blog/website-audit-checklist-2026",
+        permanent: true,
+      },
     ];
   },
 };
