@@ -8,9 +8,9 @@ import { generatePageMetadata } from '@/lib/seo/metadata';
 import WebsiteAuditClient from './WebsiteAuditClient';
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Free Website Grader and Audit Tool: Score Your Site",
-  description: "Free website grader that scores your site out of 100 in seconds. Around 150 checks across SEO, page speed, Core Web Vitals, mobile and security. No signup, full report.",
-  keywords: ['website grader', 'free website grader', 'website grader tool', 'website score checker', 'grade my website', 'website grade check', 'free website audit tool', 'website audit', 'audit website', 'audit a website', 'site audit tool 2026', 'website health check free', 'free website health check', 'free website check', 'online website auditor', 'website auditor tool online', 'analyze site online', 'audit checker', 'url audit', 'seo audit tool online', 'website performance checker', 'free website analyzer', 'google core web vitals checker', 'website speed test tool', 'technical seo audit free', 'seo score checker', 'website security scanner free', 'mobile friendly test tool', 'accessibility audit tool free', 'website audit cost', 'website audit pricing 2026', 'how to audit my website', 'technical seo audit checklist 2026', 'website code audit', 'audit my site'],
+  title: "Free Website Audit Tool Online: Score Your Site",
+  description: "Audit your website online free. Around 150 checks across SEO, speed, Core Web Vitals, mobile and security. Get a score out of 100 and a fix list. No signup.",
+  keywords: ['audit website online', 'website audit tool online', 'website audit', 'audit website', 'audit a website', 'website auditor tool online', 'site audit online', 'site auditor online', 'audit checker', 'online website audit', 'web site audit', 'website auditor', 'web audit tool', 'website code audit', 'audit my website', 'audit of website', 'free website audit tool', 'website health check free', 'seo audit tool online', 'technical seo audit free', 'seo score checker', 'website performance checker', 'google core web vitals checker', 'website speed test tool', 'mobile friendly test tool', 'accessibility audit tool free', 'website security scanner free', 'free website analyzer', 'website grader', 'grade my website'],
   path: "/tools/website-audit",
   modifiedTime: "2026-08-27",
 });
