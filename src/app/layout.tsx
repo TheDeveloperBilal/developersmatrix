@@ -109,13 +109,6 @@ export default function RootLayout({
         {/* Google Site Verification */}
         <meta name="google-site-verification" content="cT-3Tl1WSPU8XVdWcDf_MGmGZ8GtOiNmBDdBDytV23A" />
         
-        {/* Google AdSense — async, non-blocking, required for ads to work */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2091805600804724"
-          crossOrigin="anonymous"
-        />
-        
         {/* Favicon & Icons */}
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
         <link rel="shortcut icon" type="image/png" href="/favicon.png" />
@@ -165,22 +158,6 @@ export default function RootLayout({
           knowsAbout={siteAuthor.knowsAbout}
           sameAs={siteAuthor.sameAs}
         />
-        {/* Tawk.to Live Chat Widget */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-              (function(){
-                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-                s1.async=true;
-                s1.src='https://embed.tawk.to/6a6f2e0f114a271d4a8d8bfc/1jv14nrr2';
-                s1.charset='UTF-8';
-                s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1,s0);
-              })();
-            `,
-          }}
-        />
       </head>
       <body
         className={`${inter.variable} ${sora.variable} font-sans antialiased min-h-screen flex flex-col`}
@@ -210,10 +187,11 @@ export default function RootLayout({
           <Analytics />
         </ThemeProvider>
 
-        {/* Google Tag Manager — afterInteractive so it doesn't block first paint */}
+        {/* Google Tag Manager. lazyOnload: waits until the page has fully
+            loaded. gtag below sends the page view, so nothing is lost. */}
         <Script
           id="gtm-script"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -225,7 +203,38 @@ export default function RootLayout({
           }}
         />
 
-        {/* Google Analytics — afterInteractive */}
+        {/* Google AdSense. Used to load from <head> and pulled roughly 380 KB
+            (ad code plus the consent message) ahead of first paint on every
+            page. lazyOnload fetches it once the page has loaded, so content
+            paints first and ads fill in straight after. */}
+        <Script
+          id="adsense"
+          strategy="lazyOnload"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2091805600804724"
+          crossOrigin="anonymous"
+        />
+
+        {/* Tawk.to live chat. Nobody opens chat in the first second, so it
+            loads after the page instead of competing with the content. */}
+        <Script
+          id="tawk"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/6a6f2e0f114a271d4a8d8bfc/1jv14nrr2';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+              })();
+            `,
+          }}
+        />
+
+        {/* Google Analytics. Stays afterInteractive so quick visits are still counted. */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-3P7JSPHQ39"
           strategy="afterInteractive"

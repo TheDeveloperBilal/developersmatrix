@@ -14,10 +14,14 @@ export function AdSenseAd({ slot, className, style }: AdSenseProps) {
 
   useEffect(() => {
     try {
-      const adsbygoogle = (window as any).adsbygoogle || [];
-      adsbygoogle.push({});
-    } catch (e) {
-      // Silently fail if adsbygoogle not loaded
+      // Google's queue pattern. The array has to live on window: if the AdSense
+      // script has not loaded yet, it reads this queue when it arrives and fills
+      // every slot waiting in it. The old version pushed into a local array that
+      // was thrown away, so any ad rendered before the script loaded never filled.
+      const w = window as unknown as { adsbygoogle?: unknown[] };
+      (w.adsbygoogle = w.adsbygoogle || []).push({});
+    } catch {
+      // AdSense can throw if a slot is pushed twice; nothing useful to do.
     }
   }, []);
 
