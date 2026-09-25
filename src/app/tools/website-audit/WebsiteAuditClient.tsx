@@ -323,8 +323,8 @@ export default function WebsiteAuditClient() {
 
             {/* Description */}
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8">
-              Run a free website audit and site health check online with our comprehensive SEO, performance, mobile UX, security, 
-              accessibility, and content quality analyzer. Get instant scores and actionable fixes from our online website auditor. No signup needed.
+              Audit a website online in seconds. Paste any URL and get a score out of 100 from around 150 checks across SEO,
+              speed, Core Web Vitals, mobile, security and accessibility, with a plain fix list for everything that failed. Free, no signup.
             </p>
 
             {/* Stats */}
