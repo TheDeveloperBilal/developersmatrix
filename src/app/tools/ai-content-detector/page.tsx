@@ -7,38 +7,48 @@ import AIContentDetectorClient from './AIContentDetectorClient';
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-content-detector']);
 
+const STANFORD_URL = 'https://ee.stanford.edu/james-zou-et-al-warn-objectivity-ai-detectors';
+
 const faqs = [
   {
-    question: 'How does the AI Content Detector work?',
-    answer: 'Our AI Content Detector uses multiple NLP analysis techniques including perplexity scoring, burstiness analysis, vocabulary diversity measurement, and sentence structure consistency checks. Perplexity measures how predictable your word choices are. AI text tends to have low perplexity because language models always pick the most statistically likely next word. Burstiness measures variation in sentence length and complexity. Human writing naturally alternates between short punchy sentences and long elaborate ones, while AI tends toward uniform sentence lengths. These methods identify patterns typical of AI-generated text without using external APIs, ensuring your content remains private and secure.',
+    question: 'How does this AI content detector work?',
+    answer:
+      'It measures ten writing signals that separate human and AI text: how evenly vocabulary is spread, how often AI favourite words appear, how many sentences open with stock transitions, how much sentence length varies, and human traces such as brackets, quotations, contractions and the small marks people leave when typing. Each signal is compared with typical human and AI writing, and the results are combined into one AI signal score from 0 to 100. It is a statistical style check. It does not run a large language model, and it tells you which signals drove the score.',
   },
   {
-    question: 'Is the AI detection accurate?',
-    answer: 'Our detector provides real analysis based on linguistic patterns and statistical metrics. On pure AI-generated text from models like ChatGPT, GPT-4, and Claude, accuracy reaches 85 to 90 percent. However, no AI detector is 100 percent accurate. Even the best tools on the market report error rates of 5 to 10 percent. Accuracy drops on edited or paraphrased AI text, and mixed human-AI content is the hardest to classify. That is why our tool provides confidence scores and sentence-level breakdowns rather than a simple pass-fail verdict. We recommend using the detector as a diagnostic tool, not a final judge.',
+    question: 'How accurate is it?',
+    answer:
+      'In our September 2026 test on 57 texts, it gave a clear verdict on 34 and all 34 were right. The other 23 came back as unclear, which is the tool refusing to guess. No human text was called AI and no AI text was called human. That test was small, and every AI sample came from one model family, so expect more unclear results on text from other models and on AI drafts that someone has edited. No detector, free or paid, is proof of authorship.',
   },
   {
-    question: 'What types of content can I analyze?',
-    answer: 'You can analyze various content types including blog posts, SEO articles, academic writing, resumes and CVs, cover letters, sales copy, and emails. Each mode uses context-specific scoring optimized for that content type. For example, academic writing naturally has lower burstiness than casual blog posts, so the academic mode adjusts its thresholds accordingly. SEO article mode specifically checks for keyword stuffing, thin content, and robotic writing patterns that Google quality raters flag. Resume and cover letter modes focus on generic phrasing and template language that recruiters notice.',
+    question: 'Can it tell which AI tool wrote my text?',
+    answer:
+      'No. It estimates whether the writing style looks more like AI or more like a person. It cannot tell ChatGPT from Claude or Gemini, and any tool that claims to name the model from a few paragraphs should be treated with suspicion.',
   },
   {
-    question: 'Is my content stored or shared?',
-    answer: 'No, your content is never stored or shared. All analysis happens in real-time in your browser and no data is retained on our servers. We do not use external APIs that could log your text. Your privacy is our priority. This is particularly important for sensitive content like resumes, cover letters, academic papers, or proprietary business copy.',
+    question: 'Is my text stored?',
+    answer:
+      'No. Your text is sent to our server, checked in a few milliseconds and discarded. It is not saved, logged or passed to any third party service.',
   },
   {
-    question: 'What are SEO-specific detections?',
-    answer: 'Our SEO Article mode detects issues including keyword stuffing, thin content, robotic writing patterns, low EEAT signals (Experience, Expertise, Authoritativeness, Trustworthiness), generic AI phrasing like "in today\'s fast-paced world," and unnatural optimization patterns. Google\'s quality raters are explicitly trained to flag low-value AI content, and several detector platforms now score raw AI-generated SEO text as high-probability AI on the first pass. The tool helps you identify these issues before publishing so you can humanize the content and maintain search rankings.',
+    question: 'How much text do I need?',
+    answer:
+      'At least 80 words. Results get steadier from about 150 words, and the tool asks for a stronger signal before saying AI on anything shorter than that. You can check up to 50,000 characters at once.',
   },
   {
-    question: 'How long should my text be for accurate analysis?',
-    answer: 'For best results, we recommend at least 50 characters. Longer texts of 300 words or more provide more accurate analysis as the statistical patterns become more apparent. Our tool supports up to 50,000 characters. Short samples under 250 words produce less reliable results because there are fewer tokens to analyze. If you are checking a short email or social post, consider combining multiple samples for a more reliable assessment.',
+    question: 'Why was my own writing marked unclear or AI?',
+    answer:
+      'Formal writing, technical documentation, templates and non native English all share traits with AI text: tidy grammar, even sentence length and few informal marks. A Stanford study in 2023 found that seven popular detectors flagged 61 percent of essays by non native English writers as AI, while essays by native speakers were judged almost perfectly. That is why this tool has a wide unclear band and never treats a score as proof.',
   },
   {
-    question: 'Why was my human-written text flagged as AI?',
-    answer: 'False positives are a known issue across all AI detectors. They occur with formal writing styles, consistent grammar, template-based content, or non-native English writing. Stanford research found that AI detectors exhibit significant bias against non-native English writers because formal structures and limited vocabulary overlap with AI output patterns. ZeroGPT, one of the most popular free detectors, incorrectly flags 14.6 percent of human-written text as AI-generated, and that false positive rate rises to 21 percent for non-native English speakers. Academic writing and technical documentation also trigger false positives because their low burstiness resembles AI output. If your human text is flagged, add more sentence length variation, include a personal anecdote, or introduce an unexpected metaphor to increase perplexity.',
+    question: 'Does it work in other languages?',
+    answer:
+      'It is built and tested for English only. Text in other languages will produce scores, but they are not meaningful.',
   },
   {
-    question: 'Can AI-written text be made undetectable?',
-    answer: 'AI humanizer tools attempt to rewrite AI-generated text to pass detection by increasing perplexity and burstiness. They sometimes work but often create awkward phrasing, factual errors, or unnatural sentence structures that are worse than the original AI text. A better approach is authentic editing. Take the AI draft as a starting point, then rewrite key sections in your own voice. Add personal examples, vary sentence lengths intentionally, and include details the AI could not know. This produces genuinely human content that passes both automated checks and human review. The goal should not be to trick detectors. It should be to create content that is authentic, valuable, and resonant with your audience.',
+    question: 'Can AI text be made undetectable?',
+    answer:
+      'Heavily edited AI text often lands in the unclear band here, and it fools paid detectors too. The better goal is writing that is genuinely yours: add what only you know, cut stock phrases, and let your natural rhythm show. Readers notice the difference even when detectors do not.',
   },
 ];
 
@@ -47,385 +57,299 @@ export default function AIContentDetectorPage() {
     <>
       <SoftwareApplicationSchema
         name="DevelopersMatrix AI Content Detector"
-        description="Free AI content detector with real perplexity and burstiness analysis. Detect ChatGPT, GPT-4, Claude, and Gemini text instantly with 7 content modes and sentence-level breakdowns."
+        description="Free AI content detector. Paste English text to see whether it reads like AI writing or human writing, which sentences carry AI style patterns, and why. An estimate with an honest unclear band, never proof."
         url={`${siteConfig.url}/tools/ai-content-detector`}
         applicationCategory="UtilityApplication"
         operatingSystem="Web"
-        offers={{ price: "0", priceCurrency: "USD" }}
+        offers={{ price: '0', priceCurrency: 'USD' }}
       />
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: siteConfig.url },
-          { name: "Tools", url: `${siteConfig.url}/tools` },
-          { name: "AI Content Detector", url: `${siteConfig.url}/tools/ai-content-detector` }
+          { name: 'Home', url: siteConfig.url },
+          { name: 'Tools', url: `${siteConfig.url}/tools` },
+          { name: 'AI Content Detector', url: `${siteConfig.url}/tools/ai-content-detector` },
         ]}
       />
       <FAQSchema faqs={faqs} />
 
       <HowToSchema
-        name="How to Detect AI-Generated Content and Verify Original Writing"
-        description="Step-by-step guide to analyzing text for AI-generated patterns using perplexity, burstiness, and statistical markers. Understand what the scores mean and how to interpret confidence levels."
+        name="How to check whether text was written by AI"
+        description="Use the free DevelopersMatrix AI Content Detector to see whether text reads like AI writing, which sentences carry AI patterns, and how much weight to give the result."
         url={`${siteConfig.url}/tools/ai-content-detector`}
-        totalTime="PT2M"
+        totalTime="PT1M"
         estimatedCost={{ currency: 'USD', value: '0' }}
         tool={['Web browser', 'DevelopersMatrix AI Content Detector']}
         step={[
           {
-            name: "Paste the text you want to analyze",
-            text: "Copy and paste the text content you want to analyze into the detector input field. For best results, use at least 100 words. Shorter samples have less statistical signal and produce less reliable scores. The maximum input length is 5,000 words. If analyzing a longer document, paste representative sections rather than the full text. This gives you a sampling-based assessment that is faster and equally accurate."
+            name: 'Paste the text',
+            text: 'Paste at least 80 words of English text into the detector. Results are steadier from about 150 words.',
           },
           {
-            name: "Review the overall AI probability score",
-            text: "The detector returns an overall probability percentage that the text is AI-generated. Scores above 80% strongly suggest AI authorship. Scores between 40% and 80% indicate mixed or heavily edited AI content. Scores below 40% typically indicate human authorship. Remember this is a probability, not proof. The score is derived from perplexity, burstiness, and vocabulary diversity metrics combined."
+            name: 'Read the verdict and score',
+            text: 'The tool shows Likely human, Unclear or Likely AI, with an AI signal score from 0 to 100. Under 35 is likely human, 35 to 69 is unclear, and 70 or more is likely AI. Texts under 150 words need 75 or more.',
           },
           {
-            name: "Analyze the sentence-level breakdown",
-            text: "Click on individual sentences to see their AI probability scores. Sentences highlighted in red are highly likely AI-generated. Yellow sentences are ambiguous. Green sentences are likely human-written. This breakdown helps you identify which parts of a document are AI-generated versus human-written. Mixed-color documents often indicate human editing of AI drafts."
+            name: 'Check why',
+            text: 'Read the list of signals that drove the score, then open the highlighted text to see which sentences carry stock AI patterns.',
           },
           {
-            name: "Interpret perplexity and burstiness metrics",
-            text: "Perplexity measures how predictable your text is. Lower perplexity means more predictable text, which is characteristic of AI models. Human perplexity typically ranges from 40 to 80. AI text often falls between 10 and 40. Burstiness measures variation in sentence complexity. Humans naturally vary sentence length and structure more than AI. High burstiness scores above 60 strongly suggest human authorship. Very low burstiness below 20 is a reliable AI signal."
+            name: 'Weigh it as evidence, not proof',
+            text: 'Treat the result as one signal among several. Formal writing and non native English can look AI like. Never use a single score to accuse anyone.',
           },
-          {
-            name: "Consider context and false positive risks",
-            text: "No detector is 100% accurate. Highly formal or technical writing naturally has lower perplexity. Non-native English speakers may write with simpler, more regular sentence structures. Writers who outline carefully before writing may produce more structured text that resembles AI output. Use the detector as one signal among several, not as definitive proof. When making important decisions about authorship, combine the detector with manual review and other evidence."
-          }
         ]}
       />
 
       <main className="pt-16" id="ai-content-detector">
         <AIContentDetectorClient />
-        
+
         <InContentAd />
 
-        {/* SEO Content Section */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Main Content */}
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-8 lg:flex-row">
             <div className="flex-1">
-
-              <InContentAd />
-
-              {/* Section 1: Introduction */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Free AI Content Detector. Analyze Text Authenticity With Real Perplexity and Burstiness Scoring
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">
+                  A free AI content detector that shows its working
                 </h2>
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                  <p className="text-lg leading-relaxed">
-                    AI-generated content is everywhere in 2026. ChatGPT, Claude, Gemini, and GPT-4 produce billions of words daily. Google's quality raters are explicitly trained to flag low-value AI content. Publishers face penalties for publishing raw AI text. Students risk academic integrity violations. Job seekers get rejected when recruiters detect unedited AI cover letters. The problem is not AI itself. The problem is undetected, unedited AI content passing as human work.
-                  </p>
-                  <p className="leading-relaxed">
-                    The <strong>DevelopersMatrix AI Content Detector</strong> is a completely free tool that analyzes text for AI-generated patterns using real statistical metrics. No signup. No credit card. No external APIs that log your content. You paste text, select a content mode, and get a detailed breakdown: overall AI probability, perplexity score, burstiness analysis, vocabulary diversity, sentence-level highlighting, and SEO issue detection.
-                  </p>
-                  <p className="leading-relaxed">
-                    Unlike tools that give a vague percentage and call it a day, our detector explains why it flagged specific sentences. It runs entirely in your browser for privacy. And it supports seven content types with mode-specific scoring: blog posts, SEO articles, academic writing, resumes, cover letters, sales copy, and emails. Each mode adjusts its thresholds because a formal academic paper naturally has different statistical properties than a casual blog post.
-                  </p>
-                </div>
-              </section>
-
-              {/* Section 2: How AI Detection Works */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  How AI Detection Actually Works in 2026. Perplexity, Burstiness, and Machine Learning
-                </h2>
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                  <p className="leading-relaxed">
-                    AI detection is not magic. It is pattern recognition built on well-established statistical and machine learning concepts. Our detector combines three core approaches to identify AI-generated text with high accuracy.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Perplexity Scoring: Measuring Word Predictability</h3>
-                  <p className="leading-relaxed">
-                    Perplexity measures how surprising or unpredictable a piece of text is to a reference language model. When AI generates text, it selects words that are statistically most likely given the preceding context. The output is highly predictable, or low perplexity. Human writers make more unexpected choices: an unusual metaphor, an abrupt tonal shift, a sentence that breaks conventional emphasis. Our detector runs your text through a statistical model and scores its predictability. Consistently low perplexity is the primary signal of machine authorship. A typical AI-generated sentence like "The experiment yielded significant results consistent with prior research" scores low perplexity because every word is exactly what a language model would predict. A human might instead write "The results surprised us, though in hindsight they probably should not have." That is higher perplexity, more distinctively human.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Burstiness Analysis: Measuring Sentence Variation</h3>
-                  <p className="leading-relaxed">
-                    Burstiness measures the variation in sentence length, structure, and complexity throughout a text. Human writing naturally mixes short punchy sentences with longer elaborate ones, often within the same paragraph. AI-generated text tends toward a more uniform rhythm and sentence length. The burstiness score is computed as the standard deviation of sentence lengths divided by the mean. Human writing averages 0.65 to 0.85 on this scale. ChatGPT output averages 0.18 to 0.25. Claude averages 0.20 to 0.30. Gemini averages 0.15 to 0.22. When burstiness falls below 0.30 combined with low perplexity, our detector flags the content as likely AI-generated with high confidence.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Vocabulary Diversity and N-gram Analysis</h3>
-                  <p className="leading-relaxed">
-                    AI models tend to reuse common phrases and transition patterns at higher rates than human writers. The phrase "in today's fast-paced world" appears in AI output at roughly 3 to 5 times the rate of comparable human writing. Our detector analyzes vocabulary diversity, n-gram distributions, and Zipf's Law conformity, which describes how word frequency distributes in natural language. AI text shows flatter distributions with less of the heavy-tail pattern characteristic of human writing. These metrics catch subtle fingerprints that perplexity and burstiness alone might miss.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Sentence Structure Consistency</h3>
-                  <p className="leading-relaxed">
-                    AI text often follows predictable structural patterns: uniform paragraph lengths, consistent transition phrases, and a lack of intentional stylistic variation. Our detector measures sentence length skewness, paragraph uniformity, and transition phrase frequency. Combined with the other metrics, this creates a multi-factor analysis that is significantly more accurate than any single signal alone.
-                  </p>
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* Section 3: 7 Detection Modes */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  7 Content Modes. Tailored Detection for Every Use Case
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  Not all writing is the same. A formal research paper has different statistical properties than a casual blog post. Our detector offers seven specialized modes, each with context-specific scoring thresholds and SEO issue detection.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  Most free AI checkers give you a single percentage and nothing else. You cannot see why the number is
+                  high, so you cannot judge whether to trust it. This one tells you which writing signals pushed the
+                  score up or down, highlights the sentences that carry stock AI patterns, and says plainly when the
+                  evidence is mixed.
                 </p>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Blog Content</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Optimized for personal blogs and articles. Checks for conversational tone, personal anecdotes, opinion-driven structure, and natural transitions. Flags robotic phrasing and generic AI templates.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">SEO Article</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Designed for web content and marketing copy. Detects keyword stuffing, thin content, low EEAT signals, and unnatural optimization patterns. Critical for maintaining Google search rankings in 2026.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Academic</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Calibrated for research papers and essays. Adjusts burstiness thresholds because formal academic writing naturally has lower variation. Checks for citation consistency and argument structure.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Resume / CV</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Focuses on generic template language, buzzword overuse, and lack of specificity. Identifies phrases like "results-driven professional" and "synergistic team player" that signal AI generation.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Cover Letter</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Checks for personal voice, company-specific details, and genuine enthusiasm. Flags letters that read as copy-paste templates with no research or personality.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Sales Copy</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Analyzes marketing content for overused persuasion formulas, robotic CTAs, and generic benefit statements. Ensures your copy feels written by a human who understands the audience.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 sm:col-span-2 lg:col-span-3">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Evaluates professional emails for tone consistency, contextual references, and personal touches. AI-generated emails have flawless grammar but no personality, use extremely formal closings, and lack references to specific past conversations. This mode catches those signals.
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* Section 4: Why No Detector Is 100% Accurate */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Why No AI Detector Is 100% Accurate. And How to Use Them Properly
-                </h2>
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                  <p className="leading-relaxed">
-                    Even the best AI detection tools on the market report error rates of 5 to 10 percent. Understanding why detectors fail is essential to using them effectively. Here are the four main limitations every user should know.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">False Positives on Human Text</h3>
-                  <p className="leading-relaxed">
-                    Independent testing of ZeroGPT, one of the most widely used free detectors, found it incorrectly flags 14.6 percent of human-written text as AI-generated. That rate jumps to 21 percent for non-native English speakers. Academic writing and technical documentation also trigger false positives because formal, structured prose naturally has low burstiness that resembles AI output. If your human text is flagged, do not panic. Add more sentence length variation, include a personal anecdote, or rewrite a few sentences with more unexpected word choices.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Edited and Paraphrased AI Text</h3>
-                  <p className="leading-relaxed">
-                    Accuracy drops significantly on edited AI content. When a human rewrites even 20 percent of an AI draft, the statistical fingerprint changes enough to confuse most detectors. Human edits disrupt the consistent patterns that classifiers look for. A sentence-level analysis helps here: even if the overall score drops, individual sentences may still show AI patterns. Our tool highlights these specific segments so you know exactly what to rewrite.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Mixed Human-AI Content</h3>
-                  <p className="leading-relaxed">
-                    Tools struggle most with hybrid content where a human wrote the outline and AI filled in sections, or vice versa. The mixed signals produce ambiguous scores that are only slightly better than random guessing. The best approach for hybrid content is to analyze each section separately. Write your introduction and conclusion in your own voice, then use AI for drafting the middle sections, and finally edit everything to blend the styles. Run the final text through the detector to catch any remaining AI-heavy segments.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Short Text Samples</h3>
-                  <p className="leading-relaxed">
-                    Samples under 250 words produce unreliable results because there are too few tokens to establish a clear statistical pattern. A single surprising word can skew the perplexity score dramatically on short text. For short emails, social posts, or brief paragraphs, combine multiple samples or focus on editing rather than detection. Our tool recommends at least 300 words for reliable analysis and supports up to 50,000 characters for long-form content.
-                  </p>
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* Section 5: Internal Links */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Complete Your Content Quality Toolkit
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  AI detection is one part of a broader content quality workflow. Here are the other free tools from DevelopersMatrix that complement our detector:
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  It is built for editors checking freelance work, teachers who want a second opinion before a
+                  conversation, SEO teams reviewing drafts before they publish, and writers who want their own work to
+                  read less like a machine. It is free, needs no signup, and does not store what you paste.
                 </p>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <a href="/tools/ai-resume-builder" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Resume Builder</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Build an ATS-friendly resume. Run it through our detector to ensure it does not read as AI-generated to recruiters.</p>
+                <p className="leading-relaxed text-gray-700 dark:text-gray-300">
+                  A note on honesty. Until September 2026 this page ran an older method. When we tested it properly, it
+                  scored almost every text around 30 percent, whoever wrote it, so it could not tell people from AI at
+                  all. We threw it out and rebuilt the detector around signals that held up on text they had never seen.
+                  The results of that test are below.
+                </p>
+              </section>
+
+              <InContentAd />
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">What the detector looks at</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {[
+                    [
+                      'Word choice',
+                      'AI models lean on words like additionally, crucial, enhance and ultimately far more than people do. They also spread vocabulary unusually evenly, where people keep returning to the words their topic needs.',
+                    ],
+                    [
+                      'Sentence rhythm',
+                      'People mix very short sentences with long, winding ones. AI models tend to settle into a tidy middle length. The tool measures how much your sentence lengths vary.',
+                    ],
+                    [
+                      'Human traces',
+                      'Brackets, quotations, contractions like don’t, colons, and the small marks people leave when typing fast are all far more common in human writing.',
+                    ],
+                    [
+                      'Stock patterns',
+                      'Sentences that open with However, Additionally or In conclusion, and phrases such as it is important to note, are highlighted so you can see exactly where they sit.',
+                    ],
+                  ].map(([title, body]) => (
+                    <div key={title} className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                      <h3 className="mb-2 font-semibold text-gray-900 dark:text-white">{title}</h3>
+                      <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">{body}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-6 leading-relaxed text-gray-700 dark:text-gray-300">
+                  It does not run a large language model. Paid detectors such as GPTZero and Grammarly train machine learning
+                  models on large collections of human and AI writing, which is how they reach higher accuracy. This tool is a transparent statistical
+                  check that runs in milliseconds, and it is upfront about where that stops.
+                </p>
+              </section>
+
+              <InContentAd />
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">How accurate is it? Our own test</h2>
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  In September 2026 we ran the detector on 57 texts. The 30 human samples were all written before
+                  modern AI chatbots existed: Wikipedia articles from 2019, Hacker News comments from 2015 and Stack
+                  Exchange answers from 2010 to 2016. The 27 AI samples covered essays, emails, product copy, stories,
+                  listicles, technical explainers and blog posts. We tuned the tool on 23 of them and then checked it on
+                  34 it had never seen.
+                </p>
+                <div className="mb-4 overflow-x-auto">
+                  <table className="w-full min-w-[480px] border-collapse text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-200 text-left dark:border-gray-700">
+                        <th className="py-2 pr-4 font-semibold text-gray-900 dark:text-white">All 57 texts</th>
+                        <th className="py-2 pr-4 font-semibold text-gray-900 dark:text-white">Likely human</th>
+                        <th className="py-2 pr-4 font-semibold text-gray-900 dark:text-white">Unclear</th>
+                        <th className="py-2 font-semibold text-gray-900 dark:text-white">Likely AI</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-gray-700 dark:text-gray-300">
+                      <tr className="border-b border-gray-100 dark:border-gray-800">
+                        <td className="py-2 pr-4">30 human texts</td>
+                        <td className="py-2 pr-4">18</td>
+                        <td className="py-2 pr-4">12</td>
+                        <td className="py-2">0</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2 pr-4">27 AI texts</td>
+                        <td className="py-2 pr-4">0</td>
+                        <td className="py-2 pr-4">11</td>
+                        <td className="py-2">16</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  Whenever it gave a clear verdict, it was right. It declined to decide on 23 of the 57 texts,
+                  and that is deliberate: a wrong accusation does more harm than an honest shrug.
+                </p>
+                <p className="leading-relaxed text-gray-700 dark:text-gray-300">
+                  Read these numbers with care. The test was small, and every AI sample came from one model family, so
+                  text from other models and AI drafts that a person has edited will land in the unclear band more often.
+                  Your results will vary with the kind of writing you check.
+                </p>
+              </section>
+
+              <InContentAd />
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">Why no AI detector is proof</h2>
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  In 2023, researchers at Stanford tested seven popular AI detectors on essays written by people. The
+                  detectors flagged 61 percent of TOEFL essays by non native English speakers as AI, and 89 of the 91
+                  essays were flagged by at least one detector. Essays by native speakers were judged almost perfectly.{' '}
+                  <a href={STANFORD_URL} className="text-blue-600 underline dark:text-blue-400" rel="noopener noreferrer" target="_blank">
+                    Read the Stanford summary
                   </a>
-                  <a href="/tools/ai-cover-letter-generator" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Cover Letter Generator</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Generate cover letter drafts, then use our detector to verify they sound human before sending.</p>
-                  </a>
-                  <a href="/tools/ai-email-assistant" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Email Assistant</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Draft professional emails and check them for AI patterns before sending to clients or colleagues.</p>
-                  </a>
-                  <a href="/tools/website-audit" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">Website Audit Tool</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Check your blog or website for speed, SEO, and technical issues. Pair with our detector for content authenticity.</p>
-                  </a>
-                  <a href="/tools/ai-prompt-library" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Prompt Library</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Find better prompts to generate higher-quality AI drafts that require less editing to pass detection.</p>
-                  </a>
-                  <a href="/tools" className="group block bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5 shadow-sm border border-blue-100 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">View All 20+ Free Tools →</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Explore interview simulators, salary estimators, budget planners, and more free career tools.</p>
-                  </a>
+                  .
+                </p>
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  The reason is simple. Careful, formal and second language writing shares traits with AI text: clean
+                  grammar, even sentences, few informal marks. Edited AI text blurs the other way. Even Grammarly
+                  describes its own detector as a starting point for review, not final proof.
+                </p>
+                <p className="mb-2 leading-relaxed text-gray-700 dark:text-gray-300">This tool builds that caution in:</p>
+                <ul className="list-disc space-y-1 pl-6 text-gray-700 dark:text-gray-300">
+                  <li>A wide unclear band from 35 to 69, where it draws no conclusion.</li>
+                  <li>Texts under 150 words need a score of 75, not 70, before it says AI.</li>
+                  <li>It refuses to check fewer than 80 words.</li>
+                  <li>Reliability is shown as Low or Moderate. It never claims High.</li>
+                </ul>
+              </section>
+
+              <InContentAd />
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">How to use the result well</h2>
+                <h3 className="mb-2 mt-2 text-lg font-semibold text-gray-900 dark:text-white">If you are checking someone else&apos;s work</h3>
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  Use a high score as a reason to talk, not a verdict. Ask about the process, look at earlier drafts or
+                  version history, and compare with writing you know is theirs. An unclear result means the tool cannot
+                  tell, not that someone is hiding something.
+                </p>
+                <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">If you are checking your own writing</h3>
+                <p className="leading-relaxed text-gray-700 dark:text-gray-300">
+                  Open the highlighted sentences and the writing tips. Cut stock openers, swap AI favourite words for
+                  plainer ones, vary your sentence length, and add something only you know: a number from your own work,
+                  a quote, a short aside. Those edits make writing better for readers, which matters more than any score.
+                </p>
+              </section>
+
+              <InContentAd />
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">More free writing and SEO tools</h2>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {[
+                    ['/tools/ai-resume-builder', 'AI Resume Builder', 'Build an ATS friendly resume, then read it back here to make sure it sounds like you.'],
+                    ['/tools/ai-cover-letter-generator', 'AI Cover Letter Generator', 'Draft a cover letter, then check it here before you send it.'],
+                    ['/tools/ai-email-assistant', 'AI Email Assistant', 'Draft professional emails and check that they still sound like you.'],
+                    ['/tools/website-audit', 'Website Audit Tool', 'Check your site for SEO, speed and security problems.'],
+                    ['/tools/ai-prompt-library', 'AI Prompt Library', 'Better prompts for better first drafts.'],
+                    ['/tools', 'All free tools', 'Interview practice, salary estimates, budget planning and more.'],
+                  ].map(([href, title, body]) => (
+                    <a
+                      key={href}
+                      href={href}
+                      className="group block rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-all hover:border-blue-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-700"
+                    >
+                      <h3 className="mb-2 font-semibold text-gray-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">{title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{body}</p>
+                    </a>
+                  ))}
                 </div>
               </section>
 
               <InContentAd />
 
-              {/* Section 6: 3-Phase Workflow */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  The 3-Phase Content Verification Workflow for 2026
-                </h2>
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                  <p className="leading-relaxed">
-                    AI detection should not be a one-time check at the end. It should be part of a systematic workflow that ensures every piece of content you publish is both authentic and high quality. Here is the workflow we recommend.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Phase 1: Generate With Intention (Use AI Strategically)</h3>
-                  <p className="leading-relaxed">
-                    Use AI as a drafting assistant, not a ghostwriter. Give it detailed prompts with your voice, examples, and constraints. The AI Prompt Library has templates for this. Generate an outline first, then draft sections individually. This gives you more control over the structure and reduces the uniform patterns that detectors flag. Never publish raw AI output without editing. That is the single biggest mistake content creators make in 2026.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Phase 2: Edit for Authenticity (Add the Human Layer)</h3>
-                  <p className="leading-relaxed">
-                    Take the AI draft and rewrite it in your voice. Add personal examples, vary sentence lengths intentionally, and include opinions or observations the AI could not generate. Replace generic transitions with your own phrasing. Add one surprising word choice per paragraph. These small edits dramatically increase perplexity and burstiness, making the content unmistakably human. This phase should take 10 to 15 minutes for a 1,000-word article.
-                  </p>
-
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Phase 3: Verify With Detection (Run the Final Check)</h3>
-                  <p className="leading-relaxed">
-                    Paste the edited content into our AI Content Detector. Select the appropriate mode for your content type. Review the sentence-level breakdown. If specific sentences are flagged, rewrite them with more variation or personal detail. Re-run the check until the overall score drops below the AI threshold and no individual sentence stands out. Then publish with confidence knowing your content is both authentic and high quality.
-                  </p>
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* Section 7: FAQ Accordion */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Frequently Asked Questions About AI Content Detection
-                </h2>
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">Frequently asked questions</h2>
                 <div className="space-y-4">
                   {faqs.map((faq, index) => (
-                    <details
-                      key={index}
-                      className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden"
-                    >
-                      <summary className="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
-                        <span className="font-semibold text-gray-900 dark:text-white pr-4">{faq.question}</span>
-                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center text-sm group-open:rotate-180 transition-transform">
+                    <details key={index} className="group overflow-hidden rounded-xl border border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
+                      <summary className="flex cursor-pointer list-none items-center justify-between p-5 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/40">
+                        <span className="pr-4 font-semibold text-gray-900 dark:text-white">{faq.question}</span>
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm text-gray-500 transition-transform group-open:rotate-180 dark:bg-gray-700 dark:text-gray-400">
                           ▼
                         </span>
                       </summary>
-                      <div className="px-5 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700 pt-4">
+                      <div className="border-t border-gray-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-gray-600 dark:border-gray-700 dark:text-gray-400">
                         {faq.answer}
                       </div>
                     </details>
                   ))}
                 </div>
               </section>
-
-              {/* Section 8: CTA */}
-              <section className="mb-12">
-                <div className="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl p-8 text-white text-center">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                    Detect AI Content in Seconds. Completely Free
-                  </h2>
-                  <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                    Join thousands of writers, publishers, students, and professionals who use our detector to verify content authenticity. No signup. No credit card. Just real analysis.
-                  </p>
-                  <a
-                    href="#ai-content-detector"
-                    className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-lg"
-                  >
-                    Analyze Your Text Now
-                  </a>
-                  <p className="text-blue-200 text-sm mt-4">
-                    Supports blog posts, SEO articles, academic papers, resumes, cover letters, sales copy, and emails
-                  </p>
-                </div>
-              </section>
             </div>
 
-            {/* Sidebar */}
-            <div className="lg:w-80 flex-shrink-0">
+            <div className="flex-shrink-0 lg:w-80">
               <div className="sticky top-24 space-y-6">
                 <SidebarAd />
 
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Related Resources</h3>
-                  <ul className="space-y-3">
-                    <li>
-                      <a href="/tools/ai-resume-builder" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📄</span> AI Resume Builder
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/tools/ai-cover-letter-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>✉️</span> Cover Letter Generator
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/tools/ai-email-assistant" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📧</span> AI Email Assistant
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/tools/ai-prompt-library" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>💡</span> AI Prompt Library
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/blog/ai-content-creation-business-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>✍️</span> AI Content Creation Business
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/trends/creator-economy-trends-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>🎨</span> Creator Economy Trends 2026
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/trends/chatgpt-advanced-prompts-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>🤖</span> ChatGPT Prompts Guide
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">2026 AI Detection Stats</h3>
+                <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                  <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Our test in numbers</h3>
                   <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                     <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">85-90%</span>
-                      <span>accuracy on pure AI text from GPT-4 and Claude</span>
+                      <span className="font-bold text-gray-900 dark:text-white">57</span>
+                      <span>texts tested, September 2026</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">5-10%</span>
-                      <span>error rate even for the best detectors</span>
+                      <span className="font-bold text-gray-900 dark:text-white">34</span>
+                      <span>clear verdicts, all 34 correct</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">14.6%</span>
-                      <span>false positive rate on human text (ZeroGPT testing)</span>
+                      <span className="font-bold text-gray-900 dark:text-white">23</span>
+                      <span>marked unclear rather than guessed</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">21%</span>
-                      <span>false positive rate for non-native English writers</span>
+                      <span className="font-bold text-gray-900 dark:text-white">0</span>
+                      <span>human texts called AI</span>
+                    </li>
+                  </ul>
+                  <p className="mt-4 text-xs text-gray-500">Small test, one AI model family. Treat as a guide.</p>
+                </div>
+
+                <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                  <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Related reading</h3>
+                  <ul className="space-y-3 text-sm">
+                    <li>
+                      <a href="/blog/ai-content-creation-business-2026" className="text-blue-600 hover:underline dark:text-blue-400">
+                        AI content creation business
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/trends/creator-economy-trends-2026" className="text-blue-600 hover:underline dark:text-blue-400">
+                        Creator economy trends
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/trends/chatgpt-advanced-prompts-2026" className="text-blue-600 hover:underline dark:text-blue-400">
+                        ChatGPT prompts guide
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -434,96 +358,6 @@ export default function AIContentDetectorPage() {
           </div>
         </div>
       </main>
-
-      {/* SEO Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Free AI Content Detector: Check If Text Is AI-Generated in Seconds
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            With AI writing tools like ChatGPT, Claude, and Gemini now producing human-quality text, the question is no longer "can AI write this?" but "did AI write this?" Our <strong>free AI content detector</strong> analyzes text for statistical patterns, perplexity scores, and burstiness metrics to estimate the probability that content was AI-generated. Whether you are a teacher checking student essays, an editor verifying submissions, or a marketer ensuring originality, this tool gives you the data you need.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Why AI Detection Matters in 2026
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            AI-generated content is everywhere, and not always labeled. Search engines like Google have stated they prioritize helpful content regardless of how it is created, but quality matters. Low-quality AI spam is being penalized. Publishers need to verify that submitted content meets editorial standards. Educators need to ensure academic integrity. Our <strong>AI text detector</strong> uses multiple linguistic signals to provide a probability score, not a binary yes/no. This nuanced approach acknowledges that human editing of AI drafts is common and legitimate.
-          </p>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            It is important to understand the limitations. No AI detector is 100% accurate. Even the best tools have a 5-10% error rate. Non-native English speakers face false positive rates of 21% in some studies. Our tool provides confidence scores and explains the indicators found, so you can make informed decisions rather than relying on a single number. Use it as a screening tool, not a definitive verdict.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            How Our AI Detector Works
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">📊 Perplexity Analysis</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Measures how predictable the text is. AI tends to use more predictable word patterns. Human writing is more varied and surprising.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">📈 Burstiness Detection</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Analyzes sentence length variation. Humans naturally vary between short and long sentences. AI output is more uniform.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🔍 N-gram Analysis</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Checks common word combinations. AI models favor certain phrases and transition words that humans use less frequently.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🎯 Confidence Scoring</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Provides a probability score (0-100%) rather than a binary yes/no. This reflects the reality that detection is probabilistic, not absolute.</p>
-            </div>
-          </div>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Related Tools for Content Quality
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-3 mb-8">
-            <a href="/tools/ai-prompt-library" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">🤖</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Prompt Library</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">500+ prompts for content creation</p>
-              </div>
-            </a>
-            <a href="/tools/ai-email-assistant" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">✉️</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Email Assistant</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Write professional emails with AI</p>
-              </div>
-            </a>
-            <a href="/tools/ai-resume-builder" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📄</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Resume Builder</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Build ATS-optimized resumes</p>
-              </div>
-            </a>
-            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📚</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Content Quality Guides</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Tips for writing and content creation</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-6 border border-red-100 dark:border-red-800">
-            <h3 className="text-lg font-semibold text-red-900 dark:text-red-200 mb-2">
-              Check Your Content Now
-            </h3>
-            <p className="text-red-800 dark:text-red-300 text-sm mb-4">
-              Paste any text and get an instant AI probability score. Understand whether your content was likely AI-generated, human-written, or a mix of both.
-            </p>
-            <p className="text-red-700 dark:text-red-400 text-xs">
-              100% free. No signup. No text limits. Instant results.
-            </p>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

@@ -168,13 +168,12 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'ai-content-detector': {
     title: 'Free AI Content Detector: Check Any Text',
-    description: 'Free AI content detector with real perplexity and burstiness analysis. Detect ChatGPT, GPT-4, Claude, and Gemini text instantly. 7 content modes, sentence-level breakdown, SEO issue detection. No signup, no credit card, 100% free.',
+    description: 'Free AI content detector. See whether text reads like ChatGPT or human writing, which sentences carry AI patterns, and why. Honest results, no signup.',
     keywords: [
       'free ai content detector',
       'ai text checker online',
       'detect ai generated text',
       'chatgpt detector free',
-      'perplexity score checker',
       'burstiness analysis tool',
       'ai text detection free',
       'content authenticity checker',
