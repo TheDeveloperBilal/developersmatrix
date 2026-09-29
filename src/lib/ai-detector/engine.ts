@@ -1,33 +1,43 @@
 /**
  * AI Content Detection Engine
- * Custom NLP logic for detecting AI-generated content without external APIs
+ *
+ * How this works, honestly:
+ * This is a statistical style check, not a trained language model. It measures
+ * ten writing signals that were tested on labelled human and AI text and kept
+ * only if they separated the two on text they had never seen (see the project
+ * note ai-content-detector-test-2026-09-29). It gives an estimate with a wide
+ * "unclear" band on purpose. It is never proof of authorship.
+ *
+ * Validation, 29 September 2026, with the final thresholds below.
+ *   Held out set, 34 texts the model never saw:
+ *     18 human texts (Wikipedia 2019, Hacker News 2015, Stack Exchange 2010 to 2016):
+ *       8 likely human, 10 unclear, 0 called AI.
+ *     16 AI texts: 10 likely AI, 6 unclear, 0 called human.
+ *   All 57 texts: 34 clear verdicts, all correct; 23 unclear.
+ * Caveat: every AI sample came from one model family, so text from other models
+ * and heavily edited AI text will land in "unclear" more often. One real sample
+ * of non native English (the site owner's own messages) scored 62, unclear, which
+ * is why short texts need 75 rather than 70 before the verdict says AI.
  */
 
-export interface AnalysisResult {
-  humanProbability: number;
-  aiProbability: number;
-  confidenceScore: number;
-  detectionReliability: string;
-  metrics: {
-    perplexity: number;
-    burstiness: number;
-    sentenceConsistency: number;
-    vocabularyDiversity: number;
-    repetitionScore: number;
-    predictability: number;
-    writingRhythm: number;
-    humanLikeness: number;
-  };
-  sentenceAnalysis: SentenceAnalysis[];
-  recommendations: string[];
-  seoIssues: SEOIssue[];
+export type Verdict = 'likely-human' | 'unclear' | 'likely-ai';
+export type Reliability = 'Low' | 'Moderate';
+
+export interface DetectorSignal {
+  id: string;
+  /** Which way this signal pushed the score. */
+  direction: 'ai' | 'human';
+  /** 0 to 100, how strongly it pushed. */
+  strength: number;
+  title: string;
+  detail: string;
 }
 
 export interface SentenceAnalysis {
   sentence: string;
-  aiProbability: number;
-  issues: string[];
-  type: 'normal' | 'ai-typical' | 'repetitive' | 'generic' | 'seo-issue';
+  /** True when the sentence contains a specific AI style pattern. */
+  flagged: boolean;
+  reasons: string[];
 }
 
 export interface SEOIssue {
@@ -37,90 +47,45 @@ export interface SEOIssue {
   suggestions: string[];
 }
 
-export type DetectionMode = 
-  | 'blog' 
-  | 'seo-article' 
-  | 'academic' 
-  | 'resume' 
-  | 'cover-letter' 
-  | 'sales-copy' 
-  | 'email';
-
-interface ModeConfig {
-  name: string;
-  perplexityWeight: number;
-  burstinessWeight: number;
-  vocabularyWeight: number;
-  structureWeight: number;
-  formalLanguageExpected: boolean;
-  personalVoiceExpected: boolean;
+export interface AnalysisResult {
+  /** 0 to 100. Higher means the writing shows more AI style signals. Not a probability of authorship. */
+  aiScore: number;
+  /** Kept for older callers. Same value as aiScore. */
+  aiProbability: number;
+  humanProbability: number;
+  verdict: Verdict;
+  verdictLabel: string;
+  verdictSummary: string;
+  detectionReliability: Reliability;
+  reliabilityNote: string;
+  wordCount: number;
+  sentenceCount: number;
+  metrics: {
+    averageSentenceLength: number;
+    sentenceLengthVariation: number;
+    vocabularyVariety: number;
+    contractionsPer100Words: number;
+    aiStyleWordCount: number;
+    stockTransitionShare: number;
+  };
+  signals: DetectorSignal[];
+  sentenceAnalysis: SentenceAnalysis[];
+  recommendations: string[];
+  seoIssues: SEOIssue[];
 }
 
-const MODE_CONFIGS: Record<DetectionMode, ModeConfig> = {
-  blog: {
-    name: 'Blog Content',
-    perplexityWeight: 1.0,
-    burstinessWeight: 1.2,
-    vocabularyWeight: 0.8,
-    structureWeight: 0.9,
-    formalLanguageExpected: false,
-    personalVoiceExpected: true,
-  },
-  'seo-article': {
-    name: 'SEO Article',
-    perplexityWeight: 1.1,
-    burstinessWeight: 1.0,
-    vocabularyWeight: 1.0,
-    structureWeight: 1.2,
-    formalLanguageExpected: true,
-    personalVoiceExpected: false,
-  },
-  academic: {
-    name: 'Academic Writing',
-    perplexityWeight: 0.9,
-    burstinessWeight: 0.8,
-    vocabularyWeight: 1.3,
-    structureWeight: 1.1,
-    formalLanguageExpected: true,
-    personalVoiceExpected: false,
-  },
-  resume: {
-    name: 'Resume/CV',
-    perplexityWeight: 1.0,
-    burstinessWeight: 0.7,
-    vocabularyWeight: 1.1,
-    structureWeight: 1.3,
-    formalLanguageExpected: true,
-    personalVoiceExpected: false,
-  },
-  'cover-letter': {
-    name: 'Cover Letter',
-    perplexityWeight: 1.0,
-    burstinessWeight: 1.0,
-    vocabularyWeight: 0.9,
-    structureWeight: 1.0,
-    formalLanguageExpected: true,
-    personalVoiceExpected: true,
-  },
-  'sales-copy': {
-    name: 'Sales Copy',
-    perplexityWeight: 1.2,
-    burstinessWeight: 1.3,
-    vocabularyWeight: 0.8,
-    structureWeight: 0.9,
-    formalLanguageExpected: false,
-    personalVoiceExpected: true,
-  },
-  email: {
-    name: 'Email Writing',
-    perplexityWeight: 1.0,
-    burstinessWeight: 1.1,
-    vocabularyWeight: 0.7,
-    structureWeight: 0.8,
-    formalLanguageExpected: false,
-    personalVoiceExpected: true,
-  },
-};
+/** Kept so older requests that send a mode still work. Scoring does not depend on it. */
+export type DetectionMode =
+  | 'blog'
+  | 'seo-article'
+  | 'academic'
+  | 'resume'
+  | 'cover-letter'
+  | 'sales-copy'
+  | 'email';
+
+export const MIN_WORDS = 80;
+export const RECOMMENDED_WORDS = 150;
 
 // Common AI phrases and patterns
 const AI_TYPICAL_PHRASES = [
@@ -232,570 +197,273 @@ const AI_TRANSITIONS = [
   'thereby',
 ];
 
+// Words modern AI models lean on far more than people do.
+const AI_STYLE_WORDS = [
+  'additionally', 'furthermore', 'moreover', 'ultimately', 'overall', 'crucial',
+  'essential', 'ensure', 'enhance', 'foster', 'robust', 'seamless', 'leverage',
+  'landscape', 'notably', 'significant', 'significantly', 'various', 'numerous',
+  'vital', 'thoughtfully', 'valuable', 'journey', 'intentional', 'effectively',
+  'incredible', 'perfect', 'truly', 'deeply', 'approach', 'impact',
+];
+
+const STOCK_OPENERS = [
+  'however', 'additionally', 'furthermore', 'moreover', 'ultimately', 'overall',
+  'finally', 'in conclusion', 'in addition', 'on the other hand', 'as a result',
+  'in fact', 'most importantly', 'at the same time', 'in the meantime',
+];
+
+type FeatureKey =
+  | 'mattr' | 'aiWords' | 'connStart' | 'parensQuotes' | 'messy'
+  | 'meanSent' | 'maxOverMean' | 'sentCV' | 'semicolon' | 'contractions';
+
 /**
- * Main analysis function
+ * +1 means a higher value looks more like AI, -1 more like a person.
+ * Mean and spread come from the 23 text training set only, so the held out
+ * numbers in the header stay honest.
  */
-export function analyzeContent(
-  text: string,
-  mode: DetectionMode = 'blog'
-): AnalysisResult {
-  const config = MODE_CONFIGS[mode];
-  const sentences = extractSentences(text);
-  const words = extractWords(text);
-  
-  // Calculate individual metrics
-  const perplexity = calculatePerplexity(text, sentences, words);
-  const burstiness = calculateBurstiness(sentences);
-  const sentenceConsistency = calculateSentenceConsistency(sentences);
-  const vocabularyDiversity = calculateVocabularyDiversity(words);
-  const repetitionScore = calculateRepetitionScore(text, words);
-  const predictability = calculatePredictability(text, sentences);
-  const writingRhythm = calculateWritingRhythm(sentences);
-  
-  // Calculate weighted AI probability
-  const aiProbability = calculateAIProbability(
-    { perplexity, burstiness, sentenceConsistency, vocabularyDiversity, repetitionScore, predictability, writingRhythm },
-    config
-  );
-  
-  const humanProbability = 100 - aiProbability;
-  const confidenceScore = calculateConfidenceScore(
-    { perplexity, burstiness, vocabularyDiversity, predictability }
-  );
-  
-  // Analyze individual sentences
-  const sentenceAnalysis = analyzeSentences(sentences, mode);
-  
-  // Generate recommendations
-  const recommendations = generateRecommendations(
-    {
-      perplexity,
-      burstiness,
-      sentenceConsistency,
-      vocabularyDiversity,
-      repetitionScore,
-      predictability,
-      writingRhythm,
-      humanLikeness: humanProbability,
-    },
-    sentenceAnalysis
-  );
-  
-  // Detect SEO issues
-  const seoIssues = detectSEOIssues(text, sentences, words);
-  
+const MODEL: Record<FeatureKey, { sign: 1 | -1; mean: number; spread: number }> = {
+  mattr:        { sign: 1,  mean: 0.8311, spread: 0.0418 },
+  aiWords:      { sign: 1,  mean: 0.3014, spread: 0.5511 },
+  connStart:    { sign: 1,  mean: 0.0267, spread: 0.0581 },
+  parensQuotes: { sign: -1, mean: 1.6575, spread: 2.5568 },
+  messy:        { sign: -1, mean: 0.4805, spread: 0.6566 },
+  meanSent:     { sign: -1, mean: 19.63,  spread: 5.4088 },
+  maxOverMean:  { sign: -1, mean: 1.953,  spread: 0.5544 },
+  sentCV:       { sign: -1, mean: 0.4931, spread: 0.2158 },
+  semicolon:    { sign: -1, mean: 0.32,   spread: 0.5164 },
+  contractions: { sign: -1, mean: 1.1634, spread: 1.3847 },
+};
+
+const HUMAN_BELOW = 35;
+const AI_FROM = 70;
+/**
+ * Short texts need a stronger signal before we say AI. Short, direct writing,
+ * including a lot of non native English, drifts toward the AI side. Tested:
+ * costs 2 of 27 AI detections and accuses no one.
+ */
+const AI_FROM_SHORT = 75;
+
+function splitSentences(text: string): string[] {
+  return text
+    .replace(/([.!?])(?=[A-Z])/g, '$1 ')
+    .split(/(?<=[.!?])\s+(?=[A-Z"(])/)
+    .map((s) => s.trim())
+    .filter((s) => s.split(/\s+/).length >= 3);
+}
+
+function tokenize(text: string): string[] {
+  return text.toLowerCase().match(/[a-z']+/g) || [];
+}
+
+const avg = (a: number[]) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
+const stdev = (a: number[]) => {
+  const m = avg(a);
+  return Math.sqrt(avg(a.map((x) => (x - m) ** 2)));
+};
+
+function measure(text: string, sentences: string[], words: string[]) {
+  const n = Math.max(1, words.length);
+  const per100 = (c: number) => (100 * c) / n;
+  const lengths = sentences.map((s) => s.split(/\s+/).length);
+  const meanLen = avg(lengths) || 1;
+
+  // Moving average type token ratio over 50 word windows, so length does not skew it.
+  const window = 50;
+  let total = 0;
+  let count = 0;
+  for (let i = 0; i + window <= words.length; i += 10) {
+    total += new Set(words.slice(i, i + window)).size / window;
+    count++;
+  }
+  const mattr = count ? total / count : new Set(words).size / n;
+
+  const lower = sentences.map((s) => s.toLowerCase());
+  const aiWordsFound = words.filter((w) => AI_STYLE_WORDS.includes(w));
+
+  const values: Record<FeatureKey, number> = {
+    mattr,
+    aiWords: per100(aiWordsFound.length),
+    connStart: lower.filter((s) => STOCK_OPENERS.some((c) => s.startsWith(c))).length / Math.max(1, sentences.length),
+    parensQuotes: per100((text.match(/[()"“”]/g) || []).length),
+    messy: per100((text.match(/[a-z][.!?][A-Z]|\.\.\.|\?\?|!!|\s[a-z]+\s*\(|&|\//g) || []).length),
+    meanSent: meanLen,
+    maxOverMean: lengths.length ? Math.max(...lengths) / meanLen : 1,
+    sentCV: stdev(lengths) / meanLen,
+    semicolon: per100((text.match(/[;:]/g) || []).length),
+    contractions: per100(words.filter((w) => w.includes("'")).length),
+  };
+
+  return { values, lengths, meanLen, aiWordsFound };
+}
+
+function explain(
+  key: FeatureKey,
+  pushesAI: boolean,
+  m: ReturnType<typeof measure>
+): { title: string; detail: string } | null {
+  const v = m.values;
+  switch (key) {
+    case 'mattr':
+      return pushesAI
+        ? { title: 'Unusually even vocabulary', detail: 'Word choice rarely repeats. AI models spread vocabulary evenly; people tend to reuse the words their topic needs.' }
+        : { title: 'Natural word repetition', detail: 'Key words come back as the topic needs them, which is how people usually write.' };
+    case 'aiWords': {
+      const uniq = Array.from(new Set(m.aiWordsFound)).slice(0, 5);
+      return pushesAI
+        ? { title: 'Words AI models overuse', detail: `Found: ${uniq.join(', ')}. These words appear far more often in AI text than in human writing.` }
+        : { title: 'Few AI favourite words', detail: 'Almost none of the words AI models overuse, such as "additionally", "crucial" or "enhance".' };
+    }
+    case 'connStart':
+      return pushesAI
+        ? { title: 'Stock sentence openers', detail: `${Math.round(v.connStart * 100)}% of sentences open with transitions like "However" or "Additionally".` }
+        : { title: 'Varied sentence openings', detail: 'Sentences rarely open with stock transitions.' };
+    case 'parensQuotes':
+      return pushesAI
+        ? { title: 'No asides or quotations', detail: 'No brackets or quotation marks. AI text seldom uses them; people use them for side notes and quotes.' }
+        : { title: 'Asides and quotations', detail: 'Uses brackets or quotation marks, which people use far more than AI models.' };
+    case 'messy':
+      return pushesAI
+        ? { title: 'Very clean typing', detail: 'No informal marks such as typos, missing spaces, ellipses or slashes.' }
+        : { title: 'Signs of real typing', detail: 'Contains informal marks such as missing spaces, ellipses or slashes that people leave behind.' };
+    case 'meanSent':
+      return pushesAI
+        ? { title: 'Tidy sentence length', detail: `Sentences average ${Math.round(m.meanLen)} words, the comfortable middle length AI models favour.` }
+        : { title: 'Long, dense sentences', detail: `Sentences average ${Math.round(m.meanLen)} words, longer than AI models usually write.` };
+    case 'sentCV':
+    case 'maxOverMean':
+      return pushesAI
+        ? { title: 'Even sentence rhythm', detail: 'Sentence lengths are similar to each other. People mix very short and very long sentences more.' }
+        : { title: 'Uneven sentence rhythm', detail: 'Short and long sentences are mixed freely, a common trait of human writing.' };
+    case 'semicolon':
+      return pushesAI ? null : { title: 'Semicolons and colons', detail: 'Uses semicolons or colons, which people use more than AI models.' };
+    case 'contractions':
+      return pushesAI
+        ? { title: 'Few contractions', detail: 'Rarely uses short forms like "don\'t" or "it\'s".' }
+        : { title: 'Everyday contractions', detail: 'Uses short forms like "don\'t" and "it\'s" often, as people do.' };
+  }
+}
+
+function flagSentences(sentences: string[]): SentenceAnalysis[] {
+  return sentences.map((sentence) => {
+    const lower = sentence.toLowerCase();
+    const reasons: string[] = [];
+
+    const phrase = AI_TYPICAL_PHRASES.find((p) => lower.includes(p));
+    if (phrase) reasons.push(`Stock phrase: "${phrase}"`);
+
+    const opener = STOCK_OPENERS.find((c) => lower.startsWith(c));
+    if (opener) reasons.push(`Opens with a stock transition: "${opener}"`);
+
+    const words = tokenize(sentence);
+    const aiWords = Array.from(new Set(words.filter((w) => AI_STYLE_WORDS.includes(w))));
+    if (aiWords.length >= 2) reasons.push(`AI favourite words: ${aiWords.join(', ')}`);
+
+    const generic = GENERIC_PHRASES.find((p) => lower.includes(p));
+    if (generic) reasons.push(`Generic phrase: "${generic}"`);
+
+    return { sentence, flagged: reasons.length > 0, reasons };
+  });
+}
+
+function buildRecommendations(signals: DetectorSignal[], verdict: Verdict): string[] {
+  const tips: string[] = [];
+  const ai = new Set(signals.filter((s) => s.direction === 'ai').map((s) => s.id));
+
+  if (ai.has('aiWords')) tips.push('Swap words like "crucial", "enhance" and "additionally" for plainer ones you would say out loud.');
+  if (ai.has('connStart')) tips.push('Cut stock openers such as "However" and "Furthermore". Most sentences read better starting with the point.');
+  if (ai.has('sentCV') || ai.has('maxOverMean') || ai.has('meanSent')) tips.push('Vary your rhythm. Follow a long sentence with a very short one.');
+  if (ai.has('contractions')) tips.push('Use contractions where they sound natural: "it is" to "it\'s", "do not" to "don\'t".');
+  if (ai.has('parensQuotes')) tips.push('Add something only you know: a quote, a number from your own work, an aside in brackets.');
+  if (ai.has('mattr')) tips.push('Name the specific thing each time rather than rotating synonyms for it.');
+
+  if (verdict === 'likely-human' && tips.length === 0) {
+    tips.push('This already reads like natural human writing. No changes needed for style.');
+  }
+  return tips;
+}
+
+export function analyzeContent(text: string, _mode: DetectionMode = 'blog'): AnalysisResult {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  const sentences = splitSentences(clean);
+  const words = tokenize(clean);
+  const m = measure(clean, sentences, words);
+
+  // Standardise each signal against the training set, clip outliers so one odd
+  // feature cannot decide the result, then average.
+  const contributions = (Object.keys(MODEL) as FeatureKey[]).map((key) => {
+    const { sign, mean, spread } = MODEL[key];
+    const z = Math.max(-3, Math.min(3, (m.values[key] - mean) / spread));
+    return { key, c: sign * z };
+  });
+  const raw = avg(contributions.map((x) => x.c));
+  const aiScore = Math.round(100 / (1 + Math.exp(-2.2 * raw)));
+
+  const aiThreshold = words.length < RECOMMENDED_WORDS ? AI_FROM_SHORT : AI_FROM;
+  const verdict: Verdict = aiScore >= aiThreshold ? 'likely-ai' : aiScore < HUMAN_BELOW ? 'likely-human' : 'unclear';
+
+  const verdictLabel =
+    verdict === 'likely-ai' ? 'Likely AI generated' : verdict === 'likely-human' ? 'Likely human written' : 'Mixed or unclear';
+
+  const verdictSummary =
+    verdict === 'likely-ai'
+      ? 'The writing shows several patterns that are much more common in AI text than in human writing.'
+      : verdict === 'likely-human'
+        ? 'The writing shows patterns that are much more common in human writing than in AI text.'
+        : 'The signals point both ways. This is common for edited AI text, formal human writing and short samples. Do not treat this as evidence either way.';
+
+  const short = words.length < RECOMMENDED_WORDS;
+  const detectionReliability: Reliability = short || verdict === 'unclear' ? 'Low' : 'Moderate';
+  const reliabilityNote = short
+    ? `Only ${words.length} words. Results get steadier from about ${RECOMMENDED_WORDS} words.`
+    : verdict === 'unclear'
+      ? 'The signals disagree, so no conclusion is drawn.'
+      : 'A statistical estimate, not proof. Formal writing and non native English can look AI like.';
+
+  // Explain the four strongest signals, merging the two rhythm measures.
+  const seen = new Set<string>();
+  const signals: DetectorSignal[] = [];
+  for (const { key, c } of [...contributions].sort((a, b) => Math.abs(b.c) - Math.abs(a.c))) {
+    if (Math.abs(c) < 0.35) continue;
+    const group = key === 'maxOverMean' ? 'sentCV' : key;
+    if (seen.has(group)) continue;
+    const text = explain(key, c > 0, m);
+    if (!text) continue;
+    seen.add(group);
+    signals.push({ id: group, direction: c > 0 ? 'ai' : 'human', strength: Math.round(Math.min(1, Math.abs(c) / 3) * 100), ...text });
+    if (signals.length >= 5) break;
+  }
+
   return {
-    humanProbability: Math.round(humanProbability * 10) / 10,
-    aiProbability: Math.round(aiProbability * 10) / 10,
-    confidenceScore: Math.round(confidenceScore * 10) / 10,
-    detectionReliability: getReliabilityLevel(confidenceScore),
+    aiScore,
+    aiProbability: aiScore,
+    humanProbability: 100 - aiScore,
+    verdict,
+    verdictLabel,
+    verdictSummary,
+    detectionReliability,
+    reliabilityNote,
+    wordCount: words.length,
+    sentenceCount: sentences.length,
     metrics: {
-      perplexity: Math.round(perplexity * 10) / 10,
-      burstiness: Math.round(burstiness * 10) / 10,
-      sentenceConsistency: Math.round(sentenceConsistency * 10) / 10,
-      vocabularyDiversity: Math.round(vocabularyDiversity * 10) / 10,
-      repetitionScore: Math.round(repetitionScore * 10) / 10,
-      predictability: Math.round(predictability * 10) / 10,
-      writingRhythm: Math.round(writingRhythm * 10) / 10,
-      humanLikeness: Math.round(humanProbability * 10) / 10,
+      averageSentenceLength: Math.round(m.meanLen * 10) / 10,
+      sentenceLengthVariation: Math.round(m.values.sentCV * 100),
+      vocabularyVariety: Math.round(m.values.mattr * 100),
+      contractionsPer100Words: Math.round(m.values.contractions * 10) / 10,
+      aiStyleWordCount: m.aiWordsFound.length,
+      stockTransitionShare: Math.round(m.values.connStart * 100),
     },
-    sentenceAnalysis,
-    recommendations,
-    seoIssues,
+    signals,
+    sentenceAnalysis: flagSentences(sentences),
+    recommendations: buildRecommendations(signals, verdict),
+    seoIssues: detectSEOIssues(clean, sentences, words),
   };
 }
 
-/**
- * Extract sentences from text
- */
-function extractSentences(text: string): string[] {
-  return text
-    .replace(/([.!?])\s+/g, '$1|||')
-    .split('|||')
-    .map(s => s.trim())
-    .filter(s => s.length > 0);
+export function analyzeBatch(texts: string[], mode: DetectionMode = 'blog'): AnalysisResult[] {
+  return texts.map((t) => analyzeContent(t, mode));
 }
 
-/**
- * Extract words from text
- */
-function extractWords(text: string): string[] {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, '')
-    .split(/\s+/)
-    .filter(w => w.length > 0);
-}
 
-/**
- * Calculate perplexity - measures how "surprised" a language model would be
- * Lower perplexity = more predictable = more likely AI-generated
- */
-function calculatePerplexity(text: string, sentences: string[], words: string[]): number {
-  let score = 50; // Base score
-  
-  // Check for AI-typical phrases (reduces perplexity score)
-  const lowerText = text.toLowerCase();
-  let aiPhraseCount = 0;
-  AI_TYPICAL_PHRASES.forEach(phrase => {
-    if (lowerText.includes(phrase)) {
-      aiPhraseCount++;
-      score -= 3;
-    }
-  });
-  
-  // Check for predictable sentence structures
-  const startsWithCommon = sentences.filter(s => {
-    const firstWords = s.toLowerCase().split(/\s+/).slice(0, 3).join(' ');
-    return ['it is', 'this is', 'there are', 'there is', 'one of', 'in order'].some(
-      start => firstWords.startsWith(start)
-    );
-  }).length;
-  
-  score -= startsWithCommon * 2;
-  
-  // Vocabulary predictability
-  const uniqueWords = new Set(words);
-  const repetitionRatio = words.length > 0 ? 1 - (uniqueWords.size / words.length) : 0;
-  score -= repetitionRatio * 20;
-  
-  // N-gram analysis (bigram predictability)
-  const bigrams: string[] = [];
-  for (let i = 0; i < words.length - 1; i++) {
-    bigrams.push(`${words[i]} ${words[i + 1]}`);
-  }
-  
-  const commonBigrams = ['of the', 'in the', 'to the', 'on the', 'and the', 'for the', 'with the', 'at the', 'is a', 'is an'];
-  let commonBigramCount = 0;
-  bigrams.forEach(bigram => {
-    if (commonBigrams.includes(bigram)) {
-      commonBigramCount++;
-    }
-  });
-  
-  const bigramRatio = bigrams.length > 0 ? commonBigramCount / bigrams.length : 0;
-  score -= bigramRatio * 30;
-  
-  // Sentence length variance (AI tends to have more uniform lengths)
-  const sentenceLengths = sentences.map(s => s.split(/\s+/).length);
-  const avgLength = sentenceLengths.reduce((a, b) => a + b, 0) / sentenceLengths.length;
-  const variance = sentenceLengths.reduce((sum, len) => sum + Math.pow(len - avgLength, 2), 0) / sentenceLengths.length;
-  
-  // More variance = more human-like
-  score += Math.min(variance * 0.5, 15);
-  
-  return Math.max(0, Math.min(100, score));
-}
-
-/**
- * Calculate burstiness - variation in sentence complexity
- * Human writing has more "bursty" patterns (simple then complex sentences)
- */
-function calculateBurstiness(sentences: string[]): number {
-  if (sentences.length < 2) return 50;
-  
-  const complexities = sentences.map(s => {
-    const words = s.split(/\s+/);
-    const avgWordLength = words.reduce((sum, w) => sum + w.length, 0) / words.length;
-    const hasSubordinateClause = /\b(that|which|who|because|although|while|when|if|unless)\b/i.test(s);
-    const punctuationCount = (s.match(/[,;:—–-]/g) || []).length;
-    
-    return avgWordLength + (hasSubordinateClause ? 5 : 0) + punctuationCount * 2;
-  });
-  
-  // Calculate coefficient of variation
-  const mean = complexities.reduce((a, b) => a + b, 0) / complexities.length;
-  const variance = complexities.reduce((sum, c) => sum + Math.pow(c - mean, 2), 0) / complexities.length;
-  const stdDev = Math.sqrt(variance);
-  
-  const cv = mean > 0 ? stdDev / mean : 0;
-  
-  // Higher CV = more bursty = more human-like
-  return Math.min(100, cv * 200 + 30);
-}
-
-/**
- * Calculate sentence structure consistency
- * AI tends to have more consistent structures
- */
-function calculateSentenceConsistency(sentences: string[]): number {
-  if (sentences.length < 3) return 50;
-  
-  // Analyze sentence structure patterns
-  const patterns = sentences.map(s => {
-    const words = s.toLowerCase().split(/\s+/);
-    const firstWord = words[0] || '';
-    const hasArticle = ['the', 'a', 'an'].includes(firstWord);
-    const hasPronoun = ['i', 'you', 'he', 'she', 'it', 'we', 'they', 'this', 'that', 'these', 'those'].includes(firstWord);
-    const hasPreposition = ['in', 'on', 'at', 'for', 'with', 'by', 'to', 'from', 'about'].includes(firstWord);
-    const hasConnector = ['however', 'moreover', 'furthermore', 'additionally', 'therefore', 'thus'].includes(firstWord);
-    
-    return { hasArticle, hasPronoun, hasPreposition, hasConnector };
-  });
-  
-  // Calculate how similar consecutive sentences are in structure
-  let similarityCount = 0;
-  for (let i = 1; i < patterns.length; i++) {
-    const prev = patterns[i - 1];
-    const curr = patterns[i];
-    
-    if (prev.hasArticle === curr.hasArticle) similarityCount++;
-    if (prev.hasPronoun === curr.hasPronoun) similarityCount++;
-    if (prev.hasPreposition === curr.hasPreposition) similarityCount++;
-    if (prev.hasConnector === curr.hasConnector) similarityCount++;
-  }
-  
-  const similarityRatio = similarityCount / ((patterns.length - 1) * 4);
-  
-  // Higher similarity = more AI-like
-  return similarityRatio * 100;
-}
-
-/**
- * Calculate vocabulary diversity (type-token ratio)
- */
-function calculateVocabularyDiversity(words: string[]): number {
-  if (words.length === 0) return 50;
-  
-  const uniqueWords = new Set(words);
-  const ttr = uniqueWords.size / words.length;
-  
-  // Adjust for text length (TTR naturally decreases with length)
-  const lengthAdjustedTTR = ttr * (1 + Math.log(words.length) * 0.1);
-  
-  // Check for rare/unusual words
-  const commonWords = new Set([
-    'the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
-    'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should',
-    'may', 'might', 'must', 'shall', 'can', 'need', 'dare', 'ought', 'used',
-    'to', 'of', 'in', 'for', 'on', 'with', 'at', 'by', 'from', 'as', 'into',
-    'through', 'during', 'before', 'after', 'above', 'below', 'between', 'under',
-    'and', 'but', 'or', 'nor', 'so', 'yet', 'both', 'either', 'neither',
-    'not', 'only', 'own', 'same', 'than', 'too', 'very', 'just', 'also',
-    'that', 'which', 'who', 'whom', 'this', 'these', 'those', 'what', 'whatever',
-    'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them',
-    'my', 'your', 'his', 'its', 'our', 'their', 'mine', 'yours', 'hers', 'ours',
-  ]);
-  
-  const rareWords = [...uniqueWords].filter(w => !commonWords.has(w) && w.length > 5);
-  const rareWordBonus = Math.min(rareWords.length * 2, 20);
-  
-  return Math.min(100, lengthAdjustedTTR * 150 + rareWordBonus);
-}
-
-/**
- * Calculate repetition score
- */
-function calculateRepetitionScore(text: string, words: string[]): number {
-  if (words.length === 0) return 50;
-  
-  const lowerText = text.toLowerCase();
-  let repetitionPenalty = 0;
-  
-  // Check for repeated phrases (3+ words)
-  const phrases: Record<string, number> = {};
-  for (let i = 0; i < words.length - 2; i++) {
-    const phrase = `${words[i]} ${words[i + 1]} ${words[i + 2]}`;
-    phrases[phrase] = (phrases[phrase] || 0) + 1;
-  }
-  
-  const repeatedPhrases = Object.entries(phrases).filter(([_, count]) => count > 1);
-  repetitionPenalty += repeatedPhrases.length * 5;
-  
-  // Check for AI typical phrases
-  AI_TYPICAL_PHRASES.forEach(phrase => {
-    const count = (lowerText.match(new RegExp(phrase, 'g')) || []).length;
-    if (count > 1) {
-      repetitionPenalty += count * 3;
-    }
-  });
-  
-  // Check for generic phrases
-  GENERIC_PHRASES.forEach(phrase => {
-    if (lowerText.includes(phrase)) {
-      repetitionPenalty += 2;
-    }
-  });
-  
-  return Math.max(0, Math.min(100, 100 - repetitionPenalty));
-}
-
-/**
- * Calculate predictability score
- */
-function calculatePredictability(text: string, sentences: string[]): number {
-  let score = 0;
-  const lowerText = text.toLowerCase();
-  
-  // Predictable transitions
-  AI_TRANSITIONS.forEach(transition => {
-    if (lowerText.includes(transition)) {
-      score += 5;
-    }
-  });
-  
-  // Predictable conclusions
-  const conclusionPatterns = [
-    'in conclusion',
-    'to conclude',
-    'to summarize',
-    'in summary',
-    'overall',
-    'all in all',
-    'taking everything into account',
-  ];
-  
-  conclusionPatterns.forEach(pattern => {
-    if (lowerText.includes(pattern)) {
-      score += 8;
-    }
-  });
-  
-  // Predictable sentence beginnings
-  let predictableStarts = 0;
-  sentences.forEach(s => {
-    const firstWords = s.toLowerCase().split(/\s+/).slice(0, 2).join(' ');
-    if (['it is', 'this is', 'there are', 'one of', 'in this', 'for this'].some(
-      start => firstWords.startsWith(start)
-    )) {
-      predictableStarts++;
-    }
-  });
-  
-  score += predictableStarts * 3;
-  
-  return Math.min(100, score);
-}
-
-/**
- * Calculate writing rhythm (variation in sentence structure)
- */
-function calculateWritingRhythm(sentences: string[]): number {
-  if (sentences.length < 3) return 50;
-  
-  // Analyze rhythm patterns
-  const lengths = sentences.map(s => s.split(/\s+/).length);
-  const types = sentences.map(s => {
-    const hasQuestion = s.includes('?');
-    const hasExclamation = s.includes('!');
-    const hasColon = s.includes(':');
-    const hasDash = s.includes('—') || s.includes('–') || s.includes('-');
-    
-    if (hasQuestion) return 'question';
-    if (hasExclamation) return 'exclamation';
-    if (hasColon || hasDash) return 'complex';
-    return 'statement';
-  });
-  
-  // Sentence length variation
-  const lengthVariation = calculateVariation(lengths);
-  
-  // Type diversity
-  const typeSet = new Set(types);
-  const typeDiversity = typeSet.size / types.length;
-  
-  // Rhythm breaks (short sentences among long ones)
-  const avgLength = lengths.reduce((a, b) => a + b, 0) / lengths.length;
-  const rhythmBreaks = lengths.filter(l => l < avgLength * 0.5).length;
-  const rhythmBreakBonus = Math.min(rhythmBreaks * 5, 20);
-  
-  return Math.min(100, lengthVariation * 0.5 + typeDiversity * 50 + rhythmBreakBonus);
-}
-
-function calculateVariation(numbers: number[]): number {
-  if (numbers.length === 0) return 0;
-  const mean = numbers.reduce((a, b) => a + b, 0) / numbers.length;
-  const variance = numbers.reduce((sum, n) => sum + Math.pow(n - mean, 2), 0) / numbers.length;
-  return Math.sqrt(variance);
-}
-
-/**
- * Calculate overall AI probability
- */
-function calculateAIProbability(
-  metrics: {
-    perplexity: number;
-    burstiness: number;
-    sentenceConsistency: number;
-    vocabularyDiversity: number;
-    repetitionScore: number;
-    predictability: number;
-    writingRhythm: number;
-  },
-  config: ModeConfig
-): number {
-  // Invert human-like metrics for AI probability
-  const perplexityScore = (100 - metrics.perplexity) * config.perplexityWeight;
-  const burstinessScore = (100 - metrics.burstiness) * config.burstinessWeight;
-  const consistencyScore = metrics.sentenceConsistency * config.structureWeight;
-  const vocabScore = (100 - metrics.vocabularyDiversity) * config.vocabularyWeight;
-  const repetitionScore = 100 - metrics.repetitionScore;
-  const predictabilityScore = metrics.predictability;
-  const rhythmScore = 100 - metrics.writingRhythm;
-  
-  const totalWeight = config.perplexityWeight + config.burstinessWeight + 
-    config.vocabularyWeight + config.structureWeight + 1 + 1 + 1;
-  
-  const aiScore = (
-    perplexityScore + 
-    burstinessScore + 
-    consistencyScore + 
-    vocabScore + 
-    repetitionScore + 
-    predictabilityScore + 
-    rhythmScore
-  ) / totalWeight;
-  
-  return Math.max(0, Math.min(100, aiScore));
-}
-
-/**
- * Calculate confidence score
- */
-function calculateConfidenceScore(metrics: {
-  perplexity: number;
-  burstiness: number;
-  vocabularyDiversity: number;
-  predictability: number;
-}): number {
-  // Higher variance in metrics = more confident detection
-  const values = Object.values(metrics);
-  const mean = values.reduce((a, b) => a + b, 0) / values.length;
-  const variance = values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
-  
-  // Also consider extreme values (high or low) increase confidence
-  const extremes = values.filter(v => v < 20 || v > 80).length;
-  
-  return Math.min(100, 50 + variance * 0.3 + extremes * 10);
-}
-
-/**
- * Get reliability level string
- */
-function getReliabilityLevel(confidence: number): string {
-  if (confidence >= 80) return 'Very High';
-  if (confidence >= 65) return 'High';
-  if (confidence >= 50) return 'Moderate';
-  if (confidence >= 35) return 'Low';
-  return 'Very Low';
-}
-
-/**
- * Analyze individual sentences
- */
-function analyzeSentences(sentences: string[], mode: DetectionMode): SentenceAnalysis[] {
-  return sentences.map(sentence => {
-    const lowerSentence = sentence.toLowerCase();
-    const issues: string[] = [];
-    let aiProb = 30; // Base probability
-    
-    // Check for AI-typical phrases
-    AI_TYPICAL_PHRASES.forEach(phrase => {
-      if (lowerSentence.includes(phrase)) {
-        aiProb += 15;
-        issues.push(`Contains AI-typical phrase: "${phrase}"`);
-      }
-    });
-    
-    // Check for generic phrases
-    GENERIC_PHRASES.forEach(phrase => {
-      if (lowerSentence.includes(phrase)) {
-        aiProb += 10;
-        issues.push(`Contains generic phrase: "${phrase}"`);
-      }
-    });
-    
-    // Check for predictable structure
-    const firstWords = lowerSentence.split(/\s+/).slice(0, 3).join(' ');
-    if (['it is important', 'it is crucial', 'it is essential', 'it should be', 'it can be'].some(
-      start => firstWords.startsWith(start)
-    )) {
-      aiProb += 12;
-      issues.push('Predictable sentence structure');
-    }
-    
-    // Check for overuse of adjectives/adverbs
-    const intensifiers = ['very', 'really', 'extremely', 'highly', 'incredibly', 'remarkably', 'exceptionally'];
-    const intensifierCount = intensifiers.filter(i => lowerSentence.includes(i)).length;
-    if (intensifierCount > 1) {
-      aiProb += intensifierCount * 8;
-      issues.push('Overuse of intensifying words');
-    }
-    
-    // Check for passive voice (AI tends to use more passive)
-    if (/\b(is|are|was|were|be|been|being)\s+\w+ed\b/i.test(sentence)) {
-      aiProb += 5;
-      issues.push('Uses passive voice');
-    }
-    
-    // Check for repetition within sentence
-    const words = lowerSentence.split(/\s+/);
-    const uniqueWords = new Set(words);
-    if (words.length > 5 && uniqueWords.size / words.length < 0.7) {
-      aiProb += 10;
-      issues.push('High word repetition within sentence');
-    }
-    
-    // Determine sentence type
-    let type: SentenceAnalysis['type'] = 'normal';
-    if (aiProb > 70) type = 'ai-typical';
-    else if (issues.some(i => i.includes('repetition'))) type = 'repetitive';
-    else if (issues.some(i => i.includes('generic'))) type = 'generic';
-    
-    return {
-      sentence,
-      aiProbability: Math.min(100, aiProb),
-      issues,
-      type,
-    };
-  });
-}
-
-/**
- * Generate recommendations based on analysis
- */
-function generateRecommendations(
-  metrics: AnalysisResult['metrics'],
-  sentenceAnalysis: SentenceAnalysis[]
-): string[] {
-  const recommendations: string[] = [];
-  
-  if (metrics.perplexity < 40) {
-    recommendations.push('Add more unique phrases and unexpected word choices to increase text unpredictability.');
-  }
-  
-  if (metrics.burstiness < 40) {
-    recommendations.push('Vary your sentence structure more. Mix short, punchy sentences with longer, complex ones.');
-  }
-  
-  if (metrics.vocabularyDiversity < 40) {
-    recommendations.push('Expand your vocabulary. Use more specific, descriptive words instead of generic terms.');
-  }
-  
-  if (metrics.repetitionScore < 50) {
-    recommendations.push('Reduce repetition. Use synonyms and rephrase repeated concepts differently.');
-  }
-  
-  if (metrics.predictability > 60) {
-    recommendations.push('Avoid predictable transitions and cliché phrases. Use more natural, conversational language.');
-  }
-  
-  if (metrics.writingRhythm < 40) {
-    recommendations.push('Add rhythm breaks. Include questions, exclamations, or varied sentence structures.');
-  }
-  
-  // Count problematic sentences
-  const aiTypicalSentences = sentenceAnalysis.filter(s => s.type === 'ai-typical').length;
-  if (aiTypicalSentences > 0) {
-    recommendations.push(`Review ${aiTypicalSentences} sentence(s) flagged as AI-typical. Consider rephrasing with more personal voice.`);
-  }
-  
-  return recommendations;
-}
-
-/**
- * Detect SEO-specific issues
- */
 function detectSEOIssues(text: string, sentences: string[], words: string[]): SEOIssue[] {
   const issues: SEOIssue[] = [];
   const lowerText = text.toLowerCase();
@@ -819,7 +487,7 @@ function detectSEOIssues(text: string, sentences: string[], words: string[]): SE
       description: `Potential keyword stuffing detected for: ${stuffedKeywords.join(', ')}`,
       severity: stuffedKeywords.length > 3 ? 'high' : 'medium',
       suggestions: [
-        'Reduce keyword density to under 2-3%',
+        'Keep any single keyword under about 2 to 3 percent of the text',
         'Use natural synonyms and variations',
         'Focus on contextual relevance over repetition',
       ],
@@ -845,7 +513,7 @@ function detectSEOIssues(text: string, sentences: string[], words: string[]): SE
   if (roboticPatterns.length > 3) {
     issues.push({
       type: 'Robotic Writing',
-      description: `${roboticPatterns.length} AI-typical phrases detected that may affect EEAT signals`,
+      description: `${roboticPatterns.length} stock AI phrases found that can weaken trust signals`,
       severity: roboticPatterns.length > 6 ? 'high' : 'medium',
       suggestions: [
         'Replace generic phrases with specific, personal insights',
@@ -866,7 +534,7 @@ function detectSEOIssues(text: string, sentences: string[], words: string[]): SE
   if (personalPronouns < 3 && !hasExperience && !hasCredentials) {
     issues.push({
       type: 'Low EEAT Signals',
-      description: 'Content lacks personal experience or expertise indicators',
+      description: 'No sign of personal experience or expertise',
       severity: 'medium',
       suggestions: [
         'Add personal insights or experiences',
@@ -896,7 +564,7 @@ function detectSEOIssues(text: string, sentences: string[], words: string[]): SE
   if (seoKeywordPatterns.length > 3) {
     issues.push({
       type: 'Unnatural SEO Optimization',
-      description: 'Content appears over-optimized for SEO keywords',
+      description: 'Content reads as overoptimized for SEO keywords',
       severity: 'medium',
       suggestions: [
         'Write naturally for readers first',
@@ -922,31 +590,4 @@ function detectSEOIssues(text: string, sentences: string[], words: string[]): SE
   }
   
   return issues;
-}
-
-/**
- * Batch analysis for multiple texts
- */
-export function analyzeBatch(
-  texts: string[],
-  mode: DetectionMode = 'blog'
-): AnalysisResult[] {
-  return texts.map(text => analyzeContent(text, mode));
-}
-
-/**
- * Get detection mode configuration
- */
-export function getModeConfig(mode: DetectionMode): ModeConfig {
-  return MODE_CONFIGS[mode];
-}
-
-/**
- * Get all available modes
- */
-export function getAvailableModes(): { id: DetectionMode; name: string }[] {
-  return Object.entries(MODE_CONFIGS).map(([id, config]) => ({
-    id: id as DetectionMode,
-    name: config.name,
-  }));
 }
