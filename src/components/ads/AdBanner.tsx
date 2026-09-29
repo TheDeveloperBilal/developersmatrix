@@ -27,9 +27,13 @@ export function AdSenseAd({ slot, className, style }: AdSenseProps) {
 
   return (
     <div ref={adRef} className={cn('ad-wrapper', className)} style={style}>
+      {/* width 100% matters. The wrapper is a centred flex row, and a flex
+          child with no width shrinks to its content, which for an empty <ins>
+          is 0px. AdSense cannot size an ad for a 0px slot, so it marks the
+          slot done and never requests an ad. Every manual unit was doing this. */}
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'block', width: '100%' }}
         data-ad-client="ca-pub-2091805600804724"
         data-ad-slot={slot}
         data-ad-format="auto"
