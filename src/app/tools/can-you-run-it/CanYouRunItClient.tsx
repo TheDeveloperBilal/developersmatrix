@@ -1,482 +1,790 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Skeleton } from '@/components/ui/skeleton';
-import { 
-  Gamepad2, 
-  Cpu, 
-  HardDrive, 
-  Monitor, 
-  CheckCircle, 
-  XCircle,
-  AlertTriangle,
-  Search,
-  ArrowUpRight,
-  Zap,
-  Loader2,
-  Info,
-  TrendingUp,
-  Gauge,
-  MonitorPlay
-} from 'lucide-react';
-import { gamesDatabase, Game } from '@/data/games-database';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  ChevronDown,
+  Cpu,
+  HardDrive,
+  Loader2,
+  MemoryStick,
+  MonitorPlay,
+  Search,
+  TriangleAlert,
+  X,
+} from 'lucide-react';
+import { gamesDatabase, type Game } from '@/data/games-database';
+import { matchHardware, suggestHardware, type HardwareItem, type HardwareKind } from '@/lib/hardware/catalogue';
 
-interface UserSpecs {
-  cpu: string;
-  gpu: string;
-  ram: number;
-  storage: number;
-}
+type Status = 'excellent' | 'good' | 'pass' | 'fail';
 
-interface PerformanceResult {
-  cpu: 'excellent' | 'good' | 'pass' | 'fail';
-  gpu: 'excellent' | 'good' | 'pass' | 'fail';
-  ram: 'excellent' | 'good' | 'pass' | 'fail';
-  storage: 'excellent' | 'good' | 'pass' | 'fail';
-  score: number;
-  settings: string;
-  fps_estimate: string;
-}
-
-interface CompatibilityResult {
+interface CheckResult {
   game: { id: string; name: string };
+  matched: { cpu: string; gpu: string };
   canRun: boolean;
-  performance: PerformanceResult;
-  upgrades: string[];
-  requirements: {
-    minimum: Game['minimumRequirements'];
-    recommended: Game['recommendedRequirements'];
+  performance: {
+    cpu: Status;
+    gpu: Status;
+    ram: Status;
+    storage: Status;
+    score: number;
+    settings: string;
+    fps_estimate: string;
   };
+  compared: {
+    cpu: { yours: string; required: string };
+    gpu: { yours: string; required: string };
+    ram: { yours: number; required: number };
+    storage: { yours: number; required: number };
+  };
+  upgrades: string[];
+  note: string | null;
 }
 
-export default function CanYouRunItClient() {
-  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
-  const [userSpecs, setUserSpecs] = useState<UserSpecs>({
-    cpu: '',
-    gpu: '',
-    ram: 16,
-    storage: 500
-  });
-  const [result, setResult] = useState<CompatibilityResult | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showForm, setShowForm] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [showTrendingOnly, setShowTrendingOnly] = useState(false);
+/* ------------------------------------------------------------------ */
+/* Shared surface styles. One glass recipe, used everywhere, so the    */
+/* tool reads as one object rather than a stack of unrelated cards.    */
+/* ------------------------------------------------------------------ */
 
-  const filteredGames = gamesDatabase.filter(game => {
-    // Titles whose publisher has not released PC specs cannot be checked against
-    // real hardware, so they stay out of the picker rather than returning a score
-    // built on nothing.
-    if (game.requirementsStatus === 'unannounced') return false;
-    const matchesSearch = game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      game.genre.some(g => g.toLowerCase().includes(searchQuery.toLowerCase()));
-    const matchesTrending = showTrendingOnly ? game.trending : true;
-    return matchesSearch && matchesTrending;
-  }).sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+const glass =
+  'rounded-3xl border border-white/70 bg-white/60 backdrop-blur-2xl ' +
+  'shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_30px_80px_-40px_rgba(15,23,42,0.45)] ' +
+  'dark:border-white/[0.08] dark:bg-slate-900/40 ' +
+  'dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_30px_80px_-40px_rgba(0,0,0,0.9)]';
 
-  const checkCompatibility = async () => {
-    if (!selectedGame) return;
-    if (!userSpecs.cpu.trim() || !userSpecs.gpu.trim()) {
-      setError('Please enter your CPU and GPU specifications');
-      return;
-    }
-    
-    setIsLoading(true);
-    setError('');
-    
-    try {
-      const response = await fetch('/api/system-check', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          gameId: selectedGame.id,
-          userSpecs
-        })
-      });
+const inset =
+  'rounded-2xl border border-slate-900/[0.06] bg-white/70 ' +
+  'dark:border-white/[0.06] dark:bg-white/[0.03]';
 
-      if (!response.ok) {
-        throw new Error('Failed to check compatibility');
-      }
+const eyebrow = 'text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400';
 
-      const data = await response.json();
-      setResult(data);
-    } catch (err) {
-      setError('Failed to check compatibility. Please try again.');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const STATUS_META: Record<Status, { label: string; dot: string; text: string; ring: string }> = {
+  excellent: {
+    label: 'Well above',
+    dot: 'bg-emerald-500',
+    text: 'text-emerald-700 dark:text-emerald-300',
+    ring: 'ring-emerald-500/25 bg-emerald-500/[0.08]',
+  },
+  good: {
+    label: 'Above',
+    dot: 'bg-emerald-400',
+    text: 'text-emerald-700 dark:text-emerald-300',
+    ring: 'ring-emerald-500/20 bg-emerald-500/[0.06]',
+  },
+  pass: {
+    label: 'Just meets',
+    dot: 'bg-amber-500',
+    text: 'text-amber-700 dark:text-amber-300',
+    ring: 'ring-amber-500/25 bg-amber-500/[0.08]',
+  },
+  fail: {
+    label: 'Below minimum',
+    dot: 'bg-rose-500',
+    text: 'text-rose-700 dark:text-rose-300',
+    ring: 'ring-rose-500/25 bg-rose-500/[0.08]',
+  },
+};
 
-  const getStatusIcon = (status: 'excellent' | 'good' | 'pass' | 'fail') => {
-    switch (status) {
-      case 'excellent':
-        return <Zap className="w-5 h-5 text-green-500" />;
-      case 'good':
-        return <CheckCircle className="w-5 h-5 text-green-400" />;
-      case 'pass':
-        return <CheckCircle className="w-5 h-5 text-yellow-500" />;
-      case 'fail':
-        return <XCircle className="w-5 h-5 text-red-500" />;
-    }
-  };
+function monogram(name: string) {
+  const words = name.replace(/[^A-Za-z0-9 ]/g, ' ').split(/\s+/).filter(Boolean);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + (words[1]?.[0] ?? '')).toUpperCase();
+}
 
-  const getStatusBadge = (status: 'excellent' | 'good' | 'pass' | 'fail') => {
-    switch (status) {
-      case 'excellent':
-        return <Badge className="bg-green-500">Excellent</Badge>;
-      case 'good':
-        return <Badge className="bg-green-400">Good</Badge>;
-      case 'pass':
-        return <Badge className="bg-yellow-500">Playable</Badge>;
-      case 'fail':
-        return <Badge className="bg-red-500">Below Min</Badge>;
-    }
-  };
+function yearOf(date: string) {
+  const m = date.match(/\d{4}/);
+  return m ? m[0] : date;
+}
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-500';
-    if (score >= 60) return 'text-yellow-500';
-    return 'text-red-500';
+/* ------------------------------------------------------------------ */
+/* Hardware picker: a combobox limited to the hardware catalogue, so   */
+/* the checker can only ever score parts it actually knows.            */
+/* ------------------------------------------------------------------ */
+
+function HardwarePicker({
+  kind,
+  label,
+  icon,
+  value,
+  onChange,
+  serverError,
+}: {
+  kind: HardwareKind;
+  label: string;
+  icon: React.ReactNode;
+  value: string;
+  onChange: (value: string) => void;
+  serverError?: string;
+}) {
+  const id = useId();
+  const listId = `${id}-list`;
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const [touched, setTouched] = useState(false);
+
+  const matched = useMemo(() => matchHardware(value, kind), [value, kind]);
+  const options = useMemo(() => suggestHardware(value, kind, 8), [value, kind]);
+  const showList = open && value.trim().length > 0 && options.length > 0 && matched?.name !== value;
+  const invalid = touched && value.trim().length > 0 && !matched;
+
+  const choose = (item: HardwareItem) => {
+    onChange(item.name);
+    setOpen(false);
+    setTouched(true);
   };
 
   return (
-    <TooltipProvider>
-      <Card>
-        <CardHeader className="border-b">
-          <CardTitle className="flex items-center gap-2">
-            <Gamepad2 className="w-5 h-5" />
-            Can You Run It? - System Requirements Checker
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className={selectedGame ? "grid grid-cols-1 lg:grid-cols-3 gap-8" : "grid grid-cols-1 gap-8"}>
-            {/* Game Selection */}
-            <div className="space-y-6 lg:col-span-1">
-              <div className="space-y-4">
-                <Label className="text-base font-semibold">Select a Game</Label>
-                
-                {/* Search and Filter */}
-                <div className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search games..."
-                      className="pl-10"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                  <Button
-                    variant={showTrendingOnly ? "default" : "outline"}
-                    size="icon"
-                    onClick={() => setShowTrendingOnly(!showTrendingOnly)}
-                    className={showTrendingOnly ? "bg-orange-500 hover:bg-orange-600" : ""}
-                  >
-                    <TrendingUp className="w-4 h-4" />
-                  </Button>
-                </div>
-                
-                {/* Games Grid */}
-                <div className={selectedGame
-                  ? "grid grid-cols-1 gap-2.5 max-h-[30rem] overflow-y-auto pr-1"
-                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"}>
-                  {filteredGames.map(game => (
-                    <button
-                      key={game.id}
-                      onClick={() => {
-                        setSelectedGame(game);
-                        setResult(null);
-                        setShowForm(true);
-                      }}
-                      className={`group relative flex flex-col rounded-xl border p-4 text-left transition-all hover:border-purple-400 hover:shadow-sm ${
-                        selectedGame?.id === game.id
-                          ? 'border-purple-500 bg-purple-50 dark:bg-purple-500/10 ring-1 ring-purple-500/30'
-                          : 'border-border bg-card'
-                      }`}
-                    >
-                      {game.trending && (
-                        <span className="absolute top-3 right-3 rounded-full bg-orange-500 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-white">
-                          Hot
-                        </span>
-                      )}
+    <div className="relative">
+      <label htmlFor={id} className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-800 dark:text-slate-200">
+        <span className="text-slate-400 dark:text-slate-500" aria-hidden="true">{icon}</span>
+        {label}
+      </label>
+      <div
+        className={[
+          'flex items-center rounded-xl border bg-white/80 px-3.5 transition-colors dark:bg-slate-950/40',
+          invalid || serverError
+            ? 'border-rose-400/70 ring-4 ring-rose-500/10'
+            : matched
+            ? 'border-emerald-500/40'
+            : 'border-slate-900/10 focus-within:border-slate-900/30 focus-within:ring-4 focus-within:ring-slate-900/5 dark:border-white/10 dark:focus-within:border-white/25 dark:focus-within:ring-white/5',
+        ].join(' ')}
+      >
+        <input
+          id={id}
+          role="combobox"
+          aria-expanded={showList}
+          aria-controls={listId}
+          aria-autocomplete="list"
+          aria-invalid={invalid || !!serverError}
+          autoComplete="off"
+          spellCheck={false}
+          placeholder={kind === 'cpu' ? 'Start typing, e.g. Ryzen 5 5600X' : 'Start typing, e.g. RTX 3060'}
+          value={value}
+          onChange={(e) => {
+            onChange(e.target.value);
+            setOpen(true);
+            setActive(0);
+          }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => {
+            setTouched(true);
+            // Delay so a click on an option registers before the list closes.
+            setTimeout(() => setOpen(false), 120);
+          }}
+          onKeyDown={(e) => {
+            if (!showList) return;
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              setActive((a) => Math.min(a + 1, options.length - 1));
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              setActive((a) => Math.max(a - 1, 0));
+            } else if (e.key === 'Enter') {
+              e.preventDefault();
+              choose(options[active]);
+            } else if (e.key === 'Escape') {
+              setOpen(false);
+            }
+          }}
+          className="h-12 w-full bg-transparent font-mono text-[13.5px] text-slate-900 outline-none placeholder:font-sans placeholder:text-slate-400 dark:text-slate-100 dark:placeholder:text-slate-500"
+        />
+        {matched && (
+          <Check className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" aria-label="Recognised" />
+        )}
+        {value && !matched && (
+          <button
+            type="button"
+            onClick={() => onChange('')}
+            className="rounded-md p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+            aria-label={`Clear ${label}`}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
 
-                      <div className="flex items-start gap-3">
-                        <span
-                          aria-hidden="true"
-                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-sm font-bold text-purple-700 dark:bg-purple-500/20 dark:text-purple-300"
-                        >
-                          {game.name.replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase()}
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <p className="pr-8 font-semibold leading-snug text-foreground group-hover:text-purple-700 dark:group-hover:text-purple-300">
-                            {game.name}
-                          </p>
-                          <p className="mt-0.5 text-xs text-muted-foreground truncate">
-                            {game.genre[0]} · {game.releaseDate}
-                          </p>
-                          <p className="mt-1.5 text-xs font-medium text-foreground">
-                            {game.price}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
+      {showList && (
+        <ul
+          id={listId}
+          role="listbox"
+          className="absolute z-30 mt-2 max-h-72 w-full overflow-auto rounded-2xl border border-slate-900/10 bg-white/95 p-1.5 shadow-[0_24px_60px_-20px_rgba(15,23,42,0.35)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/95"
+        >
+          {options.map((item, i) => (
+            <li
+              key={item.name}
+              role="option"
+              aria-selected={i === active}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => choose(item)}
+              onMouseEnter={() => setActive(i)}
+              className={[
+                'flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm',
+                i === active ? 'bg-slate-900/[0.05] dark:bg-white/[0.06]' : '',
+              ].join(' ')}
+            >
+              <span className="font-mono text-[13px] text-slate-900 dark:text-slate-100">{item.name}</span>
+              {item.integrated && (
+                <span className="shrink-0 text-[11px] text-slate-500 dark:text-slate-400">Integrated</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <p className="mt-1.5 min-h-[1.25rem] text-xs" aria-live="polite">
+        {serverError ? (
+          <span className="text-rose-600 dark:text-rose-400">{serverError}</span>
+        ) : invalid ? (
+          <span className="text-rose-600 dark:text-rose-400">
+            Not recognised. Pick your exact model from the list.
+          </span>
+        ) : matched && matched.name !== value ? (
+          <span className="text-slate-500 dark:text-slate-400">
+            Matched to <span className="font-mono text-slate-700 dark:text-slate-300">{matched.name}</span>
+          </span>
+        ) : null}
+      </p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Score ring                                                          */
+/* ------------------------------------------------------------------ */
+
+function ScoreRing({ score, tone }: { score: number; tone: 'good' | 'warn' | 'bad' }) {
+  const r = 52;
+  const c = 2 * Math.PI * r;
+  const pct = Math.max(0, Math.min(100, score)) / 100;
+  const stroke = tone === 'good' ? '#10b981' : tone === 'warn' ? '#f59e0b' : '#f43f5e';
+  return (
+    <div className="relative h-32 w-32 shrink-0">
+      <svg viewBox="0 0 128 128" className="h-full w-full -rotate-90" aria-hidden="true">
+        <circle cx="64" cy="64" r={r} fill="none" strokeWidth="10" className="stroke-slate-900/[0.07] dark:stroke-white/[0.08]" />
+        <circle
+          cx="64"
+          cy="64"
+          r={r}
+          fill="none"
+          stroke={stroke}
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeDasharray={`${c * pct} ${c}`}
+          className="transition-[stroke-dasharray] duration-700 ease-out"
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-3xl font-semibold tabular-nums tracking-tight text-slate-900 dark:text-white">{score}</span>
+        <span className="text-[11px] text-slate-500 dark:text-slate-400">out of 100</span>
+      </div>
+    </div>
+  );
+}
+
+function StatusPill({ status }: { status: Status }) {
+  const m = STATUS_META[status];
+  return (
+    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${m.ring} ${m.text}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${m.dot}`} aria-hidden="true" />
+      {m.label}
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Main component                                                      */
+/* ------------------------------------------------------------------ */
+
+type Filter = 'all' | 'popular' | 'new';
+
+export default function CanYouRunItClient() {
+  const [selected, setSelected] = useState<Game | null>(null);
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState<Filter>('all');
+  const [cpu, setCpu] = useState('');
+  const [gpu, setGpu] = useState('');
+  const [ram, setRam] = useState(16);
+  const [storage, setStorage] = useState(500);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<CheckResult | null>(null);
+  const [error, setError] = useState<{ field?: string; message: string; suggestions?: string[] } | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+
+  const games = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return gamesDatabase
+      .filter((g) => {
+        if (q && !g.name.toLowerCase().includes(q) && !(g.searchName || '').toLowerCase().includes(q) && !g.genre.some((x) => x.toLowerCase().includes(q))) return false;
+        if (filter === 'popular') return (g.popularity ?? 0) >= 90;
+        if (filter === 'new') return /2025|2026/.test(g.releaseDate);
+        return true;
+      })
+      .sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0));
+  }, [query, filter]);
+
+  const cpuMatch = matchHardware(cpu, 'cpu');
+  const gpuMatch = matchHardware(gpu, 'gpu');
+  const unannounced = selected?.requirementsStatus === 'unannounced';
+  const ready = !!selected && !unannounced && !!cpuMatch && !!gpuMatch && ram > 0 && !loading;
+
+  useEffect(() => {
+    if (result && resultRef.current && window.innerWidth < 1024) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [result]);
+
+  const pick = (game: Game) => {
+    setSelected(game);
+    setResult(null);
+    setError(null);
+    // On phones the form sits under a long list, so bring it into view.
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      requestAnimationFrame(() => panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
+  };
+
+  const check = async () => {
+    if (!selected) return;
+    if (!cpuMatch || !gpuMatch) {
+      setError({ message: 'Pick your processor and graphics card from the lists so we can score them.' });
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/system-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameId: selected.id, userSpecs: { cpu: cpuMatch.name, gpu: gpuMatch.name, ram, storage } }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResult(null);
+        setError({ field: data.field, message: data.error || 'Something went wrong. Try again.', suggestions: data.suggestions });
+        return;
+      }
+      setResult(data as CheckResult);
+    } catch {
+      setError({ message: 'Could not reach the checker. Check your connection and try again.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const tone = result ? (!result.canRun ? 'bad' : result.performance.score >= 80 ? 'good' : 'warn') : 'good';
+
+  return (
+    <div className={`${glass} p-2 sm:p-3`}>
+      <div className="grid gap-2 sm:gap-3 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
+        {/* ---------------- Game list ---------------- */}
+        <section aria-labelledby="pick-game" className={`${inset} flex flex-col p-4 sm:p-5`}>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 id="pick-game" className="text-[15px] font-semibold text-slate-900 dark:text-white">
+              <span className="mr-2 font-mono text-slate-400">01</span>Choose a game
+            </h2>
+            <span className="text-xs tabular-nums text-slate-500 dark:text-slate-400">{games.length} titles</span>
+          </div>
+
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search games"
+              aria-label="Search games"
+              className="h-11 w-full rounded-xl border border-slate-900/10 bg-white/80 pl-10 pr-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-900/30 focus:ring-4 focus:ring-slate-900/5 dark:border-white/10 dark:bg-slate-950/40 dark:text-slate-100 dark:focus:border-white/25"
+            />
+          </div>
+
+          <div role="tablist" aria-label="Filter games" className="mt-3 grid grid-cols-3 gap-1 rounded-xl bg-slate-900/[0.04] p-1 dark:bg-white/[0.04]">
+            {(['all', 'popular', 'new'] as Filter[]).map((f) => (
+              <button
+                key={f}
+                role="tab"
+                aria-selected={filter === f}
+                onClick={() => setFilter(f)}
+                className={[
+                  'rounded-lg py-1.5 text-xs font-medium transition-colors',
+                  filter === f
+                    ? 'bg-white text-slate-900 shadow-sm dark:bg-white/10 dark:text-white'
+                    : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200',
+                ].join(' ')}
+              >
+                {f === 'all' ? 'All' : f === 'popular' ? 'Popular' : 'Since 2025'}
+              </button>
+            ))}
+          </div>
+
+          <ul
+            className="mt-3 -mx-1 max-h-[26rem] flex-1 space-y-1 overflow-y-auto px-1 [mask-image:linear-gradient(to_bottom,black_calc(100%-2rem),transparent)] lg:max-h-[34rem]"
+            aria-label="Games"
+          >
+            {games.length === 0 && (
+              <li className="px-2 py-8 text-center text-sm text-slate-500">No game matches that search.</li>
+            )}
+            {games.map((g) => {
+              const active = selected?.id === g.id;
+              const noSpecs = g.requirementsStatus === 'unannounced';
+              return (
+                <li key={g.id}>
+                  <button
+                    type="button"
+                    onClick={() => pick(g)}
+                    aria-pressed={active}
+                    className={[
+                      'group flex w-full items-center gap-3 rounded-xl px-2.5 py-2.5 text-left transition-colors',
+                      active
+                        ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                        : 'hover:bg-slate-900/[0.04] dark:hover:bg-white/[0.04]',
+                    ].join(' ')}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={[
+                        'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[12px] font-semibold tracking-wide',
+                        active
+                          ? 'bg-white/15 text-white dark:bg-slate-900/10 dark:text-slate-900'
+                          : 'border border-slate-900/[0.06] bg-gradient-to-b from-white to-slate-100 text-slate-600 dark:border-white/[0.06] dark:from-white/[0.08] dark:to-white/[0.02] dark:text-slate-300',
+                      ].join(' ')}
+                    >
+                      {monogram(g.searchName || g.name)}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-medium">{g.name}</span>
+                      <span className={`block truncate text-xs ${active ? 'text-white/65 dark:text-slate-900/60' : 'text-slate-500 dark:text-slate-400'}`}>
+                        {g.genre[0]} · {yearOf(g.releaseDate)}
+                      </span>
+                    </span>
+                    {noSpecs ? (
+                      <span className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${active ? 'bg-white/15' : 'bg-amber-500/10 text-amber-700 dark:text-amber-300'}`}>
+                        No PC specs
+                      </span>
+                    ) : null}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        {/* ---------------- Right side ---------------- */}
+        <section ref={panelRef} aria-live="polite" className={`${inset} scroll-mt-24 p-4 sm:p-6`}>
+          {!selected && <EmptyState />}
+
+          {selected && unannounced && (
+            <UnannouncedPanel
+              game={selected}
+              onPickAlternative={() => {
+                const alt = gamesDatabase.find((g) => g.id === 'gta-5');
+                if (alt) pick(alt);
+              }}
+            />
+          )}
+
+          {selected && !unannounced && (
+            <div>
+              {/* Game header */}
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className={eyebrow}>
+                    <span className="mr-2 font-mono">02</span>Your hardware for
+                  </p>
+                  <h3 className="mt-1 text-xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-2xl">
+                    {selected.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                    {selected.developer} · {selected.releaseDate}
+                  </p>
+                </div>
+                <a
+                  href={`/tools/can-you-run-it/${selected.id}`}
+                  className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium text-slate-700 underline-offset-4 hover:underline dark:text-slate-300"
+                >
+                  Full requirements <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </a>
+              </div>
+
+              {/* Minimum spec strip */}
+              <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-slate-900/[0.06] bg-slate-900/[0.06] text-xs dark:border-white/[0.06] dark:bg-white/[0.06] md:grid-cols-4">
+                {[
+                  ['Processor', selected.minimumRequirements.processor],
+                  ['Graphics', selected.minimumRequirements.graphics],
+                  ['Memory', selected.minimumRequirements.memory],
+                  ['Storage', selected.minimumRequirements.storage],
+                ].map(([k, v]) => (
+                  <div key={k} className="bg-white/80 p-3 dark:bg-slate-950/50">
+                    <dt className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-slate-400">Min {k}</dt>
+                    <dd className="mt-1 line-clamp-2 text-slate-700 dark:text-slate-300">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              {/* Form */}
+              <div className="mt-6 grid gap-x-5 gap-y-2 md:grid-cols-2">
+                <HardwarePicker
+                  kind="cpu"
+                  label="Processor"
+                  icon={<Cpu className="h-4 w-4" />}
+                  value={cpu}
+                  onChange={(v) => {
+                    setCpu(v);
+                    if (error?.field === 'cpu') setError(null);
+                  }}
+                  serverError={error?.field === 'cpu' ? error.message : undefined}
+                />
+                <HardwarePicker
+                  kind="gpu"
+                  label="Graphics card"
+                  icon={<MonitorPlay className="h-4 w-4" />}
+                  value={gpu}
+                  onChange={(v) => {
+                    setGpu(v);
+                    if (error?.field === 'gpu') setError(null);
+                  }}
+                  serverError={error?.field === 'gpu' ? error.message : undefined}
+                />
+
+                <div>
+                  <p className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-800 dark:text-slate-200">
+                    <MemoryStick className="h-4 w-4 text-slate-400 dark:text-slate-500" aria-hidden="true" />
+                    Memory
+                  </p>
+                  <div className="grid grid-cols-4 gap-1 rounded-xl bg-slate-900/[0.04] p-1 dark:bg-white/[0.04]" role="radiogroup" aria-label="Memory in GB">
+                    {[8, 16, 32, 64].map((v) => (
+                      <button
+                        key={v}
+                        type="button"
+                        role="radio"
+                        aria-checked={ram === v}
+                        onClick={() => setRam(v)}
+                        className={[
+                          'h-10 rounded-lg text-sm font-medium tabular-nums transition-colors',
+                          ram === v
+                            ? 'bg-white text-slate-900 shadow-sm dark:bg-white/10 dark:text-white'
+                            : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200',
+                        ].join(' ')}
+                      >
+                        {v} GB
+                      </button>
+                    ))}
+                  </div>
+                  <label className="mt-2 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    Other amount
+                    <input
+                      type="number"
+                      min={1}
+                      max={512}
+                      value={ram}
+                      onChange={(e) => setRam(Math.max(0, parseInt(e.target.value, 10) || 0))}
+                      className="h-8 w-20 rounded-lg border border-slate-900/10 bg-white/80 px-2 text-right tabular-nums text-slate-900 outline-none focus:border-slate-900/30 dark:border-white/10 dark:bg-slate-950/40 dark:text-slate-100"
+                    />
+                    GB
+                  </label>
+                </div>
+
+                <div>
+                  <label htmlFor="free-storage" className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-800 dark:text-slate-200">
+                    <HardDrive className="h-4 w-4 text-slate-400 dark:text-slate-500" aria-hidden="true" />
+                    Free storage
+                  </label>
+                  <div className="flex h-12 items-center rounded-xl border border-slate-900/10 bg-white/80 px-3.5 focus-within:border-slate-900/30 focus-within:ring-4 focus-within:ring-slate-900/5 dark:border-white/10 dark:bg-slate-950/40">
+                    <input
+                      id="free-storage"
+                      type="number"
+                      min={0}
+                      value={storage}
+                      onChange={(e) => setStorage(Math.max(0, parseInt(e.target.value, 10) || 0))}
+                      className="w-full bg-transparent text-sm tabular-nums text-slate-900 outline-none dark:text-slate-100"
+                    />
+                    <span className="text-sm text-slate-400">GB</span>
+                  </div>
+                  <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">Space left on the drive you will install to.</p>
                 </div>
               </div>
 
-              {/* Selected Game Info */}
-              {selectedGame && (
-                <Card className="bg-muted/30 overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-4">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{selectedGame.name}</h3>
-                        <p className="text-sm text-muted-foreground">{selectedGame.developer}</p>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          <Badge variant="outline">{selectedGame.price}</Badge>
-                          {selectedGame.genre.slice(0, 2).map(g => (
-                            <Badge key={g} variant="secondary">{g}</Badge>
-                          ))}
-                        </div>
-                        <a
-                          href={`/tools/can-you-run-it/${selectedGame.id}`}
-                          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-purple-700 hover:text-purple-800 dark:text-purple-300"
-                        >
-                          Full {selectedGame.name} requirements
-                          <span aria-hidden="true">&rarr;</span>
-                        </a>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4 p-3 bg-background rounded-lg">
-                      <p className="text-xs font-medium text-muted-foreground mb-2">Minimum Requirements</p>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div><span className="text-muted-foreground">CPU:</span> {selectedGame.minimumRequirements.processor}</div>
-                        <div><span className="text-muted-foreground">GPU:</span> {selectedGame.minimumRequirements.graphics}</div>
-                        <div><span className="text-muted-foreground">RAM:</span> {selectedGame.minimumRequirements.memory}</div>
-                        <div><span className="text-muted-foreground">Storage:</span> {selectedGame.minimumRequirements.storage}</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+              {error && !error.field && (
+                <p className="mt-4 flex items-start gap-2 rounded-xl bg-rose-500/[0.07] px-3.5 py-3 text-sm text-rose-700 ring-1 ring-rose-500/20 dark:text-rose-300">
+                  <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                  {error.message}
+                </p>
               )}
-            </div>
 
-            {/* User Specs Input & Results */}
-            <div className="space-y-6 lg:col-span-2">
-              {showForm && selectedGame ? (
-                <>
-                  <div className="space-y-4">
-                    <Label className="text-base font-semibold">Your PC Specifications</Label>
-                    
-                    <div className="space-y-3">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <Label className="flex items-center gap-2">
-                            <Cpu className="w-4 h-4" /> CPU (Processor)
-                          </Label>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Info className="w-3.5 h-3.5 text-muted-foreground cursor-help" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p className="max-w-[200px] text-xs">Enter your full CPU name, e.g., "Intel Core i5-12400" or "AMD Ryzen 5 5600X"</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </div>
-                        <Input
-                          placeholder="e.g., Intel Core i5-12400 or Ryzen 5 5600X"
-                          value={userSpecs.cpu}
-                          onChange={(e) => setUserSpecs({ ...userSpecs, cpu: e.target.value })}
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <Label className="flex items-center gap-2">
-                            <Monitor className="w-4 h-4" /> GPU (Graphics Card)
-                          </Label>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Info className="w-3.5 h-3.5 text-muted-foreground cursor-help" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p className="max-w-[200px] text-xs">Enter your GPU model, e.g., "NVIDIA RTX 3060" or "AMD RX 6700 XT"</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </div>
-                        <Input
-                          placeholder="e.g., NVIDIA RTX 3060 or AMD RX 6700 XT"
-                          value={userSpecs.gpu}
-                          onChange={(e) => setUserSpecs({ ...userSpecs, gpu: e.target.value })}
-                        />
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label className="flex items-center gap-2">
-                            <HardDrive className="w-4 h-4" /> RAM (GB)
-                          </Label>
-                          <Input
-                            type="number"
-                            placeholder="16"
-                            value={userSpecs.ram}
-                            onChange={(e) => setUserSpecs({ ...userSpecs, ram: parseInt(e.target.value) || 0 })}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Storage (GB)</Label>
-                          <Input
-                            type="number"
-                            placeholder="500"
-                            value={userSpecs.storage}
-                            onChange={(e) => setUserSpecs({ ...userSpecs, storage: parseInt(e.target.value) || 0 })}
-                          />
-                        </div>
-                      </div>
+              <div className="mt-6 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Not sure? Press <kbd className="rounded border border-slate-900/10 bg-white px-1 font-mono text-[11px] dark:border-white/10 dark:bg-white/5">Win</kbd> +{' '}
+                  <kbd className="rounded border border-slate-900/10 bg-white px-1 font-mono text-[11px] dark:border-white/10 dark:bg-white/5">R</kbd>, type{' '}
+                  <span className="font-mono">dxdiag</span>, press Enter.
+                </p>
+                <button
+                  type="button"
+                  onClick={check}
+                  disabled={!ready}
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_10px_30px_-12px_rgba(15,23,42,0.6)] transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Checking
+                    </>
+                  ) : (
+                    <>
+                      Check my PC <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Result */}
+              {result && (
+                <div ref={resultRef} className="mt-8 scroll-mt-24 border-t border-slate-900/[0.06] pt-7 dark:border-white/[0.06]">
+                  <p className={eyebrow}>
+                    <span className="mr-2 font-mono">03</span>Result
+                  </p>
+
+                  <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-center">
+                    <ScoreRing score={result.performance.score} tone={tone} />
+                    <div className="min-w-0">
+                      <h3 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
+                        {result.canRun
+                          ? result.performance.score >= 80
+                            ? 'Yes, comfortably'
+                            : 'Yes, with lower settings'
+                          : 'Not at minimum spec'}
+                      </h3>
+                      <p className="mt-1.5 text-sm text-slate-600 dark:text-slate-300">
+                        {result.canRun
+                          ? `Expect roughly ${result.performance.fps_estimate.toLowerCase()}. Suggested preset: ${result.performance.settings}.`
+                          : 'At least one part is below what the publisher lists as the minimum. The rows below show which one.'}
+                      </p>
+                      <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                        Estimate from relative hardware performance against the published minimum. Not a benchmark.
+                      </p>
                     </div>
-
-                    {error && (
-                      <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2 text-sm text-destructive">
-                        <AlertTriangle className="w-4 h-4 shrink-0" />
-                        {error}
-                      </div>
-                    )}
-                    
-                    <Button 
-                      onClick={checkCompatibility}
-                      disabled={!userSpecs.cpu || !userSpecs.gpu || isLoading}
-                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                    >
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Analyzing...
-                        </>
-                      ) : (
-                        <>
-                          <Search className="w-4 h-4 mr-2" />
-                          Check Compatibility
-                        </>
-                      )}
-                    </Button>
                   </div>
 
-                  {/* Results */}
-                  {result && (
-                    <Card className={`${result.canRun ? 'border-green-500/50' : 'border-red-500/50'}`}>
-                      <CardContent className="p-6">
-                        <div className="text-center mb-6">
-                          {result.canRun ? (
-                            <>
-                              <CheckCircle className="w-16 h-16 mx-auto text-green-500 mb-3" />
-                              <h3 className="text-xl font-bold text-green-500">Yes, You Can Run It!</h3>
-                              <p className="text-muted-foreground">
-                                {result.performance.settings}
-                              </p>
-                            </>
-                          ) : (
-                            <>
-                              <XCircle className="w-16 h-16 mx-auto text-red-500 mb-3" />
-                              <h3 className="text-xl font-bold text-red-500">PC Doesn't Meet Requirements</h3>
-                              <p className="text-muted-foreground">You may need to upgrade your hardware</p>
-                            </>
-                          )}
-                        </div>
-                        
-                        {/* Performance Metrics */}
-                        <div className="grid grid-cols-2 gap-3 mb-6">
-                          <div className="p-3 bg-muted/50 rounded-lg text-center">
-                            <Gauge className="w-5 h-5 mx-auto mb-1 text-purple-500" />
-                            <p className="text-xs text-muted-foreground">Performance</p>
-                            <p className="font-bold text-lg">{result.performance.score}/100</p>
-                          </div>
-                          <div className="p-3 bg-muted/50 rounded-lg text-center">
-                            <MonitorPlay className="w-5 h-5 mx-auto mb-1 text-blue-500" />
-                            <p className="text-xs text-muted-foreground">Expected FPS</p>
-                            <p className="font-medium text-sm">{result.performance.fps_estimate}</p>
-                          </div>
-                        </div>
-                        
-                        {/* Component Status */}
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                            <div className="flex items-center gap-3">
-                              {getStatusIcon(result.performance.cpu)}
-                              <span className="font-medium">CPU</span>
-                            </div>
-                            {getStatusBadge(result.performance.cpu)}
-                          </div>
-                          <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                            <div className="flex items-center gap-3">
-                              {getStatusIcon(result.performance.gpu)}
-                              <span className="font-medium">GPU</span>
-                            </div>
-                            {getStatusBadge(result.performance.gpu)}
-                          </div>
-                          <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                            <div className="flex items-center gap-3">
-                              {getStatusIcon(result.performance.ram)}
-                              <span className="font-medium">RAM</span>
-                            </div>
-                            {getStatusBadge(result.performance.ram)}
-                          </div>
-                          <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                            <div className="flex items-center gap-3">
-                              {getStatusIcon(result.performance.storage)}
-                              <span className="font-medium">Storage</span>
-                            </div>
-                            {getStatusBadge(result.performance.storage)}
-                          </div>
-                        </div>
-                        
-                        <div className="mt-6">
-                          <div className="flex justify-between text-sm mb-2">
-                            <span>Overall Compatibility</span>
-                            <span className={getScoreColor(result.performance.score)}>{result.performance.score}%</span>
-                          </div>
-                          <Progress value={result.performance.score} className="h-3" />
-                        </div>
-                        
-                        {/* Upgrade Suggestions */}
-                        {result.upgrades.length > 0 && (
-                          <div className="mt-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-                            <p className="font-medium text-sm mb-2 flex items-center gap-2">
-                              <ArrowUpRight className="w-4 h-4" /> Suggested Upgrades
-                            </p>
-                            <ul className="space-y-1">
-                              {result.upgrades.map((upgrade, index) => (
-                                <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
-                                  <span className="text-amber-500 mt-1">•</span>
-                                  {upgrade}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
+                  <div className="mt-6 divide-y divide-slate-900/[0.06] overflow-hidden rounded-2xl border border-slate-900/[0.06] dark:divide-white/[0.06] dark:border-white/[0.06]">
+                    {(
+                      [
+                        ['Graphics', result.performance.gpu, result.compared.gpu.yours, result.compared.gpu.required],
+                        ['Processor', result.performance.cpu, result.compared.cpu.yours, result.compared.cpu.required],
+                        ['Memory', result.performance.ram, `${result.compared.ram.yours} GB`, `${result.compared.ram.required} GB`],
+                        [
+                          'Storage',
+                          result.performance.storage,
+                          `${result.compared.storage.yours} GB free`,
+                          result.compared.storage.required ? `${result.compared.storage.required} GB` : 'Not listed',
+                        ],
+                      ] as [string, Status, string, string][]
+                    ).map(([label, status, yours, needs]) => (
+                      <div key={label} className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 bg-white/60 px-4 py-3.5 dark:bg-white/[0.02] sm:grid-cols-[7rem_1fr_1fr_auto]">
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">{label}</span>
+                        <span className="order-3 col-span-2 min-w-0 truncate font-mono text-[12.5px] text-slate-700 dark:text-slate-300 sm:order-none sm:col-span-1">
+                          <span className="mr-1.5 font-sans text-[11px] text-slate-400">You</span>
+                          {yours}
+                        </span>
+                        <span className="order-4 col-span-2 min-w-0 truncate font-mono text-[12.5px] text-slate-500 dark:text-slate-400 sm:order-none sm:col-span-1">
+                          <span className="mr-1.5 font-sans text-[11px] text-slate-400">Min</span>
+                          {needs}
+                        </span>
+                        <span className="justify-self-end">
+                          <StatusPill status={status} />
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {result.upgrades.length > 0 && (
+                    <div className="mt-5 rounded-2xl bg-slate-900/[0.03] p-4 dark:bg-white/[0.03]">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">What to change first</p>
+                      <ul className="mt-2 space-y-1.5">
+                        {result.upgrades.map((u) => (
+                          <li key={u} className="flex gap-2 text-sm text-slate-600 dark:text-slate-300">
+                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-slate-400" aria-hidden="true" />
+                            {u}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
-                </>
-              ) : null}
+
+                  {result.note && (
+                    <p className="mt-4 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">Publisher note: </span>
+                      {result.note}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
-          </div>
-        </CardContent>
-      </Card>
-    </TooltipProvider>
+          )}
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className="flex h-full min-h-[22rem] flex-col">
+      <p className={eyebrow}>How it works</p>
+      <h3 className="mt-2 max-w-md text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
+        Pick a game on the left, then tell us what is inside your PC.
+      </h3>
+      <ol className="mt-6 grid gap-3 sm:grid-cols-3">
+        {[
+          ['01', 'Choose a game', 'Every title uses the specs its publisher released, with the source on its page.'],
+          ['02', 'Add your parts', 'Processor, graphics card, memory and free space. Only real models are accepted.'],
+          ['03', 'Read the verdict', 'A score out of 100, a likely preset, and the part that holds you back.'],
+        ].map(([n, t, d]) => (
+          <li key={n} className="rounded-2xl border border-slate-900/[0.06] bg-white/60 p-4 dark:border-white/[0.06] dark:bg-white/[0.02]">
+            <span className="font-mono text-xs text-slate-400">{n}</span>
+            <p className="mt-2 text-sm font-semibold text-slate-900 dark:text-white">{t}</p>
+            <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{d}</p>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-6 text-xs text-slate-500 dark:text-slate-400">
+        Finding your specs on Windows: press Win + R, type <span className="font-mono">dxdiag</span> and press Enter.
+        Processor and memory are on the first tab, your graphics card is on the Display tab.
+      </p>
+    </div>
+  );
+}
+
+function UnannouncedPanel({ game, onPickAlternative }: { game: Game; onPickAlternative: () => void }) {
+  const short = game.searchName || game.name;
+  return (
+    <div className="flex h-full min-h-[22rem] flex-col">
+      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-amber-500/20 dark:text-amber-300">
+        <span className="h-1.5 w-1.5 rounded-full bg-amber-500" aria-hidden="true" />
+        No PC version announced
+      </span>
+      <h3 className="mt-4 max-w-lg text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
+        There is nothing to test {short} against yet.
+      </h3>
+      <p className="mt-3 max-w-lg text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+        {game.developer} lists {game.name} for {game.platforms.join(' and ')} on {game.releaseDate}, and has published no PC
+        requirements. Any score for it would be invented. The closest real target is Rockstar&rsquo;s current PC release,
+        Grand Theft Auto V Enhanced, which needs an SSD even at minimum.
+      </p>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <button
+          type="button"
+          onClick={onPickAlternative}
+          className="inline-flex h-11 items-center gap-2 rounded-xl bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+        >
+          Check against GTA V Enhanced <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+        <a
+          href={`/tools/can-you-run-it/${game.id}`}
+          className="inline-flex h-11 items-center gap-2 rounded-xl border border-slate-900/10 px-5 text-sm font-medium text-slate-800 transition hover:bg-slate-900/[0.04] dark:border-white/15 dark:text-slate-200 dark:hover:bg-white/[0.05]"
+        >
+          What is confirmed about {short} <ChevronDown className="h-4 w-4 -rotate-90" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
   );
 }
