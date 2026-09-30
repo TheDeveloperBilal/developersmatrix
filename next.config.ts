@@ -64,6 +64,19 @@ const nextConfig: NextConfig = {
         destination: "/blog/website-audit-checklist-2026",
         permanent: true,
       },
+      // Game pages removed on 30 Sept 2026. "Strands" by Heart Machine does not
+      // exist, and Pokemon Legends Z-A has no PC version, so neither page could
+      // answer "can my PC run it". Neither ever earned a search impression.
+      {
+        source: "/tools/can-you-run-it/strands",
+        destination: "/tools/can-you-run-it",
+        permanent: true,
+      },
+      {
+        source: "/tools/can-you-run-it/pokemon-legends-za",
+        destination: "/tools/can-you-run-it",
+        permanent: true,
+      },
     ];
   },
 };

@@ -45,8 +45,22 @@ const gpuScores: Record<string, number> = {
   'rx 580': 28, 'rx 570': 22, 'rx 560': 18,
   'rx 5700 xt': 55, 'rx 5700': 50, 'rx 5600 xt': 45,
   // Intel Arc
-  'arc a770': 48, 'arc a750': 42, 'arc a580': 35, 'arc a380': 18
+  'arc a770': 48, 'arc a750': 42, 'arc a580': 35, 'arc a380': 18,
+  // Older and entry level cards that appear in publisher minimum specs.
+  // Listed last so they never override a match on the cards above.
+  'gtx 1650': 20, 'gtx 980': 30, 'gtx 970': 22, 'gtx 960': 14, 'gtx 950': 12,
+  'gtx 1630': 10, 'gtx 770': 11, 'gtx 560 ti': 5, 'gt 730': 4,
+  'rx 6400': 14, 'rx 5500 xt': 30, 'rx 480': 24, 'rx 470': 20, 'vega 56': 38,
+  'r9 380': 14, 'r9 290': 20, 'r9 280': 13, 'r7 370': 12, 'r7 240': 4, 'r5 220': 2,
+  'hd 7790': 10, 'hd 7750': 5, 'hd 4000': 2, 'vega 8': 6
 };
+
+// Used when a publisher describes the minimum GPU in words rather than naming a
+// card (Counter-Strike 2, Minecraft, Roblox). Those specs are all low, so an
+// unrecognised requirement is treated as entry level instead of mid range.
+const UNKNOWN_REQUIREMENT_GPU_SCORE = 10;
+// Same idea for processors described in words ("4 core processor").
+const UNKNOWN_REQUIREMENT_CPU_SCORE = 10;
 
 // CPU performance database
 const cpuScores: Record<string, number> = {
@@ -86,7 +100,7 @@ const cpuScores: Record<string, number> = {
   'ryzen 7 1800x': 35, 'ryzen 5 1600': 25
 };
 
-function getGPUScore(gpuName: string): number {
+function getGPUScore(gpuName: string, fallback = 30): number {
   const normalized = gpuName.toLowerCase()
     .replace(/nvidia|geforce|amd|radeon|intel|arc/gi, '')
     .replace(/[^a-z0-9 ]/g, '')
@@ -112,41 +126,63 @@ function getGPUScore(gpuName: string): number {
     }
   }
   
-  return 30; // Default score for unknown GPUs
+  return fallback; // Default score for unknown GPUs
 }
 
-function getCPUScore(cpuName: string): number {
-  const normalized = cpuName.toLowerCase()
-    .replace(/intel|core|amd|ryzen|processor/gi, '')
+// Input and table keys are normalised the same way. The old version stripped
+// hyphens and brand words from the input only, so "i5-8400" and "Ryzen 5 3600"
+// could never match their own table entries and nearly every CPU scored 30.
+function normalizeCpu(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/intel|core|amd|ryzen|processor/g, ' ')
     .replace(/[^a-z0-9 ]/g, '')
+    .replace(/\s+/g, ' ')
     .trim();
-  
+}
+
+const normalizedCpuScores: Array<[string, number]> = Object.entries(cpuScores).map(
+  ([key, score]) => [normalizeCpu(key), score]
+);
+
+function getCPUScore(cpuName: string, fallback = 30): number {
+  const normalized = normalizeCpu(cpuName);
+  if (!normalized) return fallback;
+
   // Direct match
-  if (cpuScores[normalized]) {
-    return cpuScores[normalized];
+  for (const [key, score] of normalizedCpuScores) {
+    if (key === normalized) return score;
   }
-  
-  // Partial match
-  for (const [key, score] of Object.entries(cpuScores)) {
-    if (normalized.includes(key) || key.includes(normalized)) {
-      return score;
+
+  // The name contains a known model, e.g. "i5 8400 / 5 2600" from a spec sheet.
+  // Keys are checked longest first so "5 3600x" wins over "5 3600".
+  const byLength = [...normalizedCpuScores].sort((a, b) => b[0].length - a[0].length);
+  for (const [key, score] of byLength) {
+    if (key.length >= 5 && normalized.includes(key)) return score;
+  }
+
+  // A partial model typed by the user, e.g. "5600x". Too short to trust below 5 characters.
+  if (normalized.length >= 5) {
+    for (const [key, score] of normalizedCpuScores) {
+      if (key.includes(normalized)) return score;
     }
   }
-  
-  // Try to match first 2 words
-  const words = normalized.split(' ').slice(0, 2).join(' ');
-  for (const [key, score] of Object.entries(cpuScores)) {
-    if (key.includes(words) || words.includes(key)) {
-      return score;
-    }
-  }
-  
-  return 30; // Default score for unknown CPUs
+
+  return fallback;
 }
 
 function parseRequirement(req: string): number {
   const match = req.match(/(\d+)/);
   return match ? parseInt(match[1]) : 0;
+}
+
+// Storage in GB. Handles publisher figures given in MB (Roblox lists 300 MB) and
+// returns 0 when no size is stated, so a missing figure never fails the check.
+function parseStorageGB(req: string): number {
+  const match = req.match(/(\d+(?:\.\d+)?)\s*(GB|MB)/i);
+  if (!match) return 0;
+  const value = parseFloat(match[1]);
+  return match[2].toUpperCase() === 'MB' ? Math.ceil(value / 1024) : value;
 }
 
 function analyzeRequirements(req: GameRequirement): { minCpu: number; minGpu: number; minRam: number; recCpu: number; recGpu: number; recRam: number } {
@@ -172,10 +208,10 @@ function calculatePerformance(userSpecs: SystemSpecs, gameReq: GameRequirement):
   const userCpuScore = getCPUScore(userSpecs.cpu);
   const userGpuScore = getGPUScore(userSpecs.gpu);
   const minRam = parseRequirement(gameReq.memory);
-  const minStorage = parseRequirement(gameReq.storage);
+  const minStorage = parseStorageGB(gameReq.storage);
   
-  const minCpuScore = getCPUScore(gameReq.processor);
-  const minGpuScore = getGPUScore(gameReq.graphics);
+  const minCpuScore = getCPUScore(gameReq.processor, UNKNOWN_REQUIREMENT_CPU_SCORE);
+  const minGpuScore = getGPUScore(gameReq.graphics, UNKNOWN_REQUIREMENT_GPU_SCORE);
   
   // CPU Analysis
   const cpuRatio = userCpuScore / Math.max(minCpuScore, 1);
@@ -260,7 +296,7 @@ export async function POST(request: NextRequest) {
     const upgrades: string[] = [];
     if (performance.gpu === 'fail') {
       upgrades.push(`GPU: Upgrade to at least ${game.minimumRequirements.graphics} for playable performance`);
-    } else if (performance.gpu === 'pass') {
+    } else if (performance.gpu === 'pass' && game.recommendedPublished !== false) {
       upgrades.push(`GPU: Consider upgrading to ${game.recommendedRequirements.graphics} for better visuals`);
     }
     
@@ -275,7 +311,7 @@ export async function POST(request: NextRequest) {
       upgrades.push(`RAM: Consider ${Math.ceil(minRam * 1.5)} GB for smoother multitasking`);
     }
     
-    const minStorage = parseRequirement(game.minimumRequirements.storage);
+    const minStorage = parseStorageGB(game.minimumRequirements.storage);
     if (performance.storage === 'fail') {
       upgrades.push(`Storage: Free up at least ${minStorage} GB or upgrade your storage`);
     }
