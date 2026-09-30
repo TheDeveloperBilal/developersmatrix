@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { gamesDatabase } from '@/data/games-database';
+import { gamesDatabase, type GameRequirement } from '@/data/games-database';
+import { matchHardware, suggestHardware, type HardwareItem } from '@/lib/hardware/catalogue';
+
+export const runtime = 'nodejs';
 
 interface SystemSpecs {
   cpu: string;
@@ -8,176 +11,20 @@ interface SystemSpecs {
   storage: number;
 }
 
-interface GameRequirement {
-  os: string;
-  processor: string;
-  memory: string;
-  graphics: string;
-  directX: string;
-  storage: string;
-}
+type Status = 'excellent' | 'good' | 'pass' | 'fail';
 
-// GPU performance database (relative performance scores)
-const gpuScores: Record<string, number> = {
-  // NVIDIA RTX 40 Series
-  'rtx 4090': 100, 'rtx 4080 super': 95, 'rtx 4080': 90, 
-  'rtx 4070 ti super': 85, 'rtx 4070 ti': 80, 'rtx 4070 super': 75, 'rtx 4070': 70,
-  'rtx 4060 ti': 60, 'rtx 4060': 55,
-  // NVIDIA RTX 30 Series
-  'rtx 3090 ti': 88, 'rtx 3090': 85, 'rtx 3080 ti': 82, 'rtx 3080': 78,
-  'rtx 3070 ti': 70, 'rtx 3070': 65, 'rtx 3060 ti': 60, 'rtx 3060': 50,
-  'rtx 3050': 35,
-  // NVIDIA RTX 20 Series
-  'rtx 2080 ti': 65, 'rtx 2080 super': 60, 'rtx 2080': 55, 
-  'rtx 2070 super': 50, 'rtx 2070': 45, 'rtx 2060 super': 42, 'rtx 2060': 40,
-  // NVIDIA GTX 16/10 Series
-  'gtx 1660 ti': 38, 'gtx 1660 super': 35, 'gtx 1660': 32,
-  'gtx 1080 ti': 50, 'gtx 1080': 45, 'gtx 1070 ti': 40, 'gtx 1070': 38,
-  'gtx 1060': 28, 'gtx 1050 ti': 18, 'gtx 1050': 15,
-  // AMD RX 7000 Series
-  'rx 7900 xtx': 98, 'rx 7900 xt': 92, 'rx 7900 gre': 85,
-  'rx 7800 xt': 78, 'rx 7700 xt': 70, 'rx 7600 xt': 58, 'rx 7600': 55,
-  // AMD RX 6000 Series
-  'rx 6950 xt': 85, 'rx 6900 xt': 82, 'rx 6800 xt': 75, 'rx 6800': 70,
-  'rx 6750 xt': 55, 'rx 6700 xt': 52, 'rx 6700': 48, 'rx 6650 xt': 45,
-  'rx 6600 xt': 42, 'rx 6600': 40, 'rx 6500 xt': 28,
-  // AMD RX 5000/500 Series
-  'rx 580': 28, 'rx 570': 22, 'rx 560': 18,
-  'rx 5700 xt': 55, 'rx 5700': 50, 'rx 5600 xt': 45,
-  // Intel Arc
-  'arc a770': 48, 'arc a750': 42, 'arc a580': 35, 'arc a380': 18,
-  // Older and entry level cards that appear in publisher minimum specs.
-  // Listed last so they never override a match on the cards above.
-  'gtx 1650': 20, 'gtx 980': 30, 'gtx 970': 22, 'gtx 960': 14, 'gtx 950': 12,
-  'gtx 1630': 10, 'gtx 770': 11, 'gtx 560 ti': 5, 'gt 730': 4,
-  'rx 6400': 14, 'rx 5500 xt': 30, 'rx 480': 24, 'rx 470': 20, 'vega 56': 38,
-  'r9 380': 14, 'r9 290': 20, 'r9 280': 13, 'r7 370': 12, 'r7 240': 4, 'r5 220': 2,
-  'hd 7790': 10, 'hd 7750': 5, 'hd 4000': 2, 'vega 8': 6
-};
-
-// Used when a publisher describes the minimum GPU in words rather than naming a
-// card (Counter-Strike 2, Minecraft, Roblox). Those specs are all low, so an
-// unrecognised requirement is treated as entry level instead of mid range.
-const UNKNOWN_REQUIREMENT_GPU_SCORE = 10;
-// Same idea for processors described in words ("4 core processor").
-const UNKNOWN_REQUIREMENT_CPU_SCORE = 10;
-
-// CPU performance database
-const cpuScores: Record<string, number> = {
-  // Intel 14th Gen
-  'i9-14900k': 100, 'i9-14900kf': 98, 'i7-14700k': 92, 'i7-14700kf': 90,
-  'i5-14600k': 80, 'i5-14600kf': 78,
-  // Intel 13th Gen
-  'i9-13900k': 98, 'i9-13900kf': 96, 'i7-13700k': 88, 'i7-13700kf': 86,
-  'i5-13600k': 75, 'i5-13600kf': 73, 'i5-13400': 55, 'i5-13400f': 53,
-  // Intel 12th Gen
-  'i9-12900k': 85, 'i9-12900kf': 83, 'i7-12700k': 75, 'i7-12700kf': 73,
-  'i5-12600k': 65, 'i5-12600kf': 63, 'i5-12400': 50, 'i5-12400f': 48,
-  // Intel 11th Gen
-  'i9-11900k': 70, 'i7-11700k': 60, 'i5-11600k': 50, 'i5-11400': 40,
-  // Intel 10th Gen
-  'i9-10900k': 68, 'i7-10700k': 58, 'i5-10600k': 48, 'i5-10400': 38,
-  // Intel 9th/8th Gen
-  'i9-9900k': 60, 'i7-9700k': 52, 'i5-9600k': 42, 'i5-8400': 35,
-  // Intel 7th/6th Gen
-  'i7-7700k': 45, 'i5-7600k': 32, 'i5-6600k': 28,
-  // AMD Ryzen 9000 Series
-  'ryzen 9 9950x': 100, 'ryzen 9 9900x': 95, 'ryzen 7 9700x': 82,
-  // AMD Ryzen 7000 Series
-  'ryzen 9 7950x3d': 98, 'ryzen 9 7950x': 95, 'ryzen 9 7900x3d': 90,
-  'ryzen 9 7900x': 88, 'ryzen 7 7800x3d': 85, 'ryzen 7 7700x': 72,
-  'ryzen 5 7600x': 58, 'ryzen 5 7600': 55,
-  // AMD Ryzen 5000 Series
-  'ryzen 9 5950x': 82, 'ryzen 9 5900x': 78, 'ryzen 7 5800x3d': 75,
-  'ryzen 7 5800x': 62, 'ryzen 7 5700x': 58, 'ryzen 5 5600x': 50,
-  'ryzen 5 5600': 48, 'ryzen 5 5500': 42,
-  // AMD Ryzen 3000 Series
-  'ryzen 9 3950x': 65, 'ryzen 7 3800x': 52, 'ryzen 7 3700x': 48,
-  'ryzen 5 3600': 38, 'ryzen 5 3600x': 40, 'ryzen 5 3500': 30,
-  // AMD Ryzen 2000 Series
-  'ryzen 7 2700x': 40, 'ryzen 5 2600': 30, 'ryzen 5 2600x': 32,
-  // AMD Ryzen 1000 Series
-  'ryzen 7 1800x': 35, 'ryzen 5 1600': 25
-};
-
-function getGPUScore(gpuName: string, fallback = 30): number {
-  const normalized = gpuName.toLowerCase()
-    .replace(/nvidia|geforce|amd|radeon|intel|arc/gi, '')
-    .replace(/[^a-z0-9 ]/g, '')
-    .trim();
-  
-  // Direct match
-  if (gpuScores[normalized]) {
-    return gpuScores[normalized];
-  }
-  
-  // Partial match
-  for (const [key, score] of Object.entries(gpuScores)) {
-    if (normalized.includes(key) || key.includes(normalized)) {
-      return score;
-    }
-  }
-  
-  // Try to match first 2 words
-  const words = normalized.split(' ').slice(0, 2).join(' ');
-  for (const [key, score] of Object.entries(gpuScores)) {
-    if (key.includes(words) || words.includes(key)) {
-      return score;
-    }
-  }
-  
-  return fallback; // Default score for unknown GPUs
-}
-
-// Input and table keys are normalised the same way. The old version stripped
-// hyphens and brand words from the input only, so "i5-8400" and "Ryzen 5 3600"
-// could never match their own table entries and nearly every CPU scored 30.
-function normalizeCpu(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/intel|core|amd|ryzen|processor/g, ' ')
-    .replace(/[^a-z0-9 ]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-const normalizedCpuScores: Array<[string, number]> = Object.entries(cpuScores).map(
-  ([key, score]) => [normalizeCpu(key), score]
-);
-
-function getCPUScore(cpuName: string, fallback = 30): number {
-  const normalized = normalizeCpu(cpuName);
-  if (!normalized) return fallback;
-
-  // Direct match
-  for (const [key, score] of normalizedCpuScores) {
-    if (key === normalized) return score;
-  }
-
-  // The name contains a known model, e.g. "i5 8400 / 5 2600" from a spec sheet.
-  // Keys are checked longest first so "5 3600x" wins over "5 3600".
-  const byLength = [...normalizedCpuScores].sort((a, b) => b[0].length - a[0].length);
-  for (const [key, score] of byLength) {
-    if (key.length >= 5 && normalized.includes(key)) return score;
-  }
-
-  // A partial model typed by the user, e.g. "5600x". Too short to trust below 5 characters.
-  if (normalized.length >= 5) {
-    for (const [key, score] of normalizedCpuScores) {
-      if (key.includes(normalized)) return score;
-    }
-  }
-
-  return fallback;
-}
+// When a publisher describes the minimum part in words rather than naming one
+// ("4 core processor", "DirectX 11 card with 1 GB"), the requirement is always
+// low end, so it is scored as entry level rather than mid range.
+const UNKNOWN_REQUIREMENT_SCORE = 10;
 
 function parseRequirement(req: string): number {
   const match = req.match(/(\d+)/);
-  return match ? parseInt(match[1]) : 0;
+  return match ? parseInt(match[1], 10) : 0;
 }
 
-// Storage in GB. Handles publisher figures given in MB (Roblox lists 300 MB) and
-// returns 0 when no size is stated, so a missing figure never fails the check.
+// Storage in GB. Handles figures given in MB (Roblox lists 300 MB) and returns 0
+// when no size is stated, so a missing figure never fails the check.
 function parseStorageGB(req: string): number {
   const match = req.match(/(\d+(?:\.\d+)?)\s*(GB|MB)/i);
   if (!match) return 0;
@@ -185,181 +32,179 @@ function parseStorageGB(req: string): number {
   return match[2].toUpperCase() === 'MB' ? Math.ceil(value / 1024) : value;
 }
 
-function analyzeRequirements(req: GameRequirement): { minCpu: number; minGpu: number; minRam: number; recCpu: number; recGpu: number; recRam: number } {
-  return {
-    minCpu: getCPUScore(req.processor),
-    minGpu: getGPUScore(req.graphics),
-    minRam: parseRequirement(req.memory),
-    recCpu: getCPUScore(req.processor) * 1.3, // Estimate recommended is ~30% higher
-    recGpu: getGPUScore(req.graphics) * 1.3,
-    recRam: parseRequirement(req.memory) * 1.5
-  };
+function ratioStatus(ratio: number): Status {
+  if (ratio >= 1.5) return 'excellent';
+  if (ratio >= 1.2) return 'good';
+  if (ratio >= 1.0) return 'pass';
+  return 'fail';
 }
 
-function calculatePerformance(userSpecs: SystemSpecs, gameReq: GameRequirement): {
-  cpu: 'excellent' | 'good' | 'pass' | 'fail';
-  gpu: 'excellent' | 'good' | 'pass' | 'fail';
-  ram: 'excellent' | 'good' | 'pass' | 'fail';
-  storage: 'excellent' | 'good' | 'pass' | 'fail';
-  score: number;
-  settings: string;
-  fps_estimate: string;
-} {
-  const userCpuScore = getCPUScore(userSpecs.cpu);
-  const userGpuScore = getGPUScore(userSpecs.gpu);
-  const minRam = parseRequirement(gameReq.memory);
-  const minStorage = parseStorageGB(gameReq.storage);
-  
-  const minCpuScore = getCPUScore(gameReq.processor, UNKNOWN_REQUIREMENT_CPU_SCORE);
-  const minGpuScore = getGPUScore(gameReq.graphics, UNKNOWN_REQUIREMENT_GPU_SCORE);
-  
-  // CPU Analysis
-  const cpuRatio = userCpuScore / Math.max(minCpuScore, 1);
-  let cpu: 'excellent' | 'good' | 'pass' | 'fail';
-  if (cpuRatio >= 1.5) cpu = 'excellent';
-  else if (cpuRatio >= 1.2) cpu = 'good';
-  else if (cpuRatio >= 1.0) cpu = 'pass';
-  else cpu = 'fail';
-  
-  // GPU Analysis
-  const gpuRatio = userGpuScore / Math.max(minGpuScore, 1);
-  let gpu: 'excellent' | 'good' | 'pass' | 'fail';
-  if (gpuRatio >= 1.5) gpu = 'excellent';
-  else if (gpuRatio >= 1.2) gpu = 'good';
-  else if (gpuRatio >= 1.0) gpu = 'pass';
-  else gpu = 'fail';
-  
-  // RAM Analysis
-  let ram: 'excellent' | 'good' | 'pass' | 'fail';
-  if (userSpecs.ram >= minRam * 1.5) ram = 'excellent';
-  else if (userSpecs.ram >= minRam * 1.25) ram = 'good';
-  else if (userSpecs.ram >= minRam) ram = 'pass';
+function calculatePerformance(cpu: HardwareItem, gpu: HardwareItem, specs: SystemSpecs, req: GameRequirement) {
+  const minRam = parseRequirement(req.memory);
+  const minStorage = parseStorageGB(req.storage);
+  const minCpu = matchHardware(req.processor, 'cpu');
+  const minGpu = matchHardware(req.graphics, 'gpu');
+  const minCpuScore = minCpu ? minCpu.score : UNKNOWN_REQUIREMENT_SCORE;
+  const minGpuScore = minGpu ? minGpu.score : UNKNOWN_REQUIREMENT_SCORE;
+
+  const cpuRatio = cpu.score / Math.max(minCpuScore, 1);
+  const gpuRatio = gpu.score / Math.max(minGpuScore, 1);
+
+  let ram: Status;
+  if (specs.ram >= minRam * 1.5) ram = 'excellent';
+  else if (specs.ram >= minRam * 1.25) ram = 'good';
+  else if (specs.ram >= minRam) ram = 'pass';
   else ram = 'fail';
-  
-  // Storage Analysis
-  let storage: 'excellent' | 'good' | 'pass' | 'fail';
-  if (userSpecs.storage >= minStorage * 1.5) storage = 'excellent';
-  else if (userSpecs.storage >= minStorage * 1.2) storage = 'good';
-  else if (userSpecs.storage >= minStorage) storage = 'pass';
+
+  let storage: Status;
+  if (specs.storage >= minStorage * 1.5) storage = 'excellent';
+  else if (specs.storage >= minStorage * 1.2) storage = 'good';
+  else if (specs.storage >= minStorage) storage = 'pass';
   else storage = 'fail';
-  
-  // Overall Score (0-100)
-  const score = Math.round(
-    (cpuRatio > 2 ? 100 : cpuRatio > 1.5 ? 90 : cpuRatio > 1.2 ? 80 : cpuRatio >= 1 ? 70 : cpuRatio * 60) * 0.3 +
-    (gpuRatio > 2 ? 100 : gpuRatio > 1.5 ? 90 : gpuRatio > 1.2 ? 80 : gpuRatio >= 1 ? 70 : gpuRatio * 60) * 0.4 +
-    (ram === 'excellent' ? 100 : ram === 'good' ? 85 : ram === 'pass' ? 70 : 40) * 0.15 +
-    (storage === 'excellent' ? 100 : storage === 'good' ? 85 : storage === 'pass' ? 70 : 40) * 0.15
-  );
-  
-  // Settings Recommendation
+
+  const part = (ratio: number) =>
+    ratio > 2 ? 100 : ratio > 1.5 ? 90 : ratio > 1.2 ? 80 : ratio >= 1 ? 70 : ratio * 60;
+  const tier = (s: Status) => (s === 'excellent' ? 100 : s === 'good' ? 85 : s === 'pass' ? 70 : 40);
+
+  const score = Math.round(part(cpuRatio) * 0.3 + part(gpuRatio) * 0.4 + tier(ram) * 0.15 + tier(storage) * 0.15);
+
   let settings: string;
   if (gpuRatio >= 1.8 && cpuRatio >= 1.5) settings = 'Ultra (4K 60+ FPS)';
   else if (gpuRatio >= 1.4 && cpuRatio >= 1.2) settings = 'High (1440p 60+ FPS)';
   else if (gpuRatio >= 1.0 && cpuRatio >= 1.0) settings = 'Medium (1080p 60 FPS)';
-  else if (gpuRatio >= 0.7) settings = 'Low (1080p 30-45 FPS)';
-  else settings = 'Below Minimum';
-  
-  // FPS Estimate
+  else if (gpuRatio >= 0.7) settings = 'Low (1080p 30 to 45 FPS)';
+  else settings = 'Below minimum';
+
   let fps_estimate: string;
   if (gpuRatio >= 1.8) fps_estimate = '100+ FPS at 1440p Ultra';
-  else if (gpuRatio >= 1.4) fps_estimate = '60-80 FPS at 1440p High';
-  else if (gpuRatio >= 1.0) fps_estimate = '50-60 FPS at 1080p Medium';
-  else if (gpuRatio >= 0.7) fps_estimate = '30-45 FPS at 1080p Low';
+  else if (gpuRatio >= 1.4) fps_estimate = '60 to 80 FPS at 1440p High';
+  else if (gpuRatio >= 1.0) fps_estimate = '50 to 60 FPS at 1080p Medium';
+  else if (gpuRatio >= 0.7) fps_estimate = '30 to 45 FPS at 1080p Low';
   else fps_estimate = 'Unplayable';
-  
-  return { cpu, gpu, ram, storage, score, settings, fps_estimate };
+
+  return {
+    performance: { cpu: ratioStatus(cpuRatio), gpu: ratioStatus(gpuRatio), ram, storage, score, settings, fps_estimate },
+    compared: {
+      cpu: { yours: cpu.name, required: minCpu?.name ?? req.processor },
+      gpu: { yours: gpu.name, required: minGpu?.name ?? req.graphics },
+      ram: { yours: specs.ram, required: minRam },
+      storage: { yours: specs.storage, required: minStorage },
+    },
+  };
+}
+
+function invalid(field: 'cpu' | 'gpu' | 'ram' | 'storage' | 'game', error: string, suggestions: string[] = []) {
+  return NextResponse.json({ error, field, suggestions }, { status: 422 });
 }
 
 export async function POST(request: NextRequest) {
+  let body: unknown;
   try {
-    const body = await request.json();
-    const { gameId, userSpecs } = body as { gameId: string; userSpecs: SystemSpecs };
-    
-    if (!gameId || !userSpecs) {
-      return NextResponse.json(
-        { error: 'Game ID and user specs are required' },
-        { status: 400 }
-      );
-    }
-    
-    const game = gamesDatabase.find(g => g.id === gameId);
-    if (!game) {
-      return NextResponse.json(
-        { error: 'Game not found in database' },
-        { status: 404 }
-      );
-    }
-    
-    const performance = calculatePerformance(userSpecs, game.minimumRequirements);
-    
-    // Generate upgrade suggestions
-    const upgrades: string[] = [];
-    if (performance.gpu === 'fail') {
-      upgrades.push(`GPU: Upgrade to at least ${game.minimumRequirements.graphics} for playable performance`);
-    } else if (performance.gpu === 'pass' && game.recommendedPublished !== false) {
-      upgrades.push(`GPU: Consider upgrading to ${game.recommendedRequirements.graphics} for better visuals`);
-    }
-    
-    if (performance.cpu === 'fail') {
-      upgrades.push(`CPU: Upgrade to at least ${game.minimumRequirements.processor}`);
-    }
-    
-    const minRam = parseRequirement(game.minimumRequirements.memory);
-    if (performance.ram === 'fail') {
-      upgrades.push(`RAM: Upgrade to at least ${minRam} GB`);
-    } else if (performance.ram === 'pass') {
-      upgrades.push(`RAM: Consider ${Math.ceil(minRam * 1.5)} GB for smoother multitasking`);
-    }
-    
-    const minStorage = parseStorageGB(game.minimumRequirements.storage);
-    if (performance.storage === 'fail') {
-      upgrades.push(`Storage: Free up at least ${minStorage} GB or upgrade your storage`);
-    }
-    
-    return NextResponse.json({
-      game: {
-        id: game.id,
-        name: game.name
-      },
-      canRun: performance.cpu !== 'fail' && performance.gpu !== 'fail' && performance.ram !== 'fail',
-      performance,
-      upgrades,
-      requirements: {
-        minimum: game.minimumRequirements,
-        recommended: game.recommendedRequirements
-      }
-    });
-    
-  } catch (error) {
-    console.error('System check error:', error);
-    return NextResponse.json(
-      { error: 'An error occurred while checking compatibility' },
-      { status: 500 }
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Send the game and your hardware as JSON.' }, { status: 400 });
+  }
+
+  const { gameId, userSpecs } = (body ?? {}) as { gameId?: string; userSpecs?: Partial<SystemSpecs> };
+  if (!gameId || !userSpecs) {
+    return NextResponse.json({ error: 'Game ID and user specs are required' }, { status: 400 });
+  }
+
+  const game = gamesDatabase.find((g) => g.id === gameId);
+  if (!game) {
+    return NextResponse.json({ error: 'Game not found in database' }, { status: 404 });
+  }
+  if (game.requirementsStatus === 'unannounced') {
+    return invalid(
+      'game',
+      `${game.developer} has not published PC requirements for ${game.searchName || game.name}, so there is nothing to check your PC against yet.`
     );
   }
+
+  const cpuText = typeof userSpecs.cpu === 'string' ? userSpecs.cpu.slice(0, 120) : '';
+  const gpuText = typeof userSpecs.gpu === 'string' ? userSpecs.gpu.slice(0, 120) : '';
+  const ram = Number(userSpecs.ram);
+  const storage = Number(userSpecs.storage);
+
+  // Only hardware that exists in the catalogue can be scored. Anything else,
+  // including random text, is rejected instead of being given a made up score.
+  const cpu = matchHardware(cpuText, 'cpu');
+  if (!cpu) {
+    return invalid(
+      'cpu',
+      'We do not recognise that processor. Pick your model from the list.',
+      suggestHardware(cpuText, 'cpu', 5).map((h) => h.name)
+    );
+  }
+  const gpu = matchHardware(gpuText, 'gpu');
+  if (!gpu) {
+    return invalid(
+      'gpu',
+      'We do not recognise that graphics card. Pick your model from the list.',
+      suggestHardware(gpuText, 'gpu', 5).map((h) => h.name)
+    );
+  }
+  if (!Number.isFinite(ram) || ram < 1 || ram > 512) {
+    return invalid('ram', 'Enter your memory in GB, between 1 and 512.');
+  }
+  if (!Number.isFinite(storage) || storage < 0 || storage > 100000) {
+    return invalid('storage', 'Enter your free storage in GB.');
+  }
+
+  const specs: SystemSpecs = { cpu: cpu.name, gpu: gpu.name, ram, storage };
+  const { performance, compared } = calculatePerformance(cpu, gpu, specs, game.minimumRequirements);
+  const hasRecommended = game.recommendedPublished !== false;
+
+  const upgrades: string[] = [];
+  if (performance.gpu === 'fail') {
+    upgrades.push(`Graphics: you need at least ${game.minimumRequirements.graphics} for playable performance.`);
+  } else if (performance.gpu === 'pass' && hasRecommended) {
+    upgrades.push(`Graphics: the publisher recommends ${game.recommendedRequirements.graphics} for higher settings.`);
+  }
+  if (performance.cpu === 'fail') {
+    upgrades.push(`Processor: you need at least ${game.minimumRequirements.processor}.`);
+  }
+  if (performance.ram === 'fail') {
+    upgrades.push(`Memory: ${game.name} needs at least ${compared.ram.required} GB.`);
+  } else if (performance.ram === 'pass' && hasRecommended) {
+    const recRam = parseRequirement(game.recommendedRequirements.memory);
+    if (recRam > ram) upgrades.push(`Memory: the recommended spec asks for ${recRam} GB.`);
+  }
+  if (performance.storage === 'fail') {
+    upgrades.push(`Storage: free up at least ${compared.storage.required} GB before installing.`);
+  }
+
+  return NextResponse.json({
+    game: { id: game.id, name: game.name },
+    matched: { cpu: cpu.name, gpu: gpu.name },
+    canRun: performance.cpu !== 'fail' && performance.gpu !== 'fail' && performance.ram !== 'fail',
+    performance,
+    compared,
+    upgrades,
+    requirements: {
+      minimum: game.minimumRequirements,
+      recommended: hasRecommended ? game.recommendedRequirements : null,
+    },
+    note: game.requirementsNote ?? null,
+  });
 }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q');
   const trending = searchParams.get('trending');
-  
+
   let games = gamesDatabase;
-  
-  if (trending === 'true') {
-    games = games.filter(g => g.trending);
-  }
-  
+  if (trending === 'true') games = games.filter((g) => g.trending);
   if (query) {
-    const searchQuery = query.toLowerCase();
-    games = games.filter(g => 
-      g.name.toLowerCase().includes(searchQuery) ||
-      g.genre.some(genre => genre.toLowerCase().includes(searchQuery))
+    const q = query.toLowerCase();
+    games = games.filter(
+      (g) => g.name.toLowerCase().includes(q) || g.genre.some((genre) => genre.toLowerCase().includes(q))
     );
   }
-  
+
   return NextResponse.json({
-    games: games.map(g => ({
+    games: games.map((g) => ({
       id: g.id,
       name: g.name,
       genre: g.genre,
@@ -367,7 +212,7 @@ export async function GET(request: NextRequest) {
       price: g.price,
       imageUrl: g.imageUrl,
       trending: g.trending,
-      popularity: g.popularity
-    }))
+      popularity: g.popularity,
+    })),
   });
 }
