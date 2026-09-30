@@ -60,7 +60,8 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
   }
 
   return {
-    title: `Can You Run ${game.name}?`,
+    // A searchName (e.g. 'GTA 5') goes in the title because that is what people type.
+    title: game.searchName ? `Can You Run ${game.searchName}? PC Requirements` : `Can You Run ${game.name}?`,
     description: `${game.name} PC system requirements. Minimum and recommended specs side by side, plus a free check to see whether your computer can run it.`,
     keywords: [
       `can i run ${game.name.toLowerCase()}`,
@@ -411,12 +412,26 @@ function UnannouncedGamePage({ game }: { game: Game }) {
               in our free checker and you will see exactly which component is closest to falling short.
               That is the component to spend money on, whenever the real requirements arrive.
             </p>
-            <Link
-              href="/tools/can-you-run-it"
-              className="inline-flex items-center gap-2 rounded-xl bg-purple-600 hover:bg-purple-700 px-5 py-3 text-sm font-semibold text-white transition-colors"
-            >
-              Check my PC free <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href="/tools/can-you-run-it"
+                className="inline-flex items-center gap-2 rounded-xl bg-purple-600 hover:bg-purple-700 px-5 py-3 text-sm font-semibold text-white transition-colors"
+              >
+                Check my PC free <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/tools/can-you-run-it/gta-5"
+                className="inline-flex items-center gap-2 rounded-xl border border-purple-300 dark:border-purple-500/40 px-5 py-3 text-sm font-semibold text-purple-700 dark:text-purple-300 hover:bg-purple-100/60 dark:hover:bg-purple-500/10 transition-colors"
+              >
+                GTA V Enhanced requirements
+              </Link>
+              <Link
+                href="/tools/can-you-run-it/red-dead-redemption-2"
+                className="inline-flex items-center gap-2 rounded-xl border border-purple-300 dark:border-purple-500/40 px-5 py-3 text-sm font-semibold text-purple-700 dark:text-purple-300 hover:bg-purple-100/60 dark:hover:bg-purple-500/10 transition-colors"
+              >
+                Red Dead Redemption 2 requirements
+              </Link>
+            </div>
           </section>
 
           <section className="mb-12">
@@ -481,12 +496,32 @@ export default async function GamePage({ params }: GamePageProps) {
 
   const min = game.minimumRequirements;
   const rec = game.recommendedRequirements;
+  const hasRecommended = game.recommendedPublished !== false;
+  // Storage is only quoted as a size when the publisher actually gives one.
+  const storageSize = /^\d/.test(min.storage) ? min.storage.replace(' available space', '') : null;
+  const mentionsSsd = !!game.requirementsNote && /SSD/.test(game.requirementsNote);
 
   const quickAnswer =
-    `To run ${game.name} at minimum settings you need ${min.processor.split('/')[0].trim()} or better, ` +
-    `${min.memory.replace(' RAM', '')} of memory, and ${min.graphics.split('/')[0].trim()}. ` +
-    `For comfortable frame rates aim for ${rec.graphics.split('/')[0].trim()} with ${rec.memory.replace(' RAM', '')}. ` +
-    `Set aside ${min.storage.replace(' available space', '')} of drive space.`;
+    game.quickAnswer ||
+    `To run ${game.name} at minimum settings you need an ${min.processor.split('/')[0].trim()} or better, ` +
+      `${min.memory.replace(' RAM', '')} of memory, and graphics at least as fast as the ${min.graphics.split('/')[0].trim()}. ` +
+      (hasRecommended
+        ? `For comfortable frame rates, aim for the ${rec.graphics.split('/')[0].trim()} with ${rec.memory.replace(' RAM', '')} of memory. `
+        : '') +
+      (storageSize ? `Set aside ${storageSize} of drive space.` : '');
+
+  // Joins a spec tier into one readable line, skipping fields the publisher left blank.
+  const specLine = (req: GameRequirement) =>
+    [
+      req.os,
+      req.processor,
+      req.memory,
+      req.graphics,
+      /^Version/.test(req.directX) ? `DirectX ${req.directX.replace('Version ', '')}` : null,
+      /^\d/.test(req.storage) ? req.storage : null,
+    ]
+      .filter(Boolean)
+      .join(', ');
 
   const faqs = [
     {
@@ -495,15 +530,25 @@ export default async function GamePage({ params }: GamePageProps) {
     },
     {
       question: `What are the minimum requirements for ${game.name}?`,
-      answer: `${min.os}, ${min.processor}, ${min.memory}, ${min.graphics}, DirectX ${min.directX.replace('Version ', '')} and ${min.storage}. Minimum specs mean the game launches and runs, usually at low settings and around 30 frames per second.`,
+      answer: `${specLine(min)}. Minimum specs mean the game launches and runs, usually at low settings.${game.requirementsSource ? ` These figures come from ${game.requirementsSource.label}.` : ''}`,
     },
     {
       question: `What are the recommended requirements for ${game.name}?`,
-      answer: `${rec.os}, ${rec.processor}, ${rec.memory}, ${rec.graphics}, DirectX ${rec.directX.replace('Version ', '')} and ${rec.storage}. Recommended specs target a smooth experience at higher settings.`,
+      answer: hasRecommended
+        ? `${specLine(rec)}. Recommended specs target a smooth experience at higher settings.`
+        : game.recommendedMissingText ||
+          `${game.developer} does not publish a recommended spec for ${game.name}, only a minimum. Any chart quoting official recommended requirements for it is a guess.`,
     },
     {
       question: `How much storage does ${game.name} need?`,
-      answer: `${game.name} needs ${min.storage.replace(' available space', '')} of free space. Install it on an SSD if you can. Modern games stream assets while you play, and a mechanical drive causes texture pop in and longer loading even when every other component is strong enough.`,
+      answer: storageSize
+        ? `${game.name} needs ${storageSize} of free space.` +
+          (mentionsSsd
+            ? ` ${game.requirementsNote}`
+            : !/GB/.test(storageSize)
+            ? ''
+            : ' Install it on an SSD if you can. Modern games stream assets while you play, and a mechanical drive causes texture pop in and longer loading even when every other component is strong enough.')
+        : `${game.developer} does not state an install size for ${game.name}. Keep plenty of free space on an SSD and check the size your store or launcher shows before installing.`,
     },
     {
       question: `Does ${game.name} run on a laptop?`,
@@ -572,7 +617,9 @@ export default async function GamePage({ params }: GamePageProps) {
               Can You Run {game.name}?
             </h1>
             <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
-              Minimum and recommended PC requirements, side by side, with a free check against your own hardware.
+              {hasRecommended
+                ? 'Minimum and recommended PC requirements, side by side, with a free check against your own hardware.'
+                : 'The official PC requirements, with a free check against your own hardware.'}
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
@@ -613,17 +660,46 @@ export default async function GamePage({ params }: GamePageProps) {
             <div className="grid md:grid-cols-2 gap-5">
               <SpecCard
                 title="Minimum"
-                note="The game launches and runs, usually low settings around 30 frames per second"
+                note="The game launches and runs, usually at low settings"
                 req={min}
                 accent="slate"
               />
-              <SpecCard
-                title="Recommended"
-                note="Comfortable frame rates at higher settings"
-                req={rec}
-                accent="brand"
-              />
+              {hasRecommended ? (
+                <SpecCard
+                  title="Recommended"
+                  note="Comfortable frame rates at higher settings"
+                  req={rec}
+                  accent="brand"
+                />
+              ) : (
+                <div className="rounded-2xl border border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800/50 p-6 sm:p-7 h-full">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Recommended</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {game.recommendedMissingText ||
+                      `${game.developer} does not publish a recommended spec for ${game.name}. The minimum is the only official figure, so we show nothing here rather than an estimate dressed up as an official number.`}
+                  </p>
+                </div>
+              )}
             </div>
+            {(game.requirementsNote || game.requirementsSource) && (
+              <div className="mt-5 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                {game.requirementsNote && <p>{game.requirementsNote}</p>}
+                {game.requirementsSource && (
+                  <p>
+                    Source:{' '}
+                    <a
+                      href={game.requirementsSource.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-600 dark:text-purple-400 underline underline-offset-2"
+                    >
+                      {game.requirementsSource.label}
+                    </a>
+                    {game.requirementsCheckedOn ? `, checked ${game.requirementsCheckedOn}.` : '.'}
+                  </p>
+                )}
+              </div>
+            )}
           </section>
 
           <section className="mb-12">
@@ -633,7 +709,7 @@ export default async function GamePage({ params }: GamePageProps) {
             <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
                 Minimum requirements are the floor, not a target. Meeting them means {game.name} will
-                start and remain playable, typically at low settings and roughly 30 frames per second.
+                start and remain playable, typically at low settings and often around 30 frames per second.
                 If your hardware only just clears the minimum, expect to lower the resolution before you
                 lower anything else, since resolution costs more performance than almost any other setting.
               </p>
@@ -643,12 +719,14 @@ export default async function GamePage({ params }: GamePageProps) {
                 storage speed 15 percent each. A strong processor cannot rescue a card that falls below the
                 minimum, though a weak processor can hold back a strong card at lower resolutions.
               </p>
-              <p>
-                Storage speed is the most commonly overlooked requirement. {game.name} lists{' '}
-                {min.storage.replace(' available space', '')} of space, and modern titles stream assets
-                from disk while you play. On a mechanical drive you get texture pop in and longer loading
-                even when every other part of your system is comfortably above spec.
-              </p>
+              {storageSize && /GB/.test(storageSize) && (
+                <p>
+                  Storage speed is the most commonly overlooked requirement. {game.name} lists{' '}
+                  {storageSize} of space, and modern titles stream assets from disk while you play. On a
+                  mechanical drive you get texture pop in and longer loading even when every other part of
+                  your system is comfortably above spec.
+                </p>
+              )}
             </div>
           </section>
 
