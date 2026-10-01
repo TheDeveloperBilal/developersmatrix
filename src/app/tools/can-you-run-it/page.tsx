@@ -108,9 +108,12 @@ export default function CanYouRunItPage() {
 
       <main className="min-h-screen bg-background">
         {/* Hero + Tool */}
-        <section className="relative isolate overflow-hidden border-b border-slate-900/[0.06] dark:border-white/[0.06]">
-          {/* Background: a quiet grid and two soft light fields for the glass to sit on */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <section className="relative isolate border-b border-slate-900/[0.06] dark:border-white/[0.06]">
+          {/* Background: a quiet grid and two soft light fields for the glass to sit on.
+              The clipping lives on this layer only. If the section itself clipped, the
+              browser could scroll it sideways when a form field inside takes focus,
+              which shows up on phones as the whole tool sliding off screen. */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-clip">
             <div className="absolute inset-0 bg-[#f5f6fa] dark:bg-[#07080c]" />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.045)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_75%_55%_at_50%_0%,black,transparent)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)]" />
             <div className="absolute -top-56 left-[8%] h-[36rem] w-[36rem] rounded-full bg-indigo-300/30 blur-[150px] dark:bg-indigo-500/[0.14]" />
