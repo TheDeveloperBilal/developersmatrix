@@ -125,7 +125,8 @@ function HardwarePicker({
   const [touched, setTouched] = useState(false);
 
   const matched = useMemo(() => matchHardware(value, kind), [value, kind]);
-  const options = useMemo(() => suggestHardware(value, kind, 8), [value, kind]);
+  // Six suggestions fit without the list needing its own scrollbar.
+  const options = useMemo(() => suggestHardware(value, kind, 6), [value, kind]);
   const showList = open && value.trim().length > 0 && options.length > 0 && matched?.name !== value;
   const invalid = touched && value.trim().length > 0 && !matched;
 
@@ -209,7 +210,7 @@ function HardwarePicker({
         <ul
           id={listId}
           role="listbox"
-          className="absolute z-30 mt-2 max-h-72 w-full overflow-auto rounded-2xl border border-slate-900/10 bg-white/95 p-1.5 shadow-[0_24px_60px_-20px_rgba(15,23,42,0.35)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/95"
+          className="absolute z-30 mt-2 w-full rounded-2xl border border-slate-900/10 bg-white/95 p-1.5 shadow-[0_24px_60px_-20px_rgba(15,23,42,0.35)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/95"
         >
           {options.map((item, i) => (
             <li
@@ -303,6 +304,7 @@ export default function CanYouRunItClient() {
   const [selected, setSelected] = useState<Game | null>(null);
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<Filter>('all');
+  const [showAll, setShowAll] = useState(false);
   const [cpu, setCpu] = useState('');
   const [gpu, setGpu] = useState('');
   const [ram, setRam] = useState(16);
@@ -324,6 +326,20 @@ export default function CanYouRunItClient() {
       })
       .sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0));
   }, [query, filter]);
+
+  // The list never scrolls inside itself. It shows the first few titles and
+  // grows when asked, so there is no nested scrollbar on desktop or mobile.
+  const COLLAPSED = 8;
+  const searching = query.trim().length > 0;
+  const visibleGames = useMemo(() => {
+    if (showAll || searching || games.length <= COLLAPSED) return games;
+    const top = games.slice(0, COLLAPSED);
+    if (selected && !top.some((g) => g.id === selected.id) && games.some((g) => g.id === selected.id)) {
+      top.push(selected);
+    }
+    return top;
+  }, [games, showAll, searching, selected]);
+  const hiddenCount = games.length - visibleGames.length;
 
   const cpuMatch = matchHardware(cpu, 'cpu');
   const gpuMatch = matchHardware(gpu, 'gpu');
@@ -378,9 +394,9 @@ export default function CanYouRunItClient() {
 
   return (
     <div className={`${glass} p-2 sm:p-3`}>
-      <div className="grid gap-2 sm:gap-3 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-2 sm:gap-3 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
         {/* ---------------- Game list ---------------- */}
-        <section aria-labelledby="pick-game" className={`${inset} flex flex-col p-4 sm:p-5`}>
+        <section aria-labelledby="pick-game" className={`${inset} flex min-w-0 flex-col p-4 sm:p-5`}>
           <div className="mb-4 flex items-center justify-between">
             <h2 id="pick-game" className="text-[15px] font-semibold text-slate-900 dark:text-white">
               <span className="mr-2 font-mono text-slate-400">01</span>Choose a game
@@ -419,14 +435,11 @@ export default function CanYouRunItClient() {
             ))}
           </div>
 
-          <ul
-            className="mt-3 -mx-1 max-h-[26rem] flex-1 space-y-1 overflow-y-auto px-1 [mask-image:linear-gradient(to_bottom,black_calc(100%-2rem),transparent)] lg:max-h-[34rem]"
-            aria-label="Games"
-          >
+          <ul className="mt-3 space-y-1" aria-label="Games">
             {games.length === 0 && (
               <li className="px-2 py-8 text-center text-sm text-slate-500">No game matches that search.</li>
             )}
-            {games.map((g) => {
+            {visibleGames.map((g) => {
               const active = selected?.id === g.id;
               const noSpecs = g.requirementsStatus === 'unannounced';
               return (
@@ -469,10 +482,22 @@ export default function CanYouRunItClient() {
               );
             })}
           </ul>
+
+          {(hiddenCount > 0 || (showAll && !searching && games.length > COLLAPSED)) && (
+            <button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              aria-expanded={showAll}
+              className="mt-3 inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-xl border border-slate-900/10 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-900/[0.04] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/[0.04]"
+            >
+              {showAll ? 'Show fewer games' : `Show all ${games.length} games`}
+              <ChevronDown className={`h-4 w-4 transition-transform ${showAll ? 'rotate-180' : ''}`} aria-hidden="true" />
+            </button>
+          )}
         </section>
 
         {/* ---------------- Right side ---------------- */}
-        <section ref={panelRef} aria-live="polite" className={`${inset} scroll-mt-24 p-4 sm:p-6`}>
+        <section ref={panelRef} aria-live="polite" className={`${inset} min-w-0 scroll-mt-24 p-4 sm:p-6`}>
           {!selected && <EmptyState />}
 
           {selected && unannounced && (
