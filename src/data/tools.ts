@@ -22,15 +22,15 @@ const resumeBuilderFaqs: FAQ[] = [
 const coverLetterFaqs: FAQ[] = [
   {
     question: "How do I write an effective cover letter with AI?",
-    answer: "Our AI Cover Letter Generator analyzes the job description and your background to create a personalized, compelling cover letter. Simply paste the job posting, add your experience details, and let the AI craft a professional letter."
+    answer: "Paste the job posting, add your current role, one or two results with numbers and why you want the job. The tool matches the skills in the posting against yours, writes the letter from your details, and then checks it for stock phrases, missing numbers and placeholders."
   },
   {
     question: "What makes a cover letter stand out to employers?",
-    answer: "A standout cover letter is personalized to the company, demonstrates knowledge of the role, highlights relevant achievements with specific examples, and shows enthusiasm for the position. Our AI helps you achieve all of these elements."
+    answer: "A standout cover letter is personalized to the company, demonstrates knowledge of the role, highlights relevant achievements with specific examples, and shows enthusiasm for the position. The tool asks for each of these, and its letter check tells you which one is missing."
   },
   {
     question: "Should I customize my cover letter for each application?",
-    answer: "Yes, absolutely! Each cover letter should be tailored to the specific role and company. Our AI makes this process efficient by generating customized content based on each job description you provide."
+    answer: "Yes, absolutely! Each cover letter should be tailored to the specific role and company. Paste each new job description and the letter is rebuilt around the skills that posting asks for, while your saved details stay filled in."
   }
 ];
 
@@ -195,23 +195,23 @@ export const tools: Tool[] = [
     id: 'ai-cover-letter-generator',
     slug: 'ai-cover-letter-generator',
     name: 'AI Cover Letter Generator',
-    description: 'Generate personalized, compelling cover letters tailored to each job application. Our AI analyzes job descriptions and crafts professional letters that highlight your relevant experience and skills.',
+    description: 'Paste the job description, add your best results, and get a tailored cover letter built from your own experience. It leads with the skills the posting asks for and checks the letter for stock phrases, missing numbers and gaps.',
     shortDescription: 'Generate personalized cover letters for any job',
     icon: 'Mail',
     category: 'career',
     features: [
-      'Job description analysis',
-      'Personalized content generation',
-      'Multiple tone options',
-      'Company-specific customization',
-      'Quick editing tools',
-      'Download in multiple formats'
+      'Job description skill matching',
+      'Built only from your own results',
+      'Formal, warm and direct tones',
+      'Short and standard lengths',
+      'Live letter check as you edit',
+      'Copy, download as text or print to PDF'
     ],
     benefits: [
       'Stand out from other applicants',
       'Save time on each application',
       'Tailored content for every job',
-      'Professional writing quality'
+      'No invented skills or claims'
     ],
     faqs: coverLetterFaqs,
     keywords: ['cover letter generator', 'AI cover letter', 'job application letter', 'cover letter maker'],
