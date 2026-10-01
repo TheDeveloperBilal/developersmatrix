@@ -1,240 +1,109 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getQuestion,
-  submitAnswer,
-  getFollowUpQuestion,
-  getInterviewSummary,
-  Role,
-  Category,
-  Difficulty
-} from '@/lib/interview';
+import { getQuestion, isCategory, isLevel, isRole, pickQuestion } from '@/lib/interview/bank';
+import { categoryLabel, LEVELS } from '@/lib/interview/bank-types';
+import { evaluateAnswer } from '@/lib/interview/evaluate';
+import { rateLimit, callerKey } from '@/lib/website-audit/rate-limit';
 
-interface InterviewRequest {
-  mode: 'question' | 'feedback' | 'followup' | 'summary';
-  question?: string;
-  answer?: string;
-  role?: string;
-  difficulty?: string;
-  category?: string;
-  sessionId?: string;
-}
+export const runtime = 'nodejs';
 
-// Map display roles to internal role keys
-const roleMapping: Record<string, Role> = {
-  'Software Developer': 'software-developer',
-  'Frontend Developer': 'frontend-developer',
-  'Backend Developer': 'backend-developer',
-  'Full Stack Developer': 'fullstack-developer',
-  'DevOps Engineer': 'devops-engineer',
-  'Data Scientist': 'data-scientist',
-  'Data Analyst': 'data-analyst',
-  'Product Manager': 'product-manager',
-  'Engineering Manager': 'engineering-manager',
-  'Mobile Developer': 'mobile-developer',
-  'QA Engineer': 'qa-engineer',
-  'System Architect': 'system-architect',
-  // Also support direct keys
-  'software-developer': 'software-developer',
-  'frontend-developer': 'frontend-developer',
-  'backend-developer': 'backend-developer',
-  'fullstack-developer': 'fullstack-developer',
-  'devops-engineer': 'devops-engineer',
-  'data-scientist': 'data-scientist',
-  'data-analyst': 'data-analyst',
-  'product-manager': 'product-manager',
-  'engineering-manager': 'engineering-manager',
-  'mobile-developer': 'mobile-developer',
-  'qa-engineer': 'qa-engineer',
-  'system-architect': 'system-architect'
+/**
+ * Stateless on purpose. Serverless instances do not share memory, so the
+ * browser keeps the session (questions asked, scores) and sends what we need
+ * with each request. Checking an answer takes a few milliseconds.
+ */
+
+const LIMIT = 40;
+const WINDOW_MS = 60_000;
+const MAX_ANSWER_CHARS = 6000;
+const MAX_EXCLUDE = 200;
+
+type Body = {
+  mode?: unknown;
+  role?: unknown;
+  category?: unknown;
+  level?: unknown;
+  exclude?: unknown;
+  questionId?: unknown;
+  answer?: unknown;
 };
 
+function bad(error: string, status = 400) {
+  return NextResponse.json({ success: false, error }, { status });
+}
+
 export async function POST(request: NextRequest) {
-  try {
-    let body: InterviewRequest;
-    try {
-      body = await request.json();
-    } catch (parseError) {
-      console.error('Failed to parse request body:', parseError);
-      return NextResponse.json(
-        { success: false, error: 'Invalid request format. Please refresh and try again.' },
-        { status: 400 }
-      );
-    }
-    
-    const {
-      mode = 'question',
-      question,
-      answer,
-      role = 'Software Developer',
-      difficulty = 'mid',
-      category = 'behavioral',
-      sessionId
-    } = body;
-
-    // Map the role to internal key
-    const internalRole = roleMapping[role] || 'software-developer';
-    const internalCategory = (category || 'behavioral') as Category;
-    const internalDifficulty = (difficulty || 'mid') as Difficulty;
-
-    switch (mode) {
-      case 'question': {
-        try {
-          const result = getQuestion(
-            internalRole,
-            internalCategory,
-            internalDifficulty,
-            sessionId
-          );
-
-          return NextResponse.json({
-            success: true,
-            mode: 'question',
-            content: result.question.question,
-            questionData: result.question,
-            session: result.session,
-            hints: result.question.hints
-          });
-        } catch (qError: any) {
-          console.error('Question generation error:', qError);
-          return NextResponse.json(
-            { success: false, error: 'Failed to generate question. Please try again.' },
-            { status: 500 }
-          );
-        }
-      }
-
-      case 'feedback': {
-        if (!question || !answer) {
-          return NextResponse.json(
-            { success: false, error: 'Question and answer are required for feedback mode' },
-            { status: 400 }
-          );
-        }
-
-        let result;
-        try {
-          result = submitAnswer(
-            question,
-            answer,
-            internalRole,
-            internalCategory,
-            internalDifficulty,
-            sessionId
-          );
-        } catch (evalError: any) {
-          console.error('Interview evaluation error:', evalError);
-          console.error('Stack:', evalError?.stack);
-          return NextResponse.json(
-            { success: false, error: 'Failed to evaluate answer. Please try again.' },
-            { status: 500 }
-          );
-        }
-
-        if (!result.success) {
-          return NextResponse.json(
-            { success: false, error: result.error || 'Failed to evaluate answer. Please try again.' },
-            { status: 400 }
-          );
-        }
-
-        return NextResponse.json({
-          success: true,
-          mode: 'feedback',
-          score: Math.round(result.evaluation.overallScore),
-          relevanceScore: result.evaluation.relevanceScore,
-          qualityScore: result.evaluation.qualityScore,
-          depthScore: result.evaluation.depthScore,
-          isRelevant: result.evaluation.isRelevant,
-          strengths: result.evaluation.strengths,
-          improvements: result.evaluation.improvements,
-          coveredConcepts: result.evaluation.coveredConcepts,
-          missedConcepts: result.evaluation.missedConcepts,
-          detailedFeedback: result.evaluation.feedback,
-          sampleAnswer: result.evaluation.sampleAnswer,
-          followUpSuggestion: result.evaluation.followUpSuggestion,
-          session: result.session,
-          suggestedDifficulty: result.suggestedDifficulty
-        });
-      }
-
-      case 'followup': {
-        if (!question || !answer) {
-          return NextResponse.json(
-            { success: false, error: 'Question and answer are required for followup mode' },
-            { status: 400 }
-          );
-        }
-
-        try {
-          const result = getFollowUpQuestion(
-            question,
-            answer,
-            internalRole,
-            internalCategory,
-            internalDifficulty,
-            sessionId
-          );
-
-          return NextResponse.json({
-            success: true,
-            mode: 'followup',
-            content: result.question.question,
-            questionData: result.question,
-            session: result.session
-          });
-        } catch (fuError: any) {
-          console.error('Follow-up generation error:', fuError);
-          return NextResponse.json(
-            { success: false, error: 'Failed to generate follow-up. Please try again.' },
-            { status: 500 }
-          );
-        }
-      }
-
-      case 'summary': {
-        if (!sessionId) {
-          return NextResponse.json(
-            { success: false, error: 'Session ID is required for summary mode' },
-            { status: 400 }
-          );
-        }
-
-        try {
-          const summary = getInterviewSummary(sessionId);
-
-          if (!summary) {
-            return NextResponse.json(
-              { success: false, error: 'Session not found. Please start a new interview.' },
-              { status: 404 }
-            );
-          }
-
-          return NextResponse.json({
-            success: true,
-            mode: 'summary',
-            summary
-          });
-        } catch (sError: any) {
-          console.error('Summary generation error:', sError);
-          return NextResponse.json(
-            { success: false, error: 'Failed to generate summary. Please try again.' },
-            { status: 500 }
-          );
-        }
-      }
-
-      default:
-        return NextResponse.json(
-          { success: false, error: 'Invalid mode. Use "question", "feedback", "followup", or "summary"' },
-          { status: 400 }
-        );
-    }
-  } catch (error: any) {
-    console.error('Interview API unhandled error:', error);
-    console.error('Stack:', error?.stack);
+  const limit = rateLimit(`interview:${callerKey(request)}`, LIMIT, WINDOW_MS);
+  if (!limit.allowed) {
     return NextResponse.json(
-      { success: false, error: 'An unexpected error occurred. Please refresh and try again.' },
-      { status: 500 }
+      { success: false, error: 'Too many requests in a short time. Please wait a moment and try again.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } }
     );
   }
+
+  let body: Body;
+  try {
+    body = await request.json();
+  } catch {
+    return bad('Invalid request. Please refresh the page and try again.');
+  }
+
+  const level = isLevel(body.level) ? body.level : 'mid';
+  const role = isRole(body.role) ? body.role : null;
+
+  if (body.mode === 'question') {
+    if (!role) return bad('Please choose a role.');
+    if (!isCategory(body.category)) return bad('Please choose a round.');
+
+    const exclude = Array.isArray(body.exclude)
+      ? body.exclude.filter((id): id is string => typeof id === 'string').slice(0, MAX_EXCLUDE)
+      : [];
+
+    const q = pickQuestion(role, body.category, level, exclude);
+    if (!q) return bad('No questions are available for that combination yet.', 404);
+
+    return NextResponse.json({
+      success: true,
+      question: {
+        id: q.id,
+        text: q.question,
+        hints: q.hints,
+        category: q.category,
+        roundLabel: categoryLabel(role, q.category),
+        level,
+        targetWords: LEVELS.find((l) => l.key === level)?.targetWords ?? 100,
+      },
+    });
+  }
+
+  if (body.mode === 'feedback') {
+    const q = typeof body.questionId === 'string' ? getQuestion(body.questionId) : undefined;
+    if (!q) return bad('That question could not be found. Please start a new question.');
+
+    const answer = typeof body.answer === 'string' ? body.answer : '';
+    if (!answer.trim()) return bad('Write an answer before submitting.');
+    if (answer.length > MAX_ANSWER_CHARS) {
+      return bad(`That answer is very long. Please keep it under ${MAX_ANSWER_CHARS.toLocaleString()} characters, about two minutes spoken.`);
+    }
+
+    try {
+      const result = evaluateAnswer(q, answer, level, role);
+      return NextResponse.json({ success: true, result });
+    } catch (error) {
+      console.error('Interview feedback error:', error);
+      return bad('Something went wrong while checking your answer. Please try again.', 500);
+    }
+  }
+
+  return bad('Unknown request.');
+}
+
+export async function GET() {
+  return NextResponse.json({
+    success: true,
+    endpoint: 'POST /api/interview',
+    modes: {
+      question: { role: 'role key', category: 'behavioral | technical | system', level: 'entry | mid | senior', exclude: 'question ids already asked' },
+      feedback: { questionId: 'id from the question response', answer: 'string', level: 'entry | mid | senior', role: 'role key' },
+    },
+  });
 }

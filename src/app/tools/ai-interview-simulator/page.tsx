@@ -1,15 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, MessageSquare, CheckCircle, Sparkles } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ArrowLeft, CheckCircle } from "lucide-react";
 import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
-import { getToolBySlug } from "@/data/tools";
 import { siteConfig } from "@/data/config";
 import { generatePageMetadata } from "@/lib/seo/metadata";
+import { BANK } from "@/lib/interview/bank";
 import InterviewSimulatorClient from "./InterviewSimulatorClient";
+
+const QUESTION_COUNT = BANK.length;
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Free AI Interview Simulator for FAANG Prep",
@@ -25,7 +24,7 @@ const toolFaqs = [
   },
   {
     question: "How does the AI interview simulator work in 2026?",
-    answer: "Our AI interview simulator generates realistic questions tailored to your target role and experience level. You choose from three categories: behavioral questions that test soft skills and past experiences, technical questions that cover algorithms, data structures, and coding concepts, and system design questions that evaluate architecture and scalability thinking. After you submit an answer, the AI analyzes relevance, quality, and depth, then gives you a score out of ten along with specific strengths and improvement areas. The simulator also suggests follow-up questions to simulate the dynamic nature of real interviews."
+    answer: "You pick a role, a round and a level. The simulator draws a question from a bank written by hand for that role: behavioral questions about real situations, technical questions on the concepts that role uses, and a third round that is system design for engineers and a product, analytics or team case for other roles. Each question has a rubric of the points a strong answer covers. When you submit, your answer is checked against that rubric, its structure and its detail, and you get a score out of ten, the points you covered and missed, a model answer, and the follow up question an interviewer would likely ask next. Random text, off topic answers and copies of the question are not scored."
   },
   {
     question: "What types of interview questions can I practice?",
@@ -33,11 +32,11 @@ const toolFaqs = [
   },
   {
     question: "Can I practice for specific companies like Google, Amazon, or Meta?",
-    answer: "While we do not offer company-specific question banks, the patterns you practice here cover the exact frameworks used by top tech companies. Google emphasizes system design and algorithmic thinking. Amazon focuses heavily on leadership principles through behavioral questions. Meta tests both technical depth and product sense. Our technical and system design questions mirror the rigor of FAANG interviews, and our behavioral framework aligns with the leadership principle style that Amazon popularized. We are adding company-specific tracks in 2026."
+    answer: "While we do not offer company specific question banks, the patterns you practice here cover the exact frameworks used by top tech companies. Google emphasizes system design and algorithmic thinking. Amazon focuses heavily on leadership principles through behavioral questions. Meta tests both technical depth and product sense. Our technical and system design questions mirror the rigor of FAANG interviews, and our behavioral framework aligns with the leadership principle style that Amazon popularized."
   },
   {
     question: "How accurate is the AI feedback compared to a real interviewer?",
-    answer: "The feedback correlates strongly with what real hiring managers look for. We score on three dimensions: relevance measures whether your answer actually addresses the question, quality measures clarity and structure, and depth measures technical or analytical rigor. The AI catches common mistakes that human interviewers notice: rambling without structure, missing concrete examples, failing to discuss trade-offs, and not asking clarifying questions. The main limitation is that the AI cannot assess body language or vocal tone, so we recommend recording yourself on video for those dimensions."
+    answer: "It is a guide, not a hiring decision. The score combines three things: key points, meaning how many of the ideas the question is looking for you covered; structure, meaning whether your answer has the shape interviewers expect; and detail, meaning length, numbers and specifics. It catches common problems interviewers notice, such as a story with no result, an answer that says we instead of I, a design with no tradeoffs, or a list of keywords with no explanation. It also flags well known wrong statements on common technical questions. It cannot confirm that every sentence you write is true, and it cannot hear your tone or see your body language, so compare your answer with the model answer and practice out loud as well."
   },
   {
     question: "How many mock interview sessions do I need before a real interview?",
@@ -49,11 +48,11 @@ const toolFaqs = [
   },
   {
     question: "Will practicing with AI actually help me get hired?",
-    answer: "Yes, but with realistic expectations. Practicing with our AI simulator improves three things that directly impact hiring outcomes. First, structured thinking: you learn to organize answers logically instead of rambling. Second, pattern recognition: you start seeing the types of questions that come up repeatedly and develop reusable frameworks. Third, confidence: speaking answers out loud repeatedly reduces the panic response that causes candidates to blank in real interviews. Research from 2026 shows that candidates who complete at least five structured mock interview sessions receive callbacks at a rate 35 percent higher than those who do not practice. The simulator does not guarantee an offer, but it significantly improves your odds by making you prepared instead of reactive."
+    answer: "Yes, but with realistic expectations. Practicing with our AI simulator improves three things that directly impact hiring outcomes. First, structured thinking: you learn to organize answers logically instead of rambling. Second, pattern recognition: you start seeing the types of questions that come up repeatedly and develop reusable frameworks. Third, confidence: speaking answers out loud repeatedly reduces the panic response that causes candidates to blank in real interviews. The simulator does not guarantee an offer, but it significantly improves your odds by making you prepared instead of reactive."
   },
   {
     question: "How does mock interview practice online improve my chances?",
-    answer: "Mock interview practice online improves your chances by building structured thinking, pattern recognition, and confidence. Research shows candidates who complete at least five structured mock interview sessions receive callbacks at a rate 35% higher than those who do not practice. Our AI simulator provides instant feedback on relevance, quality, and depth. It generates follow-up questions to simulate real interview dynamics. Practicing online lets you repeat questions, review feedback, and track progress over time without the pressure of a real interview."
+    answer: "Mock interview practice online improves your chances by building structured thinking, pattern recognition, and confidence. This simulator gives instant feedback on the key points you covered, your structure and your level of detail, and shows the follow up question an interviewer would likely ask next so you can practice it out loud. Practicing online lets you repeat questions, review feedback, and track your session average without the pressure of a real interview."
   },
   {
     question: "What is the best coding interview prep strategy for 2026?",
@@ -62,8 +61,6 @@ const toolFaqs = [
 ];
 
 export default function InterviewSimulatorPage() {
-  const tool = getToolBySlug('ai-interview-simulator');
-
   return (
     <>
       <FAQSchema faqs={toolFaqs.map(faq => ({ question: faq.question, answer: faq.answer }))} />
@@ -77,8 +74,8 @@ export default function InterviewSimulatorPage() {
         tool={['Web browser', 'DevelopersMatrix Interview Simulator']}
         step={[
           {
-            name: "Choose your target role and company",
-            text: "Select your target role from 12 options including frontend, backend, full stack, DevOps, data scientist, and product manager. Then pick your experience level: entry (0-2 years), mid (2-5 years), or senior (5+ years). For company-specific practice, select Google, Amazon, Meta, Netflix, or Apple to get questions matching their known interview patterns. This customization ensures you practice relevant questions rather than generic ones."
+            name: "Choose your target role and level",
+            text: "Select your target role from 12 options including frontend, backend, full stack, DevOps, data scientist, and product manager. Then pick your experience level: entry (0 to 2 years), mid (2 to 5 years), or senior (5 or more years). Questions and the expected depth of an answer change with both choices, so you practice relevant questions rather than generic ones."
           },
           {
             name: "Select interview categories to practice",
@@ -86,15 +83,15 @@ export default function InterviewSimulatorPage() {
           },
           {
             name: "Answer each question aloud or in writing",
-            text: "Treat each question as a real interview scenario. For behavioral questions, answer out loud to practice vocal delivery and timing. For technical questions, write out your solution with code if applicable, then explain your reasoning. For system design questions, sketch a diagram and walk through your architecture decisions. The simulator accepts both written and verbal responses. Aim for 2-3 minutes per behavioral answer and 10-15 minutes per technical or system design question."
+            text: "Treat each question as a real interview scenario. For behavioral questions, answer out loud to practice vocal delivery and timing. For technical questions, write out your solution with code if applicable, then explain your reasoning. For system design questions, sketch a diagram and walk through your architecture decisions. You can type your answer, or dictate it in browsers that support speech input. Aim for 2-3 minutes per behavioral answer and 10-15 minutes per technical or system design question."
           },
           {
             name: "Review the AI feedback and scoring",
-            text: "After submitting your answer, the AI evaluates four dimensions: relevance to the question asked, depth of technical detail, structure and clarity, and completeness. You receive a score out of 10 and specific feedback on what you did well and what needs improvement. Pay special attention to the structure feedback for behavioral answers. Interviewers consistently rate STAR method compliance as the top differentiator between good and great candidates."
+            text: "After submitting your answer, the simulator checks three things: the key points the question is looking for, the structure of your answer, and its level of detail. You receive a score out of 10, the points you covered and missed, and specific steps to improve. Pay special attention to the structure feedback for behavioral answers. Interviewers consistently rate STAR method compliance as the top differentiator between good and great candidates."
           },
           {
             name: "Practice follow-up questions",
-            text: "Real interviews are dynamic. The AI generates follow-up questions based on your answer to simulate this back-and-forth. If you mentioned a technology but did not explain trade-offs, expect a follow-up about alternatives. If your behavioral answer lacked a specific outcome, the AI will ask for metrics. This prepares you for the probing that distinguishes senior candidates from junior ones."
+            text: "Real interviews are dynamic. After each answer the simulator shows the follow up question an interviewer would most likely ask next. Answer it out loud. If you mentioned a technology but did not explain tradeoffs, expect a question about alternatives. If your behavioral answer lacked a specific outcome, expect to be asked for numbers. This prepares you for the probing that distinguishes senior candidates from junior ones."
           },
           {
             name: "Track progress over multiple sessions",
@@ -119,82 +116,86 @@ export default function InterviewSimulatorPage() {
         }}
       />
 
-      <div className="min-h-screen bg-muted/20" id="interview-simulator">
-        {/* Header */}
-        <section className="bg-background border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6">
-              <ArrowLeft className="w-4 h-4 mr-2" />Back to Tools
+      <div className="min-h-screen bg-background">
+        {/* Hero + Tool */}
+        <section className="relative isolate border-b border-slate-900/[0.06] dark:border-white/[0.06]">
+          {/* Background layer. Clipping lives here, not on the section, so a
+              focused textarea can never scroll the section sideways on phones. */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-clip">
+            <div className="absolute inset-0 bg-[#f5f6fa] dark:bg-[#07080c]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.045)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_75%_55%_at_50%_0%,black,transparent)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)]" />
+            <div className="absolute -top-56 left-[8%] h-[36rem] w-[36rem] rounded-full bg-indigo-300/30 blur-[150px] dark:bg-indigo-500/[0.14]" />
+            <div className="absolute top-40 right-[4%] h-[30rem] w-[30rem] rounded-full bg-sky-200/40 blur-[150px] dark:bg-sky-500/[0.08]" />
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pt-10 sm:pb-16">
+            <Link href="/tools" className="inline-flex items-center text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
+              <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" />Back to Tools
             </Link>
-            <div className="flex items-start gap-6">
-              <div className="p-4 rounded-xl bg-orange-500/10 text-orange-500">
-                <MessageSquare className="w-8 h-8" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl font-bold">Free AI Interview Simulator for FAANG Prep and Tech Jobs</h1>
-                  <Badge>Free</Badge>
+            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+              Mock interview practice
+            </p>
+            <h1 className="mt-3 max-w-3xl text-3xl sm:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white text-balance">
+              Free AI Interview Simulator for FAANG Prep and Tech Jobs
+            </h1>
+            <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-3xl">
+              An AI interview simulator is a practice tool that conducts realistic mock interviews using artificial intelligence, providing instant feedback on your answers, communication style, and technical accuracy. It adapts questions to your target role and experience level, giving you unlimited practice without scheduling a human interviewer.
+            </p>
+            <dl className="mt-7 flex flex-wrap gap-x-10 gap-y-4">
+              {[
+                ["Questions", `${QUESTION_COUNT} written by hand, each with a rubric`],
+                ["Roles", "12, from frontend to engineering manager"],
+                ["Price", "Free, no signup"],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <dt className="text-xs text-slate-500 dark:text-slate-400">{k}</dt>
+                  <dd className="mt-0.5 text-sm font-medium text-slate-900 dark:text-white">{v}</dd>
                 </div>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">An AI interview simulator is a practice tool that conducts realistic mock interviews using artificial intelligence, providing instant feedback on your answers, communication style, and technical accuracy. It adapts questions to your target role and experience level, giving you unlimited practice without scheduling a human interviewer.</p>
-                <p className="text-lg text-muted-foreground">{tool?.description}</p>
+              ))}
+            </dl>
+
+            <div className="mt-10">
+              <div id="interview-simulator" className="scroll-mt-24">
+                <InterviewSimulatorClient />
+              </div>
+              <InContentAd />
+
+              <div className="mt-8 grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
+                <div className="min-w-0 rounded-2xl border border-white/70 bg-white/55 p-5 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] dark:border-white/[0.08] dark:bg-slate-900/40 dark:shadow-none sm:p-6">
+                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">How scoring works</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                    Every question comes with a short rubric: the four to six points a strong answer covers, plus a model answer. Your score out of 10 combines three things. Key points: how many of those ideas you covered. Structure: whether a behavioral answer has a situation, your own actions, a result and a lesson, or whether a design answer covers requirements, components, scale, tradeoffs and failure. Detail: length for your level, numbers and specifics.
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                    Random text, placeholder text, a copy of the question, repeated words and answers about something else are not scored. A list of keywords without sentences is capped at 3. For common technical questions, well known wrong statements (such as calling var block scoped) are flagged and lower the score.
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                    What it cannot do: judge whether every sentence you write is true, or hear your tone of voice. Treat the score as a guide to what an interviewer is listening for, and use the model answer to check your facts.
+                  </p>
+                </div>
+                <aside className="min-w-0 rounded-2xl border border-white/70 bg-white/55 p-5 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] dark:border-white/[0.08] dark:bg-slate-900/40 dark:shadow-none">
+                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">What you get</h2>
+                  <ul className="mt-3 space-y-2.5 text-sm text-slate-700 dark:text-slate-300">
+                    {[
+                      "Behavioral, technical and system design rounds",
+                      "Product, analytics and team cases for non engineering roles",
+                      "Entry, mid and senior levels",
+                      "Key points covered and missed, for every answer",
+                      "A model answer and the likely follow up question",
+                      "Speak your answer in browsers that support dictation",
+                    ].map((f) => (
+                      <li key={f} className="flex items-start gap-2.5">
+                        <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <SidebarAd />
+                </aside>
               </div>
             </div>
           </div>
         </section>
-
-        {/* Main Tool + Sidebar */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-3">
-              <InterviewSimulatorClient />
-              <InContentAd />
-              <Card className="mt-8">
-                <CardHeader><CardTitle>Key Features</CardTitle></CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {tool?.features.map((feature, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="mt-8">
-                <CardHeader><CardTitle>FAQ</CardTitle></CardHeader>
-                <CardContent>
-                  <Accordion type="single" collapsible className="w-full">
-                    {tool?.faqs.map((faq, index) => (
-                      <AccordionItem key={index} value={`item-${index}`}>
-                        <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </CardContent>
-              </Card>
-            </div>
-            <div className="lg:col-span-1 space-y-6">
-              <SidebarAd />
-              <Card>
-                <CardHeader><CardTitle className="text-base">Benefits</CardTitle></CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {tool?.benefits.map((benefit, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm">
-                        <Sparkles className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
-                        {benefit}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-              <SidebarAd />
-            </div>
-          </div>
-        </div>
-
         {/* SEO Content Section */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col lg:flex-row gap-8">
@@ -210,13 +211,13 @@ export default function InterviewSimulatorPage() {
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="text-lg leading-relaxed">
-                    Here is the uncomfortable truth about tech interviews in 2026. Entry-level hiring has collapsed by 73 percent. Engineering leaders at top companies report that AI tools are making technical skills harder to assess, which means interviews are getting harder for everyone. And 38.5 percent of candidates now use cheating tools, forcing companies to design even tougher screening processes.
+                    Here is the uncomfortable truth about tech interviews in 2026. There are fewer openings for juniors, more applicants per role, and interviewers who now probe harder because AI tools make polished but shallow answers easy to produce. Interviews are getting harder for everyone.
                   </p>
                   <p className="leading-relaxed">
                     That is why the gap between wanting a software engineering job and actually landing one has never been wider. It is not enough to know React or Python. You need to explain your thinking under pressure, handle unexpected follow-up questions, and demonstrate genuine understanding rather than memorized answers.
                   </p>
                   <p className="leading-relaxed">
-                    The <strong>DevelopersMatrix AI Interview Simulator</strong> was built for this exact moment. It is not a static question bank. Our AI generates realistic questions tailored to your target role and experience level, evaluates your answers across three dimensions: relevance, quality, and depth, and gives you actionable feedback that improves your performance. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
+                    The <strong>DevelopersMatrix AI Interview Simulator</strong> was built for this exact moment. Every question is written for a specific role and level, and each one has a rubric of what a strong answer covers. Your answer is checked against that rubric, its structure and its detail, and you get feedback on exactly what to add. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
                   </p>
                   <p className="leading-relaxed">
                     Best part? It is completely free. No signup. No credit card. No scheduling. Just pick your role, select a category, and start practicing.
@@ -234,7 +235,7 @@ export default function InterviewSimulatorPage() {
                     If you are targeting Google, Amazon, Meta, Netflix, or Apple in 2026, you need more than random LeetCode practice. You need a structured roadmap that covers every interview type these companies use, in the right order, with the right intensity. This is the preparation plan that separates candidates who get offers from candidates who get rejection emails.
                   </p>
                   <p className="leading-relaxed">
-                    <strong>Month One: Foundations.</strong> Start with data structures and algorithms. Arrays, hash maps, linked lists, trees, graphs, and basic dynamic programming. Do not jump to hard problems. Master the patterns first. Two pointers, sliding window, BFS, DFS, binary search. These patterns appear in over 60 percent of technical questions at every FAANG company. Use our simulator to practice explaining your thought process out loud while you solve. Communication matters as much as correctness.
+                    <strong>Month One: Foundations.</strong> Start with data structures and algorithms. Arrays, hash maps, linked lists, trees, graphs, and basic dynamic programming. Do not jump to hard problems. Master the patterns first. Two pointers, sliding window, BFS, DFS, binary search. Use our simulator to practice explaining your thought process out loud while you solve. Communication matters as much as correctness.
                   </p>
                   <p className="leading-relaxed">
                     <strong>Month Two: System Design.</strong> Once you can solve medium LeetCode problems in 25 minutes, shift focus to system design. Read designing data intensive applications by Martin Kleppmann. Practice designing URL shorteners, Twitter feeds, chat applications, and ride sharing systems. Focus on tradeoffs, not perfection. Google wants to see how you think about scale. Amazon wants to see how you handle constraints. Meta wants to see product sense alongside technical depth.
@@ -269,7 +270,7 @@ export default function InterviewSimulatorPage() {
                       Technical Interviews
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Technical interviews test algorithms, data structures, and language-specific knowledge. In 2026, many companies have added AI-enabled coding rounds where you can use AI tools but must demonstrate understanding. You might be asked to explain a LeetCode Medium in fifteen minutes, debug a function with intentional bugs, or whiteboard an approach before writing code. Our technical questions mirror this rigor with adaptive follow-ups.
+                      Technical interviews test algorithms, data structures, and language specific knowledge. In 2026, many companies have added AI enabled coding rounds where you can use AI tools but must demonstrate understanding. You might be asked to explain a LeetCode Medium in fifteen minutes, debug a function with intentional bugs, or whiteboard an approach before writing code. Each technical question here also shows the follow up an interviewer would likely ask next.
                     </p>
                   </div>
                   <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
@@ -287,7 +288,7 @@ export default function InterviewSimulatorPage() {
                       AI-Enabled Interview Rounds
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      A new format in 2026. Companies like Meta now run three-phase coding rounds where AI generates initial code and you must review, optimize, and explain it. This tests a different skill: can you critically evaluate AI output, catch bugs, and improve performance? Our simulator prepares you for both traditional and AI-augmented formats so you are ready regardless of what the interviewer throws at you.
+                      A newer format. Some companies, Meta among them, have started testing coding rounds where an AI assistant is allowed and you must review, improve and explain the code it produces. This tests a different skill: can you critically evaluate AI output, catch bugs, and improve performance? Practicing how you explain your reasoning out loud helps with both the traditional and the AI assisted formats.
                     </p>
                   </div>
                 </div>
@@ -329,7 +330,7 @@ export default function InterviewSimulatorPage() {
                   </p>
 
                   <p className="leading-relaxed mt-4">
-                    Common STAR mistakes to avoid: rambling for two minutes before getting to the point, describing a team achievement without clarifying your personal contribution, skipping the result entirely, and using vague language like "significant improvement" instead of specific metrics. Our AI simulator flags all of these issues and tells you exactly what to fix.
+                    Common STAR mistakes to avoid: rambling for two minutes before getting to the point, describing a team achievement without clarifying your personal contribution, skipping the result entirely, and using vague language like "significant improvement" instead of specific metrics. The simulator checks for a missing result, missing personal actions, answers that are too short and answers without numbers, and tells you what to add.
                   </p>
                 </div>
               </section>
@@ -353,7 +354,7 @@ export default function InterviewSimulatorPage() {
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">2</span>
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Rambling Without Structure</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">The most common failure pattern is answering a behavioral question with a stream of consciousness. The candidate mentions a project, then jumps to a different project, then remembers something about the team, then goes back to the first project. After two minutes the interviewer has no idea what the point was. Every answer needs a beginning, middle, and end. Our AI specifically scores structure and flags when your answer lacks clear progression.</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">The most common failure pattern is answering a behavioral question with a stream of consciousness. The candidate mentions a project, then jumps to a different project, then remembers something about the team, then goes back to the first project. After two minutes the interviewer has no idea what the point was. Every answer needs a beginning, middle, and end. The simulator scores structure and tells you which part of the story is missing.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 items-start">
@@ -381,7 +382,7 @@ export default function InterviewSimulatorPage() {
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">6</span>
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Being Too Modest About Achievements</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Developers often say "we fixed the issue" when they mean "I fixed the issue." Interviewers understand team dynamics, but they are evaluating you, not your team. Use first-person language. "I identified the memory leak, I implemented the fix, I wrote the regression test." Modesty is a virtue in daily life but a liability in interviews. Our AI flags when you use passive or team-focused language instead of owning your contributions.</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Developers often say "we fixed the issue" when they mean "I fixed the issue." Interviewers understand team dynamics, but they are evaluating you, not your team. Use first-person language. "I identified the memory leak, I implemented the fix, I wrote the regression test." Modesty is a virtue in daily life but a liability in interviews. The simulator flags answers that say we far more often than I.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 items-start">
@@ -463,13 +464,13 @@ export default function InterviewSimulatorPage() {
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="text-lg leading-relaxed">
-                    Mock interview practice online has become the most efficient way to prepare for tech interviews in 2026. Unlike traditional prep methods that rely on static question banks, AI-powered simulators create dynamic, adaptive practice sessions that mirror real interview conditions.
+                    Mock interview practice online has become the most efficient way to prepare for tech interviews in 2026. You can practice at any hour, repeat a question until the answer is tight, and get feedback in seconds instead of waiting for a friend to be free.
                   </p>
                   <p className="leading-relaxed">
-                    Our simulator offers three advantages over traditional prep. First, <strong>instant feedback</strong>: you get scores and actionable advice within seconds, not days. Second, <strong>adaptive difficulty</strong>: questions adjust based on your performance, ensuring you are always challenged at the right level. Third, <strong>follow-up questions</strong>: the AI simulates real interviewer behavior by probing deeper into your answers, testing your ability to think on your feet.
+                    Our simulator offers three advantages over traditional prep. First, <strong>instant feedback</strong>: you get scores and actionable advice within seconds, not days. Second, <strong>the right level</strong>: after three answers at one level, the simulator suggests moving up or down based on your scores. Third, <strong>follow up questions</strong>: every answer shows the question an interviewer would likely ask next, so you can practice thinking on your feet.
                   </p>
                   <p className="leading-relaxed">
-                    Research from 2026 shows that candidates who complete at least five structured mock interview sessions receive callbacks at a rate 35% higher than those who do not practice. The key is not just quantity but quality: focused practice with feedback, review, and deliberate improvement between sessions. Our simulator is designed for exactly this type of deliberate practice.
+                    The key is not just quantity but quality: focused practice with feedback, review, and deliberate improvement between sessions. Our simulator is designed for exactly this type of deliberate practice.
                   </p>
                 </div>
               </section>
@@ -621,22 +622,19 @@ export default function InterviewSimulatorPage() {
 
               {/* Section 9: CTA */}
               <section className="mb-12">
-                <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-8 text-white text-center">
+                <div className="rounded-3xl bg-slate-900 p-8 text-white text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] dark:bg-white/[0.04] dark:ring-1 dark:ring-white/10">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4">
                     Start Practicing Your Interview Skills Now. It is Free
                   </h2>
-                  <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
-                    Join 2,100 developers who have used our simulator to prepare for interviews at Google, Amazon, Meta, Stripe, and hundreds of other companies. No signup. No credit card. Just realistic practice.
+                  <p className="text-white/80 mb-6 max-w-2xl mx-auto">
+                    Pick a role, answer one question, and see exactly what an interviewer would want you to add. No signup. No credit card.
                   </p>
                   <a
                     href="#interview-simulator"
-                    className="inline-flex items-center gap-2 bg-white text-orange-600 px-8 py-3 rounded-xl font-semibold hover:bg-orange-50 transition-colors shadow-lg"
+                    className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-3 rounded-xl font-semibold hover:bg-slate-100 transition-colors"
                   >
                     Start Your Free Mock Interview
                   </a>
-                  <p className="text-orange-200 text-sm mt-4">
-                    Used by developers preparing for FAANG, startups, and Fortune 500 companies
-                  </p>
                 </div>
               </section>
             </div>
@@ -650,57 +648,45 @@ export default function InterviewSimulatorPage() {
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Related Resources</h3>
                   <ul className="space-y-3">
                     <li>
-                      <a href="/tools/ai-resume-builder" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📄</span> AI Resume Builder
+                      <a href="/tools/ai-resume-builder" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                        AI Resume Builder
                       </a>
                     </li>
                     <li>
-                      <a href="/tools/ai-cover-letter-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📝</span> Cover Letter Generator
+                      <a href="/tools/ai-cover-letter-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                        Cover Letter Generator
                       </a>
                     </li>
                     <li>
-                      <a href="/tools/salary-estimator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>💰</span> Salary Estimator
+                      <a href="/tools/salary-estimator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                        Salary Estimator
                       </a>
                     </li>
                     <li>
-                      <a href="/blog/faang-interview-playbook-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📘</span> FAANG Interview Playbook 2026
+                      <a href="/blog/faang-interview-playbook-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                        FAANG Interview Playbook 2026
                       </a>
                     </li>
                     <li>
-                      <a href="/blog/technical-interview-prep-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>🎯</span> Technical Interview Prep Guide
+                      <a href="/blog/technical-interview-prep-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                        Technical Interview Prep Guide
                       </a>
                     </li>
                     <li>
-                      <a href="/trends/tech-interview-preparation-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📈</span> Tech Interview Trends 2026
+                      <a href="/trends/tech-interview-preparation-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                        Tech Interview Trends 2026
                       </a>
                     </li>
                   </ul>
                 </div>
 
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">2026 Interview Stats</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">What the checker looks for</h3>
                   <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">73%</span>
-                      <span>collapse in entry-level tech hiring since 2024</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">71%</span>
-                      <span>of engineering leaders say AI makes skills harder to assess</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">35%</span>
-                      <span>higher callback rate for candidates who do 5+ mock sessions</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">6.8s</span>
-                      <span>average time recruiters spend on resume first scan</span>
-                    </li>
+                    <li><span className="font-semibold text-gray-900 dark:text-white">Key points.</span> The ideas a strong answer to that exact question covers.</li>
+                    <li><span className="font-semibold text-gray-900 dark:text-white">Structure.</span> Situation, your actions, result and lesson for stories. Requirements to failure modes for designs.</li>
+                    <li><span className="font-semibold text-gray-900 dark:text-white">Detail.</span> Enough words for your level, plus numbers and specifics.</li>
+                    <li><span className="font-semibold text-gray-900 dark:text-white">Not scored.</span> Random text, off topic answers and copies of the question.</li>
                   </ul>
                 </div>
               </div>
@@ -716,17 +702,17 @@ export default function InterviewSimulatorPage() {
             Free AI Interview Simulator: Your Complete FAANG Interview Preparation Roadmap for 2026
           </h2>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The tech hiring landscape has changed dramatically. With a 73% collapse in entry-level hiring since 2024 and 71% of engineering leaders reporting that AI tools make candidate assessment harder, preparation is no longer optional. Our <strong>free AI interview simulator</strong> gives you a structured way to practice the exact question types you will face at Google, Amazon, Meta, Netflix, Apple, and other top tech companies.
+            The tech hiring landscape has changed. Junior roles are harder to land, interview loops are longer, and interviewers dig deeper because polished answers are easy to produce with AI. Preparation is no longer optional. Our <strong>free AI interview simulator</strong> gives you a structured way to practice the exact question types you will face at Google, Amazon, Meta, Netflix, Apple, and other top tech companies.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
             What Makes This AI Interview Simulator Different
           </h3>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Most mock interview platforms charge $50-200 per session or require subscriptions. Our <strong>AI interview simulator</strong> is completely free with no signup required. You get instant scoring on three dimensions: relevance (does your answer address the question), quality (clarity and structure), and depth (technical or analytical rigor). The AI also suggests follow-up questions, simulating the dynamic back-and-forth of real interviews.
+            Many mock interview services charge per session or require a subscription. Our <strong>AI interview simulator</strong> is completely free with no signup required. You get an instant score built from three parts: key points (did you cover what the question is looking for), structure (does your answer have the shape interviewers expect), and detail (length, numbers and specifics). Every answer also shows the follow up question an interviewer would likely ask next.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Research from our 2026 developer survey shows that candidates who complete five or more mock interview sessions have a 35% higher callback rate than those who do not practice. The simulator covers behavioral questions using the STAR method, technical questions spanning algorithms and data structures, and system design questions that test architectural thinking.
+            The simulator covers behavioral questions using the STAR method, technical questions spanning algorithms and data structures, and system design questions that test architectural thinking.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
@@ -743,7 +729,7 @@ export default function InterviewSimulatorPage() {
             </div>
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-2">3. Answer Out Loud</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Type your answer as if you were speaking. The AI evaluates structure, examples, and depth.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Type your answer as if you were speaking, or dictate it. The checker looks at key points, structure and detail.</p>
             </div>
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
               <h4 className="font-semibold text-gray-900 dark:text-white mb-2">4. Review Feedback</h4>
@@ -790,28 +776,24 @@ export default function InterviewSimulatorPage() {
           </h3>
           <div className="grid sm:grid-cols-2 gap-3 mb-8">
             <a href="/tools/ai-resume-builder" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📄</span>
               <div>
                 <p className="font-medium text-gray-900 dark:text-white text-sm">AI Resume Builder</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Build an ATS-optimized resume</p>
               </div>
             </a>
             <a href="/tools/ai-cover-letter-generator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📝</span>
               <div>
                 <p className="font-medium text-gray-900 dark:text-white text-sm">Cover Letter Generator</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Personalized cover letters in seconds</p>
               </div>
             </a>
             <a href="/tools/salary-estimator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">💰</span>
               <div>
                 <p className="font-medium text-gray-900 dark:text-white text-sm">Salary Estimator</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Know your market value</p>
               </div>
             </a>
             <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📚</span>
               <div>
                 <p className="font-medium text-gray-900 dark:text-white text-sm">Career Guides</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Interview tips and industry insights</p>

@@ -37,15 +37,15 @@ const coverLetterFaqs: FAQ[] = [
 const interviewFaqs: FAQ[] = [
   {
     question: "How does the AI Interview Simulator work?",
-    answer: "Our AI Interview Simulator generates realistic interview questions based on your target role and industry. You can practice your responses and receive AI-generated feedback on your answers, including suggestions for improvement."
+    answer: "It picks a question written for your role and level. When you answer, it checks your answer against a rubric for that question, its structure and its detail, then shows what you covered, what you missed, a model answer and the follow up an interviewer would likely ask."
   },
   {
     question: "What types of interview questions are included?",
-    answer: "The simulator includes behavioral questions, technical questions, situational scenarios, and role-specific inquiries. You can customize the focus areas based on your interview preparation needs."
+    answer: "Behavioral questions, technical questions for your role, and a third round that is system design for engineers or a product, analytics or team case for other roles. You choose the role, the round and an entry, mid or senior level."
   },
   {
     question: "Can I practice for specific companies?",
-    answer: "Yes! You can specify the company you're interviewing with, and the AI will tailor questions to match that company's known interview style and values."
+    answer: "Not yet. The questions are organised by role and level rather than by company. They cover the behavioral, technical and system design patterns that large tech companies use, so they are still useful for company preparation, but there are no company specific tracks."
   }
 ];
 
@@ -228,16 +228,16 @@ export const tools: Tool[] = [
     features: [
       'Role-specific questions',
       'Real-time feedback',
-      'Performance analytics',
+      'Session score tracking',
       'Multiple interview types',
-      'Company-specific preparation',
-      'Recording and playback'
+      'Model answers for every question',
+      'Speak your answer where supported'
     ],
     benefits: [
       'Build interview confidence',
       'Identify improvement areas',
       'Practice anywhere, anytime',
-      'Prepare for specific companies'
+      'See exactly what your answer is missing'
     ],
     faqs: interviewFaqs,
     keywords: ['interview simulator', 'interview practice', 'AI interview', 'mock interview', 'job interview prep'],
