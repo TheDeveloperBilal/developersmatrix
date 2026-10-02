@@ -25,7 +25,7 @@ const toolFaqs = [
   },
   {
     question: "How long should a tech cover letter be in 2026?",
-    answer: "Aim for roughly 200 to 400 words, or three to four concise paragraphs. Shorter is fine for an email or quick apply form, as long as every line is specific. Recruiters skim, so every sentence must earn its place. Start with a one sentence hook, follow with two body paragraphs highlighting your most relevant achievements, and close with a confident call to action. Anything longer risks being skimmed or ignored. Anything shorter looks like you did not try."
+    answer: "Aim for roughly 150 to 400 words, or three to four concise paragraphs. Shorter is fine for an email or quick apply form, as long as every line is specific. Recruiters skim, so every sentence must earn its place. Start with a one sentence hook, follow with two body paragraphs highlighting your most relevant achievements, and close with a confident call to action. Anything longer risks being skimmed or ignored. Anything shorter looks like you did not try."
   },
   {
     question: "Is this cover letter generator ATS-friendly?",
@@ -272,7 +272,7 @@ export default function CoverLetterPage() {
                 </h2>
                 <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                   <p className="leading-relaxed">
-                    Keep a tech cover letter between roughly 200 and 400 words. Recruiters skim on the first pass, so every sentence must earn its place. Here are the four elements that separate cover letters that get callbacks from those that get ignored.
+                    Keep a tech cover letter between roughly 150 and 400 words. Recruiters skim on the first pass, so every sentence must earn its place. Here are the four elements that separate cover letters that get callbacks from those that get ignored.
                   </p>
 
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Element 1: The Hook That Proves You Did Your Homework</h3>
@@ -330,7 +330,7 @@ export default function CoverLetterPage() {
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">4</span>
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Writing Novels Instead of Cover Letters</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">A cover letter longer than one page is a cover letter that will not be read. Roughly 200 to 400 words is the range most recruiters recommend. The first pass is a skim of a few seconds. They are not reading every word. They are skimming for structure, relevance, and enthusiasm. If your letter is two pages, you are signaling that you do not understand brevity, which is a red flag for any engineering role.</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">A cover letter longer than one page is a cover letter that will not be read. Roughly 150 to 400 words is the range most recruiters recommend. The first pass is a skim of a few seconds. They are not reading every word. They are skimming for structure, relevance, and enthusiasm. If your letter is two pages, you are signaling that you do not understand brevity, which is a red flag for any engineering role.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 items-start">
