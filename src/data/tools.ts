@@ -3,19 +3,19 @@ import { Tool, FAQ } from '@/types';
 const resumeBuilderFaqs: FAQ[] = [
   {
     question: "How does the AI Resume Builder work?",
-    answer: "Our AI Resume Builder uses advanced language models to analyze your input and generate professional, ATS-optimized resume content. Simply enter your details, and the AI will create compelling descriptions, bullet points, and summaries tailored to your industry."
+    answer: "You fill in each section and see your resume on a live A4 page as you type. A built in check flags weak openers, bullets without numbers, pronouns, tense mistakes and missing details, and a summary helper drafts a summary from your own details. Paste a job posting to see which of its skills your resume already shows. Then download a PDF or copy the text."
   },
   {
     question: "Is this resume builder suitable for all industries?",
-    answer: "Yes! Our AI Resume Builder is designed to work across all industries and job levels. Whether you're a software developer, marketing professional, healthcare worker, or executive, the AI adapts to create industry-appropriate content."
+    answer: "It works for any role, and it is tuned for tech: the skills matching knows around 150 tech, product, data and marketing skills, and the check rules (a verb first, a result with a number, one idea per line) apply to every industry."
   },
   {
     question: "Can I customize the generated resume?",
-    answer: "Absolutely! The AI-generated content serves as a strong foundation. You can edit, add, or remove any sections to perfectly match your personal experience and career goals."
+    answer: "Yes. Everything on the resume is your own text, and you can switch between three templates and five accent colours at any time. The builder never rewrites your bullets; it shows you what to fix."
   },
   {
     question: "What formats can I export my resume in?",
-    answer: "You can export your resume in multiple formats including PDF, DOCX, and plain text. PDF is recommended for most applications as it preserves formatting across all devices."
+    answer: "You can download a PDF, download a plain text file, or copy the text. PDF is recommended for most applications. If an employer asks for Word, paste the text into Word and save it as DOCX."
   }
 ];
 
@@ -169,21 +169,21 @@ export const tools: Tool[] = [
     id: 'ai-resume-builder',
     slug: 'ai-resume-builder',
     name: 'AI Resume Builder',
-    description: 'Create professional, ATS-optimized resumes in minutes with our AI-powered resume builder. Get personalized content suggestions, modern templates, and export options that help you stand out to recruiters and hiring managers.',
+    description: 'Write your resume on a live A4 page with three ATS friendly templates. A built in check flags weak bullets and missing numbers, a job posting comparison shows skill gaps, and you download a clean PDF.',
     shortDescription: 'Build ATS-optimized resumes with AI assistance',
     icon: 'FileText',
     category: 'career',
     features: [
-      'AI-powered content generation',
-      'ATS-friendly formatting',
-      'Multiple professional templates',
-      'Real-time preview',
-      'Export to PDF, DOCX',
-      'Cover letter integration'
+      'Live A4 preview with page breaks',
+      'Three ATS friendly templates',
+      'Resume check on every bullet',
+      'Job posting skill matching',
+      'Summary helper from your own details',
+      'PDF, text and copy export'
     ],
     benefits: [
       'Save hours of resume writing time',
-      'Increase interview callback rates',
+      'Catch weak bullets before a recruiter does',
       'Pass ATS screening systems',
       'Professional formatting automatically'
     ],

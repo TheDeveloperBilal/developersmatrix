@@ -5,6 +5,7 @@ import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } f
 import { getToolBySlug } from '@/data/tools';
 import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
+import Link from 'next/link';
 import ResumeBuilderClient from './ResumeBuilderClient';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,23 +21,23 @@ const toolFaqs = [
   },
   {
     question: "How does the ATS optimization work in this resume builder?",
-    answer: "Our AI analyzes current ATS (Applicant Tracking System) patterns used by companies in 2026. The builder automatically suggests industry-specific keywords, ensures clean single-column formatting, uses standard section headers like 'Work Experience' and 'Technical Skills', and avoids graphics or tables that confuse parsers. Resumes built here achieve 95%+ ATS parse rates."
+    answer: "Every template is a single column of real text with standard section names (Summary, Experience, Projects, Education, Skills) and plain system fonts, which is what applicant tracking systems read most reliably. There are no tables, images or text boxes. Paste a job posting into Match a job and the builder shows which of its skills your resume already mentions and which it does not, so you can add the ones that are true."
   },
   {
     question: "What makes this the best AI resume builder for developers in 2026?",
-    answer: "Unlike generic resume builders, ours is trained specifically on tech job descriptions. It understands the difference between frontend, backend, and DevOps roles. It suggests relevant keywords like 'React', 'Kubernetes', or 'CI/CD pipelines' based on your target position. Plus, it follows 2026 resume trends: skills-first layouts, measurable achievements, and AI-readability optimization."
+    answer: "It is built around how tech resumes are actually read. You see the resume on a real A4 page as you type, with a page break marker, and a live check flags the things recruiters notice first: bullets that start with Responsible for, results with no numbers, pronouns, tense mistakes, thin bullets and missing contact details. Match a job compares your resume with a posting using a list of around 150 tech and business skills. It is free, needs no signup, and keeps your data in your browser."
   },
   {
     question: "Can I customize the resume for different job applications?",
-    answer: "Absolutely. The 'Save & Create Another' feature lets you maintain multiple resume versions. We recommend tailoring each resume to match specific job descriptions. Our AI can help identify which keywords to emphasize for each role. Pro tip: resumes customized per job get 3x more interview callbacks than generic ones."
+    answer: "Yes. Your resume is saved in your browser, so you can come back, paste a new job posting into Match a job, adjust your skills and top bullets, and download a fresh PDF for each application. Use Download as text to keep a copy of each version. Tailoring the first few bullets to each posting is one of the simplest ways to get more replies."
   },
   {
     question: "What file formats can I export my resume in?",
-    answer: "Currently, you can download your resume as a clean PDF optimized for ATS parsing. In 2026, PDF remains the safest format for online applications, though some older ATS systems prefer DOCX. We're adding DOCX export soon. Both formats use standard fonts (Arial/Calibri) and avoid multi-column layouts to ensure maximum compatibility."
+    answer: "You can download a PDF, download a plain text file, or copy the whole resume as text for application forms that ask you to paste it. The PDF uses real selectable text and standard fonts, which is the safest format for most online applications. If an employer asks for a Word file, paste the text version into Word and save it as DOCX."
   },
   {
     question: "Should I include AI tools like ChatGPT on my 2026 resume?",
-    answer: "Only if you used them for real workflow improvements, not just as a buzzword. Frame it as an outcome: 'Used AI-assisted code review to reduce bug detection time by 40%' reads stronger than 'Used ChatGPT'. Our AI suggests natural ways to present AI literacy without sounding like you replaced your actual skills."
+    answer: "Only if you used them for real workflow improvements, not just as a buzzword. Frame it as an outcome: 'Used AI assisted code review to reduce bug detection time by 40%' reads stronger than 'Used ChatGPT'. The resume check flags bullets that have no number, which helps you frame AI use as a result rather than a buzzword."
   },
   {
     question: "How long should a software developer resume be in 2026?",
@@ -44,15 +45,15 @@ const toolFaqs = [
   },
   {
     question: "What are the biggest resume mistakes developers make in 2026?",
-    answer: "The first and most common mistake is overdesigning with graphics, colors, and creative layouts that look great to humans but completely break ATS parsing. The second is listing tools without project proof. Writing React on your skills list means nothing unless you can point to a production project where you used it. The third is using generic professional summaries like passionate developer with a love for coding instead of targeted statements with measurable outcomes. The fourth is ignoring keyword optimization entirely. Roughly 75 percent of resumes are filtered by ATS before a human ever sees them, so missing keywords is an automatic rejection. The fifth is failing to quantify achievements. Every bullet point without a number is a missed opportunity to prove impact."
+    answer: "The first and most common mistake is overdesigning with graphics, colors, and creative layouts that look great to humans but completely break ATS parsing. The second is listing tools without project proof. Writing React on your skills list means nothing unless you can point to a production project where you used it. The third is using generic professional summaries like passionate developer with a love for coding instead of targeted statements with measurable outcomes. The fourth is ignoring keyword optimization entirely. Many employers filter resumes with an ATS before a person reads them, so missing the posting's own words can cost you the interview. The fifth is failing to quantify achievements. Every bullet point without a number is a missed opportunity to prove impact."
   },
   {
     question: "What is the best AI resume builder for developers in 2026?",
-    answer: "DevelopersMatrix is the best AI resume builder for developers in 2026 because it is specifically trained on tech job descriptions and ATS patterns. Unlike generic builders, it understands the difference between frontend, backend, and DevOps roles. It suggests relevant keywords like 'React', 'Kubernetes', or 'CI/CD pipelines' based on your target position. It follows 2026 resume trends: skills-first layouts, measurable achievements, and AI-readability optimization. Plus, it is completely free with no signup required."
+    answer: "The best builder is the one that helps you write specific, measurable bullets and gives you a clean PDF. This one shows your resume on a live A4 page, checks every bullet for weak openers and missing numbers, compares your resume with a pasted job posting, and offers three single column ATS safe templates. It is completely free with no signup, and your data stays in your browser."
   },
   {
     question: "Can I use this free resume builder for software engineers?",
-    answer: "Yes, this resume builder is specifically designed for software engineers, web developers, DevOps specialists, data scientists, and all tech professionals. The AI understands technical roles and suggests industry-specific keywords, skills, and achievements that resonate with engineering hiring managers. It includes templates optimized for software engineering resumes with proper section ordering, technical skills categorization, and project highlighting."
+    answer: "Yes, this resume builder is specifically designed for software engineers, web developers, DevOps specialists, data scientists, and all tech professionals. It has a dedicated Projects section for side projects and open source, a skills list that is compared against job postings, and a check that pushes every bullet toward a measurable result. All three templates use standard section order and plain fonts."
   }
 ];
 
@@ -66,7 +67,7 @@ export default function ResumeBuilderPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950" id="resume-builder">
+      <div className="min-h-screen bg-stone-50/40 dark:bg-stone-950">
       {/* Breadcrumb Schema */}
       <BreadcrumbSchema
         items={[
@@ -81,7 +82,7 @@ export default function ResumeBuilderPage() {
         name="DevelopersMatrix AI Resume Builder"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
-        description="Free AI-powered resume builder for developers and tech professionals. Create ATS-optimized resumes with 2026-ready templates and keyword suggestions."
+        description="Free resume builder for developers and tech professionals. Live A4 preview, three ATS friendly templates, a built in resume check and job posting skill matching. No signup."
         url={`${siteConfig.url}/tools/ai-resume-builder`}
         offers={{
           price: "0",
@@ -112,12 +113,12 @@ export default function ResumeBuilderPage() {
           },
           {
             name: "Add your technical skills with categorization",
-            text: "Organize skills by category: Frontend (React, Vue, CSS), Backend (Node.js, Python, Go), DevOps (Docker, Kubernetes, CI/CD), and Cloud (AWS, GCP, Azure). This helps recruiters and ATS systems quickly identify your expertise areas. Use the AI suggestions to discover relevant keywords for your target role.",
+            text: "Organize skills by category: Frontend (React, Vue, CSS), Backend (Node.js, Python, Go), DevOps (Docker, Kubernetes, CI/CD), and Cloud (AWS, GCP, Azure). This helps recruiters and ATS systems quickly identify your expertise areas. Paste a job posting into Match a job to see which relevant skills you have not listed yet.",
             url: `${siteConfig.url}/tools/ai-resume-builder`
           },
           {
             name: "Detail work experience with measurable outcomes",
-            text: "For each role, write 3-4 bullet points using the STAR method (Situation, Task, Action, Result). Every bullet should contain a number or percentage. Instead of 'Improved page load speed', write 'Reduced page load time from 4.2s to 1.1s (74% improvement) by implementing lazy loading and image optimization.' The AI builder suggests powerful metrics based on common developer achievements.",
+            text: "For each role, write 3-4 bullet points using the STAR method (Situation, Task, Action, Result). Every bullet should contain a number or percentage. Instead of 'Improved page load speed', write 'Reduced page load time from 4.2s to 1.1s (74% improvement) by implementing lazy loading and image optimization.' The live check marks any bullet that has no number.",
             url: `${siteConfig.url}/tools/ai-resume-builder`
           },
           {
@@ -131,21 +132,73 @@ export default function ResumeBuilderPage() {
             url: `${siteConfig.url}/tools/ai-resume-builder`
           },
           {
-            name: "Run the AI optimization scan",
-            text: "Use the built-in AI scan to check keyword density, section completeness, and ATS compatibility. The tool flags missing keywords, suggests improvements, and scores your resume against the job description you provide. A score above 85 indicates strong ATS compatibility.",
+            name: "Run the resume check",
+            text: "Open Resume check to see every issue grouped into Fix first, Worth improving and Working well, each linked to the section it is in. Then paste the job description into Match a job to see which of its skills your resume already shows. Fix the red items before you download.",
             url: `${siteConfig.url}/tools/ai-resume-builder`
           },
           {
             name: "Download as PDF and test with an ATS parser",
-            text: "Download your resume as a PDF and run it through a free ATS parser test to confirm proper parsing. Check that section headers, dates, and bullet points extract correctly. Save multiple versions tailored to different job descriptions. Custom resumes get 3x more callbacks than generic ones.",
+            text: "Download your resume as a PDF and run it through a free ATS parser test to confirm proper parsing. Check that section headers, dates, and bullet points extract correctly. Save multiple versions tailored to different job descriptions. Tailored resumes consistently do better than one generic version sent everywhere.",
             url: `${siteConfig.url}/tools/ai-resume-builder`
           }
         ]}
       />
 
-      {/* Main Tool Interface, wrapped in container */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <ResumeBuilderClient />
+      {/* Hero: ruled paper, a quieter look than the other tools */}
+      <section className="relative isolate border-b border-stone-200 dark:border-stone-800">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-clip bg-stone-50 dark:bg-stone-950">
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(120,113,108,0.12)_1px,transparent_1px)] [background-size:100%_32px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
+          <div className="absolute inset-y-0 left-2 w-px bg-rose-300/50 dark:bg-rose-400/20 sm:left-[max(0.5rem,calc(50%-42.75rem))]" />
+        </div>
+        <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-end gap-8 px-4 pb-10 pt-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,380px)] lg:px-8 lg:pt-14">
+          <div className="min-w-0">
+            <nav aria-label="Breadcrumb" className="text-sm text-stone-500 dark:text-stone-400">
+              <Link href="/tools" className="hover:text-stone-900 dark:hover:text-white">Tools</Link>
+              <span className="mx-2 text-stone-300 dark:text-stone-600">/</span>
+              <span className="text-stone-700 dark:text-stone-300">Resume Builder</span>
+            </nav>
+            <h1 className="mt-4 max-w-3xl text-balance font-serif text-4xl tracking-tight text-stone-900 dark:text-stone-50 sm:text-[3.4rem] sm:leading-[1.05]">
+              Free AI Resume Builder for ATS Resumes
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-stone-600 dark:text-stone-300">
+              Write your resume section by section and watch it take shape on a real A4 page. A built in check flags weak bullets, missing numbers and gaps before a recruiter does, then you download a clean PDF.
+            </p>
+          </div>
+          <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-stone-200 bg-stone-200 text-center dark:border-stone-800 dark:bg-stone-800">
+            {[
+              ["3", "ATS safe templates"],
+              ["Live", "resume check"],
+              ["0", "signups needed"],
+            ].map(([v, k]) => (
+              <div key={k} className="bg-white px-3 py-4 dark:bg-stone-900">
+                <dt className="sr-only">{k}</dt>
+                <dd>
+                  <span className="block font-serif text-2xl text-stone-900 dark:text-stone-50">{v}</span>
+                  <span className="mt-0.5 block text-[11.5px] leading-tight text-stone-500 dark:text-stone-400">{k}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* Main Tool Interface */}
+      <div className="mx-auto max-w-[1400px] px-2 pt-6 sm:px-6 lg:px-8">
+        <div id="resume-builder" className="scroll-mt-20">
+          <ResumeBuilderClient />
+        </div>
+        <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-3">
+          {[
+            ["What the check looks at", "Weak openers such as Responsible for, bullets without numbers, pronouns, tense, length, dates, missing contact details and page count."],
+            ["How the PDF is made", "Your browser prints the same page you see, with real selectable text and standard fonts, so tracking systems can read every line."],
+            ["Where your data lives", "Everything is saved in this browser only. Nothing is uploaded, and Start over clears it completely."],
+          ].map(([t, d]) => (
+            <div key={t} className="rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-800 dark:bg-stone-900">
+              <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">{t}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-stone-600 dark:text-stone-400">{d}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* SEO Content Section */}
@@ -165,10 +218,10 @@ export default function ResumeBuilderPage() {
                   Let's be honest. Most resume builders are built for marketers and managers, not people who actually build software. You know the type: fancy templates with graphics that look great on Instagram but get rejected by every ATS parser before a human even sees your name.
                 </p>
                 <p className="leading-relaxed">
-                  That's exactly why we built the <strong>DevelopersMatrix AI Resume Builder</strong>. It's designed specifically for software engineers, web developers, DevOps specialists, data scientists, and anyone else who writes code for a living. The AI understands the difference between "React" on a shopping list and "React" in a production system handling 500K daily users. It knows that "Python" could mean Django backends, PyTorch models, or both.
+                  That's exactly why we built the <strong>DevelopersMatrix AI Resume Builder</strong>. It's designed specifically for software engineers, web developers, DevOps specialists, data scientists, and anyone else who writes code for a living. It pushes you to show where you used a tool and what changed, because "React" in a skills list means little until a bullet proves it.
                 </p>
                 <p className="leading-relaxed">
-                  In 2026, the hiring landscape has shifted dramatically. Over <strong>75% of companies</strong> now use AI-driven Applicant Tracking Systems that filter resumes before a recruiter ever opens them. Generic resume builders can't keep up, but we can. Our tool analyzes real 2026 job descriptions from top tech companies and suggests the exact keywords, skills, and formatting that get past those filters and into human hands.
+                  In 2026 most employers run applications through an Applicant Tracking System before a recruiter opens them. That makes plain formatting and the posting's own words matter more than design. This builder keeps the format plain, checks every bullet as you write it, and shows which skills from a job posting your resume is missing.
                 </p>
               </div>
             </section>
@@ -194,7 +247,7 @@ export default function ResumeBuilderPage() {
                     ATS-Safe Formatting
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    No tables. No graphics. No multi-column layouts that confuse parsers. Clean single-column design with standard section headers. Our resumes score 95%+ on ATS parse tests, tested against Workday, Greenhouse, and Lever.
+                    No tables. No graphics. No multi column layouts that confuse parsers. Clean single column design with standard section headers. Real selectable text and standard fonts, so every line can be read.
                   </p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
@@ -203,7 +256,7 @@ export default function ResumeBuilderPage() {
                     Keyword Intelligence
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Our AI reads 2026 job descriptions from tech companies and extracts the exact keywords they prioritize. Not generic suggestions. Real, role-specific terms that push your resume to the top of the ATS ranking.
+                    Paste the job posting you are applying for and the builder lists the skills it asks for, split into the ones your resume already shows and the ones it does not mention.
                   </p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
@@ -212,7 +265,7 @@ export default function ResumeBuilderPage() {
                     Measurable Impact
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    "Built a dashboard" doesn't cut it anymore. "Built a real-time analytics dashboard reducing query latency by 45% for 200K users" does. Our AI suggests metrics and outcomes that make your experience impossible to ignore.
+                    "Built a dashboard" doesn't cut it anymore. "Built a real time analytics dashboard reducing query latency by 45% for 200K users" does. The live check marks every bullet that has no number, so you know exactly where to add one.
                   </p>
                 </div>
               </div>
@@ -232,7 +285,7 @@ export default function ResumeBuilderPage() {
                 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">1. AI-Powered Screening Is the Default</h3>
                 <p className="leading-relaxed">
-                  By mid-2026, over <strong>90% of Fortune 500 companies</strong> and roughly <strong>75% of mid-size tech firms</strong> use AI-driven ATS systems. These aren't simple keyword matchers anymore. They use contextual AI to understand your experience. But here's the catch: they still rely heavily on structured data. If your resume uses non-standard section headers like "My Journey" instead of "Work Experience," the AI might skip entire sections.
+                  Most large employers, and many smaller tech firms, now screen applications with an ATS. These aren't simple keyword matchers anymore. They use contextual AI to understand your experience. But here's the catch: they still rely heavily on structured data. If your resume uses non-standard section headers like "My Journey" instead of "Work Experience," the AI might skip entire sections.
                 </p>
                 <p className="leading-relaxed">
                   Our builder uses exactly the headers modern ATS expects: <strong>Professional Summary, Technical Skills, Work Experience, Projects, Education, Certifications</strong>. No surprises. No parsing failures.
@@ -243,7 +296,7 @@ export default function ResumeBuilderPage() {
                   For junior and mid-level developers, one page remains the gold standard. Recruiters spend an average of <strong>6.8 seconds</strong> on the initial scan. Every line needs to justify its existence. Senior engineers with 10+ years and leadership scope can stretch to two pages, but only if every bullet point contains a measurable outcome or rare technical depth.
                 </p>
                 <p className="leading-relaxed">
-                  Our AI helps you decide what stays and what goes. It flags weak bullets like "Responsible for API development" and suggests stronger alternatives: "Designed RESTful APIs handling 12M daily requests with 99.97% uptime."
+                  The resume check helps you decide what stays and what goes. It flags weak openers like "Responsible for API development" so you can rewrite them around a result, for example "Designed REST APIs that cut checkout errors by a third."
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">3. The Rise of "AI Literacy" Sections</h3>
@@ -271,7 +324,7 @@ export default function ResumeBuilderPage() {
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                 <p className="text-lg leading-relaxed">
-                  With dozens of resume builders on the market, how do you choose the best one? Here is a comparison of the top options for developers in 2026:
+                  With dozens of resume builders on the market, how do you choose? Here is a simple comparison of popular options. Prices are entry prices at the time of writing and may have changed.
                 </p>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -293,29 +346,29 @@ export default function ResumeBuilderPage() {
                         <td className="px-4 py-3">Free / Pro</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-3 font-medium">ATS Optimization</td>
-                        <td className="px-4 py-3 text-green-600">✓ Built-in</td>
-                        <td className="px-4 py-3">Limited</td>
-                        <td className="px-4 py-3">Basic</td>
-                        <td className="px-4 py-3">✗ Not for ATS</td>
+                        <td className="px-4 py-3 font-medium">Single column ATS templates</td>
+                        <td className="px-4 py-3 text-green-600">All three</td>
+                        <td className="px-4 py-3">Some</td>
+                        <td className="px-4 py-3">Some</td>
+                        <td className="px-4 py-3">Few, many are design led</td>
                       </tr>
                       <tr>
                         <td className="px-4 py-3 font-medium">Developer-Specific</td>
-                        <td className="px-4 py-3 text-green-600">✓ Yes</td>
-                        <td className="px-4 py-3">Generic</td>
-                        <td className="px-4 py-3">Generic</td>
-                        <td className="px-4 py-3">Generic</td>
+                        <td className="px-4 py-3 text-green-600">Yes</td>
+                        <td className="px-4 py-3">General purpose</td>
+                        <td className="px-4 py-3">General purpose</td>
+                        <td className="px-4 py-3">General purpose</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-3 font-medium">AI Keyword Suggestions</td>
-                        <td className="px-4 py-3 text-green-600">✓ Yes</td>
-                        <td className="px-4 py-3">No</td>
-                        <td className="px-4 py-3">No</td>
-                        <td className="px-4 py-3">No</td>
+                        <td className="px-4 py-3 font-medium">Data stored</td>
+                        <td className="px-4 py-3 text-green-600">Your browser only</td>
+                        <td className="px-4 py-3">Account</td>
+                        <td className="px-4 py-3">Account</td>
+                        <td className="px-4 py-3">Account</td>
                       </tr>
                       <tr>
                         <td className="px-4 py-3 font-medium">Signup Required</td>
-                        <td className="px-4 py-3 text-green-600">✗ No</td>
+                        <td className="px-4 py-3 text-green-600">No</td>
                         <td className="px-4 py-3">Yes</td>
                         <td className="px-4 py-3">Yes</td>
                         <td className="px-4 py-3">Yes</td>
@@ -324,7 +377,7 @@ export default function ResumeBuilderPage() {
                   </table>
                 </div>
                 <p className="leading-relaxed">
-                  DevelopersMatrix is the only free AI resume builder designed specifically for developers with built-in ATS optimization, keyword intelligence, and 2026-ready templates. No signup, no credit card, no limits.
+                  Paid builders offer more design templates and features such as cover letter bundles. DevelopersMatrix focuses on what tech resumes need most: a plain format tracking systems read well, a live check on every bullet, and a skills comparison against the posting, free and without an account. Prices for other tools change often, so check their sites before you buy.
                 </p>
               </div>
             </section>
@@ -397,7 +450,7 @@ export default function ResumeBuilderPage() {
                 </a>
                 <a 
                   href="/tools" 
-                  className="group block bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5 shadow-sm border border-blue-100 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-md"
+                  className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500 transition-all hover:shadow-md"
                 >
                   <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">
                     View All 20+ Free Tools →
@@ -418,7 +471,7 @@ export default function ResumeBuilderPage() {
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
                 <p className="leading-relaxed">
-                  Most developers spend hours crafting the perfect resume only to have it rejected by a robot before a human ever sees it. Here's the reality: <strong>75% of resumes never reach a recruiter</strong> because they fail ATS screening. The good news? Fixing this isn't complicated. Follow these five steps and your resume will land in the "interview" pile.
+                  Most developers spend hours crafting the perfect resume only to have it rejected by a robot before a human ever sees it. Here's the reality: <strong>many resumes never reach a recruiter</strong> because they fail ATS screening. The good news? Fixing this isn't complicated. Follow these five steps and your resume will land in the "interview" pile.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Step 1: Use the Right File Format</h3>
@@ -428,15 +481,15 @@ export default function ResumeBuilderPage() {
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Step 2: Mirror the Job Description Keywords</h3>
                 <p className="leading-relaxed">
-                  This is the single most important factor, accounting for roughly <strong>35% of your ATS score</strong>. If the job posting says "React.js" and your resume says "React," some ATS systems won't match them. Use the <strong>exact phrasing</strong> from the job description.
+                  This is one of the most important factors. If the job posting says "React.js" and your resume says "React," some ATS systems won't match them. Use the <strong>exact phrasing</strong> from the job description.
                 </p>
                 <p className="leading-relaxed">
-                  Don't just stuff keywords randomly. Place them naturally in your Professional Summary (2-3 top keywords), Skills section (10-14 relevant terms), and Work Experience bullets (weave them into achievement statements). Our AI Resume Builder scans job descriptions and suggests where each keyword should go.
+                  Don't just stuff keywords randomly. Place them naturally in your Professional Summary (2-3 top keywords), Skills section (10-14 relevant terms), and Work Experience bullets (weave them into achievement statements). Use Match a job in the builder to see which of the posting's skills you have not mentioned yet.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Step 3: Quantify Every Achievement</h3>
                 <p className="leading-relaxed">
-                  Numbers are the secret weapon. Resumes with quantified achievements are <strong>40% more likely</strong> to pass ATS screening and get callbacks. Not "Improved API performance." Instead: "Reduced API response time from 2.3s to 1.3s, handling 500K daily requests."
+                  Numbers are the secret weapon. Quantified achievements are what recruiters remember and repeat to hiring managers. Not "Improved API performance." Instead: "Reduced API response time from 2.3s to 1.3s, handling 500K daily requests."
                 </p>
                 <p className="leading-relaxed">
                   Can't find exact numbers? Use ranges or percentages: "Cut deployment time by roughly 30% through CI/CD automation." Something beats nothing every time.
@@ -444,7 +497,7 @@ export default function ResumeBuilderPage() {
 
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Step 4: Keep Formatting Clean and Boring</h3>
                 <p className="leading-relaxed">
-                  I know. You want your resume to look cool. But tables, columns, text boxes, graphics, and custom fonts break ATS parsing. In 2026, up to <strong>30% of resumes with complex layouts</strong> are misread by ATS systems.
+                  I know. You want your resume to look cool. But tables, columns, text boxes, graphics, and custom fonts break ATS parsing. Complex layouts are one of the most common reasons an ATS misreads a resume.
                 </p>
                 <p className="leading-relaxed">
                   Stick to standard fonts (Arial, Calibri, Times New Roman at 10.5 to 12pt). Use simple bullet points. Keep everything in a single column. Our templates are designed by people who've tested them against real ATS systems. They work.
@@ -455,7 +508,7 @@ export default function ResumeBuilderPage() {
                   Before sending your resume, copy-paste it into a plain text editor like Notepad. If sections get jumbled or disappear, ATS will struggle too. Also run it through a free ATS checker. Our <a href="/tools/ai-content-detector" className="text-blue-600 dark:text-blue-400 hover:underline">AI Content Detector</a> can analyze readability, while dedicated tools like Jobscan give you match scores against specific job descriptions.
                 </p>
                 <p className="leading-relaxed">
-                  Aim for an ATS match rate of <strong>80% or higher</strong>. Anything below 60% and your resume might get auto-rejected regardless of your qualifications.
+                  Aim to cover most of the posting's core skills, as long as each one is true. If you are missing several of the must haves, the role may not be the right fit yet.
                 </p>
               </div>
             </section>
@@ -466,7 +519,7 @@ export default function ResumeBuilderPage() {
                 Resume Templates by Developer Role (2026 Edition)
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                Different roles require different emphasis. Our AI Resume Builder adapts its suggestions based on your target position. Here's how to structure your resume for the most common developer roles in 2026:
+                Different roles require different emphasis. Use these as a guide when you write your bullets. Here's how to structure your resume for the most common developer roles in 2026:
               </p>
               
               <div className="space-y-6">
@@ -553,14 +606,14 @@ export default function ResumeBuilderPage() {
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">4</span>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Ignoring Keyword Optimization</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">You might be the perfect candidate, but if your resume doesn't contain the keywords the ATS is scanning for, you'll never get the chance to prove it. Our AI extracts keywords from real 2026 job postings and suggests natural placements.</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">You might be the perfect candidate, but if your resume doesn't contain the keywords the ATS is scanning for, you'll never get the chance to prove it. Paste each posting into Match a job to see which of its skills your resume is missing.</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">5</span>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No Measurable Outcomes</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Every bullet point without a number is a missed opportunity. "Built a dashboard" vs "Built a real-time analytics dashboard serving 200K daily users with sub-second query response." The second version gets interviews. The first gets ignored.</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Every bullet point without a number is a missed opportunity. "Built a dashboard" vs "Built a real time analytics dashboard serving 200K daily users with sub-second query response." The second version gets interviews. The first gets ignored.</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
@@ -609,22 +662,19 @@ export default function ResumeBuilderPage() {
 
             {/* Section 9: CTA */}
             <section className="mb-12">
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white text-center">
+              <div className="rounded-3xl bg-stone-900 p-8 text-white text-center dark:bg-stone-800">
                 <h2 className="text-2xl sm:text-3xl font-bold mb-4">
                   Ready to Build Your 2026-Ready Resume?
                 </h2>
-                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                  Join thousands of developers who've used our free AI Resume Builder to land interviews at top tech companies. No sign-up required. No hidden fees. Just a better resume in minutes.
+                <p className="text-stone-300 mb-6 max-w-2xl mx-auto">
+                  Write it on a live page, fix what the check flags, and download a clean PDF. No sign up. No hidden fees.
                 </p>
                 <a 
                   href="#resume-builder" 
-                  className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+                  className="inline-flex items-center gap-2 bg-white text-stone-900 px-8 py-3 rounded-xl font-semibold hover:bg-stone-100 transition-colors"
                 >
                   Start Building Your Resume. It is Free
                 </a>
-                <p className="text-blue-200 text-sm mt-4">
-                  Used by developers at Google, Amazon, Stripe, and 500+ other companies
-                </p>
               </div>
             </section>
           </div>
@@ -638,57 +688,45 @@ export default function ResumeBuilderPage() {
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Related Resources</h3>
                 <ul className="space-y-3">
                   <li>
-                    <a href="/tools/ai-cover-letter-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📝</span> AI Cover Letter Generator
+                    <a href="/tools/ai-cover-letter-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline ">
+                      AI Cover Letter Generator
                     </a>
                   </li>
                   <li>
-                    <a href="/tools/ai-interview-simulator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>🎯</span> Interview Simulator
+                    <a href="/tools/ai-interview-simulator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline ">
+                      Interview Simulator
                     </a>
                   </li>
                   <li>
-                    <a href="/tools/salary-estimator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>💰</span> Salary Estimator
+                    <a href="/tools/salary-estimator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline ">
+                      Salary Estimator
                     </a>
                   </li>
                   <li>
-                    <a href="/blog/ats-resume-guide-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📄</span> ATS Resume Optimization Guide
+                    <a href="/blog/ats-resume-guide-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline ">
+                      ATS Resume Optimization Guide
                     </a>
                   </li>
                   <li>
-                    <a href="/blog/best-free-resume-builders-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>🏆</span> Best Free Resume Builders 2026
+                    <a href="/blog/best-free-resume-builders-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline ">
+                      Best Free Resume Builders 2026
                     </a>
                   </li>
                   <li>
-                    <a href="/trends/tech-skills-demand-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📈</span> In-Demand Tech Skills 2026
+                    <a href="/trends/tech-skills-demand-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline ">
+                      In Demand Tech Skills 2026
                     </a>
                   </li>
                 </ul>
               </div>
 
               <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">2026 Resume Stats</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">A strong bullet has</h3>
                 <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">75%</span>
-                    <span>of resumes are filtered by ATS before human review</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">40%</span>
-                    <span>higher callback rate for resumes with quantified achievements</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">6.8s</span>
-                    <span>average time recruiters spend on first scan</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">3x</span>
-                    <span>more callbacks for tailored vs generic resumes</span>
-                  </li>
+                  <li><span className="font-semibold text-gray-900 dark:text-white">A verb first.</span> Built, Led, Cut, Shipped.</li>
+                  <li><span className="font-semibold text-gray-900 dark:text-white">What you did.</span> The tool or method, briefly.</li>
+                  <li><span className="font-semibold text-gray-900 dark:text-white">What changed.</span> Ideally with a number.</li>
+                  <li><span className="font-semibold text-gray-900 dark:text-white">Under 25 words.</span> One idea per line.</li>
                 </ul>
               </div>
             </div>
@@ -704,17 +742,17 @@ export default function ResumeBuilderPage() {
           Free AI Resume Builder: Create an ATS-Optimized Resume in Minutes
         </h2>
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-          In 2026, 75% of resumes never reach a human recruiter because they fail Applicant Tracking Systems. Our <strong>free AI resume builder</strong> solves this by creating single-column, keyword-optimized resumes that pass ATS filters and impress hiring managers. Whether you are applying for frontend, backend, full stack, or DevOps roles, this tool understands tech job descriptions and suggests the right skills, frameworks, and achievements to highlight.
+          In 2026 many resumes never reach a human recruiter because an Applicant Tracking System filters them out first. Our <strong>free AI resume builder</strong> keeps your resume in a plain single column format those systems read well, and checks your writing as you go. Whether you are applying for frontend, backend, full stack, or DevOps roles, this tool understands tech job descriptions and suggests the right skills, frameworks, and achievements to highlight.
         </p>
 
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
           Why Developers Need an AI Resume Builder in 2026
         </h3>
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-          The job market has shifted dramatically. With AI-generated resumes flooding the market, recruiters now rely more heavily on ATS filtering to manage volume. A generic resume gets rejected in under 7 seconds. Our <strong>AI resume builder</strong> is trained specifically on 2026 tech job descriptions, so it knows that a React developer resume should mention hooks, state management, and performance optimization, not just "built websites."
+          The job market has shifted dramatically. With AI generated resumes flooding the market, recruiters now rely more heavily on ATS filtering to manage volume. A generic resume gets skimmed and rejected fast. Our <strong>AI resume builder</strong> is designed for tech roles: it pushes every bullet toward a specific result and compares your skills with the posting you paste, so a React developer resume shows what was built and what changed, not just "built websites."
         </p>
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-          Research shows resumes with quantified achievements get 40% more callbacks. Instead of "Improved application performance," our AI suggests "Reduced API response time by 35% through caching and query optimization." Specificity wins interviews.
+          Quantified achievements are what recruiters remember. Instead of "Improved application performance," write "Reduced API response time by 35% through caching and query optimization." The builder flags every bullet that is missing a number.
         </p>
 
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
@@ -723,11 +761,11 @@ export default function ResumeBuilderPage() {
         <div className="grid sm:grid-cols-2 gap-4 mb-6">
           <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
             <h4 className="font-semibold text-gray-900 dark:text-white mb-2">1. Enter Your Details</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Fill in your work experience, skills, education, and projects. The AI understands tech roles and formats everything correctly.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Fill in your work experience, skills, education and projects. Each section has examples and live notes.</p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2. Get AI Suggestions</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">The builder suggests industry-specific keywords and quantified achievement examples tailored to your target role.</p>
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2. Run the Resume Check</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">See weak openers, bullets without numbers and missing details, each linked to the line it is about. Paste a job posting to compare skills.</p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
             <h4 className="font-semibold text-gray-900 dark:text-white mb-2">3. Preview Instantly</h4>
@@ -735,7 +773,7 @@ export default function ResumeBuilderPage() {
           </div>
           <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
             <h4 className="font-semibold text-gray-900 dark:text-white mb-2">4. Download as PDF</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Export a clean, single-column PDF optimized for parsing by Workday, Greenhouse, Lever, and other major ATS platforms.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Export a clean, single column PDF with real text and standard fonts, or copy the plain text for application forms.</p>
           </div>
         </div>
 
@@ -753,7 +791,7 @@ export default function ResumeBuilderPage() {
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
-            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Keyword optimization</strong>: The AI suggests relevant keywords from real 2026 job descriptions for your role.</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm"><strong>Job matching</strong>: Paste a posting to see which of its skills your resume already shows and which it does not.</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-500 font-bold mt-0.5">✓</span>
@@ -770,28 +808,24 @@ export default function ResumeBuilderPage() {
         </h3>
         <div className="grid sm:grid-cols-2 gap-3 mb-8">
           <a href="/tools/ai-cover-letter-generator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-            <span className="text-lg">📝</span>
             <div>
               <p className="font-medium text-gray-900 dark:text-white text-sm">Cover Letter Generator</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Personalized letters for each application</p>
             </div>
           </a>
           <a href="/tools/ai-interview-simulator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-            <span className="text-lg">🎯</span>
             <div>
               <p className="font-medium text-gray-900 dark:text-white text-sm">Interview Simulator</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Practice with AI-powered mock interviews</p>
             </div>
           </a>
           <a href="/tools/salary-estimator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-            <span className="text-lg">💰</span>
             <div>
               <p className="font-medium text-gray-900 dark:text-white text-sm">Salary Estimator</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Know your market value before negotiating</p>
             </div>
           </a>
           <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-            <span className="text-lg">📚</span>
             <div>
               <p className="font-medium text-gray-900 dark:text-white text-sm">Career Guides</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Resume tips and industry insights</p>
