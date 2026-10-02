@@ -65,7 +65,7 @@ export function reviewLetter(
   const body = bodyOf(text);
   const n = norm(body);
   const words = letterWords(body);
-  const [min, max] = ctx.length === 'short' ? [110, 250] : [180, 400];
+  const [min, max] = ctx.length === 'short' ? [100, 250] : [150, 400];
   const checks: Check[] = [];
 
   checks.push({
