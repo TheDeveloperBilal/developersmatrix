@@ -389,9 +389,9 @@ export default function CanYouRunItPage() {
                 <h2 className="text-2xl font-bold mb-6">How to Check Your PC in 60 Seconds</h2>
                 <div className="grid sm:grid-cols-3 gap-6">
                   {[
-                    { num: "1", title: "Enter Your Specs (30 seconds)", text: "Input your CPU model, GPU model, and RAM amount. Be as specific as possible: 'Intel Core i5-12400F' is better than 'Intel i5.' If unsure, press Windows key, type 'System Information,' and your CPU and RAM are listed there. GPU info is under 'Device Manager > Display Adapters.'" },
-                    { num: "2", title: "Select Your Game (15 seconds)", text: "Choose the game you want to check from the database. The tool immediately shows the game's minimum and recommended requirements side by side with your hardware." },
-                    { num: "3", title: "Review Results (15 seconds)", text: "Get a clear verdict: Pass, Partial, or Fail. See estimated FPS at different settings. If you need upgrades, the tool suggests the most impactful component to replace. The entire process takes under a minute and saves you from buying games your PC cannot handle." },
+                    { num: "1", title: "Choose Your Game (10 seconds)", text: "Pick the game from the list or search for it by name. Every game uses the minimum and recommended specs its publisher released, and the source is linked on that game's own page." },
+                    { num: "2", title: "Add Your Parts (30 seconds)", text: "Start typing your processor and graphics card and pick the match from the list, so 'i5 12400F' or 'RTX 3060' is enough. Then choose your memory and enter the free space on your drive. Not sure what you have? Press Win + R, type dxdiag and press Enter." },
+                    { num: "3", title: "Read the Verdict (20 seconds)", text: "You get a score out of 100, a plain answer such as Yes, comfortably or Not at minimum spec, a rough frame rate range and a settings preset to start with. Each part is compared with the requirement, and if one of them holds you back, the tool names it so you know what to upgrade first." },
                   ].map((w) => (
                     <div key={w.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 relative">
                       <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">{w.num}</div>
