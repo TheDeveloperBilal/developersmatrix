@@ -189,9 +189,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return { title: "Post Not Found" };
   }
 
+  const seoTitle = post.seoTitle || post.title;
+  const seoDescription = post.seoDescription || post.excerpt;
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: seoTitle,
+    description: seoDescription,
     keywords: post.tags,
     alternates: {
       canonical: post.canonicalUrl || `${siteConfig.url}/blog/${post.slug}`,
@@ -200,8 +203,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       ? { index: false, follow: true }
       : undefined,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: seoTitle,
+      description: seoDescription,
       url: `${siteConfig.url}/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
@@ -210,8 +213,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
+      title: seoTitle,
+      description: seoDescription,
       images: post.image ? [`${siteConfig.url}${post.image}`] : undefined,
     },
   };

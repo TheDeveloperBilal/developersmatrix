@@ -34,6 +34,10 @@ export interface BlogPost {
   }>;
   canonicalUrl?: string;
   noindex?: boolean;
+  // Optional search result title and description. When set they replace
+  // title and excerpt in the page metadata only; the H1 and cards keep title.
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 // A blog post without its body. Used anywhere a list, card or sidebar only needs
