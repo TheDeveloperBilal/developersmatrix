@@ -10,6 +10,10 @@ export const metadata: Metadata = generatePageMetadata(toolMetadata['can-you-run
 
 const toolFaqs = [
   {
+    question: "Can my PC run it?",
+    answer: "Pick the game in the checker above, choose your processor and graphics card from the list, and add your memory and storage. The tool compares each part with the minimum and recommended specs the publisher released and tells you whether your PC passes, partly passes or falls short, with an estimated frame rate. It is free and needs no signup. For games whose publisher has not released PC specs, such as GTA 6, it says so instead of guessing."
+  },
+  {
     question: "Will my PC run GTA 6?",
     answer: "Nobody can answer that yet. Rockstar has published no PC system requirements for GTA 6, and no PC version has been announced. Grand Theft Auto VI is listed for PlayStation 5 and Xbox Series X|S on 19 November 2026. Every GTA 6 PC spec chart online is a third party estimate. What you can do is measure your machine against what Rockstar asks for today: Grand Theft Auto V Enhanced recommends a Core i5-9600K or Ryzen 5 3600, 16GB of memory and an RTX 3060 or RX 6600 XT, and it requires an SSD even at minimum. Both that game and Red Dead Redemption 2 are in the checker above."
   },
@@ -128,7 +132,7 @@ export default function CanYouRunItPage() {
               Can You Run It? Free PC Game Requirements Checker
             </h1>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
-              Check your PC specs against game requirements. Get clear answers, FPS estimates, and upgrade suggestions.
+              Can my PC run it? Pick a game, enter your processor, graphics card and memory, and see how your PC compares with the specs the publisher released, with an estimated frame rate. Each game page also shows the cheapest upgrade if you fall short.
             </p>
             <dl className="mt-7 flex flex-wrap gap-x-10 gap-y-4">
               {[
@@ -191,7 +195,7 @@ export default function CanYouRunItPage() {
                     Short answer
                   </p>
                   <p className="text-base leading-relaxed text-gray-800 dark:text-gray-100">
-                    Four things decide it: your graphics card, your processor, how much memory you have, and whether your storage is solid state. Enter those four above and you get a pass, partial or fail against the specs the publisher actually released, plus an estimated frame rate. Most machines that fail do so on one component, not four, and it is often memory or the drive rather than the graphics card people assume.
+                    Can my PC run it? Four things decide it: your graphics card, your processor, how much memory you have, and whether your storage is solid state. Enter those four above and you get a pass, partial or fail against the specs the publisher actually released, plus an estimated frame rate. Most machines that fail do so on one component, not four, and it is often memory or the drive rather than the graphics card people assume.
                   </p>
                 </div>
                 <div className="text-muted-foreground leading-relaxed space-y-4">
