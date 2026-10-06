@@ -66,3 +66,15 @@ export const articles: Article[] = rawBlogs
 
 // The single newest blog (for featured right-side card)
 export const latestArticle = articles[0];
+
+// Total number of published guides, for honest counts on the homepage.
+export const guideCount = rawBlogs.length;
+
+// Newest guides by publish date, for the homepage changelog.
+export function newestGuides(limit: number) {
+  return rawBlogs
+    .slice()
+    .sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt))
+    .slice(0, limit)
+    .map((b) => ({ title: b.title, href: `/blog/${b.slug}`, category: b.category, date: b.publishedAt }));
+}

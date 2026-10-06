@@ -13,8 +13,7 @@ import {
   CircleDollarSign,
   CalendarCheck,
   Code2,
-  Braces,
-  TerminalSquare,
+  AtSign,
   type LucideIcon,
 } from "lucide-react";
 
@@ -23,16 +22,14 @@ import {
 export type TickerTag = "NEW" | "TRENDING" | "HOT" | "LATEST" | "UPDATED";
 
 export const liveTickerItems: { tag: TickerTag; label: string; href: string }[] = [
-  { tag: "HOT", label: "GTA 6 releases November 19, 2026", href: "/gta-6" },
-  { tag: "NEW", label: "AI Content Detector is live", href: "/tools/ai-content-detector" },
-  { tag: "TRENDING", label: "AI agents move into daily workflows", href: "/trends" },
-  { tag: "LATEST", label: "Guide: Technical interview prep 2026", href: "/blog/technical-interview-prep-2026" },
-  { tag: "UPDATED", label: "Resume Builder now with ATS scoring", href: "/tools/ai-resume-builder" },
-  { tag: "TRENDING", label: "Remote hiring rebounds for senior roles", href: "/trends" },
-  { tag: "NEW", label: "Prompt Library passes 500 curated prompts", href: "/tools/ai-prompt-library" },
-  { tag: "HOT", label: "Website Audit: free health checks", href: "/tools/website-audit" },
-  { tag: "LATEST", label: "Best free resume builders compared", href: "/blog/best-free-resume-builders-2026" },
-  { tag: "UPDATED", label: "Salary Estimator refreshed with 2026 data", href: "/tools/salary-estimator" },
+  { tag: "UPDATED", label: "Prompt Library rebuilt with 64 prompts and a prompt builder", href: "/tools/ai-prompt-library" },
+  { tag: "HOT", label: "GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S", href: "/gta-6" },
+  { tag: "UPDATED", label: "Resume Builder rebuilt with a live resume check", href: "/tools/ai-resume-builder" },
+  { tag: "LATEST", label: "No official GTA 6 PC specs yet: what is confirmed", href: "/tools/can-you-run-it/gta-6" },
+  { tag: "UPDATED", label: "Interview Simulator now checks what your answer covered", href: "/tools/ai-interview-simulator" },
+  { tag: "UPDATED", label: "Can You Run It specs checked against publishers", href: "/tools/can-you-run-it" },
+  { tag: "LATEST", label: "AI side hustles in 2026: one updated guide", href: "/trends/ai-side-hustles-make-money-2026" },
+  { tag: "UPDATED", label: "Cover Letter Generator rebuilt around the job posting", href: "/tools/ai-cover-letter-generator" },
 ];
 
 /* ---------------- Tool explorer ---------------- */
@@ -53,17 +50,17 @@ export const explorerCategories = [
   "SEO",
   "Productivity",
   "Business",
-  "Developer Tools",
+  "Gaming",
 ];
 
+// Only tools that exist. The homepage counts tools from this list.
 export const explorerTools: ExplorerTool[] = [
   {
     name: "AI Website Audit",
     href: "/tools/website-audit",
-    description: "Full health check for any site: SEO, speed, security, mobile UX and content.",
+    description: "Around 150 checks across SEO, speed, security, mobile and more, with a prioritized fix list.",
     category: "SEO",
     icon: Gauge,
-    badge: "POPULAR",
   },
   {
     name: "AI Content Detector",
@@ -71,30 +68,30 @@ export const explorerTools: ExplorerTool[] = [
     description: "Check whether text reads as human or machine written, with a full breakdown.",
     category: "AI Tools",
     icon: ScanSearch,
-    badge: "NEW",
   },
   {
     name: "AI Resume Builder",
     href: "/tools/ai-resume-builder",
-    description: "ATS friendly resumes in minutes, built for developers and modern roles.",
+    description: "ATS friendly resume on a live page, with a check on every bullet. No signup.",
     category: "Career",
     icon: FileText,
-    badge: "POPULAR",
+    badge: "UPDATED",
   },
   {
     name: "Interview Simulator",
     href: "/tools/ai-interview-simulator",
-    description: "Behavioral, technical and system design rounds with instant AI scoring.",
+    description: "Behavioral, technical and system design questions with instant feedback on your answer.",
     category: "Career",
     icon: MessagesSquare,
-    badge: "TRENDING",
+    badge: "UPDATED",
   },
   {
     name: "Cover Letter Generator",
     href: "/tools/ai-cover-letter-generator",
-    description: "Letters matched to the exact job posting so they never read generic.",
+    description: "A letter built around the job posting and your own experience, with a length check.",
     category: "Career",
     icon: Mail,
+    badge: "UPDATED",
   },
   {
     name: "AI Prompt Library",
@@ -105,156 +102,110 @@ export const explorerTools: ExplorerTool[] = [
     badge: "UPDATED",
   },
   {
+    name: "AI Email Assistant",
+    href: "/tools/ai-email-assistant",
+    description: "Starting drafts for common work emails that you can adjust and send.",
+    category: "Business",
+    icon: AtSign,
+  },
+  {
     name: "Link Manager & Smart Bio",
     href: "/tools/link-manager",
-    description: "One smart link for everything you share, with click analytics.",
+    description: "Keep the links you share in one simple page.",
     category: "SEO",
     icon: Link2,
   },
   {
     name: "Budget Planner",
     href: "/tools/budget-planner",
-    description: "Track income, spending and savings goals with clear monthly views.",
+    description: "Plan monthly income, spending and savings goals in one view.",
     category: "Productivity",
     icon: Wallet,
   },
   {
     name: "Habit Tracker",
     href: "/tools/habit-tracker",
-    description: "Build streaks and routines with a simple, visual daily tracker.",
+    description: "A simple, visual checklist for the habits you want to build.",
     category: "Productivity",
     icon: CalendarCheck,
   },
   {
     name: "Productivity Planner",
     href: "/tools/productivity-planner",
-    description: "Plan focused weeks with priorities, time blocks and reviews.",
+    description: "Plan your week with priorities and time blocks.",
     category: "Productivity",
     icon: ListChecks,
   },
   {
     name: "Startup Idea Generator",
     href: "/tools/startup-idea-generator",
-    description: "AI generated business ideas with market angles and first steps.",
+    description: "Business ideas with a target market and first steps to test them.",
     category: "Business",
     icon: Lightbulb,
-    badge: "TRENDING",
   },
   {
     name: "Salary Estimator",
     href: "/tools/salary-estimator",
-    description: "2026 salary data for your role, level and market before you negotiate.",
+    description: "Estimate a salary range for your role, level and location.",
     category: "Business",
     icon: CircleDollarSign,
-    badge: "UPDATED",
   },
   {
     name: "Can You Run It",
     href: "/tools/can-you-run-it",
-    description: "Check your PC against game requirements, including GTA 6.",
-    category: "Developer Tools",
+    description: "Check your PC against the requirements publishers list for popular games.",
+    category: "Gaming",
     icon: Gamepad2,
-    badge: "HOT",
-  },
-  {
-    name: "JSON Formatter",
-    href: "/tools",
-    description: "Format, validate and explore JSON payloads instantly in browser.",
-    category: "Developer Tools",
-    icon: Braces,
-  },
-  {
-    name: "Regex Playground",
-    href: "/tools",
-    description: "Test regular expressions live with match highlighting and hints.",
-    category: "Developer Tools",
-    icon: TerminalSquare,
-    badge: "NEW",
-  },
-  {
-    name: "Code Snippet Vault",
-    href: "/tools",
-    description: "Save and organize reusable snippets with tags and quick copy.",
-    category: "Developer Tools",
-    icon: Code2,
+    badge: "UPDATED",
   },
 ];
 
+export const TOOL_COUNT = explorerTools.length;
+
+// How the site describes its tool count. Change this one line when new tools ship.
+export const TOOLS_LABEL = "20+";
+
 /* ---------------- Trending now ---------------- */
 
+// Cards are built on the server from the real trend reports (see app/page.tsx),
+// so dates and titles always match what the reports say.
 export type TrendCard = {
-  topic: string;
-  category: string;
-  categoryStyle: string;
-  status: "Rising" | "Hot" | "Stable";
-  summary: string;
-  freshness: string;
-  activity: number; // 0-100
-  spark: number[];
+  title: string;
   href: string;
-  related: { label: string; href: string };
+  category: string; // short, human label such as "Gaming"
+  summary: string;
+  updated: string;
+  readTime: number;
+  related?: { label: string; href: string };
 };
 
-export const trendCards: TrendCard[] = [
+// Which reports to feature on the homepage, with a short summary of each and
+// the tool that pairs with it.
+export const featuredTrendPicks: { slug: string; summary: string; related?: { label: string; href: string } }[] = [
   {
-    topic: "AI agents in daily workflows",
-    category: "AI",
-    categoryStyle: "bg-brand-100 text-brand-700",
-    status: "Rising",
-    summary: "Agentic tools moved from demos to production. Teams now ship task-running agents for support, research and code review.",
-    freshness: "2h ago",
-    activity: 92,
-    spark: [12, 18, 16, 24, 30, 28, 42, 55, 61, 78],
-    href: "/trends",
+    slug: "ai-side-hustles-make-money-2026",
+    summary: "AI side hustles that pay in 2026, what each one involves and how to start without big upfront costs.",
     related: { label: "AI Prompt Library", href: "/tools/ai-prompt-library" },
   },
   {
-    topic: "GTA 6 launch countdown",
-    category: "Gaming",
-    categoryStyle: "bg-rose-50 text-rose-600",
-    status: "Hot",
-    summary: "Rockstar has locked the release for November 19, 2026. PC players are already checking hardware against the published requirements.",
-    freshness: "5h ago",
-    activity: 88,
-    spark: [20, 22, 30, 28, 40, 52, 48, 66, 80, 95],
-    href: "/gta-6",
-    related: { label: "Can You Run It", href: "/tools/can-you-run-it" },
+    slug: "ai-agents-autonomous-systems-2026",
+    summary: "How AI agents plan and carry out tasks, where businesses use them and where they still need a human.",
+    related: { label: "AI Prompt Library", href: "/tools/ai-prompt-library" },
   },
   {
-    topic: "Remote senior hiring rebounds",
-    category: "Careers",
-    categoryStyle: "bg-sky-50 text-sky-600",
-    status: "Rising",
-    summary: "Senior engineering postings are up for the third straight month, with remote first companies leading the recovery.",
-    freshness: "1d ago",
-    activity: 74,
-    spark: [30, 28, 34, 32, 40, 44, 50, 54, 60, 68],
-    href: "/trends",
-    related: { label: "Interview Simulator", href: "/tools/ai-interview-simulator" },
+    slug: "gta-6-release-everything-we-know",
+    summary: "The confirmed release date, platforms, story and characters, plus what is still unannounced.",
+    related: { label: "Can You Run It", href: "/tools/can-you-run-it/gta-6" },
   },
   {
-    topic: "Google AI Overviews & SEO",
-    category: "SEO",
-    categoryStyle: "bg-emerald-50 text-emerald-600",
-    status: "Stable",
-    summary: "AI Overviews now answer most informational queries. Sites win by earning citations and strengthening technical health.",
-    freshness: "1d ago",
-    activity: 61,
-    spark: [40, 44, 42, 48, 46, 52, 50, 55, 54, 58],
-    href: "/trends",
-    related: { label: "AI Website Audit", href: "/tools/website-audit" },
+    slug: "ai-coding-assistants-comparison-2026",
+    summary: "GitHub Copilot, Cursor, Claude and ChatGPT compared for everyday development work.",
+    related: { label: "AI Prompt Library", href: "/tools/ai-prompt-library" },
   },
   {
-    topic: "Local AI models on laptops",
-    category: "AI",
-    categoryStyle: "bg-brand-100 text-brand-700",
-    status: "Rising",
-    summary: "Small distilled models now run well on consumer hardware, pushing privacy first AI tools into the mainstream.",
-    freshness: "2d ago",
-    activity: 79,
-    spark: [15, 20, 26, 24, 34, 40, 52, 58, 66, 74],
-    href: "/trends",
-    related: { label: "AI Content Detector", href: "/tools/ai-content-detector" },
+    slug: "tech-skills-demand-2026",
+    summary: "The technical skills worth learning this year and how to show them on a resume.",
+    related: { label: "Resume Builder", href: "/tools/ai-resume-builder" },
   },
 ];
 
@@ -278,11 +229,11 @@ export const goals: Goal[] = [
     tools: [
       { name: "AI Website Audit", href: "/tools/website-audit", icon: Gauge, note: "Start with a full health score" },
       { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch, note: "Keep content human and original" },
-      { name: "Link Manager & Smart Bio", href: "/tools/link-manager", icon: Link2, note: "Turn traffic into followers" },
+      { name: "Link Manager & Smart Bio", href: "/tools/link-manager", icon: Link2, note: "Your links in one page" },
     ],
     content: [
-      { label: "Website audits explained", href: "/blog", type: "Guide" },
-      { label: "SEO trends this week", href: "/trends", type: "Trend" },
+      { label: "Website audit checklist: 47 checks", href: "/blog/website-audit-checklist-2026", type: "Guide" },
+      { label: "On page SEO checklist", href: "/blog/on-site-seo-guide-2026", type: "Guide" },
     ],
   },
   {
@@ -293,11 +244,11 @@ export const goals: Goal[] = [
     tools: [
       { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Fill in the blanks, then copy" },
       { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch, note: "Verify what you publish" },
-      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Brainstorm with AI" },
+      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Ideas plus first steps" },
     ],
     content: [
-      { label: "AI agents trend report", href: "/trends", type: "Trend" },
-      { label: "What to learn as AI eats busywork", href: "/blog", type: "Article" },
+      { label: "AI agents in 2026", href: "/trends/ai-agents-autonomous-systems-2026", type: "Trend" },
+      { label: "AI coding assistants compared", href: "/trends/ai-coding-assistants-comparison-2026", type: "Trend" },
     ],
   },
   {
@@ -306,13 +257,13 @@ export const goals: Goal[] = [
     icon: MessagesSquare,
     headline: "From application to signed offer",
     tools: [
-      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, note: "ATS ready in minutes" },
-      { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: MessagesSquare, note: "Practice with AI scoring" },
-      { name: "Salary Estimator", href: "/tools/salary-estimator", icon: CircleDollarSign, note: "Negotiate with data" },
+      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, note: "ATS friendly, no signup" },
+      { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: MessagesSquare, note: "Instant answer feedback" },
+      { name: "Salary Estimator", href: "/tools/salary-estimator", icon: CircleDollarSign, note: "Check a salary range" },
     ],
     content: [
       { label: "Technical interview prep 2026", href: "/blog/technical-interview-prep-2026", type: "Guide" },
-      { label: "Remote hiring rebounds", href: "/trends", type: "Trend" },
+      { label: "Remote tech jobs guide", href: "/trends/remote-tech-jobs-guide-2026", type: "Trend" },
     ],
   },
   {
@@ -321,12 +272,12 @@ export const goals: Goal[] = [
     icon: FileText,
     headline: "A resume that passes the bots",
     tools: [
-      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, note: "AI writing help per section" },
+      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, note: "Live check on every bullet" },
       { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator", icon: Mail, note: "Matched to each posting" },
     ],
     content: [
       { label: "7 resume builders tested", href: "/blog/best-free-resume-builders-2026", type: "Comparison" },
-      { label: "Cover letters that convert", href: "/blog/how-to-write-cover-letter-2026", type: "Guide" },
+      { label: "How to write a cover letter", href: "/blog/how-to-write-cover-letter-2026", type: "Guide" },
     ],
   },
   {
@@ -339,8 +290,8 @@ export const goals: Goal[] = [
       { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, note: "Run the numbers early" },
     ],
     content: [
-      { label: "AI business trends", href: "/trends", type: "Trend" },
-      { label: "Founder productivity stack", href: "/blog", type: "Article" },
+      { label: "AI automation business ideas", href: "/blog/ai-automation-business-ideas-2026", type: "Guide" },
+      { label: "AI side hustles in 2026", href: "/trends/ai-side-hustles-make-money-2026", type: "Trend" },
     ],
   },
   {
@@ -349,12 +300,12 @@ export const goals: Goal[] = [
     icon: CalendarCheck,
     headline: "Systems that make weeks focused",
     tools: [
-      { name: "Habit Tracker", href: "/tools/habit-tracker", icon: CalendarCheck, note: "Streaks that stick" },
+      { name: "Habit Tracker", href: "/tools/habit-tracker", icon: CalendarCheck, note: "Daily habit checklist" },
       { name: "Productivity Planner", href: "/tools/productivity-planner", icon: ListChecks, note: "Priorities and time blocks" },
-      { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, note: "Money on autopilot" },
+      { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, note: "See where money goes" },
     ],
     content: [
-      { label: "2026 developer productivity stack", href: "/blog", type: "Article" },
+      { label: "Best AI developer tools for 2026", href: "/blog/ai-tools-developers-2026", type: "Guide" },
     ],
   },
   {
@@ -363,26 +314,26 @@ export const goals: Goal[] = [
     icon: Code2,
     headline: "Micro lessons, real skills",
     tools: [
-      { name: "Learn Hub", href: "/learn", icon: Code2, note: "50+ micro lessons" },
+      { name: "Learn Hub", href: "/learn", icon: Code2, note: "Short coding lessons" },
       { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Learn by prompting" },
     ],
     content: [
-      { label: "System design basics", href: "/learn", type: "Course" },
-      { label: "Local AI models explained", href: "/trends", type: "Trend" },
+      { label: "Learn programming in 2026", href: "/trends/learn-programming-2026-complete-guide", type: "Guide" },
+      { label: "Most in demand tech skills", href: "/trends/tech-skills-demand-2026", type: "Trend" },
     ],
   },
   {
     id: "trends",
     label: "Find the latest trends",
     icon: Gamepad2,
-    headline: "Signals before they are news",
+    headline: "In depth reports, kept current",
     tools: [
-      { name: "Trend Radar", href: "/trends", icon: Gamepad2, note: "Daily tracked signals" },
-      { name: "Can You Run It", href: "/tools/can-you-run-it", icon: Gamepad2, note: "GTA 6 ready?" },
+      { name: "Trend Radar", href: "/trends", icon: Gamepad2, note: "Reports by topic" },
+      { name: "Can You Run It", href: "/tools/can-you-run-it", icon: Gamepad2, note: "Check your PC" },
     ],
     content: [
       { label: "GTA 6 launch hub", href: "/gta-6", type: "Hub" },
-      { label: "This week in tech", href: "/trends", type: "Radar" },
+      { label: "Gaming tech trends 2026", href: "/trends/gaming-tech-trends-2026", type: "Trend" },
     ],
   },
 ];
@@ -390,24 +341,45 @@ export const goals: Goal[] = [
 /* ---------------- Latest updates feed ---------------- */
 
 export type UpdateItem = {
-  kind: "New" | "Updated" | "Trending" | "Popular";
+  kind: "New" | "Updated";
   title: string;
   meta: string;
   href: string;
-  date: string;
+  date: string; // ISO date, shown as "Oct 6"
 };
 
-export const updates: UpdateItem[] = [
-  { kind: "New", title: "AI Content Detector", meta: "Tool · AI", href: "/tools/ai-content-detector", date: "Jul 19" },
-  { kind: "New", title: "Regex Playground", meta: "Tool · Developer", href: "/tools", date: "Jul 17" },
-  { kind: "Updated", title: "Salary Estimator refreshed with 2026 market data", meta: "Tool · Career", href: "/tools/salary-estimator", date: "Jul 18" },
-  { kind: "Updated", title: "Resume Builder adds ATS match scoring", meta: "Tool · Career", href: "/tools/ai-resume-builder", date: "Jul 16" },
-  { kind: "Trending", title: "AI agents move into daily workflows", meta: "Signal · AI", href: "/trends", date: "Jul 19" },
-  { kind: "Trending", title: "GTA 6 pre orders pass 39 million", meta: "Signal · Gaming", href: "/gta-6", date: "Jul 18" },
-  { kind: "Popular", title: "AI Website Audit", meta: "Tool · 3.4k audits", href: "/tools/website-audit", date: "All time" },
-  { kind: "Popular", title: "AI Resume Builder", meta: "Tool · Free, no signup", href: "/tools/ai-resume-builder", date: "All time" },
-  { kind: "New", title: "Guide: Technical interview prep 2026", meta: "Blog · Career", href: "/blog/technical-interview-prep-2026", date: "Jul 14" },
-  { kind: "Updated", title: "Prompt Library rebuilt with a prompt builder", meta: "Tool · AI", href: "/tools/ai-prompt-library", date: "Oct 6" },
-  { kind: "Trending", title: "Local AI models go mainstream", meta: "Signal · AI", href: "/trends", date: "Jul 12" },
-  { kind: "Popular", title: "Can You Run It: GTA 6 edition", meta: "Tool · 11k checks", href: "/tools/can-you-run-it", date: "All time" },
+// A real, dated log of changes. Newest guides are added from the blog on the server.
+export const toolUpdates: UpdateItem[] = [
+  { kind: "Updated", title: "Prompt Library rebuilt with 64 prompts and a prompt builder", meta: "Tool · AI", href: "/tools/ai-prompt-library", date: "2026-10-06" },
+  { kind: "Updated", title: "Resume Builder rebuilt with a live resume check", meta: "Tool · Career", href: "/tools/ai-resume-builder", date: "2026-10-05" },
+  { kind: "Updated", title: "AI side hustle guides merged into one updated report", meta: "Trend · Make money", href: "/trends/ai-side-hustles-make-money-2026", date: "2026-10-02" },
+  { kind: "Updated", title: "Cover Letter Generator rebuilt around the job posting", meta: "Tool · Career", href: "/tools/ai-cover-letter-generator", date: "2026-10-01" },
+  { kind: "Updated", title: "Interview Simulator rebuilt with answer feedback", meta: "Tool · Career", href: "/tools/ai-interview-simulator", date: "2026-10-01" },
+  { kind: "Updated", title: "Can You Run It: 26 games checked against publisher specs", meta: "Tool · Gaming", href: "/tools/can-you-run-it", date: "2026-09-30" },
+  { kind: "New", title: "GTA 6 PC requirements: what is actually confirmed", meta: "Guide · Gaming", href: "/tools/can-you-run-it/gta-6", date: "2026-09-11" },
+];
+
+/* ---------------- Homepage FAQ ---------------- */
+
+export const homeFaqs = [
+  {
+    question: "What is DevelopersMatrix?",
+    answer: `DevelopersMatrix is a free platform with ${TOOLS_LABEL} browser tools for resumes, cover letters, interview practice, website audits, prompts, budgeting and more, plus in depth trend reports and guides. No signup required.`,
+  },
+  {
+    question: "Are the tools on DevelopersMatrix really free?",
+    answer: "Yes. The tools are free to use with no credit card and no account. The site is supported by advertising.",
+  },
+  {
+    question: "How does the Resume Builder work?",
+    answer: "You fill in your resume section by section and see it on a real A4 page as you type. A built in check flags weak bullets, missing numbers and gaps, and you download a clean single column PDF. Your data stays in your browser.",
+  },
+  {
+    question: "What does the Website Audit Tool check?",
+    answer: "It runs around 150 checks across eight areas: SEO, technical setup, performance, mobile, security, accessibility, content and conversion. You get a score out of 100 plus a prioritized list of fixes.",
+  },
+  {
+    question: "How does the Interview Simulator give feedback?",
+    answer: "It asks real behavioral, technical and system design questions, then checks your answer against the key points a strong answer covers and tells you what you covered and what you missed. It is a practice tool, not a prediction of what a real interviewer will decide.",
+  },
 ];

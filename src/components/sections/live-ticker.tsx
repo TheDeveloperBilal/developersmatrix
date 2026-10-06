@@ -14,7 +14,7 @@ export default function LiveTicker() {
 
   return (
     <section
-      aria-label="Live updates"
+      aria-label="Latest updates"
       className="group relative border-b border-ink-100 bg-ink-950 py-3"
     >
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-ink-950 to-transparent" />
@@ -27,7 +27,7 @@ export default function LiveTicker() {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-500" />
           </span>
           <span className="text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-white/90">
-            Live
+            Latest
           </span>
         </div>
 
