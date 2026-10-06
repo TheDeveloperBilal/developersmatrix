@@ -365,7 +365,8 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'ai-prompt-library': {
     title: 'Free AI Prompt Library for ChatGPT and Claude',
-    description: 'Free AI prompt library with 500+ tested prompts for ChatGPT, Claude, Midjourney, DALL-E, and more. Organized by category with copy-paste ease. Test prompts in our live sandbox. No signup needed. Updated for 2026 AI models.',
+    // Keep the number in line with PROMPTS.length in src/lib/prompts/library.ts
+    description: 'Free AI prompt library with 64 ready prompts for ChatGPT, Claude, Gemini and Midjourney. Fill in the blanks, then copy or open in ChatGPT or Claude.',
     keywords: [
       'free ai prompt library',
       'chatgpt prompts free',

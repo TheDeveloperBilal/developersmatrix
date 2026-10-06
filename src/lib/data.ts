@@ -88,7 +88,7 @@ export const moreTools: Tool[] = [
   {
     name: "AI Prompt Library",
     href: "/tools/ai-prompt-library",
-    description: "500+ curated prompts.",
+    description: "64 ready to use AI prompts.",
     icon: Sparkles,
   },
   {
