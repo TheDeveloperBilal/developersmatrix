@@ -405,28 +405,28 @@ export const tools: Tool[] = [
   {
     id: 'ai-prompt-library',
     slug: 'ai-prompt-library',
-    name: 'AI Prompt Library & Playground',
-    description: 'Curated collection of 500+ high-quality AI prompts for ChatGPT, Claude, Midjourney & more. Test prompts in our sandbox and rate their effectiveness.',
-    shortDescription: 'Curated prompts with AI sandbox testing',
+    name: 'AI Prompt Library',
+    description: 'Free library of ready to use AI prompts for ChatGPT, Claude, Gemini and Midjourney. Fill in the blanks, then copy the prompt or open it in ChatGPT or Claude.',
+    shortDescription: 'Ready prompts with a fill in the blanks builder',
     icon: 'BookOpen',
     category: 'productivity',
     features: [
-      '500+ curated prompts by category',
-      'Prompt performance ratings',
-      'Save & share prompts',
-      'AI sandbox to test them',
-      'Community contributions',
-      'Copy to clipboard'
+      '64 prompts in 8 categories',
+      'Fill in the blanks prompt builder',
+      'Open in ChatGPT or Claude',
+      'Chat and image prompts',
+      'Save prompts in your browser',
+      'Copy or share a link to any prompt'
     ],
     benefits: [
-      'Get better AI results instantly',
-      'Learn prompt engineering',
-      'Save time on prompt creation',
-      'Discover proven prompts'
+      'Get a better first answer from AI',
+      'Learn how strong prompts are built',
+      'Save time writing prompts',
+      'Keep your favourite prompts in one place'
     ],
     faqs: [
-      { question: "What is the AI Prompt Library?", answer: "A curated collection of high-quality prompts for various AI tools, rated by effectiveness." },
-      { question: "Can I save my own prompts?", answer: "Yes! Save prompts to your library and share them with unique links." }
+      { question: "What is the AI Prompt Library?", answer: "A free collection of ready to use prompts for ChatGPT, Claude, Gemini and image tools, with a builder that turns each blank into a field you fill in." },
+      { question: "Can I save prompts?", answer: "Yes. Bookmark any prompt to keep it in your Saved list. It is stored in your browser, and you can copy a link to share any prompt." }
     ],
     keywords: ['AI prompts', 'prompt library', 'ChatGPT prompts', 'Midjourney prompts', 'prompt engineering'],
     path: '/tools/ai-prompt-library'

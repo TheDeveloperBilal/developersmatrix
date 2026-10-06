@@ -99,7 +99,7 @@ export const explorerTools: ExplorerTool[] = [
   {
     name: "AI Prompt Library",
     href: "/tools/ai-prompt-library",
-    description: "500+ curated prompts for coding, writing, marketing and analysis.",
+    description: "64 ready prompts for coding, writing, marketing and careers, with a fill in the blanks builder.",
     category: "AI Tools",
     icon: Sparkles,
     badge: "UPDATED",
@@ -291,7 +291,7 @@ export const goals: Goal[] = [
     icon: Sparkles,
     headline: "The useful AI stack, curated",
     tools: [
-      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "500+ prompts that actually work" },
+      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Fill in the blanks, then copy" },
       { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch, note: "Verify what you publish" },
       { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Brainstorm with AI" },
     ],
@@ -407,7 +407,7 @@ export const updates: UpdateItem[] = [
   { kind: "Popular", title: "AI Website Audit", meta: "Tool · 3.4k audits", href: "/tools/website-audit", date: "All time" },
   { kind: "Popular", title: "AI Resume Builder", meta: "Tool · Free, no signup", href: "/tools/ai-resume-builder", date: "All time" },
   { kind: "New", title: "Guide: Technical interview prep 2026", meta: "Blog · Career", href: "/blog/technical-interview-prep-2026", date: "Jul 14" },
-  { kind: "Updated", title: "Prompt Library grows to 500+ prompts", meta: "Tool · AI", href: "/tools/ai-prompt-library", date: "Jul 13" },
+  { kind: "Updated", title: "Prompt Library rebuilt with a prompt builder", meta: "Tool · AI", href: "/tools/ai-prompt-library", date: "Oct 6" },
   { kind: "Trending", title: "Local AI models go mainstream", meta: "Signal · AI", href: "/trends", date: "Jul 12" },
   { kind: "Popular", title: "Can You Run It: GTA 6 edition", meta: "Tool · 11k checks", href: "/tools/can-you-run-it", date: "All time" },
 ];

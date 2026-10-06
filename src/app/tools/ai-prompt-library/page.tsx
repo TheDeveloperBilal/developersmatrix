@@ -1,44 +1,52 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from "@/data/config";
 import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
+import { PROMPTS } from "@/lib/prompts/library";
+import { CATEGORIES } from "@/lib/prompts/types";
 import AIPromptLibraryClient from "./AIPromptLibraryClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-prompt-library']);
 
+// Counts come from the library itself, so the page never claims more than it has.
+const TOTAL = PROMPTS.length;
+const CATEGORY_COUNT = CATEGORIES.length;
+const IMAGE_COUNT = PROMPTS.filter((p) => p.kind === 'image').length;
+
 const toolFaqs = [
   {
-    question: "Is the AI Prompt Library completely free?",
-    answer: "Yes, 100 percent free with no signup required. Browse 500+ curated prompts, test them in the AI Playground, and copy them to your clipboard. Unlike prompt marketplaces that charge per prompt or require subscriptions for premium collections, all prompts are available to everyone."
+    question: "Is the AI Prompt Library free?",
+    answer: `Yes. All ${TOTAL} prompts are free to use, with no signup and no limits. You can browse, fill in, copy and save as many as you like.`
   },
   {
     question: "What is the AI Prompt Library?",
-    answer: "A curated collection of 500+ high-quality prompts for ChatGPT, Claude, Midjourney, Stable Diffusion, and other AI tools. Each prompt is organized by category, rated for effectiveness, and includes usage notes. The library covers writing, coding, design, marketing, research, creative projects, and personal productivity. Instead of spending hours crafting the perfect prompt, find one that professionals have already refined and tested."
+    answer: `A collection of ${TOTAL} ready to use prompts for ChatGPT, Claude, Gemini and image tools like Midjourney, grouped into ${CATEGORY_COUNT} categories: Coding, Writing, Marketing, Business, Career, Learning, Productivity and Creative. Each prompt gives the AI a clear role, the context it needs, the steps to follow and the format to answer in.`
   },
   {
-    question: "What is the AI Playground?",
-    answer: "The AI Playground is a built-in testing environment where you can run prompts directly and see the output instantly. Paste a prompt from the library, adjust the variables, and test the results. This iterative workflow lets you refine prompts before using them in production. The playground supports text generation, code generation, and creative writing prompts."
+    question: "How does the prompt builder work?",
+    answer: "Each prompt has a few blanks in square brackets, such as [Topic] or [Paste your code]. When you open a prompt, every blank becomes a field. As you type, the prompt updates and highlights what you have filled in and what is still empty. When you are done, copy it or open it straight in ChatGPT or Claude."
   },
   {
-    question: "Can I save my own prompts?",
-    answer: "Yes. Save any prompt to your personal library with one click. Organize saved prompts into custom collections. Export your library as a text file. Share individual prompts or entire collections via unique links. All saved data stays in your browser for privacy."
+    question: "Can I open a prompt directly in ChatGPT or Claude?",
+    answer: "Yes. For chat prompts, the Open in ChatGPT and Open in Claude buttons open a new tab with your filled in prompt already in place. Very long prompts, for example with a lot of pasted code, are too long to send in a link, so the tool asks you to copy and paste those instead. Image prompts are meant to be copied into Midjourney, DALL·E, Stable Diffusion or a similar tool."
   },
   {
-    question: "How are prompts rated?",
-    answer: "Every prompt in the library has a community rating based on effectiveness, clarity, and consistency of results. Top-rated prompts appear first in each category. New prompts enter the library with a provisional rating and move up as users report positive results. The rating system helps you identify the prompts that actually produce useful output instead of generic responses."
+    question: "Can I save prompts?",
+    answer: "Yes. Use the bookmark on any prompt to add it to your Saved list. Saved prompts are stored in your own browser, so they stay on this device and are not uploaded anywhere. You can also copy a link to any prompt to share it."
   },
   {
-    question: "What categories of prompts are available?",
-    answer: "The library covers 12 categories: Writing and Content Creation, Coding and Development, Design and Visual Arts, Marketing and SEO, Research and Analysis, Data Science and Analytics, Education and Learning, Business and Strategy, Creative Writing, Social Media, Personal Productivity, and Technical Documentation. Each category contains 40 to 60 prompts ranging from beginner to advanced complexity."
+    question: "Is what I type into the blanks private?",
+    answer: "What you type stays in your browser. Nothing is sent to DevelopersMatrix. It only leaves your device when you copy the prompt or choose to open it in ChatGPT or Claude, which then works under that service's own privacy rules. Avoid pasting passwords, keys or personal data about other people into any AI tool."
   },
   {
     question: "Do I need to know prompt engineering to use this?",
-    answer: "No. The entire purpose of the library is to make prompt engineering accessible to everyone. Each prompt includes clear instructions on what variables to customize and what output to expect. You do not need to understand chain-of-thought prompting, few-shot learning, or role-based prompting. Just find a prompt that matches your goal, fill in the blanks, and run it. Over time, using well-crafted prompts teaches you prompt engineering principles naturally."
+    answer: "No. The prompts already follow the habits that make AI answers better: a role, specific context, clear steps and an output format. You only fill in your details. Using them for a while is also a good way to learn how strong prompts are put together."
   },
   {
-    question: "How is this different from just searching Google for prompts?",
-    answer: "Google search returns scattered blog posts with outdated, untested prompts. The quality varies wildly, and most prompts are not context-aware. The AI Prompt Library provides professionally curated prompts that are tested, rated, categorized, and kept current as AI models evolve. The playground lets you test before committing. The save feature lets you build a personal toolkit. It is the difference between a random recipe blog and a professional cookbook."
+    question: "Will these prompts work with every AI model?",
+    answer: "The chat prompts are written in plain language and work with ChatGPT, Claude, Gemini, Copilot and other chat assistants. Results vary between models and versions, so treat the first answer as a draft, check facts that matter and ask follow up questions to refine it."
   }
 ];
 
@@ -58,7 +66,7 @@ export default function AIPromptLibraryPage() {
         name="DevelopersMatrix AI Prompt Library"
         applicationCategory="WebApplication"
         operatingSystem="Web"
-        description="Free AI prompt library with 500+ curated prompts for ChatGPT, Claude, Midjourney. Test in sandbox. No signup needed."
+        description={`Free library of ${TOTAL} ready to use AI prompts for ChatGPT, Claude, Gemini and Midjourney, with a builder that fills in the blanks. No signup.`}
         url={`${siteConfig.url}/tools/ai-prompt-library`}
         offers={{
           price: "0",
@@ -68,73 +76,95 @@ export default function AIPromptLibraryPage() {
       <FAQSchema faqs={toolFaqsForSchema} />
 
       <HowToSchema
-        name="How to Use the AI Prompt Library for Better Results"
-        description="Step-by-step guide to finding, testing, and customizing AI prompts from the DevelopersMatrix Prompt Library for ChatGPT, Claude, and other AI tools."
+        name="How to Use the AI Prompt Library"
+        description="Find a prompt, fill in the blanks and use it in ChatGPT, Claude or another AI tool."
         url={`${siteConfig.url}/tools/ai-prompt-library`}
-        totalTime="PT5M"
+        totalTime="PT2M"
         estimatedCost={{ currency: 'USD', value: '0' }}
-        tool={['Web browser', 'AI Prompt Library', 'Clipboard']}
+        tool={['Web browser', 'AI Prompt Library']}
         step={[
           {
-            name: "Choose a prompt category",
-            text: "Browse 12 curated categories including Writing, Coding, Design, Marketing, Research, Data Science, and Business Strategy. Each category contains 40-60 professionally crafted prompts rated by effectiveness. Start with the category closest to your current task rather than searching randomly."
+            name: "Find a prompt",
+            text: `Search the library or browse the ${CATEGORY_COUNT} categories. Use the Chat and Image filter to see prompts for chat assistants or for image generators.`
           },
           {
-            name: "Select a high-rated prompt",
-            text: "Prompts are rated by community effectiveness scores. Top-rated prompts appear first and have been tested by hundreds of users. Read the usage notes to understand what variables to customize and what output to expect. A well-rated prompt saves 10-20 minutes of trial-and-error compared to writing from scratch."
+            name: "Fill in the blanks",
+            text: "Open the prompt. Each blank in square brackets becomes a field. Type your details and watch the prompt update as you go."
           },
           {
-            name: "Customize the variables",
-            text: "Every prompt includes placeholder variables marked in brackets or parentheses. Replace these with your specific context: [topic], [audience], [tone], [format], [length]. The more specific your replacements, the better the AI output. For example, replace 'Write about [topic]' with 'Write a technical blog post about React Server Components for senior frontend developers, 1,500 words, professional tone.'"
+            name: "Copy it or open it in an AI tool",
+            text: "Copy the finished prompt, or open it directly in ChatGPT or Claude with your details already filled in."
           },
           {
-            name: "Test in the AI Playground",
-            text: "Paste your customized prompt into the built-in AI Playground to test output quality before using it in production. The playground supports text generation, code generation, and creative writing. Iterate on the prompt 2-3 times if the first output is not satisfactory. Small wording changes often produce dramatically different results."
+            name: "Refine the answer",
+            text: "Treat the first answer as a draft. Ask a follow up question, add an example or change one detail and run it again."
           },
           {
-            name: "Save to your personal library",
-            text: "Click the save button to store the prompt in your personal library. Organize saved prompts into custom collections for different projects or workflows. Export your library as a text file for offline use. All saved data stays in your browser for privacy."
+            name: "Save the prompts you use often",
+            text: "Bookmark a prompt to keep it in your Saved list in this browser, or copy its link to share it."
           }
         ]}
       />
 
       <main className="pt-16">
-        {/* Tool Interface */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-4 gap-6">
-            <div className="lg:col-span-3">
-              <div id="ai-prompt-library">
-                <AIPromptLibraryClient />
-              </div>
+        {/* Hero: dotted grid with a sample prompt card */}
+        <section className="relative isolate border-b border-zinc-200 dark:border-zinc-800">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 bg-zinc-50 [background-image:radial-gradient(rgba(113,113,122,0.28)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_bottom,black,transparent_90%)] dark:bg-zinc-950 dark:[background-image:radial-gradient(rgba(161,161,170,0.16)_1px,transparent_1px)]"
+          />
+          <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-4 pb-10 pt-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:px-8 lg:pb-14 lg:pt-12">
+            <div className="min-w-0">
+              <nav aria-label="Breadcrumb" className="text-sm text-zinc-500 dark:text-zinc-400">
+                <Link href="/tools" className="hover:text-zinc-900 dark:hover:text-white">Tools</Link>
+                <span className="mx-2 text-zinc-300 dark:text-zinc-600">/</span>
+                <span className="text-zinc-700 dark:text-zinc-300">AI Prompt Library</span>
+              </nav>
+              <h1 className="mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+                Free AI Prompt Library for ChatGPT and Claude
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+                {TOTAL} ready to use prompts for coding, writing, marketing, careers and more. Fill in the blanks, then copy the prompt or open it straight in ChatGPT or Claude.
+              </p>
+              <ul className="mt-6 flex flex-wrap gap-2 text-sm">
+                {[
+                  `${TOTAL} prompts`,
+                  `${CATEGORY_COUNT} categories`,
+                  `${IMAGE_COUNT} image prompts`,
+                  'No signup',
+                ].map((t) => (
+                  <li key={t} className="rounded-full border border-zinc-200 bg-white px-3 py-1 font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="lg:col-span-1 space-y-6">
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">AI Prompt Stats 2026</h3>
-                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                  <li className="flex justify-between items-center">
-                    <span>ChatGPT daily active users</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">300M+</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Output quality increase with good prompts</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">340%</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Professionals who use AI prompts daily</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">67%</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Time saved per task with good prompts</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">55%</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Prompt marketplaces charging per prompt</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">$0.99-5.00</span>
-                  </li>
-                </ul>
+            <figure aria-hidden="true" className="hidden rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:block">
+              <figcaption className="flex items-center justify-between text-xs">
+                <span className="font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-400">Writing</span>
+                <span className="text-zinc-400">2 of 3 filled</span>
+              </figcaption>
+              <p className="mt-2 font-semibold text-zinc-900 dark:text-zinc-50">Write a Professional Email</p>
+              <p className="mt-3 whitespace-pre-line rounded-xl border border-zinc-200 bg-zinc-50 p-3.5 font-mono text-[12.5px] leading-relaxed text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+                Write an email to{' '}
+                <mark className="rounded bg-emerald-100 px-0.5 text-emerald-900 dark:bg-emerald-500/20 dark:text-emerald-200">my landlord, Mr Patel</mark>.
+                {'\n\n'}What I need to say:{'\n'}
+                <mark className="rounded bg-emerald-100 px-0.5 text-emerald-900 dark:bg-emerald-500/20 dark:text-emerald-200">the kitchen tap has leaked for a week</mark>
+                {'\n\n'}What I want them to do:{' '}
+                <mark className="rounded bg-amber-100 px-0.5 text-amber-900 dark:bg-amber-500/20 dark:text-amber-200">[The action you want]</mark>
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-2 text-center text-xs font-medium">
+                <span className="rounded-lg bg-zinc-900 py-2 text-white dark:bg-white dark:text-zinc-900">Copy prompt</span>
+                <span className="rounded-lg border border-zinc-300 py-2 text-zinc-700 dark:border-zinc-700 dark:text-zinc-200">Open in ChatGPT</span>
               </div>
-              <SidebarAd />
-            </div>
+            </figure>
+          </div>
+        </section>
+
+        {/* Tool */}
+        <div className="mx-auto max-w-[1400px] px-2 pt-6 sm:px-6 lg:px-8">
+          <div id="ai-prompt-library" className="scroll-mt-20">
+            <AIPromptLibraryClient />
           </div>
         </div>
 
@@ -143,240 +173,145 @@ export default function AIPromptLibraryPage() {
         {/* SEO Content */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col lg:flex-row gap-8">
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
 
-              {/* Introduction */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
                   Why Prompt Quality Determines Your AI Results in 2026
                 </h2>
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+                <div className="prose dark:prose-invert max-w-none text-zinc-700 dark:text-zinc-300 space-y-4">
                   <p className="text-lg leading-relaxed">
-                    The quality of AI output is determined almost entirely by the quality of the prompt. A vague request like "write a blog post about productivity" produces generic, forgettable content. A structured prompt with context, role assignment, format specification, and examples produces content that feels written by a domain expert. The difference is not the AI model. It is the human behind the keyboard.
+                    The same AI model can give you a generic answer or a genuinely useful one, and the difference is mostly the prompt. A vague request like "write a blog post about productivity" gets safe, forgettable text. A prompt that gives the model a role, your real context, clear steps and the format you want gets something you can actually use.
                   </p>
                   <p className="leading-relaxed">
-                    The problem is that crafting excellent prompts takes time and expertise. You need to understand prompt engineering principles like chain-of-thought reasoning, few-shot examples, role-based prompting, and output formatting. Most people do not have hours to spend learning these techniques. The <strong>DevelopersMatrix AI Prompt Library</strong> solves this by providing 500+ professionally crafted prompts across every major use case. Find a prompt, customize the variables, and get expert-level output without the expert-level learning curve.
+                    Writing prompts like that every time is slow. The <strong>DevelopersMatrix AI Prompt Library</strong> gives you {TOTAL} prompts that already have that structure. You pick one, fill in a few blanks with your details and use it in ChatGPT, Claude, Gemini or an image tool.
                   </p>
                 </div>
               </section>
 
-              <InContentAd />
-
-              {/* Features */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Four Features That Unlock Better AI Results
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
+                  What You Can Do With the Prompt Library
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold">1</span>
-                      500+ Curated Prompts
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Browse prompts organized by category and rated by effectiveness. Each prompt includes clear instructions on what variables to customize. Categories cover writing, coding, design, marketing, research, data science, education, business, creative projects, and personal productivity.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-sm font-bold">2</span>
-                      AI Playground Sandbox
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Test prompts directly in the built-in playground. See output instantly, adjust variables, and iterate. This eliminates the guesswork of copying prompts to external tools. The playground supports text generation, code generation, and creative writing workflows.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold">3</span>
-                      Save and Organize
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Save any prompt to your personal library with one click. Organize into custom collections for different projects. Export your library as a text file. Share individual prompts or collections via unique links. Build a prompt toolkit that grows with your needs.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-sm font-bold">4</span>
-                      Community Ratings
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Every prompt is rated by the community for effectiveness, clarity, and consistency. Top-rated prompts appear first in each category. This crowdsourced quality control ensures you are using prompts that actually work, not theoretical templates that look good but produce weak output.
-                    </p>
-                  </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {[
+                    ["Fill in the blanks", "Every blank in square brackets becomes a field. The prompt updates as you type, with filled parts highlighted in green and empty ones in amber, so nothing gets sent half finished."],
+                    ["Open it in ChatGPT or Claude", "Send a finished chat prompt straight to ChatGPT or Claude in a new tab, already filled in. Or copy it for Gemini, Copilot or any other assistant."],
+                    [`Search ${TOTAL} prompts`, `Search by task or keyword, browse ${CATEGORY_COUNT} categories, and switch between chat prompts and image prompts for Midjourney, DALL·E and Stable Diffusion.`],
+                    ["Save and share", "Bookmark the prompts you use often. They are kept in your browser, not on our servers. Copy a link to any prompt to send it to a teammate."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+                      <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-2">{t}</h3>
+                      <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{d}</p>
+                    </div>
+                  ))}
                 </div>
               </section>
 
-              <InContentAd />
-
-              {/* Mistakes */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
                   Five Prompt Mistakes That Waste Your AI Subscription
                 </h2>
-                <div className="space-y-6">
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">1</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Vague, Open-Ended Requests</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">"Write something good about marketing" is the fastest path to generic output. The AI has no context about your industry, audience, tone, or goal. It defaults to safe, boring generalizations that sound like they came from a textbook.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Use structured prompts with role, context, format, and constraints. "You are a SaaS marketing director. Write a 500-word blog post about email onboarding sequences for B2B software. Include 3 specific examples. Tone: professional but conversational." This prompt produces content that is immediately usable.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">2</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Not Assigning a Role</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Without a role assignment, the AI defaults to a generic helpful assistant persona. That works for simple questions but fails for specialized tasks. A coding question answered by a generic assistant is less precise than one answered by an assigned "senior backend engineer."</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Start every prompt with a role assignment. "You are an experienced Python developer specializing in Django REST APIs." "You are a UX researcher with 10 years of experience." The role frames the knowledge, tone, and perspective of the response.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">3</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Forgetting Format Specifications</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">You ask for a comparison of two frameworks and get a wall of text. You wanted a structured table. You ask for a project plan and get paragraphs. You wanted bullet points with timelines. Without format instructions, the AI chooses its own output structure, which rarely matches your needs.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Specify output format explicitly. "Format as a comparison table with columns for Feature, Framework A, Framework B, and Winner." "Format as bullet points with estimated hours for each task." The library includes prompts with format specifications built in.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">4</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No Examples for Complex Tasks</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">For tasks like rewriting content in your brand voice, summarizing technical documents, or generating structured data, the AI needs examples to calibrate its output. Without examples, it guesses at your preferences and often misses.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Include 1 to 3 examples in your prompt. "Here are 3 examples of our brand voice. Rewrite the following paragraph to match this style." The library's few-shot prompts include example slots that you fill with your own content.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">5</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Treating the First Output as Final</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">The first response from an AI is rarely the best possible output. Most users accept the first draft, make minor edits, and move on. They are leaving significant quality on the table. Iterative refinement is where the real magic happens.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Use the AI Playground to test prompts and iterate. Run the prompt, evaluate the output, adjust one variable, and run again. Three iterations with minor tweaks almost always produce better results than the first draft. The library includes iteration prompts specifically designed for this refinement workflow.</p>
-                    </div>
-                  </div>
-                </div>
+                <ol className="space-y-6">
+                  {[
+                    ["Vague, open ended requests", "\"Write something good about marketing\" gives the AI nothing to work with. It has no idea of your industry, audience, tone or goal, so it falls back on safe generalisations.", "Give it a role, context, a format and limits. \"You are a SaaS marketing lead. Write a 500 word post about onboarding emails for B2B software, with three examples, in a plain and friendly tone.\""],
+                    ["Not assigning a role", "Without a role, the AI answers as a general assistant. That is fine for simple questions but weak for specialist work.", "Start with who it should be: \"You are an experienced Python developer who works with Django REST APIs.\" The role shapes the knowledge, tone and level of detail."],
+                    ["Forgetting the output format", "You wanted a table and got a wall of text. You wanted a checklist and got paragraphs.", "Say exactly how you want the answer laid out, for example \"a table with columns for Feature, Option A and Option B\". Most prompts in this library already include a format."],
+                    ["No examples for complex tasks", "For writing in your brand voice or producing structured data, the AI has to guess your preferences, and it often guesses wrong.", "Include one to three short examples of what good looks like. Even a single example changes the output a lot."],
+                    ["Treating the first answer as final", "The first answer is a draft. Most people accept it, tweak a few words and move on.", "Reply with what to change: \"shorter\", \"more specific to small shops\", \"use simpler words\". Two or three rounds usually beat the first draft by a clear margin."],
+                  ].map(([t, p, fix], i) => (
+                    <li key={t} className="flex gap-4 items-start">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 flex items-center justify-center text-sm font-bold">{i + 1}</span>
+                      <div>
+                        <h3 className="font-semibold text-zinc-900 dark:text-white mb-1">{t}</h3>
+                        <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">{p}</p>
+                        <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mt-1"><strong className="text-zinc-900 dark:text-white">Fix:</strong> {fix}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
               </section>
 
               <InContentAd />
 
-              {/* Use Cases */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
                   Who Benefits From the AI Prompt Library
                 </h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Writers and Content Creators</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Blog post outlines, headline generation, SEO meta descriptions, social media captions, email sequences, and long-form article drafting. The writing prompts cover everything from brainstorming to final editing.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Developers</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Code generation, debugging assistance, algorithm explanations, API documentation, test case generation, and code review prompts. The coding prompts include language-specific templates for Python, JavaScript, TypeScript, Go, Rust, and more.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Designers</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Midjourney and Stable Diffusion prompts for image generation. UX copy generation, design critique frameworks, color palette suggestions, and accessibility compliance checks. The visual prompts produce specific, actionable design output.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Marketers</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Ad copy generation, landing page optimization, A-B test ideas, customer persona creation, competitive analysis, and campaign planning. The marketing prompts include framework-based templates like AIDA, PAS, and StoryBrand.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Data Scientists</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Data analysis scripts, visualization suggestions, statistical interpretation, model selection guidance, and report generation. The data science prompts handle everything from exploratory analysis to presentation-ready insights.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Entrepreneurs</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Pitch deck copy, business plan sections, investor email templates, market research prompts, and competitive analysis frameworks. The business prompts are designed for founders who need to communicate clearly under time pressure.</p>
-                  </div>
+                  {[
+                    ["Developers", "Debugging, code review, unit tests, refactoring, SQL, regular expressions and documentation, with blanks for your language and code."],
+                    ["Writers and content creators", "Blog outlines, editing, proofreading, tone rewrites, summaries and headline ideas that keep your own voice."],
+                    ["Marketers", "SEO titles and meta descriptions, ad copy variations, landing pages, newsletters, personas and keyword clusters."],
+                    ["Founders and managers", "SWOT analysis, business plan sections, pricing options, pitch deck outlines, decision matrices and cold outreach."],
+                    ["Job seekers", "Tailored resume bullets, STAR interview answers, mock interviews, salary negotiation scripts and follow up emails."],
+                    ["Students and lifelong learners", "Study plans, Socratic tutoring, practice quizzes, flashcards and plain language guides to research papers."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                      <h3 className="font-semibold text-zinc-900 dark:text-white mb-2">{t}</h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{d}</p>
+                    </div>
+                  ))}
                 </div>
               </section>
 
-              <InContentAd />
-
-              {/* Internal Links */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
                   Complete Your AI Toolkit
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  AI prompts are just one part of a complete AI workflow. Here are the other free tools from DevelopersMatrix that help you generate, refine, and verify AI-powered content:
+                <p className="text-zinc-700 dark:text-zinc-300 mb-6 leading-relaxed">
+                  Other free tools from DevelopersMatrix that pair well with a good prompt:
                 </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <a href="/tools/ai-content-detector" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Content Detector</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Detect AI-generated text. Ensure your blog posts pass human quality standards and avoid Google penalties.</p>
-                  </a>
-                  <a href="/tools/ai-email-assistant" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Email Assistant</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Draft professional emails in seconds, rewrite for clarity, adjust tone, and generate perfect responses.</p>
-                  </a>
-                  <a href="/tools/ai-resume-builder" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Resume Builder</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Build an ATS-optimized resume in minutes. Perfect for developers, designers, and tech professionals.</p>
-                  </a>
-                  <a href="/tools/ai-cover-letter-generator" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">Cover Letter Generator</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Generate personalized cover letters tailored to specific job descriptions. Save hours of writing time.</p>
-                  </a>
-                  <a href="/tools/ai-interview-simulator" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">Interview Simulator</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Practice technical and behavioral interviews with AI feedback. Build confidence before your next job interview.</p>
-                  </a>
-                  <a href="/tools" className="group block bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5 shadow-sm border border-blue-100 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">View All 20+ Free Tools →</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Explore interview simulators, salary estimators, budget planners, and more free career tools.</p>
-                  </a>
+                  {[
+                    ["/tools/ai-content-detector", "AI Content Detector", "Check whether a piece of text reads as AI written before you publish it."],
+                    ["/tools/ai-email-assistant", "AI Email Assistant", "Draft and rewrite emails for different tones and situations."],
+                    ["/tools/ai-resume-builder", "AI Resume Builder", "Write an ATS friendly resume with a live check on every bullet."],
+                    ["/tools/ai-cover-letter-generator", "Cover Letter Generator", "Build a cover letter around the job posting and your own experience."],
+                    ["/tools/ai-interview-simulator", "Interview Simulator", "Practise interview questions and see what your answers covered and missed."],
+                    ["/tools", "View all free tools", "Planners, trackers, calculators and more."],
+                  ].map(([href, t, d]) => (
+                    <Link key={href} href={href} className="group block rounded-2xl border border-zinc-200 bg-white p-5 transition hover:border-emerald-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-emerald-700">
+                      <h3 className="font-semibold text-zinc-900 group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-400 mb-2">{t}</h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400">{d}</p>
+                    </Link>
+                  ))}
                 </div>
               </section>
 
-              <InContentAd />
-
-              {/* Workflow */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
                   How to Use Any Prompt in 60 Seconds
                 </h2>
-                <div className="grid sm:grid-cols-3 gap-6">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold mb-3">1</span>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Browse and Select (20 seconds)</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Filter prompts by category or search by keyword. Each prompt shows its rating, category, and a preview of what it does. Select the prompt that matches your current task. The curated library means you spend seconds finding the right prompt instead of hours crafting one from scratch.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold mb-3">2</span>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Customize Variables (20 seconds)</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Every prompt includes clearly marked variables like [topic], [audience], or [tone]. Replace these with your specific information. "Write a blog post about [topic] for [audience]" becomes "Write a blog post about Kubernetes for junior developers." The structure stays intact while the content becomes yours.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold mb-3">3</span>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Test and Refine (20 seconds)</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Paste the customized prompt into the AI Playground and run it. Evaluate the output. If it needs adjustment, tweak one variable and try again. Three quick iterations almost always produce better results than the first draft. Save the final prompt to your library for future reuse.</p>
-                  </div>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {[
+                    ["Find it", "Search for your task or open a category. Each card tells you what the prompt does and how many blanks it has."],
+                    ["Fill it", "Type your details into the fields. \"Write a blog post about [Topic] for [Reader]\" becomes \"Write a blog post about Kubernetes for junior developers\"."],
+                    ["Use it", "Copy it or open it in ChatGPT or Claude. Read the answer, then reply with one change to make it better."],
+                  ].map(([t, d], i) => (
+                    <div key={t} className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-600 text-white text-sm font-bold mb-3">{i + 1}</span>
+                      <h3 className="font-semibold text-zinc-900 dark:text-white mb-2">{t}</h3>
+                      <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">{d}</p>
+                    </div>
+                  ))}
                 </div>
               </section>
 
               <InContentAd />
 
-              {/* FAQ */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
                   Frequently Asked Questions About the AI Prompt Library
                 </h2>
-                <div className="space-y-4">
-                  {toolFaqs.map((faq, index) => (
-                    <details
-                      key={index}
-                      className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden"
-                    >
-                      <summary className="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
-                        <span className="font-semibold text-gray-900 dark:text-white pr-4">{faq.question}</span>
-                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center text-sm group-open:rotate-180 transition-transform">
-                          ▼
-                        </span>
+                <div className="space-y-3">
+                  {toolFaqs.map((faq) => (
+                    <details key={faq.question} className="group rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold text-zinc-900 dark:text-white">
+                        {faq.question}
+                        <span aria-hidden="true" className="text-zinc-400 transition-transform group-open:rotate-45">+</span>
                       </summary>
-                      <div className="px-5 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700 pt-4">
+                      <div className="border-t border-zinc-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
                         {faq.answer}
                       </div>
                     </details>
@@ -384,24 +319,20 @@ export default function AIPromptLibraryPage() {
                 </div>
               </section>
 
-              {/* CTA */}
               <section className="mb-12">
-                <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white text-center">
+                <div className="rounded-3xl bg-zinc-900 p-8 text-center text-white dark:bg-zinc-800">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                    Stop Writing Bad Prompts. Start Getting Great Results
+                    Stop Writing Prompts From Scratch
                   </h2>
-                  <p className="text-purple-100 mb-6 max-w-2xl mx-auto">
-                    Join 1,800+ professionals using curated prompts to unlock AI potential. Free, always updated, and built for real work.
+                  <p className="text-zinc-300 mb-6 max-w-2xl mx-auto">
+                    Pick a prompt, fill in your details and get a better first answer. Free, no signup.
                   </p>
                   <a
                     href="#ai-prompt-library"
-                    className="inline-flex items-center gap-2 bg-white text-purple-600 px-8 py-3 rounded-xl font-semibold hover:bg-purple-50 transition-colors shadow-lg"
+                    className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3 font-semibold text-zinc-900 transition-colors hover:bg-zinc-100"
                   >
-                    Browse Prompts Now
+                    Browse the prompts
                   </a>
-                  <p className="text-purple-200 text-sm mt-4">
-                    500+ prompts for ChatGPT, Claude, Midjourney, and more. No signup required.
-                  </p>
                 </div>
               </section>
             </div>
@@ -411,71 +342,31 @@ export default function AIPromptLibraryPage() {
               <div className="sticky top-24 space-y-6">
                 <SidebarAd />
 
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Related Resources</h3>
-                  <ul className="space-y-3">
-                    <li>
-                      <a href="/tools/ai-content-detector" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>🔍</span> AI Content Detector
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/tools/ai-email-assistant" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📧</span> AI Email Assistant
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/tools/ai-resume-builder" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>📄</span> AI Resume Builder
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/tools/ai-cover-letter-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>✉️</span> Cover Letter Generator
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/tools/startup-idea-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>💡</span> Startup Idea Generator
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/trends/chatgpt-advanced-prompts-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>🤖</span> ChatGPT Advanced Prompts 2026
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/blog/ai-tools-developers-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>🛠️</span> AI Tools for Developers 2026
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/trends/ai-coding-assistants-comparison-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                        <span>💻</span> AI Coding Assistants Compared
-                      </a>
-                    </li>
+                <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                  <h3 className="font-semibold text-zinc-900 dark:text-white mb-4">A strong prompt has</h3>
+                  <ul className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">A role.</span> Who the AI should be.</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Context.</span> Your situation, audience and goal.</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Steps.</span> What to do, in order.</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">A format.</span> How the answer should look.</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Limits.</span> Length, tone and what to avoid.</li>
                   </ul>
                 </div>
 
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">2026 AI Prompt Stats</h3>
-                  <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">300M+</span>
-                      <span>ChatGPT daily active users worldwide</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">340%</span>
-                      <span>output quality increase with well-crafted prompts</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">67%</span>
-                      <span>of professionals now use AI prompts daily</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-500 font-bold">55%</span>
-                      <span>time saved per task when using curated prompts</span>
-                    </li>
+                <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                  <h3 className="font-semibold text-zinc-900 dark:text-white mb-4">Related Resources</h3>
+                  <ul className="space-y-3 text-sm">
+                    {[
+                      ["/trends/chatgpt-advanced-prompts-2026", "ChatGPT Advanced Prompts 2026"],
+                      ["/blog/ai-tools-developers-2026", "AI Tools for Developers 2026"],
+                      ["/trends/ai-coding-assistants-comparison-2026", "AI Coding Assistants Compared"],
+                      ["/tools/startup-idea-generator", "Startup Idea Generator"],
+                      ["/tools/ai-content-detector", "AI Content Detector"],
+                    ].map(([href, t]) => (
+                      <li key={href}>
+                        <Link href={href} className="text-emerald-700 hover:underline dark:text-emerald-400">{t}</Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -485,90 +376,45 @@ export default function AIPromptLibraryPage() {
       </main>
 
       {/* SEO Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-zinc-200 dark:border-zinc-800">
         <div className="max-w-4xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Free AI Prompt Library: 500+ Curated Prompts for ChatGPT, Claude, and Gemini
+          <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white mb-6">
+            Free AI Prompt Library: {TOTAL} Ready Prompts for ChatGPT, Claude, and Gemini
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The quality of AI output depends entirely on the quality of your input. A vague prompt like "write a blog post" gets generic results. A structured prompt with role, context, format, and constraints gets publication-ready content. Our <strong>free AI prompt library</strong> contains 500+ professionally crafted prompts for writing, coding, marketing, research, and productivity. Each prompt is tested and optimized for the best results from ChatGPT, Claude, Gemini, and other major AI models.
+          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+            Our <strong>free AI prompt library</strong> collects {TOTAL} prompts for real tasks: fixing code, editing writing, planning campaigns, preparing for interviews, studying and creating images. Each one is written in plain language so it works across ChatGPT, Claude, Gemini and other assistants, and each one comes with a short tip for getting a better answer.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Why Prompt Engineering Matters in 2026
+          <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mt-8 mb-4">
+            How the Prompts Are Built
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            With 300 million daily ChatGPT users, the difference between average and excellent AI output is widening. Research shows that well-crafted prompts produce 340% better results than vague ones. But most people do not have time to engineer prompts from scratch. Our <strong>AI prompt library</strong> solves this by giving you ready-to-use, tested prompts for every common use case. Copy, paste, and get professional results instantly.
+          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
+            Every chat prompt follows the same pattern. It tells the AI who to be, gives it the context you fill in, lists the steps to follow and sets the format of the answer. Where a model might be tempted to make things up, the prompt tells it to ask you or to mark the gap instead. That pattern is what turns a generic reply into one you can use.
           </p>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The prompts in our library follow the RISEN framework: Role, Instructions, Steps, End goal, and Narrowing. This structure ensures AI models understand exactly what you need and deliver consistent, high-quality output. Whether you are writing technical documentation, generating marketing copy, or debugging code, there is a prompt optimized for your task.
+          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+            The {IMAGE_COUNT} image prompts work differently. Image tools respond best to a short list of visual details, so those prompts are a chain of subject, setting, light, style, colour and camera view that you swap out to get the picture you want.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+          <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mt-8 mb-4">
             Prompt Categories Available
           </h3>
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">✍️ Writing & Content</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Blog posts, social media captions, email sequences, technical documentation, and creative writing prompts.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">💻 Coding & Development</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Code review, debugging, algorithm explanation, documentation generation, and refactoring suggestions.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">📊 Marketing & SEO</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Keyword research, meta descriptions, ad copy, landing page content, and competitor analysis prompts.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🎯 Productivity & Career</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Meeting summaries, task prioritization, resume optimization, interview prep, and goal-setting prompts.</p>
-            </div>
+          <div className="grid sm:grid-cols-2 gap-3 mb-6">
+            {CATEGORIES.map((c) => (
+              <div key={c.id} className="rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
+                <h4 className="font-semibold text-zinc-900 dark:text-white">
+                  {c.name} <span className="font-normal text-zinc-500">({PROMPTS.filter((p) => p.category === c.id).length})</span>
+                </h4>
+                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{c.blurb}.</p>
+              </div>
+            ))}
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Related Tools for AI Productivity
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-3 mb-8">
-            <a href="/tools/ai-content-detector" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">🔍</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Content Detector</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Check if text is AI-generated</p>
-              </div>
-            </a>
-            <a href="/tools/ai-email-assistant" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">✉️</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Email Assistant</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Write professional emails instantly</p>
-              </div>
-            </a>
-            <a href="/tools/startup-idea-generator" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">💡</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Startup Idea Generator</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Generate business ideas with AI</p>
-              </div>
-            </a>
-            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📚</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Guides</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Learn prompt engineering and AI tips</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 border border-purple-100 dark:border-purple-800">
-            <h3 className="text-lg font-semibold text-purple-900 dark:text-purple-200 mb-2">
+          <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-6 dark:border-emerald-900 dark:bg-emerald-950/30">
+            <h3 className="text-lg font-semibold text-emerald-900 dark:text-emerald-200 mb-2">
               Start Using Better Prompts Today
             </h3>
-            <p className="text-purple-800 dark:text-purple-300 text-sm mb-4">
-              Stop guessing and start getting professional results. Browse 500+ tested prompts and copy the ones that fit your needs.
-            </p>
-            <p className="text-purple-700 dark:text-purple-400 text-xs">
-              100% free. No signup. Updated for 2026 AI models.
+            <p className="text-sm text-emerald-800 dark:text-emerald-300">
+              Browse the prompts, fill in your details and copy the ones that fit your work. Free and no signup.
             </p>
           </div>
         </div>
