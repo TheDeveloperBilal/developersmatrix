@@ -4,21 +4,21 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, History } from "lucide-react";
-import { updates, type UpdateItem } from "@/lib/home-data";
+import type { UpdateItem } from "@/lib/home-data";
 
-const tabs = ["All", "New", "Updated", "Trending", "Popular"] as const;
+type Item = UpdateItem & { shown: string };
 
 const kindStyles: Record<UpdateItem["kind"], string> = {
   New: "bg-emerald-50 text-emerald-600",
   Updated: "bg-amber-50 text-amber-600",
-  Trending: "bg-brand-100 text-brand-700",
-  Popular: "bg-sky-50 text-sky-600",
 };
 
-export default function LatestUpdates() {
-  const [tab, setTab] = useState<(typeof tabs)[number]>("All");
+export default function LatestUpdates({ items }: { items: Item[] }) {
+  // Only offer filters for kinds that actually have entries.
+  const tabs = ["All", ...(["New", "Updated"] as const).filter((k) => items.some((u) => u.kind === k))];
+  const [tab, setTab] = useState<string>("All");
 
-  const visible = updates
+  const visible = items
     .filter((u) => tab === "All" || u.kind === tab)
     .slice(0, 6);
 
@@ -36,8 +36,8 @@ export default function LatestUpdates() {
             Always something new to explore
           </h2>
           <p className="mt-4 max-w-md text-base leading-relaxed text-ink-500">
-            New tools ship, guides get refreshed and signals move every week. This feed is the
-            pulse of the platform.
+            A dated log of the tools we have built or rebuilt and the guides we have published
+            recently.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-2" role="tablist" aria-label="Update filters">
@@ -88,7 +88,7 @@ export default function LatestUpdates() {
                       </span>
                       <span className="mt-0.5 block text-xs text-ink-400">{item.meta}</span>
                     </span>
-                    <span className="hidden shrink-0 text-xs text-ink-400 sm:block">{item.date}</span>
+                    <span className="hidden shrink-0 text-xs text-ink-400 sm:block">{item.shown}</span>
                     <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-300 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-600" />
                   </Link>
                 </li>

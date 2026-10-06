@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { TOOL_COUNT } from "@/lib/home-data";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 function PinterestIcon({ className }: { className?: string }) {
@@ -21,7 +22,7 @@ const columns = [
       { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator" },
       { name: "Interview Simulator", href: "/tools/ai-interview-simulator" },
       { name: "Budget Planner", href: "/tools/budget-planner" },
-      { name: "All 20+ tools", href: "/tools" },
+      { name: `All ${TOOL_COUNT} tools`, href: "/tools" },
     ],
   },
   {
@@ -78,7 +79,7 @@ export default function SiteFooter() {
               />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
-              Free AI tools, daily tech trends and practical guides for developers, creators and
+              Free AI tools, in depth trend reports and practical guides for developers, creators and
               professionals building better careers and businesses.
             </p>
             <div className="mt-6 flex gap-2.5">

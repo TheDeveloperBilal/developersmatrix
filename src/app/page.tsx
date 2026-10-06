@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/config";
-import { articles } from "@/lib/home-articles";
+import { articles, guideCount, newestGuides } from "@/lib/home-articles";
+import { getIndexableTrends, getTrendBySlug, trendCategories } from "@/data/trends-data";
+import { TOOL_COUNT, featuredTrendPicks, homeFaqs, toolUpdates, type TrendCard, type UpdateItem } from "@/lib/home-data";
 import { OrganizationSchema, WebApplicationSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 import SeoContentSection from "@/components/sections/seo-content-section";
 import LiveTicker from "@/components/sections/live-ticker";
@@ -16,7 +18,7 @@ import { Newsletter, FinalCta } from "@/components/sections/newsletter-cta";
 
 export const metadata: Metadata = {
   title: "Free AI Tools, Resources & Trends | DevelopersMatrix",
-  description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
+  description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator and more. No signup needed.",
   keywords: [
     "free AI tools",
     "AI resume builder",
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Free AI Tools, Resources & Trends | DevelopersMatrix",
-    description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
+    description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator and more. No signup needed.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     images: [
@@ -64,13 +66,50 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Free AI Tools, Resources & Trends | DevelopersMatrix',
-    description: 'Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.',
+    description: 'Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator and more. No signup needed.',
     images: [siteConfig.ogImage],
     creator: '@developersmatrix',
   },
 };
 
+const fmt = (iso: string) =>
+  new Date(`${iso.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+
+const categoryName = (id: string) => trendCategories.find((c) => c.id === id)?.name ?? id;
+
 export default function HomePage() {
+  // Every number and date on the homepage comes from the real data below.
+  const trends = getIndexableTrends();
+  const trendCount = trends.length;
+  const trendCategoryCount = new Set(trends.map((t) => t.category)).size;
+
+  const latestTrends = trends
+    .slice()
+    .sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt))
+    .slice(0, 3)
+    .map((t) => ({ title: t.title, href: `/trends/${t.slug}`, category: categoryName(t.category), updated: fmt(t.updatedAt) }));
+
+  const trendCards: TrendCard[] = featuredTrendPicks.flatMap((pick) => {
+    const t = getTrendBySlug(pick.slug);
+    if (!t || t.noindex) return [];
+    return [{
+      title: t.title,
+      href: `/trends/${t.slug}`,
+      category: categoryName(t.category),
+      summary: pick.summary,
+      updated: fmt(t.updatedAt),
+      readTime: t.readTime,
+      related: pick.related,
+    }];
+  });
+
+  const updates: (UpdateItem & { shown: string })[] = [
+    ...toolUpdates,
+    ...newestGuides(4).map((g) => ({ kind: "New" as const, title: `Guide: ${g.title}`, meta: `Blog · ${g.category}`, href: g.href, date: g.date })),
+  ]
+    .sort((a, b) => +new Date(b.date) - +new Date(a.date))
+    .map((u) => ({ ...u, shown: fmt(u.date) }));
+
   return (
     <>
       <OrganizationSchema
@@ -86,40 +125,17 @@ export default function HomePage() {
         operatingSystem="Web"
         offers={{ price: "0", priceCurrency: "USD" }}
       />
-      <FAQSchema
-        faqs={[
-          {
-            question: "What is DevelopersMatrix?",
-            answer: "DevelopersMatrix is a free platform with 20+ AI-powered tools for resume building, website auditing, budget planning, interview preparation, and more. No signup required.",
-          },
-          {
-            question: "Are the AI tools on DevelopersMatrix really free?",
-            answer: "Yes. All core tools are free to use with no credit card required. The platform is supported by advertising to keep tools accessible to everyone.",
-          },
-          {
-            question: "How does the AI Resume Builder work?",
-            answer: "Enter your details section by section. The AI helps write bullet points, optimize for ATS scanners, and format your resume in a professional layout.",
-          },
-          {
-            question: "What does the Website Audit Tool check?",
-            answer: "It analyzes six dimensions: SEO, performance, security, mobile UX, accessibility, and content quality. You get a score out of 100 plus a prioritized list of fixes.",
-          },
-          {
-            question: "Is the Interview Simulator accurate?",
-            answer: "The simulator covers behavioral, technical, and system design questions. Answers are scored on relevance, quality, and depth using an AI evaluation engine calibrated against real interview standards.",
-          },
-        ]}
-      />
+      <FAQSchema faqs={homeFaqs} />
 
       <LiveTicker />
-      <HeroDiscovery />
+      <HeroDiscovery toolCount={TOOL_COUNT} guideCount={guideCount} trendCount={trendCount} trendCategoryCount={trendCategoryCount} latestTrends={latestTrends} />
       <FeaturedGrid />
       <ToolExplorer />
-      <TrendingNow />
+      <TrendingNow cards={trendCards} />
       <ExploreByGoal />
       <ArticlesCarousel articles={articles} />
       <ToolStack />
-      <LatestUpdates />
+      <LatestUpdates items={updates} />
       <SeoContentSection />
       <Newsletter />
       <FinalCta />

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { TOOL_COUNT } from "@/lib/home-data";
 import {
   ArrowRight,
   ChevronDown,
@@ -139,7 +140,7 @@ function MegaMenu() {
         {/* Menu footer strip */}
         <div className="flex items-center justify-between border-t border-ink-100 bg-white px-6 py-3">
           <p className="text-xs text-ink-400">
-            20+ free tools · No signup · Works in your browser
+            {TOOL_COUNT} free tools · No signup · Works in your browser
           </p>
           <Link
             href="/tools/website-audit"

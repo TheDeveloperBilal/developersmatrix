@@ -12,10 +12,11 @@ import {
 } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { latestArticle } from "@/lib/home-articles";
+import { TOOL_COUNT } from "@/lib/home-data";
 
 const quickAccess = [
   { name: "Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, meta: "Free, no signup" },
-  { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: MessagesSquare, meta: "AI scoring" },
+  { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: MessagesSquare, meta: "Instant answer feedback" },
   { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, meta: "Free, no signup" },
 ];
 
@@ -73,14 +74,14 @@ export default function FeaturedGrid() {
                   AI Website Audit
                 </h3>
                 <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
-                  The most used tool on the platform. Six dimensions scored in seconds, with a
-                  prioritized fix list you can act on the same day.
+                  Around 150 checks across eight areas, from SEO and speed to security and
+                  accessibility, with a prioritized fix list you can act on the same day.
                 </p>
 
                 {/* Score visual */}
                 <div className="mt-8 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur-sm">
                   <div className="flex items-center justify-between text-xs text-white/50">
-                    <span>Overall health</span>
+                    <span>Sample report · Overall health</span>
                     <span className="font-sora text-lg font-bold text-white">
                       78<span className="text-white/40">/100</span>
                     </span>
@@ -127,18 +128,18 @@ export default function FeaturedGrid() {
                 <div className="flex items-center justify-between">
                   <span className="chip bg-rose-50 text-rose-600">
                     <Flame className="mr-1 h-3 w-3" />
-                    Trending topic
+                    Gaming
                   </span>
                   <span className="flex items-center gap-1 text-sm font-bold text-emerald-600">
                     <TrendingUp className="h-4 w-4" />
-                    Hot
+                    Countdown
                   </span>
                 </div>
                 <h3 className="mt-4 font-sora text-xl font-bold leading-snug tracking-tight text-ink-950 transition-colors group-hover:text-brand-700">
-                  GTA 6 countdown: can your PC run it on launch day?
+                  GTA 6 countdown: what is confirmed, and what about PC?
                 </h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-ink-500">
-                  Rockstar has locked the release for November 19, 2026. Check your hardware against the published requirements before launch day.
+                  GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S. Rockstar has not announced a PC version or PC specs yet. See what is confirmed so far.
                 </p>
               </div>
               <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
@@ -214,7 +215,7 @@ export default function FeaturedGrid() {
                 href="/tools"
                 className="mt-4 inline-flex items-center gap-1.5 border-t border-ink-100/50 pt-4 text-sm font-semibold text-brand-600 hover:text-brand-700"
               >
-                All 20+ tools <ArrowRight className="h-3.5 w-3.5" />
+                All {TOOL_COUNT} tools <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           </Reveal>

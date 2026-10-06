@@ -1,55 +1,39 @@
 "use client";
 
-import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import Reveal from "@/components/reveal";
 
+// There is no mailing list behind this section yet. The old form showed
+// "Subscribed" without sending the address anywhere, so it is replaced with
+// honest links until a real email provider is connected.
 export function Newsletter() {
-  const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
-
   return (
     <section className="pb-4 pt-4 overflow-hidden" aria-labelledby="newsletter-heading">
       <div className="shell">
         <Reveal>
           <div className="card grid items-center gap-8 !rounded-3xl p-8 sm:p-12 lg:grid-cols-2 lg:gap-12">
             <div>
-              <p className="eyebrow">The weekly index</p>
+              <p className="eyebrow">Stay up to date</p>
               <h2
                 id="newsletter-heading"
                 className="mt-4 font-sora text-2xl font-bold leading-tight tracking-tight text-ink-950 sm:text-3xl"
               >
-                One email. New tools, fresh trends, zero noise.
+                Where to find what is new
               </h2>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-ink-500 sm:text-base">
-                A short weekly digest of what we shipped, what is trending and one guide worth
-                reading. Unsubscribe any time.
+                New guides go up on the blog, trend reports show the date they were last updated,
+                and every tool change is listed in the changelog above.
               </p>
             </div>
 
-            <form
-              className="flex flex-col gap-3 sm:flex-row"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (email.trim()) setDone(true);
-              }}
-            >
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="newsletter-email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="h-12 flex-1 rounded-full border border-ink-200 bg-white px-5 text-sm text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400 focus:ring-4 focus:ring-brand-100"
-              />
-              <button type="submit" className="btn-primary h-12 !py-0">
-                {done ? "Subscribed ✓" : "Subscribe"}
-              </button>
-            </form>
+            <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+              <a href="/blog" className="btn-primary h-12 !py-0">
+                Read the latest guides
+              </a>
+              <a href="/trends" className="btn-secondary h-12 !py-0">
+                Browse trend reports
+              </a>
+            </div>
           </div>
         </Reveal>
       </div>
