@@ -81,36 +81,32 @@ const habitTrackerFaqs: FAQ[] = [
 
 const salaryEstimatorFaqs: FAQ[] = [
   {
-    question: "How accurate are the 2026 salary estimates?",
-    answer: "Our 2026 salary estimates are based on aggregated market data from job postings, industry salary surveys, and compensation platforms updated for the current year. While we aim for high accuracy, actual salaries vary based on company size, specific skills, stock compensation, and individual negotiation. Use these figures as a strong reference point for your discussions."
+    question: "Where does the salary data come from?",
+    answer: "From the U.S. Bureau of Labor Statistics (BLS) Occupational Employment and Wage Statistics survey, where employers report what they pay. The tool shows the latest official estimates, not job ads or self reported salaries."
   },
   {
-    question: "Can I compare salaries across different cities and countries?",
-    answer: "Yes. Our tool lets you compare salaries for the same role across multiple cities including San Francisco, New York, Seattle, Austin, Los Angeles, Boston, Denver, Chicago, Miami, and remote positions. Each location applies a real market multiplier so you see how geography affects your total compensation."
+    question: "How accurate are the salary figures?",
+    answer: "They are the official government estimates from a large employer survey, so they make a solid benchmark. They describe everyone in a job category, so your own pay still depends on your employer, industry, skills and experience."
   },
   {
     question: "How often is the salary data updated?",
-    answer: "Our salary database refreshes regularly with the latest 2026 market data from public sources, job boards, and industry reports. We update base ranges quarterly to reflect market shifts, inflation adjustments, and hiring trends in the technology sector."
+    answer: "Once a year. BLS publishes new estimates each spring and the tool is rebuilt from the official files when it does."
   },
   {
-    question: "Does the estimator include total compensation or just base salary?",
-    answer: "The primary figure shown is base salary in USD. However, our insights include context about total compensation trends including bonuses, equity, and stock options that are common in tech roles especially at senior levels and in major tech hubs."
+    question: "Do the salaries include bonuses and stock?",
+    answer: "No. The figures are pay before tax: base pay plus commissions, tips and production bonuses. Overtime, other bonuses, benefits and stock are not included."
   },
   {
-    question: "What experience levels are supported?",
-    answer: "We cover three standard levels: Junior (0 to 2 years), Mid-level (2 to 5 years), and Senior (5+ years). Each level applies a proven experience multiplier to the base salary so you get realistic estimates aligned with your career stage."
+    question: "Can I see salaries by experience level?",
+    answer: "Not directly, because BLS does not record years of experience. The tool shows the full spread from the 10th to the 90th percentile instead, so you can see where people early or late in their career tend to sit."
   },
   {
-    question: "Can I use this tool to prepare for salary negotiations?",
-    answer: "Absolutely. Knowing the market range for your role, location, and experience level gives you confidence in negotiations. Our tool shows 25th, 50th, and 75th percentile ranges so you understand where you stand and what to aim for."
-  },
-  {
-    question: "Which tech roles are covered?",
-    answer: "We support Software Engineer, Senior Software Engineer, Full Stack Developer, Frontend Developer, Backend Developer, DevOps Engineer, Product Manager, Data Scientist, Data Engineer, Machine Learning Engineer, Engineering Manager, Tech Lead, QA Engineer, Mobile Developer, Security Engineer, Cloud Architect, and Site Reliability Engineer. You can also type any custom role."
+    question: "Which jobs and places are covered?",
+    answer: "35 job categories across software, IT, data, design, marketing and business, for the whole US, every state, DC, US territories and every metro and nonmetro area BLS publishes. Titles BLS does not track separately, such as DevOps engineer, point you to the closest official categories."
   },
   {
     question: "Is this salary estimator free to use?",
-    answer: "Yes, it is completely free. No signup, no credit card, and no usage limits. Just select your role and location to get instant salary estimates powered by 2026 market data."
+    answer: "Yes. It is free with no signup and no limits."
   }
 ];
 
@@ -299,22 +295,22 @@ export const tools: Tool[] = [
     id: 'salary-estimator',
     slug: 'salary-estimator',
     name: 'Salary Estimator',
-    description: 'Know your worth with our comprehensive salary estimator. Get accurate salary ranges for roles across industries and locations, backed by real market data and cost of living adjustments.',
-    shortDescription: 'Get accurate salary insights by role and location',
+    description: 'See what a job really pays using official U.S. Bureau of Labor Statistics wage data. Get the median and full pay range for 35 jobs in any US state or metro area, check an offer and compare places.',
+    shortDescription: 'Official pay ranges by job and US location',
     icon: 'DollarSign',
     category: 'career',
     features: [
-      'Role-based estimates',
-      'Location comparisons',
-      'Cost of living adjustments',
-      'Experience level filters',
-      'Industry benchmarks',
-      'Negotiation tips'
+      'Official BLS wage data',
+      'Pay range from the 10th to the 90th percentile',
+      'Every US state and metro area',
+      'Offer check by percentile',
+      'Compare up to four places',
+      'Yearly, monthly and hourly pay'
     ],
     benefits: [
-      'Negotiate with confidence',
-      'Compare opportunities fairly',
-      'Understand market rates',
+      'Negotiate with a sourced number',
+      'Compare places fairly',
+      'Understand what is normal for your job',
       'Make informed career decisions'
     ],
     faqs: salaryEstimatorFaqs,

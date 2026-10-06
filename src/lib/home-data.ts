@@ -146,7 +146,7 @@ export const explorerTools: ExplorerTool[] = [
   {
     name: "Salary Estimator",
     href: "/tools/salary-estimator",
-    description: "Estimate a salary range for your role, level and location.",
+    description: "Look up real pay ranges for your role and location.",
     category: "Business",
     icon: CircleDollarSign,
   },
