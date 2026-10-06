@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { latestArticle } from "@/lib/home-articles";
-import { TOOL_COUNT } from "@/lib/home-data";
+import { TOOLS_LABEL } from "@/lib/home-data";
 
 const quickAccess = [
   { name: "Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, meta: "Free, no signup" },
@@ -215,7 +215,7 @@ export default function FeaturedGrid() {
                 href="/tools"
                 className="mt-4 inline-flex items-center gap-1.5 border-t border-ink-100/50 pt-4 text-sm font-semibold text-brand-600 hover:text-brand-700"
               >
-                All {TOOL_COUNT} tools <ArrowRight className="h-3.5 w-3.5" />
+                All {TOOLS_LABEL} tools <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           </Reveal>

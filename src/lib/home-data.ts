@@ -13,6 +13,7 @@ import {
   CircleDollarSign,
   CalendarCheck,
   Code2,
+  AtSign,
   type LucideIcon,
 } from "lucide-react";
 
@@ -105,7 +106,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/ai-email-assistant",
     description: "Starting drafts for common work emails that you can adjust and send.",
     category: "Business",
-    icon: Mail,
+    icon: AtSign,
   },
   {
     name: "Link Manager & Smart Bio",
@@ -161,6 +162,9 @@ export const explorerTools: ExplorerTool[] = [
 
 export const TOOL_COUNT = explorerTools.length;
 
+// How the site describes its tool count. Change this one line when new tools ship.
+export const TOOLS_LABEL = "20+";
+
 /* ---------------- Trending now ---------------- */
 
 // Cards are built on the server from the real trend reports (see app/page.tsx),
@@ -168,7 +172,7 @@ export const TOOL_COUNT = explorerTools.length;
 export type TrendCard = {
   title: string;
   href: string;
-  category: string;
+  category: string; // short, human label such as "Gaming"
   summary: string;
   updated: string;
   readTime: number;
@@ -202,11 +206,6 @@ export const featuredTrendPicks: { slug: string; summary: string; related?: { la
     slug: "tech-skills-demand-2026",
     summary: "The technical skills worth learning this year and how to show them on a resume.",
     related: { label: "Resume Builder", href: "/tools/ai-resume-builder" },
-  },
-  {
-    slug: "ai-cybersecurity-threats-protection-2026",
-    summary: "The AI powered attacks people are facing and practical ways to protect yourself and your team.",
-    related: { label: "AI Website Audit", href: "/tools/website-audit" },
   },
 ];
 
@@ -365,7 +364,7 @@ export const toolUpdates: UpdateItem[] = [
 export const homeFaqs = [
   {
     question: "What is DevelopersMatrix?",
-    answer: `DevelopersMatrix is a free platform with ${TOOL_COUNT} browser tools for resumes, cover letters, interview practice, website audits, prompts, budgeting and more, plus in depth trend reports and guides. No signup required.`,
+    answer: `DevelopersMatrix is a free platform with ${TOOLS_LABEL} browser tools for resumes, cover letters, interview practice, website audits, prompts, budgeting and more, plus in depth trend reports and guides. No signup required.`,
   },
   {
     question: "Are the tools on DevelopersMatrix really free?",

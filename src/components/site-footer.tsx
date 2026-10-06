@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { TOOL_COUNT } from "@/lib/home-data";
+import { TOOLS_LABEL } from "@/lib/home-data";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 function PinterestIcon({ className }: { className?: string }) {
@@ -22,7 +22,7 @@ const columns = [
       { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator" },
       { name: "Interview Simulator", href: "/tools/ai-interview-simulator" },
       { name: "Budget Planner", href: "/tools/budget-planner" },
-      { name: `All ${TOOL_COUNT} tools`, href: "/tools" },
+      { name: `All ${TOOLS_LABEL} tools`, href: "/tools" },
     ],
   },
   {
