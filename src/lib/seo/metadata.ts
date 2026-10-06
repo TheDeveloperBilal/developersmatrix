@@ -432,11 +432,13 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'can-you-run-it': {
     title: 'Can You Run It? Free PC Requirements Checker',
-    description: 'Can my PC handle this game? Enter your CPU, GPU and RAM and compare them against the specs publishers actually published, for Cyberpunk 2077, Elden Ring, Battlefield 6 and more. Free, instant, no signup.',
+    description: 'Can my PC run it? Enter your CPU, GPU and RAM and compare them with the specs publishers released for Cyberpunk 2077, Elden Ring, Battlefield 6 and more. Free, no signup.',
     keywords: [
       'can you run it',
       'can you run it free',
       'can my pc handle this game',
+      'can my pc run it',
+      'can i run it',
       'can my pc run this game',
       'pc game requirements checker',
       'system requirements checker',

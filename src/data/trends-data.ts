@@ -1086,9 +1086,9 @@ export const allTrends: TrendItem[] = [
   {
     id: '13',
     slug: 'tiktok-algorithm-2026-complete-guide',
-    title: 'TikTok Algorithm 2026: Latest Updates & Ranking Factors (July Update)',
-    subtitle: 'How the TikTok algorithm works and how to work with it, latest ranking factors for July 2026',
-    description: 'Master the TikTok algorithm in 2026. Learn what the algorithm prioritizes, content strategies, and proven tactics to grow your audience. Updated with July 2026 changes including AI-powered recommendations and TikTok Search optimization.',
+    title: 'TikTok Algorithm 2026: How It Works and Its Ranking Factors',
+    subtitle: 'How the TikTok algorithm decides who sees your videos, and how to work with it in 2026',
+    description: 'Master the TikTok algorithm in 2026. Learn what it prioritizes, the content strategies that work with it, and practical tactics to grow your audience, including TikTok Search.',
     category: 'social-media',
     tags: ['TikTok', 'Algorithm', 'Viral', 'Content Strategy', 'TikTok SEO', 'Short Form Video'],
     trending: true,
@@ -1190,9 +1190,9 @@ export const allTrends: TrendItem[] = [
         'Review and update your bio with a clear niche description and searchable keywords'
       ]
     },
-    metaTitle: 'TikTok Algorithm 2026: Ranking Factors',
-    metaDescription: 'Master the TikTok algorithm in 2026. Learn July 2026 ranking factors, TikTok SEO strategies, and proven tactics to grow your audience organically. Updated with latest data.',
-    keywords: ['TikTok algorithm updates 2026', 'TikTok ranking factors', 'TikTok algorithm changes', 'TikTok for you page updates', 'TikTok search ranking', 'TikTok July 2026 update', 'TikTok algorithm news', 'TikTok content distribution']
+    metaTitle: 'TikTok Algorithm 2026: How It Ranks Your Videos',
+    metaDescription: 'How the TikTok algorithm decides who sees your videos in 2026: the signals it weighs, how new posts get tested, and what to change to reach more people.',
+    keywords: ['TikTok algorithm updates 2026', 'TikTok ranking factors', 'TikTok algorithm changes', 'TikTok for you page updates', 'TikTok search ranking', 'how the TikTok algorithm works', 'TikTok algorithm news', 'TikTok content distribution']
   },
 
   {
