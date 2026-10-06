@@ -175,7 +175,6 @@ The following public endpoints may be accessed programmatically:
 
 - [Website Audit API](https://developersmatrix.com/api/website-audit)
 - [AI Content Detector API](https://developersmatrix.com/api/ai-content-detector)
-- [Salary Data API](https://developersmatrix.com/api/salary-data)
 
 API usage should respect platform stability and rate limits.
 

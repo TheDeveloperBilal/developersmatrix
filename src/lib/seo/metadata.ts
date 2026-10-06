@@ -255,9 +255,10 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'salary-estimator': {
     title: 'Free Tech Salary Calculator by Role and City',
-    description: 'Free tech salary estimator for 2026. Calculate software engineer, developer, data scientist, and tech role salaries by city and experience. Compare compensation across San Francisco, New York, Seattle, Austin, and remote. Updated with 2026 market data. No signup needed.',
+    description: 'Free salary estimator with official BLS pay data. See the median and pay range for 35 tech, data, design and marketing jobs in any US state or metro area.',
     keywords: [
       'free salary calculator',
+      'salary estimator',
       'tech salary checker online',
       'software engineer salary 2026',
       'developer pay calculator',
@@ -265,11 +266,10 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
       'devops salary estimator',
       'frontend developer pay',
       'backend engineer salary',
-      'full stack salary calculator',
-      'product manager compensation',
-      'remote vs onsite salary',
       'salary by city usa',
-      'cost of living calculator tech',
+      'salary range by job',
+      'bls salary data',
+      'salary percentile calculator',
       'negotiate salary tool free',
       'machine learning engineer pay'
     ],
