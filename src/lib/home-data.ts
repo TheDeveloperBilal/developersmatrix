@@ -107,6 +107,7 @@ export const explorerTools: ExplorerTool[] = [
     description: "Email templates in three tones, a draft checker and AI prompts.",
     category: "Business",
     icon: AtSign,
+    badge: "UPDATED",
   },
   {
     name: "Link Manager & Smart Bio",
@@ -149,6 +150,7 @@ export const explorerTools: ExplorerTool[] = [
     description: "Look up real pay ranges for your role and location.",
     category: "Business",
     icon: CircleDollarSign,
+    badge: "UPDATED",
   },
   {
     name: "Can You Run It",
@@ -350,6 +352,9 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
+  { kind: "Updated", title: "Email Assistant rebuilt with 18 templates and a draft checker", meta: "Tool · Productivity", href: "/tools/ai-email-assistant", date: "2026-10-07" },
+  { kind: "Updated", title: "TikTok algorithm report fact checked against TikTok sources", meta: "Trend · Social media", href: "/trends/tiktok-algorithm-2026-complete-guide", date: "2026-10-07" },
+  { kind: "Updated", title: "Salary Estimator rebuilt on official BLS pay data", meta: "Tool · Career", href: "/tools/salary-estimator", date: "2026-10-06" },
   { kind: "Updated", title: "Prompt Library rebuilt with 64 prompts and a prompt builder", meta: "Tool · AI", href: "/tools/ai-prompt-library", date: "2026-10-06" },
   { kind: "Updated", title: "Resume Builder rebuilt with a live resume check", meta: "Tool · Career", href: "/tools/ai-resume-builder", date: "2026-10-05" },
   { kind: "Updated", title: "AI side hustle guides merged into one updated report", meta: "Trend · Make money", href: "/trends/ai-side-hustles-make-money-2026", date: "2026-10-02" },
