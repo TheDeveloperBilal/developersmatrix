@@ -431,27 +431,27 @@ export const tools: Tool[] = [
     id: 'ai-email-assistant',
     slug: 'ai-email-assistant',
     name: 'AI Email Assistant',
-    description: 'Draft professional emails in seconds from brief notes. Rewrite emails to sound more professional, adjust tone, and generate quick responses for any situation.',
-    shortDescription: 'Draft and rewrite emails with AI',
+    description: 'Write clear work emails from 18 hand written templates in three tones, check any draft for common mistakes, and open ready prompts in ChatGPT or Claude to reply or rewrite.',
+    shortDescription: 'Email templates, a draft checker and AI prompts',
     icon: 'Mail',
     category: 'productivity',
     features: [
-      'Draft emails from short notes',
-      'Rewrite to sound professional',
-      'Tone adjuster (formal/friendly/etc)',
-      'Response suggestions',
-      'Multiple language support',
-      'Templates library'
+      '18 email templates in three tones',
+      'Blanks you fill in right inside the email',
+      'Draft checker with problems marked in the text',
+      'Open as a draft in Gmail, Outlook or your mail app',
+      'Ready prompts for ChatGPT and Claude to reply or rewrite',
+      'Runs in your browser, no signup'
     ],
     benefits: [
-      'Write emails 10x faster',
-      'Sound more professional',
-      'Never struggle with wording',
-      'Perfect for non-native speakers'
+      'Start from a clear structure',
+      'Pick the right tone for the person',
+      'Catch common mistakes before you send',
+      'Hand harder emails to AI with a careful prompt'
     ],
     faqs: [
-      { question: "What can it do?", answer: "Draft emails from notes, rewrite emails, adjust tone, and suggest responses." },
-      { question: "Is my email private?", answer: "Yes, all processing happens locally in your browser." }
+      { question: "What can it do?", answer: "Write an email from 18 templates in three tones, check a draft you paste for common mistakes, and build a prompt to reply or rewrite in ChatGPT or Claude." },
+      { question: "Is my email private?", answer: "Templates and the draft checker run in your browser and nothing is sent to us. If you choose to open a prompt in ChatGPT or Claude, your text goes to that service." }
     ],
     keywords: ['email assistant', 'AI email writer', 'professional email', 'email drafter', 'email tone'],
     path: '/tools/ai-email-assistant'

@@ -104,7 +104,7 @@ export const explorerTools: ExplorerTool[] = [
   {
     name: "AI Email Assistant",
     href: "/tools/ai-email-assistant",
-    description: "Starting drafts for common work emails that you can adjust and send.",
+    description: "Email templates in three tones, a draft checker and AI prompts.",
     category: "Business",
     icon: AtSign,
   },
