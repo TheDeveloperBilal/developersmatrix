@@ -50,7 +50,7 @@ const trendToToolsMap: Record<string, string[]> = {
   'cloud-computing-trends-2026': ['website-audit', 'ai-email-assistant'],
   'devops-automation-2026': ['website-audit', 'productivity-planner'],
   'quantum-computing-explained-2026': ['ai-prompt-library'],
-  'creator-economy-trends-2026': ['link-manager', 'ai-content-detector'],
+  'creator-economy-trends-2026': ['ai-content-detector', 'ai-prompt-library'],
   'green-tech-sustainability-2026': ['budget-planner'],
 };
 
@@ -99,7 +99,6 @@ const tagToToolMap: Record<string, string[]> = {
   'performance': ['website-audit'],
   'speed': ['website-audit'],
   'optimization': ['website-audit'],
-  'links': ['link-manager'],
   'content': ['ai-content-detector'],
   'prompt': ['ai-prompt-library'],
   'cover letter': ['ai-cover-letter-generator'],
@@ -109,10 +108,10 @@ const tagToToolMap: Record<string, string[]> = {
   'cloud': ['website-audit', 'ai-email-assistant'],
   'devops': ['productivity-planner', 'website-audit'],
   'quantum': ['ai-prompt-library'],
-  'creator': ['link-manager', 'ai-content-detector'],
+  'creator': ['ai-content-detector'],
   'green tech': ['budget-planner'],
   'sustainability': ['budget-planner'],
-  'social media': ['link-manager', 'ai-content-detector'],
+  'social media': ['ai-content-detector'],
   'mobile': ['website-audit'],
   'security': ['website-audit'],
 };

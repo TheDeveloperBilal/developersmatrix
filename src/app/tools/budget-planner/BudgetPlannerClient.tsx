@@ -1,299 +1,448 @@
 'use client';
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { 
-  Plus, 
-  Trash2, 
-  TrendingUp, 
-  TrendingDown, 
-  DollarSign, 
-  PiggyBank,
-  CreditCard,
-  Wallet
-} from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Download, Plus, Printer, RotateCcw, X } from 'lucide-react';
+import {
+  CURRENCIES, EMPTY_BUDGET, FREQS, KINDS, STARTERS, budgetCsv, goalPlan, isBudget, money, percent, perMonth, summarize,
+  type Budget, type Freq, type Kind, type Line,
+} from '@/lib/planner/budget';
+import { csvCell, downloadFile, monthName, newId, useStoredState } from '@/lib/planner/store';
 
-interface BudgetItem {
-  id: string;
-  name: string;
-  amount: number;
-  category: string;
-  type: 'income' | 'expense';
+const STORE_KEY = 'dm-budget';
+
+const INCOME_STARTERS = ['Salary', 'Freelance or side income', 'Benefits', 'Other income'];
+
+const SEGMENT_COLORS = ['bg-sky-700', 'bg-teal-600', 'bg-amber-500', 'bg-rose-500', 'bg-violet-500', 'bg-slate-500'];
+
+const GUIDE: Record<Kind, number> = { need: 0.5, want: 0.3, save: 0.2 };
+
+/* ---------------- Small inputs ---------------- */
+
+function AmountInput({ value, onChange, label, id, autoFocus }: { value: number; onChange: (n: number) => void; label: string; id?: string; autoFocus?: boolean }) {
+  const [draft, setDraft] = useState(value ? String(value) : '');
+  useEffect(() => {
+    const parsed = parseFloat(draft);
+    if ((Number.isFinite(parsed) ? parsed : 0) !== value) setDraft(value ? String(value) : '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+  return (
+    <input
+      id={id}
+      autoFocus={autoFocus}
+      type="number"
+      inputMode="decimal"
+      min={0}
+      step="any"
+      aria-label={label}
+      placeholder="0"
+      value={draft}
+      onChange={(e) => {
+        setDraft(e.target.value);
+        const n = parseFloat(e.target.value);
+        onChange(Number.isFinite(n) && n > 0 ? n : 0);
+      }}
+      className="h-10 w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 font-mono text-[15px] tabular-nums text-slate-900 outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-600/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+    />
+  );
 }
 
-const expenseCategories = [
-  'Housing', 'Transportation', 'Food', 'Utilities', 'Insurance',
-  'Healthcare', 'Entertainment', 'Personal', 'Debt', 'Savings', 'Other'
-];
+const selectCls = 'h-10 min-w-0 rounded-lg border border-slate-300 bg-white px-2 text-sm text-slate-800 outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-600/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200';
 
-const incomeCategories = [
-  'Salary', 'Freelance', 'Investments', 'Side Business', 'Other'
-];
+/* ---------------- Ledger ---------------- */
+
+function Ledger({
+  side, lines, currency, onChange, onAdd, onRemove, starters, onStarter, focusId,
+}: {
+  side: 'in' | 'out';
+  lines: Line[];
+  currency: string;
+  onChange: (id: string, patch: Partial<Line>) => void;
+  onAdd: () => void;
+  onRemove: (id: string) => void;
+  starters: string[];
+  onStarter: (name: string) => void;
+  focusId: { id: string; field: 'name' | 'amount' } | null;
+}) {
+  const total = lines.reduce((s, l) => s + perMonth(l), 0);
+  const isIn = side === 'in';
+  const headingId = isIn ? 'bp-in' : 'bp-out';
+  return (
+    <section aria-labelledby={headingId} className="flex min-w-0 flex-col">
+      <div className="flex items-baseline justify-between gap-3 border-b-2 border-slate-900 pb-2 dark:border-slate-200">
+        <div>
+          <h2 id={headingId} className="text-lg font-semibold text-slate-900 dark:text-white">{isIn ? 'Money in' : 'Money out'}</h2>
+          <p className="text-[13px] text-slate-500 dark:text-slate-400">{isIn ? 'Take home pay, after tax' : 'Bills, spending and savings'}</p>
+        </div>
+        <p className={`font-mono text-lg font-semibold tabular-nums ${isIn ? 'text-teal-700 dark:text-teal-400' : 'text-rose-700 dark:text-rose-400'}`}>
+          {money(total, currency)}<span className="ml-1 text-xs font-normal text-slate-500">/mo</span>
+        </p>
+      </div>
+
+      {lines.length === 0 ? (
+        <p className="border-b border-dashed border-slate-300 py-6 text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
+          {isIn ? 'Add what you take home each month. Add each source of pay as its own line.' : 'Add your bills and spending. Yearly bills like insurance are turned into a monthly amount for you.'}
+        </p>
+      ) : (
+        <ul>
+          {lines.map((l) => (
+            <li key={l.id} className="border-b border-dashed border-slate-300 py-3 dark:border-slate-700">
+              <div className="flex items-center gap-2">
+                <input
+                  id={`bp-name-${l.id}`}
+                  autoFocus={focusId?.id === l.id && focusId.field === 'name'}
+                  value={l.name}
+                  onChange={(e) => onChange(l.id, { name: e.target.value })}
+                  placeholder={isIn ? 'Where it comes from' : 'What it is for'}
+                  aria-label={isIn ? 'Income name' : 'Expense name'}
+                  className="h-9 min-w-0 flex-1 border-b border-transparent bg-transparent text-[15px] font-medium text-slate-900 outline-none placeholder:font-normal placeholder:text-slate-400 focus:border-sky-600 dark:text-white"
+                />
+                <span className="shrink-0 font-mono text-[15px] tabular-nums text-slate-700 dark:text-slate-300" aria-label="Per month">
+                  {money(perMonth(l), currency)}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => onRemove(l.id)}
+                  aria-label={`Remove ${l.name || 'line'}`}
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-slate-400 transition hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/40"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className={`mt-2 grid gap-2 ${isIn ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-[1fr_1fr_auto]'}`}>
+                <AmountInput value={l.amount} autoFocus={focusId?.id === l.id && focusId.field === 'amount'} onChange={(n) => onChange(l.id, { amount: n })} label={`Amount for ${l.name || 'this line'}`} />
+                <select value={l.freq} onChange={(e) => onChange(l.id, { freq: e.target.value as Freq })} aria-label="How often" className={selectCls}>
+                  {FREQS.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
+                </select>
+                {!isIn && (
+                  <div role="group" aria-label="Group" className="col-span-2 flex rounded-lg border border-slate-300 p-0.5 sm:col-span-1 dark:border-slate-700">
+                    {KINDS.map((k) => (
+                      <button
+                        key={k.id}
+                        type="button"
+                        title={k.hint}
+                        aria-pressed={(l.kind ?? 'need') === k.id}
+                        onClick={() => onChange(l.id, { kind: k.id })}
+                        className={`h-[34px] flex-1 rounded-md px-2.5 text-[13px] font-medium transition ${
+                          (l.kind ?? 'need') === k.id ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800'
+                        }`}
+                      >
+                        {k.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <button
+        type="button"
+        onClick={onAdd}
+        className="mt-3 inline-flex h-10 items-center justify-center gap-2 self-start rounded-lg border border-slate-300 px-3 text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-300 dark:hover:text-white"
+      >
+        <Plus className="h-4 w-4" /> Add a line
+      </button>
+
+      {starters.length > 0 && (
+        <div className="mt-4">
+          <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.08em] text-slate-500">Quick add</p>
+          <div className="flex flex-wrap gap-1.5">
+            {starters.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => onStarter(s)}
+                className="rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-[13px] text-slate-600 transition hover:border-solid hover:border-sky-600 hover:text-sky-700 dark:border-slate-700 dark:text-slate-400 dark:hover:text-sky-400"
+              >
+                + {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/* ---------------- Main ---------------- */
 
 export default function BudgetPlannerClient() {
-  const [items, setItems] = useState<BudgetItem[]>([]);
-  const [newItem, setNewItem] = useState({
-    name: '',
-    amount: '',
-    category: '',
-    type: 'expense' as 'income' | 'expense'
-  });
-  const [savingsGoal, setSavingsGoal] = useState(1000);
+  const [budget, setBudget, ready, saved] = useStoredState<Budget>(STORE_KEY, EMPTY_BUDGET, isBudget);
+  const [focusId, setFocusId] = useState<{ id: string; field: 'name' | 'amount' } | null>(null);
+  const [monthLabel, setMonthLabel] = useState('');
+  const [confirmClear, setConfirmClear] = useState(false);
+  const clearTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const totalIncome = items
-    .filter(item => item.type === 'income')
-    .reduce((sum, item) => sum + item.amount, 0);
+  useEffect(() => {
+    const d = new Date();
+    setMonthLabel(`${monthName(d.getMonth(), true)} ${d.getFullYear()}`);
+  }, []);
 
-  const totalExpenses = items
-    .filter(item => item.type === 'expense')
-    .reduce((sum, item) => sum + item.amount, 0);
+  const s = useMemo(() => summarize(budget), [budget]);
+  const plan = useMemo(() => goalPlan(budget.goal, s.left), [budget.goal, s.left]);
+  const cur = budget.currency;
 
-  const balance = totalIncome - totalExpenses;
-  const savingsProgress = balance >= 0 ? Math.min((balance / savingsGoal) * 100, 100) : 0;
+  const update = (side: 'income' | 'spending', id: string, patch: Partial<Line>) =>
+    setBudget((b) => ({ ...b, [side]: b[side].map((l) => (l.id === id ? { ...l, ...patch } : l)) }));
+  const remove = (side: 'income' | 'spending', id: string) =>
+    setBudget((b) => ({ ...b, [side]: b[side].filter((l) => l.id !== id) }));
+  const add = (side: 'income' | 'spending', line?: Partial<Line>) => {
+    const id = newId();
+    setBudget((b) => ({
+      ...b,
+      [side]: [...b[side], { id, name: '', amount: 0, freq: 'month', ...(side === 'spending' ? { kind: 'need' as Kind } : {}), ...line }],
+    }));
+    // Quick add lines already have a name, so jump straight to the amount.
+    setFocusId({ id, field: line?.name ? 'amount' : 'name' });
+  };
+  const setGoal = (patch: Partial<Budget['goal']>) => setBudget((b) => ({ ...b, goal: { ...b.goal, ...patch } }));
 
-  const addItem = () => {
-    if (newItem.name && newItem.amount && newItem.category) {
-      setItems([
-        ...items,
-        {
-          id: Date.now().toString(),
-          name: newItem.name,
-          amount: parseFloat(newItem.amount),
-          category: newItem.category,
-          type: newItem.type
-        }
-      ]);
-      setNewItem({ name: '', amount: '', category: '', type: 'expense' });
+  const usedNames = new Set([...budget.income, ...budget.spending].map((l) => l.name.trim().toLowerCase()));
+  const outStarters = STARTERS.filter((st) => !usedNames.has(st.name.toLowerCase()));
+  const inStarters = INCOME_STARTERS.filter((n) => !usedNames.has(n.toLowerCase()));
+
+  // Where every 100 goes: biggest lines first, the rest grouped.
+  const segments = useMemo(() => {
+    const lines = budget.spending
+      .map((l) => ({ name: l.name.trim() || 'Unnamed', value: perMonth(l) }))
+      .filter((l) => l.value > 0)
+      .sort((a, b) => b.value - a.value);
+    const top = lines.slice(0, 5);
+    const rest = lines.slice(5).reduce((sum, l) => sum + l.value, 0);
+    const out = top.map((l, i) => ({ ...l, color: SEGMENT_COLORS[i] }));
+    if (rest > 0) out.push({ name: 'Everything else', value: rest, color: SEGMENT_COLORS[5] });
+    if (s.left > 0) out.push({ name: 'Left over', value: s.left, color: 'bg-emerald-200 dark:bg-emerald-900' });
+    return out;
+  }, [budget.spending, s.left]);
+  const base = Math.max(s.income, s.spending);
+
+  const exportCsv = () => downloadFile(`budget-${new Date().toISOString().slice(0, 10)}.csv`, budgetCsv(budget, csvCell), 'text/csv;charset=utf-8');
+
+  const clearAll = () => {
+    if (!confirmClear) {
+      setConfirmClear(true);
+      if (clearTimer.current) clearTimeout(clearTimer.current);
+      clearTimer.current = setTimeout(() => setConfirmClear(false), 4000);
+      return;
     }
+    setBudget({ ...EMPTY_BUDGET, currency: budget.currency });
+    setConfirmClear(false);
   };
 
-  const removeItem = (id: string) => {
-    setItems(items.filter(item => item.id !== id));
-  };
-
-  const expensesByCategory = expenseCategories.map(category => ({
-    category,
-    amount: items
-      .filter(item => item.type === 'expense' && item.category === category)
-      .reduce((sum, item) => sum + item.amount, 0)
-  })).filter(item => item.amount > 0);
+  const hasAny = budget.income.length + budget.spending.length > 0;
+  const goalDate = (() => {
+    if (plan.months === null || plan.months === 0) return '';
+    const d = new Date();
+    d.setMonth(d.getMonth() + plan.months);
+    return `${monthName(d.getMonth(), true)} ${d.getFullYear()}`;
+  })();
 
   return (
-    <div className="space-y-4 sm:space-y-6">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-green-500/10 text-green-500">
-                <TrendingUp className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Total Income</p>
-                <p className="text-xl font-bold text-green-500">${totalIncome.toLocaleString()}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+    <div id="bp-statement" className="overflow-hidden rounded-3xl border border-slate-300 bg-[#fcfbf8] text-slate-900 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100">
+      <style>{`@media print { body * { visibility: hidden !important; } #bp-statement, #bp-statement * { visibility: visible !important; } #bp-statement { position: absolute; inset: 0 auto auto 0; width: 100%; border: 0; box-shadow: none; } #bp-statement .bp-noprint { display: none !important; } }`}</style>
 
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-red-500/10 text-red-500">
-                <TrendingDown className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Total Expenses</p>
-                <p className="text-xl font-bold text-red-500">${totalExpenses.toLocaleString()}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-violet-500/10 text-violet-500">
-                <Wallet className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Balance</p>
-                <p className={`text-xl font-bold ${balance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                  ${balance.toLocaleString()}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                <PiggyBank className="w-5 h-5" />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm text-muted-foreground">Savings Goal</p>
-                <p className="text-xl font-bold">${savingsGoal.toLocaleString()}</p>
-                <Progress value={savingsProgress} className="h-1.5 mt-1" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Statement header */}
+      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-slate-300 bg-white px-4 py-5 sm:px-8 dark:border-slate-800 dark:bg-slate-950">
+        <div>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-sky-800 dark:text-sky-400">Monthly statement</p>
+          <p className="mt-1 font-serif text-2xl text-slate-900 dark:text-white sm:text-3xl">{monthLabel || 'This month'}</p>
+        </div>
+        <div className="bp-noprint flex flex-wrap items-center gap-2">
+          <label className="sr-only" htmlFor="bp-currency">Currency</label>
+          <select
+            id="bp-currency"
+            value={cur}
+            onChange={(e) => setBudget((b) => ({ ...b, currency: e.target.value }))}
+            className={selectCls}
+          >
+            {CURRENCIES.map((c) => <option key={c.code} value={c.code}>{c.code} · {c.label}</option>)}
+          </select>
+          <button type="button" onClick={exportCsv} disabled={!hasAny} className="inline-flex h-10 items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 transition hover:border-slate-900 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+            <Download className="h-4 w-4" /> CSV
+          </button>
+          <button type="button" onClick={() => window.print()} disabled={!hasAny} className="inline-flex h-10 items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 transition hover:border-slate-900 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+            <Printer className="h-4 w-4" /> Print
+          </button>
+          <button type="button" onClick={clearAll} disabled={!hasAny} className={`inline-flex h-10 items-center gap-2 rounded-lg border px-3 text-sm font-medium transition disabled:opacity-40 ${confirmClear ? 'border-rose-600 bg-rose-600 text-white' : 'border-slate-300 bg-white text-slate-700 hover:border-rose-600 hover:text-rose-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200'}`}>
+            <RotateCcw className="h-4 w-4" /> {confirmClear ? 'Tap again to clear' : 'Start over'}
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-        {/* Add Item Form */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle className="text-sm sm:text-base">Add Item</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 sm:space-y-4">
-            <div className="flex gap-2">
-              <Button
-                variant={newItem.type === 'income' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setNewItem({ ...newItem, type: 'income', category: '' })}
-                className={newItem.type === 'income' ? 'bg-green-500 hover:bg-green-600' : ''}
-              >
-                Income
-              </Button>
-              <Button
-                variant={newItem.type === 'expense' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setNewItem({ ...newItem, type: 'expense', category: '' })}
-                className={newItem.type === 'expense' ? 'bg-red-500 hover:bg-red-600' : ''}
-              >
-                Expense
-              </Button>
+      {/* Totals */}
+      <dl className="grid grid-cols-3 divide-x divide-slate-300 border-b border-slate-300 dark:divide-slate-800 dark:border-slate-800">
+        {[
+          { label: 'Money in', value: s.income, cls: 'text-teal-700 dark:text-teal-400' },
+          { label: 'Money out', value: s.spending, cls: 'text-rose-700 dark:text-rose-400' },
+          { label: s.left < 0 ? 'Short by' : 'Left over', value: Math.abs(s.left), cls: s.left < 0 ? 'text-rose-700 dark:text-rose-400' : 'text-slate-900 dark:text-white' },
+        ].map((t) => (
+          <div key={t.label} className="px-3 py-4 sm:px-8 sm:py-5">
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500 sm:text-[12px]">{t.label}</dt>
+            <dd className={`mt-1 truncate font-mono text-lg font-semibold tabular-nums sm:text-3xl ${t.cls}`}>{money(t.value, cur)}</dd>
+            <dd className="text-[11px] text-slate-500 sm:text-xs">per month</dd>
+          </div>
+        ))}
+      </dl>
+
+      {/* Ledgers */}
+      <div className="grid gap-10 px-4 py-6 sm:px-8 lg:grid-cols-2">
+        <Ledger
+          side="in"
+          lines={budget.income}
+          currency={cur}
+          onChange={(id, p) => update('income', id, p)}
+          onAdd={() => add('income')}
+          onRemove={(id) => remove('income', id)}
+          starters={inStarters}
+          onStarter={(name) => add('income', { name })}
+          focusId={focusId}
+        />
+        <Ledger
+          side="out"
+          lines={budget.spending}
+          currency={cur}
+          onChange={(id, p) => update('spending', id, p)}
+          onAdd={() => add('spending')}
+          onRemove={(id) => remove('spending', id)}
+          starters={outStarters.map((st) => st.name)}
+          onStarter={(name) => {
+            const st = STARTERS.find((x) => x.name === name);
+            add('spending', { name, kind: st?.kind ?? 'need', freq: st?.freq ?? 'month' });
+          }}
+          focusId={focusId}
+        />
+      </div>
+
+      {/* Where every 100 goes */}
+      <section aria-labelledby="bp-share" className="border-t border-slate-300 px-4 py-6 sm:px-8 dark:border-slate-800">
+        <h2 id="bp-share" className="text-lg font-semibold text-slate-900 dark:text-white">Where every 100 goes</h2>
+        {s.income <= 0 || segments.length === 0 ? (
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Add money in and money out to see how each 100 you take home is split.</p>
+        ) : (
+          <>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              For every 100 you take home{s.left < 0 ? `, you spend ${Math.round((s.spending / s.income) * 100)}. The bar shows your spending, which is more than comes in.` : '.'}
+            </p>
+            <div className="mt-4 flex h-6 w-full overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800" role="img" aria-label={segments.map((g) => `${g.name} ${Math.round((g.value / s.income) * 100)}`).join(', ')}>
+              {segments.map((g) => (
+                <div key={g.name} className={`${g.color} h-full border-r border-white/70 last:border-0 dark:border-slate-900`} style={{ width: `${(g.value / base) * 100}%` }} />
+              ))}
             </div>
+            <ul className="mt-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+              {segments.map((g) => (
+                <li key={g.name} className="flex items-center gap-2">
+                  <span className={`h-3 w-3 shrink-0 rounded-sm ${g.color}`} aria-hidden="true" />
+                  <span className="min-w-0 flex-1 truncate text-slate-700 dark:text-slate-300">{g.name}</span>
+                  <span className="font-mono tabular-nums text-slate-900 dark:text-white">{Math.round((g.value / s.income) * 100)}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
 
-            <div className="space-y-2">
-              <Label>Description</Label>
-              <Input
-                placeholder="e.g., Monthly Rent"
-                value={newItem.name}
-                onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Amount ($)</Label>
-              <Input
-                type="number"
-                placeholder="0.00"
-                value={newItem.amount}
-                onChange={(e) => setNewItem({ ...newItem, amount: e.target.value })}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Category</Label>
-              <select
-                className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
-                value={newItem.category}
-                onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
-              >
-                <option value="">Select category</option>
-                {(newItem.type === 'income' ? incomeCategories : expenseCategories).map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
-
-            <Button onClick={addItem} className="w-full min-h-[44px]">
-              <Plus className="w-4 h-4 mr-2" />
-              Add {newItem.type === 'income' ? 'Income' : 'Expense'}
-            </Button>
-
-            <div className="space-y-2">
-              <Label>Savings Goal ($)</Label>
-              <Input
-                type="number"
-                placeholder="1000"
-                value={savingsGoal}
-                onChange={(e) => setSavingsGoal(parseFloat(e.target.value) || 0)}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Items List */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-sm sm:text-base">Budget Items</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {items.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                <CreditCard className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                <p>No items added yet</p>
-                <p className="text-sm">Add your income and expenses to get started</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {items.map(item => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-2 h-2 rounded-full ${item.type === 'income' ? 'bg-green-500' : 'bg-red-500'}`} />
-                      <div>
-                        <p className="font-medium text-sm">{item.name}</p>
-                        <p className="text-xs text-muted-foreground">{item.category}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className={`font-bold ${item.type === 'income' ? 'text-green-500' : 'text-red-500'}`}>
-                        {item.type === 'income' ? '+' : '-'}${item.amount.toLocaleString()}
+      {/* Rule of thumb and goal */}
+      <div className="grid border-t border-slate-300 lg:grid-cols-2 dark:border-slate-800">
+        <section aria-labelledby="bp-rule" className="px-4 py-6 sm:px-8 lg:border-r lg:border-slate-300 dark:lg:border-slate-800">
+          <h2 id="bp-rule" className="text-lg font-semibold text-slate-900 dark:text-white">50/30/20 check</h2>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Needs, wants and savings as a share of take home pay. Money left over counts as saving.</p>
+          {!s.split ? (
+            <p className="mt-4 text-sm text-slate-500">Add your take home pay first.</p>
+          ) : (
+            <ul className="mt-5 space-y-4">
+              {KINDS.map((k) => {
+                const share = s.split![k.id];
+                const guide = GUIDE[k.id];
+                const off = k.id === 'save' ? share < guide - 0.005 : share > guide + 0.005;
+                return (
+                  <li key={k.id}>
+                    <div className="flex items-baseline justify-between text-sm">
+                      <span className="font-medium text-slate-800 dark:text-slate-200">{k.id === 'need' ? 'Needs' : k.id === 'want' ? 'Wants' : 'Savings'}</span>
+                      <span className="font-mono tabular-nums">
+                        <span className={off ? 'font-semibold text-amber-700 dark:text-amber-400' : 'font-semibold text-slate-900 dark:text-white'}>{percent(share)}</span>
+                        <span className="text-slate-500"> / guide {percent(guide)}</span>
                       </span>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeItem(item.id)}
-                        className="h-8 w-8 text-muted-foreground hover:text-red-500"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                    <div className="relative mt-1.5 h-2.5 rounded-full bg-slate-200 dark:bg-slate-800">
+                      <div className={`h-full rounded-full ${off ? 'bg-amber-500' : 'bg-sky-700 dark:bg-sky-500'}`} style={{ width: `${Math.min(100, share * 100)}%` }} />
+                      <div className="absolute -top-1 h-[18px] w-0.5 bg-slate-900 dark:bg-white" style={{ left: `${guide * 100}%` }} aria-hidden="true" />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          <p className="mt-5 text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">
+            The 50/30/20 split comes from the book <cite>All Your Worth</cite> by Elizabeth Warren and Amelia Warren Tyagi (2005). It is a rule of thumb, not a test. Where rent is high, needs often take more than half.
+          </p>
+        </section>
 
-            {/* Expense Breakdown */}
-            {expensesByCategory.length > 0 && (
-              <div className="mt-6 pt-6 border-t">
-                <h4 className="font-medium mb-3">Expense Breakdown</h4>
-                <div className="space-y-2">
-                  {expensesByCategory.map(({ category, amount }) => (
-                    <div key={category} className="flex items-center gap-3">
-                      <div className="flex-1">
-                        <div className="flex justify-between text-sm mb-1">
-                          <span>{category}</span>
-                          <span>${amount.toLocaleString()}</span>
-                        </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-violet-500 rounded-full"
-                            style={{ width: `${(amount / totalExpenses) * 100}%` }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+        <section aria-labelledby="bp-goal" className="border-t border-slate-300 px-4 py-6 sm:px-8 lg:border-t-0 dark:border-slate-800">
+          <h2 id="bp-goal" className="text-lg font-semibold text-slate-900 dark:text-white">Savings goal</h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <label className="sm:col-span-2">
+              <span className="mb-1 block text-[13px] font-medium text-slate-600 dark:text-slate-400">Saving for</span>
+              <input
+                value={budget.goal.name}
+                onChange={(e) => setGoal({ name: e.target.value })}
+                placeholder="Emergency fund"
+                className="h-10 w-full rounded-lg border border-slate-300 bg-white px-3 text-[15px] outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-600/20 dark:border-slate-700 dark:bg-slate-950"
+              />
+            </label>
+            <label>
+              <span className="mb-1 block text-[13px] font-medium text-slate-600 dark:text-slate-400">Target</span>
+              <AmountInput value={budget.goal.target} onChange={(n) => setGoal({ target: n })} label="Goal target" />
+            </label>
+            <label>
+              <span className="mb-1 block text-[13px] font-medium text-slate-600 dark:text-slate-400">Saved so far</span>
+              <AmountInput value={budget.goal.saved} onChange={(n) => setGoal({ saved: n })} label="Saved so far" />
+            </label>
+          </div>
+
+          <fieldset className="mt-4">
+            <legend className="mb-2 text-[13px] font-medium text-slate-600 dark:text-slate-400">Each month I put aside</legend>
+            <div className="space-y-2 text-sm">
+              <label className="flex items-center gap-2">
+                <input type="radio" name="bp-monthly" checked={budget.goal.monthly === null} onChange={() => setGoal({ monthly: null })} className="h-4 w-4 accent-sky-700" />
+                What is left over <span className="font-mono tabular-nums text-slate-500">({money(Math.max(0, s.left), cur)})</span>
+              </label>
+              <label className="flex flex-wrap items-center gap-2">
+                <input type="radio" name="bp-monthly" checked={budget.goal.monthly !== null} onChange={() => setGoal({ monthly: Math.max(0, Math.round(s.left)) })} className="h-4 w-4 accent-sky-700" />
+                A set amount
+                {budget.goal.monthly !== null && (
+                  <span className="w-36"><AmountInput value={budget.goal.monthly} onChange={(n) => setGoal({ monthly: n })} label="Amount each month" /></span>
+                )}
+              </label>
+            </div>
+          </fieldset>
+
+          <div className="mt-5 rounded-xl border border-slate-300 bg-white p-4 dark:border-slate-700 dark:bg-slate-950" aria-live="polite">
+            {budget.goal.target <= 0 ? (
+              <p className="text-sm text-slate-500">Set a target to see how long it will take.</p>
+            ) : (
+              <>
+                <div className="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+                  <div className="h-full rounded-full bg-teal-600" style={{ width: `${Math.min(100, (budget.goal.saved / budget.goal.target) * 100)}%` }} />
                 </div>
-              </div>
+                <p className="mt-2 text-[13px] text-slate-500">{money(budget.goal.saved, cur)} of {money(budget.goal.target, cur)}</p>
+                <p className="mt-3 text-[15px] text-slate-800 dark:text-slate-200">
+                  {plan.months === 0
+                    ? 'You have already reached this goal.'
+                    : plan.months === null
+                      ? `Nothing is being put aside yet, so the remaining ${money(plan.remaining, cur)} has no end date.`
+                      : <>At {money(plan.monthly, cur)} a month you reach it in <strong>{plan.months} {plan.months === 1 ? 'month' : 'months'}</strong>{goalDate ? `, around ${goalDate}` : ''}.</>}
+                </p>
+              </>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </section>
       </div>
+
+      <p className="bp-noprint border-t border-slate-300 px-4 py-3 text-[12px] text-slate-500 sm:px-8 dark:border-slate-800">
+        {!ready ? 'Loading your saved budget…' : saved ? 'Saved in this browser only. Nothing is sent to our servers.' : 'Your browser is blocking storage, so this budget will not be kept after you close the page. Download the CSV to keep a copy.'}
+      </p>
     </div>
   );
 }

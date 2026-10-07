@@ -90,6 +90,19 @@ const nextConfig: NextConfig = {
         destination: "/tools/can-you-run-it",
         permanent: true,
       },
+      // Link Manager retired on 7 Oct 2026. It promised short links, click
+      // analytics and bio pages, but nothing was ever saved: the database it
+      // relied on does not exist on Vercel. A new tool may take its place later.
+      {
+        source: "/tools/link-manager",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/l/:path*",
+        destination: "/tools",
+        permanent: true,
+      },
     ];
   },
 };

@@ -51,31 +51,31 @@ const interviewFaqs: FAQ[] = [
 
 const budgetPlannerFaqs: FAQ[] = [
   {
-    question: "How does the Budget Planner help with financial planning?",
-    answer: "Our Budget Planner provides a comprehensive view of your income and expenses, helping you identify spending patterns, set savings goals, and make informed financial decisions. Visual charts make it easy to understand your financial health."
+    question: "How does the Budget Planner work?",
+    answer: "List your take home pay and your bills, each with how often it happens. Weekly, yearly and other amounts are turned into a monthly figure, so you see what is left over, how each 100 you take home is split, and how long a savings goal will take."
   },
   {
     question: "Is my financial data secure?",
-    answer: "Absolutely. All data is stored locally in your browser and never sent to external servers. Your financial information remains completely private and under your control."
+    answer: "Your budget is saved in your own browser and is not sent to our servers. Clearing your browser data deletes it, so download the CSV if you want a copy."
   },
   {
     question: "Can I track multiple income sources?",
-    answer: "Yes! The Budget Planner supports multiple income streams and expense categories. Whether you have a salary, freelance income, investments, or side hustles, you can track everything in one place."
+    answer: "Yes. Add each source as its own line with its own frequency, such as a salary paid every two weeks and freelance work paid monthly."
   }
 ];
 
 const habitTrackerFaqs: FAQ[] = [
   {
-    question: "How does habit tracking improve productivity?",
-    answer: "Habit tracking creates accountability and visual progress feedback. Seeing your streaks grow motivates continued behavior, while the data helps identify patterns and optimize your daily routines for maximum productivity."
+    question: "How are streaks counted?",
+    answer: "Every check in is saved against a real date, so a streak is the number of days in a row you ticked the habit. Today still counts until midnight, and you can fix missed check ins for past days."
   },
   {
     question: "What types of habits can I track?",
-    answer: "You can track any habit - from health routines like exercise and water intake, to productivity habits like reading, coding practice, or meditation. Custom categories let you organize habits your way."
+    answer: "Daily habits you can answer with a yes or no, such as reading 10 pages, a 20 minute walk or practicing coding. It does not track amounts or weekly targets."
   },
   {
     question: "Does the app send reminders?",
-    answer: "Yes, you can set custom reminders for each habit. Choose the time and frequency that works best for your schedule to ensure you never miss a day."
+    answer: "No. It runs in your browser and does not send notifications. If you want reminders, set a daily alarm or use a phone app alongside it."
   }
 ];
 
@@ -132,15 +132,15 @@ const startupIdeaFaqs: FAQ[] = [
 const productivityPlannerFaqs: FAQ[] = [
   {
     question: "What makes this productivity planner different?",
-    answer: "Our AI-powered planner combines task management with intelligent scheduling suggestions, priority optimization, and productivity insights. It learns from your patterns to help you work smarter, not harder."
+    answer: "It turns today's tasks into a timeline. You give each task a time estimate and priority, star a Top 3 and pin meetings to fixed times, and it shows the whole day hour by hour with a warning if it runs past the end of your day."
   },
   {
     question: "Can I integrate this with other tools?",
-    answer: "The planner is designed to work standalone or alongside your existing tools. Export options and future integrations with popular calendars and project management tools are planned."
+    answer: "You can export the day as an .ics file for Google Calendar, Outlook or Apple Calendar. It is a one time copy, not a live sync."
   },
   {
     question: "How does the AI help with prioritization?",
-    answer: "The AI analyzes task urgency, importance, dependencies, and your historical productivity patterns to suggest optimal task ordering and time allocation for maximum efficiency."
+    answer: "The planner itself uses simple rules you set: Top 3 first, then your list order. The optional AI button opens your task list as a prompt in ChatGPT or Claude, which suggests an order and flags estimates that look too tight."
   }
 ];
 
@@ -227,23 +227,23 @@ export const tools: Tool[] = [
     id: 'budget-planner',
     slug: 'budget-planner',
     name: 'Budget Planner',
-    description: 'Take control of your finances with our comprehensive budget planner. Track income and expenses, visualize spending patterns, set savings goals, and make smarter financial decisions.',
-    shortDescription: 'Track finances and optimize spending',
+    description: 'Build a monthly budget from your take home pay and bills. Weekly and yearly amounts are converted to monthly, with a 50/30/20 check and a savings goal planner.',
+    shortDescription: 'Monthly budget with a savings goal',
     icon: 'Wallet',
     category: 'finance',
     features: [
-      'Income and expense tracking',
-      'Visual spending charts',
-      'Savings goal setting',
-      'Budget alerts',
-      'Multiple currency support',
-      'Export financial reports'
+      'Money in and money out with any frequency',
+      'Where every 100 goes',
+      '50/30/20 check',
+      'Savings goal with a target date',
+      '15 currencies',
+      'CSV export and print'
     ],
     benefits: [
-      'Understand your spending habits',
-      'Reach savings goals faster',
-      'Make informed financial decisions',
-      'Reduce financial stress'
+      'See what is really left over each month',
+      'Stop forgetting yearly bills',
+      'Know when you will reach a savings goal',
+      'Keep your numbers private in your browser'
     ],
     faqs: budgetPlannerFaqs,
     keywords: ['budget planner', 'expense tracker', 'personal finance', 'money management', 'savings calculator'],
@@ -253,17 +253,17 @@ export const tools: Tool[] = [
     id: 'habit-tracker',
     slug: 'habit-tracker',
     name: 'Daily Habit Tracker',
-    description: 'Build better habits and break bad ones with our intuitive habit tracker. Track daily routines, build streaks, visualize progress, and develop the consistency needed for personal growth.',
-    shortDescription: 'Build lasting habits with streak tracking',
+    description: 'Track daily habits with streaks counted from real dates, a 7 day check in strip and a 12 week wall for every habit. Saved in your browser with backup and restore.',
+    shortDescription: 'Daily habits with real streaks',
     icon: 'CheckCircle',
     category: 'productivity',
     features: [
-      'Daily habit logging',
-      'Streak tracking',
-      'Progress visualization',
-      'Custom categories',
-      'Reminder notifications',
-      'Weekly/monthly reviews'
+      'Daily check ins tied to real dates',
+      'Current and best streaks',
+      '12 week wall',
+      '30 day completion rate',
+      'Fix missed days',
+      'Backup and restore'
     ],
     benefits: [
       'Build consistency in daily routines',
@@ -331,17 +331,17 @@ export const tools: Tool[] = [
     id: 'productivity-planner',
     slug: 'productivity-planner',
     name: 'Productivity Planner',
-    description: 'Maximize your efficiency with our AI-powered productivity planner. Smart task management, priority optimization, and intelligent scheduling help you accomplish more in less time.',
-    shortDescription: 'Optimize your daily productivity with AI',
+    description: 'Turn your tasks into an hour by hour plan with a Top 3, fixed time meetings, an overbooked warning, calendar export and an optional AI planning prompt.',
+    shortDescription: 'Plan your day as a timeline',
     icon: 'Calendar',
     category: 'productivity',
     features: [
-      'Smart task prioritization',
-      'Time blocking',
-      'Progress tracking',
-      'Daily/weekly views',
-      'AI scheduling suggestions',
-      'Goal alignment'
+      'Must, Should and Could priorities',
+      'Top 3 first',
+      'Hour by hour timeline',
+      'Overbooked warning',
+      'Move unfinished tasks to tomorrow',
+      'Calendar export and AI prompt'
     ],
     benefits: [
       'Accomplish more daily',
@@ -439,35 +439,6 @@ export const tools: Tool[] = [
     ],
     keywords: ['email assistant', 'AI email writer', 'professional email', 'email drafter', 'email tone'],
     path: '/tools/ai-email-assistant'
-  },
-  {
-    id: 'link-manager',
-    slug: 'link-manager',
-    name: 'Link Manager & Smart Bio',
-    description: 'Create custom branded short links with click analytics, QR codes, and auto-updating bio pages that sync with your YouTube and Instagram content.',
-    shortDescription: 'Branded links with analytics & smart bios',
-    icon: 'Link',
-    category: 'productivity',
-    features: [
-      'Custom branded links',
-      'Click analytics dashboard',
-      'Auto-update latest YouTube/Instagram',
-      'Link scheduling',
-      'QR code generator',
-      'Bio page builder'
-    ],
-    benefits: [
-      'Track link performance',
-      'Build professional bio pages',
-      'Schedule campaign links',
-      'Grow your audience'
-    ],
-    faqs: [
-      { question: "What is this tool?", answer: "Create short branded links, track clicks, and build smart bio pages." },
-      { question: "Can I track analytics?", answer: "Yes! Get detailed analytics including clicks, locations, and devices." }
-    ],
-    keywords: ['link shortener', 'bio link', 'QR code generator', 'link analytics', 'branded links'],
-    path: '/tools/link-manager'
   }
 ];
 

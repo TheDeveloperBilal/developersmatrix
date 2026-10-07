@@ -1,52 +1,75 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
-import { Sparkles } from "lucide-react";
-import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
-import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import { siteConfig } from "@/data/config";
+import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
+import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
 import HabitTrackerClient from "./HabitTrackerClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['habit-tracker']);
 
-const toolFaqs = [
+const LALLY_URL = "https://doi.org/10.1002/ejsp.674";
+
+const faqs = [
   {
     question: "Is the Habit Tracker completely free?",
-    answer: "Yes, 100 percent free with no signup required. Track unlimited habits, build streaks, and visualize progress. Unlike habit apps that charge 5 to 15 dollars per month for streak tracking and analytics, we believe building better habits should not cost money."
+    answer: "Yes. It is free with no signup and no paid tier. You can track up to 12 daily habits at once. The site is supported by ads."
   },
   {
     question: "How does habit tracking actually work?",
-    answer: "You add habits you want to build, set a target frequency, and mark them complete each day. The tracker shows your current streak, longest streak, completion rate, and weekly progress. Seeing a growing streak creates a psychological commitment that makes skipping feel like a real loss. The visual feedback loop is the core mechanism that makes habit tracking effective."
+    answer: "Each day you tick the habits you did. Every tick is saved against a real date, so your streak is the number of days in a row you actually ticked, and your 30 day rate is how many of the last 30 days you did it. Forgot to tick yesterday? Tap that day in the 7 day strip or the 12 week wall to fix it. The point is not the numbers themselves but seeing the pattern, so a missed day becomes a nudge rather than a surprise."
   },
   {
     question: "What types of habits can I track?",
-    answer: "Any habit you want. Health habits like exercise, water intake, and sleep. Productivity habits like daily coding, reading, and writing. Professional habits like checking emails at set times and updating your todo list. Social habits like calling family or networking. Creative habits like drawing or playing music. You can also track habits you want to break by marking days you successfully avoided the behavior."
+    answer: "Anything you can answer with a yes or no once a day: read 10 pages, walk for 20 minutes, practice coding, no phone in bed. It works best for daily habits. It does not track amounts, such as glasses of water, or weekly targets, such as the gym three times a week."
   },
   {
     question: "How long does it take to build a habit?",
-    answer: "The old advice was 21 days, but modern research shows the reality is more nuanced. A 2026 meta-analysis found that simple habits take an average of 18 days to become automatic. Complex habits, like exercising for 30 minutes daily, take 66 days on average. The range is wide: 8 days for simple routines like drinking water after waking up, to 254 days for difficult behaviors like writing 1,000 words daily. The key insight is consistency, not speed. Missing one day has minimal impact. Missing two days in a row is the danger zone. The streak counter helps you avoid that second miss."
+    answer: "Longer than 21 days for most people. In a 2010 study at University College London, Phillippa Lally and colleagues asked volunteers to repeat one new daily behavior for 12 weeks. The median time for it to feel automatic was 66 days, and the range ran from 18 to 254 days depending on the person and the habit. Simple habits got there faster. The same study found that missing a single day did not undo the progress."
   },
   {
     question: "Can I track bad habits I want to break?",
-    answer: "Yes. Create a habit like 'No Social Media Before Noon' or 'Zero Sugary Drinks' and mark each successful day as complete. The streak becomes a record of your resistance. Breaking bad habits is often harder than building good ones because the behavior is already automatic. The tracker gives you visibility into your progress, which is the first requirement for change."
+    answer: "Yes, by tracking the day you did not do it. Name the habit as the result you want, such as no social media before 10am or no snacks after dinner, and tick each day you managed it. Your streak then counts good days rather than slips."
   },
   {
     question: "Is my habit data private?",
-    answer: "Yes, completely. All data stays in your browser's local storage. No accounts, no cloud sync, no data sharing. Your personal goals and daily behaviors remain private. You can clear your data at any time by clearing browser storage."
+    answer: "Your habits are saved in your own browser and are not sent to our servers. Clearing your browser data deletes them, and they do not sync between devices on their own. Use Backup to download a file and Restore to load it on another device or browser."
   },
   {
     question: "How is this different from Loop, Habitica, or Streaks?",
-    answer: "Loop, Habitica, and Streaks are excellent apps with more features. This tracker is designed for simplicity and privacy. No account needed. No gamification that eventually feels childish. No social features that create comparison anxiety. Just clean tracking, clear visuals, and zero friction. Open the page, mark your habits, close the page. That is it."
+    answer: "Those are apps you install, with features this page does not have, such as reminders, widgets and in the case of Habitica, game rewards. This tracker runs in any browser with nothing to install and no account, and puts your full history on one wall you can see at a glance. If you want phone reminders, an app is the better choice. If you want something quick and private, this is enough."
   },
   {
     question: "What is the best way to start with habit tracking?",
-    answer: "Start with one habit, not ten. The most common mistake is tracking too many habits at once, which creates overwhelm and leads to abandoning the system entirely. Pick one habit that would have the biggest positive impact on your life. Track it for 30 days. Once that habit feels automatic, add a second. This sequential approach is slower but dramatically more effective than the shotgun approach of trying to change everything at once."
+    answer: "Start with one or two habits that are small enough to do on a bad day, and tie each one to something you already do, like reading after dinner or stretching after you brush your teeth. Tick it the same time each day. Add a new habit only when the first one feels easy."
   }
 ];
 
 export default function HabitTrackerPage() {
   return (
     <>
-      <FAQSchema faqs={toolFaqs.map(faq => ({ question: faq.question, answer: faq.answer }))} />
+      <SoftwareApplicationSchema
+        name="DevelopersMatrix Habit Tracker"
+        applicationCategory="LifestyleApplication"
+        operatingSystem="Web"
+        description="Free daily habit tracker with date based streaks, a 7 day check in strip and a 12 week wall for every habit. Saved in your browser with backup and restore. No signup."
+        url={`${siteConfig.url}/tools/habit-tracker`}
+        offers={{ price: "0", priceCurrency: "USD" }}
+      />
+      <HowToSchema
+        name="How to Track a Daily Habit"
+        description="Pick a small habit, tick it each day and use your streak and 12 week wall to stay consistent."
+        url={`${siteConfig.url}/tools/habit-tracker`}
+        totalTime="PT2M"
+        estimatedCost={{ currency: 'USD', value: '0' }}
+        step={[
+          { name: "Add one small habit", text: "Type a habit or pick a suggestion. Keep it small enough to do on a busy day." },
+          { name: "Tick it each day", text: "Tap the check button when you have done it. Each tick is saved against today's date." },
+          { name: "Fix missed check ins", text: "Tap any of the last seven days, or any past day on the 12 week wall, to correct it." },
+          { name: "Watch the wall fill in", text: "Your streak, best streak and 30 day rate update from the dates you ticked." },
+          { name: "Back it up", text: "Download a backup file now and then so you can restore your habits on another device." }
+        ]}
+      />
       <BreadcrumbSchema
         items={[
           { name: "Home", url: siteConfig.url },
@@ -54,272 +77,165 @@ export default function HabitTrackerPage() {
           { name: "Habit Tracker", url: `${siteConfig.url}/tools/habit-tracker` }
         ]}
       />
-      <SoftwareApplicationSchema
-        name="DevelopersMatrix Habit Tracker"
-        applicationCategory="HealthApplication"
-        operatingSystem="Web"
-        description="Free habit tracker with streak counting, progress visualization, and daily routine tracking. No signup needed."
-        url={`${siteConfig.url}/tools/habit-tracker`}
-        offers={{
-          price: "0",
-          priceCurrency: "USD"
-        }}
-      />
-      <HowToSchema
-        name="How to Build Better Habits with a Free Habit Tracker"
-        description="Step-by-step guide to using the DevelopersMatrix Habit Tracker to build lasting daily routines and achieve your goals."
-        url={`${siteConfig.url}/tools/habit-tracker`}
-        totalTime="PT5M"
-        estimatedCost={{ currency: 'USD', value: '0' }}
-        step={[
-          {
-            name: "Add your first habit",
-            text: "Open the habit tracker and click 'Add Habit.' Enter a specific, measurable habit like 'Read 10 pages' or 'Walk 5,000 steps.' Choose how often you want to track it: daily, weekdays only, or specific days. Start with just one habit to avoid overwhelm.",
-            url: `${siteConfig.url}/tools/habit-tracker`
-          },
-          {
-            name: "Mark habits complete each day",
-            text: "Check off your habit each day you complete it. The streak counter starts immediately. Seeing a growing streak creates psychological commitment that makes skipping feel like a real loss. If you miss a day, restart immediately. Missing one day is fine. Missing two days in a row is the danger zone.",
-            url: `${siteConfig.url}/tools/habit-tracker`
-          },
-          {
-            name: "Review weekly progress",
-            text: "Check your weekly summary to see completion rates, streak lengths, and patterns. Are weekends your weakness? Do you skip after stressful workdays? Use this data to plan around your triggers. The visual feedback loop is what makes habit tracking effective.",
-            url: `${siteConfig.url}/tools/habit-tracker`
-          },
-          {
-            name: "Build your habit portfolio",
-            text: "Once your first habit feels automatic (usually after 30 days), add a second. Never track more than 3 habits simultaneously when starting. Sequential habit building beats simultaneous attempts. The tracker supports unlimited habits, but your willpower doesn't.",
-            url: `${siteConfig.url}/tools/habit-tracker`
-          }
-        ]}
-      />
+      <FAQSchema faqs={faqs} />
 
-      <main className="min-h-screen bg-background">
-        {/* Hero + Tool */}
-        <section className="border-b bg-muted/20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs font-medium">
-                <Sparkles className="w-3 h-3 mr-1" />
-                AI-Powered
-              </span>
-              <span className="text-xs text-muted-foreground">Updated for 2026</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+      <main className="pt-16">
+        {/* Hero */}
+        <section className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
+          <div className="mx-auto max-w-[1400px] px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pb-10 lg:pt-12">
+            <nav aria-label="Breadcrumb" className="text-sm text-zinc-500 dark:text-zinc-400">
+              <Link href="/tools" className="hover:text-zinc-900 dark:hover:text-white">Tools</Link>
+              <span className="mx-2 text-zinc-300 dark:text-zinc-600">/</span>
+              <span className="text-zinc-700 dark:text-zinc-300">Habit Tracker</span>
+            </nav>
+            <h1 className="mt-4 max-w-3xl text-balance text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
               Free Habit Tracker: Build Better Daily Routines
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
-              Track daily habits, build streaks, and visualize your progress. One habit at a time, until consistency becomes automatic.
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+              Tick off your daily habits and watch a 12 week wall fill in. Streaks are counted from real dates, missed check ins are easy to fix, and everything stays in your browser.
             </p>
-
-            <div className="grid lg:grid-cols-3 gap-8 mt-8">
-              <div className="lg:col-span-2">
-                <div id="habit-tracker">
-                  <HabitTrackerClient />
-                </div>
-                <InContentAd />
-              </div>
-
-              <aside className="space-y-6">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold mb-3 text-sm">Related Resources</h3>
-                  <div className="space-y-2 text-sm">
-                    <a href="/tools/productivity-planner" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <span>📅</span>
-                      <span>Productivity Planner</span>
-                    </a>
-                    <a href="/tools/budget-planner" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <span>🎯</span>
-                      <span>Budget Planner</span>
-                    </a>
-                    <a href="/tools/ai-email-assistant" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <span>☕</span>
-                      <span>AI Email Assistant</span>
-                    </a>
-                    <a href="/tools/startup-idea-generator" className="flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors">
-                      <span>✨</span>
-                      <span>Startup Idea Generator</span>
-                    </a>
-                  </div>
-                </div>
-
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold mb-3 text-sm">🔥 2026 Habit Stats</h3>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Simple habits become automatic</span>
-                      <span className="font-semibold">18 days avg.</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Complex habits take longer</span>
-                      <span className="font-semibold">66 days avg.</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">People who track habits succeed</span>
-                      <span className="font-semibold">2.6x more</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Missing 2 days in a row</span>
-                      <span className="font-semibold">Danger zone</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Optimal habits to track at once</span>
-                      <span className="font-semibold">1-3 max</span>
-                    </div>
-                  </div>
-                </div>
-
-                <SidebarAd />
-              </aside>
-            </div>
+            <ul className="mt-6 flex flex-wrap gap-2 text-sm">
+              {['Real date streaks', '12 week wall', 'Backup and restore', 'No signup'].map((t) => (
+                <li key={t} className="rounded-full border border-zinc-300 bg-white px-3 py-1 font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">{t}</li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        {/* SEO Content */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Main Content */}
-            <div className="flex-1 space-y-16">
+        {/* Tool */}
+        <div className="mx-auto max-w-[1400px] px-3 pt-6 sm:px-6 lg:px-8">
+          <div id="habit-tracker" className="scroll-mt-20">
+            <HabitTrackerClient />
+          </div>
+        </div>
 
-              {/* Introduction */}
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Why Habit Tracking Is the Foundation of Self-Improvement</h2>
-                <div className="text-muted-foreground leading-relaxed space-y-4">
-                  <p>
-                    Every ambitious goal is ultimately a collection of daily habits. Writing a book is writing 500 words every morning. Getting fit is exercising four times per week. Building a startup is making one meaningful commit daily. The gap between who you are and who you want to be is measured in daily behaviors, not annual resolutions.
+        <InContentAd />
+
+        {/* Content */}
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-8 lg:flex-row">
+            <div className="min-w-0 flex-1">
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
+                  A Free Daily Habit Tracker with Honest Streaks
+                </h2>
+                <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
+                  <p className="text-lg leading-relaxed">
+                    A habit tracker has one job: show you, without excuses, which days you did the thing. That only works if the record is real. Here every tick is tied to a date, so a streak means days in a row, not how many times you pressed a button.
                   </p>
-                  <p>
-                    The problem is that habits are invisible. You do not notice the gradual slide into checking social media 40 times per day. You do not see the compound effect of skipping exercise for three weeks. The Habit Tracker makes the invisible visible. It externalizes your behavior patterns so you can observe, measure, and optimize them. Research consistently shows that people who track their habits are 2.6 times more likely to succeed at behavior change than those who do not.
+                  <p className="leading-relaxed">
+                    The wall at the top shows the last 12 weeks of all your habits together. Darker squares are days you did fewer of them, brighter ones are days you did them all. Open any habit to see its own wall, its current streak, its best streak and how many of the last 30 days you managed.
                   </p>
                 </div>
               </section>
 
-              {/* 4 Key Capabilities */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Four Features That Make Consistency Easier</h2>
-                <div className="grid sm:grid-cols-2 gap-6">
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">How to Use the Habit Tracker</h2>
+                <ol className="space-y-5">
                   {[
-                    { num: "1", title: "Streak Counting", color: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400", text: "The streak counter creates a powerful psychological commitment. Once you have 12 days in a row, the 13th day feels like a real loss to break the chain. This is not gamification for fun. It is behavioral architecture that makes consistency the path of least resistance." },
-                    { num: "2", title: "Progress Visualization", color: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400", text: "Weekly and monthly charts show your completion rate over time. See the patterns: are weekends your weakness? Do you skip after stressful workdays? Visual data reveals the triggers that break your streaks, so you can plan around them." },
-                    { num: "3", title: "Flexible Scheduling", color: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400", text: "Not every habit needs to be daily. Set habits for specific days: exercise Monday, Wednesday, Friday. Coding practice every weekday. Family calls on Sundays. The tracker respects realistic schedules rather than forcing artificial daily targets." },
-                    { num: "4", title: "Privacy-First Design", color: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400", text: "Your habits are personal. Whether you are tracking sobriety, therapy attendance, or personal growth goals, that information belongs to you alone. All data stays in your browser. No accounts, no sync, no exposure." },
-                  ].map((f) => (
-                    <div key={f.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className={`w-8 h-8 rounded-lg ${f.color} flex items-center justify-center text-sm font-bold`}>{f.num}</div>
-                        <h3 className="font-semibold">{f.title}</h3>
+                    ["Add a habit", "Type your own or tap a suggestion. Pick habits you can answer with a yes or no once a day."],
+                    ["Tick it when it is done", "The big check button marks today. Your streak keeps counting until the day is over, so you have until midnight."],
+                    ["Fix the days you forgot", "Did it yesterday but forgot to tick? Tap that day in the 7 day strip. Older days can be fixed on the 12 week wall."],
+                    ["Read the wall, not just the streak", "A broken streak hides a lot of good days. The 30 day rate and the wall show the bigger picture."],
+                    ["Keep a backup", "Your habits live in this browser. Download a backup now and then, and restore it on a new phone or laptop."],
+                  ].map(([t, d], i) => (
+                    <li key={t} className="flex items-start gap-4">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-lime-400 text-sm font-bold text-zinc-950">{i + 1}</span>
+                      <div>
+                        <h3 className="mb-1 font-semibold text-zinc-900 dark:text-white">{t}</h3>
+                        <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{d}</p>
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">How Long Does It Take to Build a Habit?</h2>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {[
+                    ["66 days", "Median time for a new daily habit to feel automatic"],
+                    ["18 to 254", "Range of days across the people in the study"],
+                    ["1 miss", "Did not undo the progress people had made"],
+                  ].map(([n, d]) => (
+                    <div key={n} className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                      <p className="font-mono text-2xl font-semibold text-zinc-900 dark:text-white">{n}</p>
+                      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{d}</p>
                     </div>
                   ))}
+                </div>
+                <div className="mt-5 space-y-4 leading-relaxed text-zinc-700 dark:text-zinc-300">
+                  <p>
+                    The popular 21 day figure has little evidence behind it. The best known study on the question comes from Phillippa Lally and her team at University College London, published in the <cite>European Journal of Social Psychology</cite> in 2010. Volunteers chose one new daily behavior, such as eating fruit with lunch or going for a run before dinner, and reported each day for 12 weeks how automatic it felt.
+                  </p>
+                  <p>
+                    It took a median of 66 days to level off, with a very wide range from 18 to 254 days. Simple habits settled sooner than harder ones. Just as useful: missing one day did not reset the process. So if your streak breaks, the right move is simply to tick it again tomorrow.
+                  </p>
+                  <p className="text-sm text-zinc-500">
+                    Source: Lally, van Jaarsveld, Potts and Wardle, How are habits formed: Modelling habit formation in the real world, European Journal of Social Psychology, 2010.{' '}
+                    <a href={LALLY_URL} target="_blank" rel="noopener noreferrer" className="text-lime-700 underline dark:text-lime-400">Read the paper</a>
+                  </p>
                 </div>
               </section>
 
               <InContentAd />
 
-              {/* Five Habit Mistakes */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Five Mistakes That Sabotage Habit Building (And How to Avoid Them)</h2>
-                <div className="space-y-4">
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">Tips That Make Habits Stick</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
                   {[
-                    { num: "1", title: "Starting With Too Many Habits", text: "New year enthusiasm leads to tracking 10 habits simultaneously. By day 10, overwhelm sets in and the entire system collapses. This is the number one reason people abandon habit tracking.", fix: "Start with one habit. Track it for 30 days. Only add a second habit once the first feels automatic. This sequential approach feels slower but produces lasting change. One solid habit is infinitely more valuable than ten abandoned ones." },
-                    { num: "2", title: "Making Habits Too Big", text: "'Exercise for 60 minutes daily' sounds impressive but fails quickly. The problem is not motivation. It is that 60 minutes is a large commitment on bad days, and missing one day makes the target feel impossible.", fix: "Make habits ridiculously small. 'Do one pushup' is better than 'exercise for 60 minutes.' Once you start, you almost always do more. But the tiny target ensures you never skip. The tracker works for habits of any size, so start embarrassingly small." },
-                    { num: "3", title: "Ignoring the Second Miss", text: "Missing one day is human. Missing two days in a row is a pattern. The data shows that people who miss two consecutive days have a 55 percent chance of abandoning the habit entirely within a week.", fix: "The tracker makes misses visible. If you miss one day, the streak resets. That visual reset is uncomfortable, which is exactly the point. It motivates you to restart immediately rather than letting a single miss become a month-long gap." },
-                    { num: "4", title: "Tracking Vague Habits", text: "'Be healthier' is not a trackable habit. Neither is 'work harder' or 'be more social.' Vague intentions create ambiguity, and ambiguity kills consistency because you never know if you succeeded.", fix: "Define habits as specific, binary actions. 'Drink 8 glasses of water' is trackable. 'Walk 10,000 steps' is trackable. 'Write 500 words' is trackable. The tracker works best with clear yes-or-no daily targets." },
-                    { num: "5", title: "Choosing the Wrong Habits", text: "People often track habits they think they should do rather than habits that actually matter to them. 'Read 30 minutes daily' when you hate reading. 'Wake up at 5am' when you are naturally a night person. These mismatched habits fail because they fight your nature.", fix: "Choose habits aligned with your actual goals and personality. If you want to learn, track 'watch one tech tutorial' instead of reading. If you are a night owl, track 'deep work session after dinner' instead of early morning routines. The tracker is a tool. You choose what to track." },
-                  ].map((m) => (
-                    <div key={m.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">{m.num}</div>
-                        <h3 className="font-semibold">{m.title}</h3>
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{m.text}</p>
-                      <p className="text-sm leading-relaxed"><strong className="text-foreground">Fix:</strong> {m.fix}</p>
+                    ["Make it small", "Two pages, not two chapters. A habit you can do on your worst day survives the weeks when life gets busy."],
+                    ["Tie it to something you already do", "After coffee, after brushing your teeth, when you sit down at your desk. A fixed cue makes the habit easier to remember."],
+                    ["Do it at the same time", "Doing it in the same place and at the same time each day helps it become automatic."],
+                    ["Restart without guilt", "One missed day is normal and does not wipe out your progress. Ticking it again tomorrow matters more than the streak."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                      <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">{t}</h3>
+                      <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{d}</p>
                     </div>
                   ))}
                 </div>
               </section>
 
-              {/* Use Cases */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Habit Ideas for Every Area of Life</h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { icon: "💪", title: "Health & Fitness", text: "Drink 8 glasses of water. Walk 10,000 steps. Sleep 7+ hours. Eat vegetables with dinner. Stretch for 5 minutes. These small health habits compound into significant wellbeing improvements over months." },
-                    { icon: "💻", title: "Coding & Career", text: "Write one commit daily. Read technical documentation for 15 minutes. Practice one LeetCode problem. Review a pull request. Update your learning notes. Consistent small investments in skills compound into career acceleration." },
-                    { icon: "🧠", title: "Mind & Learning", text: "Read 20 pages. Journal for 5 minutes. Meditate for 10 minutes. Listen to one podcast episode. Write down three things you learned today. Mental habits are invisible but determine the quality of your thinking." },
-                    { icon: "❤️", title: "Relationships", text: "Call a family member. Send one appreciation message. Have a meaningful conversation. Check in with a friend. These social habits maintain the relationships that research consistently shows are the strongest predictor of life satisfaction." },
-                    { icon: "☀️", title: "Morning Routine", text: "Wake up at the same time. Drink water before coffee. Review your daily plan. Do one high-priority task before checking email. A consistent morning routine sets the tone for the entire day and reduces decision fatigue." },
-                    { icon: "🌙", title: "Evening Wind-Down", text: "No screens after 9pm. Read fiction for 20 minutes. Plan tomorrow's priorities. Reflect on the day. Evening habits that promote quality sleep are among the highest-impact changes you can make." },
-                  ].map((u) => (
-                    <div key={u.title} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                      <div className="text-2xl mb-2">{u.icon}</div>
-                      <h3 className="font-semibold mb-2">{u.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{u.text}</p>
-                    </div>
-                  ))}
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">Habit Ideas to Start With</h2>
+                <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
+                  <table className="w-full min-w-[30rem] text-left text-sm">
+                    <thead className="bg-zinc-50 text-[12px] uppercase tracking-[0.08em] text-zinc-500 dark:bg-zinc-900">
+                      <tr>
+                        <th scope="col" className="px-4 py-3 font-medium">Area</th>
+                        <th scope="col" className="px-4 py-3 font-medium">Small daily habits</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
+                      {[
+                        ["Health", "Walk for 20 minutes, drink a glass of water after waking, in bed by 11"],
+                        ["Learning", "Read 10 pages, practice coding for 30 minutes, review 10 flashcards"],
+                        ["Work", "Plan tomorrow before you log off, one hour without notifications"],
+                        ["Money", "Write down what you spent today, no takeaway on weekdays"],
+                        ["Mind", "Five minutes of quiet, write one line in a journal, no phone in bed"],
+                      ].map(([a, h]) => (
+                        <tr key={a}>
+                          <th scope="row" className="px-4 py-3 font-medium text-zinc-900 dark:text-white">{a}</th>
+                          <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400">{h}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </section>
 
-              {/* Internal Links */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Tools That Complement Your Habit Journey</h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[
-                    { href: "/tools/productivity-planner", icon: "📅", title: "Productivity Planner", desc: "Plan your daily workflow" },
-                    { href: "/tools/budget-planner", icon: "🎯", title: "Budget Planner", desc: "Track income and expenses" },
-                    { href: "/tools/ai-email-assistant", icon: "☕", title: "AI Email Assistant", desc: "Draft emails in seconds" },
-                    { href: "/tools/startup-idea-generator", icon: "✨", title: "Startup Idea Generator", desc: "Discover business ideas" },
-                    { href: "/tools/ai-resume-builder", icon: "💼", title: "AI Resume Builder", desc: "ATS-friendly resumes" },
-                    { href: "/tools", icon: "⚡", title: "All Tools", desc: "15+ free AI-powered tools" },
-                  ].map((link) => (
-                    <a key={link.href} href={link.href} className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl">{link.icon}</span>
-                        <div>
-                          <p className="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{link.title}</p>
-                          <p className="text-xs text-muted-foreground">{link.desc}</p>
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* 3-Phase Workflow */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">The 30-Day Habit Launch Plan</h2>
-                <div className="grid sm:grid-cols-3 gap-6">
-                  {[
-                    { num: "1", title: "Days 1-7: The Honeymoon", text: "Pick one habit. Make it embarrassingly small. 'Read one page' or 'Do one pushup.' Track it daily. The goal this week is not perfection. It is proving to yourself that you can check a box every day. The streak counter starts working on your psychology immediately." },
-                    { num: "2", title: "Days 8-21: The Grind", text: "Enthusiasm fades around day 10. This is normal. The streak counter becomes your ally here. You have built momentum, and breaking the chain feels like a real loss. If you miss a day, restart immediately. One miss does not undo progress. Two misses in a row is the danger zone to avoid." },
-                    { num: "3", title: "Days 22-30: Integration", text: "By day 22, the habit starts feeling automatic. You do it without thinking. Now you can increase the difficulty slightly. 'Read one page' becomes 'Read 10 pages.' But only increase after 30 days of consistency. Premature scaling is a common cause of habit collapse." },
-                  ].map((w) => (
-                    <div key={w.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 relative">
-                      <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">{w.num}</div>
-                      <h3 className="font-semibold mb-3 pt-2">{w.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{w.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* FAQ */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">Frequently Asked Questions</h2>
                 <div className="space-y-3">
-                  {toolFaqs.map((faq, index) => (
-                    <details key={index} className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                      <summary className="flex items-center justify-between p-4 cursor-pointer text-sm sm:text-base font-medium hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors list-none">
+                  {faqs.map((faq) => (
+                    <details key={faq.question} className="group rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold text-zinc-900 dark:text-white">
                         {faq.question}
-                        <svg className="w-5 h-5 text-gray-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
+                        <span aria-hidden="true" className="text-zinc-400 transition-transform group-open:rotate-45">+</span>
                       </summary>
-                      <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed">
+                      <div className="border-t border-zinc-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
                         {faq.answer}
                       </div>
                     </details>
@@ -327,124 +243,55 @@ export default function HabitTrackerPage() {
                 </div>
               </section>
 
-              {/* CTA Banner */}
-              <section className="bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl p-8 text-white text-center">
-                <h2 className="text-2xl font-bold mb-3">Build One Habit That Changes Everything</h2>
-                <p className="text-white/90 mb-6 max-w-xl mx-auto">
-                  Join 1,400+ people tracking their daily progress. Free, private, and designed for real humans.
-                </p>
-                <a href="#habit-tracker" className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-orange-600 font-medium hover:bg-white/90 transition-colors">
-                  Start Tracking Now →
-                </a>
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">Tools That Pair Well with Habit Tracking</h2>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {[
+                    ["/tools/productivity-planner", "Productivity Planner", "Give your habits a slot in the day with time blocks."],
+                    ["/tools/budget-planner", "Budget Planner", "Pair a daily spending log with a monthly budget."],
+                    ["/tools/ai-prompt-library", "AI Prompt Library", "Prompts for planning, learning and reflection."],
+                    ["/tools/ai-interview-simulator", "Interview Simulator", "Make interview practice a daily habit."],
+                    ["/tools/ai-resume-builder", "AI Resume Builder", "Turn the skills you build into a stronger resume."],
+                    ["/tools", "View all free tools", "Planners, checkers, calculators and more."],
+                  ].map(([href, t, d]) => (
+                    <Link key={href} href={href} className="group block rounded-2xl border border-zinc-200 bg-white p-5 transition hover:border-lime-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-lime-700">
+                      <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-lime-700 dark:text-white dark:group-hover:text-lime-400">{t}</h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400">{d}</p>
+                    </Link>
+                  ))}
+                </div>
               </section>
-
             </div>
 
-            {/* Sticky Sidebar */}
-            <aside className="lg:w-80 flex-shrink-0 space-y-6">
+            {/* Sidebar */}
+            <div className="flex-shrink-0 lg:w-80">
               <div className="sticky top-24 space-y-6">
-                <div className="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-5 border border-orange-100 dark:border-orange-800">
-                  <h3 className="font-semibold text-sm mb-2 text-orange-900 dark:text-orange-100">💡 Pro Tip</h3>
-                  <p className="text-sm text-orange-800 dark:text-orange-200 leading-relaxed">
-                    Start with one habit, not ten. Pick the single behavior that would have the biggest impact. Track it for 30 days before adding a second. Sequential beats simultaneous.
+                <SidebarAd />
+                <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                  <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">Quick tip</h3>
+                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    Start with two habits at most. When both feel easy for a couple of weeks, add the next one.
                   </p>
                 </div>
-                <SidebarAd />
+                <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                  <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">Related Resources</h3>
+                  <ul className="space-y-3 text-sm">
+                    {[
+                      ["/tools/productivity-planner", "Plan your day with time blocks"],
+                      ["/tools/budget-planner", "Build a monthly budget"],
+                      ["/trends", "Latest trend reports"],
+                    ].map(([href, t]) => (
+                      <li key={href}>
+                        <Link href={href} className="text-lime-700 hover:underline dark:text-lime-400">{t}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </aside>
+            </div>
           </div>
         </div>
       </main>
-
-      {/* SEO Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Free Habit Tracker: Build Better Daily Routines in 2026
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The most successful developers do not rely on willpower. They rely on systems. Our <strong>free habit tracker</strong> helps you build the daily routines that compound into massive long-term results. Track coding practice, exercise, reading, or any custom habit. No signup, no premium tiers, just a simple tool that works.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Why Habit Tracking Works for Developers
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Research shows that tracking a behavior increases the likelihood of maintaining it by 65%. When you see a streak of 30 consecutive days, you are far less likely to break it. Our <strong>daily habit tracker</strong> uses visual progress indicators, streak counters, and weekly summaries to make your consistency visible. The dopamine hit from checking off a daily habit is real, and it is a powerful motivator.
-          </p>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            For developers specifically, habit tracking is especially valuable for technical skills. LeetCode problems, open-source contributions, reading documentation, and learning new frameworks all benefit from consistent practice. A developer who solves 2 LeetCode problems daily will have completed 730 problems in a year, enough to crack any technical interview. The key is not intensity, it is consistency.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            How to Build Habits That Stick
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">1. Start Small</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Commit to 5 minutes of coding, not 2 hours. Tiny habits are easier to maintain and naturally expand.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2. Track Daily</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Check off every day, even if the effort was minimal. Consistency beats intensity.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">3. Review Weekly</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Look at your weekly summary. Celebrate wins and identify patterns where you tend to skip.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">4. Stack Habits</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Attach a new habit to an existing one. "After morning coffee, I will read 5 pages of documentation."</p>
-            </div>
-          </div>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Related Tools for Productivity
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-3 mb-8">
-            <a href="/tools/productivity-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📅</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Productivity Planner</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Plan your daily and weekly tasks</p>
-              </div>
-            </a>
-            <a href="/tools/budget-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">💰</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Budget Planner</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Track financial habits</p>
-              </div>
-            </a>
-            <a href="/tools/ai-prompt-library" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">🤖</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Prompt Library</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">500+ curated prompts for productivity</p>
-              </div>
-            </a>
-            <a href="/blog/ai-automation-business-ideas-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">⚡</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Automation Ideas for Productivity Businesses</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Top strategies to build better habits</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-6 border border-orange-100 dark:border-orange-800">
-            <h3 className="text-lg font-semibold text-orange-900 dark:text-orange-200 mb-2">
-              Start Your First Habit Today
-            </h3>
-            <p className="text-orange-800 dark:text-orange-300 text-sm mb-4">
-              Pick one habit. Track it for 30 days. Watch how small daily actions compound into extraordinary results. Your future self will thank you.
-            </p>
-            <p className="text-orange-700 dark:text-orange-400 text-xs">
-              100% free. No signup. Start tracking in 10 seconds.
-            </p>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

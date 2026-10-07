@@ -8,7 +8,7 @@ import {
   Gamepad2,
   Lightbulb,
   Sparkles,
-  Link2,
+  CalendarCheck,
   Briefcase,
   Bot,
   Globe,
@@ -70,7 +70,7 @@ export const moreTools: Tool[] = [
   {
     name: "Budget Planner",
     href: "/tools/budget-planner",
-    description: "Track spending and savings goals.",
+    description: "Monthly budget with savings goals.",
     icon: Wallet,
   },
   {
@@ -82,7 +82,7 @@ export const moreTools: Tool[] = [
   {
     name: "Startup Idea Generator",
     href: "/tools/startup-idea-generator",
-    description: "AI generated business ideas.",
+    description: "Business ideas matched to your skills.",
     icon: Lightbulb,
   },
   {
@@ -92,10 +92,16 @@ export const moreTools: Tool[] = [
     icon: Sparkles,
   },
   {
-    name: "Link Manager and Smart Bio",
-    href: "/tools/link-manager",
-    description: "One link for everything you share.",
-    icon: Link2,
+    name: "Habit Tracker",
+    href: "/tools/habit-tracker",
+    description: "Daily habits with real streaks.",
+    icon: CalendarCheck,
+  },
+  {
+    name: "Productivity Planner",
+    href: "/tools/productivity-planner",
+    description: "Turn tasks into a timed day plan.",
+    icon: ListChecks,
   },
 ];
 
@@ -125,8 +131,8 @@ export const categories: Category[] = [
   {
     name: "SEO and Web",
     href: "/tools/website-audit",
-    description: "Website audits, health checks and link management",
-    count: "3+ tools",
+    description: "Website audits, health checks and AI content detection",
+    count: "2 tools",
     icon: Globe,
   },
   {

@@ -277,67 +277,52 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'budget-planner': {
     title: 'Free Budget Planner: Income and Savings',
-    description: 'Free AI-powered budget planner for 2026. Track income and expenses, visualize spending patterns, calculate savings goals, and get personalized financial insights. Perfect for developers, freelancers, and professionals managing variable income. No signup needed.',
+    description: 'Free budget planner: add take home pay and bills, turn yearly costs into monthly ones, see what is left over, check 50/30/20 and plan savings. No signup.',
     keywords: [
       'free budget planner online',
-      'personal budget tracker',
+      'monthly budget planner',
       'expense tracker free',
       'monthly budget calculator',
-      'income tracker tool free',
+      '50/30/20 budget calculator',
       'savings goal calculator',
+      'take home pay budget',
       'freelance budget planner',
-      'developer finance tool',
-      'spending analysis free',
-      'budget vs actual tracker',
-      'personal finance app free',
-      'money management tool',
-      'variable income budget',
-      'budget breakdown online',
-      'financial planning tool free'
+      'budget planner no signup',
+      'personal budget template online'
     ],
     path: '/tools/budget-planner'
   },
   'habit-tracker': {
     title: 'Free Habit Tracker with Daily Streaks',
-    description: 'Free habit tracker for 2026. Build positive daily routines, break bad habits, track streaks, and visualize your progress with beautiful charts. Perfect for developers and professionals seeking consistency. No signup needed, works offline.',
+    description: 'Free habit tracker with streaks counted from real dates, a 12 week wall and a 30 day rate. Fix missed days and back up your habits. No signup needed.',
     keywords: [
       'free habit tracker online',
       'daily habit tracker',
-      'habit building app free',
-      'streak tracker tool',
+      'habit streak tracker',
+      'habit tracker no signup',
+      'habit grid tracker',
       'routine tracker online',
-      'habit streak calculator',
-      'productivity habits tracker',
-      'developer daily routine',
-      'break bad habits tool',
-      'habit visualization free',
+      'how long to build a habit',
+      'break bad habits tracker',
       'daily checklist tracker',
-      'consistency tracker',
-      'habit progress chart',
-      'morning routine tracker',
-      'goal tracking free online'
+      'habit tracker with backup'
     ],
     path: '/tools/habit-tracker'
   },
   'productivity-planner': {
     title: 'Free Productivity Planner and Task Manager',
-    description: 'Free AI-powered productivity planner for 2026. Smart task management, priority optimization, intelligent scheduling, and deep work blocks. Perfect for developers, freelancers, and remote workers. No signup, no credit card, unlimited use.',
+    description: 'Free productivity planner: turn tasks into an hour by hour plan with a Top 3, fixed meetings and an overbooked warning. Export to your calendar. No signup.',
     keywords: [
       'free productivity planner online',
-      'ai task manager free',
       'daily planner tool',
-      'time management app free',
-      'task priority optimizer',
-      'developer productivity tool',
-      'remote work planner',
-      'deep work scheduler',
-      'daily workflow optimizer',
-      'smart to do list free',
-      'project task planner online',
-      'focus time tracker',
-      'work schedule generator',
-      'productivity dashboard free',
-      'ai powered planner no signup'
+      'time blocking planner',
+      'hour by hour day planner',
+      'daily task manager free',
+      'top 3 priorities planner',
+      'plan my day tool',
+      'day planner with calendar export',
+      'to do list with time estimates',
+      'ai day planner prompt'
     ],
     path: '/tools/productivity-planner'
   },
@@ -407,28 +392,6 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
       'job application email ai'
     ],
     path: '/tools/ai-email-assistant'
-  },
-  'link-manager': {
-    title: 'Free Link Shortener and Bio Page Builder',
-    description: 'Free branded link shortener with click analytics, QR codes, and smart bio pages. Create custom short links, track clicks in real-time, and build auto-updating link-in-bio pages. Perfect for creators, developers, and businesses. No signup needed.',
-    keywords: [
-      'free link shortener',
-      'bio link page free',
-      'branded link shortener',
-      'link in bio tool free',
-      'url shortener with analytics',
-      'qr code generator free',
-      'custom short links free',
-      'link tracking tool',
-      'link manager free',
-      'click analytics tool',
-      'social media link page',
-      'url shortener no signup',
-      'free url tracker',
-      'developer link tools',
-      'portfolio link page free'
-    ],
-    path: '/tools/link-manager'
   },
   'can-you-run-it': {
     title: 'Can You Run It? Free PC Requirements Checker',
