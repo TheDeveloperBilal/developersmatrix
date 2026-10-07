@@ -343,7 +343,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'startup-idea-generator': {
     title: 'Free Startup Idea Generator by Industry',
-    description: 'Free AI startup idea generator for 2026. Discover innovative business ideas across AI, SaaS, FinTech, HealthTech, Climate Tech, Robotics, and more. Each idea includes market analysis, monetization strategy, competition level, and MVP timeline. No signup needed.',
+    description: 'Free startup idea generator: answer five questions and get business ideas matched to your skills, time and budget, with an idea canvas and a 7 day test plan.',
     keywords: [
       'free startup idea generator',
       'ai business ideas generator',

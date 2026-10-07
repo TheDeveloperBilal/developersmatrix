@@ -140,9 +140,10 @@ export const explorerTools: ExplorerTool[] = [
   {
     name: "Startup Idea Generator",
     href: "/tools/startup-idea-generator",
-    description: "Business ideas with a target market and first steps to test them.",
+    description: "Business ideas matched to your skills, with a plan to test them in a week.",
     category: "Business",
     icon: Lightbulb,
+    badge: "UPDATED",
   },
   {
     name: "Salary Estimator",
@@ -246,7 +247,7 @@ export const goals: Goal[] = [
     tools: [
       { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Fill in the blanks, then copy" },
       { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch, note: "Verify what you publish" },
-      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Ideas plus first steps" },
+      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Ideas plus a test plan" },
     ],
     content: [
       { label: "AI agents in 2026", href: "/trends/ai-agents-autonomous-systems-2026", type: "Trend" },
@@ -288,7 +289,7 @@ export const goals: Goal[] = [
     icon: Lightbulb,
     headline: "Ideas with a real market angle",
     tools: [
-      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Ideas plus first steps" },
+      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Ideas plus a test plan" },
       { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, note: "Run the numbers early" },
     ],
     content: [
@@ -352,7 +353,8 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
-  { kind: "Updated", title: "Email Assistant rebuilt with 18 templates and a draft checker", meta: "Tool · Productivity", href: "/tools/ai-email-assistant", date: "2026-10-07" },
+  { kind: "Updated", title: "Startup Idea Generator rebuilt around your skills, time and budget", meta: "Tool · Business", href: "/tools/startup-idea-generator", date: "2026-10-07" },
+  { kind: "Updated", title: "Email Assistant rebuilt with 18 templates and a draft checker", meta: "Tool · Business", href: "/tools/ai-email-assistant", date: "2026-10-07" },
   { kind: "Updated", title: "TikTok algorithm report fact checked against TikTok sources", meta: "Trend · Social media", href: "/trends/tiktok-algorithm-2026-complete-guide", date: "2026-10-07" },
   { kind: "Updated", title: "Salary Estimator rebuilt on official BLS pay data", meta: "Tool · Career", href: "/tools/salary-estimator", date: "2026-10-06" },
   { kind: "Updated", title: "Prompt Library rebuilt with 64 prompts and a prompt builder", meta: "Tool · AI", href: "/tools/ai-prompt-library", date: "2026-10-06" },
