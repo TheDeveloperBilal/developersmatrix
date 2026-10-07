@@ -1,514 +1,295 @@
 import { Metadata } from "next";
-import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import Link from "next/link";
-import { ArrowLeft, Lightbulb, CheckCircle, Sparkles, TrendingUp, Zap, Rocket, Target, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { SidebarAd, InContentAd } from "@/components/ads/AdBanner";
+import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
+import { siteConfig } from "@/data/config";
+import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
+import { INDUSTRIES, MODELS, PATTERNS } from "@/lib/ideas/data";
+import { IDEA_COUNT } from "@/lib/ideas/match";
 import StartupIdeaClient from "./StartupIdeaClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['startup-idea-generator']);
 
+// Counts come from the idea data, so the page never claims more than exists.
+const PATTERN_COUNT = PATTERNS.length;
+const INDUSTRY_COUNT = INDUSTRIES.length;
+
 const faqs = [
   {
     question: "How does the AI Startup Idea Generator work?",
-    answer: "Our generator uses a curated database of innovative business concepts organized by industry. Select a category like AI, SaaS, FinTech, or Climate Tech, and we will surface a detailed startup idea complete with problem statement, solution, market size, monetization strategy, competition analysis, difficulty rating, and estimated MVP timeline."
+    answer: `You answer five quick questions: your skills, an industry you know, how you want to earn, how many hours you have and how much you can spend. The generator combines ${PATTERN_COUNT} hand written business models with ${INDUSTRY_COUNT} industries, which gives ${IDEA_COUNT} concrete ideas, and ranks them by how well they fit your answers. Each idea opens as a one page canvas with the problem, the customer, the smallest first version, how it makes money, costs, risks and a 7 day plan to test it. The matching runs in your browser with clear rules, not a language model. The optional pressure test opens a prompt in ChatGPT or Claude.`
   },
   {
     question: "Are the generated ideas actually viable in 2026?",
-    answer: "Yes. Every idea in our database is grounded in current market trends, real demand signals, and proven business models. We update the database quarterly to reflect 2026 market conditions, emerging technologies, and shifting consumer behaviors. Ideas include realistic market sizing, actual competitor names, and feasible monetization paths."
+    answer: "No tool can tell you that in advance, and we do not pretend to. That is why there are no viability scores or market sizes here: they would be guesses. Every idea is a sensible starting point built from business models that people already run, and each one comes with a 7 day test so you can find out from real customers whether it is worth your time."
   },
   {
     question: "Can I refine or expand on a generated idea?",
-    answer: "Absolutely. When you generate an idea, you can save it to your list, copy the full breakdown to your notes, or generate another variation in the same industry. Each idea comes with enough detail to serve as a starting point for a pitch deck, business plan, or MVP scope."
+    answer: "Yes. Change your answers at any time and the shortlist updates. Save the ideas you like in your browser, copy the full canvas into your notes, or share a link to it. The pressure test button opens a prompt in ChatGPT or Claude that lists likely risks, competitors to check and questions to ask customers."
   },
   {
     question: "What industries are covered?",
-    answer: "We cover SaaS, AI and Machine Learning, FinTech, HealthTech, EdTech, E-commerce, Climate Tech, Creator Economy, DevTools, HR Tech, Robotics, Biotech, Cybersecurity, and Space Tech. Each industry contains multiple ideas ranging from easy weekend projects to ambitious venture-scale concepts."
+    answer: `${INDUSTRY_COUNT} industries where small businesses have everyday problems worth solving: ${INDUSTRIES.map((i) => i.name.toLowerCase()).join(', ')}. You can pick the one you know best or keep it open.`
   },
   {
     question: "Does each idea include an MVP timeline?",
-    answer: "Yes. Every idea includes an estimated time to MVP ranging from 2 weeks to 8+ months. The timeline accounts for complexity, regulatory requirements, technical difficulty, and team size assumptions. This helps you pick an idea that matches your available time and resources."
+    answer: "Each idea shows a rough time to a first version, such as days to a first offer for a service or a few months for software, and a rough start up cost band. They are there to help you compare ideas against your time and budget, not forecasts. The 7 day test plan is the part to act on first."
   },
   {
     question: "Is this startup idea generator free to use?",
-    answer: "Yes, completely free. No signup, no credit card, no limits. Generate as many ideas as you want, save your favorites, and copy the full details to use in your own planning."
+    answer: "Yes. It is free with no signup and no limits. Your answers and saved ideas are kept in your own browser and are not sent to us."
   },
   {
     question: "How can I validate these ideas before building?",
-    answer: "Start by researching the competitors we list. Check if the problem resonates by posting in relevant communities or running a simple landing page test. Look at the market size we provide and see if you can carve out a niche. The ideas are designed to be specific enough that validation is straightforward."
+    answer: "Follow the 7 day plan on each idea: list 20 people you could sell to, talk to at least five about how they handle the problem today, write a one page offer with a price, send it out, and ask for a real commitment such as a deposit, a preorder or a booked first job. Money or a firm date is a signal. Compliments are not."
   },
   {
     question: "What makes these ideas different from generic lists?",
-    answer: "Unlike generic idea lists, each concept includes a specific problem worth solving, a concrete solution, real market data, known competitors, a clear monetization path, and a realistic difficulty assessment. They are designed as starting points for real businesses, not brainstorming fluff."
+    answer: "They are matched to you: your skills, the industry you know, your time and your budget. Each one names a specific customer and problem, starts with a small first version you can actually build or sell, and leaves out the invented numbers that many idea lists use to look convincing."
   }
+];
+
+const modelRows: [string, string, string, string][] = [
+  ["A service", "Low", "Days to weeks", "Your income is tied to your hours"],
+  ["A digital product", "Low", "Weeks", "Hard to sell without an audience"],
+  ["Software", "Medium", "Months", "Takes longest to learn if anyone will pay"],
+  ["Content and audience", "Low", "Many months", "Slow and uncertain growth"],
+  ["A marketplace", "Medium to high", "Months", "You need buyers and sellers at the same time"],
 ];
 
 export default function StartupIdeaPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <SoftwareApplicationSchema
         name="DevelopersMatrix Startup Idea Generator"
-        description="Free AI startup idea generator for 2026. Discover innovative business ideas across AI, SaaS, FinTech, HealthTech, Climate Tech, and more with market analysis and MVP timelines."
-        url="https://developersmatrix.com/tools/startup-idea-generator"
+        description={`Free startup and business idea generator. Answer five questions and get ideas matched to your skills, time and budget, each with a one page canvas and a 7 day test plan. ${IDEA_COUNT} idea combinations across ${INDUSTRY_COUNT} industries.`}
+        url={`${siteConfig.url}/tools/startup-idea-generator`}
         applicationCategory="BusinessApplication"
-        operatingSystem="Any"
+        operatingSystem="Web"
         offers={{ price: "0", priceCurrency: "USD" }}
       />
       <HowToSchema
-        name="How to Find Your Next Startup Idea in 2026"
-        description="Step-by-step guide to using the DevelopersMatrix Startup Idea Generator to discover validated business concepts with market analysis and MVP timelines."
-        url="https://developersmatrix.com/tools/startup-idea-generator"
+        name="How to Find a Startup Idea That Fits You"
+        description="Answer five questions, compare a shortlist of matched ideas, and test the best one with real customers in seven days."
+        url={`${siteConfig.url}/tools/startup-idea-generator`}
         totalTime="PT10M"
         estimatedCost={{ currency: 'USD', value: '0' }}
         step={[
-          {
-            name: "Choose your industry category",
-            text: "Select from categories like AI & Machine Learning, SaaS, FinTech, HealthTech, Climate Tech, E-commerce, or No-Code Tools. Each category contains curated ideas based on 2026 market trends and real demand signals. Pick a category that matches your skills or interests for the best fit."
-          },
-          {
-            name: "Generate and evaluate ideas",
-            text: "Click 'Generate Idea' to receive a complete business concept including problem statement, proposed solution, target market, monetization strategy, competition analysis, and difficulty rating. Each idea includes realistic market sizing and actual competitor names. Rate ideas as thumbs up or thumbs down to refine future recommendations."
-          },
-          {
-            name: "Review market analysis and MVP timeline",
-            text: "Every generated idea includes an estimated MVP (Minimum Viable Product) timeline and technical complexity assessment. Ideas range from weekend projects to 6-month builds. The market analysis shows addressable market size, realistic revenue potential, and entry barriers. Use this data to validate ideas before investing time."
-          },
-          {
-            name: "Save promising ideas and take action",
-            text: "Save ideas you like to your browser's local storage for later review. When you are ready to start, use the action plan to break the idea into concrete first steps. The generator is a starting point. Successful execution depends on customer validation, market research, and consistent execution."
-          }
+          { name: "Answer five questions", text: "Pick your skills, an industry you know, how you want to earn, your hours per week and your starting budget. You can skip any question." },
+          { name: "Compare your shortlist", text: "Ideas that fit your answers come first, each with the reasons it fits and anything you would need to learn or add." },
+          { name: "Open the idea canvas", text: "See the problem, customer, first version, angle, channels, revenue, costs, the number to track and your edge on one page." },
+          { name: "Pressure test it", text: "Open a ready prompt in ChatGPT or Claude that lists risks, competitors to check and questions to ask customers." },
+          { name: "Run the 7 day test", text: "Talk to real customers, send a one page offer and ask for a commitment before you build anything." }
         ]}
       />
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://developersmatrix.com' },
-          { name: 'Tools', url: 'https://developersmatrix.com/tools' },
-          { name: 'Startup Idea Generator', url: 'https://developersmatrix.com/tools/startup-idea-generator' }
+          { name: 'Home', url: siteConfig.url },
+          { name: 'Tools', url: `${siteConfig.url}/tools` },
+          { name: 'Startup Idea Generator', url: `${siteConfig.url}/tools/startup-idea-generator` }
         ]}
       />
       <FAQSchema faqs={faqs} />
 
-      {/* Top Ad Banner */}
-      <div className="w-full bg-muted/30 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-          <SidebarAd />
-        </div>
-      </div>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Breadcrumb */}
-        <nav className="mb-6" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-            <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
-            <li>/</li>
-            <li><Link href="/tools" className="hover:text-primary transition-colors">Tools</Link></li>
-            <li>/</li>
-            <li className="text-foreground font-medium">Startup Idea Generator</li>
-          </ol>
-        </nav>
-
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-3">
-            <Badge variant="secondary" className="text-xs">
-              <Sparkles className="w-3 h-3 mr-1" />
-              2026 Ideas
-            </Badge>
-            <Badge variant="outline" className="text-xs">Free Tool</Badge>
+      <main className="pt-16">
+        {/* Hero */}
+        <section className="border-b border-stone-200 bg-[#f7f5f0] dark:border-stone-800 dark:bg-stone-950">
+          <div className="mx-auto max-w-[1400px] px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pb-10 lg:pt-12">
+            <nav aria-label="Breadcrumb" className="text-sm text-stone-500 dark:text-stone-400">
+              <Link href="/tools" className="hover:text-stone-900 dark:hover:text-white">Tools</Link>
+              <span className="mx-2 text-stone-300 dark:text-stone-600">/</span>
+              <span className="text-stone-700 dark:text-stone-300">Startup Idea Generator</span>
+            </nav>
+            <h1 className="mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-50 sm:text-5xl">
+              Free AI Startup Idea Generator 2026
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-stone-600 dark:text-stone-300">
+              Answer five quick questions and get startup and side business ideas that fit your skills, time and budget. Each idea opens as a one page canvas with a plan to test it on real customers in seven days.
+            </p>
+            <ul className="mt-6 flex flex-wrap gap-2 text-sm">
+              {[`${IDEA_COUNT} idea combinations`, `${INDUSTRY_COUNT} industries`, `${MODELS.length} ways to earn`, 'No signup'].map((t) => (
+                <li key={t} className="rounded-full border border-stone-300 bg-white px-3 py-1 font-medium text-stone-700 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200">{t}</li>
+              ))}
+            </ul>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Free AI Startup Idea Generator 2026
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl">
-            A startup idea generator uses AI to produce validated, market-aware business concepts based on your skills, interests, available resources, and target market. Unlike random idea lists, AI-powered generators in 2026 cross-reference current market gaps, search trend data, and competitive landscapes to surface ideas with genuine commercial potential.
-          </p>
-        </div>
+        </section>
 
-        {/* Benefits Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {[
-            { icon: Zap, title: "50+ Curated Ideas", desc: "Real business concepts with market data and feasibility scores" },
-            { icon: Target, title: "14 Industries", desc: "From AI agents to climate tech to robotics and biotech" },
-            { icon: TrendingUp, title: "2026 Market Data", desc: "Trending ideas based on current demand and emerging tech" },
-            { icon: Rocket, title: "MVP Timelines", desc: "Know exactly how long each idea takes to build and launch" }
-          ].map((benefit, i) => (
-            <Card key={i} className="border-primary/10">
-              <CardContent className="p-4">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-primary/10 rounded-lg shrink-0">
-                    <benefit.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sm mb-1">{benefit.title}</h3>
-                    <p className="text-xs text-muted-foreground">{benefit.desc}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Layout: Tool + Sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Tool */}
-          <div className="lg:col-span-2">
+        {/* Tool */}
+        <div className="mx-auto max-w-[1400px] px-3 pt-6 sm:px-6 lg:px-8">
+          <div id="startup-idea-generator" className="scroll-mt-20">
             <StartupIdeaClient />
+          </div>
+        </div>
 
-            {/* In-Content Ad */}
-            <div className="mt-8">
-              <InContentAd />
-            </div>
+        <InContentAd />
 
-            {/* What Makes Our Tool Different */}
-            <Card className="mt-8 border-primary/10">
-              <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  What Makes Our Startup Idea Generator Different
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
+        {/* Content */}
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-8 lg:flex-row">
+            <div className="min-w-0 flex-1">
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">
+                  Free Startup Idea Generator: Find a Business That Fits You
+                </h2>
+                <div className="space-y-4 text-stone-700 dark:text-stone-300">
+                  <p className="text-lg leading-relaxed">
+                    Most idea lists hand everyone the same ideas, often dressed up with market sizes and scores nobody can check. The ideas worth your time are the ones you can actually start: they use skills you have, serve people you understand, and fit the hours and money you can spare.
+                  </p>
+                  <p className="leading-relaxed">
+                    This generator starts with you. It matches {PATTERN_COUNT} proven ways of earning money, from services and templates to software and newsletters, with {INDUSTRY_COUNT} industries full of small businesses that have real, everyday problems. Then it gives you a small first step and a quick way to test it.
+                  </p>
+                </div>
+              </section>
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">How to Use the Startup Idea Generator</h2>
+                <ol className="space-y-5">
                   {[
-                    "Every idea includes a specific problem, concrete solution, real market size, and known competitors",
-                    "50+ curated concepts across 14 industries, not generic fluff or brainstorming filler",
-                    "2026 market data reflects current demand for AI agents, climate tech, robotics, and biotech",
-                    "Difficulty ratings and MVP timelines help you choose ideas matched to your skills and schedule",
-                    "Monetization strategy included for every idea so you know how to make money from day one",
-                    "Save, copy, and export ideas to use in pitch decks, business plans, or investor meetings",
-                    "No signup, no credit card, no limits. Generate unlimited ideas instantly"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">{item}</span>
+                    ["Answer the five questions", "Skills, an industry you know, how you want to earn, hours and budget. Skip any you are unsure about."],
+                    ["Read the shortlist", "Ideas that fit best come first. Each shows why it fits and what you would need to add, such as a skill or a partner."],
+                    ["Open the canvas", "One page with the problem, the customer, the smallest first version, your angle, where to find customers, revenue, costs, the number to track and your edge."],
+                    ["Pressure test it", "Open the ready prompt in ChatGPT or Claude to hear the strongest reasons it could fail."],
+                    ["Run the 7 day test", "Talk to real customers and ask for a real commitment before you spend months building."],
+                  ].map(([t, d], i) => (
+                    <li key={t} className="flex items-start gap-4">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-600 text-sm font-bold text-white">{i + 1}</span>
+                      <div>
+                        <h3 className="mb-1 font-semibold text-stone-900 dark:text-white">{t}</h3>
+                        <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">{d}</p>
+                      </div>
                     </li>
                   ))}
-                </ul>
-              </CardContent>
-            </Card>
+                </ol>
+              </section>
 
-            {/* Detailed SEO Content */}
-            <div className="mt-12 space-y-10">
-              <div>
-                <h2 className="text-2xl font-bold mb-4">How to Use the Startup Idea Generator</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <p className="text-muted-foreground leading-relaxed">
-                      Starting a business begins with finding the right problem to solve. Our startup idea generator helps you skip the blank page by surfacing validated business concepts across high-growth industries. Select a category that matches your skills and interests, then generate ideas until one resonates.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Each idea includes six key components: the problem worth solving, your proposed solution, market size, monetization path, competition level, and estimated MVP timeline. This structure gives you enough detail to evaluate an idea in under a minute.
-                    </p>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-muted-foreground leading-relaxed">
-                      Use the save feature to bookmark ideas you want to revisit. The copy button exports the full idea breakdown in a clean format you can paste into Notion, Google Docs, or a pitch deck. Generate multiple ideas in the same industry to spot patterns and opportunities others might miss.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      The generator works best when you treat it as a starting point, not a final answer. Pick an idea, validate it with potential customers, and adapt the solution to match what you learn. The market data and competitor lists we provide make that first step much faster.
-                    </p>
-                  </div>
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">How the Ideas Are Built</h2>
+                <div className="space-y-4 leading-relaxed text-stone-700 dark:text-stone-300">
+                  <p>
+                    Every idea is a combination of a business model and an industry. The models were written by hand, each with a first version, a revenue model, likely costs and honest risks. The industries describe who pays, who they serve and a common headache, such as missed appointments for clinics or chasing invoices for trades.
+                  </p>
+                  <p>
+                    Ideas are ranked with simple rules you can see: they move up when they use your skills, match the way you want to earn or sit in the industry you know, and move down when they need more money or hours than you have. The reasons are shown on every idea.
+                  </p>
+                  <p>
+                    What you will not find are viability scores, market sizes or growth rates. For an idea this early, those numbers would be invented. A week of talking to customers tells you far more.
+                  </p>
                 </div>
-              </div>
+              </section>
 
-              <div>
-                <h2 className="text-2xl font-bold mb-4">2026 Startup Trends to Watch</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <p className="text-muted-foreground leading-relaxed">
-                      AI agents are the defining trend of 2026. Unlike chatbots that respond to prompts, AI agents autonomously complete tasks: booking meetings, researching leads, writing reports, and managing workflows. Startups building agent platforms, agent marketplaces, and agent infrastructure are seeing unprecedented investor interest.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Climate tech continues its acceleration as regulatory pressure and consumer demand converge. Carbon accounting software, sustainable supply chain tools, and circular economy marketplaces are attracting serious capital. The market is less saturated than AI, creating bigger opportunities for early entrants.
-                    </p>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-muted-foreground leading-relaxed">
-                      Robotics and automation are crossing the chasm from industrial to consumer and small business applications. Warehouse automation, food service robots, and home maintenance drones are becoming economically viable. The hardware cost curve and AI vision advances make 2026 a unique window.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Vertical AI, which means AI trained for specific industries rather than general purpose, is proving more valuable than horizontal platforms. Healthcare diagnostics, legal document review, financial fraud detection, and manufacturing quality control all show stronger customer willingness to pay than generic AI tools.
-                    </p>
-                  </div>
+              <InContentAd />
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">Business Models Compared</h2>
+                <div className="overflow-x-auto rounded-2xl border border-stone-200 dark:border-stone-800">
+                  <table className="w-full min-w-[34rem] text-left text-sm">
+                    <thead className="bg-stone-50 text-[12px] uppercase tracking-[0.08em] text-stone-500 dark:bg-stone-900">
+                      <tr>
+                        <th scope="col" className="px-4 py-3 font-medium">Model</th>
+                        <th scope="col" className="px-4 py-3 font-medium">Start up cost</th>
+                        <th scope="col" className="px-4 py-3 font-medium">Time to first income</th>
+                        <th scope="col" className="px-4 py-3 font-medium">Main catch</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-stone-100 dark:divide-stone-800">
+                      {modelRows.map(([m, c, t, r]) => (
+                        <tr key={m}>
+                          <th scope="row" className="px-4 py-3 font-medium text-stone-900 dark:text-white">{m}</th>
+                          <td className="px-4 py-3 text-stone-600 dark:text-stone-400">{c}</td>
+                          <td className="px-4 py-3 text-stone-600 dark:text-stone-400">{t}</td>
+                          <td className="px-4 py-3 text-stone-600 dark:text-stone-400">{r}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              </div>
+                <p className="mt-3 text-[13px] text-stone-500">General guidance, not data. Your costs and timing depend on the idea and on you.</p>
+              </section>
 
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Turning an Idea into a Real Business</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <p className="text-muted-foreground leading-relaxed">
-                      The best validation is a paying customer. Once you generate an idea, create a simple landing page that describes the problem and solution. Run a small ad campaign or post in relevant communities. If people sign up or express interest, you have signal. If not, generate another idea.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Start with the easiest version of the idea that still solves the core problem. Our MVP timelines are estimates, but the principle is universal: launch something basic, learn from real users, and iterate. A six-month perfect product often loses to a two-week good enough product that gets feedback early.
-                    </p>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-muted-foreground leading-relaxed">
-                      Research the competitors we list for each idea. Do not be discouraged by existing players. Competition validates demand. Your job is to find an underserved segment, a better delivery model, or a specific pain point the incumbents ignore. Most billion-dollar companies started in crowded markets.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Monetization should be clear from week one. Whether it is SaaS subscriptions, transaction fees, or usage-based pricing, know how you will make money before you build. The monetization path we include for each idea is designed to be implementable with minimal complexity.
-                    </p>
-                  </div>
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">Turning an Idea into a Real Business</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {[
+                    ["Start with a service", "Doing the work by hand for a few paying customers teaches you the problem fast, and shows you what is worth turning into software later."],
+                    ["Talk before you build", "Ask people how they solve the problem today and what it costs them. Past behavior tells you more than opinions about the future."],
+                    ["Ask for money early", "A deposit, a preorder or a paid pilot is the clearest sign of demand. Friendly interest is not."],
+                    ["Keep the first version small", "Build only what your first customers need to get the result. Everything else can wait."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-800 dark:bg-stone-900">
+                      <h3 className="mb-2 font-semibold text-stone-900 dark:text-white">{t}</h3>
+                      <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">{d}</p>
+                    </div>
+                  ))}
                 </div>
-              </div>
+              </section>
 
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Related Tools for Entrepreneurs</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <Link href="/tools/budget-planner" className="group">
-                    <Card className="h-full hover:border-primary/50 transition-colors">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">Budget Planner</h3>
-                        <p className="text-sm text-muted-foreground">Plan your startup finances. Track runway, expenses, and cash flow before you launch.</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                  <Link href="/tools/ai-resume-builder" className="group">
-                    <Card className="h-full hover:border-primary/50 transition-colors">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">AI Resume Builder</h3>
-                        <p className="text-sm text-muted-foreground">Building a team? Create professional job postings and team profiles that attract talent.</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                  <Link href="/tools/productivity-planner" className="group">
-                    <Card className="h-full hover:border-primary/50 transition-colors">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">Productivity Planner</h3>
-                        <p className="text-sm text-muted-foreground">Manage your startup tasks, prioritize features, and track milestones efficiently.</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                  <Link href="/tools/ai-prompt-library" className="group">
-                    <Card className="h-full hover:border-primary/50 transition-colors">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">AI Prompt Library</h3>
-                        <p className="text-sm text-muted-foreground">Use curated AI prompts for market research, customer outreach, and content creation.</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                  <Link href="/tools/ai-email-assistant" className="group">
-                    <Card className="h-full hover:border-primary/50 transition-colors">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">AI Email Assistant</h3>
-                        <p className="text-sm text-muted-foreground">Draft investor pitches, partnership requests, and customer emails professionally.</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                  <Link href="/tools" className="group">
-                    <Card className="h-full hover:border-primary/50 transition-colors">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">All 20+ Free Tools</h3>
-                        <p className="text-sm text-muted-foreground">Explore our full collection of free AI-powered tools for developers and entrepreneurs.</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">Frequently Asked Questions</h2>
+                <div className="space-y-3">
+                  {faqs.map((faq) => (
+                    <details key={faq.question} className="group rounded-2xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold text-stone-900 dark:text-white">
+                        {faq.question}
+                        <span aria-hidden="true" className="text-stone-400 transition-transform group-open:rotate-45">+</span>
+                      </summary>
+                      <div className="border-t border-stone-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-stone-600 dark:border-stone-800 dark:text-stone-400">
+                        {faq.answer}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </section>
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">Related Tools for Entrepreneurs</h2>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {[
+                    ["/tools/budget-planner", "Budget Planner", "Plan what you can afford to spend while you test an idea."],
+                    ["/tools/ai-email-assistant", "AI Email Assistant", "Templates for cold introductions, follow ups and proposals."],
+                    ["/tools/ai-prompt-library", "AI Prompt Library", "Ready prompts for customer research, outreach and planning."],
+                    ["/tools/website-audit", "Website Audit", "Check the landing page for your offer before you share it."],
+                    ["/tools/productivity-planner", "Productivity Planner", "Plan your test week around the hours you have."],
+                    ["/tools", "View all free tools", "Planners, checkers, calculators and more."],
+                  ].map(([href, t, d]) => (
+                    <Link key={href} href={href} className="group block rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-orange-300 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-orange-700">
+                      <h3 className="mb-2 font-semibold text-stone-900 group-hover:text-orange-700 dark:text-white dark:group-hover:text-orange-400">{t}</h3>
+                      <p className="text-sm text-stone-600 dark:text-stone-400">{d}</p>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            </div>
+
+            {/* Sidebar */}
+            <div className="flex-shrink-0 lg:w-80">
+              <div className="sticky top-24 space-y-6">
+                <SidebarAd />
+                <div className="rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-800 dark:bg-stone-900">
+                  <h3 className="mb-2 font-semibold text-stone-900 dark:text-white">Founder tip</h3>
+                  <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                    The best ideas often come from problems you have seen up close. Use the generator for a starting point, then ask people in that industry what annoys them every week.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-800 dark:bg-stone-900">
+                  <h3 className="mb-4 font-semibold text-stone-900 dark:text-white">Related Resources</h3>
+                  <ul className="space-y-3 text-sm">
+                    {[
+                      ["/trends/ai-side-hustles-make-money-2026", "AI Side Hustles Report"],
+                      ["/blog/ai-automation-business-ideas-2026", "AI Automation Business Ideas"],
+                      ["/blog/how-to-start-an-ai-automation-agency-2026", "How to Start an AI Automation Agency"],
+                    ].map(([href, t]) => (
+                      <li key={href}>
+                        <Link href={href} className="text-orange-700 hover:underline dark:text-orange-400">{t}</Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
-
-            {/* FAQ Section */}
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-              <Accordion type="single" collapsible className="w-full">
-                {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`}>
-                    <AccordionTrigger className="text-left text-base font-medium">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-
-            {/* Back to Tools */}
-            <div className="mt-12 flex items-center gap-4">
-              <Link href="/tools">
-                <Button variant="outline" className="gap-2">
-                  <ArrowLeft className="w-4 h-4" />
-                  Back to All Tools
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <Card className="border-primary/10">
-              <CardHeader>
-                <CardTitle className="text-lg">Tool Info</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Category</span>
-                  <Badge variant="secondary">Productivity</Badge>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Price</span>
-                  <Badge variant="secondary">Free</Badge>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Ideas</span>
-                  <Badge variant="secondary">50+</Badge>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Industries</span>
-                  <Badge variant="secondary">14</Badge>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Market Data</span>
-                  <Badge variant="secondary">2026</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <SidebarAd />
-
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
-              <CardContent className="p-4">
-                <h3 className="font-semibold mb-2">Founder Tip</h3>
-                <p className="text-sm text-muted-foreground">
-                  The best startup ideas come from problems you personally experience. Use this generator for inspiration, then look for pains in your own work and life.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Trending Industries 2026</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {[
-                  { industry: "AI Agents", trend: "Hot" },
-                  { industry: "Climate Tech", trend: "Rising" },
-                  { industry: "Robotics", trend: "Rising" },
-                  { industry: "Biotech", trend: "Hot" },
-                  { industry: "Cybersecurity", trend: "Stable" },
-                  { industry: "DevTools", trend: "Hot" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center justify-between text-sm py-1">
-                    <span>{item.industry}</span>
-                    <Badge variant="outline" className={
-                      item.trend === 'Hot' ? 'text-red-600 border-red-200' :
-                      item.trend === 'Rising' ? 'text-orange-600 border-orange-200' :
-                      'text-blue-600 border-blue-200'
-                    }>
-                      {item.trend}
-                    </Badge>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
           </div>
         </div>
       </main>
-
-      {/* SEO Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Free Startup Idea Generator: Discover Your Next Business Venture in 2026
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Every successful startup begins with a single idea. But finding that idea, one that matches your skills, interests and market timing, is the hardest part. Our <strong>free startup idea generator</strong> uses AI to combine trending industries, emerging technologies, and real market gaps into actionable business concepts. No brainstorming sessions, no blank page anxiety, just validated ideas you can research and build.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Why Use a Startup Idea Generator in 2026
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            The startup landscape is changing rapidly. AI agents, climate tech, biotech, and robotics are creating new opportunities faster than traditional market research can track. Our <strong>AI startup idea generator</strong> synthesizes data from trending industries, emerging technologies, and consumer pain points to generate ideas that are timely and relevant. Each idea includes a problem statement, target audience, revenue model, and implementation difficulty, so you can evaluate before committing months of effort.
-          </p>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            In 2026, solo founders and small teams are building million-dollar businesses with AI tools. The barrier to entry has never been lower. What matters now is choosing the right problem to solve. Our generator helps you skip the ideation paralysis and move straight to validation and building.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Trending Industries for Startups in 2026
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🤖 AI Agents</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Autonomous AI systems that handle customer service, coding, research, and content creation. The AI agent market is projected to grow 10x by 2027.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🌱 Climate Tech</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Carbon accounting, sustainable supply chains, energy optimization, and climate risk analytics. ESG mandates are driving enterprise demand.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🏥 Health Tech</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Remote patient monitoring, mental health apps, personalized nutrition, and AI diagnostics. Post-pandemic healthcare is permanently digital-first.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🔒 Cybersecurity</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Zero-trust infrastructure, AI threat detection, identity management, and privacy compliance. Breaches are up 40% year-over-year.</p>
-            </div>
-          </div>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Related Tools for Entrepreneurs
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-3 mb-8">
-            <a href="/tools/budget-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">💰</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Budget Planner</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Plan your startup finances</p>
-              </div>
-            </a>
-            <a href="/tools/productivity-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📅</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Productivity Planner</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Manage your time as a founder</p>
-              </div>
-            </a>
-            <a href="/tools/ai-prompt-library" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">🤖</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Prompt Library</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">500+ prompts for building with AI</p>
-              </div>
-            </a>
-            <a href="/blog/ai-automation-business-ideas-2026" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📚</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Automation Business Ideas</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">2026 guide to AI-powered businesses</p>
-              </div>
-            </a>
-            <a href="/blog/ai-side-hustles-2026-make-money" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">💰</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Side Hustles Guide</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Real ways to make money with AI</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-6 border border-yellow-100 dark:border-yellow-800">
-            <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-200 mb-2">
-              Generate Your First Idea Today
-            </h3>
-            <p className="text-yellow-800 dark:text-yellow-300 text-sm mb-4">
-              The best time to start a business was yesterday. The second best time is today. Use our free generator to discover ideas that match your skills and market timing.
-            </p>
-            <p className="text-yellow-700 dark:text-yellow-400 text-xs">
-              100% free. No signup. Unlimited ideas.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

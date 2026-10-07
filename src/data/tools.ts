@@ -112,36 +112,20 @@ const salaryEstimatorFaqs: FAQ[] = [
 
 const startupIdeaFaqs: FAQ[] = [
   {
-    question: "How does the AI Startup Idea Generator work?",
-    answer: "Our generator uses a curated database of innovative business concepts organized by industry. Select a category like AI, SaaS, FinTech, or Climate Tech, and we will surface a detailed startup idea complete with problem statement, solution, market size, monetization strategy, competition analysis, difficulty rating, and estimated MVP timeline."
+    question: "How does the Startup Idea Generator work?",
+    answer: "Answer five questions about your skills, an industry you know, how you want to earn, your hours and your budget. It combines hand written business models with industries and ranks the ideas by how well they fit you. Each idea opens as a one page canvas with a 7 day test plan."
   },
   {
-    question: "Are the generated ideas actually viable in 2026?",
-    answer: "Yes. Every idea in our database is grounded in current market trends, real demand signals, and proven business models. We update the database quarterly to reflect 2026 market conditions, emerging technologies, and shifting consumer behaviors. Ideas include realistic market sizing, actual competitor names, and feasible monetization paths."
+    question: "Are the ideas validated?",
+    answer: "No tool can validate an idea for you, so there are no viability scores or market sizes. Each idea comes with a 7 day plan to test it with real customers before you build."
   },
   {
-    question: "Can I refine or expand on a generated idea?",
-    answer: "Absolutely. When you generate an idea, you can save it to your list, copy the full breakdown to your notes, or generate another variation in the same industry. Each idea comes with enough detail to serve as a starting point for a pitch deck, business plan, or MVP scope."
+    question: "Can I save ideas?",
+    answer: "Yes. Saved ideas and your answers are kept in your own browser. You can also copy the canvas or share a link to an idea."
   },
   {
-    question: "What industries are covered?",
-    answer: "We cover SaaS, AI and Machine Learning, FinTech, HealthTech, EdTech, E-commerce, Climate Tech, Creator Economy, DevTools, HR Tech, Robotics, Biotech, Cybersecurity, and Space Tech. Each industry contains multiple ideas ranging from easy weekend projects to ambitious venture-scale concepts."
-  },
-  {
-    question: "Does each idea include an MVP timeline?",
-    answer: "Yes. Every idea includes an estimated time to MVP ranging from 2 weeks to 8+ months. The timeline accounts for complexity, regulatory requirements, technical difficulty, and team size assumptions. This helps you pick an idea that matches your available time and resources."
-  },
-  {
-    question: "Is this startup idea generator free to use?",
-    answer: "Yes, completely free. No signup, no credit card, no limits. Generate as many ideas as you want, save your favorites, and copy the full details to use in your own planning."
-  },
-  {
-    question: "How can I validate these ideas before building?",
-    answer: "Start by researching the competitors we list. Check if the problem resonates by posting in relevant communities or running a simple landing page test. Look at the market size we provide and see if you can carve out a niche. The ideas are designed to be specific enough that validation is straightforward."
-  },
-  {
-    question: "What makes these ideas different from generic lists?",
-    answer: "Unlike generic idea lists, each concept includes a specific problem worth solving, a concrete solution, real market data, known competitors, a clear monetization path, and a realistic difficulty assessment. They are designed as starting points for real businesses, not brainstorming fluff."
+    question: "Is it free?",
+    answer: "Yes. Free with no signup and no limits."
   }
 ];
 
@@ -321,23 +305,23 @@ export const tools: Tool[] = [
     id: 'startup-idea-generator',
     slug: 'startup-idea-generator',
     name: 'Startup Idea Generator',
-    description: 'Spark your entrepreneurial journey with AI-generated startup ideas. Get innovative business concepts, market analysis, and implementation suggestions tailored to your interests and expertise.',
-    shortDescription: 'Generate innovative business ideas with AI',
+    description: 'Answer five questions and get startup and side business ideas matched to your skills, time and budget. Each idea opens as a one page canvas with risks and a 7 day plan to test it with real customers.',
+    shortDescription: 'Business ideas matched to your skills, with a test plan',
     icon: 'Lightbulb',
     category: 'productivity',
     features: [
-      'Industry-specific ideas',
-      'Market opportunity analysis',
-      'Implementation suggestions',
-      'Resource requirements',
-      'Monetization strategies',
-      'Competitor landscape'
+      'Ideas matched to your skills, time and budget',
+      'Twenty industries and five ways to earn',
+      'One page idea canvas',
+      'Seven day customer test plan',
+      'Pressure test prompt for ChatGPT or Claude',
+      'Saved ideas and share links'
     ],
     benefits: [
-      'Discover untapped opportunities',
-      'Validate business concepts',
-      'Get implementation guidance',
-      'Save research time'
+      'Start from what you already know',
+      'Compare ideas against your real time and budget',
+      'Test with customers before you build',
+      'See the risks early'
     ],
     faqs: startupIdeaFaqs,
     keywords: ['startup ideas', 'business ideas', 'AI business generator', 'entrepreneur ideas', 'startup generator'],
