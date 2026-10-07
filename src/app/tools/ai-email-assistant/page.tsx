@@ -1,50 +1,67 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { generatePageMetadata, toolMetadata } from '@/lib/seo/metadata';
 import { siteConfig } from "@/data/config";
 import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
 import { FAQSchema, BreadcrumbSchema, SoftwareApplicationSchema, HowToSchema } from "@/components/seo/SchemaMarkup";
+import { SCENARIOS } from "@/lib/email/scenarios";
+import { GROUPS, TONES } from "@/lib/email/template";
 import AIEmailAssistantClient from "./AIEmailAssistantClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata['ai-email-assistant']);
 
+// Counts come from the template library, so the copy never claims more than exists.
+const SCENARIO_COUNT = SCENARIOS.length;
+const TONE_COUNT = TONES.length;
+const EMAIL_COUNT = SCENARIO_COUNT * TONE_COUNT;
+
 const toolFaqs = [
   {
     question: "Is the AI Email Assistant completely free to use?",
-    answer: "Yes, 100 percent free with no signup and no credit card required. You can draft, rewrite, and generate unlimited emails. Unlike premium tools that charge 10 to 30 dollars per month for basic email features, we believe professional communication should be accessible to everyone. There are no daily limits, no watermarks, and no premium tiers hiding behind a paywall."
+    answer: `Yes. It is free with no signup and no limits. You can use all ${SCENARIO_COUNT} email templates, check as many drafts as you like and build as many AI prompts as you need.`
   },
   {
     question: "How does the AI Email Assistant actually work?",
-    answer: "You choose a mode (draft, rewrite, reply or tone adjust), then enter your input. For drafts, you write a brief note like 'ask John for the API docs by Friday' and the tool generates a complete professional email with subject line, greeting, body, and sign-off. For rewrites, you paste an existing email and select a new tone. The AI restructures sentences, adjusts formality, and polishes the message while preserving your core intent. For replies, you paste the email you received and describe how you want to respond. For tone adjustment, you pick from professional, friendly, formal, casual, persuasive, or empathetic. The tool processes everything locally in your browser, so your content never leaves your device."
+    answer: `It has three parts. Write gives you ${SCENARIO_COUNT} common work emails, each written by hand in ${TONE_COUNT} tones, with the blanks right inside the email for you to fill in. Check reads a draft you paste and points out problems such as a vague subject line, no clear ask, stock phrases or blanks left in brackets. Use AI builds a careful prompt from your email, the tone and what you want to say, and opens it in ChatGPT or Claude, where the actual rewriting or replying happens. The templates and the checker run in your browser and do not use AI.`
   },
   {
     question: "Will people know I used AI to write my emails?",
-    answer: "Not if you review the output. The AI generates natural, professional language that sounds human. However, you should always read the draft before sending. Add personal details the AI could not know, adjust any phrasing that does not sound like your voice, and verify that technical terms match your actual expertise level. The tool handles the heavy lifting of structure and tone. You provide the human touches that make the email authentic."
+    answer: "The templates are plain, natural emails written by a person, and you fill in the real details, so they read like you wrote them. If you use the AI option, read the answer before you send it, add details only you know and change anything that does not sound like you. The prompt asks the AI not to invent facts and to leave gaps in brackets instead."
   },
   {
     question: "Can I use this for job applications and cold outreach?",
-    answer: "Absolutely. The email assistant is particularly strong for professional scenarios that developers and freelancers face daily. Job application follow-ups, cold outreach to hiring managers, client proposal emails, project update summaries, meeting requests, and resignation letters all work well. The persuasive tone mode is especially useful for cold outreach, while the professional mode is ideal for job-related communication. For cover letters specifically, we recommend using our dedicated AI Cover Letter Generator, which is optimized for that format."
+    answer: "Yes. The templates include thanking someone after an interview, following up on an application, accepting or declining an offer, asking for a referral, resigning and introducing yourself to a new contact. For a full cover letter, the AI Cover Letter Generator on this site is built for that format."
   },
   {
     question: "Does it support multiple languages?",
-    answer: "Yes. The AI Email Assistant can draft and rewrite emails in English, Spanish, French, German, Portuguese, Italian, Dutch, and more. When you select a language, the tool adapts not just vocabulary but also cultural conventions for formality, greeting structures, and closing phrases. This is especially helpful for non-native English speakers who need to communicate professionally with international teams or clients."
+    answer: "The templates and the draft checker are in English only. If you need an email in another language, use the Use AI option and add the language to the notes, for example \"write the reply in Spanish\". ChatGPT and Claude can both write in many languages, but check the result with a fluent speaker for anything important."
   },
   {
     question: "Is my email content private and secure?",
-    answer: "Yes, all processing happens entirely in your browser using client-side AI. Your email content is never sent to our servers or stored in any database. This is a deliberate design choice. Emails often contain sensitive information: salary negotiations, project details, personal circumstances, or confidential client data. By processing everything locally, we ensure that only you ever see your content. You can use the tool for sensitive communication with full confidence."
+    answer: "Writing from a template and checking a draft both happen in your browser. Nothing you type there is sent to DevelopersMatrix. The only thing remembered is your own name and preferred tone, saved in this browser so you do not have to retype them. If you click Open in ChatGPT or Open in Claude, your text is placed in that service's address bar and handled under its privacy rules, so remove private details first if you need to."
   },
   {
-    question: "What are the most common email mistakes this tool prevents?",
-    answer: "The tool catches and prevents the six most damaging email mistakes that professionals make. First, it eliminates vague subject lines by generating specific, action-oriented subjects that get opened. Second, it prevents overly long emails by structuring concise, scannable messages. Third, it fixes tone mismatches by calibrating formality to the relationship level. Fourth, it removes filler words and passive voice that weaken your message. Fifth, it ensures proper greeting and closing conventions so you never accidentally sound too casual with a CEO or too stiff with a teammate. Sixth, it prevents forgetting calls to action by explicitly including next steps in every email."
+    question: "What are the most common email mistakes this tool catches?",
+    answer: "The draft checker flags a missing or vague subject line, a missing greeting or sign off, no clear next step for the reader, stock phrases such as \"just wanted to touch base\" or \"please advise\", too many softening words like \"maybe\" and \"I think\", repeated apologies, shouting in capitals, extra exclamation marks, very long sentences or paragraphs, repeated words and blanks left in brackets. It also reminds you to attach a file when the email mentions an attachment."
   },
   {
     question: "How much time can this tool realistically save me?",
-    answer: "Most users save 5 to 15 minutes per email. If you send 10 emails per day, that is 50 to 150 minutes saved daily. For developers and freelancers who communicate frequently with clients, managers, and teams, the time savings compound quickly. The tool is especially valuable for emails you dread writing: difficult conversations, salary negotiations, project delay explanations, or saying no to requests. These emails often take 20 to 30 minutes of mental preparation and drafting. The tool reduces that to under 2 minutes of input and review."
+    answer: "It depends on how you write now, so we do not put a number on it. Where it helps most is the emails people put off: declining something, chasing a late invoice, apologizing or asking for more time. Starting from a clear structure and only filling in your details is usually much quicker than starting from a blank screen."
   }
 ];
 
-export default function AIEmailAssistantPage() {
-  const toolFaqsForSchema = toolFaqs.map(faq => ({ question: faq.question, answer: faq.answer }));
+const mistakes = [
+  ["Vague Subject Lines", "Subject lines like \"Update\" or \"Question\" give the reader no reason to open the email now and make it hard to find later.", "Name the topic and, if it matters, the date: \"Invoice 1042 due Friday\" or \"Launch plan: need your sign off\". The checker flags vague and very long subjects."],
+  ["Wrong Tone for the Relationship", "Writing too casually to someone senior can read as careless. Writing too formally to a teammate can read as cold.", "Pick the tone for the person, not the topic. Every template comes in Friendly, Professional and Formal, and your answers stay when you switch."],
+  ["Missing Call to Action", "An email that ends without a next step leaves the reader guessing what you want, so often nothing happens.", "Say what you need and by when: \"Could you approve this by Thursday?\" The checker notes when an email has no clear ask."],
+  ["Hedging and Filler Words", "\"I was just wondering if maybe you could possibly...\" makes a reasonable request sound unsure.", "Ask directly and politely. The checker highlights softening words and stock phrases and suggests what to say instead."],
+  ["Too Long or Too Short", "A wall of text gets skimmed. A one line email can feel abrupt and leave out what the reader needs.", "Lead with the point, keep one idea per paragraph and move background to the end. The checker flags very short emails, very long ones and paragraphs over 90 words."],
+  ["Forgetting to Proofread", "Repeated words, blanks left in brackets and a missing attachment are easy to miss when you are in a hurry.", "Run the draft through the checker, then read it once out loud before you send it."],
+];
 
+const scenariosByGroup = GROUPS.map((g) => ({ group: g, list: SCENARIOS.filter((s) => s.group === g) }));
+
+export default function AIEmailAssistantPage() {
   return (
     <>
       <BreadcrumbSchema
@@ -58,345 +75,170 @@ export default function AIEmailAssistantPage() {
         name="DevelopersMatrix AI Email Assistant"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
-        description="Free AI-powered email assistant that drafts professional emails from brief notes, rewrites for tone, and generates replies. No signup needed."
+        description={`Free email assistant with ${SCENARIO_COUNT} email templates in ${TONE_COUNT} tones, a draft checker, and ready prompts to reply or rewrite in ChatGPT or Claude. No signup.`}
         url={`${siteConfig.url}/tools/ai-email-assistant`}
-        offers={{
-          price: "0",
-          priceCurrency: "USD"
-        }}
+        offers={{ price: "0", priceCurrency: "USD" }}
       />
-      <FAQSchema faqs={toolFaqsForSchema} />
-
+      <FAQSchema faqs={toolFaqs} />
       <HowToSchema
-        name="How to Write Professional Emails with AI Assistance"
-        description="Step-by-step guide to using the DevelopersMatrix AI Email Assistant to draft, rewrite, and reply to professional emails in under 2 minutes."
+        name="How to Write a Professional Email With the AI Email Assistant"
+        description="Pick a situation, fill in the blanks inside the email, check it, then copy it or open it in your mail app."
         url={`${siteConfig.url}/tools/ai-email-assistant`}
-        totalTime="PT2M"
+        totalTime="PT3M"
         estimatedCost={{ currency: 'USD', value: '0' }}
         tool={['Web browser', 'AI Email Assistant']}
         step={[
-          {
-            name: "Choose your email mode",
-            text: "Select Draft to write a new email from scratch, Rewrite to improve an existing email, Reply to respond to a received message, or Tone Adjust to change the formality level. Each mode uses different AI prompting strategies optimized for that specific task. Draft mode is best for starting fresh; Rewrite mode is best when you have a rough version that needs polishing."
-          },
-          {
-            name: "Enter your brief input",
-            text: "For Draft mode, write a simple note describing what you want to communicate. Example: 'Ask John for the API documentation by Friday, mention we are blocked until we receive it.' For Reply mode, paste the email you received and describe your response intent. For Rewrite mode, paste your existing email and select the desired tone. The more specific your input, the better the output. Vague inputs produce generic emails."
-          },
-          {
-            name: "Select tone and language",
-            text: "Choose from 6 tone presets: Professional (standard business communication), Friendly (warm but respectful), Formal (executive-level, legal, or official), Casual (internal team communication), Persuasive (sales, proposals, requests), and Empathetic (difficult conversations, apologies, support). Select your output language if writing in a non-English language. The tool adapts cultural conventions for greetings, formality, and closing phrases."
-          },
-          {
-            name: "Generate and review the draft",
-            text: "Click Generate to produce the complete email with subject line, greeting, structured body, and sign-off. Review every sentence for accuracy, tone appropriateness, and personal relevance. Add specific details the AI could not know (project names, personal references, inside jokes). Adjust any phrasing that does not sound like your voice. The AI handles structure and tone; you provide authenticity and context."
-          },
-          {
-            name: "Copy and send",
-            text: "Copy the finalized email to your clipboard and paste it into your email client. The tool does not send emails directly. This ensures you maintain full control over your communication channel and records. For frequently used templates, save the prompt and settings in the tool for future reuse. Track which templates you use most and refine them over time."
-          }
+          { name: "Pick a situation", text: `Choose one of ${SCENARIO_COUNT} situations, such as asking for more time, following up on an application or reminding a client about an invoice.` },
+          { name: "Choose a tone", text: "Pick Friendly, Professional or Formal. The email changes, and anything you already filled in stays." },
+          { name: "Fill in the blanks", text: "Type your details straight into the highlighted blanks in the subject and the email. The side panel shows which blanks are left." },
+          { name: "Check it", text: "Read the checks in the side panel, or paste any draft into Check a draft to see problems marked in the text." },
+          { name: "Send it", text: "Copy the email, or open it as a draft in Gmail, Outlook or your mail app. To reply to or rewrite a different email, use the AI option to open a ready prompt in ChatGPT or Claude." }
         ]}
       />
 
       <main className="pt-16">
-        {/* Tool Interface */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-4 gap-6">
-            <div className="lg:col-span-3">
-              <div id="ai-email-assistant">
-                <AIEmailAssistantClient />
+        {/* Hero */}
+        <section className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
+          <div className="mx-auto max-w-[1400px] px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pb-10 lg:pt-12">
+            <nav aria-label="Breadcrumb" className="text-sm text-zinc-500 dark:text-zinc-400">
+              <Link href="/tools" className="hover:text-zinc-900 dark:hover:text-white">Tools</Link>
+              <span className="mx-2 text-zinc-300 dark:text-zinc-600">/</span>
+              <span className="text-zinc-700 dark:text-zinc-300">AI Email Assistant</span>
+            </nav>
+            <div className="mt-4 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+              <div>
+                <h1 className="max-w-3xl text-balance text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+                  AI Email Assistant
+                </h1>
+                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  Write a clear work email in a few minutes. Pick a situation and fill in the blanks right inside the email, check any draft for common mistakes, or hand a reply or rewrite to ChatGPT or Claude with a ready prompt.
+                </p>
               </div>
+              <ul className="flex flex-wrap gap-2 text-sm lg:justify-end">
+                {[`${SCENARIO_COUNT} situations`, `${TONE_COUNT} tones each`, 'Draft checker', 'No signup'].map((t) => (
+                  <li key={t} className="rounded-full border border-zinc-200 bg-white px-3 py-1 font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">{t}</li>
+                ))}
+              </ul>
             </div>
-            <div className="lg:col-span-1 space-y-6">
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">2026 Email Stats</h3>
-                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                  <li className="flex justify-between items-center">
-                    <span>Daily emails sent globally</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">347 billion</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Avg. time to read email</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">8 seconds</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Bad tone hurts reply rate</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">40% less</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Professionals who dread email</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">62%</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Time saved per email with AI</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">5-15 min</span>
-                  </li>
-                </ul>
-              </div>
-              <SidebarAd />
-            </div>
+          </div>
+        </section>
+
+        {/* Tool */}
+        <div className="mx-auto max-w-[1400px] px-2 pt-6 sm:px-6 lg:px-8">
+          <div id="ai-email-assistant" className="scroll-mt-20">
+            <AIEmailAssistantClient />
           </div>
         </div>
 
         <InContentAd />
 
-        {/* SEO Content */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col lg:flex-row gap-8">
-            <div className="flex-1">
+        {/* Content */}
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-8 lg:flex-row">
+            <div className="min-w-0 flex-1">
 
-              {/* Quick Answer */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Quick Answer
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
+                  Free AI Email Assistant: Write Professional Emails Faster
                 </h2>
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+                <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
                   <p className="text-lg leading-relaxed">
-                    An AI email assistant is a tool that uses large language models to draft, rewrite, summarize, and respond to emails automatically. In 2026, AI email assistants can match a user's writing tone, handle routine correspondence independently, and reduce email processing time by 60 to 80% for professionals managing high email volume.
-                  </p>
-                </div>
-              </section>
-
-              {/* Introduction */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Why Professional Email Writing Matters More Than Ever in 2026
-                </h2>
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                  <p className="text-lg leading-relaxed">
-                    Email remains the dominant communication channel for professionals, with over 347 billion emails sent daily worldwide. Yet a 2026 workplace communication study found that 62 percent of professionals actively dread writing emails, and 40 percent of poorly written emails never receive a reply. The cost of bad email communication is real: missed opportunities, damaged relationships, and hours of mental energy spent agonizing over wording.
+                    Most work emails follow a pattern. A follow up needs a reminder of what you asked and a polite nudge. A request for more time needs a reason and a new date. The hard part is usually the wording, not the content.
                   </p>
                   <p className="leading-relaxed">
-                    The AI Email Assistant solves this by handling the structure, tone, and polish while you provide the intent and personal details. You write a brief note like "ask for deadline extension because of sick team member" and receive a complete, professionally phrased email in under 3 seconds. The tool is not replacing your judgment. It is removing the friction that makes email writing exhausting, so you can focus on what matters: the message itself.
+                    This assistant gives you {EMAIL_COUNT} ready emails ({SCENARIO_COUNT} situations in {TONE_COUNT} tones) with the structure already right, so you only add your details. When you need something a template cannot do, like answering a long email you received, it builds a careful prompt for ChatGPT or Claude that tells the AI to keep your facts and not make anything up.
                   </p>
                 </div>
               </section>
 
-              <InContentAd />
-
-              {/* Features */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Four Ways the AI Email Assistant Transforms Your Communication
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
+                  Three Ways to Use the Email Assistant
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold">1</span>
-                      Draft from Brief Notes
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Turn a sentence like "schedule standup for Tuesday 10am with backend team" into a complete professional email with proper subject line, greeting, body, and sign-off. The AI infers context, adds polite framing, and structures the message for maximum clarity.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-sm font-bold">2</span>
-                      Rewrite for Any Tone
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Paste an email you already wrote and instantly shift the tone. Make a casual message formal for a CEO. Soften a harsh message for a sensitive situation. Add persuasion for a sales pitch. The AI preserves your meaning while adapting the emotional register.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold">3</span>
-                      Generate Smart Replies
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Paste the email you received, describe how you want to respond, and get a complete reply drafted for you. Perfect for complex responses where you know what you want to say but struggle to phrase it diplomatically.
-                    </p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-sm font-bold">4</span>
-                      Privacy-First Design
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      All processing happens in your browser. Your emails are never sent to our servers, never stored in a database, and never used to train models. This is critical for salary negotiations, confidential project discussions, and personal communication.
-                    </p>
-                  </div>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {[
+                    ["Write from a template", "Pick a situation and a tone. The blanks sit inside the email, so you see the finished message as you type. Copy it or open it as a draft in Gmail, Outlook or your mail app."],
+                    ["Check a draft", "Paste any email you wrote. The checker marks problems in the text and explains each one. It runs in your browser and does not use AI."],
+                    ["Reply or rewrite with AI", "Paste an email, choose what you want to say, the tone and length. You get a prompt you can open in ChatGPT or Claude, or copy into any assistant."],
+                  ].map(([t, d], i) => (
+                    <div key={t} className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+                      <span className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white">{i + 1}</span>
+                      <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">{t}</h3>
+                      <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{d}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="mb-12">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
+                  Email Templates Included
+                </h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {scenariosByGroup.map(({ group, list }) => (
+                    <div key={group} className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                      <h3 className="mb-3 font-semibold text-zinc-900 dark:text-white">{group}</h3>
+                      <ul className="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+                        {list.map((s) => <li key={s.id}>{s.name}</li>)}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </section>
 
               <InContentAd />
 
-              {/* Mistakes */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
                   Six Email Mistakes That Cost You Opportunities
                 </h2>
-                <div className="space-y-6">
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">1</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Vague Subject Lines</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Subject lines like "Update" or "Question" get ignored. Busy professionals decide whether to open an email in under 2 seconds based on the subject alone.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Use specific, actionable subjects. Instead of "Update," write "Backend API Migration Complete: QA Ready for Testing." The AI generates these automatically.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">2</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Wrong Tone for the Relationship</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Writing too casually to a senior executive sounds disrespectful. Writing too formally to a close colleague sounds stiff and distant. Tone mismatch is the most common email mistake.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> The tone selector lets you calibrate precisely. Professional for executives and clients. Friendly for teammates. Formal for legal and compliance. Persuasive for pitches and proposals.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">3</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Missing Call to Action</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Emails that end without a clear next step create ambiguity. The recipient wonders "what do they want from me?" and often does nothing.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> Every email the tool generates includes an explicit call to action. "Please review and approve by Thursday," "Let me know your availability for a 30-minute call," or "Reply with your thoughts by end of week."</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">4</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Passive Voice and Filler Words</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">"I was wondering if it might be possible to potentially consider..." This phrasing sounds tentative and undermines your credibility. Passive voice makes you sound like an observer rather than a decision-maker.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> The rewrite mode converts passive constructions to active voice. "Please review the proposal by Friday" is stronger than "It would be appreciated if the proposal could be reviewed."</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">5</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Too Long or Too Short</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Wall-of-text emails get skimmed or skipped. One-sentence emails can seem abrupt or dismissive. The optimal email length is 75 to 150 words for most professional communication.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> The tool structures emails into scannable paragraphs with clear topic sentences. It adds enough detail to be useful without overwhelming the reader.</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">6</span>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Forgetting to Proofread</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Typos in professional emails signal carelessness. A 2026 study found that emails with spelling errors are 24 percent less likely to receive a positive response, regardless of content quality.</p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mt-1"><strong className="text-gray-900 dark:text-white">Fix:</strong> The AI generates grammatically correct text by default. Combined with your review, this dramatically reduces error rates. The tool also catches common issues like mismatched formal/informal register within the same email.</p>
-                    </div>
-                  </div>
-                </div>
+                <ol className="space-y-6">
+                  {mistakes.map(([t, p, fix], i) => (
+                    <li key={t} className="flex items-start gap-4">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-bold text-white dark:bg-white dark:text-zinc-900">{i + 1}</span>
+                      <div>
+                        <h3 className="mb-1 font-semibold text-zinc-900 dark:text-white">{t}</h3>
+                        <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{p}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400"><strong className="text-zinc-900 dark:text-white">Fix:</strong> {fix}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
               </section>
 
-              <InContentAd />
-
-              {/* Use Cases */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
                   Six Professional Scenarios Where This Tool Shines
                 </h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Job Application Follow-Up</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Applied two weeks ago and heard nothing? Generate a polite, professional follow-up that shows continued interest without sounding desperate. The persuasive tone adds just the right level of enthusiasm.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Cold Outreach to Hiring Managers</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Reaching out to someone you do not know requires a careful balance of confidence and respect. The tool structures cold emails with a compelling hook, relevant credential, and a low-friction ask that gets responses.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Difficult Team Conversations</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Need to push back on an unrealistic deadline? Address a code quality issue with a senior engineer? The empathetic tone helps you communicate hard truths without damaging relationships.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Meeting Requests and Scheduling</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Scheduling emails are repetitive but need to be precise. The tool generates meeting requests with clear agendas, time options, and preparation instructions so attendees know exactly what to expect.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Client and Stakeholder Updates</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Weekly project updates, milestone announcements, and blocker escalations all follow predictable structures. The tool generates these efficiently while letting you customize the specific details for each client.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Non-Native English Communication</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">For developers and professionals who are not native English speakers, the tool is invaluable. It generates natural, idiomatic phrasing that sounds like a native speaker wrote it, eliminating the subtle awkwardness that can undermine credibility.</p>
-                  </div>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {[
+                    ["Job Application Follow Up", "Heard nothing after a week or two? The follow up template reminds them when you applied and adds one new reason you fit, without sounding pushy."],
+                    ["Cold Outreach", "The introduction template keeps it short: who you are, something specific about them, one piece of proof and one easy ask."],
+                    ["Saying No", "Decline a request with a reason and an alternative, so the answer is clear and the relationship stays intact."],
+                    ["Meeting Requests", "Say why you want to meet, how long it takes and offer real times, so the reply can be a simple yes."],
+                    ["Chasing an Invoice", "Lead with the facts: invoice number, amount, due date and how to pay. Polite, firm and easy to act on."],
+                    ["Writing in Your Second Language", "Start from a natural template, then use the checker. For anything else, the AI option can ask for \"more natural English\" while keeping your facts."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                      <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">{t}</h3>
+                      <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{d}</p>
+                    </div>
+                  ))}
                 </div>
               </section>
 
-              <InContentAd />
-
-              {/* Internal Links */}
               <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Complete Your Professional Toolkit
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  The AI Email Assistant works best as part of a complete professional workflow. Here are the other free tools from DevelopersMatrix that complement your email writing:
-                </p>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <a href="/tools/ai-resume-builder" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">AI Resume Builder</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Build an ATS-optimized resume in minutes. Perfect for developers, designers, and tech professionals.</p>
-                  </a>
-                  <a href="/tools/ai-cover-letter-generator" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">Cover Letter Generator</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Generate personalized cover letters tailored to specific job descriptions. Save hours of writing time.</p>
-                  </a>
-                  <a href="/tools/ai-interview-simulator" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">Interview Simulator</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Practice technical and behavioral interviews with AI feedback. Build confidence before your next job interview.</p>
-                  </a>
-                  <a href="/tools/salary-estimator" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">Salary Estimator</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Know your market worth before salary negotiations. Data-driven estimates for any role and location.</p>
-                  </a>
-                  <a href="/tools/productivity-planner" className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">Productivity Planner</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">AI-powered daily planning that prioritizes tasks, blocks time, and builds sustainable workflows.</p>
-                  </a>
-                  <a href="/tools" className="group block bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5 shadow-sm border border-blue-100 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-md">
-                    <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">View All 20+ Free Tools →</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Explore interview simulators, salary estimators, budget planners, and more free career tools.</p>
-                  </a>
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* Workflow */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  The 3-Step Email Workflow That Saves Hours Every Week
-                </h2>
-                <div className="grid sm:grid-cols-3 gap-6">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold mb-3">1</span>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Describe Your Intent (30 seconds)</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Write a brief note about what you need. Do not worry about phrasing. "Tell client the project will be delayed by 3 days due to API issues. Apologize but emphasize quality." The tool understands context and intent.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold mb-3">2</span>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Generate and Select Tone (10 seconds)</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Choose your mode and tone. Draft for new emails. Rewrite for existing ones. Reply for responses. Select professional, friendly, formal, casual, persuasive, or empathetic based on the recipient and situation.</p>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold mb-3">3</span>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Review, Customize, Send (60 seconds)</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Read the generated email. Add personal details the AI could not know. Adjust any phrasing that does not sound like you. Copy and send. Total time from idea to sent email: under 2 minutes instead of 20.</p>
-                  </div>
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* FAQ */}
-              <section className="mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
                   Frequently Asked Questions About the AI Email Assistant
                 </h2>
-                <div className="space-y-4">
-                  {toolFaqs.map((faq, index) => (
-                    <details
-                      key={index}
-                      className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden"
-                    >
-                      <summary className="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
-                        <span className="font-semibold text-gray-900 dark:text-white pr-4">{faq.question}</span>
-                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center text-sm group-open:rotate-180 transition-transform">
-                          ▼
-                        </span>
+                <div className="space-y-3">
+                  {toolFaqs.map((faq) => (
+                    <details key={faq.question} className="group rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold text-zinc-900 dark:text-white">
+                        {faq.question}
+                        <span aria-hidden="true" className="text-zinc-400 transition-transform group-open:rotate-45">+</span>
                       </summary>
-                      <div className="px-5 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700 pt-4">
+                      <div className="border-t border-zinc-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
                         {faq.answer}
                       </div>
                     </details>
@@ -404,52 +246,59 @@ export default function AIEmailAssistantPage() {
                 </div>
               </section>
 
-              {/* CTA */}
+              <InContentAd />
+
               <section className="mb-12">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                    Never Dread Writing an Email Again
-                  </h2>
-                  <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                    Join 1,500+ professionals who write better emails in 2 minutes instead of 20. Free, private, and unlimited.
-                  </p>
-                  <a
-                    href="#ai-email-assistant"
-                    className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-lg"
-                  >
-                    Try the Email Assistant
-                  </a>
-                  <p className="text-blue-200 text-sm mt-4">
-                    Draft, rewrite, reply, and tone-adjust. No signup required.
-                  </p>
+                <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">
+                  Complete Your Professional Toolkit
+                </h2>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {[
+                    ["/tools/ai-cover-letter-generator", "Cover Letter Generator", "Build a cover letter around the job posting and your own experience."],
+                    ["/tools/ai-resume-builder", "AI Resume Builder", "Write an ATS friendly resume with a live check on every bullet."],
+                    ["/tools/ai-interview-simulator", "Interview Simulator", "Practice interview questions and see what your answers covered and missed."],
+                    ["/tools/salary-estimator", "Salary Estimator", "Check official pay ranges before you reply to an offer."],
+                    ["/tools/ai-prompt-library", "AI Prompt Library", "Ready prompts for writing, career and business tasks."],
+                    ["/tools", "View all free tools", "Planners, checkers, calculators and more."],
+                  ].map(([href, t, d]) => (
+                    <Link key={href} href={href} className="group block rounded-2xl border border-zinc-200 bg-white p-5 transition hover:border-indigo-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-700">
+                      <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-indigo-700 dark:text-white dark:group-hover:text-indigo-400">{t}</h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400">{d}</p>
+                    </Link>
+                  ))}
                 </div>
               </section>
             </div>
 
             {/* Sidebar */}
-            <div className="lg:w-80 flex-shrink-0">
+            <div className="flex-shrink-0 lg:w-80">
               <div className="sticky top-24 space-y-6">
                 <SidebarAd />
 
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Related Resources</h3>
-                  <ul className="space-y-3">
-                    <li><a href="/tools/ai-cover-letter-generator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>✉️</span> Cover Letter Generator</a></li>
-                    <li><a href="/tools/ai-resume-builder" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>📄</span> AI Resume Builder</a></li>
-                    <li><a href="/tools/ai-interview-simulator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>🎯</span> Interview Simulator</a></li>
-                    <li><a href="/tools/productivity-planner" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>⏰</span> Productivity Planner</a></li>
-                    <li><a href="/tools/ai-content-detector" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>🔍</span> AI Content Detector</a></li>
-                    <li><a href="/trends/ai-agents-autonomous-systems-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2"><span>⚡</span> How AI Agents Are Changing Productivity in 2026</a></li>
+                <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                  <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">Before you hit send</h3>
+                  <ul className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Subject.</span> Would they know what this is from the subject alone?</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Ask.</span> Is it clear what you need and by when?</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Facts.</span> Names, dates, amounts and links all correct?</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Attachment.</span> If you mention one, is it attached?</li>
+                    <li><span className="font-semibold text-zinc-900 dark:text-white">Recipient.</span> Right person, and nobody copied by mistake?</li>
                   </ul>
                 </div>
 
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4">2026 Email Stats</h3>
-                  <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                    <li className="flex items-start gap-2"><span className="text-green-500 font-bold">347B</span><span>emails sent daily worldwide</span></li>
-                    <li className="flex items-start gap-2"><span className="text-green-500 font-bold">8s</span><span>average time to read an email</span></li>
-                    <li className="flex items-start gap-2"><span className="text-green-500 font-bold">62%</span><span>of professionals dread writing emails</span></li>
-                    <li className="flex items-start gap-2"><span className="text-green-500 font-bold">24%</span><span>less response for emails with typos</span></li>
+                <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+                  <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">Related Resources</h3>
+                  <ul className="space-y-3 text-sm">
+                    {[
+                      ["/tools/ai-cover-letter-generator", "Cover Letter Generator"],
+                      ["/tools/ai-content-detector", "AI Content Detector"],
+                      ["/tools/productivity-planner", "Productivity Planner"],
+                      ["/trends/remote-tech-jobs-guide-2026", "Remote Tech Jobs Guide"],
+                    ].map(([href, t]) => (
+                      <li key={href}>
+                        <Link href={href} className="text-indigo-700 hover:underline dark:text-indigo-400">{t}</Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -457,96 +306,6 @@ export default function AIEmailAssistantPage() {
           </div>
         </div>
       </main>
-
-      {/* SEO Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Free AI Email Assistant: Write Professional Emails in Seconds
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Writing emails is one of the most time-consuming parts of professional life. The average developer spends 2-3 hours per week on email alone, drafting project updates, responding to stakeholders, and following up on meetings. Our <strong>free AI email assistant</strong> eliminates that friction by generating professional, context-aware emails instantly. Whether you need a formal project update, a polite follow-up, or a cold outreach message, this tool handles the structure and tone so you can focus on what matters.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Why Professionals Need an AI Email Assistant in 2026
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Email volume has increased 40% since 2020. Remote work means more async communication, more status updates, and more cross-functional coordination. At the same time, attention spans have decreased. The average person reads an email in 8 seconds. Your messages need to be clear, concise, and actionable. Our <strong>AI email writer</strong> understands professional context and generates emails that get responses, not confusion.
-          </p>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Research shows that emails with typos get 24% fewer responses. Emails that are too long get skimmed and misunderstood. The sweet spot is 50-125 words with a clear call-to-action. Our AI assistant is calibrated to hit this range while maintaining professionalism and warmth.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Types of Emails You Can Generate
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">📧 Professional Updates</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Project status reports, sprint summaries, and stakeholder updates with the right level of detail.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🤝 Follow-Up Emails</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Polite but persistent follow-ups after meetings, interviews, or proposals without being pushy.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🙏 Apology Emails</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Professional, sincere apologies for missed deadlines, bugs, or miscommunications with accountability.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">💼 Cold Outreach</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Networking emails, job inquiries, and partnership proposals that actually get opened and read.</p>
-            </div>
-          </div>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Related Tools for Productivity
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-3 mb-8">
-            <a href="/tools/productivity-planner" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📅</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Productivity Planner</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Plan your daily tasks and meetings</p>
-              </div>
-            </a>
-            <a href="/tools/ai-prompt-library" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">🤖</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Prompt Library</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">500+ prompts for writing and productivity</p>
-              </div>
-            </a>
-            <a href="/tools/ai-resume-builder" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📄</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">AI Resume Builder</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Build professional resumes fast</p>
-              </div>
-            </a>
-            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <span className="text-lg">📚</span>
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Productivity Guides</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Tips for developers and professionals</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800">
-            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-200 mb-2">
-              Write Better Emails Today
-            </h3>
-            <p className="text-blue-800 dark:text-blue-300 text-sm mb-4">
-              Stop staring at a blank screen. Let AI handle the first draft so you can focus on the message that matters.
-            </p>
-            <p className="text-blue-700 dark:text-blue-400 text-xs">
-              100% free. No signup. Unlimited emails.
-            </p>
-          </div>
-        </div>
-      </div>
     </>
   );
 }
