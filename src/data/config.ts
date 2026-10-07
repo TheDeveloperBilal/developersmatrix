@@ -30,7 +30,6 @@ export const navigation = [
       { name: 'AI Prompt Library', href: '/tools/ai-prompt-library' },
       { name: 'AI Email Assistant', href: '/tools/ai-email-assistant' },
       { name: 'AI Content Detector', href: '/tools/ai-content-detector' },
-      { name: 'Link Manager', href: '/tools/link-manager' },
       { name: 'Can You Run It?', href: '/tools/can-you-run-it' },
       { name: 'Budget Planner', href: '/tools/budget-planner' },
       { name: 'Habit Tracker', href: '/tools/habit-tracker' },

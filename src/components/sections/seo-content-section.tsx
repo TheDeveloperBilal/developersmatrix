@@ -24,7 +24,6 @@ const topicClusters = [
       { label: "AI Website Audit", href: "/tools/website-audit" },
       { label: "Website Audit Services", href: "/services/website-audit" },
       { label: "AI Content Detector", href: "/tools/ai-content-detector" },
-      { label: "Link Manager", href: "/tools/link-manager" },
     ],
   },
   {

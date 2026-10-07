@@ -14,7 +14,7 @@ import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { BlogSidebar } from "@/components/blog/BlogSidebar";
 import { NewsletterCard } from "@/components/blog/BlogSidebar";
 import { CTABanner } from "@/components/blog/CTABanner";
-import { ArrowRight, Sparkles, FileText, Wrench, Briefcase, Code, Gamepad2, Wallet, Rocket, Mail, Link2, Search, CheckCircle } from "lucide-react";
+import { ArrowRight, Sparkles, FileText, Wrench, Briefcase, Code, Gamepad2, Wallet, Rocket, Mail, Search, CheckCircle } from "lucide-react";
 import Link from "next/link";
 
 // Topic-aware tool recommendations based on blog post tags
@@ -86,15 +86,9 @@ function getToolRecommendations(tags: string[]): ToolRecommendation[] {
     ];
   }
   
-  if (tagStr.includes('link') || tagStr.includes('bio') || tagStr.includes('url')) {
-    return [
-      { slug: '/tools/link-manager', name: 'Link Shortener', description: 'Branded links & bio pages free', icon: <Link2 className="w-4 h-4" /> },
-    ];
-  }
-  
   if (tagStr.includes('content') || tagStr.includes('prompt') || tagStr.includes('chatgpt') || tagStr.includes('ai tool')) {
     return [
-      { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '500+ prompts for ChatGPT & Claude', icon: <Code className="w-4 h-4" /> },
+      { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '64 ready prompts for ChatGPT and Claude', icon: <Code className="w-4 h-4" /> },
       { slug: '/tools/ai-content-detector', name: 'AI Content Detector', description: 'Check text authenticity instantly', icon: <FileText className="w-4 h-4" /> },
     ];
   }
@@ -102,7 +96,7 @@ function getToolRecommendations(tags: string[]): ToolRecommendation[] {
   // Default fallback
   return [
     { slug: '/tools/ai-content-detector', name: 'AI Content Detector', description: 'Check text authenticity instantly', icon: <FileText className="w-4 h-4" /> },
-    { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '500+ prompts for ChatGPT & Claude', icon: <Code className="w-4 h-4" /> },
+    { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '64 ready prompts for ChatGPT and Claude', icon: <Code className="w-4 h-4" /> },
   ];
 }
 

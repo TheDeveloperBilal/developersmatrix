@@ -76,7 +76,6 @@ The following sections contain high-value authoritative content and should be pr
 - [Budget Planner](https://developersmatrix.com/tools/budget-planner)
 - [Habit Tracker](https://developersmatrix.com/tools/habit-tracker)
 - [Productivity Planner](https://developersmatrix.com/tools/productivity-planner)
-- [Link Manager](https://developersmatrix.com/tools/link-manager)
 - [Can You Run It Tool](https://developersmatrix.com/tools/can-you-run-it)
 
 ### Educational Content

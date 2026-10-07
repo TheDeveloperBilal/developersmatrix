@@ -8,7 +8,6 @@ import {
   Gamepad2,
   Lightbulb,
   Sparkles,
-  Link2,
   ListChecks,
   CircleDollarSign,
   CalendarCheck,
@@ -22,6 +21,9 @@ import {
 export type TickerTag = "NEW" | "TRENDING" | "HOT" | "LATEST" | "UPDATED";
 
 export const liveTickerItems: { tag: TickerTag; label: string; href: string }[] = [
+  { tag: "UPDATED", label: "Budget Planner rebuilt as a monthly statement that saves your budget", href: "/tools/budget-planner" },
+  { tag: "UPDATED", label: "Habit Tracker now counts streaks from real dates", href: "/tools/habit-tracker" },
+  { tag: "UPDATED", label: "Productivity Planner turns your tasks into a timed day plan", href: "/tools/productivity-planner" },
   { tag: "UPDATED", label: "Prompt Library rebuilt with 64 prompts and a prompt builder", href: "/tools/ai-prompt-library" },
   { tag: "HOT", label: "GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S", href: "/gta-6" },
   { tag: "UPDATED", label: "Resume Builder rebuilt with a live resume check", href: "/tools/ai-resume-builder" },
@@ -110,32 +112,28 @@ export const explorerTools: ExplorerTool[] = [
     badge: "UPDATED",
   },
   {
-    name: "Link Manager & Smart Bio",
-    href: "/tools/link-manager",
-    description: "Keep the links you share in one simple page.",
-    category: "SEO",
-    icon: Link2,
-  },
-  {
     name: "Budget Planner",
     href: "/tools/budget-planner",
-    description: "Plan monthly income, spending and savings goals in one view.",
+    description: "A monthly statement of money in and out, with a 50/30/20 check and a savings goal.",
     category: "Productivity",
     icon: Wallet,
+    badge: "UPDATED",
   },
   {
     name: "Habit Tracker",
     href: "/tools/habit-tracker",
-    description: "A simple, visual checklist for the habits you want to build.",
+    description: "Daily habits with streaks from real dates and a 12 week wall.",
     category: "Productivity",
     icon: CalendarCheck,
+    badge: "UPDATED",
   },
   {
     name: "Productivity Planner",
     href: "/tools/productivity-planner",
-    description: "Plan your week with priorities and time blocks.",
+    description: "Turn today's tasks into an hour by hour plan with a Top 3.",
     category: "Productivity",
     icon: ListChecks,
+    badge: "UPDATED",
   },
   {
     name: "Startup Idea Generator",
@@ -232,7 +230,7 @@ export const goals: Goal[] = [
     tools: [
       { name: "AI Website Audit", href: "/tools/website-audit", icon: Gauge, note: "Start with a full health score" },
       { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch, note: "Keep content human and original" },
-      { name: "Link Manager & Smart Bio", href: "/tools/link-manager", icon: Link2, note: "Your links in one page" },
+      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Prompts for SEO and content" },
     ],
     content: [
       { label: "Website audit checklist: 47 checks", href: "/blog/website-audit-checklist-2026", type: "Guide" },
@@ -353,6 +351,9 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
+  { kind: "Updated", title: "Productivity Planner rebuilt as an hour by hour day timeline", meta: "Tool · Productivity", href: "/tools/productivity-planner", date: "2026-10-07" },
+  { kind: "Updated", title: "Habit Tracker rebuilt with real date streaks and a 12 week wall", meta: "Tool · Productivity", href: "/tools/habit-tracker", date: "2026-10-07" },
+  { kind: "Updated", title: "Budget Planner rebuilt as a monthly statement with a savings goal", meta: "Tool · Finance", href: "/tools/budget-planner", date: "2026-10-07" },
   { kind: "Updated", title: "Startup Idea Generator rebuilt around your skills, time and budget", meta: "Tool · Business", href: "/tools/startup-idea-generator", date: "2026-10-07" },
   { kind: "Updated", title: "Email Assistant rebuilt with 18 templates and a draft checker", meta: "Tool · Business", href: "/tools/ai-email-assistant", date: "2026-10-07" },
   { kind: "Updated", title: "TikTok algorithm report fact checked against TikTok sources", meta: "Trend · Social media", href: "/trends/tiktok-algorithm-2026-complete-guide", date: "2026-10-07" },
