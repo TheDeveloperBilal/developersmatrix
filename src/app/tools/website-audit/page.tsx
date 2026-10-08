@@ -1083,7 +1083,7 @@ export default function WebsiteAuditPage() {
                   Audit Your Website in Seconds. It is Free
                 </h2>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                  Join thousands of website owners who have used our tool to find and fix critical issues. No signup. No credit card. Just actionable insights.
+                  No signup. No credit card. Paste a URL and get a clear list of what to fix, in order of impact.
                 </p>
                 <a
                   href="#website-audit"
@@ -1091,9 +1091,6 @@ export default function WebsiteAuditPage() {
                 >
                   Run Your Free Website Audit
                 </a>
-                <p className="text-blue-200 text-sm mt-4">
-                  Used by developers, marketers, and business owners at startups and Fortune 500 companies
-                </p>
               </div>
             </section>
           </div>
@@ -1108,52 +1105,52 @@ export default function WebsiteAuditPage() {
                 <ul className="space-y-3">
                   <li>
                     <a href="/tools/ai-resume-builder" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📄</span> AI Resume Builder
+                      AI Resume Builder
                     </a>
                   </li>
                   <li>
                     <a href="/tools/ai-content-detector" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>🔍</span> AI Content Detector
+                      AI Content Detector
                     </a>
                   </li>
                   <li>
                     <a href="/tools/ai-interview-simulator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>🎯</span> Interview Simulator
+                      Interview Simulator
                     </a>
                   </li>
                   <li>
                     <a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📚</span> SEO Guides and Tips
+                      SEO Guides and Tips
                     </a>
                   </li>
                   <li>
                     <a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      <span>📈</span> Tech Trends 2026
+                      Tech Trends 2026
                     </a>
                   </li>
                 </ul>
               </div>
 
               <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">2026 SEO Stats</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Core Web Vitals Targets</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">What Google counts as good, for 75% of visits</p>
                 <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                   <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">75%</span>
-                    <span>of users never scroll past page 1 of Google</span>
+                    <span className="text-green-600 dark:text-green-400 font-bold whitespace-nowrap">2.5 s</span>
+                    <span>or less for Largest Contentful Paint, how fast the main content appears</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">53%</span>
-                    <span>of mobile users abandon sites that take over 3 seconds to load</span>
+                    <span className="text-green-600 dark:text-green-400 font-bold whitespace-nowrap">200 ms</span>
+                    <span>or less for Interaction to Next Paint, how quickly the page reacts</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">90%+</span>
-                    <span>of Fortune 500 sites now pass Core Web Vitals</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">60%+</span>
-                    <span>of all web traffic comes from mobile devices</span>
+                    <span className="text-green-600 dark:text-green-400 font-bold whitespace-nowrap">0.1</span>
+                    <span>or less for Cumulative Layout Shift, how much the layout jumps</span>
                   </li>
                 </ul>
+                <a href="https://web.dev/articles/vitals" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs text-blue-600 dark:text-blue-400 hover:underline">
+                  Source: web.dev, Google
+                </a>
               </div>
             </div>
           </div>

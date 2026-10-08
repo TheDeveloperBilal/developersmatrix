@@ -31,7 +31,6 @@ const columns = [
       { name: "Trend Radar", href: "/trends" },
       { name: "Blog", href: "/blog" },
       { name: "GTA 6 hub", href: "/gta-6" },
-      { name: "Community", href: "/community" },
     ],
   },
   {
@@ -82,6 +81,12 @@ export default function SiteFooter() {
               Free AI tools, in depth trend reports and practical guides for developers, creators and
               professionals building better careers and businesses.
             </p>
+            <p className="mt-4 text-sm text-white/55">
+              Email{" "}
+              <a href="mailto:info@developersmatrix.com" className="font-medium text-white/80 underline decoration-white/25 underline-offset-4 transition-colors hover:text-white">
+                info@developersmatrix.com
+              </a>
+            </p>
             <div className="mt-6 flex gap-2.5">
               {socials.map((s) => (
                 <a
@@ -121,7 +126,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
           <p className="text-xs text-white/40">
-            © {new Date().getFullYear()} DevelopersMatrix. All rights reserved.
+            {`© ${new Date().getFullYear()} DevelopersMatrix. All rights reserved.`}
           </p>
           <p className="text-xs text-white/40">Made for the global community</p>
         </div>

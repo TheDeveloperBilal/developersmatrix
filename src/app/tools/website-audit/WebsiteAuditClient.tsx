@@ -51,11 +51,6 @@ const severityConfig = {
   low: { color: 'bg-blue-500', text: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-900/20' },
 };
 
-interface AuditStats {
-  totalAudits: number;
-  avgScore: number;
-  websitesChecked: number;
-}
 
 export default function WebsiteAuditClient() {
   const [url, setUrl] = useState('');
@@ -70,11 +65,6 @@ export default function WebsiteAuditClient() {
 
 
 
-  const [stats] = useState<AuditStats>({
-    totalAudits: 3427,
-    avgScore: 68.5,
-    websitesChecked: 2841,
-  });
 
   const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -306,7 +296,7 @@ export default function WebsiteAuditClient() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-6">
               <Globe className="w-4 h-4 text-blue-500" />
               <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                Free AI-Powered Website Analysis
+                Free Website Analysis, No Signup
               </span>
             </div>
 
@@ -335,9 +325,11 @@ export default function WebsiteAuditClient() {
               className="flex flex-wrap justify-center gap-6 mb-12"
             >
               {[
-                { label: 'Total Audits', value: stats.totalAudits.toLocaleString(), icon: <BarChart3 className="w-4 h-4" /> },
-                { label: 'Avg Score', value: `${stats.avgScore}/100`, icon: <Gauge className="w-4 h-4" /> },
-                { label: 'Websites Analyzed', value: stats.websitesChecked.toLocaleString(), icon: <Globe className="w-4 h-4" /> },
+                // Facts about the tool itself. The old counters (3,427 audits and so on)
+                // were hardcoded numbers, not real usage.
+                { label: 'Checks', value: 'About 150', icon: <BarChart3 className="w-4 h-4" /> },
+                { label: 'Categories', value: '8', icon: <Gauge className="w-4 h-4" /> },
+                { label: 'Speed data', value: 'Google PageSpeed', icon: <Globe className="w-4 h-4" /> },
               ].map((stat, i) => (
                 <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
                   <span className="text-blue-500">{stat.icon}</span>
@@ -581,7 +573,7 @@ export default function WebsiteAuditClient() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>AI-Powered:</strong> Smart recommendations prioritized by impact</span>
+                  <span><strong>Prioritized:</strong> Fixes ordered by how much they matter</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
@@ -607,15 +599,15 @@ export default function WebsiteAuditClient() {
                 Still have questions?
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                Our community is here to help. Join the discussion or reach out directly.
+                Email us, or book a full manual audit if you want a person to go through your site.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a 
-                  href="/community" 
+                  href="/services/website-audit" 
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white text-sm font-medium hover:bg-purple-700 transition-colors"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  Ask Community
+                  Get a Manual Audit
                 </a>
                 <a 
                   href="/contact" 

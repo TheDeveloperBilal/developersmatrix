@@ -239,7 +239,7 @@ export function BlogContent({ content }: { content: string }) {
       // Blockquotes (> text)
       .replace(/^&gt;\s*(.+?)$/gm, '<blockquote class="quote-block">$1</blockquote>')
       // H1
-      .replace(/^# (.+)$/gm, '<h1 class="blog-h1">$1</h1>')
+      .replace(/^# (.+)$/gm, '<h2 class="blog-h1">$1</h2>')
       // H2
       .replace(/^## (.+)$/gm, '<h2 class="blog-h2">$1</h2>')
       // H3

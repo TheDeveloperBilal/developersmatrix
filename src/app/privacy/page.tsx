@@ -262,7 +262,7 @@ export default function PrivacyPage() {
               </ul>
               <p className="text-sm text-muted-foreground mt-4">
                 To exercise any of these rights, please contact us at 
-                <a href="mailto:privacy@developersmatrix.com" className="text-violet-600 hover:underline ml-1">privacy@developersmatrix.com</a>.
+                <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline ml-1">info@developersmatrix.com</a>.
                 We will respond to your request within a reasonable timeframe.
               </p>
             </CardContent>
@@ -329,11 +329,11 @@ export default function PrivacyPage() {
                 <br /><br />
                 <strong>Privacy Officer</strong>
                 <br />
-                Email: <a href="mailto:privacy@developersmatrix.com" className="text-violet-600 hover:underline">privacy@developersmatrix.com</a>
+                Email: <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline">info@developersmatrix.com</a>
                 <br /><br />
                 For general inquiries, you can also reach us at:
                 <br />
-                Email: <a href="mailto:hello@developersmatrix.com" className="text-violet-600 hover:underline">hello@developersmatrix.com</a>
+                Email: <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline">info@developersmatrix.com</a>
               </p>
             </CardContent>
           </Card>

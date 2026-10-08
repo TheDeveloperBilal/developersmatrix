@@ -2,24 +2,43 @@
 // Supports: Organization, Person, WebApplication, Article, FAQPage, BreadcrumbList,
 // HowTo, Review, AggregateRating, Dataset, ClaimReview, ItemList
 
+// One identity for the site and one for the founder. Every page that outputs
+// these uses the same @id, so search engines read them as the same entities
+// instead of several slightly different copies.
+export const SITE_URL = 'https://developersmatrix.com';
+export const ORG_ID = `${SITE_URL}/#organization`;
+export const PERSON_ID = `${SITE_URL}/about#person`;
+export const CONTACT_EMAIL = 'info@developersmatrix.com';
+
+// Official DevelopersMatrix profiles, confirmed by the owner (Oct 2026).
+export const ORG_SAME_AS = [
+  'https://www.facebook.com/developersmatrix/',
+  'https://www.instagram.com/developermatrix/',
+  'https://www.pinterest.com/developersmatrix/',
+  'https://linkedin.com/company/developersmatrix'
+];
+
+export const OVITECH = { name: 'OviTech Global', url: 'https://ovitech.co/' };
+
 interface OrganizationSchemaProps {
   name: string;
   url: string;
   description: string;
   logo?: string;
+  /** Kept for older call sites. The founder is always the site owner. */
   founder?: string;
+  /** Ignored. DevelopersMatrix does not publish a team size. */
   employees?: string;
   knowsAbout?: string[];
+  /** Ignored. The official profiles in ORG_SAME_AS are always used. */
   sameAs?: string[];
 }
 
-export function OrganizationSchema({ 
-  name, 
-  url, 
-  description, 
+export function OrganizationSchema({
+  name,
+  url,
+  description,
   logo,
-  founder = 'DevelopersMatrix Team',
-  employees = '5-10',
   knowsAbout = [
     'Software Development',
     'Web Development',
@@ -29,35 +48,34 @@ export function OrganizationSchema({
     'Website SEO',
     'Productivity Tools',
     'Developer Tools'
-  ],
-  sameAs = [
-    'https://twitter.com/developersmatrix',
-    'https://github.com/TheDeveloperBilal/developersmatrix',
-    'https://linkedin.com/company/developersmatrix'
   ]
 }: OrganizationSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': ORG_ID,
     name,
     url,
     description,
     ...(logo && { logo }),
+    email: CONTACT_EMAIL,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: CONTACT_EMAIL,
+      availableLanguage: ['English']
+    },
     founder: {
       '@type': 'Person',
-      name: founder
-    },
-    employee: {
-      '@type': 'QuantitativeValue',
-      minValue: employees.split('-')[0],
-      maxValue: employees.split('-')[1] || employees
+      '@id': PERSON_ID,
+      name: 'Syed Bilal Shah'
     },
     knowsAbout,
-    sameAs,
+    sameAs: ORG_SAME_AS,
     areaServed: 'Worldwide',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Free AI-Powered Tools',
+      name: 'Free Online Tools',
       itemListElement: [
         { '@type': 'Offer', itemOffered: { '@type': 'Thing', name: 'AI Resume Builder' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Thing', name: 'Website Audit Tool' } },
@@ -81,11 +99,16 @@ interface PersonSchemaProps {
   url?: string;
   image?: string;
   jobTitle?: string;
+  /** Used when no affiliations are given. */
   worksFor?: string;
   description?: string;
   alumniOf?: string;
   knowsAbout?: string[];
   sameAs?: string[];
+  /** Set for the site founder so every page points at the same person. */
+  id?: string;
+  /** Organizations the person works for, linked by @id or url. */
+  affiliations?: { name: string; url?: string; id?: string }[];
 }
 
 export function PersonSchema({
@@ -97,19 +120,27 @@ export function PersonSchema({
   description,
   alumniOf,
   knowsAbout = ['Software Engineering', 'Web Development', 'Technical Writing', 'Career Development'],
-  sameAs = []
+  sameAs = [],
+  id,
+  affiliations
 }: PersonSchemaProps) {
+  const orgs = affiliations && affiliations.length > 0
+    ? affiliations.map((o) => ({
+        '@type': 'Organization',
+        ...(o.id && { '@id': o.id }),
+        name: o.name,
+        ...(o.url && { url: o.url })
+      }))
+    : { '@type': 'Organization', name: worksFor };
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    ...(id && { '@id': id }),
     name,
     ...(url && { url }),
     ...(image && { image }),
     jobTitle,
-    worksFor: {
-      '@type': 'Organization',
-      name: worksFor
-    },
+    worksFor: orgs,
     ...(description && { description }),
     ...(alumniOf && { alumniOf: {
       '@type': 'Organization',
