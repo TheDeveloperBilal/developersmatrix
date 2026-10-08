@@ -19,7 +19,7 @@ const navLinks = [
   { name: "Free Website Audit", href: "/tools/website-audit" },
   { name: "Trends", href: "/trends" },
   { name: "Blog", href: "/blog" },
-  { name: "About", href: "/about" },
+  { name: "Connect", href: "/connect" },
 ];
 
 function Logo() {

@@ -349,18 +349,33 @@ export function TrendRadarClient({ trends }: TrendRadarClientProps) {
               Stay Ahead of the Curve
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">
-              Get personalized trend alerts delivered to your inbox. Never miss what's important in tech.
+              New trend reports are shared on our social pages as soon as they go live. Follow along, or email us with a topic you want covered.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full sm:flex-1 h-12 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-              <Button className="w-full sm:w-auto h-12 px-8 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                Get Alerts
-              </Button>
-            </div>
+            <ul className="flex flex-wrap items-center justify-center gap-3">
+              {[
+                { name: 'LinkedIn', href: 'https://linkedin.com/company/developersmatrix' },
+                { name: 'Facebook', href: 'https://www.facebook.com/developersmatrix/' },
+                { name: 'Instagram', href: 'https://www.instagram.com/developermatrix/' },
+                { name: 'Pinterest', href: 'https://www.pinterest.com/developersmatrix/' },
+              ].map((l) => (
+                <li key={l.name}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-11 items-center rounded-xl border border-slate-300 bg-white px-5 text-sm font-medium text-slate-800 transition-colors hover:border-purple-500 hover:text-purple-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:text-purple-300"
+                  >
+                    {l.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-sm text-slate-600 dark:text-slate-400">
+              Suggest a topic:{' '}
+              <a href="mailto:info@developersmatrix.com" className="font-medium text-purple-700 hover:underline dark:text-purple-300">
+                info@developersmatrix.com
+              </a>
+            </p>
           </motion.div>
         </div>
       </section>

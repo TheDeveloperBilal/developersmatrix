@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Rss, ArrowRight, TrendingUp, Tag, BookOpen, ChevronDown } from 'lucide-react';
+import { Search, ArrowRight, TrendingUp, Tag, BookOpen, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -12,6 +12,7 @@ import { InContentAd } from '@/components/ads/AdBanner';
 import { categoriesFrom, topTagsFrom } from '@/data/blog-categories';
 import type { BlogSummary } from '@/types';
 import { BlogCardSkeleton } from '@/components/blog/BlogCardSkeleton';
+import { NewsletterCard } from '@/components/blog/BlogSidebar';
 
 const POSTS_PER_PAGE = 6;
 
@@ -235,33 +236,8 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
 
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            {/* Newsletter */}
-            <Card className="border-0 shadow-lg overflow-hidden relative bg-gradient-to-br from-violet-50 to-purple-50/50 dark:from-violet-950/40 dark:to-purple-950/30 border border-violet-100/50 dark:border-violet-800/20">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <Rss className="w-4 h-4 text-violet-500" />
-                  Weekly Newsletter
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Get curated articles on tech careers, AI tools, and productivity hacks, delivered every Tuesday.
-                </p>
-                <div className="space-y-2">
-                  <Input
-                    type="email"
-                    placeholder="your@email.com"
-                    className="bg-background/80 backdrop-blur-sm border-violet-200/50 dark:border-violet-800/30 min-h-[44px] rounded-lg"
-                  />
-                  <Button className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-medium min-h-[44px] rounded-lg">
-                    Subscribe Free
-                  </Button>
-                </div>
-                <p className="text-[11px] text-muted-foreground/70 text-center">
-                  No spam. Unsubscribe anytime. Join 12,000+ developers.
-                </p>
-              </CardContent>
-            </Card>
+            {/* Follow and contact. There is no newsletter yet, so no signup box. */}
+            <NewsletterCard />
 
             {/* Categories */}
             <Card className="border shadow-sm">
