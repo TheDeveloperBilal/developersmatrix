@@ -74,8 +74,10 @@ export async function POST(request: Request) {
 
   if (!isEmailConfigured()) {
     // Logged for you in Vercel, never shown to the visitor.
-    console.error('Contact form: GMAIL_USER or GMAIL_APP_PASSWORD is missing.');
-    return NextResponse.json({ error: SEND_FAILED }, { status: 503 });
+    console.error('Contact form: GMAIL_APP_PASSWORD is not set for this environment.');
+    // `code` is not shown on the page. It shows in the browser Network tab so
+    // a failed test can be diagnosed without reading server logs.
+    return NextResponse.json({ error: SEND_FAILED, code: 'not_configured' }, { status: 503 });
   }
 
   const data = {
@@ -94,8 +96,10 @@ export async function POST(request: Request) {
   try {
     await sendEmail({ ...notice, replyTo: values.email });
   } catch (err) {
-    console.error('Contact form: send failed', err);
-    return NextResponse.json({ error: SEND_FAILED }, { status: 502 });
+    const e = err as { code?: string; responseCode?: number; message?: string };
+    console.error('Contact form: send failed', e?.code, e?.responseCode, e?.message);
+    const code = e?.code === 'EAUTH' || e?.responseCode === 535 ? 'smtp_login_rejected' : 'smtp_error';
+    return NextResponse.json({ error: SEND_FAILED, code }, { status: 502 });
   }
 
   // The receipt is a courtesy. If it fails, the message still reached you.
