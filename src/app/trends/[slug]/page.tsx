@@ -193,7 +193,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
             )}
             {trend.hot && (
               <Badge className="bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border-0">
-                🔥 Hot
+                Hot
               </Badge>
             )}
           </div>
@@ -400,7 +400,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
 
             {/* Real World Examples */}
             <section>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Real-World Examples</h2>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Real World Examples</h2>
               <div className="space-y-3">
                 {trend.content.realWorldExamples.map((example, index) => (
                   <div key={index} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -822,7 +822,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
               {/* Recommended Tools */}
               {relatedTools.length > 0 && (
                 <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-500/5 dark:to-indigo-500/5 border border-blue-100 dark:border-blue-500/20">
-                  <h3 className="font-bold text-slate-900 dark:text-white mb-4">🛠️ Try These Free Tools</h3>
+                  <h3 className="font-bold text-slate-900 dark:text-white mb-4">Try These Free Tools</h3>
                   <div className="space-y-4">
                     {relatedTools.map((tool) => (
                       <Link 
@@ -867,7 +867,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
 
               {/* Hot Trends */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-500/5 dark:to-red-500/5 border border-orange-100 dark:border-orange-500/20">
-                <h3 className="font-bold text-slate-900 dark:text-white mb-4">🔥 Hot Right Now</h3>
+                <h3 className="font-bold text-slate-900 dark:text-white mb-4">Hot Right Now</h3>
                 <div className="space-y-3">
                   {hotTrends.map((hot) => (
                     <Link 
@@ -881,13 +881,24 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 </div>
               </div>
 
-              {/* Newsletter CTA */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-600 text-white">
+              {/* Follow. The old "Subscribe Free" button here was not connected to anything. */}
+              <div className="p-6 rounded-2xl bg-slate-900 text-white dark:bg-slate-800">
                 <h3 className="font-bold mb-2">Stay Updated</h3>
-                <p className="text-sm text-purple-100 mb-4">Get daily trend alerts delivered to your inbox.</p>
-                <Button className="w-full bg-white text-purple-600 hover:bg-purple-50">
-                  Subscribe Free
-                </Button>
+                <p className="text-sm text-slate-300 mb-4">New reports and tool updates are shared on our social pages.</p>
+                <ul className="grid grid-cols-2 gap-2 text-sm">
+                  {[
+                    ['Facebook', 'https://www.facebook.com/developersmatrix/'],
+                    ['Instagram', 'https://www.instagram.com/developermatrix/'],
+                    ['Pinterest', 'https://www.pinterest.com/developersmatrix/'],
+                    ['LinkedIn', 'https://linkedin.com/company/developersmatrix'],
+                  ].map(([name, href]) => (
+                    <li key={name}>
+                      <a href={href} target="_blank" rel="noopener noreferrer" className="block rounded-lg border border-white/15 px-3 py-2 text-center font-medium text-white transition hover:bg-white/10">
+                        {name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </aside>

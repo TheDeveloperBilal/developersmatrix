@@ -95,28 +95,22 @@ export default function GTA6Client() {
     publisher: "Rockstar Games",
     releaseDate: "November 19, 2026",
     consoleRelease: "November 19, 2026",
-    pcRelease: "Expected Late 2027 / Early 2028 (based on Rockstar historical pattern)",
-    price: "$69.99 - $99.99 (Standard to Collector's Edition)",
+    pcRelease: "Not announced",
+    price: "$79.99 Standard, $99.99 Ultimate",
     platforms: ["PlayStation 5", "Xbox Series X|S"],
     pcPlatforms: ["PC: no version announced, no store listing"],
     genres: ["Action", "Adventure", "Open World"],
-    rating: "Rating Pending (Expected Mature 17+)",
-    location: "Vice City, Leonida State (Miami-inspired)",
-    protagonists: ["Lucia", "Jason"],
+    rating: "Not yet rated",
+    location: "Vice City, Leonida",
+    protagonists: ["Lucia Caminos", "Jason Duval"],
     preOrderDate: "June 25, 2026",
-    firstHourRevenue: "$1 Billion",
-    preOrderCopies: "39+ Million",
     features: [
-      "Massive open world covering Vice City and the surrounding Leonida State",
-      "Dual protagonist system with Lucia and Jason",
-      "Next-gen graphics with ray tracing support",
-      "Enhanced physics, destruction, and AI systems",
-      "Dynamic weather, day/night cycle, and natural disasters",
-      "Expanded GTA Online integration at launch",
-      "Hundreds of vehicles, boats, aircraft, and wildlife",
-      "Realistic water physics and underwater exploration",
-      "Interactive buildings, stores, and homes",
-      "Social media simulation and in-game streaming"
+      "Set in Leonida, Rockstar's version of Florida, with Vice City as its main city",
+      "Two leads: Lucia Caminos and Jason Duval",
+      "Regions shown so far: the Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga National Park",
+      "Built for PlayStation 5 and Xbox Series X|S",
+      "Standard and Ultimate editions, with the Vintage Vice City Pack for purchases before November 20, 2026",
+      "Digital preloading from November 12, 2026; boxed copies contain a download code"
     ]
   };
 
@@ -241,13 +235,13 @@ export default function GTA6Client() {
             <div className="text-center md:text-left min-w-0">
               <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 max-w-full">
                 <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 shrink-0" />
-                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Pre-Orders Live · Releases Nov 19, 2026</span>
+                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Preorders open · Releases Nov 19, 2026</span>
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 break-words">
                 Grand Theft Auto <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">VI</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-xl mb-4 sm:mb-8">
-                Check if your PC can run GTA 6 and get the latest news, system requirements, and features.
+                Release date, price, editions and the latest confirmed news, plus what PC players can check while they wait.
               </p>
               {/* Flex wrap, not a two column grid. The Badge component is w-fit and
                   whitespace-nowrap, so a long badge ignores a fixed grid track and runs
@@ -257,7 +251,7 @@ export default function GTA6Client() {
               <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
-                  <span className="truncate">Pre-Orders Live</span>
+                  <span className="truncate">Preorders open</span>
                 </Badge>
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400 shrink-0" />
@@ -269,12 +263,11 @@ export default function GTA6Client() {
                 </Badge>
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-orange-400 shrink-0" />
-                  <span className="truncate sm:hidden">PC: not announced</span>
-                  <span className="truncate hidden sm:inline">PC: {gameInfo.pcRelease}</span>
+                  <span className="truncate">PC: not announced</span>
                 </Badge>
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
-                  <span className="truncate sm:hidden">$69.99 to $99.99</span>
+                  <span className="truncate sm:hidden">$79.99 to $99.99</span>
                   <span className="truncate hidden sm:inline">{gameInfo.price}</span>
                 </Badge>
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
@@ -283,8 +276,7 @@ export default function GTA6Client() {
                 </Badge>
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-yellow-400 shrink-0" />
-                  <span className="truncate sm:hidden">Vice City, Leonida</span>
-                  <span className="truncate hidden sm:inline">{gameInfo.location}</span>
+                  <span className="truncate">{gameInfo.location}</span>
                 </Badge>
               </div>
             </div>
@@ -445,7 +437,7 @@ export default function GTA6Client() {
                 </div>
                 <div className="mt-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
                   <p className="text-sm text-orange-700 dark:text-orange-300 font-medium">
-                    ℹ️ No PC version announced
+                    No PC version announced
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
                     Rockstar lists PS5 and Xbox Series X|S only. It brought GTA V to PC nineteen months after consoles and Red Dead Redemption 2 thirteen months after. The same range would put a GTA 6 PC release in late 2027 or early 2028, which is arithmetic on past releases rather than anything Rockstar has said.
@@ -536,16 +528,16 @@ export default function GTA6Client() {
                         {compatibilityResult.canRun ? (
                           <>
                             <CheckCircle className="w-16 h-16 mx-auto text-green-500 mb-3" />
-                            <h3 className="text-xl font-bold text-green-500">Yes, You Can Run GTA 6!</h3>
+                            <h3 className="text-xl font-bold text-green-500">Your PC clears Rockstar's current PC baseline</h3>
                             <p className="text-muted-foreground">
-                              {compatibilityResult.overallScore >= 85 ? 'Your PC exceeds recommended specs' : 'Your PC meets minimum requirements'}
+                              {compatibilityResult.overallScore >= 85 ? 'It beats the GTA V Enhanced recommended specs' : 'It meets the GTA V Enhanced minimum specs'}
                             </p>
                           </>
                         ) : (
                           <>
                             <XCircle className="w-16 h-16 mx-auto text-red-500 mb-3" />
-                            <h3 className="text-xl font-bold text-red-500">PC Doesn't Meet Requirements</h3>
-                            <p className="text-muted-foreground">You may need to upgrade your hardware</p>
+                            <h3 className="text-xl font-bold text-red-500">Below Rockstar's current PC baseline</h3>
+                            <p className="text-muted-foreground">It falls short of the GTA V Enhanced minimum, so a future GTA 6 PC version would likely need an upgrade</p>
                           </>
                         )}
                       </div>
@@ -637,11 +629,10 @@ export default function GTA6Client() {
                     </div>
                   </div>
                   <div className="p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg border border-purple-500/20">
-                    <h4 className="font-semibold mb-2">Dual Protagonist System</h4>
+                    <h4 className="font-semibold mb-2">Two leads</h4>
                     <p className="text-sm text-muted-foreground">
-                      GTA 6 features Lucia and Jason as playable characters, with the ability to switch between them 
-                      and experience the story from different perspectives. This builds on the successful formula 
-                      from GTA 5 while adding new depth to character interactions.
+                      Lucia Caminos and Jason Duval lead the story, a couple pulled into crime in Leonida.
+                      Rockstar has not explained yet how you move between the two during play.
                     </p>
                   </div>
                 </CardContent>
@@ -658,10 +649,7 @@ export default function GTA6Client() {
                     <Newspaper className="w-4 h-4 sm:w-5 sm:h-5" />
                     Latest GTA 6 News
                   </CardTitle>
-                  <Button variant="outline" size="sm" onClick={fetchNews} disabled={loadingNews} className="w-full sm:w-auto min-h-[44px]">
-                    <RefreshCw className={`w-4 h-4 mr-2 ${loadingNews ? 'animate-spin' : ''}`} />
-                    Refresh
-                  </Button>
+                  <span className="text-xs text-muted-foreground">Checked against official announcements</span>
                 </div>
               </CardHeader>
               <CardContent>
@@ -696,7 +684,7 @@ export default function GTA6Client() {
                 ) : (
                   <div className="text-center py-12 text-muted-foreground">
                     <Newspaper className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                    <p>No news available. Click refresh to fetch the latest updates.</p>
+                    <p>No news to show right now.</p>
                   </div>
                 )}
               </CardContent>
