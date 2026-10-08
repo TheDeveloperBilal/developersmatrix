@@ -1,63 +1,11 @@
-'use client';
-
-import { useState } from 'react';
-import { Mail, Search, MapPin, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { Mail, Search, MapPin, Clock, Handshake } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { BreadcrumbSchema } from '@/components/seo/SchemaMarkup';
+import ContactForm from '@/components/forms/ContactForm';
 import { siteConfig } from '@/data/config';
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [statusMsg, setStatusMsg] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
-
-    setIsSubmitting(true);
-    setStatus('idle');
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'general',
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setStatus('success');
-        setStatusMsg(data.message || 'Message sent! We will get back to you soon.');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        setStatus('error');
-        setStatusMsg(data.error || 'Something went wrong. Please try again.');
-      }
-    } catch {
-      setStatus('error');
-      setStatusMsg('Network error. Please check your connection and try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <>
       <BreadcrumbSchema
@@ -74,7 +22,7 @@ export default function ContactPage() {
             Get in <span className="gradient-text">Touch</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a question, a suggestion or a project in mind? Send a message and we will get back to you.
+            Have a question, found a bug or want a new tool? Send a message and I will get back to you.
           </p>
         </div>
       </section>
@@ -117,9 +65,28 @@ export default function ContactPage() {
                   <p className="text-sm text-muted-foreground mb-2">
                     Want a full manual review of your site?
                   </p>
-                  <a href="/services/website-audit" className="text-violet-600 hover:underline">
+                  <Link href="/services/website-audit" className="text-violet-600 hover:underline">
                     See the paid audit options
-                  </a>
+                  </Link>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-violet-500/10">
+                      <Handshake className="w-5 h-5 text-violet-500" />
+                    </div>
+                    Business Enquiries
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Sponsored posts, tool features, ads or a web project?
+                  </p>
+                  <Link href="/connect" className="text-violet-600 hover:underline">
+                    Use the Connect page
+                  </Link>
                 </CardContent>
               </Card>
 
@@ -151,7 +118,7 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-2">
-                    We typically respond within
+                    I usually reply within
                   </p>
                   <p className="text-sm font-medium">24 to 48 hours</p>
                 </CardContent>
@@ -162,93 +129,11 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <Card>
                 <CardHeader>
-                  <CardTitle>Send us a Message</CardTitle>
+                  <CardTitle>Send a Message</CardTitle>
+                  <p className="text-sm text-muted-foreground">Questions, bug reports and tool ideas all land in my inbox.</p>
                 </CardHeader>
                 <CardContent>
-                  {status === 'success' ? (
-                    <div className="text-center py-12">
-                      <CheckCircle className="w-16 h-16 mx-auto text-green-500 mb-4" />
-                      <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
-                      <p className="text-muted-foreground mb-6">{statusMsg}</p>
-                      <Button onClick={() => setStatus('idle')} variant="outline">
-                        Send Another Message
-                      </Button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Name *</Label>
-                          <Input
-                            id="name"
-                            placeholder="Your name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email">Email *</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="your@email.com"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="subject">Subject *</Label>
-                        <Input
-                          id="subject"
-                          placeholder="What's this about?"
-                          value={formData.subject}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Message *</Label>
-                        <Textarea
-                          id="message"
-                          placeholder="Tell us more about your inquiry..."
-                          rows={6}
-                          value={formData.message}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-
-                      {status === 'error' && (
-                        <div className="flex items-start gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 text-sm">
-                          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                          <span>{statusMsg}</span>
-                        </div>
-                      )}
-
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full sm:w-auto bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="w-4 h-4 mr-2" />
-                            Send Message
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
+                  <ContactForm kind="general" />
                 </CardContent>
               </Card>
             </div>

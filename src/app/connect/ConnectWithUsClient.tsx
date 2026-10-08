@@ -1,405 +1,175 @@
 'use client';
 
 import { useState } from 'react';
-import { 
-  Megaphone, 
-  Package, 
-  Wrench, 
-  PenTool, 
-  Users, 
-  Mail, 
-  Phone, 
-  MapPin,
-  CheckCircle,
-  Send,
-  Sparkles,
-  TrendingUp,
-  Target,
-  Globe
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import Link from 'next/link';
+import { ArrowDownRight, Check } from 'lucide-react';
+import ContactForm from '@/components/forms/ContactForm';
+import type { ServiceValue } from '@/lib/contact-form';
 
-const services = [
+interface Offer {
+  service: ServiceValue;
+  title: string;
+  body: string;
+  fit: string;
+  link?: { href: string; label: string };
+}
+
+const offers: Offer[] = [
   {
-    icon: Megaphone,
-    title: "Advertise With Us",
-    description: "Reach thousands of developers, entrepreneurs, and tech professionals through banner ads, sponsored content, and newsletter placements.",
-    features: ["Banner Advertising", "Sponsored Articles", "Newsletter Sponsorship", "Homepage Featured Placement"],
-    color: "from-blue-500 to-cyan-500"
+    service: 'sponsored-post',
+    title: 'Sponsored or guest posts',
+    body: 'An article on the blog, written by you or by me, on a topic readers actually search for. Sponsored posts are labeled and their links use rel="sponsored".',
+    fit: 'SaaS, developer tools, courses, agencies',
   },
   {
-    icon: Package,
-    title: "Promote Your Product",
-    description: "Launch and promote your tech product, SaaS, or developer tool to our engaged audience of tech enthusiasts.",
-    features: ["Product Reviews", "Launch Features", "Demo Showcases", "User Testimonials"],
-    color: "from-purple-500 to-pink-500"
+    service: 'tool-feature',
+    title: 'AI tool or product feature',
+    body: 'A hands on review or a listing next to related tools, written after actually using your product. You get honest notes, not a paid rave.',
+    fit: 'AI tools, browser extensions, apps',
   },
   {
-    icon: Wrench,
-    title: "AI Tool Promotion",
-    description: "Showcase your AI tool or platform to developers actively looking for AI solutions and integrations.",
-    features: ["Tool Directory Listing", "Detailed Reviews", "Comparison Features", "Tutorial Integration"],
-    color: "from-violet-500 to-purple-500"
+    service: 'advertising',
+    title: 'Banner ads and placements',
+    body: 'A fixed placement on a relevant tool page, trend report or blog post for an agreed period. I only place what suits the page and its readers.',
+    fit: 'Brands with a clear developer or creator audience',
   },
   {
-    icon: PenTool,
-    title: "Guest Posting",
-    description: "Share your expertise with our community through high-quality guest posts and thought leadership articles.",
-    features: ["Expert Authorship", "SEO Benefits", "Audience Reach", "Authority Building"],
-    color: "from-green-500 to-emerald-500"
+    service: 'website-audit',
+    title: 'Manual website audit',
+    body: 'A human review of your SEO, speed and technical setup, with a fix list ordered by impact. Want a quick score first? The free audit tool is a good start.',
+    fit: 'Site owners, startups, small businesses',
+    link: { href: '/services/website-audit', label: 'See audit options' },
   },
   {
-    icon: Users,
-    title: "Partnership Programs",
-    description: "Build long-term strategic partnerships for content collaboration, events, and mutual growth.",
-    features: ["Content Partnerships", "Event Collaborations", "Affiliate Programs", "Co-marketing"],
-    color: "from-orange-500 to-amber-500"
+    service: 'web-development',
+    title: 'Web development or SEO work',
+    body: 'Building or fixing sites on Next.js, WordPress or Shopify, plus technical SEO. Larger builds can run through OviTech Global, where I am a cofounder.',
+    fit: 'New sites, redesigns, slow or broken sites',
   },
-  {
-    icon: Target,
-    title: "Custom Campaigns",
-    description: "Design custom marketing campaigns tailored to your specific goals and target audience.",
-    features: ["Tailored Strategy", "Performance Tracking", "ROI Optimization", "Audience Targeting"],
-    color: "from-red-500 to-rose-500"
-  }
 ];
 
-const stats = [
-  { value: "14", label: "Free AI Tools" },
-  { value: "$0", label: "Forever Free" },
-  { value: "10+", label: "Expert Guides" },
-  { value: "2024", label: "Launched" }
+const steps = [
+  { title: 'Send the form', body: 'Say what you want to do and add a link to your product or site.' },
+  { title: 'Get a straight answer', body: 'Within 24 to 48 hours you get a yes or no, a price and a timeline. No call needed unless you want one.' },
+  { title: 'Go live', body: 'Once we agree, the work is scheduled and you get the link when it is published or delivered.' },
+];
+
+const rules = [
+  'Every sponsored post and paid feature is clearly labeled.',
+  'Paid links use rel="sponsored", as Google asks.',
+  'Reviews stay honest. Paying for a feature does not buy a good verdict.',
+  'No gambling, adult content, get rich quick schemes or link selling.',
 ];
 
 export default function ConnectWithUsClient() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    service: '',
-    budget: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [preset, setPreset] = useState<{ service: string; nonce: number } | undefined>();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, type: 'collaboration' })
-      });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', company: '', service: '', budget: '', message: '' });
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+  const choose = (service: ServiceValue) => {
+    setPreset((p) => ({ service, nonce: (p?.nonce ?? 0) + 1 }));
+    document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
-    <div className="min-h-screen bg-muted/20">
-      {/* Hero Section */}
-      <section className="hero-gradient py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 px-4 py-2 border-violet-500/30 bg-violet-500/10">
-            <Sparkles className="w-3.5 h-3.5 mr-2 text-violet-500" />
-            <span className="text-violet-600 dark:text-violet-400">Partnership Opportunities</span>
-          </Badge>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-            Connect <span className="gradient-text">With Us</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Partner with DevelopersMatrix to reach thousands of developers, entrepreneurs, 
-            and tech professionals. Let&apos;s grow together!
-          </p>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {stats.map((stat, index) => (
-              <Card key={index} className="bg-background/50 backdrop-blur-sm">
-                <CardContent className="p-4 text-center">
-                  <p className="text-2xl font-bold text-violet-600 dark:text-violet-400">{stat.value}</p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">How We Can Work Together</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose the partnership model that best fits your goals
+    <>
+      {/* Offers */}
+      <section className="bg-white dark:bg-ink-900">
+        <div className="shell py-14 lg:py-20">
+          <div className="max-w-2xl">
+            <h2 className="font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-4xl">
+              Ways to Work Together
+            </h2>
+            <p className="mt-4 text-lg text-ink-600 dark:text-ink-300">
+              Five things I can help with. Pick one to start the form with it already chosen.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:border-violet-500/30">
-                <CardHeader>
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <service.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
-                  <CardDescription>{service.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+          <ol className="mt-10 border-t border-ink-200 dark:border-ink-800">
+            {offers.map((o, i) => (
+              <li
+                key={o.service}
+                className="grid gap-4 border-b border-ink-200 py-7 dark:border-ink-800 md:grid-cols-12 md:items-start md:gap-8"
+              >
+                <span className="font-sora text-sm font-semibold tabular-nums text-brand-700 dark:text-brand-300 md:col-span-1 md:pt-1">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="md:col-span-7">
+                  <h3 className="font-sora text-xl font-semibold text-ink-950 dark:text-white">{o.title}</h3>
+                  <p className="mt-2 leading-relaxed text-ink-600 dark:text-ink-300">{o.body}</p>
+                  {o.link && (
+                    <Link href={o.link.href} className="mt-2 inline-block text-sm font-medium text-brand-700 hover:underline dark:text-brand-300">
+                      {o.link.label}
+                    </Link>
+                  )}
+                </div>
+                <div className="flex flex-col gap-3 md:col-span-4 md:items-end md:text-right">
+                  <p className="text-sm text-ink-500 dark:text-ink-400">
+                    <span className="font-semibold text-ink-700 dark:text-ink-200">Good for:</span> {o.fit}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => choose(o.service)}
+                    className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-xl border border-ink-300 px-4 text-sm font-semibold text-ink-900 transition hover:border-brand-600 hover:text-brand-700 dark:border-ink-700 dark:text-ink-100 dark:hover:border-brand-400 dark:hover:text-brand-300 sm:w-auto"
+                  >
+                    Choose this <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-16 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
-              <p className="text-muted-foreground mb-8">
-                Ready to start a partnership? Fill out the form and we&apos;ll get back to you 
-                within 24 to 48 hours with a proposal.
-              </p>
+      {/* Process, rules and form */}
+      <section id="enquiry" className="scroll-mt-20 border-t border-ink-200 bg-ink-50 dark:border-ink-800 dark:bg-ink-950">
+        <div className="shell grid gap-12 py-14 lg:grid-cols-12 lg:gap-16 lg:py-20">
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-24">
+              <h2 className="font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white">
+                How It Works
+              </h2>
+              <ol className="mt-8 space-y-6">
+                {steps.map((s, i) => (
+                  <li key={s.title} className="flex gap-4">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink-950 font-sora text-sm font-semibold text-white dark:bg-white dark:text-ink-950">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-ink-950 dark:text-white">{s.title}</h3>
+                      <p className="mt-1 text-ink-600 dark:text-ink-300">{s.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
 
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center shrink-0">
-                    <Mail className="w-5 h-5 text-violet-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Email Us</h3>
-                    <a href="mailto:info@developersmatrix.com" className="text-muted-foreground hover:text-violet-600 hover:underline">info@developersmatrix.com</a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center shrink-0">
-                    <TrendingUp className="w-5 h-5 text-violet-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Response Time</h3>
-                    <p className="text-muted-foreground">Within 24-48 hours</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center shrink-0">
-                    <Globe className="w-5 h-5 text-violet-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Global Reach</h3>
-                    <p className="text-muted-foreground">Worldwide audience</p>
-                  </div>
-                </div>
+              <div className="mt-10 rounded-2xl border border-ink-200 bg-white p-6 dark:border-ink-800 dark:bg-ink-900">
+                <h3 className="font-sora text-lg font-semibold text-ink-950 dark:text-white">My Ground Rules</h3>
+                <ul className="mt-4 space-y-3">
+                  {rules.map((r) => (
+                    <li key={r} className="flex gap-3 text-sm leading-relaxed text-ink-700 dark:text-ink-300">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                      {r}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              {/* Why Partner With Us */}
-              <Card className="mt-8 bg-gradient-to-br from-violet-500/10 to-purple-600/10 border-violet-500/20">
-                <CardHeader>
-                  <CardTitle className="text-lg">Why Partner With Us?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
-                      <span className="text-sm">Targeted developer & tech audience</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
-                      <span className="text-sm">SEO-optimized content placement</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
-                      <span className="text-sm">Competitive pricing packages</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
-                      <span className="text-sm">Detailed performance analytics</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
-                      <span className="text-sm">Dedicated account management</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
             </div>
+          </div>
 
-            {/* Contact Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Send Us a Message</CardTitle>
-                <CardDescription>
-                  Tell us about your project and we&apos;ll create a custom proposal for you.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {submitStatus === 'success' ? (
-                  <div className="text-center py-12">
-                    <CheckCircle className="w-16 h-16 mx-auto text-green-500 mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">Message Sent Successfully!</h3>
-                    <p className="text-muted-foreground mb-4">
-                      We&apos;ll get back to you within 24-48 hours.
-                    </p>
-                    <Button onClick={() => setSubmitStatus('idle')} variant="outline">
-                      Send Another Message
-                    </Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input
-                          id="name"
-                          placeholder="John Doe"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="john@company.com"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="company">Company / Organization</Label>
-                      <Input
-                        id="company"
-                        placeholder="Your Company Name"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="service">Service Interested In *</Label>
-                        <Select
-                          value={formData.service}
-                          onValueChange={(value) => setFormData({ ...formData, service: value })}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a service" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="advertising">Advertising</SelectItem>
-                            <SelectItem value="product-promotion">Product Promotion</SelectItem>
-                            <SelectItem value="ai-tool-promotion">AI Tool Promotion</SelectItem>
-                            <SelectItem value="guest-post">Guest Posting</SelectItem>
-                            <SelectItem value="partnership">Partnership Program</SelectItem>
-                            <SelectItem value="custom">Custom Campaign</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="budget">Budget Range</Label>
-                        <Select
-                          value={formData.budget}
-                          onValueChange={(value) => setFormData({ ...formData, budget: value })}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select budget" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="under-500">Under $500</SelectItem>
-                            <SelectItem value="500-1000">$500 - $1,000</SelectItem>
-                            <SelectItem value="1000-2500">$1,000 - $2,500</SelectItem>
-                            <SelectItem value="2500-5000">$2,500 - $5,000</SelectItem>
-                            <SelectItem value="5000-plus">$5,000+</SelectItem>
-                            <SelectItem value="discuss">Let&apos;s Discuss</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Your Message *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Tell us about your project, goals, and timeline..."
-                        rows={5}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        required
-                      />
-                    </div>
-
-                    {submitStatus === 'error' && (
-                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 text-sm">
-                        Something went wrong. Please try again or email us directly.
-                      </div>
-                    )}
-
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700"
-                    >
-                      {isSubmitting ? (
-                        <>Sending...</>
-                      ) : (
-                        <>
-                          <Send className="w-4 h-4 mr-2" />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
+          <div className="lg:col-span-7">
+            <div id="enquiry-form" className="relative scroll-mt-24 rounded-2xl border border-ink-200 bg-white p-6 shadow-sm dark:border-ink-800 dark:bg-ink-900 sm:p-8">
+              <h2 className="font-sora text-2xl font-bold tracking-tight text-ink-950 dark:text-white">
+                Send an Enquiry
+              </h2>
+              <p className="mt-2 text-ink-600 dark:text-ink-300">
+                The more detail you give, the more useful my first reply will be.
+              </p>
+              <div className="mt-6">
+                <ContactForm kind="collaboration" preset={preset} submitLabel="Send enquiry" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

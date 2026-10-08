@@ -1,133 +1,109 @@
 import { NextResponse } from 'next/server';
 import { sendEmail, isEmailConfigured } from '@/lib/email';
+import { buildGeneralEmail, buildCollaborationEmail, buildAutoReply } from '@/lib/email-templates';
+import { rateLimit, callerKey } from '@/lib/website-audit/rate-limit';
 import {
-  buildGeneralEmail,
-  buildCollaborationEmail,
-  buildNewsletterEmail,
-  buildAutoReply,
-} from '@/lib/email-templates';
+  CONTACT_EMAIL,
+  EMPTY_FORM,
+  MIN_FILL_MS,
+  validateForm,
+  type FormKind,
+  type FormValues,
+} from '@/lib/contact-form';
 
-const RECIPIENT = process.env.NOTIFY_EMAIL || 'sy.bilalshah@gmail.com';
+export const runtime = 'nodejs';
+
+// Five messages per visitor in ten minutes is plenty for a person and stops
+// a script from using the auto reply to send mail to strangers.
+const LIMIT = 5;
+const WINDOW_MS = 10 * 60_000;
+
+const SEND_FAILED = `Sorry, your message could not be sent just now. Please try again in a minute, or email ${CONTACT_EMAIL} directly.`;
+
+function str(value: unknown): string {
+  return typeof value === 'string' ? value : '';
+}
 
 export async function POST(request: Request) {
+  let body: Record<string, unknown>;
   try {
-    const body = await request.json();
-    const { type, name, email, message, subject, company, service, budget } = body;
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'The form data could not be read. Please refresh the page and try again.' }, { status: 400 });
+  }
 
-    // ── Newsletter (footer) ────────────────────────────────────────────
-    if (type === 'newsletter') {
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return NextResponse.json({ error: 'Valid email is required' }, { status: 400 });
-      }
+  const kind = body.type;
+  if (kind !== 'general' && kind !== 'collaboration') {
+    return NextResponse.json({ error: 'Unknown form.' }, { status: 400 });
+  }
 
-      const { subject: subj, html, text } = buildNewsletterEmail({
-        type: 'newsletter',
-        email,
-        name: '',
-        message: '',
-      });
+  // Spam checks. A filled hidden field or an impossibly fast submit means a
+  // bot. We answer "sent" so the bot learns nothing, and send nothing.
+  const honeypot = str(body.website);
+  const elapsed = typeof body.elapsedMs === 'number' ? body.elapsedMs : 0;
+  if (honeypot || elapsed < MIN_FILL_MS) {
+    return NextResponse.json({ success: true });
+  }
 
-      const sent = await trySend({ subject: subj, html, text });
-
-      if (!sent) {
-        return NextResponse.json(
-          { error: 'Email service not configured. Please set GMAIL_APP_PASSWORD in environment variables.' },
-          { status: 503 }
-        );
-      }
-
-      return NextResponse.json({
-        success: true,
-        message: 'Subscribed successfully! Welcome to the newsletter.',
-      });
-    }
-
-    // ── General Contact ────────────────────────────────────────────────
-    if (type === 'general') {
-      if (!name || !email || !message) {
-        return NextResponse.json(
-          { error: 'Name, email, and message are required' },
-          { status: 400 }
-        );
-      }
-
-      const { subject: subj, html, text } = buildGeneralEmail({
-        type: 'general',
-        name,
-        email,
-        message,
-        subject,
-      });
-
-      const sent = await trySend({ subject: subj, html, text });
-      if (!sent) return notConfigured();
-
-      // Auto-reply to the user
-      const autoReply = buildAutoReply({ type: 'general', name, email, message });
-      await trySend({ ...autoReply, to: email });
-
-      return NextResponse.json({
-        success: true,
-        message: 'Message sent! We will get back to you within 24–48 hours.',
-      });
-    }
-
-    // ── Collaboration / Connect ────────────────────────────────────────
-    if (type === 'collaboration') {
-      if (!name || !email || !service || !message) {
-        return NextResponse.json(
-          { error: 'Name, email, service, and message are required' },
-          { status: 400 }
-        );
-      }
-
-      const { subject: subj, html, text } = buildCollaborationEmail({
-        type: 'collaboration',
-        name,
-        email,
-        message,
-        company,
-        service,
-        budget,
-      });
-
-      const sent = await trySend({ subject: subj, html, text });
-      if (!sent) return notConfigured();
-
-      // Auto-reply to the user
-      const autoReply = buildAutoReply({ type: 'collaboration', name, email, message });
-      await trySend({ ...autoReply, to: email });
-
-      return NextResponse.json({
-        success: true,
-        message: 'Partnership inquiry sent! We will review it and respond within 24–48 hours.',
-      });
-    }
-
-    return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });
-  } catch (error) {
-    console.error('Contact API error:', error);
+  const limit = rateLimit(`contact:${callerKey(request)}`, LIMIT, WINDOW_MS);
+  if (!limit.allowed) {
     return NextResponse.json(
-      { error: 'Failed to process submission. Please try again.' },
-      { status: 500 }
+      { error: `You have sent several messages in a short time. Please wait a few minutes, or email ${CONTACT_EMAIL}.` },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } }
     );
   }
-}
 
-async function trySend(payload: { subject: string; html: string; text: string; to?: string }): Promise<boolean> {
-  if (!isEmailConfigured()) return false;
-  try {
-    await sendEmail({ ...payload, to: payload.to || RECIPIENT });
-    return true;
-  } catch (err) {
-    console.error('Email send failed:', err);
-    return false;
+  const values: FormValues = {
+    ...EMPTY_FORM,
+    name: str(body.name).trim(),
+    email: str(body.email).trim(),
+    subject: str(body.subject).trim(),
+    company: str(body.company).trim(),
+    service: str(body.service).trim(),
+    budget: str(body.budget).trim(),
+    message: str(body.message).trim(),
+  };
+
+  const fieldErrors = validateForm(kind as FormKind, values);
+  if (Object.keys(fieldErrors).length > 0) {
+    return NextResponse.json(
+      { error: 'Please check the highlighted fields.', fieldErrors },
+      { status: 400 }
+    );
   }
-}
 
-function notConfigured() {
-  return NextResponse.json(
-    { error: 'Email service not configured. Please set GMAIL_APP_PASSWORD in environment variables.' },
-    { status: 503 }
-  );
+  if (!isEmailConfigured()) {
+    // Logged for you in Vercel, never shown to the visitor.
+    console.error('Contact form: GMAIL_USER or GMAIL_APP_PASSWORD is missing.');
+    return NextResponse.json({ error: SEND_FAILED }, { status: 503 });
+  }
+
+  const data = {
+    type: kind as FormKind,
+    name: values.name,
+    email: values.email,
+    message: values.message,
+    subject: values.subject,
+    company: values.company,
+    service: values.service,
+    budget: values.budget,
+  };
+
+  const notice = kind === 'general' ? buildGeneralEmail(data) : buildCollaborationEmail(data);
+
+  try {
+    await sendEmail({ ...notice, replyTo: values.email });
+  } catch (err) {
+    console.error('Contact form: send failed', err);
+    return NextResponse.json({ error: SEND_FAILED }, { status: 502 });
+  }
+
+  // The receipt is a courtesy. If it fails, the message still reached you.
+  try {
+    await sendEmail({ ...buildAutoReply(data), to: values.email, replyTo: CONTACT_EMAIL });
+  } catch (err) {
+    console.error('Contact form: auto reply failed', err);
+  }
+
+  return NextResponse.json({ success: true });
 }
