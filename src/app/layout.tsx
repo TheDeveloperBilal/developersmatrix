@@ -9,7 +9,7 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import { siteConfig } from "@/data/config";
 import { siteAuthor } from "@/data/authors";
-import { OrganizationSchema, PersonSchema } from "@/components/seo/SchemaMarkup";
+import { OrganizationSchema, PersonSchema, ORG_ID, PERSON_ID, OVITECH } from "@/components/seo/SchemaMarkup";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -135,25 +135,20 @@ export default function RootLayout({
           url={siteConfig.url}
           description={siteConfig.description}
           logo={siteConfig.ogImage}
-          founder={siteAuthor.name}
-          employees="5-10"
           knowsAbout={siteAuthor.knowsAbout}
-          sameAs={[
-            siteConfig.links.twitter,
-            siteConfig.links.github,
-            siteConfig.links.linkedin,
-            siteConfig.links.facebook,
-            siteConfig.links.instagram
-          ]}
         />
 
         {/* Person Schema — Author Entity */}
         <PersonSchema
           name={siteAuthor.name}
           url={`${siteConfig.url}/about`}
-          image={siteAuthor.image}
+          image={`${siteConfig.url}${siteAuthor.image}`}
           jobTitle={siteAuthor.jobTitle}
-          worksFor={siteConfig.name}
+          id={PERSON_ID}
+          affiliations={[
+            { name: siteConfig.name, url: siteConfig.url, id: ORG_ID },
+            OVITECH
+          ]}
           description={siteAuthor.bio}
           knowsAbout={siteAuthor.knowsAbout}
           sameAs={siteAuthor.sameAs}

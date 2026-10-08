@@ -68,8 +68,8 @@ export function FinalCta() {
             <a href="/tools" className="btn-primary">
               Explore free AI tools
             </a>
-            <a href="/community" className="btn-secondary">
-              Join the community
+            <a href="/blog" className="btn-secondary">
+              Read the latest guides
             </a>
           </div>
           <ul className="mt-9 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-ink-500">

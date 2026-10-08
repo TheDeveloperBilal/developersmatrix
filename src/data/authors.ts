@@ -17,10 +17,10 @@ export const siteAuthor: Author = {
   name: 'Syed Bilal Shah',
   slug: 'syed-bilal-shah',
   jobTitle: 'Founder & Lead Developer',
-  bio: 'Syed Bilal Shah is the founder of DevelopersMatrix and co-founder of OviTech Global, a software and digital solutions company with 20+ team members. With over 7 years of experience in full-stack development, SEO, and digital marketing, Bilal has worked with local businesses and international clients across multiple industries. He built DevelopersMatrix to democratize access to professional-grade AI tools after seeing how expensive subscriptions lock out freelancers, students, and small businesses. His work spans Next.js, React, WordPress, Shopify, Magento, and modern AI integrations.',
+  bio: 'Syed Bilal Shah is the founder of DevelopersMatrix and cofounder of OviTech Global, a software and digital solutions company with 20+ team members. With more than 7 years of experience in full stack development, SEO, and digital marketing, Bilal has worked with local businesses and international clients across multiple industries. He built DevelopersMatrix to give everyone access to professional grade tools after seeing how expensive subscriptions lock out freelancers, students, and small businesses. His work spans Next.js, React, WordPress, Shopify, Magento, and modern AI integrations.',
   credentials: [
-    'Full-Stack Developer',
-    'Co-Founder, OviTech Global',
+    'Full Stack Developer',
+    'Cofounder, OviTech Global',
     'SEO & Digital Marketing Specialist',
     '7+ Years Industry Experience'
   ],
@@ -37,7 +37,7 @@ export const siteAuthor: Author = {
     'SEO',
     'Career Growth',
     'Digital Marketing',
-    'E-commerce Development'
+    'Ecommerce Development'
   ],
   sameAs: [
     'https://www.linkedin.com/in/thedeveloperbilal/',

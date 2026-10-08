@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, Rss, ArrowRight, TrendingUp, Tag, BookOpen, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { BlogCard } from '@/components/shared/Cards';
 import { InContentAd } from '@/components/ads/AdBanner';
-import { blogCategories } from '@/data/blog-categories';
+import { categoriesFrom, topTagsFrom } from '@/data/blog-categories';
 import type { BlogSummary } from '@/types';
 import { BlogCardSkeleton } from '@/components/blog/BlogCardSkeleton';
 
@@ -24,6 +24,23 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Only categories and topics that actually have posts.
+  const categories = useMemo(() => categoriesFrom(initialPosts), [initialPosts]);
+  const topics = useMemo(() => topTagsFrom(initialPosts, 11), [initialPosts]);
+
+  // Sidebar links on article pages point here as /blog?category=... or /blog?q=...
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('category');
+      const q = params.get('q');
+      if (cat && categories.some((c) => c.name === cat)) setSelectedCategory(cat);
+      if (q) setSearchQuery(q);
+    } catch {
+      /* ignore malformed URLs */
+    }
+  }, [categories]);
 
   const filteredPosts = useMemo(() => {
     let result = [...initialPosts];
@@ -109,7 +126,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
               >
                 All Posts
               </Badge>
-              {blogCategories.map(category => (
+              {categories.map(({ name: category }) => (
                 <Badge
                   key={category}
                   variant={selectedCategory === category ? 'default' : 'outline'}
@@ -256,8 +273,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
               </CardHeader>
               <CardContent>
                 <div className="space-y-1">
-                  {blogCategories.map(category => {
-                    const count = initialPosts.filter(p => p.category === category).length;
+                  {categories.map(({ name: category, count }) => {
                     return (
                       <button
                         key={category}
@@ -287,7 +303,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  {['AI', 'Career', 'Productivity', 'JavaScript', 'Startup', 'Finance', 'Remote Work', 'Skills', 'Gaming', 'Politics', 'Technology'].map(tag => (
+                  {topics.map(tag => (
                     <Badge
                       key={tag}
                       variant="outline"

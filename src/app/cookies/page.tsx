@@ -300,8 +300,8 @@ export default function CookiePolicyPage() {
                 contact us. We are committed to addressing your concerns and providing clarification 
                 about our privacy practices. You can reach our privacy team at:
                 <br /><br />
-                <a href="mailto:privacy@developersmatrix.com" className="text-violet-600 hover:underline">
-                  privacy@developersmatrix.com
+                <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline">
+                  info@developersmatrix.com
                 </a>
                 <br /><br />
                 We will make every effort to respond to your inquiry within a reasonable timeframe.

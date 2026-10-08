@@ -39,12 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/community`,
-      lastModified: DATES.recent,
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
-    {
       url: `${baseUrl}/connect`,
       lastModified: DATES.stable,
       changeFrequency: 'monthly',

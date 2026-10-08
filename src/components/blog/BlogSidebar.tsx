@@ -5,10 +5,9 @@ import { Rss, ArrowRight, TrendingUp, Tag, BookOpen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { BlogSummary } from '@/types';
-import { blogCategories } from '@/data/blog-categories';
+import type { CategoryCount } from '@/data/blog-categories';
 
 interface BlogSidebarProps {
   currentSlug?: string;
@@ -16,17 +15,15 @@ interface BlogSidebarProps {
   // Passed in from the server page. Reading the corpus here would pull every
   // article body into the client bundle of every blog post.
   recentPosts?: BlogSummary[];
+  // Built on the server from the real posts, so empty categories never show.
+  categories?: CategoryCount[];
+  topics?: string[];
 }
 
-export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsProp }: BlogSidebarProps) {
+export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsProp, categories = [], topics = [] }: BlogSidebarProps) {
   const recentPosts = (recentPostsProp ?? []).filter(p => p.slug !== currentSlug).slice(0, 3);
 
-  // Popular tags based on actual data
-  const popularTags = [
-    'AI', 'Career', 'Productivity', 'JavaScript', 'Startup',
-    'Finance', 'Remote Work', 'Skills', 'Gaming', 'Technology',
-    'SEO', 'Interview', 'Resume', 'Next.js', 'React'
-  ];
+  const popularTags = topics;
 
   return (
     <aside className={`space-y-6 ${className || ''}`}>
@@ -68,6 +65,7 @@ export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsPr
       )}
 
       {/* Categories */}
+      {categories.length > 0 && (
       <Card className="border shadow-sm">
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
@@ -77,7 +75,7 @@ export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsPr
         </CardHeader>
         <CardContent>
           <div className="space-y-1">
-            {blogCategories.map((category) => {
+            {categories.map(({ name: category, count }) => {
               return (
                 <Link
                   key={category}
@@ -85,7 +83,7 @@ export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsPr
                   className="flex items-center justify-between p-2.5 rounded-lg hover:bg-violet-50 dark:hover:bg-violet-950/30 transition-colors group text-sm"
                 >
                   <span className="text-foreground group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-colors">
-                    {category}
+                    {category} <span className="text-muted-foreground">({count})</span>
                   </span>
                   <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-violet-500 group-hover:translate-x-0.5 transition-all opacity-0 group-hover:opacity-100" />
                 </Link>
@@ -94,8 +92,10 @@ export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsPr
           </div>
         </CardContent>
       </Card>
+      )}
 
       {/* Popular Tags */}
+      {popularTags.length > 0 && (
       <Card className="border shadow-sm">
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
@@ -118,6 +118,7 @@ export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsPr
           </div>
         </CardContent>
       </Card>
+      )}
 
       {/* CTA Card */}
       <Card className="border-0 shadow-lg overflow-hidden relative bg-gradient-to-br from-violet-600 to-purple-700 text-white">
@@ -143,33 +144,47 @@ export function BlogSidebar({ currentSlug, className, recentPosts: recentPostsPr
   );
 }
 
+// Was a "Weekly Newsletter" signup that sent nothing and claimed 12,000+ readers.
+// Now it points to the real places we post updates.
+const FOLLOW_LINKS = [
+  { name: 'Facebook', href: 'https://www.facebook.com/developersmatrix/' },
+  { name: 'Instagram', href: 'https://www.instagram.com/developermatrix/' },
+  { name: 'Pinterest', href: 'https://www.pinterest.com/developersmatrix/' },
+  { name: 'LinkedIn', href: 'https://linkedin.com/company/developersmatrix' },
+];
+
 export function NewsletterCard({ className }: { className?: string }) {
   return (
-    <Card className={`border-0 shadow-lg overflow-hidden relative bg-gradient-to-br from-violet-50 to-purple-50/50 dark:from-violet-950/40 dark:to-purple-950/30 border border-violet-100/50 dark:border-violet-800/20 ${className || ''}`}>
+    <Card className={`border shadow-sm ${className || ''}`}>
       <CardHeader className="pb-3">
         <CardTitle className="text-base flex items-center gap-2">
           <Rss className="w-4 h-4 text-violet-500" />
-          Weekly Newsletter
+          Stay Updated
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Get curated articles on tech careers, AI tools, and productivity hacks, delivered every Tuesday.
+          New guides, reports and tool updates are shared on our social pages.
         </p>
-        <div className="space-y-2">
-          <Input
-            type="email"
-            placeholder="your@email.com"
-            className="bg-background/80 backdrop-blur-sm border-violet-200/50 dark:border-violet-800/30 min-h-[44px]"
-          />
-          <Button
-            className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-medium min-h-[44px]"
-          >
-            Subscribe Free
-          </Button>
-        </div>
-        <p className="text-[11px] text-muted-foreground/70 text-center">
-          No spam. Unsubscribe anytime. Join 12,000+ developers.
+        <ul className="grid grid-cols-2 gap-2">
+          {FOLLOW_LINKS.map((l) => (
+            <li key={l.name}>
+              <a
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-[40px] items-center justify-center rounded-lg border text-sm font-medium transition-colors hover:border-violet-300 hover:text-violet-700 dark:hover:text-violet-300"
+              >
+                {l.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="text-xs text-muted-foreground">
+          Questions? Email{' '}
+          <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline dark:text-violet-400">
+            info@developersmatrix.com
+          </a>
         </p>
       </CardContent>
     </Card>

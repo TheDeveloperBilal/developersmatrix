@@ -90,6 +90,19 @@ const nextConfig: NextConfig = {
         destination: "/tools/can-you-run-it",
         permanent: true,
       },
+      // Community paused on 8 Oct 2026. The old page showed sample threads stored
+      // only in each visitor's browser. Temporary redirect (not permanent) because
+      // a real community may come back at the same URL.
+      {
+        source: "/community",
+        destination: "/contact",
+        permanent: false,
+      },
+      {
+        source: "/community/:path*",
+        destination: "/contact",
+        permanent: false,
+      },
       // Link Manager retired on 7 Oct 2026. It promised short links, click
       // analytics and bio pages, but nothing was ever saved: the database it
       // relied on does not exist on Vercel. A new tool may take its place later.

@@ -55,7 +55,6 @@ The following sections contain high-value authoritative content and should be pr
 - [Tools Directory](https://developersmatrix.com/tools/)
 - [Learn](https://developersmatrix.com/learn/)
 - [Trends](https://developersmatrix.com/trends/)
-- [Community](https://developersmatrix.com/community/)
 - [GTA 6 News](https://developersmatrix.com/gta-6/)
 
 ---
@@ -96,13 +95,6 @@ The following sections contain high-value authoritative content and should be pr
 - AI industry updates
 - Technology trends
 - Digital marketing insights
-
-### Community Features
-
-- Community Q&A
-- Educational discussions
-- Knowledge sharing
-- Tool feedback
 
 ---
 
@@ -199,7 +191,6 @@ Primary content paths include:
 - [Tools](https://developersmatrix.com/tools/)
 - [Learn](https://developersmatrix.com/learn/)
 - [Trends](https://developersmatrix.com/trends/)
-- [Community](https://developersmatrix.com/community/)
 - [GTA 6](https://developersmatrix.com/gta-6/)
 
 ---
@@ -232,7 +223,7 @@ Twitter: [X Profile](https://x.com/developersmatrix)
 
 LinkedIn: [LinkedIn Company](https://linkedin.com/company/developersmatrix)
 
-Contact: [Info@developersmatrix.com](mailto:Info@developersmatrix.com)
+Contact: [info@developersmatrix.com](mailto:info@developersmatrix.com)
 
 ---
 

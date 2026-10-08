@@ -195,7 +195,7 @@ export default function ConnectWithUsClient() {
               <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
               <p className="text-muted-foreground mb-8">
                 Ready to start a partnership? Fill out the form and we&apos;ll get back to you 
-                within 24-48 hours with a customized proposal.
+                within 24 to 48 hours with a proposal.
               </p>
 
               <div className="space-y-6">
@@ -205,7 +205,7 @@ export default function ConnectWithUsClient() {
                   </div>
                   <div>
                     <h3 className="font-semibold">Email Us</h3>
-                    <p className="text-muted-foreground">sy.bilalshah@gmail.com</p>
+                    <a href="mailto:info@developersmatrix.com" className="text-muted-foreground hover:text-violet-600 hover:underline">info@developersmatrix.com</a>
                   </div>
                 </div>
 

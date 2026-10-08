@@ -88,10 +88,6 @@ export default function TermsPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-violet-500 mt-1">•</span>
-                  <span><strong>Community Q&A:</strong> Engage with other professionals in discussions</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-violet-500 mt-1">•</span>
                   <span><strong>Trend Radar:</strong> Stay updated on industry trends and news</span>
                 </li>
               </ul>
@@ -405,11 +401,11 @@ export default function TermsPage() {
                 <br /><br />
                 <strong>Legal Department</strong>
                 <br />
-                Email: <a href="mailto:legal@developersmatrix.com" className="text-violet-600 hover:underline">legal@developersmatrix.com</a>
+                Email: <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline">info@developersmatrix.com</a>
                 <br /><br />
                 <strong>General Inquiries</strong>
                 <br />
-                Email: <a href="mailto:hello@developersmatrix.com" className="text-violet-600 hover:underline">hello@developersmatrix.com</a>
+                Email: <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline">info@developersmatrix.com</a>
                 <br /><br />
                 <strong>Website:</strong> <a href="https://developersmatrix.com" className="text-violet-600 hover:underline">developersmatrix.com</a>
               </p>

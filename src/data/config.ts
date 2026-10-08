@@ -2,7 +2,7 @@ import { SiteConfig } from '@/types';
 
 export const siteConfig: SiteConfig = {
   name: 'DevelopersMatrix',
-  description: 'AI-Powered Life & Opportunity Optimization Hub - Tools, insights, and resources for developers, entrepreneurs, and tech professionals to optimize their careers and daily productivity.',
+  description: 'Free tools, trend reports and practical guides for developers, creators and professionals building better careers and businesses. No signup needed.',
   url: 'https://developersmatrix.com',
   ogImage: 'https://developersmatrix.com/og-image.png',
   links: {
@@ -39,16 +39,14 @@ export const navigation = [
   { name: 'Trends', href: '/trends' },
   { name: 'Free Website Audit', href: '/tools/website-audit', highlight: true },
   { name: 'GTA 6', href: '/gta-6' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Community', href: '/community' }
+  { name: 'Blog', href: '/blog' }
 ];
 
 export const footerLinks = {
   product: [
     { name: 'AI Resume Builder', href: '/tools/ai-resume-builder' },
     { name: 'Website Audit Tool', href: '/tools/website-audit' },
-    { name: 'Budget Planner', href: '/tools/budget-planner' },
-    { name: 'Community Q&A', href: '/community' }
+    { name: 'Budget Planner', href: '/tools/budget-planner' }
   ],
   company: [
     { name: 'About Us', href: '/about' },

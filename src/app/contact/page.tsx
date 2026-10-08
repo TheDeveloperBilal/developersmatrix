@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, MessageSquare, MapPin, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Mail, Search, MapPin, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -74,7 +74,7 @@ export default function ContactPage() {
             Get in <span className="gradient-text">Touch</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a question, suggestion, or just want to say hello? We&apos;d love to hear from you.
+            Have a question, a suggestion or a project in mind? Send a message and we will get back to you.
           </p>
         </div>
       </section>
@@ -98,8 +98,8 @@ export default function ContactPage() {
                   <p className="text-sm text-muted-foreground mb-2">
                     For general inquiries and support
                   </p>
-                  <a href="mailto:sy.bilalshah@gmail.com" className="text-violet-600 hover:underline">
-                    sy.bilalshah@gmail.com
+                  <a href="mailto:info@developersmatrix.com" className="text-violet-600 hover:underline">
+                    info@developersmatrix.com
                   </a>
                 </CardContent>
               </Card>
@@ -108,17 +108,17 @@ export default function ContactPage() {
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-blue-500/10">
-                      <MessageSquare className="w-5 h-5 text-blue-500" />
+                      <Search className="w-5 h-5 text-blue-500" />
                     </div>
-                    Community
+                    Website Audits
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-2">
-                    Join discussions and get help
+                    Want a full manual review of your site?
                   </p>
-                  <a href="/community" className="text-violet-600 hover:underline">
-                    Visit Community Q&A →
+                  <a href="/services/website-audit" className="text-violet-600 hover:underline">
+                    See the paid audit options
                   </a>
                 </CardContent>
               </Card>
@@ -134,9 +134,9 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-2">
-                    We&apos;re a remote-first team
+                    Run remotely, working with clients in many countries
                   </p>
-                  <p className="text-sm">Worldwide 🌍</p>
+                  <p className="text-sm">Worldwide</p>
                 </CardContent>
               </Card>
 
@@ -153,7 +153,7 @@ export default function ContactPage() {
                   <p className="text-sm text-muted-foreground mb-2">
                     We typically respond within
                   </p>
-                  <p className="text-sm font-medium">24-48 hours</p>
+                  <p className="text-sm font-medium">24 to 48 hours</p>
                 </CardContent>
               </Card>
             </div>
