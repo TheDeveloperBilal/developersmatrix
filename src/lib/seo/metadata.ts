@@ -88,7 +88,7 @@ export const pageMetadata = {
   },
   tools: {
     title: 'Free AI-Powered Tools & Resources',
-    description: 'Access 15+ free AI-powered tools including Resume Builder, Cover Letter Generator, Interview Simulator, Budget Planner, and more. Boost your productivity and career today.',
+    description: 'Browse 20+ free tools for your career, website and money: resume builder, cover letter generator, website audit, interview practice, budget planner and more.',
     keywords: ['AI tools', 'free tools', 'productivity tools', 'career tools', 'resume builder', 'budget planner'],
     path: '/tools'
   },
@@ -189,7 +189,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'ai-resume-builder': {
     title: 'Free AI Resume Builder for ATS Resumes',
-    description: 'Build an ATS-friendly resume in minutes with our free AI resume builder. Tailored for developers, software engineers, and tech professionals. 2026-ready templates, keyword optimization, and instant PDF export.',
+    description: 'Free resume builder for ATS friendly resumes. Three clean templates, a resume check that flags weak bullets, job match keywords and PDF export. No signup.',
     keywords: [
       'free resume builder online',
       'create resume free',
@@ -211,7 +211,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'ai-cover-letter-generator': {
     title: 'Free AI Cover Letter Generator',
-    description: 'Free AI cover letter generator for developers, engineers, and tech professionals. Create personalized, ATS-friendly cover letters tailored to any job description in under 60 seconds. No signup, no credit card, unlimited use.',
+    description: 'Free cover letter generator that writes from your experience and the job posting. Three tones, a live check for weak lines, then copy, download or print.',
     keywords: [
       'free cover letter generator',
       'ai cover letter creator online',

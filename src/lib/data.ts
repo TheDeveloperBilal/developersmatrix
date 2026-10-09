@@ -152,8 +152,8 @@ export const categories: Category[] = [
   {
     name: "Learning",
     href: "/learn",
-    description: "Micro courses and skill building resources",
-    count: "50+ lessons",
+    description: "Short lessons on core developer topics",
+    count: "10 lessons",
     icon: GraduationCap,
   },
 ];

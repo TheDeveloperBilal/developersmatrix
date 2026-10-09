@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
   if (game.requirementsStatus === 'unannounced') {
     return {
       title: `${short} PC System Requirements Explained`,
-      description: `${game.developer} has not published PC specs for ${short}, and no PC version is announced. Here is what is confirmed, and the real ${game.developer} PC baselines to judge your machine against.`,
+      description: `${game.developer} has not published PC specs for ${short} and no PC version is announced. See what is confirmed and the ${game.developer} PC baselines to compare.`,
       keywords: [
         `${short.toLowerCase()} system requirements`,
         `${short.toLowerCase()} pc requirements`,

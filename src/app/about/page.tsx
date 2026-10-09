@@ -10,7 +10,7 @@ import { TOOLS_LABEL } from "@/lib/home-data";
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'About Syed Bilal Shah, Founder',
-  description: 'Meet Syed Bilal Shah, founder of DevelopersMatrix and cofounder of OviTech Global. Read his journey from intern to entrepreneur, and learn the mission behind making AI tools free for everyone.',
+  description: 'Meet Syed Bilal Shah, founder of DevelopersMatrix and cofounder of OviTech Global: his path from intern to entrepreneur and why the tools here stay free.',
   path: '/about',
 });
 

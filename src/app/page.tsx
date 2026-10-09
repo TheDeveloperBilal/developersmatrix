@@ -3,7 +3,7 @@ import { siteConfig } from "@/data/config";
 import { articles, guideCount, newestGuides } from "@/lib/home-articles";
 import { getIndexableTrends, getTrendBySlug, trendCategories } from "@/data/trends-data";
 import { TOOLS_LABEL, featuredTrendPicks, homeFaqs, toolUpdates, type TrendCard, type UpdateItem } from "@/lib/home-data";
-import { OrganizationSchema, WebApplicationSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
+import { WebApplicationSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 import SeoContentSection from "@/components/sections/seo-content-section";
 import LiveTicker from "@/components/sections/live-ticker";
 import HeroDiscovery from "@/components/sections/hero-discovery";
@@ -138,11 +138,7 @@ export default function HomePage() {
 
   return (
     <>
-      <OrganizationSchema
-        name={siteConfig.name}
-        url={siteConfig.url}
-        description={siteConfig.description}
-      />
+      {/* Organization schema comes from the root layout (one entity, one @id). */}
       <WebApplicationSchema
         name={siteConfig.name}
         description={siteConfig.description}

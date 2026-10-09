@@ -403,8 +403,8 @@ export default function WebsiteAuditServicesPage() {
               {[
                 { href: '/tools/website-audit', t: 'Free website audit tool', d: 'Around 150 automated checks, no signup' },
                 { href: '/blog/website-audit-checklist-2026', t: 'Website audit checklist', d: 'The 47 checks that actually matter' },
-                { href: '/blog/how-to-audit-website-2026-guide', t: 'How to audit a website', d: 'The 15 step process end to end' },
-                { href: '/blog/how-to-audit-my-website-2026', t: 'Technical SEO audit checklist', d: 'Crawling, rendering and indexing in depth' },
+                { href: '/blog/website-code-audit-guide', t: 'Website code audit guide', d: 'Performance, rendering, security and schema' },
+                { href: '/blog/on-site-seo-guide-2026', t: 'On page SEO checklist', d: 'Titles, headings and internal links' },
               ].map((l) => (
                 <Link
                   key={l.href}
