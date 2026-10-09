@@ -13,6 +13,8 @@ const DATES = {
   may2026: new Date('2026-05-25'),
   // Stable pages rarely changed
   stable: new Date('2026-01-01'),
+  // About, Connect and Contact rebuilt on 8 October 2026
+  oct2026: new Date('2026-10-08'),
 } as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: DATES.stable,
+      lastModified: DATES.oct2026,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
@@ -40,13 +42,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/connect`,
-      lastModified: DATES.stable,
+      lastModified: DATES.oct2026,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: DATES.stable,
+      lastModified: DATES.oct2026,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
@@ -63,12 +65,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/learn`,
-      lastModified: DATES.recent,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
       url: `${baseUrl}/trends`,
       lastModified: DATES.recent,
       changeFrequency: 'daily',
@@ -82,6 +78,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/privacy`,
+      lastModified: DATES.stable,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
       lastModified: DATES.stable,
       changeFrequency: 'yearly',
       priority: 0.3,

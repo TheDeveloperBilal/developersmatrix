@@ -327,7 +327,7 @@ export const allTrends: TrendItem[] = [
       ]
     },
     metaTitle: 'Autonomous AI Agents by Industry 2026',
-    metaDescription: 'Explore autonomous AI agents examples by industry in 2026. See use cases in retail, finance, software, marketing, and logistics. Discover the best niches for AI automation agencies and how to build agent-powered businesses.',
+    metaDescription: 'Autonomous AI agents by industry in 2026: use cases in retail, finance, software, marketing and logistics, and the niches worth building a business on.',
     keywords: ['autonomous ai agents', 'autonomous agents examples by industry 2026', 'AI agents', 'AutoGPT', 'AI automation', 'future of work', 'AI agents by industry', 'best niches for ai automation agencies 2026', 'ai automation agency']
   },
   {
@@ -1878,9 +1878,15 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
-// Get all trends (for cross-linking and external modules)
+// Trends that are folded into another page (noindex, canonical elsewhere) stay
+// reachable by URL but are left out of every list and related link, so the site
+// does not keep pointing visitors and crawlers at a page that says "the real
+// version is somewhere else".
+const listedTrends: TrendItem[] = allTrends.filter((t) => !t.noindex);
+
+// Get all listed trends (for cross-linking and external modules)
 export function getAllTrends(): TrendItem[] {
-  return [...allTrends];
+  return [...listedTrends];
 }
 
 // A trend without its article body. The radar page only renders cards, so it
@@ -1899,9 +1905,9 @@ export function toTrendSummary(trend: TrendItem): TrendSummary {
 // different orders and React threw a hydration mismatch on every visit.
 export function getTrendSummaries(): TrendSummary[] {
   const byPopularity = (a: TrendItem, b: TrendItem) => b.popularityScore - a.popularityScore;
-  const featured = allTrends.filter((t) => t.featured).sort(byPopularity);
-  const trending = allTrends.filter((t) => t.trending && !t.featured).sort(byPopularity);
-  const rest = allTrends.filter((t) => !t.trending && !t.featured).sort(byPopularity);
+  const featured = listedTrends.filter((t) => t.featured).sort(byPopularity);
+  const trending = listedTrends.filter((t) => t.trending && !t.featured).sort(byPopularity);
+  const rest = listedTrends.filter((t) => !t.trending && !t.featured).sort(byPopularity);
   return [...featured, ...trending, ...rest].map(toTrendSummary);
 }
 
@@ -1914,9 +1920,9 @@ export function getShuffledTrends(): TrendItem[] {
   }
   
   // Sort by featured first, then shuffle within groups
-  const featured = shuffleArray(allTrends.filter(t => t.featured));
-  const trending = shuffleArray(allTrends.filter(t => t.trending && !t.featured));
-  const rest = shuffleArray(allTrends.filter(t => !t.trending && !t.featured));
+  const featured = shuffleArray(listedTrends.filter(t => t.featured));
+  const trending = shuffleArray(listedTrends.filter(t => t.trending && !t.featured));
+  const rest = shuffleArray(listedTrends.filter(t => !t.trending && !t.featured));
   
   cachedShuffledTrends = [...featured, ...trending, ...rest];
   lastShuffleTime = now;
@@ -1926,7 +1932,7 @@ export function getShuffledTrends(): TrendItem[] {
 
 // Get trends by category
 export function getTrendsByCategory(category: TrendCategory): TrendItem[] {
-  return allTrends.filter(trend => trend.category === category);
+  return listedTrends.filter(trend => trend.category === category);
 }
 
 // Get trending trends
@@ -1969,7 +1975,7 @@ export function getRelatedTrends(slug: string, limit: number = 4): TrendItem[] {
   if (!currentTrend) return [];
   
   // Find trends with matching category or tags
-  return allTrends
+  return listedTrends
     .filter(t => t.slug !== slug)
     .map(t => ({
       trend: t,
@@ -1984,7 +1990,7 @@ export function getRelatedTrends(slug: string, limit: number = 4): TrendItem[] {
 // Search trends
 export function searchTrends(query: string): TrendItem[] {
   const lowerQuery = query.toLowerCase();
-  return allTrends.filter(trend => 
+  return listedTrends.filter(trend => 
     trend.title.toLowerCase().includes(lowerQuery) ||
     trend.description.toLowerCase().includes(lowerQuery) ||
     trend.tags.some(tag => tag.toLowerCase().includes(lowerQuery))

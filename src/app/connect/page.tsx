@@ -10,7 +10,7 @@ import ConnectWithUsClient from "./ConnectWithUsClient";
 export const metadata: Metadata = {
   title: "Connect: Advertise and Partner",
   description:
-    "Work with DevelopersMatrix: sponsored and guest posts, AI tool features, banner placements, manual website audits and web development. Quoted per project, with a reply within 48 hours.",
+    "Work with DevelopersMatrix: sponsored and guest posts, AI tool features, ad placements, website audits and web development. Quoted per project.",
   alternates: {
     canonical: `${siteConfig.url}/connect`,
   },
