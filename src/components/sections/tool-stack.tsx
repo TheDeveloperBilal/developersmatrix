@@ -7,7 +7,7 @@ const stacks = [
   {
     title: "Build your career",
     outcome: "Land the offer",
-    href: "/tools?category=career",
+    href: "/tools#career",
     steps: [
       { name: "Resume Builder", href: "/tools/ai-resume-builder" },
       { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator" },

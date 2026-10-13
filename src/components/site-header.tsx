@@ -41,7 +41,7 @@ function Logo() {
 function MegaMenu() {
   return (
     <div className="fixed left-1/2 top-[4.5rem] z-50 w-[56rem] max-w-[calc(100vw-2.5rem)] -translate-x-1/2">
-      <div className="animate-menu-in overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-menu">
+      <div className="animate-menu-in max-h-[calc(100vh-5.5rem)] overflow-y-auto overscroll-contain rounded-2xl border border-ink-100 bg-white shadow-menu">
         <div className="grid grid-cols-[1.25fr_1fr_0.9fr]">
           {/* Featured tools */}
           <div className="border-r border-ink-100 p-6">
@@ -88,12 +88,12 @@ function MegaMenu() {
             <p className="mb-4 flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">
               <span className="h-px w-6 bg-ink-300" /> More tools
             </p>
-            <ul className="space-y-0.5">
+            <ul className="space-y-px">
               {moreTools.map((tool) => (
                 <li key={tool.name}>
                   <Link
                     href={tool.href}
-                    className="group flex items-center gap-3 rounded-lg px-2.5 py-2.5 transition-colors hover:bg-brand-50"
+                    className="group flex items-center gap-3 rounded-lg px-2.5 py-2 transition-colors hover:bg-brand-50"
                   >
                     <span className="shrink-0 text-brand-500">
                       <ToolIcon tool={tool.href} fallback={tool.icon} className="h-[1.05rem] w-[1.05rem]" />
@@ -330,7 +330,7 @@ export default function SiteHeader() {
               <div className="space-y-5 rounded-2xl bg-ink-50/70 p-4">
                 <div>
                   <p className="mb-2 px-2 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">
-                    Featured
+                    All tools
                   </p>
                   {[...featuredTools, ...moreTools].map((tool) => (
                     <Link
