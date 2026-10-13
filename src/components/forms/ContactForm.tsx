@@ -16,8 +16,8 @@ import {
 
 interface Props {
   kind: FormKind;
-  /** Lets the page preselect a service. Change `nonce` to apply it again. */
-  preset?: { service: string; nonce: number };
+  /** Lets the page preselect a service or subject. Change `nonce` to apply it again. */
+  preset?: { service?: string; subject?: string; nonce: number };
   submitLabel?: string;
 }
 
@@ -43,11 +43,19 @@ export default function ContactForm({ kind, preset, submitLabel }: Props) {
   }, []);
 
   useEffect(() => {
-    if (!preset?.service) return;
-    setValues((v) => ({ ...v, service: preset.service }));
-    setErrors((e) => ({ ...e, service: undefined }));
+    if (!preset?.service && !preset?.subject) return;
+    setValues((v) => ({
+      ...v,
+      ...(preset.service ? { service: preset.service } : {}),
+      ...(preset.subject ? { subject: preset.subject } : {}),
+    }));
+    setErrors((e) => ({
+      ...e,
+      ...(preset.service ? { service: undefined } : {}),
+      ...(preset.subject ? { subject: undefined } : {}),
+    }));
     setStatus((s) => (s === 'sent' ? 'idle' : s));
-  }, [preset?.service, preset?.nonce]);
+  }, [preset?.service, preset?.subject, preset?.nonce]);
 
   const set = (key: keyof FormValues) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const value = e.target.value;
@@ -109,7 +117,7 @@ export default function ContactForm({ kind, preset, submitLabel }: Props) {
         <CheckCircle2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
         <h3 className="mt-4 font-sora text-xl font-semibold text-ink-950 dark:text-white">Message sent</h3>
         <p className="mt-2 text-ink-700 dark:text-ink-300">
-          Thanks. A confirmation is on its way to your inbox, and I will reply within 24 to 48 hours. If the confirmation does not arrive, check your spam folder.
+          Thank you. A confirmation is on its way to your inbox, and our team will reply within 24 hours. If the confirmation does not arrive, please check your spam folder.
         </p>
         <button
           type="button"
@@ -210,14 +218,14 @@ export default function ContactForm({ kind, preset, submitLabel }: Props) {
 
       <div>
         <label htmlFor={id('message')} className={labelCls}>
-          {kind === 'collaboration' ? 'Tell me about it' : 'Message'}
+          {kind === 'collaboration' ? 'Tell us about it' : 'Message'}
         </label>
         <textarea
           id={id('message')}
           name="message"
           rows={6}
           maxLength={LIMITS.messageMax}
-          placeholder={kind === 'collaboration' ? 'What you want to promote or build, a link if you have one, and your timeline.' : 'How can I help?'}
+          placeholder={kind === 'collaboration' ? 'What you want to promote or build, a link if you have one, and your timeline.' : 'How can we help?'}
           value={values.message}
           onChange={set('message')}
           className={`${field} ${errors.message ? bad : ok} resize-y`}

@@ -53,6 +53,16 @@ const iconMap: Record<string, React.ReactNode> = {
   Database: <Database className="w-5 h-5" />
 };
 
+const CATEGORY_LABELS: Record<string, string> = {
+  career: 'Career',
+  seo: 'SEO and Web',
+  ai: 'AI and Writing',
+  productivity: 'Productivity',
+  finance: 'Finance',
+  gaming: 'Gaming',
+  learning: 'Learning',
+};
+
 interface ToolCardProps {
   tool: Tool;
 }
@@ -67,7 +77,7 @@ export function ToolCard({ tool }: ToolCardProps) {
               <ToolIcon tool={tool.path} fallback={FileText} className="w-5 h-5" />
             </div>
             <Badge variant="secondary" className="capitalize">
-              {tool.category}
+              {CATEGORY_LABELS[tool.category] ?? tool.category}
             </Badge>
           </div>
           <CardTitle className="text-lg group-hover:text-violet-600 transition-colors">

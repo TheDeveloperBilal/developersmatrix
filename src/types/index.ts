@@ -6,7 +6,7 @@ export interface Tool {
   description: string;
   shortDescription: string;
   icon: string;
-  category: 'career' | 'productivity' | 'finance' | 'learning' | 'gaming';
+  category: 'career' | 'seo' | 'ai' | 'productivity' | 'finance' | 'learning' | 'gaming';
   features: string[];
   benefits: string[];
   faqs: FAQ[];

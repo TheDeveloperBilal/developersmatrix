@@ -147,28 +147,27 @@ export function buildAutoReply(data: ContactFormData): Built {
   const isCollab = data.type === 'collaboration';
   const first = oneLine(data.name, 60).split(' ')[0] || 'there';
   const subject = isCollab
-    ? 'I received your enquiry | DevelopersMatrix'
-    : 'I received your message | DevelopersMatrix';
+    ? 'We received your enquiry | DevelopersMatrix'
+    : 'We received your message | DevelopersMatrix';
 
   const what = isCollab ? 'enquiry' : 'message';
 
   const html = shell(subject, `
     <p style="margin:0 0 16px;font-size:15px;">Hi ${esc(first)},</p>
-    <p style="margin:0 0 16px;font-size:15px;">Thanks for getting in touch. Your ${what} reached me and I read every one myself. I usually reply within 24 to 48 hours.</p>
+    <p style="margin:0 0 16px;font-size:15px;">Thank you for getting in touch. Your ${what} has reached our team, and we will reply within 24 hours.</p>
     <p style="margin:0 0 16px;font-size:15px;">If you need to add something, just reply to this email.</p>
-    <p style="margin:0 0 4px;font-size:15px;">Syed Bilal Shah</p>
-    <p style="margin:0;font-size:13px;color:#6b7280;">Founder, DevelopersMatrix</p>
+    <p style="margin:0 0 4px;font-size:15px;">The DevelopersMatrix Team</p>
+    <p style="margin:0;font-size:13px;color:#6b7280;">developersmatrix.com</p>
     <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">You received this because someone used this address on the DevelopersMatrix ${isCollab ? 'Connect' : 'Contact'} page. If that was not you, you can ignore this email.</p>
   `);
 
   const text = `Hi ${first},
 
-Thanks for getting in touch. Your ${what} reached me and I read every one myself. I usually reply within 24 to 48 hours.
+Thank you for getting in touch. Your ${what} has reached our team, and we will reply within 24 hours.
 
 If you need to add something, just reply to this email.
 
-Syed Bilal Shah
-Founder, DevelopersMatrix
+The DevelopersMatrix Team
 https://developersmatrix.com
 
 You received this because someone used this address on the DevelopersMatrix ${isCollab ? 'Connect' : 'Contact'} page. If that was not you, you can ignore this email.`;

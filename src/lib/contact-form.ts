@@ -89,7 +89,7 @@ export function validateForm(kind: FormKind, v: FormValues): FieldErrors {
   if (!name) e.name = 'Please add your name.';
   else if (name.length > LIMITS.name) e.name = `Please keep your name under ${LIMITS.name} characters.`;
 
-  if (!email) e.email = 'Please add your email so I can reply.';
+  if (!email) e.email = 'Please add your email so we can reply.';
   else if (email.length > LIMITS.email || !isEmail(email)) e.email = 'That email address does not look right.';
 
   if (kind === 'general') {

@@ -46,7 +46,7 @@ export const featuredTools: Tool[] = [
     name: "Interview Simulator",
     href: "/tools/ai-interview-simulator",
     description:
-      "Practice behavioral, technical and system design questions with instant AI feedback and scoring.",
+      "Practice behavioral, technical and system design questions with instant scored feedback.",
     icon: TOOL_ICONS["ai-interview-simulator"],
   },
 ];
@@ -94,6 +94,18 @@ export const moreTools: Tool[] = [
     description: "Turn tasks into a timed day plan.",
     icon: TOOL_ICONS["productivity-planner"],
   },
+  {
+    name: "Salary Estimator",
+    href: "/tools/salary-estimator",
+    description: "Official pay ranges by job and location.",
+    icon: TOOL_ICONS["salary-estimator"],
+  },
+  {
+    name: "AI Email Assistant",
+    href: "/tools/ai-email-assistant",
+    description: "Email templates and a draft checker.",
+    icon: TOOL_ICONS["ai-email-assistant"],
+  },
 ];
 
 export type Category = {
@@ -107,44 +119,44 @@ export type Category = {
 export const categories: Category[] = [
   {
     name: "Career",
-    href: "/tools?category=career",
+    href: "/tools#career",
     description: "Resumes, cover letters, interview practice and salary data",
-    count: "4+ tools",
+    count: "4 tools",
     icon: Briefcase,
   },
   {
-    name: "AI Tools",
-    href: "/tools?category=ai",
-    description: "Content detection, prompts and smart writing assistants",
-    count: "5+ tools",
+    name: "AI and Writing",
+    href: "/tools#ai",
+    description: "Ready prompts and email writing help",
+    count: "2 tools",
     icon: Bot,
   },
   {
     name: "SEO and Web",
-    href: "/tools/website-audit",
-    description: "Website audits, health checks and AI content detection",
+    href: "/tools#seo",
+    description: "Website audits and AI content detection",
     count: "2 tools",
     icon: Globe,
   },
   {
-    name: "Finance",
-    href: "/tools?category=finance",
-    description: "Budget planning, expense tracking and savings goals",
-    count: "2+ tools",
-    icon: PiggyBank,
+    name: "Productivity",
+    href: "/tools#productivity",
+    description: "Habit tracking, day planning and business ideas",
+    count: "3 tools",
+    icon: ListChecks,
   },
   {
-    name: "Productivity",
-    href: "/tools?category=productivity",
-    description: "Habit tracking, planning and idea generation",
-    count: "3+ tools",
-    icon: ListChecks,
+    name: "Finance and Gaming",
+    href: "/tools#finance",
+    description: "Budget planning and PC game requirement checks",
+    count: "2 tools",
+    icon: PiggyBank,
   },
   {
     name: "Learning",
     href: "/learn",
     description: "Short lessons on core developer topics",
-    count: "10 lessons",
+    count: "7 lessons",
     icon: GraduationCap,
   },
 ];

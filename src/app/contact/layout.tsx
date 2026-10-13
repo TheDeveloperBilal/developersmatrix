@@ -3,7 +3,7 @@ import { siteConfig } from "@/data/config";
 
 export const metadata: Metadata = {
   title: "Contact Us - Get Support & Send Feedback",
-  description: "Contact DevelopersMatrix with questions, bug reports, tool ideas or business enquiries. I usually reply within 24 to 48 hours.",
+  description: "Contact DevelopersMatrix with questions, bug reports, tool ideas or business enquiries. We reply within 24 hours.",
   alternates: {
     canonical: `${siteConfig.url}/contact`,
   },

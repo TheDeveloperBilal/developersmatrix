@@ -18,47 +18,49 @@ const offers: Offer[] = [
   {
     service: 'sponsored-post',
     title: 'Sponsored or guest posts',
-    body: 'An article on the blog, written by you or by me, on a topic readers actually search for. Sponsored posts are labeled and their links use rel="sponsored".',
+    body: 'A feature article on our blog, written by your team or by ours, on a topic our readers actively search for. Links are placed to your requirements and agreed with you by email.',
     fit: 'SaaS, developer tools, courses, agencies',
   },
   {
     service: 'tool-feature',
     title: 'AI tool or product feature',
-    body: 'A hands on review or a listing next to related tools, written after actually using your product. You get honest notes, not a paid rave.',
+    body: 'A hands on review or a listing alongside related tools, written after our team has used your product. Readers get a clear picture of what it does and who it is for.',
     fit: 'AI tools, browser extensions, apps',
   },
   {
     service: 'advertising',
     title: 'Banner ads and placements',
-    body: 'A fixed placement on a relevant tool page, trend report or blog post for an agreed period. I only place what suits the page and its readers.',
+    body: 'A fixed placement on a relevant tool page, trend report or blog post for an agreed period. Each placement is matched to the page so it reaches the right readers.',
     fit: 'Brands with a clear developer or creator audience',
   },
   {
     service: 'website-audit',
     title: 'Manual website audit',
-    body: 'A human review of your SEO, speed and technical setup, with a fix list ordered by impact. Want a quick score first? The free audit tool is a good start.',
+    body: 'A manual review of your SEO, speed and technical setup, with a fix list ordered by impact. For a quick score first, our free audit tool is a good place to start.',
     fit: 'Site owners, startups, small businesses',
     link: { href: '/services/website-audit', label: 'See audit options' },
   },
   {
     service: 'web-development',
     title: 'Web development or SEO work',
-    body: 'Building or fixing sites on Next.js, WordPress or Shopify, plus technical SEO. Larger builds can run through OviTech Global, where I am a cofounder.',
+    body: 'Building or fixing sites on Next.js, WordPress or Shopify, along with technical SEO. Larger builds are delivered together with our development partner, OviTech Global.',
     fit: 'New sites, redesigns, slow or broken sites',
   },
 ];
 
 const steps = [
-  { title: 'Send the form', body: 'Say what you want to do and add a link to your product or site.' },
-  { title: 'Get a straight answer', body: 'Within 24 to 48 hours you get a yes or no, a price and a timeline. No call needed unless you want one.' },
-  { title: 'Go live', body: 'Once we agree, the work is scheduled and you get the link when it is published or delivered.' },
+  { title: 'Send the form', body: 'Tell us what you would like to do and add a link to your product or website.' },
+  { title: 'Receive a clear reply', body: 'Within 24 hours you receive our answer, a price and a timeline. A call is optional.' },
+  { title: 'Go live', body: 'Once everything is agreed, the work is scheduled and you receive the live link as soon as it is published or delivered.' },
 ];
 
-const rules = [
-  'Every sponsored post and paid feature is clearly labeled.',
-  'Paid links use rel="sponsored", as Google asks.',
-  'Reviews stay honest. Paying for a feature does not buy a good verdict.',
-  'No gambling, adult content, get rich quick schemes or link selling.',
+const sponsorBenefits = [
+  'A professionally edited article, formatted and optimized for search',
+  'Links placed to your requirements, agreed with you by email',
+  'Internal links from related articles across our blog',
+  'Promotion across our social media channels',
+  'The live link sent to you as soon as the article is published',
+  'A long term placement on the live blog',
 ];
 
 export default function ConnectWithUsClient() {
@@ -79,7 +81,7 @@ export default function ConnectWithUsClient() {
               Ways to Work Together
             </h2>
             <p className="mt-4 text-lg text-ink-600 dark:text-ink-300">
-              Five things I can help with. Pick one to start the form with it already chosen.
+              Five ways to work with us. Choose one to open the form with it already selected.
             </p>
           </div>
 
@@ -141,16 +143,24 @@ export default function ConnectWithUsClient() {
                 ))}
               </ol>
 
-              <div className="mt-10 rounded-2xl border border-ink-200 bg-white p-6 dark:border-ink-800 dark:bg-ink-900">
-                <h3 className="font-sora text-lg font-semibold text-ink-950 dark:text-white">My Ground Rules</h3>
-                <ul className="mt-4 space-y-3">
-                  {rules.map((r) => (
-                    <li key={r} className="flex gap-3 text-sm leading-relaxed text-ink-700 dark:text-ink-300">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
-                      {r}
+              <div className="mt-10 overflow-hidden rounded-2xl border border-ink-200 bg-white dark:border-ink-800 dark:bg-ink-900">
+                <div className="border-b border-ink-200 bg-brand-50 px-6 py-4 dark:border-ink-800 dark:bg-brand-950/40">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">Sponsored articles</p>
+                  <h3 className="mt-1 font-sora text-lg font-semibold text-ink-950 dark:text-white">What You Get When You Sponsor With Us</h3>
+                </div>
+                <ul className="space-y-3 p-6">
+                  {sponsorBenefits.map((b) => (
+                    <li key={b} className="flex gap-3 text-sm leading-relaxed text-ink-700 dark:text-ink-300">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
+                        <Check className="h-3 w-3" strokeWidth={3} aria-hidden="true" />
+                      </span>
+                      {b}
                     </li>
                   ))}
                 </ul>
+                <p className="border-t border-ink-200 px-6 py-4 text-sm text-ink-500 dark:border-ink-800 dark:text-ink-400">
+                  Full terms are shared by email along with your quote.
+                </p>
               </div>
             </div>
           </div>
@@ -161,7 +171,7 @@ export default function ConnectWithUsClient() {
                 Send an Enquiry
               </h2>
               <p className="mt-2 text-ink-600 dark:text-ink-300">
-                The more detail you give, the more useful my first reply will be.
+                The more detail you share, the more useful our first reply will be.
               </p>
               <div className="mt-6">
                 <ContactForm kind="collaboration" preset={preset} submitLabel="Send enquiry" />

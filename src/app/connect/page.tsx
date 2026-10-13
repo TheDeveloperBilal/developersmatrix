@@ -17,43 +17,43 @@ export const metadata: Metadata = {
   keywords: ["advertise with us", "partner with us", "sponsored content", "guest post", "AI tool promotion", "tech advertising", "website audit service"],
   openGraph: {
     title: "Connect With Us | DevelopersMatrix",
-    description: "Sponsored posts, tool features, ad placements, website audits and web development. Tell me what you have in mind and get a quote.",
+    description: "Sponsored posts, tool features, ad placements, website audits and web development. Tell us what you have in mind and get a quote.",
     url: `${siteConfig.url}/connect`,
   },
 };
 
 const glance = [
   { term: "Free tools on the site", detail: `${TOOLS_LABEL}, plus trend reports and guides` },
-  { term: "Who you deal with", detail: "Syed Bilal Shah, the founder", href: "/about" },
-  { term: "Reply time", detail: "24 to 48 hours" },
+  { term: "Who you work with", detail: "The DevelopersMatrix team", href: "/about" },
+  { term: "Reply time", detail: "Under 24 hours" },
   { term: "Pricing", detail: "Quoted per project" },
-  { term: "Paid content", detail: "Always labeled as sponsored" },
+  { term: "Sponsored articles", detail: "Edited, published and promoted" },
 ];
 
 const faqs = [
   {
     question: "How much does it cost?",
     answer:
-      "Every project is quoted on its own, because a sponsored post, a banner placement and a website build are very different amounts of work. Pick a budget range in the form if you have one and I will tell you what fits within it.",
+      "Every project is quoted individually, because a sponsored post, a banner placement and a website build involve very different amounts of work. Choose a budget range in the form if you have one, and we will tell you what fits within it.",
   },
   {
     question: "Do you accept guest posts?",
     answer:
-      "Yes, when the article is original, useful to developers, creators or professionals, and not written just to place links. Send the topic and an outline first rather than a finished article. I edit everything that goes live and may say no.",
+      "Yes. We welcome original articles that are useful to developers, creators and professionals. Send us the topic and a short outline first, and our editors will review it, suggest any changes and confirm the details with you by email.",
   },
   {
-    question: "Will a sponsored post be marked as sponsored?",
+    question: "How are links in a sponsored article handled?",
     answer:
-      "Yes. Readers and search engines both need to know when content is paid for, so sponsored posts and paid features carry a visible label, and paid links use rel=\"sponsored\" as Google asks.",
+      "Links are placed to your requirements. Share the pages you would like to link to and your preferred anchor text, and we will confirm every placement detail with you by email before the article goes live.",
   },
   {
-    question: "Can you share traffic numbers before I commit?",
+    question: "Are traffic figures available before booking?",
     answer:
-      "Yes. Mention the pages or topics you are interested in and I will share current figures for them with your quote.",
+      "Yes. Mention the pages or topics that interest you, and we will share current figures for them along with your quote.",
   },
   {
-    question: "What if I do not hear back?",
-    answer: `Replies usually go out within 24 to 48 hours. If nothing arrives, check your spam folder, then email ${CONTACT_EMAIL} directly.`,
+    question: "What happens if a reply does not arrive?",
+    answer: `We reply to every enquiry within 24 hours. If nothing arrives, please check your spam folder, then email ${CONTACT_EMAIL} directly.`,
   },
 ];
 
@@ -94,7 +94,7 @@ export default function ConnectPage() {
                 Connect With Us
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-300 sm:text-xl">
-                Want your product in front of people who build things, or need help with your own site? Tell me what you have in mind. You get an honest yes or no, a price and a timeline.
+                Want your product in front of people who build things, or need help with your own website? Tell us what you have in mind and we will come back to you with a clear answer, a price and a timeline.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a

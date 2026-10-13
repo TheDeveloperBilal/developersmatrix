@@ -146,11 +146,57 @@ const productivityPlannerFaqs: FAQ[] = [
 
 export const tools: Tool[] = [
   {
+    id: 'website-audit',
+    slug: 'website-audit',
+    name: 'AI Website Audit',
+    description: 'Run around 150 checks on any website across SEO, speed, security, mobile, accessibility and content, then get a fix list ordered by impact. Speed data comes from Google PageSpeed.',
+    shortDescription: 'Score any website and get a prioritized fix list',
+    icon: 'FileSearch',
+    category: 'seo',
+    features: [
+      'Around 150 checks in eight areas',
+      'Fixes ordered by how much they matter',
+      'Core Web Vitals from Google PageSpeed',
+      'Downloadable report'
+    ],
+    benefits: [
+      'See what holds a site back in minutes',
+      'Know which fix to make first',
+      'No signup needed'
+    ],
+    faqs: [],
+    keywords: ['website audit', 'SEO audit', 'site checker', 'website health check'],
+    path: '/tools/website-audit'
+  },
+  {
+    id: 'ai-content-detector',
+    slug: 'ai-content-detector',
+    name: 'AI Content Detector',
+    description: 'Paste at least 80 words to see whether text reads like AI or human writing, which sentences carry AI style patterns, and the signals behind the score.',
+    shortDescription: 'See whether text reads like AI or human writing',
+    icon: 'Fingerprint',
+    category: 'seo',
+    features: [
+      'AI signal score out of 100',
+      'Sentence by sentence highlights',
+      'Each signal explained in plain words',
+      'Copy the full report'
+    ],
+    benefits: [
+      'Check content before you publish',
+      'Find the lines that sound machine written',
+      'No signup needed'
+    ],
+    faqs: [],
+    keywords: ['AI content detector', 'AI text checker', 'ChatGPT detector', 'AI writing detector'],
+    path: '/tools/ai-content-detector'
+  },
+  {
     id: 'ai-resume-builder',
     slug: 'ai-resume-builder',
     name: 'AI Resume Builder',
     description: 'Write your resume on a live A4 page with three ATS friendly templates. A built in check flags weak bullets and missing numbers, a job posting comparison shows skill gaps, and you download a clean PDF.',
-    shortDescription: 'Build ATS-optimized resumes with AI assistance',
+    shortDescription: 'Build ATS friendly resumes with a live check',
     icon: 'FileUser',
     category: 'career',
     features: [
@@ -202,13 +248,13 @@ export const tools: Tool[] = [
     slug: 'ai-interview-simulator',
     name: 'AI Interview Simulator',
     description: 'Practice interviews with our AI-powered simulator. Get realistic questions, practice your responses, and receive instant feedback to improve your interview performance and confidence.',
-    shortDescription: 'Practice interviews with AI feedback',
+    shortDescription: 'Practice interview answers with instant feedback',
     icon: 'Mic',
     category: 'career',
     features: [
-      'Role-specific questions',
-      'Real-time feedback',
-      'Session score tracking',
+      '101 questions across 12 roles',
+      'Instant scored feedback on each answer',
+      'Session history with an average score',
       'Multiple interview types',
       'Model answers for every question',
       'Speak your answer where supported'
@@ -363,8 +409,8 @@ export const tools: Tool[] = [
     category: 'gaming',
     features: [
       'Compare PC specs to game requirements',
-      'Minimum & recommended specs check',
-      'Games database',
+      'Minimum and recommended specs side by side',
+      '26 games checked against publisher specs',
       'Performance prediction',
       'Hardware upgrade suggestions',
       'FPS estimator'
@@ -389,7 +435,7 @@ export const tools: Tool[] = [
     description: 'Free library of ready to use AI prompts for ChatGPT, Claude, Gemini and Midjourney. Fill in the blanks, then copy the prompt or open it in ChatGPT or Claude.',
     shortDescription: 'Ready prompts with a fill in the blanks builder',
     icon: 'Library',
-    category: 'productivity',
+    category: 'ai',
     features: [
       '64 prompts in 8 categories',
       'Fill in the blanks prompt builder',
@@ -418,7 +464,7 @@ export const tools: Tool[] = [
     description: 'Write clear work emails from 18 hand written templates in three tones, check any draft for common mistakes, and open ready prompts in ChatGPT or Claude to reply or rewrite.',
     shortDescription: 'Email templates, a draft checker and AI prompts',
     icon: 'Send',
-    category: 'productivity',
+    category: 'ai',
     features: [
       '18 email templates in three tones',
       'Blanks you fill in right inside the email',
