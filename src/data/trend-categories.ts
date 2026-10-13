@@ -47,7 +47,7 @@ export const trendCategories: TrendCategoryInfo[] = [
   {
     id: 'make-money',
     name: 'Make Money Online with AI',
-    description: 'Side hustles, income streams, and AI-powered opportunities',
+    description: 'Side hustles, income streams, and AI powered opportunities',
     icon: 'DollarSign',
     color: 'green',
     lightBg: 'bg-green-100',
@@ -91,8 +91,8 @@ export const trendCategories: TrendCategoryInfo[] = [
   },
   {
     id: 'coding',
-    name: 'Coding, No-Code & AI Development',
-    description: 'Programming trends, no-code tools, and AI-assisted dev',
+    name: 'Coding, No Code & AI Development',
+    description: 'Programming trends, no code tools, and AI assisted development',
     icon: 'Code',
     color: 'orange',
     lightBg: 'bg-orange-100',
@@ -110,7 +110,7 @@ export const trendCategories: TrendCategoryInfo[] = [
   {
     id: 'career-growth',
     name: 'Tech Skills & Career Growth',
-    description: 'In-demand skills, career paths, and professional development',
+    description: 'In demand skills, career paths, and professional development',
     icon: 'TrendingUp',
     color: 'amber',
     lightBg: 'bg-amber-100',

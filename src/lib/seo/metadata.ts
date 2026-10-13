@@ -373,7 +373,7 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
   },
   'ai-email-assistant': {
     title: 'Free AI Email Assistant for Fast Replies',
-    description: 'Free AI email assistant with 18 email templates in 3 tones, a draft checker, and ready prompts to reply or rewrite in ChatGPT or Claude. No signup.',
+    description: 'Draft professional work emails from 18 templates in 3 tones, check your draft before you send, and rewrite it with ready ChatGPT or Claude prompts. Free.',
     keywords: [
       'free ai email assistant',
       'ai email writer online',

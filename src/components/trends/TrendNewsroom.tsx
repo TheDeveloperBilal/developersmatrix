@@ -204,7 +204,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
           <div className="grid gap-10 py-10 lg:grid-cols-12 lg:gap-12 lg:py-14">
             {/* Headline and lead story */}
             <div className="lg:col-span-6 xl:col-span-5">
-              <h1 className="font-serif text-5xl font-bold leading-[1.02] tracking-tight text-ink-950 dark:text-white sm:text-7xl">
+              <h1 className="font-sora text-4xl font-bold leading-[1.05] tracking-tight text-balance text-ink-950 dark:text-white sm:text-6xl">
                 Trending Now in Tech
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-ink-300">
@@ -217,7 +217,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
                     <span className="h-2 w-2 rounded-full" style={{ background: colorOf(lead.category) }} aria-hidden="true" />
                     Lead report <span className="text-stone-400">/</span> {SHORT[lead.category] ?? lead.category}
                   </p>
-                  <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-ink-950 dark:text-white sm:text-4xl">
+                  <h2 className="mt-3 font-sora text-2xl font-bold leading-tight tracking-tight text-balance text-ink-950 dark:text-white sm:text-3xl">
                     <Link href={`/trends/${lead.slug}`} onClick={() => markOpened(lead.slug)} className="hover:underline hover:decoration-2 hover:underline-offset-4">
                       {clean(lead.title)}
                     </Link>
@@ -254,7 +254,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
                             <span className="block text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: colorOf(t.category) }}>
                               {SHORT[t.category] ?? t.category}
                             </span>
-                            <span className="mt-1 block font-serif text-lg font-semibold leading-snug text-ink-950 group-hover:underline dark:text-white">
+                            <span className="mt-1 block font-sora text-base font-semibold leading-snug tracking-tight sm:text-lg text-ink-950 group-hover:underline dark:text-white">
                               {clean(t.title)}
                             </span>
                             <span className="mt-1 block text-sm text-stone-500 dark:text-ink-400">Updated {formatDate(t.updatedAt)}</span>
@@ -272,7 +272,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
             <div className="lg:col-span-6 xl:col-span-7">
               <div className="rounded-[2rem] border border-stone-300 bg-white p-4 dark:border-ink-800 dark:bg-ink-900 sm:p-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 px-1">
-                  <p className="font-serif text-xl font-bold text-ink-950 dark:text-white">The radar</p>
+                  <p className="font-sora text-xl font-bold tracking-tight text-ink-950 dark:text-white">The radar</p>
                   <p className="text-xs text-stone-500 dark:text-ink-400">One slice per topic. Closer to the centre means updated more recently.</p>
                 </div>
                 <svg
@@ -375,7 +375,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
                     <p className="text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: colorOf(active.category) }}>
                       {SHORT[active.category] ?? active.category}
                     </p>
-                    <p className="mt-1 font-serif text-lg font-bold leading-snug text-ink-950 dark:text-white">
+                    <p className="mt-1 font-sora text-base font-bold leading-snug tracking-tight sm:text-lg text-ink-950 dark:text-white">
                       <Link href={`/trends/${active.slug}`} onClick={() => markOpened(active.slug)} className="hover:underline">
                         {clean(active.title)}
                       </Link>
@@ -434,7 +434,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
 
         <div className="shell py-12 lg:py-16">
           <div className="flex flex-wrap items-end justify-between gap-3 border-b-4 border-ink-950 pb-4 dark:border-white">
-            <h2 id="index-title" className="font-serif text-4xl font-bold text-ink-950 dark:text-white">All Trend Reports</h2>
+            <h2 id="index-title" className="font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-4xl">All Trend Reports</h2>
             <p aria-live="polite" className="text-sm text-stone-500 dark:text-ink-400">
               {topic ? `${count(topic)} of ${trends.length} reports in ${SHORT[topic] ?? topic}` : `${trends.length} reports`}
             </p>
@@ -448,7 +448,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
               return (
                 <li key={t.slug} hidden={!show} className="break-inside-avoid border-b border-stone-200 py-6 dark:border-ink-800">
                   <div className="flex gap-5">
-                    <span className="w-10 shrink-0 font-serif text-3xl font-bold tabular-nums leading-none text-stone-300 dark:text-ink-700" aria-hidden="true">
+                    <span className="w-10 shrink-0 font-sora text-2xl font-bold tabular-nums leading-none text-stone-300 dark:text-ink-700" aria-hidden="true">
                       {String(n).padStart(2, '0')}
                     </span>
                     <div className="min-w-0">
@@ -457,7 +457,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
                         <span className="text-stone-300 dark:text-ink-600" aria-hidden="true">/</span>
                         <span className="font-medium normal-case tracking-normal text-stone-500 dark:text-ink-400">{t.readTime} min read</span>
                       </p>
-                      <h3 className="mt-2 font-serif text-xl font-bold leading-snug text-ink-950 dark:text-white sm:text-2xl">
+                      <h3 className="mt-2 font-sora text-lg font-bold leading-snug tracking-tight text-balance text-ink-950 dark:text-white sm:text-xl">
                         <Link
                           href={`/trends/${t.slug}`}
                           onClick={() => markOpened(t.slug)}
@@ -488,7 +488,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
       <section aria-labelledby="paths-title" className="border-t border-stone-300 bg-stone-50 dark:border-ink-800 dark:bg-ink-950">
         <div className="shell py-14 lg:py-20">
           <div className="max-w-2xl">
-            <h2 id="paths-title" className="font-serif text-4xl font-bold text-ink-950 dark:text-white">Reading Paths</h2>
+            <h2 id="paths-title" className="font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-4xl">Reading Paths</h2>
             <p className="mt-3 text-lg text-stone-600 dark:text-ink-300">
               Not sure where to begin? Follow a path. Each one ends with a free tool that helps you act on what you read.
             </p>
@@ -496,7 +496,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
           <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
             {PATHS.map((p) => (
               <div key={p.title}>
-                <h3 className="font-serif text-2xl font-bold text-ink-950 dark:text-white">{p.title}</h3>
+                <h3 className="font-sora text-xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-2xl">{p.title}</h3>
                 <p className="mt-1 text-sm text-stone-500 dark:text-ink-400">{p.blurb}</p>
                 <ol className="relative mt-6 space-y-5 border-l border-stone-300 pl-6 dark:border-ink-700">
                   {p.steps.map((slug, i) => {
@@ -549,7 +549,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
       <section className="border-t border-stone-300 bg-white dark:border-ink-800 dark:bg-ink-900">
         <div className="shell flex flex-col gap-8 py-14 lg:flex-row lg:items-center lg:justify-between lg:py-16">
           <div className="max-w-xl">
-            <h2 className="font-serif text-3xl font-bold text-ink-950 dark:text-white">Stay Ahead of the Curve</h2>
+            <h2 className="font-sora text-2xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-3xl">Stay Ahead of the Curve</h2>
             <p className="mt-3 text-stone-600 dark:text-ink-300">
               New trend reports are shared on our social pages as soon as they go live. Follow along, or email us with a topic you want covered at{' '}
               <a href="mailto:info@developersmatrix.com" className="font-medium text-brand-700 hover:underline dark:text-brand-300">
