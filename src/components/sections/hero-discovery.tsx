@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, Gauge, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { ToolIcon } from "@/lib/tool-icons";
 import ToolMatrix from "./tool-matrix";
 
 // Numbers are rendered on the server. The old count up started at 0, so search
@@ -36,7 +37,7 @@ export default function HeroDiscovery({
         {/* Copy */}
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur-sm">
-            <Sparkles className="h-3.5 w-3.5" />
+            <Sparkles className="h-3.5 w-3.5" strokeWidth={2} data-draw="" />
             Free tools, trend reports and practical guides
           </div>
 
@@ -56,7 +57,9 @@ export default function HeroDiscovery({
               Explore the platform <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/tools/website-audit" className="btn-secondary">
-              <Gauge className="h-4 w-4 text-brand-600" />
+              <span className="text-brand-600">
+                <ToolIcon tool="website-audit" className="h-4 w-4" draw />
+              </span>
               Run a free audit
             </Link>
           </div>

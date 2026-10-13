@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { ToolIcon } from "@/lib/tool-icons";
 import { explorerCategories, explorerTools } from "@/lib/home-data";
 
 const badgeStyles: Record<string, string> = {
@@ -87,7 +88,7 @@ export default function ToolExplorer() {
                 >
                   <div className="flex items-start justify-between">
                     <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
-                      <tool.icon className="h-5 w-5" strokeWidth={1.8} />
+                      <ToolIcon tool={tool.href} fallback={tool.icon} className="h-5 w-5" />
                     </span>
                     {tool.badge && (
                       <span className={`chip ${badgeStyles[tool.badge]}`}>{tool.badge}</span>

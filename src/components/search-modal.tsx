@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Search, Wrench, FileText, TrendingUp, X } from "lucide-react";
+import { ToolIcon } from "@/lib/tool-icons";
 import { featuredTools, moreTools } from "@/lib/data";
 
 type SearchTab = "all" | "tools" | "articles" | "trends";
@@ -53,7 +54,7 @@ function loadSearchContent(): Promise<ContentItems> {
         description: a.excerpt?.slice(0, 80) + "...",
       }));
 
-      const trends: SearchItem[] = trendsModule.allTrends.map((t, i) => ({
+      const trends: SearchItem[] = trendsModule.getAllTrends().map((t, i) => ({
         id: `trend-${i}`,
         name: t.title,
         href: `/trends/${t.slug}`,
@@ -167,10 +168,10 @@ export default function SearchModal({
     { key: "trends", label: "TRENDS" },
   ];
 
-  const getIcon = (type: SearchTab) => {
+  const getIcon = (type: SearchTab, href = "") => {
     switch (type) {
       case "tools":
-        return <Wrench className="h-[1rem] w-[1rem] text-brand-500" strokeWidth={1.8} />;
+        return <ToolIcon tool={href} fallback={Wrench} className="h-[1rem] w-[1rem]" />;
       case "articles":
         return <FileText className="h-[1rem] w-[1rem] text-brand-500" strokeWidth={1.8} />;
       case "trends":
@@ -250,7 +251,7 @@ export default function SearchModal({
                   className="flex items-center gap-3.5 px-5 py-3 hover:bg-ink-50 transition-colors group"
                 >
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 ring-1 ring-brand-100 transition-colors group-hover:bg-brand-600 group-hover:text-white group-hover:ring-brand-600">
-                    {getIcon(item.type)}
+                    {getIcon(item.type, item.href)}
                   </span>
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-ink-900 truncate">

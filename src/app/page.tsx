@@ -15,6 +15,7 @@ import ArticlesCarousel from "@/components/sections/articles-carousel";
 import ToolStack from "@/components/sections/tool-stack";
 import LatestUpdates from "@/components/sections/latest-updates";
 import { Newsletter, FinalCta } from "@/components/sections/newsletter-cta";
+import IconDrawObserver from "@/components/icon-draw-observer";
 
 export const metadata: Metadata = {
   title: "Free AI Tools, Resources & Trends | DevelopersMatrix",
@@ -139,6 +140,7 @@ export default function HomePage() {
   return (
     <>
       {/* Organization schema comes from the root layout (one entity, one @id). */}
+      <IconDrawObserver />
       <WebApplicationSchema
         name={siteConfig.name}
         description={siteConfig.description}

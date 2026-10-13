@@ -27,7 +27,7 @@ export default function LatestUpdates({ items }: { items: Item[] }) {
       <div className="shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
           <p className="eyebrow">
-            <History className="h-3.5 w-3.5 text-brand-600" /> Changelog
+            <History className="h-3.5 w-3.5 text-brand-600" strokeWidth={2} data-draw="" /> Changelog
           </p>
           <h2
             id="updates-heading"

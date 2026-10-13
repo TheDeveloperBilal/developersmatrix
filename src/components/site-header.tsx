@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { categories, featuredTools, moreTools } from "@/lib/data";
+import { ToolIcon } from "@/lib/tool-icons";
 import SearchModal from "@/components/search-modal";
 
 const navLinks = [
@@ -55,7 +56,7 @@ function MegaMenu() {
                     className="group flex gap-3.5 rounded-xl p-2.5 transition-colors hover:bg-brand-50"
                   >
                     <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100 transition-colors group-hover:bg-brand-600 group-hover:text-white group-hover:ring-brand-600">
-                      <tool.icon className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.8} />
+                      <ToolIcon tool={tool.href} fallback={tool.icon} className="h-[1.15rem] w-[1.15rem]" />
                     </span>
                     <span>
                       <span className="flex items-center gap-2 text-sm font-semibold text-ink-900">
@@ -94,10 +95,9 @@ function MegaMenu() {
                     href={tool.href}
                     className="group flex items-center gap-3 rounded-lg px-2.5 py-2.5 transition-colors hover:bg-brand-50"
                   >
-                    <tool.icon
-                      className="h-[1.05rem] w-[1.05rem] shrink-0 text-brand-500"
-                      strokeWidth={1.8}
-                    />
+                    <span className="shrink-0 text-brand-500">
+                      <ToolIcon tool={tool.href} fallback={tool.icon} className="h-[1.05rem] w-[1.05rem]" />
+                    </span>
                     <span className="text-sm font-medium text-ink-700 transition-colors group-hover:text-ink-900">
                       {tool.name}
                     </span>
@@ -340,7 +340,7 @@ export default function SiteHeader() {
                       className="flex items-center gap-3 rounded-xl px-2 py-2.5"
                     >
                       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-600 ring-1 ring-ink-100">
-                        <tool.icon className="h-4 w-4" strokeWidth={1.8} />
+                        <ToolIcon tool={tool.href} fallback={tool.icon} className="h-4 w-4" />
                       </span>
                       <span className="text-sm font-medium text-ink-800">{tool.name}</span>
                       {tool.badge && (

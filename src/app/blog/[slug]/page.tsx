@@ -15,7 +15,8 @@ import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { BlogSidebar } from "@/components/blog/BlogSidebar";
 import { NewsletterCard } from "@/components/blog/BlogSidebar";
 import { CTABanner } from "@/components/blog/CTABanner";
-import { ArrowRight, Sparkles, FileText, Wrench, Briefcase, Code, Gamepad2, Wallet, Rocket, Mail, Search, CheckCircle } from "lucide-react";
+import { ArrowRight, Sparkles, Wrench } from "lucide-react";
+import { ToolIcon } from "@/lib/tool-icons";
 import Link from "next/link";
 
 // Topic-aware tool recommendations based on blog post tags
@@ -23,7 +24,6 @@ interface ToolRecommendation {
   slug: string;
   name: string;
   description: string;
-  icon: React.ReactNode;
 }
 
 function getToolRecommendations(tags: string[]): ToolRecommendation[] {
@@ -31,73 +31,73 @@ function getToolRecommendations(tags: string[]): ToolRecommendation[] {
   
   if (tagStr.includes('resume') || tagStr.includes('ats') || tagStr.includes('cv') || tagStr.includes('cover letter')) {
     return [
-      { slug: '/tools/ai-resume-builder', name: 'AI Resume Builder', description: 'Create an ATS-friendly resume in minutes', icon: <FileText className="w-4 h-4" /> },
-      { slug: '/tools/ai-cover-letter-generator', name: 'Cover Letter Generator', description: 'Generate tailored cover letters instantly', icon: <Mail className="w-4 h-4" /> },
+      { slug: '/tools/ai-resume-builder', name: 'AI Resume Builder', description: 'Create an ATS-friendly resume in minutes' },
+      { slug: '/tools/ai-cover-letter-generator', name: 'Cover Letter Generator', description: 'Generate tailored cover letters instantly' },
     ];
   }
   
   if (tagStr.includes('interview') || tagStr.includes('faang') || tagStr.includes('coding interview')) {
     return [
-      { slug: '/tools/ai-interview-simulator', name: 'AI Interview Simulator', description: 'Practice tech interviews with AI feedback', icon: <Briefcase className="w-4 h-4" /> },
-      { slug: '/tools/ai-resume-builder', name: 'AI Resume Builder', description: 'Build a resume that gets interviews', icon: <FileText className="w-4 h-4" /> },
+      { slug: '/tools/ai-interview-simulator', name: 'AI Interview Simulator', description: 'Practice tech interviews with AI feedback' },
+      { slug: '/tools/ai-resume-builder', name: 'AI Resume Builder', description: 'Build a resume that gets interviews' },
     ];
   }
   
   if (tagStr.includes('website') || tagStr.includes('seo') || tagStr.includes('audit') || tagStr.includes('performance')) {
     return [
-      { slug: '/tools/website-audit', name: 'Free Website Audit', description: 'Check SEO, speed & security instantly', icon: <Search className="w-4 h-4" /> },
+      { slug: '/tools/website-audit', name: 'Free Website Audit', description: 'Check SEO, speed & security instantly' },
     ];
   }
   
   if (tagStr.includes('salary') || tagStr.includes('compensation') || tagStr.includes('pay')) {
     return [
-      { slug: '/tools/salary-estimator', name: 'Salary Estimator', description: 'Check tech salaries by role & city', icon: <Wallet className="w-4 h-4" /> },
+      { slug: '/tools/salary-estimator', name: 'Salary Estimator', description: 'Check tech salaries by role & city' },
     ];
   }
   
   if (tagStr.includes('budget') || tagStr.includes('finance') || tagStr.includes('money') || tagStr.includes('income')) {
     return [
-      { slug: '/tools/budget-planner', name: 'Budget Planner', description: 'Track income, expenses & savings goals', icon: <Wallet className="w-4 h-4" /> },
+      { slug: '/tools/budget-planner', name: 'Budget Planner', description: 'Track income, expenses & savings goals' },
     ];
   }
   
   if (tagStr.includes('productivity') || tagStr.includes('habit') || tagStr.includes('routine')) {
     return [
-      { slug: '/tools/productivity-planner', name: 'Productivity Planner', description: 'AI task manager & daily schedule', icon: <CheckCircle className="w-4 h-4" /> },
-      { slug: '/tools/habit-tracker', name: 'Habit Tracker', description: 'Build daily routines & track streaks', icon: <Sparkles className="w-4 h-4" /> },
+      { slug: '/tools/productivity-planner', name: 'Productivity Planner', description: 'AI task manager & daily schedule' },
+      { slug: '/tools/habit-tracker', name: 'Habit Tracker', description: 'Build daily routines & track streaks' },
     ];
   }
   
   if (tagStr.includes('gaming') || tagStr.includes('gta') || tagStr.includes('pc game') || tagStr.includes('requirements')) {
     return [
-      { slug: '/tools/can-you-run-it', name: 'Can You Run It?', description: 'Check PC game requirements free', icon: <Gamepad2 className="w-4 h-4" /> },
+      { slug: '/tools/can-you-run-it', name: 'Can You Run It?', description: 'Check PC game requirements free' },
     ];
   }
   
   if (tagStr.includes('startup') || tagStr.includes('business') || tagStr.includes('entrepreneur')) {
     return [
-      { slug: '/tools/startup-idea-generator', name: 'Startup Idea Generator', description: 'AI business ideas by industry', icon: <Rocket className="w-4 h-4" /> },
-      { slug: '/tools/budget-planner', name: 'Budget Planner', description: 'Plan your startup finances', icon: <Wallet className="w-4 h-4" /> },
+      { slug: '/tools/startup-idea-generator', name: 'Startup Idea Generator', description: 'AI business ideas by industry' },
+      { slug: '/tools/budget-planner', name: 'Budget Planner', description: 'Plan your startup finances' },
     ];
   }
   
   if (tagStr.includes('email') || tagStr.includes('outreach') || tagStr.includes('communication')) {
     return [
-      { slug: '/tools/ai-email-assistant', name: 'AI Email Assistant', description: 'Write professional emails instantly', icon: <Mail className="w-4 h-4" /> },
+      { slug: '/tools/ai-email-assistant', name: 'AI Email Assistant', description: 'Write professional emails instantly' },
     ];
   }
   
   if (tagStr.includes('content') || tagStr.includes('prompt') || tagStr.includes('chatgpt') || tagStr.includes('ai tool')) {
     return [
-      { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '64 ready prompts for ChatGPT and Claude', icon: <Code className="w-4 h-4" /> },
-      { slug: '/tools/ai-content-detector', name: 'AI Content Detector', description: 'Check text authenticity instantly', icon: <FileText className="w-4 h-4" /> },
+      { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '64 ready prompts for ChatGPT and Claude' },
+      { slug: '/tools/ai-content-detector', name: 'AI Content Detector', description: 'Check text authenticity instantly' },
     ];
   }
   
   // Default fallback
   return [
-    { slug: '/tools/ai-content-detector', name: 'AI Content Detector', description: 'Check text authenticity instantly', icon: <FileText className="w-4 h-4" /> },
-    { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '64 ready prompts for ChatGPT and Claude', icon: <Code className="w-4 h-4" /> },
+    { slug: '/tools/ai-content-detector', name: 'AI Content Detector', description: 'Check text authenticity instantly' },
+    { slug: '/tools/ai-prompt-library', name: 'AI Prompt Library', description: '64 ready prompts for ChatGPT and Claude' },
   ];
 }
 
@@ -300,7 +300,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         {toolRecs.map((tool, i) => (
                           <span key={tool.slug} className="inline-flex items-center gap-1">
                             <Link href={tool.slug} className="inline-flex items-center gap-1.5 text-sm font-medium text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 transition-colors">
-                              {tool.icon}
+                              <ToolIcon tool={tool.slug} className="w-4 h-4" />
                               {tool.name}
                               <ArrowRight className="w-3.5 h-3.5" />
                             </Link>

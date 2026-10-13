@@ -1,14 +1,6 @@
 import Link from "next/link";
-import {
-  FileText,
-  Mail,
-  MessagesSquare,
-  Gauge,
-  ScanSearch,
-  BookOpen,
-  ArrowRight,
-  Layers,
-} from "lucide-react";
+import { BookOpen, ArrowRight, Layers } from "lucide-react";
+import { LinkIcon } from "@/lib/tool-icons";
 import Reveal from "@/components/reveal";
 
 const stacks = [
@@ -17,9 +9,9 @@ const stacks = [
     outcome: "Land the offer",
     href: "/tools?category=career",
     steps: [
-      { name: "Resume Builder", href: "/tools/ai-resume-builder", icon: FileText },
-      { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator", icon: Mail },
-      { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: MessagesSquare },
+      { name: "Resume Builder", href: "/tools/ai-resume-builder" },
+      { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator" },
+      { name: "Interview Simulator", href: "/tools/ai-interview-simulator" },
     ],
   },
   {
@@ -27,8 +19,8 @@ const stacks = [
     outcome: "Earn more traffic",
     href: "/tools/website-audit",
     steps: [
-      { name: "Website Audit", href: "/tools/website-audit", icon: Gauge },
-      { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch },
+      { name: "Website Audit", href: "/tools/website-audit" },
+      { name: "AI Content Detector", href: "/tools/ai-content-detector" },
       { name: "SEO Guides", href: "/blog", icon: BookOpen },
     ],
   },
@@ -68,7 +60,7 @@ export default function ToolStack() {
       <div className="shell">
         <Reveal className="max-w-2xl">
           <p className="eyebrow">
-            <Layers className="h-3.5 w-3.5 text-brand-600" /> Tool stacks
+            <Layers className="h-3.5 w-3.5 text-brand-600" strokeWidth={2} data-draw="" /> Tool stacks
           </p>
           <h2
             id="stack-heading"
@@ -100,7 +92,7 @@ export default function ToolStack() {
                         className="flex flex-1 items-center gap-3 rounded-2xl bg-white/90 p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card lg:flex-col lg:items-center lg:gap-2.5 lg:p-5 lg:text-center"
                       >
                         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white">
-                          <step.icon className="h-5 w-5" strokeWidth={1.8} />
+                          <LinkIcon href={step.href} icon={step.icon} className="h-5 w-5" />
                         </span>
                         <span className="text-sm font-semibold leading-snug text-ink-900">
                           {step.name}

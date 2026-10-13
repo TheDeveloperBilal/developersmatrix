@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, FileText, Gauge, Sparkles, TrendingUp, Wallet } from "lucide-react";
+import { ArrowUpRight, Sparkles, TrendingUp } from "lucide-react";
+import { SignedIcon, TOOL_ICONS } from "@/lib/tool-icons";
 import Reveal from "@/components/reveal";
 import { homeFaqs } from "@/lib/home-data";
 
 const topicClusters = [
   {
-    icon: FileText,
+    icon: TOOL_ICONS["ai-resume-builder"],
     title: "Career Tools",
     text: "Build an ATS friendly resume with a live check on every bullet, practice interview questions with instant feedback, and write cover letters around the job posting. Every tool is free and runs in your browser.",
     links: [
@@ -17,7 +18,7 @@ const topicClusters = [
     ],
   },
   {
-    icon: Gauge,
+    icon: TOOL_ICONS["website-audit"],
     title: "SEO & Website Tools",
     text: "Run around 150 checks across SEO, performance, security, mobile, accessibility and content. Get a prioritized fix list you can act on the same day.",
     links: [
@@ -27,7 +28,7 @@ const topicClusters = [
     ],
   },
   {
-    icon: Wallet,
+    icon: TOOL_ICONS["budget-planner"],
     title: "Productivity & Finance",
     text: "Plan income, spending and savings goals with the Budget Planner, keep a daily habit checklist with the Habit Tracker, and plan your week with the Productivity Planner.",
     links: [
@@ -92,7 +93,7 @@ export default function SeoContentSection() {
             <Reveal key={cluster.title}>
               <div className="card h-full p-6">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                  <cluster.icon className="h-5 w-5" strokeWidth={1.8} />
+                  <SignedIcon icon={cluster.icon} className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 font-sora text-lg font-bold text-ink-950">
                   {cluster.title}

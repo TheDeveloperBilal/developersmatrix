@@ -28,6 +28,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tool, BlogSummary, Trend } from '@/types';
+import { ToolIcon } from '@/lib/tool-icons';
 
 const iconMap: Record<string, React.ReactNode> = {
   FileText: <FileText className="w-5 h-5" />,
@@ -63,7 +64,7 @@ export function ToolCard({ tool }: ToolCardProps) {
         <CardHeader>
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 rounded-lg bg-violet-500/10 text-violet-500 group-hover:bg-violet-500 group-hover:text-white transition-colors">
-              {iconMap[tool.icon] || <FileText className="w-5 h-5" />}
+              <ToolIcon tool={tool.path} fallback={FileText} className="w-5 h-5" />
             </div>
             <Badge variant="secondary" className="capitalize">
               {tool.category}
