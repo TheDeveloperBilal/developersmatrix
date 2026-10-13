@@ -1,20 +1,5 @@
-import {
-  Gauge,
-  FileText,
-  ScanSearch,
-  MessagesSquare,
-  Mail,
-  Wallet,
-  Gamepad2,
-  Lightbulb,
-  Sparkles,
-  ListChecks,
-  CircleDollarSign,
-  CalendarCheck,
-  Code2,
-  AtSign,
-  type LucideIcon,
-} from "lucide-react";
+import { Briefcase, Code2, Sparkles, type LucideIcon } from "lucide-react";
+import { TOOL_ICONS, TREND_RADAR_ICON } from "@/lib/tool-icons";
 
 /* ---------------- Live ticker ---------------- */
 
@@ -62,21 +47,21 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/website-audit",
     description: "Around 150 checks across SEO, speed, security, mobile and more, with a prioritized fix list.",
     category: "SEO",
-    icon: Gauge,
+    icon: TOOL_ICONS["website-audit"],
   },
   {
     name: "AI Content Detector",
     href: "/tools/ai-content-detector",
     description: "Check whether text reads as human or machine written, with a full breakdown.",
     category: "AI Tools",
-    icon: ScanSearch,
+    icon: TOOL_ICONS["ai-content-detector"],
   },
   {
     name: "AI Resume Builder",
     href: "/tools/ai-resume-builder",
     description: "ATS friendly resume on a live page, with a check on every bullet. No signup.",
     category: "Career",
-    icon: FileText,
+    icon: TOOL_ICONS["ai-resume-builder"],
     badge: "UPDATED",
   },
   {
@@ -84,7 +69,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/ai-interview-simulator",
     description: "Behavioral, technical and system design questions with instant feedback on your answer.",
     category: "Career",
-    icon: MessagesSquare,
+    icon: TOOL_ICONS["ai-interview-simulator"],
     badge: "UPDATED",
   },
   {
@@ -92,7 +77,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/ai-cover-letter-generator",
     description: "A letter built around the job posting and your own experience, with a length check.",
     category: "Career",
-    icon: Mail,
+    icon: TOOL_ICONS["ai-cover-letter-generator"],
     badge: "UPDATED",
   },
   {
@@ -100,7 +85,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/ai-prompt-library",
     description: "64 ready prompts for coding, writing, marketing and careers, with a fill in the blanks builder.",
     category: "AI Tools",
-    icon: Sparkles,
+    icon: TOOL_ICONS["ai-prompt-library"],
     badge: "UPDATED",
   },
   {
@@ -108,7 +93,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/ai-email-assistant",
     description: "Email templates in three tones, a draft checker and AI prompts.",
     category: "Business",
-    icon: AtSign,
+    icon: TOOL_ICONS["ai-email-assistant"],
     badge: "UPDATED",
   },
   {
@@ -116,7 +101,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/budget-planner",
     description: "A monthly statement of money in and out, with a 50/30/20 check and a savings goal.",
     category: "Productivity",
-    icon: Wallet,
+    icon: TOOL_ICONS["budget-planner"],
     badge: "UPDATED",
   },
   {
@@ -124,7 +109,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/habit-tracker",
     description: "Daily habits with streaks from real dates and a 12 week wall.",
     category: "Productivity",
-    icon: CalendarCheck,
+    icon: TOOL_ICONS["habit-tracker"],
     badge: "UPDATED",
   },
   {
@@ -132,7 +117,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/productivity-planner",
     description: "Turn today's tasks into an hour by hour plan with a Top 3.",
     category: "Productivity",
-    icon: ListChecks,
+    icon: TOOL_ICONS["productivity-planner"],
     badge: "UPDATED",
   },
   {
@@ -140,7 +125,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/startup-idea-generator",
     description: "Business ideas matched to your skills, with a plan to test them in a week.",
     category: "Business",
-    icon: Lightbulb,
+    icon: TOOL_ICONS["startup-idea-generator"],
     badge: "UPDATED",
   },
   {
@@ -148,7 +133,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/salary-estimator",
     description: "Look up real pay ranges for your role and location.",
     category: "Business",
-    icon: CircleDollarSign,
+    icon: TOOL_ICONS["salary-estimator"],
     badge: "UPDATED",
   },
   {
@@ -156,7 +141,7 @@ export const explorerTools: ExplorerTool[] = [
     href: "/tools/can-you-run-it",
     description: "Check your PC against the requirements publishers list for popular games.",
     category: "Gaming",
-    icon: Gamepad2,
+    icon: TOOL_ICONS["can-you-run-it"],
     badge: "UPDATED",
   },
 ];
@@ -225,12 +210,12 @@ export const goals: Goal[] = [
   {
     id: "website",
     label: "Improve my website",
-    icon: Gauge,
+    icon: TOOL_ICONS["website-audit"],
     headline: "Audit, fix and grow your site",
     tools: [
-      { name: "AI Website Audit", href: "/tools/website-audit", icon: Gauge, note: "Start with a full health score" },
-      { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch, note: "Keep content human and original" },
-      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Prompts for SEO and content" },
+      { name: "AI Website Audit", href: "/tools/website-audit", icon: TOOL_ICONS["website-audit"], note: "Start with a full health score" },
+      { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: TOOL_ICONS["ai-content-detector"], note: "Keep content human and original" },
+      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: TOOL_ICONS["ai-prompt-library"], note: "Prompts for SEO and content" },
     ],
     content: [
       { label: "Website audit checklist: 47 checks", href: "/blog/website-audit-checklist-2026", type: "Guide" },
@@ -243,9 +228,9 @@ export const goals: Goal[] = [
     icon: Sparkles,
     headline: "The useful AI stack, curated",
     tools: [
-      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Fill in the blanks, then copy" },
-      { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: ScanSearch, note: "Verify what you publish" },
-      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Ideas plus a test plan" },
+      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: TOOL_ICONS["ai-prompt-library"], note: "Fill in the blanks, then copy" },
+      { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: TOOL_ICONS["ai-content-detector"], note: "Verify what you publish" },
+      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: TOOL_ICONS["startup-idea-generator"], note: "Ideas plus a test plan" },
     ],
     content: [
       { label: "AI agents in 2026", href: "/trends/ai-agents-autonomous-systems-2026", type: "Trend" },
@@ -255,12 +240,12 @@ export const goals: Goal[] = [
   {
     id: "career",
     label: "Build my career",
-    icon: MessagesSquare,
+    icon: Briefcase,
     headline: "From application to signed offer",
     tools: [
-      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, note: "ATS friendly, no signup" },
-      { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: MessagesSquare, note: "Instant answer feedback" },
-      { name: "Salary Estimator", href: "/tools/salary-estimator", icon: CircleDollarSign, note: "Check a salary range" },
+      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: TOOL_ICONS["ai-resume-builder"], note: "ATS friendly, no signup" },
+      { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: TOOL_ICONS["ai-interview-simulator"], note: "Instant answer feedback" },
+      { name: "Salary Estimator", href: "/tools/salary-estimator", icon: TOOL_ICONS["salary-estimator"], note: "Check a salary range" },
     ],
     content: [
       { label: "Technical interview prep 2026", href: "/blog/technical-interview-prep-2026", type: "Guide" },
@@ -270,11 +255,11 @@ export const goals: Goal[] = [
   {
     id: "resume",
     label: "Create a resume",
-    icon: FileText,
+    icon: TOOL_ICONS["ai-resume-builder"],
     headline: "A resume that passes the bots",
     tools: [
-      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, note: "Live check on every bullet" },
-      { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator", icon: Mail, note: "Matched to each posting" },
+      { name: "AI Resume Builder", href: "/tools/ai-resume-builder", icon: TOOL_ICONS["ai-resume-builder"], note: "Live check on every bullet" },
+      { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator", icon: TOOL_ICONS["ai-cover-letter-generator"], note: "Matched to each posting" },
     ],
     content: [
       { label: "7 resume builders tested", href: "/blog/best-free-resume-builders-2026", type: "Comparison" },
@@ -284,11 +269,11 @@ export const goals: Goal[] = [
   {
     id: "ideas",
     label: "Discover business ideas",
-    icon: Lightbulb,
+    icon: TOOL_ICONS["startup-idea-generator"],
     headline: "Ideas with a real market angle",
     tools: [
-      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: Lightbulb, note: "Ideas plus a test plan" },
-      { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, note: "Run the numbers early" },
+      { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: TOOL_ICONS["startup-idea-generator"], note: "Ideas plus a test plan" },
+      { name: "Budget Planner", href: "/tools/budget-planner", icon: TOOL_ICONS["budget-planner"], note: "Run the numbers early" },
     ],
     content: [
       { label: "AI automation business ideas", href: "/blog/ai-automation-business-ideas-2026", type: "Guide" },
@@ -298,12 +283,12 @@ export const goals: Goal[] = [
   {
     id: "productivity",
     label: "Improve productivity",
-    icon: CalendarCheck,
+    icon: TOOL_ICONS["productivity-planner"],
     headline: "Systems that make weeks focused",
     tools: [
-      { name: "Habit Tracker", href: "/tools/habit-tracker", icon: CalendarCheck, note: "Daily habit checklist" },
-      { name: "Productivity Planner", href: "/tools/productivity-planner", icon: ListChecks, note: "Priorities and time blocks" },
-      { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, note: "See where money goes" },
+      { name: "Habit Tracker", href: "/tools/habit-tracker", icon: TOOL_ICONS["habit-tracker"], note: "Daily habit checklist" },
+      { name: "Productivity Planner", href: "/tools/productivity-planner", icon: TOOL_ICONS["productivity-planner"], note: "Priorities and time blocks" },
+      { name: "Budget Planner", href: "/tools/budget-planner", icon: TOOL_ICONS["budget-planner"], note: "See where money goes" },
     ],
     content: [
       { label: "Best AI developer tools for 2026", href: "/blog/ai-tools-developers-2026", type: "Guide" },
@@ -316,7 +301,7 @@ export const goals: Goal[] = [
     headline: "Micro lessons, real skills",
     tools: [
       { name: "Learn Hub", href: "/learn", icon: Code2, note: "Short coding lessons" },
-      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: Sparkles, note: "Learn by prompting" },
+      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: TOOL_ICONS["ai-prompt-library"], note: "Learn by prompting" },
     ],
     content: [
       { label: "Learn programming in 2026", href: "/trends/learn-programming-2026-complete-guide", type: "Guide" },
@@ -326,11 +311,11 @@ export const goals: Goal[] = [
   {
     id: "trends",
     label: "Find the latest trends",
-    icon: Gamepad2,
+    icon: TREND_RADAR_ICON,
     headline: "In depth reports, kept current",
     tools: [
-      { name: "Trend Radar", href: "/trends", icon: Gamepad2, note: "Reports by topic" },
-      { name: "Can You Run It", href: "/tools/can-you-run-it", icon: Gamepad2, note: "Check your PC" },
+      { name: "Trend Radar", href: "/trends", icon: TREND_RADAR_ICON, note: "Reports by topic" },
+      { name: "Can You Run It", href: "/tools/can-you-run-it", icon: TOOL_ICONS["can-you-run-it"], note: "Check your PC" },
     ],
     content: [
       { label: "GTA 6 launch hub", href: "/gta-6", type: "Hub" },

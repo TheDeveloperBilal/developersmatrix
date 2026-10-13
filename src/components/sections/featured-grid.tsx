@@ -3,21 +3,18 @@ import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
-  Gauge,
   TrendingUp,
   Flame,
-  FileText,
-  MessagesSquare,
-  Wallet,
 } from "lucide-react";
+import { ToolIcon } from "@/lib/tool-icons";
 import Reveal from "@/components/reveal";
 import { latestArticle } from "@/lib/home-articles";
 import { TOOLS_LABEL } from "@/lib/home-data";
 
 const quickAccess = [
-  { name: "Resume Builder", href: "/tools/ai-resume-builder", icon: FileText, meta: "Free, no signup" },
-  { name: "Interview Simulator", href: "/tools/ai-interview-simulator", icon: MessagesSquare, meta: "Instant answer feedback" },
-  { name: "Budget Planner", href: "/tools/budget-planner", icon: Wallet, meta: "Free, no signup" },
+  { name: "Resume Builder", href: "/tools/ai-resume-builder", meta: "Free, no signup" },
+  { name: "Interview Simulator", href: "/tools/ai-interview-simulator", meta: "Instant answer feedback" },
+  { name: "Budget Planner", href: "/tools/budget-planner", meta: "Free, no signup" },
 ];
 
 export default function FeaturedGrid() {
@@ -63,7 +60,7 @@ export default function FeaturedGrid() {
               <div className="relative flex h-full flex-col">
                 <div className="flex items-center justify-between">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-[0_10px_24px_-8px_rgba(124,58,237,0.8)]">
-                    <Gauge className="h-6 w-6" strokeWidth={1.8} />
+                    <ToolIcon tool="website-audit" className="h-6 w-6" />
                   </span>
                   <span className="chip bg-white/10 text-brand-200 ring-1 ring-white/15">
                     Featured tool
@@ -200,7 +197,7 @@ export default function FeaturedGrid() {
                       className="group flex w-full items-center gap-3 rounded-2xl bg-white/90 px-3 py-2.5 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card"
                     >
                       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
-                        <tool.icon className="h-4 w-4" strokeWidth={1.8} />
+                        <ToolIcon tool={tool.href} className="h-4 w-4" />
                       </span>
                       <span className="flex-1">
                         <span className="block text-sm font-semibold text-ink-900">{tool.name}</span>

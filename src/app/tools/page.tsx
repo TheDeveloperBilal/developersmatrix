@@ -2,38 +2,12 @@ import { generatePageMetadata, pageMetadata } from '@/lib/seo/metadata';
 import { Metadata } from "next";
 
 export const metadata: Metadata = generatePageMetadata(pageMetadata.tools);
-import { 
-  FileText, 
-  Mail, 
-  MessageSquare, 
-  Wallet, 
-  CheckCircle, 
-  DollarSign, 
-  Lightbulb, 
-  Calendar,
-  Gamepad2,
-  BookOpen,
-  Link2
-} from "lucide-react";
+import { FileText, MessageSquare, CheckCircle } from "lucide-react";
 import { ToolCard } from "@/components/shared/Cards";
 import { InContentAd } from "@/components/ads/AdBanner";
 import { WebApplicationSchema, BreadcrumbSchema } from "@/components/seo/SchemaMarkup";
 import { tools } from "@/data/tools";
 import { siteConfig } from "@/data/config";
-
-const iconMap: Record<string, React.ReactNode> = {
-  FileText: <FileText className="w-8 h-8" />,
-  Mail: <Mail className="w-8 h-8" />,
-  MessageSquare: <MessageSquare className="w-8 h-8" />,
-  Wallet: <Wallet className="w-8 h-8" />,
-  CheckCircle: <CheckCircle className="w-8 h-8" />,
-  DollarSign: <DollarSign className="w-8 h-8" />,
-  Lightbulb: <Lightbulb className="w-8 h-8" />,
-  Calendar: <Calendar className="w-8 h-8" />,
-  Gamepad2: <Gamepad2 className="w-8 h-8" />,
-  BookOpen: <BookOpen className="w-8 h-8" />,
-  Link: <Link2 className="w-8 h-8" />,
-};
 
 export default function ToolsPage() {
   const categories = [

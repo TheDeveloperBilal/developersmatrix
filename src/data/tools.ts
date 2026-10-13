@@ -151,7 +151,7 @@ export const tools: Tool[] = [
     name: 'AI Resume Builder',
     description: 'Write your resume on a live A4 page with three ATS friendly templates. A built in check flags weak bullets and missing numbers, a job posting comparison shows skill gaps, and you download a clean PDF.',
     shortDescription: 'Build ATS-optimized resumes with AI assistance',
-    icon: 'FileText',
+    icon: 'FileUser',
     category: 'career',
     features: [
       'Live A4 preview with page breaks',
@@ -177,7 +177,7 @@ export const tools: Tool[] = [
     name: 'AI Cover Letter Generator',
     description: 'Paste the job description, add your best results, and get a tailored cover letter built from your own experience. It leads with the skills the posting asks for and checks the letter for stock phrases, missing numbers and gaps.',
     shortDescription: 'Generate personalized cover letters for any job',
-    icon: 'Mail',
+    icon: 'NotebookPen',
     category: 'career',
     features: [
       'Job description skill matching',
@@ -203,7 +203,7 @@ export const tools: Tool[] = [
     name: 'AI Interview Simulator',
     description: 'Practice interviews with our AI-powered simulator. Get realistic questions, practice your responses, and receive instant feedback to improve your interview performance and confidence.',
     shortDescription: 'Practice interviews with AI feedback',
-    icon: 'MessageSquare',
+    icon: 'Mic',
     category: 'career',
     features: [
       'Role-specific questions',
@@ -229,7 +229,7 @@ export const tools: Tool[] = [
     name: 'Budget Planner',
     description: 'Build a monthly budget from your take home pay and bills. Weekly and yearly amounts are converted to monthly, with a 50/30/20 check and a savings goal planner.',
     shortDescription: 'Monthly budget with a savings goal',
-    icon: 'Wallet',
+    icon: 'PiggyBank',
     category: 'finance',
     features: [
       'Money in and money out with any frequency',
@@ -255,7 +255,7 @@ export const tools: Tool[] = [
     name: 'Daily Habit Tracker',
     description: 'Track daily habits with streaks counted from real dates, a 7 day check in strip and a 12 week wall for every habit. Saved in your browser with backup and restore.',
     shortDescription: 'Daily habits with real streaks',
-    icon: 'CheckCircle',
+    icon: 'Repeat',
     category: 'productivity',
     features: [
       'Daily check ins tied to real dates',
@@ -281,7 +281,7 @@ export const tools: Tool[] = [
     name: 'Salary Estimator',
     description: 'See what a job really pays using official U.S. Bureau of Labor Statistics wage data. Get the median and full pay range for 35 jobs in any US state or metro area, check an offer and compare places.',
     shortDescription: 'Official pay ranges by job and US location',
-    icon: 'DollarSign',
+    icon: 'BadgeDollarSign',
     category: 'career',
     features: [
       'Official BLS wage data',
@@ -333,7 +333,7 @@ export const tools: Tool[] = [
     name: 'Productivity Planner',
     description: 'Turn your tasks into an hour by hour plan with a Top 3, fixed time meetings, an overbooked warning, calendar export and an optional AI planning prompt.',
     shortDescription: 'Plan your day as a timeline',
-    icon: 'Calendar',
+    icon: 'CalendarClock',
     category: 'productivity',
     features: [
       'Must, Should and Could priorities',
@@ -388,7 +388,7 @@ export const tools: Tool[] = [
     name: 'AI Prompt Library',
     description: 'Free library of ready to use AI prompts for ChatGPT, Claude, Gemini and Midjourney. Fill in the blanks, then copy the prompt or open it in ChatGPT or Claude.',
     shortDescription: 'Ready prompts with a fill in the blanks builder',
-    icon: 'BookOpen',
+    icon: 'Library',
     category: 'productivity',
     features: [
       '64 prompts in 8 categories',
@@ -417,7 +417,7 @@ export const tools: Tool[] = [
     name: 'AI Email Assistant',
     description: 'Write clear work emails from 18 hand written templates in three tones, check any draft for common mistakes, and open ready prompts in ChatGPT or Claude to reply or rewrite.',
     shortDescription: 'Email templates, a draft checker and AI prompts',
-    icon: 'Mail',
+    icon: 'Send',
     category: 'productivity',
     features: [
       '18 email templates in three tones',

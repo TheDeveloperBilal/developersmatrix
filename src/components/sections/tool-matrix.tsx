@@ -14,6 +14,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { ToolIcon } from "@/lib/tool-icons";
 import { explorerTools, TOOLS_LABEL, type ExplorerTool } from "@/lib/home-data";
 
 /*
@@ -71,7 +72,7 @@ function Tile({
     >
       {tool && (
         <span className="flex h-full w-full rotate-45 items-center justify-center">
-          <tool.icon className="h-[46%] w-[46%]" strokeWidth={1.9} aria-hidden="true" />
+          <ToolIcon tool={tool.href} fallback={tool.icon} wrapClassName="h-[46%] w-[46%]" className="h-full w-full" />
         </span>
       )}
     </motion.span>
@@ -234,7 +235,7 @@ export default function ToolMatrix() {
                 className="card flex items-center gap-3 !rounded-2xl px-4 py-3 transition-shadow hover:shadow-card-hover"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white">
-                  <activeTool.icon className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />
+                  <ToolIcon tool={activeTool.href} fallback={activeTool.icon} className="h-5 w-5" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block font-sora text-sm font-bold text-ink-950">{activeTool.name}</span>

@@ -1,14 +1,4 @@
 import {
-  Gauge,
-  FileText,
-  ScanSearch,
-  MessagesSquare,
-  Mail,
-  Wallet,
-  Gamepad2,
-  Lightbulb,
-  Sparkles,
-  CalendarCheck,
   Briefcase,
   Bot,
   Globe,
@@ -17,6 +7,7 @@ import {
   GraduationCap,
   type LucideIcon,
 } from "lucide-react";
+import { TOOL_ICONS } from "@/lib/tool-icons";
 
 export type Tool = {
   name: string;
@@ -32,7 +23,7 @@ export const featuredTools: Tool[] = [
     href: "/tools/website-audit",
     description:
       "Run a full health check on any website. SEO, speed, security, mobile UX and content quality scored in seconds.",
-    icon: Gauge,
+    icon: TOOL_ICONS["website-audit"],
     badge: "POPULAR",
   },
   {
@@ -40,7 +31,7 @@ export const featuredTools: Tool[] = [
     href: "/tools/ai-resume-builder",
     description:
       "Create an ATS friendly resume in minutes. Built for developers, designers and every modern role.",
-    icon: FileText,
+    icon: TOOL_ICONS["ai-resume-builder"],
     badge: "POPULAR",
   },
   {
@@ -48,7 +39,7 @@ export const featuredTools: Tool[] = [
     href: "/tools/ai-content-detector",
     description:
       "Check whether text reads as human or machine written, with a detailed breakdown you can act on.",
-    icon: ScanSearch,
+    icon: TOOL_ICONS["ai-content-detector"],
     badge: "NEW",
   },
   {
@@ -56,7 +47,7 @@ export const featuredTools: Tool[] = [
     href: "/tools/ai-interview-simulator",
     description:
       "Practice behavioral, technical and system design questions with instant AI feedback and scoring.",
-    icon: MessagesSquare,
+    icon: TOOL_ICONS["ai-interview-simulator"],
   },
 ];
 
@@ -65,43 +56,43 @@ export const moreTools: Tool[] = [
     name: "Cover Letter Generator",
     href: "/tools/ai-cover-letter-generator",
     description: "Matched to the exact job posting.",
-    icon: Mail,
+    icon: TOOL_ICONS["ai-cover-letter-generator"],
   },
   {
     name: "Budget Planner",
     href: "/tools/budget-planner",
     description: "Monthly budget with savings goals.",
-    icon: Wallet,
+    icon: TOOL_ICONS["budget-planner"],
   },
   {
     name: "Can You Run It",
     href: "/tools/can-you-run-it",
     description: "Check PC game requirements.",
-    icon: Gamepad2,
+    icon: TOOL_ICONS["can-you-run-it"],
   },
   {
     name: "Startup Idea Generator",
     href: "/tools/startup-idea-generator",
     description: "Business ideas matched to your skills.",
-    icon: Lightbulb,
+    icon: TOOL_ICONS["startup-idea-generator"],
   },
   {
     name: "AI Prompt Library",
     href: "/tools/ai-prompt-library",
     description: "64 ready to use AI prompts.",
-    icon: Sparkles,
+    icon: TOOL_ICONS["ai-prompt-library"],
   },
   {
     name: "Habit Tracker",
     href: "/tools/habit-tracker",
     description: "Daily habits with real streaks.",
-    icon: CalendarCheck,
+    icon: TOOL_ICONS["habit-tracker"],
   },
   {
     name: "Productivity Planner",
     href: "/tools/productivity-planner",
     description: "Turn tasks into a timed day plan.",
-    icon: ListChecks,
+    icon: TOOL_ICONS["productivity-planner"],
   },
 ];
 

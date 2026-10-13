@@ -953,3 +953,126 @@
     width: 100%;
   }
 }
+
+
+/* ============================================
+   Tool icons (lib/tool-icons.tsx)
+   Hover tilt, draw in, and one signature touch per tool.
+   Transforms and pseudo elements only, so nothing moves the layout.
+   ============================================ */
+.tool-icon {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+  transform-origin: 50% 50%;
+  transition: transform 200ms ease-out;
+}
+.tool-icon > svg {
+  position: relative;
+}
+:where(a, button):hover .tool-icon,
+:where(a, button):focus-visible .tool-icon {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+/* AI Content Detector: one scan line sweep on hover */
+.tool-icon[data-sig="scan"]::after {
+  content: "";
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  top: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+}
+:where(a, button):hover .tool-icon[data-sig="scan"]::after,
+:where(a, button):focus-visible .tool-icon[data-sig="scan"]::after {
+  animation: icon-scan 700ms ease-out 1;
+}
+@keyframes icon-scan {
+  0% { top: 0; opacity: 0; }
+  15% { opacity: 0.9; }
+  85% { opacity: 0.9; }
+  100% { top: calc(100% - 2px); opacity: 0; }
+}
+
+/* Startup Idea Generator: the bulb flickers on, once, on hover */
+:where(a, button):hover .tool-icon[data-sig="glow"] > svg,
+:where(a, button):focus-visible .tool-icon[data-sig="glow"] > svg {
+  animation: icon-glow 900ms ease-out 1 forwards;
+}
+@keyframes icon-glow {
+  0% { filter: none; }
+  20% { filter: drop-shadow(0 0 6px rgb(250 204 21 / 0.9)); }
+  32% { filter: drop-shadow(0 0 1px rgb(250 204 21 / 0.3)); }
+  48% { filter: drop-shadow(0 0 7px rgb(250 204 21 / 0.95)); }
+  100% { filter: drop-shadow(0 0 4px rgb(250 204 21 / 0.6)); }
+}
+
+/* Interview Simulator: a ping ring while a session is running */
+.tool-icon[data-sig="ping"][data-active="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  opacity: 0;
+  pointer-events: none;
+  animation: icon-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes icon-ping {
+  0% { transform: scale(0.6); opacity: 0.6; }
+  80%, 100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* Trend radar: the only icon allowed to loop, a slow sweep */
+.tool-icon[data-sig="sweep"]::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, currentColor 0deg, transparent 75deg, transparent 360deg);
+  opacity: 0.22;
+  pointer-events: none;
+  animation: icon-sweep 4s linear infinite;
+}
+@keyframes icon-sweep {
+  to { transform: rotate(360deg); }
+}
+
+/* Hero and eyebrow icons draw their strokes in when scrolled into view */
+svg[data-draw].draw-armed :is(path, line, circle, rect, polyline, polygon, ellipse) {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+svg[data-draw].draw-in :is(path, line, circle, rect, polyline, polygon, ellipse) {
+  stroke-dasharray: 100;
+  animation: icon-draw 900ms ease-out both;
+}
+@keyframes icon-draw {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-icon,
+  :where(a, button):hover .tool-icon,
+  :where(a, button):focus-visible .tool-icon {
+    transform: none;
+    transition: none;
+  }
+  .tool-icon::before,
+  .tool-icon::after,
+  .tool-icon > svg {
+    animation: none !important;
+  }
+  svg[data-draw] :is(path, line, circle, rect, polyline, polygon, ellipse) {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+}

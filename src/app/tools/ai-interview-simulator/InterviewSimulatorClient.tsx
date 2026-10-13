@@ -16,6 +16,7 @@ import {
   X,
 } from 'lucide-react';
 import { ROLES, LEVELS, categoryLabel, type Category, type Level, type RoleKey } from '@/lib/interview/bank-types';
+import { ToolIcon } from '@/lib/tool-icons';
 
 /* ------------------------------------------------------------------ */
 /* Types returned by /api/interview                                    */
@@ -574,6 +575,12 @@ export default function InterviewSimulatorClient() {
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className={eyebrow}>
+                  <ToolIcon
+                    tool="ai-interview-simulator"
+                    active={(timing && !result) || listening}
+                    wrapClassName="mr-2 align-[-0.2em] text-violet-600 dark:text-violet-400"
+                    className="h-3.5 w-3.5"
+                  />
                   <span className="mr-2 font-mono">02</span>
                   {question.roundLabel} · {LEVELS.find((l) => l.key === question.level)?.label} · {roleLabel}
                 </p>

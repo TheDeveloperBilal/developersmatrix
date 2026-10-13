@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Compass } from "lucide-react";
 import { goals } from "@/lib/home-data";
+import { LinkIcon, SignedIcon } from "@/lib/tool-icons";
 
 export default function ExploreByGoal() {
   const [activeId, setActiveId] = useState(goals[2].id); // default: Build my career
@@ -22,7 +23,7 @@ export default function ExploreByGoal() {
       <div className="shell relative">
         <div className="max-w-2xl">
           <p className="eyebrow !text-white/40 before:!bg-white/25">
-            <Compass className="h-3.5 w-3.5 text-brand-400" /> Explore by goal
+            <Compass className="h-3.5 w-3.5 text-brand-400" strokeWidth={2} data-draw="" /> Explore by goal
           </p>
           <h2
             id="goal-heading"
@@ -65,7 +66,7 @@ export default function ExploreByGoal() {
                       isActive ? "bg-brand-600 text-white" : "bg-white/10 text-brand-300"
                     }`}
                   >
-                    <goal.icon className="h-4 w-4" strokeWidth={1.9} />
+                    <SignedIcon icon={goal.icon} className="h-4 w-4" />
                   </span>
                   <span className="relative">{goal.label}</span>
                 </button>
@@ -104,7 +105,7 @@ export default function ExploreByGoal() {
                         className="group flex items-center gap-4 rounded-2xl bg-white/90 p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card"
                       >
                         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white">
-                          <tool.icon className="h-5 w-5" strokeWidth={1.8} />
+                          <LinkIcon href={tool.href} icon={tool.icon} className="h-5 w-5" />
                         </span>
                         <span className="flex-1">
                           <span className="block text-sm font-bold text-ink-900">{tool.name}</span>
