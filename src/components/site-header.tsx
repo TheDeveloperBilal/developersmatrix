@@ -33,6 +33,8 @@ function Logo() {
         height={40}
         className="h-9 w-auto"
         priority
+        fetchPriority="high"
+        loading="eager"
       />
     </Link>
   );

@@ -48,10 +48,13 @@ interface CheckResult {
 /* tool reads as one object rather than a stack of unrelated cards.    */
 /* ------------------------------------------------------------------ */
 
+// Phones get a near solid panel: a 40px backdrop blur is one of the most
+// expensive things a mobile browser can paint, and on a plain background it
+// looks the same. Larger screens keep the frosted glass.
 const glass =
-  'rounded-3xl border border-white/70 bg-white/60 backdrop-blur-2xl ' +
+  'rounded-3xl border border-white/70 bg-white/90 sm:bg-white/60 sm:backdrop-blur-2xl ' +
   'shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_30px_80px_-40px_rgba(15,23,42,0.45)] ' +
-  'dark:border-white/[0.08] dark:bg-slate-900/40 ' +
+  'dark:border-white/[0.08] dark:bg-slate-900/70 sm:dark:bg-slate-900/40 ' +
   'dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_30px_80px_-40px_rgba(0,0,0,0.9)]';
 
 const inset =
