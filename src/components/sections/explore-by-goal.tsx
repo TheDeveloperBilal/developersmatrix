@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Compass } from "lucide-react";
 import { goals } from "@/lib/home-data";
 import { LinkIcon, SignedIcon } from "@/lib/tool-icons";
@@ -10,6 +9,8 @@ import { LinkIcon, SignedIcon } from "@/lib/tool-icons";
 export default function ExploreByGoal() {
   const [activeId, setActiveId] = useState(goals[2].id); // default: Build my career
   const active = goals.find((g) => g.id === activeId)!;
+  // The panel animates only after a goal is picked, never on first load.
+  const [changed, setChanged] = useState(false);
 
   return (
     <section className="relative overflow-hidden bg-ink-950 py-16 lg:py-24" aria-labelledby="goal-heading">
@@ -17,8 +18,8 @@ export default function ExploreByGoal() {
         aria-hidden="true"
         className="dot-grid absolute inset-0 opacity-[0.12] [background-image:radial-gradient(circle,rgba(255,255,255,0.6)_1px,transparent_1px)]"
       />
-      <div aria-hidden="true" className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-brand-600/25 blur-3xl" />
-      <div aria-hidden="true" className="absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-brand-800/30 blur-3xl" />
+      <div aria-hidden="true" className="absolute -left-56 -top-16 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(closest-side,rgba(124,58,237,0.25),transparent)]" />
+      <div aria-hidden="true" className="absolute -right-56 -bottom-16 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(closest-side,rgba(91,33,182,0.3),transparent)]" />
 
       <div className="shell relative">
         <div className="max-w-2xl">
@@ -46,21 +47,17 @@ export default function ExploreByGoal() {
                 <button
                   key={goal.id}
                   type="button"
-                  onClick={() => setActiveId(goal.id)}
+                  onClick={() => {
+                    setActiveId(goal.id);
+                    setChanged(true);
+                  }}
                   aria-pressed={isActive}
                   className={`group relative flex items-center gap-3 rounded-xl px-4 py-3.5 text-left text-sm font-semibold transition-all duration-200 ${
                     isActive
-                      ? "text-ink-950"
+                      ? "bg-white text-ink-950"
                       : "bg-white/5 text-white/70 ring-1 ring-white/10 hover:bg-white/10 hover:text-white"
                   }`}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="goal-active"
-                      className="absolute inset-0 rounded-xl bg-white"
-                      transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-                    />
-                  )}
                   <span
                     className={`relative flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ${
                       isActive ? "bg-brand-600 text-white" : "bg-white/10 text-brand-300"
@@ -76,14 +73,9 @@ export default function ExploreByGoal() {
 
           {/* Result panel */}
           <div className="relative min-h-[24rem]">
-            <AnimatePresence mode="wait">
-              <motion.div
+              <div
                 key={active.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-3xl bg-white p-7 shadow-2xl sm:p-9"
+                className={`rounded-3xl bg-white p-7 shadow-2xl sm:p-9 ${changed ? "animate-panel-in" : ""}`}
               >
                 <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">
                   I want to {active.label.toLowerCase()}
@@ -94,11 +86,10 @@ export default function ExploreByGoal() {
 
                 <ul className="mt-7 space-y-2.5">
                   {active.tools.map((tool, i) => (
-                    <motion.li
+                    <li
                       key={tool.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.08 + i * 0.07 }}
+                      className={changed ? "animate-slide-in" : undefined}
+                      style={changed ? { animationDelay: `${80 + i * 70}ms` } : undefined}
                     >
                       <Link
                         href={tool.href}
@@ -113,7 +104,7 @@ export default function ExploreByGoal() {
                         </span>
                         <ArrowUpRight className="h-4 w-4 text-ink-300 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-600" />
                       </Link>
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
 
@@ -129,8 +120,7 @@ export default function ExploreByGoal() {
                     </Link>
                   ))}
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
           </div>
         </div>
 

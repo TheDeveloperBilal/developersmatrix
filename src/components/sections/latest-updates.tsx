@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, History } from "lucide-react";
 import type { UpdateItem } from "@/lib/home-data";
 
@@ -17,6 +16,8 @@ export default function LatestUpdates({ items }: { items: Item[] }) {
   // Only offer filters for kinds that actually have entries.
   const tabs = ["All", ...(["New", "Updated"] as const).filter((k) => items.some((u) => u.kind === k))];
   const [tab, setTab] = useState<string>("All");
+  // The list animates only after a filter is picked, never on first load.
+  const [changed, setChanged] = useState(false);
 
   const visible = items
     .filter((u) => tab === "All" || u.kind === tab)
@@ -46,20 +47,16 @@ export default function LatestUpdates({ items }: { items: Item[] }) {
                 key={t}
                 role="tab"
                 aria-selected={tab === t}
-                onClick={() => setTab(t)}
-                className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                onClick={() => {
+                  setTab(t);
+                  setChanged(true);
+                }}
+                className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-300 ${
                   tab === t
-                    ? "text-white"
-                    : "bg-white/80 text-ink-600 shadow-sm backdrop-blur-sm hover:text-ink-900 hover:bg-white"
+                    ? "bg-brand-600 text-white"
+                    : "bg-white/80 text-ink-600 shadow-sm hover:text-ink-900 hover:bg-white"
                 }`}
               >
-                {tab === t && (
-                  <motion.span
-                    layoutId="updates-tab"
-                    className="absolute inset-0 rounded-full bg-brand-600"
-                    transition={{ type: "spring", bounce: 0.18, duration: 0.5 }}
-                  />
-                )}
                 <span className="relative z-10">{t}</span>
               </button>
             ))}
@@ -67,14 +64,9 @@ export default function LatestUpdates({ items }: { items: Item[] }) {
         </div>
 
         <div>
-          <AnimatePresence mode="wait">
-            <motion.ul
+            <ul
               key={tab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="divide-y divide-ink-100/60"
+              className={`divide-y divide-ink-100/60 ${changed ? "animate-list-in" : ""}`}
             >
               {visible.map((item) => (
                 <li key={item.title}>
@@ -93,8 +85,7 @@ export default function LatestUpdates({ items }: { items: Item[] }) {
                   </Link>
                 </li>
               ))}
-            </motion.ul>
-          </AnimatePresence>
+            </ul>
         </div>
       </div>
     </section>
