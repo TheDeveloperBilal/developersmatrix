@@ -12,13 +12,13 @@ export const metadata: Metadata = generatePageMetadata({
   description: "Audit your website online free. Around 150 checks across SEO, speed, Core Web Vitals, mobile and security. Get a score out of 100 and a fix list. No signup.",
   keywords: ['audit website online', 'website audit tool online', 'website audit', 'audit website', 'audit a website', 'website auditor tool online', 'site audit online', 'site auditor online', 'audit checker', 'online website audit', 'web site audit', 'website auditor', 'web audit tool', 'website code audit', 'audit my website', 'audit of website', 'free website audit tool', 'website health check free', 'seo audit tool online', 'technical seo audit free', 'seo score checker', 'website performance checker', 'google core web vitals checker', 'website speed test tool', 'mobile friendly test tool', 'accessibility audit tool free', 'website security scanner free', 'free website analyzer', 'website grader', 'grade my website'],
   path: "/tools/website-audit",
-  modifiedTime: "2026-08-27",
+  modifiedTime: "2026-10-14",
 });
 
 const toolFaqs = [
   {
     question: "Is this website audit tool completely free?",
-    answer: "Yes, 100% free. No signup required, no credit card needed, and no usage limits. We believe every website owner deserves access to professional-grade audit tools regardless of budget. Run as many audits as you want on as many sites as you own."
+    answer: "Yes, 100% free. No signup required, no credit card needed, and no usage limits. We believe every website owner deserves access to professional grade audit tools regardless of budget. Run as many audits as you want on as many sites as you own."
   },
   {
     question: "Is this a website grader?",
@@ -30,11 +30,11 @@ const toolFaqs = [
   },
   {
     question: "What does the website audit tool check in 2026?",
-    answer: "Our AI website audit tool performs around 150 checks across 8 categories. For Technical SEO, we examine title tags, meta descriptions, headings, canonical URLs, schema markup, and internal links. For Performance, we look at page size, load time, render-blocking resources, image optimization, and caching. Mobile UX covers viewport settings, touch targets, responsive design, and mobile meta tags. Security checks include HTTPS enforcement, security headers, mixed content detection, and TLS version. Accessibility tests cover alt text, form labels, ARIA roles, heading hierarchy, and color contrast. Content Quality analyzes readability, word count, calls to action, and trust signals. Finally, Conversion Optimization checks value propositions, social proof, and form security."
+    answer: "Our AI website audit tool performs around 150 checks across 8 categories. For Technical SEO, we examine title tags, meta descriptions, headings, canonical URLs, schema markup, and internal links. For Performance, we look at page size, load time, render blocking resources, image optimization, and caching. Mobile UX covers viewport settings, touch targets, responsive design, and mobile meta tags. Security checks include HTTPS enforcement, security headers, mixed content detection, and TLS version. Accessibility tests cover alt text, form labels, ARIA roles, heading hierarchy, and color contrast. Content Quality analyzes readability, word count, calls to action, and trust signals. Finally, Conversion Optimization checks value propositions, social proof, and form security."
   },
   {
     question: "How accurate is this compared to Google Lighthouse?",
-    answer: "Our scoring correlates strongly with Google Lighthouse, PageSpeed Insights, and WebPageTest results. We use the same Core Web Vitals metrics that Google uses as direct ranking factors: Largest Contentful Paint for loading speed, Interaction to Next Paint for responsiveness, and Cumulative Layout Shift for visual stability. The key difference is that we add SEO-specific checks that Lighthouse does not cover. We analyze meta tag completeness, validate schema markup, and score keyword density. Think of our tool as combining Lighthouse, an SEO analyzer, and a security scanner into one comprehensive audit."
+    answer: "Our scoring correlates strongly with Google Lighthouse, PageSpeed Insights, and WebPageTest results. We use the same Core Web Vitals metrics that Google uses as direct ranking factors: Largest Contentful Paint for loading speed, Interaction to Next Paint for responsiveness, and Cumulative Layout Shift for visual stability. The key difference is that we add SEO specific checks that Lighthouse does not cover. We analyze meta tag completeness, validate schema markup, and score keyword density. Think of our tool as combining Lighthouse, an SEO analyzer, and a security scanner into one comprehensive audit."
   },
   {
     question: "Will fixing audit issues actually improve my Google rankings?",
@@ -42,19 +42,19 @@ const toolFaqs = [
   },
   {
     question: "How often should I run a website audit in 2026?",
-    answer: "For active business websites, monthly audits hit the sweet spot. After any major update such as a new design, CMS upgrade, content migration, or plugin installation, run an audit immediately because broken updates are the single most common cause of ranking drops. E-commerce sites should audit weekly during high-traffic periods like Black Friday and holiday seasons. After you fix issues, re-audit in 2 to 4 weeks to confirm the improvements took effect. For stagnant brochure sites that rarely change, quarterly audits are sufficient."
+    answer: "For active business websites, monthly audits hit the sweet spot. After any major update such as a new design, CMS upgrade, content migration, or plugin installation, run an audit immediately because broken updates are the single most common cause of ranking drops. Ecommerce sites should audit weekly during high traffic periods like Black Friday and holiday seasons. After you fix issues, audit again in 2 to 4 weeks to confirm the improvements took effect. For stagnant brochure sites that rarely change, quarterly audits are sufficient."
   },
   {
     question: "Does this work for WordPress, Shopify, Next.js, and other platforms?",
-    answer: "Yes. Any publicly accessible website works regardless of the technology stack underneath. We analyze the rendered HTML output, so the platform itself does not matter. WordPress sites often struggle with plugin bloat and caching misconfiguration. Shopify stores frequently have image optimization issues and heavy third-party scripts. Next.js and React applications commonly face hydration problems and missing meta tags. Our tool detects platform-specific patterns and tailors recommendations accordingly."
+    answer: "Yes. Any publicly accessible website works regardless of the technology stack underneath. We analyze the rendered HTML output, so the platform itself does not matter. WordPress sites often struggle with plugin bloat and caching misconfiguration. Shopify stores frequently have image optimization issues and heavy third party scripts. Next.js and React applications commonly face hydration problems and missing meta tags. Our tool detects platform specific patterns and tailors recommendations accordingly."
   },
   {
     question: "What is a good website audit score?",
-    answer: "A score between 90 and 100 means excellent. Your site is well-optimized with minimal issues and you are likely ranking well already. A score between 70 and 89 is good. Most websites fall into this range, and while the foundation is solid, some improvements remain. A score between 50 and 69 is fair. Significant issues are affecting performance and SEO, and you should expect ranking struggles. A score below 50 is poor and demands immediate attention. Your site may be penalized or even deindexed. Do not obsess over a perfect 100. An 85 with strong content consistently outranks a 98 with thin content."
+    answer: "A score between 90 and 100 means excellent. Your site is well optimized with minimal issues and you are likely ranking well already. A score between 70 and 89 is good. Most websites fall into this range, and while the foundation is solid, some improvements remain. A score between 50 and 69 is fair. Significant issues are affecting performance and SEO, and you should expect ranking struggles. A score below 50 is poor and demands immediate attention. Your site may be penalized or even deindexed. Do not obsess over a perfect 100. An 85 with strong content consistently outranks a 98 with thin content."
   },
   {
     question: "Can I download or share the audit report?",
-    answer: "Absolutely. After running an audit, copy the full text report to your clipboard or download a professionally formatted PDF. The PDF includes color-coded scores for each category, issues organized by severity level, actionable recommendations prioritized by impact, a complete content analysis breakdown, and a clean summary perfect for stakeholders. It is ideal for sharing with clients, team members, or freelancers who will implement the fixes."
+    answer: "Absolutely. After running an audit, copy the full text report to your clipboard or download a professionally formatted PDF. The PDF includes colour coded scores for each category, issues organized by severity level, actionable recommendations prioritized by impact, a complete content analysis breakdown, and a clean summary perfect for stakeholders. It is ideal for sharing with clients, team members, or freelancers who will implement the fixes."
   },
   {
     question: "What is a free website health check and why do I need one?",
@@ -62,19 +62,19 @@ const toolFaqs = [
   },
   {
     question: "How much does a website audit cost in 2026?",
-    answer: "Website audit cost in 2026 ranges from free to over $5,000 depending on depth and provider. Free tools like DevelopersMatrix and Google Lighthouse cover technical SEO, performance, and security basics for small to medium sites. Paid desktop tools like Screaming Frog cost $259 per year and excel at full-site crawling. All-in-one suites like Ahrefs ($99-$999/month) and SEMrush ($119-$449/month) add competitive analysis, rank tracking, and backlink data. Professional agency audits run $500-$5,000 and include manual review with custom strategy. For most sites under 1,000 pages, a free audit combined with Google Search Console is sufficient to start. Upgrade to paid tools only when your traffic justifies the investment."
+    answer: "Website audit cost in 2026 ranges from free to over $5,000 depending on depth and provider. Free tools like DevelopersMatrix and Google Lighthouse cover technical SEO, performance, and security basics for small to medium sites. Paid desktop tools like Screaming Frog cost $259 per year and excel at full site crawling. All in one suites like Ahrefs ($99-$999/month) and SEMrush ($119-$449/month) add competitive analysis, rank tracking, and backlink data. Professional agency audits run $500-$5,000 and include manual review with custom strategy. For most sites under 1,000 pages, a free audit combined with Google Search Console is sufficient to start. Upgrade to paid tools only when your traffic justifies the investment."
   },
   {
     question: "Can I audit a single URL instead of my entire website?",
-    answer: "Yes, absolutely. Our URL audit feature is designed for exactly this use case. Paste any individual page URL and get a deep analysis of that specific page's technical SEO, performance, content quality, and accessibility. This is perfect for checking a new blog post before publishing, verifying a landing page after a redesign, auditing a competitor's top-ranking article, or spot-checking a product page that dropped in conversions. While full-site crawls are better for finding systemic issues like orphan pages and duplicate content, a single URL audit gives you granular, actionable data faster."
+    answer: "Yes, absolutely. Our URL audit feature is designed for exactly this use case. Paste any individual page URL and get a deep analysis of that specific page's technical SEO, performance, content quality, and accessibility. This is perfect for checking a new blog post before publishing, verifying a landing page after a redesign, auditing a competitor's top ranking article, or spot checking a product page that dropped in conversions. While full site crawls are better for finding systemic issues like orphan pages and duplicate content, a single URL audit gives you granular, actionable data faster."
   },
   {
     question: "What is the best online website auditor for small businesses?",
-    answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with around 150 checks across 8 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full-site technical crawling. Avoid expensive all-in-one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
+    answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with around 150 checks across 8 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full site technical crawling. Avoid expensive all in one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
   },
   {
     question: "Why is my website audit score low?",
-    answer: "Low scores most commonly result from slow page speed (unoptimized images, render-blocking scripts), missing or duplicate meta descriptions, lack of HTTPS or mixed content warnings, poor mobile usability, and missing security headers. The audit report highlights each failing check with a specific fix recommendation so you can address the highest-impact issues first."
+    answer: "Low scores most commonly result from slow page speed (unoptimized images, render blocking scripts), missing or duplicate meta descriptions, lack of HTTPS or mixed content warnings, poor mobile usability, and missing security headers. The audit report highlights each failing check with a specific fix recommendation so you can address the highest impact issues first."
   },
   {
     question: "Can I audit a competitor's website?",
@@ -86,8 +86,145 @@ const toolFaqs = [
   },
   {
     question: "What makes the DevelopersMatrix Site Health Score different from other audit tools?",
-    answer: "Unlike generic pass-fail checkers, our scoring engine weights each check by its correlation with search ranking performance. For example, missing title tags carry a higher penalty than minor heading hierarchy issues because they impact rankings more severely. The score also factors in industry context: an e-commerce site is evaluated against e-commerce benchmarks, not generic standards."
+    answer: "Unlike generic pass or fail checkers, our scoring engine weights each check by its correlation with search ranking performance. For example, missing title tags carry a higher penalty than minor heading hierarchy issues because they impact rankings more severely. The score also factors in industry context: an ecommerce site is evaluated against ecommerce benchmarks, not generic standards."
   },
+];
+
+// A real run of this tool on developersmatrix.com, copied from the API
+// response on 14 October 2026. Update by running the tool again; never edit
+// the numbers by hand.
+const SAMPLE = {
+  date: '14 October 2026',
+  overall: 77,
+  pages: 5,
+  findings: { total: 50, critical: 1, high: 1, medium: 19, low: 29 },
+  categories: [
+    ['SEO', 94],
+    ['Technical', 92],
+    ['Content', 88],
+    ['Mobile', 83],
+    ['Performance', 79],
+    ['Security', 79],
+    ['Accessibility', 43],
+    ['Conversion', 40],
+  ] as [string, number][],
+  top: [
+    { title: 'No Clear Call to Action Found', area: 'Conversion', severity: 'critical', fix: 'Add a primary and a secondary call to action above the fold.' },
+    { title: 'Form Inputs Without Labels', area: 'Accessibility', severity: 'high', fix: 'Give every input a label element linked with the for attribute.' },
+    { title: 'Missing X Frame Options Header', area: 'Security', severity: 'medium', fix: 'Send X-Frame-Options: DENY or SAMEORIGIN from the server.' },
+    { title: '22 Small Tap Targets Detected', area: 'Mobile', severity: 'medium', fix: 'Make buttons and links at least 48 by 48 pixels on phones.' },
+    { title: 'Fixed Width Layout', area: 'Mobile', severity: 'medium', fix: 'Use responsive units such as %, rem or vw instead of fixed pixels.' },
+  ],
+};
+
+const CHECKLIST = [
+  {
+    title: 'Technical SEO',
+    icon: Search,
+    iconClass: 'text-blue-500',
+    what: 'Meta Title, Meta Description, H1, Canonical Tag, Robots.txt, XML Sitemap and Structured Data tests.',
+    items: [
+      'Unique title tag on every page (50 to 60 characters)',
+      'Unique meta description (120 to 158 characters)',
+      'One H1 per page, headings in order',
+      'Canonical tag on every page',
+      'XML sitemap submitted to Google Search Console',
+      'Robots.txt configured correctly',
+      'Structured data (Article, FAQ, Organization)',
+      'No broken internal links or redirect chains',
+    ],
+  },
+  {
+    title: 'Performance',
+    icon: Gauge,
+    iconClass: 'text-orange-500',
+    what: 'Page Load Time, Page Size, Image Optimization, Render Blocking Resources, Lazy Loading and Text Compression tests.',
+    items: [
+      'LCP under 2.5 seconds',
+      'INP under 200 milliseconds',
+      'CLS under 0.1',
+      'Images in WebP or AVIF format',
+      'Text compression enabled',
+      'CSS and JavaScript not blocking the first paint',
+      'Offscreen images lazy loaded',
+      'Fast server response (Time to First Byte)',
+    ],
+  },
+  {
+    title: 'Mobile and Security',
+    icon: Smartphone,
+    iconClass: 'text-purple-500',
+    what: 'Viewport, Legible Font Size, Tap Target Size, HTTPS, Mixed Content and security header tests.',
+    items: [
+      'Viewport meta tag configured',
+      'Tap targets at least 48 pixels',
+      'No horizontal scroll on mobile',
+      'HTTPS enforced sitewide',
+      'Security headers (HSTS, CSP, X Frame Options)',
+      'No mixed content warnings',
+    ],
+  },
+  {
+    title: 'Accessibility and Content',
+    icon: Accessibility,
+    iconClass: 'text-green-500',
+    what: 'Image Alt Text, Heading Structure, Content Length, Readability and Keyword Stuffing tests.',
+    items: [
+      'Alt text on all images',
+      'Form labels linked to their inputs',
+      'Readable text with enough contrast',
+      'Content over 300 words where the page needs it',
+      'No keyword stuffing',
+      'Clear calls to action present',
+    ],
+  },
+];
+
+const PROBLEMS = [
+  { title: 'Slow Server Response Times', text: 'If your server takes over 800 milliseconds to respond, you have lost time before the page even starts loading. Cheap shared hosting, slow databases and missing caching are the usual causes. The audit measures Time to First Byte so you can see whether the delay is on the server or in the page itself.' },
+  { title: 'Unoptimized Images', text: 'Serving a 2MB hero image as a PNG is one of the most common reasons a page is slow. WebP and AVIF files are usually far smaller at the same quality, responsive images with srcset serve the right size for each screen, and lazy loading delays images below the fold. The audit checks all three.' },
+  { title: 'Missing or Duplicate Meta Descriptions', text: 'Google often uses the meta description for the search result snippet. Without one, Google picks text from the page that may not earn the click. Every important page should have a unique description between 120 and 158 characters.' },
+  { title: 'Broken Internal Links and Orphan Pages', text: 'Broken links waste crawl budget and frustrate visitors. Pages with no internal links pointing to them are hard for Google to find at all. The audit flags broken links on the pages it scans, with the exact URLs.' },
+  { title: 'Missing Schema Markup', text: 'Structured data helps Google understand your content and can unlock rich results such as breadcrumbs in search. Article, FAQ and Organization markup suit most content sites. The audit checks whether structured data is present and readable.' },
+  { title: 'Poor Accessibility', text: 'Missing alt text, form fields without labels, low contrast and keyboard traps shut out visitors who rely on assistive technology, and in many places accessibility is also a legal requirement under standards such as WCAG 2.1 AA.' },
+  { title: 'Third Party Script Bloat', text: 'Analytics, chat widgets, ad networks and social embeds each add weight. A heavy tag manager setup or chat widget can add seconds to load time on a phone. Load these scripts after the main content, or remove the ones you do not use.' },
+];
+
+const GOOGLE_CHECKS = [
+  { title: 'Core Web Vitals', text: 'Google measures three metrics. Largest Contentful Paint tracks loading speed and should stay under 2.5 seconds. Interaction to Next Paint measures responsiveness and should stay under 200 milliseconds. Cumulative Layout Shift tracks visual stability and should stay under 0.1. The audit reports all three from Google PageSpeed where Google has field data for the page.' },
+  { title: 'Mobile First Indexing', text: 'Google uses the mobile version of your page for indexing and ranking. If the mobile site is slow, broken or missing content compared with desktop, that is the version Google judges. The audit tests the viewport, tap targets and font sizes.' },
+  { title: 'Trust Signals and E-E-A-T', text: 'Experience, Expertise, Authoritativeness and Trustworthiness. Quality raters look for author information, sources, secure connections, privacy policies and about pages. The audit checks for common trust signals and flags what is missing.' },
+  { title: 'Technical Foundations', text: 'Canonical tags, one H1 per page, sensible meta descriptions, structured data, an XML sitemap and a correct robots.txt. They are not glamorous, but everything else builds on them. A broken canonical tag alone can stop the right page from ranking.' },
+];
+
+const PLATFORMS = [
+  { title: 'WordPress Sites', issues: 'The most common issues on WordPress are plugins that still load files after you stop using them, missing caching, oversized images uploaded without compression, and heavy themes full of unused CSS and JavaScript.', fixes: 'Quick wins include a caching plugin, compressing images on upload, removing plugins you do not use, readable permalinks, and a lightweight theme.' },
+  { title: 'Shopify Stores', issues: 'The most common issues on Shopify are large product images, heavy theme JavaScript, app scripts loading on every page, missing alt text on product photos, and duplicate content from collection filters.', fixes: 'Quick wins include compressing images before upload, lazy loading images below the fold, removing apps you do not use, unique descriptions on collection pages, and canonical tags on filtered collection URLs.' },
+  { title: 'Next.js and React Apps', issues: 'The most common issues on modern frameworks are pages rendered only in the browser without proper meta tags, large JavaScript bundles, images that skip next/image, and navigation that crawlers cannot follow.', fixes: 'Quick wins include generateMetadata in the App Router, next/image with proper sizes, dynamic imports for heavy components, and server rendering for important pages.' },
+];
+
+const PHASES = [
+  { title: 'Phase 1: Critical Fixes (Do These Today)', steps: [
+    'Fix broken links first. Internal 404s waste crawl budget and hurt the visitor experience. The report lists the exact URLs.',
+    'Add missing meta descriptions, written for the reader, between 120 and 158 characters.',
+    'Move the site to HTTPS if it is not already there. Browsers mark plain HTTP pages as not secure.',
+    'Add missing alt text to images. Screen readers need it, and image search relies on it.',
+    'Add a canonical tag to every page to prevent duplicate content problems, especially on filtered pages.',
+  ] },
+  { title: 'Phase 2: Performance Optimization (This Week)', steps: [
+    'Compress images, convert large PNGs to WebP or AVIF, serve responsive sizes and lazy load images below the fold.',
+    'Set long cache headers for static files so repeat visits load faster.',
+    'Minify CSS and JavaScript and remove code you no longer use.',
+    'If Time to First Byte is over 800 milliseconds, look at caching, a CDN or faster hosting.',
+    'Defer scripts that are not needed to show the page, such as analytics, chat widgets and social feeds.',
+  ] },
+  { title: 'Phase 3: Content and SEO Enhancements (This Month)', steps: [
+    'Add structured data that fits the page: Article, FAQ or Organization markup.',
+    'Link related pages to each other so every important page has several internal links pointing to it.',
+    'Expand thin pages with genuinely useful information.',
+    'Add author information and dates to articles.',
+    'Create an XML sitemap and submit it in Google Search Console.',
+  ] },
 ];
 
 export default function WebsiteAuditPage() {
@@ -163,7 +300,7 @@ export default function WebsiteAuditPage() {
         <WebsiteAuditClient />
       </div>
 
-      {/* Section 1: How Our Audit Works */}
+      {/* Section 1: How the audit works */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
         <section className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
@@ -177,25 +314,25 @@ export default function WebsiteAuditPage() {
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">SEO Analysis</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Checks title tags, meta descriptions, heading structure, canonical tags, robots directives, sitemap presence, keyword density signals, and internal link structure.
+                Checks title tags, meta descriptions, heading structure, canonical tags, robots directives, sitemap presence, keyword stuffing signals and internal link structure.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Page Speed and Core Web Vitals</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Measures Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), Interaction to Next Paint (INP), Time to First Byte (TTFB), render-blocking resources, image optimization, and server response times.
+                Reads Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), Interaction to Next Paint (INP) and Time to First Byte (TTFB) from Google PageSpeed, plus render blocking resources, page size, compression and image optimization.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Mobile and UX</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Tests mobile viewport configuration, tap target sizing, font legibility, content width, and mobile-specific usability signals.
+                Tests the mobile viewport, tap target sizing, font legibility, content width and other mobile usability signals.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Security</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Validates HTTPS implementation, mixed content warnings, security headers (X-Frame-Options, Content-Security-Policy, Strict-Transport-Security), and certificate validity.
+                Validates HTTPS, mixed content and security headers such as Strict Transport Security, Content Security Policy and X Frame Options.
               </p>
             </div>
           </div>
@@ -203,6 +340,16 @@ export default function WebsiteAuditPage() {
           <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
             Each check is scored individually and weighted to produce your overall Site Health Score out of 100.
           </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-3">URL Audit: Check a Single Page or a Whole Site</h3>
+          <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p>
+              Sometimes you do not need a full site crawl. You need a <strong>URL audit</strong> on the one page that matters: a product page that is not converting, a blog post that dropped in rankings, or a landing page you are about to launch. Paste that exact URL and the audit starts there. The tool scans the page you enter and up to four more pages it links to, so a homepage URL gives you a quick view of the whole site and a deep URL keeps the audit focused.
+            </p>
+            <p>
+              A focused URL audit is also a fast way to study a competitor. Audit their top ranking page and compare the result with yours: whether they use structured data, how heavy their images are, and how clean their heading structure is. For developers, it is a quick check after a deployment that titles, meta tags and security headers came through as intended.
+            </p>
+          </div>
 
           <div className="mt-8 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
@@ -224,7 +371,7 @@ export default function WebsiteAuditPage() {
         </section>
       </div>
 
-      {/* Section 2: What Your Score Means */}
+      {/* Section 2: Score, grader and what a good score is */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
         <section className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
@@ -242,816 +389,363 @@ export default function WebsiteAuditPage() {
                 </tr>
               </thead>
               <tbody className="text-sm text-gray-600 dark:text-gray-400">
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">90 to 100</td>
-                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">Excellent</span></td>
-                  <td className="p-4">Your site meets all major technical standards. Focus on content and authority.</td>
-                  <td className="p-4 text-gray-500 dark:text-gray-400">Maintenance mode</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">75 to 89</td>
-                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Good</span></td>
-                  <td className="p-4">Minor issues present. Fix flagged items to protect rankings.</td>
-                  <td className="p-4 text-gray-500 dark:text-gray-400">Low urgency</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">60 to 74</td>
-                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">Needs Work</span></td>
-                  <td className="p-4">Multiple issues affecting crawlability or user experience. Fix within 30 days.</td>
-                  <td className="p-4 text-gray-500 dark:text-gray-400">Medium urgency</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">40 to 59</td>
-                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400">Poor</span></td>
-                  <td className="p-4">Significant technical problems likely suppressing rankings. Fix immediately.</td>
-                  <td className="p-4 text-gray-500 dark:text-gray-400">High urgency</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">Below 40</td>
-                  <td className="p-4"><span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">Critical</span></td>
-                  <td className="p-4">Severe issues that may be causing Google to deindex or ignore pages. Escalate now.</td>
-                  <td className="p-4 text-gray-500 dark:text-gray-400">Emergency</td>
-                </tr>
+                {[
+                  ['90 to 100', 'Excellent', 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400', 'Your site meets all major technical standards. Focus on content and authority.', 'Maintenance mode'],
+                  ['75 to 89', 'Good', 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400', 'Minor issues present. Fix flagged items to protect rankings.', 'Low urgency'],
+                  ['60 to 74', 'Needs Work', 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400', 'Multiple issues affecting crawlability or user experience. Fix within 30 days.', 'Medium urgency'],
+                  ['40 to 59', 'Poor', 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400', 'Significant technical problems likely suppressing rankings. Fix immediately.', 'High urgency'],
+                  ['Below 40', 'Critical', 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400', 'Severe issues that may be stopping Google from indexing or trusting pages. Escalate now.', 'Emergency'],
+                ].map(([range, rating, cls, meaning, priority], i, all) => (
+                  <tr key={range} className={i < all.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''}>
+                    <td className="p-4 font-medium text-gray-900 dark:text-white">{range}</td>
+                    <td className="p-4"><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cls}`}>{rating}</span></td>
+                    <td className="p-4">{meaning}</td>
+                    <td className="p-4 text-gray-500 dark:text-gray-400">{priority}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
 
           <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-            Scores are recalculated on each audit run, so improvements are reflected immediately. A score increase of 10 or more points typically corresponds with measurable ranking improvements within 4 to 8 weeks as Google recrawls and reassesses your pages.
-          </p>
-        </section>
-      </div>
-
-      {/* Section 3: Benchmark Data */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
-        <section className="mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Website Health Score Benchmarks: What Is a Good Score?
-          </h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-            Based on industry benchmarks from Google&apos;s Core Web Vitals reports, HTTP Archive data, and published research from major SEO platforms, here is how scores are distributed across common site types:
+            Scores are recalculated on each audit run, so a fix shows up the next time you audit the page. Rankings move more slowly, because Google has to recrawl the page first.
           </p>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Site Type</th>
-                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Average Score</th>
-                  <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Most Common Issue</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm text-gray-600 dark:text-gray-400">
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">New websites (under 1 year)</td>
-                  <td className="p-4">52 to 65</td>
-                  <td className="p-4">Missing meta descriptions and no sitemap</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">Small business sites (1 to 5 years)</td>
-                  <td className="p-4">63 to 74</td>
-                  <td className="p-4">Slow page speed and unoptimized images</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">E-commerce sites</td>
-                  <td className="p-4">58 to 71</td>
-                  <td className="p-4">Duplicate content and missing canonical tags</td>
-                </tr>
-                <tr className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">SaaS and tech sites</td>
-                  <td className="p-4">71 to 82</td>
-                  <td className="p-4">CSP headers and INP optimization</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-900 dark:text-white">Established blogs (3+ years)</td>
-                  <td className="p-4">68 to 79</td>
-                  <td className="p-4">Outdated internal linking and redirect chains</td>
-                </tr>
-              </tbody>
-            </table>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-3">Free Website Grader: How the Grade Is Calculated</h3>
+          <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p>
+              A <strong>website grader</strong> gives your site a number out of 100. That number is only useful if you can see what produced it. Most graders show you the score, colour it red, and then ask for your email before they will tell you which checks failed. This one does not. Enter a URL and you get the grade and the full breakdown in the same screen, with no signup.
+            </p>
+            <p>
+              The grade comes from around 150 individual checks grouped into eight categories. Each category is scored on its own, then weighted into the overall number. Technical SEO and performance carry the most weight, because those two have the clearest and most direct relationship with how Google ranks you. A missing title tag or a Largest Contentful Paint above 2.5 seconds costs you more than a missing theme colour meta tag.
+            </p>
           </div>
 
-          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-            Sources: Google Core Web Vitals reports (2025-2026), HTTP Archive Web Almanac, and aggregate data from published SEO platform research. Individual site scores may vary based on platform, hosting, and maintenance history.
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-3">What Is a Good Website Health Score?</h3>
+          <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p>
+              Anything from 75 up is a solid foundation, and very few real sites score 100 on a first run. More useful than the overall number is which category drags the average down, because that tells you where an afternoon of work buys the most. A site scoring 72 with a performance score of 40 has a completely different to do list from a site scoring 72 with an accessibility score of 40.
+            </p>
+            <p>
+              One caution worth stating plainly: a high grade does not guarantee rankings, and a mediocre grade does not prevent them. A site scoring 85 with genuinely useful content will outrank a site scoring 98 with thin content. Treat the grade as a list of things that could be holding you back, not as a score to max out.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      {/* Section 3: A real report */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-100 dark:border-gray-800">
+        <section className="mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Website Audit Report Example: A Real Result
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-8 max-w-3xl">
+            We ran this tool on our own site, developersmatrix.com, on {SAMPLE.date}. The numbers below are exactly what it returned, so you can see what a report looks like before you run one.
+          </p>
+
+          <div className="grid gap-6 lg:grid-cols-[18rem_1fr]">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+              <p className="text-sm text-gray-500 dark:text-gray-400">Site Health Score</p>
+              <p className="mt-1 text-5xl font-bold text-gray-900 dark:text-white">
+                {SAMPLE.overall}
+                <span className="text-xl font-semibold text-gray-400">/100</span>
+              </p>
+              <dl className="mt-5 space-y-2 text-sm">
+                <div className="flex justify-between gap-4"><dt className="text-gray-500 dark:text-gray-400">Pages scanned</dt><dd className="font-medium text-gray-900 dark:text-white">{SAMPLE.pages}</dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-gray-500 dark:text-gray-400">Findings</dt><dd className="font-medium text-gray-900 dark:text-white">{SAMPLE.findings.total}</dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-gray-500 dark:text-gray-400">Critical and high</dt><dd className="font-medium text-gray-900 dark:text-white">{SAMPLE.findings.critical + SAMPLE.findings.high}</dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-gray-500 dark:text-gray-400">Medium</dt><dd className="font-medium text-gray-900 dark:text-white">{SAMPLE.findings.medium}</dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-gray-500 dark:text-gray-400">Low</dt><dd className="font-medium text-gray-900 dark:text-white">{SAMPLE.findings.low}</dd></div>
+              </dl>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+              <p className="text-sm font-semibold text-gray-900 dark:text-white mb-4">Category scores</p>
+              <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                {SAMPLE.categories.map(([name, score]) => (
+                  <li key={name}>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-300">{name}</span>
+                      <span className="font-semibold tabular-nums text-gray-900 dark:text-white">{score}</span>
+                    </div>
+                    <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700" aria-hidden="true">
+                      <div
+                        className={`h-full rounded-full ${score >= 75 ? 'bg-green-500' : score >= 60 ? 'bg-yellow-500' : 'bg-orange-500'}`}
+                        style={{ width: `${score}%` }}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-4">Top Findings From That Audit</h3>
+          <ol className="space-y-3">
+            {SAMPLE.top.map((f, i) => (
+              <li key={f.title} className="flex gap-4 rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white dark:bg-white dark:text-gray-900">{i + 1}</span>
+                <div>
+                  <p className="font-semibold text-gray-900 dark:text-white">
+                    {f.title}{' '}
+                    <span className="ml-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">{f.area}, {f.severity}</span>
+                  </p>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Suggested fix: {f.fix}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed max-w-3xl">
+            Read every finding against your own page before acting on it. An automated check reads code, not intent. The call to action check, for example, looks for common button wording such as Get started or Sign up, so a page whose buttons say something else can still be flagged. Sorting real problems from noise like this is what our{' '}
+            <a href="/services/website-audit" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">manual website audit</a>{' '}
+            does.
           </p>
         </section>
       </div>
 
-      {/* SEO Content Section */}
+      {/* Main content with sidebar */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Main Content */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
 
             <InContentAd />
 
-            {/* Section 1: Introduction */}
+            {/* Section 4: Checklist and what each check means */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Free Website Audit Tool. Full SEO, Speed and Security Analysis for 2026
+                Site Audit Checklist: What Each Check Means
               </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="text-lg leading-relaxed">
-                  Most website owners have no idea what is broken on their site until Google stops sending traffic. By then the damage is done. Rankings have dropped, competitors have moved up, and you are left wondering what happened.
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                A thorough <strong>site audit check</strong> covers more than page speed. This is the technical SEO checklist the tool works through, with the named checks you will see in your report. Use it as a reference even if you audit by hand.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                {CHECKLIST.map((group) => {
+                  const Icon = group.icon;
+                  return (
+                    <div key={group.title} className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
+                        <Icon className={`w-5 h-5 ${group.iconClass}`} aria-hidden="true" />
+                        {group.title}
+                      </h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{group.what}</p>
+                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        {group.items.map((item) => (
+                          <li key={item} className="flex items-start gap-2"><span className="text-green-500" aria-hidden="true">✓</span> {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 mt-6 leading-relaxed">
+                You do not need to memorise the checklist. Run the audit and follow the fix list, which is ordered by how much each problem matters. For the full manual version with every step written out, read our{' '}
+                <a href="/blog/website-audit-checklist-2026" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">website audit checklist</a>{' '}
+                and the{' '}
+                <a href="/blog/on-site-seo-guide-2026" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">on page SEO guide</a>.
+              </p>
+            </section>
+
+            {/* Section 5: Code audit */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Website Code Audit: Check Your HTML, CSS & JavaScript Quality
+              </h2>
+              <div className="space-y-4 text-gray-700 dark:text-gray-300">
+                <p className="leading-relaxed">
+                  A <strong>website code audit</strong> goes deeper than surface level SEO checks. It examines the markup, stylesheets and scripts that power your site. Heavy CSS, render blocking JavaScript and messy markup are invisible to visitors but slow the page down and make it harder for search engines to read.
                 </p>
                 <p className="leading-relaxed">
-                  That is exactly why we built the <strong>DevelopersMatrix AI Website Audit Tool</strong>. It is not just another page speed checker. We analyze over <strong>200 technical factors</strong> across 8 categories that directly impact your Google rankings, user experience, and conversion rates. From missing meta descriptions and broken internal links to slow server response times and security vulnerabilities, we catch the issues that actually matter.
+                  This tool covers the code checks that can be measured automatically from the outside: page size, render blocking stylesheets and scripts, text compression, image optimisation and lazy loading, heading structure, image alt text, structured data, mixed content and security headers. Deeper work such as full HTML validation, finding unused CSS rules and profiling JavaScript needs access to the code itself, and our code audit guide walks through it step by step.
+                </p>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">What Our Website Code Audit Checks</h3>
+                  <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    {['Page size and number of requests', 'Render blocking CSS and JavaScript', 'Text compression (gzip or Brotli)', 'Image size, format and lazy loading', 'Heading hierarchy (H1 through H6)', 'Missing alt attributes on images', 'Structured data present and valid', 'Mixed content, subresource integrity and security headers'].map((c) => (
+                      <li key={c} className="flex items-start gap-2"><span className="text-green-500 mt-0.5" aria-hidden="true">✓</span><span>{c}</span></li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-xl p-6 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                    What Is a Website Code Audit?
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
+                    A <strong>website code audit</strong> is a technical inspection of the HTML, CSS and JavaScript that power your website. Unlike a visual review, it examines how the site is built, how efficiently it loads, and how correctly search engines and assistive technologies can interpret it. The goal is a prioritised action plan that separates critical technical problems from minor improvements.
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    <strong>How is a code audit different from an SEO audit?</strong> An SEO audit focuses on search visibility: crawlability, indexing, content and links. A code audit digs into the technical foundation underneath. Poor code quality often causes SEO problems, such as invalid markup that breaks rendering or JavaScript that stops content appearing in search results, so the two work best together.
+                  </p>
+                </div>
+
+                <div className="rounded-xl p-6 border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/20 mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                    Want a Step by Step Code Audit Walkthrough?
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
+                    Our Website Code Audit Guide covers HTML validation, CSS optimisation, JavaScript performance, security hardening and schema, with checklists you can follow today.
+                  </p>
+                  <a href="/blog/website-code-audit-guide" className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
+                    Read the website code audit guide <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 6: Online auditor, health check, cost */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                Online Website Auditor: Free Tool or Paid Audit?
+              </h2>
+              <div className="space-y-4 text-gray-700 dark:text-gray-300">
+                <p className="leading-relaxed">
+                  Not everyone wants to download software, learn a command line tool, or pay for a subscription just to <strong>analyze a site online</strong>. That is why we built this <strong>online website auditor</strong>. It runs in your browser, needs no installation or account, and works on a phone as well as a desktop.
                 </p>
                 <p className="leading-relaxed">
-                  In 2026, Google's algorithm is more complex than ever. <strong>Core Web Vitals</strong> are confirmed ranking factors. <strong>Mobile-first indexing</strong> is the default. <strong>HTTPS and security headers</strong> are non-negotiable. And <strong>accessibility</strong> is not just ethical, it affects your reach and legal compliance. Our audit checks all of these and tells you exactly what to fix, in order of impact.
+                  Desktop <strong>website auditor tools</strong> like Screaming Frog or Sitebulb need installing, configuring and often a licence for larger sites. They are powerful, but more than you need for a quick picture of what is broken. Whether you are a freelancer checking a client site, a developer checking a deployment, or a marketer checking a landing page before a campaign, an online audit gets you the answer in seconds.
                 </p>
-                <p className="leading-relaxed">
-                  Best part? It is completely free. No email required. No create an account gate. Just enter your URL and get a full report in seconds.
+              </div>
+
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">Why Use a Free Website Audit Tool Online</h3>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Think of it as an audit checker you can run as often as you like: after a redesign, before a launch, or whenever traffic dips. A good online website auditor should give you the whole picture without getting in the way.
+              </p>
+              <ul className="mt-4 grid sm:grid-cols-2 gap-4">
+                {[
+                  ['No setup', 'No downloads, no account and nothing to configure.'],
+                  ['Any device', 'Works in the browser on a phone, tablet or desktop.'],
+                  ['A report you can share', 'Download the full report as a PDF for your team or developer.'],
+                  ['Free every time', 'No trial period, no card details and no signup.'],
+                ].map(([t, d]) => (
+                  <li key={t} className="rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+                    <span className="block font-medium text-gray-900 dark:text-white">{t}</span>
+                    <span className="mt-1 block text-sm text-gray-600 dark:text-gray-400">{d}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">Free Website Health Check</h3>
+              <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p>
+                  A <strong>free website health check</strong> is the fastest way to know whether your site is in good shape or losing traffic. Think of it like a routine check up: you do not wait for a ranking drop to look. It checks whether Google can crawl the site, whether the server responds quickly, whether images are dragging the page down, and whether the security headers are in place.
+                </p>
+                <p>
+                  There is no commitment. Enter any URL above and you get a full report in under a minute, with no email gate and no trial. Run it on your homepage, a landing page, or a competitor&apos;s site to see where you stand, and run it again after each round of fixes to track your score.
+                </p>
+              </div>
+
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">Website Audit Cost: Free vs Paid Tools in 2026</h3>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                If you have looked up website audit cost, you know the range is wide. Agencies charge anywhere from $500 to $5,000 for a full manual audit. Subscription tools like Ahrefs and Semrush run from about $99 to several hundred dollars a month, and desktop crawlers like Screaming Frog charge an annual licence. For a small business site, a portfolio, a blog or a startup, a <strong>free website audit tool</strong> covers most of what matters.
+              </p>
+              <div className="mt-6 overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-300">
+                    <tr>
+                      <th className="px-4 py-3">Option</th>
+                      <th className="px-4 py-3">Cost</th>
+                      <th className="px-4 py-3">Best For</th>
+                      <th className="px-4 py-3">Limitations</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    {[
+                      ['DevelopersMatrix tool', 'Free', 'Quick checks, small sites, developers', 'Up to 5 pages per scan'],
+                      ['DevelopersMatrix manual audit', 'From $9.99', 'A person checks the findings and writes the fix list', 'Fixed scope per audit'],
+                      ['Google Lighthouse', 'Free', 'Performance and Core Web Vitals', 'Limited SEO checks, one page at a time'],
+                      ['Screaming Frog', 'Annual licence', 'Full site crawls, technical SEO', 'Desktop only, steep learning curve'],
+                      ['Ahrefs or Semrush site audit', 'Monthly subscription', 'Large sites, backlinks, rank tracking', 'Expensive if you only need audits'],
+                      ['Agency audit', '$500 to $5,000', 'Custom strategy and manual review', 'Slow turnaround, high cost'],
+                    ].map(([name, cost, best, limit]) => (
+                      <tr key={name} className="bg-white dark:bg-gray-800">
+                        <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">{name}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{cost}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{best}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{limit}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="rounded-xl p-6 border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 mt-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Our Recommendation</h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Start with a <strong>free website audit</strong> to find your biggest issues and fix the critical and high priority findings first. If you want a person to check the findings and turn them into a plan, our{' '}
+                  <a href="/services/website-audit" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">website audit services</a>{' '}
+                  start at $9.99. If your site has tens of thousands of pages, or you need ongoing rank tracking, a subscription tool is worth it.
                 </p>
               </div>
             </section>
 
-            {/* Section 2: 2026 SEO Landscape */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                What Google's Algorithm Really Checks in 2026
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm font-bold">1</span>
-                    Core Web Vitals
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Google measures three metrics. Largest Contentful Paint tracks loading speed and should stay under 2.5 seconds. Interaction to Next Paint measures responsiveness and should stay under 200 milliseconds. Cumulative Layout Shift tracks visual stability and should stay under 0.1. Poor scores directly hurt rankings. Our tool measures all three and identifies the specific elements causing slowdowns.
-                  </p>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-sm font-bold">2</span>
-                    Mobile-First Indexing
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Google now uses your mobile version as the primary source for indexing and ranking. If your mobile site is broken, slow, or missing content compared to desktop, you are losing rankings regardless of how good the desktop version looks. We test viewport configuration, touch target sizing, responsive breakpoints, and mobile-specific meta tags.
-                  </p>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold">3</span>
-                    E-E-A-T Signals
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Experience, Expertise, Authoritativeness, and Trustworthiness. Google's quality raters look for author bios, external citations, secure connections, privacy policies, and about pages. Our audit checks for these trust signals and flags what is missing. This is especially critical for finance and health websites that fall under Google's Your Money Your Life category.
-                  </p>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-sm font-bold">4</span>
-                    Technical Foundations
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Canonical tags, proper heading hierarchy with one H1 per page, meta descriptions under 160 characters, schema markup, XML sitemaps, and robots.txt configuration. These are not glamorous but they are the foundation everything else builds on. A single broken canonical tag can cause duplicate content penalties that tank rankings overnight.
-                  </p>
-                </div>
-              </div>
-            </section>
-
             <InContentAd />
 
-            {/* Section 3: 7 Problems */}
+            {/* Section 7: Problems, what Google checks, platforms */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 7 Website Problems That Kill Rankings in 2026
               </h2>
               <div className="space-y-6">
-                <div className="flex gap-4 items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">1</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Slow Server Response Times</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">If your server takes over 800 milliseconds to respond, you have already lost before the page even starts loading. Cheap shared hosting, unoptimized databases, and missing caching are the usual culprits. Our tool measures Time to First Byte and identifies whether the bottleneck is server-side or front-end.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">2</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Unoptimized Images</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">In 2026, serving a 2MB hero image in PNG format is inexcusable. WebP and AVIF formats reduce file sizes by 30 to 50 percent with zero quality loss. Responsive images with srcset attributes serve different sizes for different screens. Lazy loading defers off-screen images. Our audit checks all three and flags oversized images by name.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">3</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Missing or Duplicate Meta Descriptions</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Google still uses meta descriptions for search result snippets. Missing descriptions mean Google pulls random text that may not compel clicks. Duplicate descriptions across pages signal low-quality thin content to crawlers. Every page should have a unique, compelling meta description between 120 and 158 characters.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">4</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Broken Internal Links and Orphan Pages</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Broken links waste crawl budget and frustrate users. Orphan pages with zero internal links pointing to them are invisible to Google. They may as well not exist. Our crawler maps your entire site structure and flags both issues with exact URLs so you can fix them fast.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">5</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Missing Schema Markup</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Schema markup helps Google understand your content and display rich snippets like star ratings, FAQs, breadcrumbs, and event dates in search results. Sites with proper schema get higher click-through rates. In 2026, FAQ schema, HowTo schema, and Article schema are essential for content sites. We validate your existing schema and suggest what is missing.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">6</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Poor Accessibility</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Missing alt text on images, forms without labels, insufficient color contrast, and missing keyboard navigation do not just exclude users with disabilities. They hurt your SEO. Google's algorithms favor accessible sites. In many jurisdictions, accessibility is legally required under ADA and WCAG 2.1 AA compliance standards.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">7</span>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Third-Party Script Bloat</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Analytics trackers, chat widgets, ad networks, and social media embeds each add milliseconds to load time. In 2026, a single poorly implemented Facebook Pixel or Google Tag Manager container can add 2 to 3 seconds to your load time. Our audit identifies the worst offenders and suggests asynchronous loading or removal.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <InContentAd />
-
-            {/* Section: Website Code Audit */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Website Code Audit: Check Your HTML, CSS & JavaScript Quality
-              </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="leading-relaxed">
-                  A <strong>website code audit</strong> goes deeper than surface-level SEO checks. It examines the actual markup, stylesheets, and scripts that power your site. Broken HTML, bloated CSS, and unoptimized JavaScript are invisible to users but loud signals to search engines that your site is poorly maintained.
-                </p>
-                <p className="leading-relaxed">
-                  Our free website code audit tool scans every page for <strong>HTML validation errors</strong> including missing closing tags, deprecated attributes, and improper nesting. These errors prevent browsers from rendering pages correctly and confuse search engine crawlers trying to understand your content structure.
-                </p>
-                <p className="leading-relaxed">
-                  For <strong>CSS analysis</strong>, we detect unused styles that inflate file size, render-blocking stylesheets that delay page paint, and missing vendor prefixes that break layout on older browsers. We also flag inline styles that should be moved to external files for better caching and maintainability.
-                </p>
-                <p className="leading-relaxed">
-                  The <strong>JavaScript audit</strong> identifies unminified scripts, render-blocking JS files, memory leaks from event listeners, and excessive DOM manipulation that causes layout thrashing. We also check for proper async and defer attributes so scripts load without blocking critical rendering paths.
-                </p>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">What Our Website Code Audit Checks</h3>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>HTML5 validation and semantic structure</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>CSS file size and unused rule detection</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>JavaScript minification and bundling</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>Inline script and style detection</span>
-                      </li>
-                    </ul>
-                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>Missing alt attributes on images</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>Heading hierarchy (H1 through H6)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>Schema markup validation</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-green-500 mt-0.5">✓</span>
-                        <span>Accessibility ARIA roles and labels</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                {/* NEW: What is a Website Code Audit. expanded definition for SEO */}
-                <div className="bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20 rounded-xl p-6 border border-slate-200 dark:border-slate-800 mt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                    What Is a Website Code Audit?
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                    A <strong>website code audit</strong> is a deep technical inspection of the HTML, CSS, and JavaScript that power your website. Unlike a surface-level visual review, a code audit examines how the site is built, how efficiently it loads, and how correctly search engines and assistive technologies can interpret it. It identifies structural issues that hurt rankings, slow performance, and break user experience. Problems that are invisible to the eye but loud signals to Google.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                    The audit covers HTML validation errors like unclosed tags and deprecated attributes, CSS problems such as unused styles that bloat file size, and JavaScript issues including render-blocking scripts and unminified bundles. It also checks heading hierarchy, image alt text, schema markup correctness, ARIA accessibility labels, and security headers. The goal is a prioritized action plan that separates critical technical problems from minor improvements.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    <strong>How is a code audit different from an SEO audit?</strong> An SEO audit focuses on search visibility. crawlability, indexing, content, and backlinks. A code audit digs into the underlying technical foundation: the actual markup, stylesheets, and scripts. Poor code quality often causes SEO problems, but a code audit catches issues that an SEO-only review misses, such as invalid HTML that breaks rendering, bloated CSS that slows mobile load times, and JavaScript errors that prevent content from appearing in search results. For best results, run both audits together.
-                  </p>
-                </div>
-
-                {/* Blog Post Promotion - Deep Dive Guide */}
-                <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-6 border border-indigo-200 dark:border-indigo-800 mt-6">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    <div className="p-3 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 shrink-0">
-                      <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                        Want a Step-by-Step Code Audit Walkthrough?
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                        Our complete Website Code Audit Guide covers HTML validation, CSS optimization, JavaScript performance, security hardening, and 12 comparison tables, with actionable checklists you can follow today.
-                      </p>
-                      <a
-                        href="/blog/website-code-audit-guide"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
-                      >
-                        Read the Full Guide
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </a>
+                {PROBLEMS.map((p, i) => (
+                  <div key={p.title} className="flex gap-4 items-start">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">{i + 1}</span>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{p.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{p.text}</p>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            </section>
 
-            <InContentAd />
-
-            {/* Section: Free Website Health Check */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Free Website Health Check. Monitor Your Site's Vital Signs
-              </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="leading-relaxed">
-                  A <strong>free website health check</strong> is the fastest way to know if your site is in good shape or bleeding traffic. Think of it like a routine physical for your website. You do not wait for a heart attack to see a doctor, and you should not wait for a ranking drop to audit your site.
-                </p>
-                <p className="leading-relaxed">
-                  Our <strong>free website check</strong> scans the vital signs that matter most in 2026. We check your site's heartbeat. Can Google crawl it without hitting walls? We check its blood pressure. Is the server responding in under 800ms or is it struggling under load? We check its vision. Are images optimized or dragging down every page load? And we check its immune system. Are security headers in place or is the site vulnerable to common attacks?
-                </p>
-                <p className="leading-relaxed">
-                  The best part is there is no commitment. Enter any URL above and get a full report in under 30 seconds. No email gate. No trial expiration. Run a <strong>free website health check</strong> on your homepage, a landing page, or a competitor's site to benchmark where you stand. Many users run weekly checks and track their score over time to measure progress.
-                </p>
-                <div className="grid sm:grid-cols-3 gap-4 mt-6">
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
-                    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">30s</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Average scan time</div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-4">What Google Checks in 2026</h3>
+              <div className="grid sm:grid-cols-2 gap-6">
+                {GOOGLE_CHECKS.map((g) => (
+                  <div key={g.title} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{g.title}</h4>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{g.text}</p>
                   </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
-                    <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-1">~150</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Checks per audit</div>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 text-center">
-                    <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">$0</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Cost forever</div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <InContentAd />
-
-            {/* Section: Website Grader */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Free Website Grader: What Your Score Actually Means
-              </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="leading-relaxed">
-                  A <strong>website grader</strong> gives your site a number out of 100. That number is only useful if you can see what produced it. Most graders show you the score, colour it red, and then ask for your email before they will tell you which checks failed. This one does not. Enter a URL and you get the grade and the full breakdown in the same screen, with no signup.
-                </p>
-                <p className="leading-relaxed">
-                  The grade comes from around 150 individual checks grouped into eight categories. Each category is scored on its own, then weighted into the overall number. Technical SEO and performance carry the most weight, because those two have the clearest and most direct relationship with how Google ranks you. A missing title tag or a Largest Contentful Paint above 2.5 seconds costs you more than an advisory warning does.
-                </p>
-                <p className="leading-relaxed">
-                  Most real websites land between 60 and 80 on first run. If you score in that range, you are normal, not broken. What matters is which category is dragging the average down, because that tells you where an afternoon of work buys the most. A site scoring 72 with a performance score of 40 has a completely different to do list from a site scoring 72 with an accessibility score of 40.
-                </p>
-                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                    How to Read Your Website Grade
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <span className="font-bold text-emerald-600 dark:text-emerald-400 w-20 shrink-0">90 to 100</span>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Excellent. Fix the remaining items when convenient. Your time is better spent on content and links.</div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="font-bold text-blue-600 dark:text-blue-400 w-20 shrink-0">75 to 89</span>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Good. A solid foundation with specific gaps. Work the highest weighted failures first.</div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="font-bold text-amber-600 dark:text-amber-400 w-20 shrink-0">60 to 74</span>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Fair, and the most common range. Real issues are costing you rankings. Budget a week.</div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="font-bold text-red-600 dark:text-red-400 w-20 shrink-0">Under 60</span>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Something structural is wrong. Check indexability and HTTPS before anything else.</div>
-                    </div>
-                  </div>
-                </div>
-                <p className="leading-relaxed">
-                  One caution worth stating plainly: a high grade does not guarantee rankings, and a mediocre grade does not prevent them. A site scoring 85 with genuinely useful content will outrank a site scoring 98 with thin content every time. Treat the grade as a list of things that could be holding you back, not as a score you are trying to max out.
-                </p>
-              </div>
-            </section>
-
-            {/* Section: Online Website Auditor */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Online Website Auditor. Instant Analysis Without Installing Anything
-              </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="leading-relaxed">
-                  Not everyone wants to download software, learn a command line tool, or pay for a subscription just to <strong>analyze a site online</strong>. That is exactly why we built this <strong>online website auditor</strong>. It runs entirely in your browser and delivers the same depth of analysis that desktop tools charge hundreds of dollars for.
-                </p>
-                <p className="leading-relaxed">
-                  Traditional <strong>website auditor tools</strong> like Screaming Frog or Sitebulb require installation, configuration, and often a crawling license for larger sites. They are powerful, but overkill if you just want a quick snapshot of what is broken. Our <strong>online website auditor</strong> bridges that gap. You get enterprise-grade checks for technical SEO, performance, accessibility, and security without ever leaving this tab.
-                </p>
-                <p className="leading-relaxed">
-                  Whether you are a freelancer auditing a client site, a developer checking your own deployment, or a marketer verifying a landing page before a campaign launch, an <strong>online website auditor</strong> removes every barrier between you and the data. Just paste the URL and click audit. The results are immediate, detailed, and actionable.
-                </p>
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800 mt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                    What Makes an Online Website Auditor Better?
-                  </h3>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">⚡</span>
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-white">Zero Setup</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">No downloads, no accounts, no configuration files</div>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">🌐</span>
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-white">Any Device</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">Works on mobile, tablet, or desktop browsers</div>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">📊</span>
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-white">Instant PDF Export</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">Download and share reports with one click</div>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">🔒</span>
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-white">Private & Secure</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">We do not store your URLs or audit data</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <InContentAd />
-
-            {/* Section: URL Audit */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                URL Audit. Check Individual Pages for Deep Insights
-              </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="leading-relaxed">
-                  Sometimes you do not need a full site crawl. You need a <strong>URL audit</strong> on a single page that matters: a product page that is not converting, a blog post that dropped in rankings, or a landing page you are about to launch. Our <strong>audit checker</strong> handles both full-site analysis and deep single-page audits with the same precision.
-                </p>
-                <p className="leading-relaxed">
-                  A focused <strong>URL audit</strong> is especially powerful for content creators and SEO professionals. You can paste a competitor's top-ranking article and see exactly what technical advantages they have. Do they use FAQ schema? Are their images compressed better? Is their heading hierarchy cleaner? Our tool extracts every signal and presents it in a side-by-side readable format.
-                </p>
-                <p className="leading-relaxed">
-                  For developers, a <strong>URL audit</strong> is the fastest way to verify a deployment. Push a new build, audit the URL, and confirm that meta tags rendered correctly, images are loading from the CDN, and no console errors leaked into production. It is a safety net that takes 30 seconds and can save hours of debugging.
-                </p>
-              </div>
-            </section>
-
-            <InContentAd />
-
-            {/* Section: Website Audit Cost Comparison */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Website Audit Cost: Free vs Paid Tools in 2026
-              </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="leading-relaxed">
-                  If you have looked up <strong>website audit cost pricing 2026</strong>, you know the range is wild. Professional SEO agencies charge anywhere from $500 to $5,000 for a comprehensive manual audit. Enterprise tools like Ahrefs, SEMrush, and Sitebulb run $99 to $399 per month. Even desktop crawlers like Screaming Frog require a $259 annual license for serious use.
-                </p>
-                <p className="leading-relaxed">
-                  The question is not whether paid tools are better. They often are for massive sites and deep competitive analysis. The question is what you actually need. If you are running a small business site, a portfolio, a blog, or a startup with under 1,000 pages, a <strong>free website audit tool</strong> covers 90 percent of what matters. You can always upgrade to a paid solution once your traffic justifies the investment.
-                </p>
+                ))}
               </div>
 
-              <div className="mt-6 overflow-x-auto">
-                <table className="w-full text-sm text-left">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-300">
-                    <tr>
-                      <th className="px-4 py-3 rounded-tl-lg">Tool</th>
-                      <th className="px-4 py-3">Cost</th>
-                      <th className="px-4 py-3">Best For</th>
-                      <th className="px-4 py-3 rounded-tr-lg">Limitations</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                    <tr className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">DevelopersMatrix</td>
-                      <td className="px-4 py-3 text-green-600 dark:text-green-400 font-medium">Free</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Quick checks, small sites, developers</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Single page per scan</td>
-                    </tr>
-                    <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
-                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Google Lighthouse</td>
-                      <td className="px-4 py-3 text-green-600 dark:text-green-400 font-medium">Free</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Performance & Core Web Vitals</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">No SEO or security checks</td>
-                    </tr>
-                    <tr className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Screaming Frog</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$259/year</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Full site crawls, technical SEO</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Desktop only, steep learning curve</td>
-                    </tr>
-                    <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
-                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Ahrefs Site Audit</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$99-$999/mo</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Enterprise SEO, backlink analysis</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Expensive for small sites</td>
-                    </tr>
-                    <tr className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">SEMrush Site Audit</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$119-$449/mo</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">All-in-one marketing suite</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Overkill if you only need audits</td>
-                    </tr>
-                    <tr className="bg-gray-50 dark:bg-gray-800/50">
-                      <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white rounded-bl-lg">Agency Audit</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">$500-$5,000</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">Custom strategy, manual review</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400 rounded-br-lg">Slow turnaround, high cost</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800 mt-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  Our Recommendation
-                </h3>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Start with a <strong>free website audit</strong> to identify your biggest issues. Fix the critical and high-priority findings first. If your site has over 10,000 pages, or you need ongoing competitive intelligence and rank tracking, then invest in Ahrefs or SEMrush. For most sites under that threshold, a combination of our free tool plus Google Search Console is all you need.
-                </p>
-              </div>
-            </section>
-
-            <InContentAd />
-
-            {/* Section: Site Audit Checklist */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Site Audit Check. Your Complete Technical SEO Checklist for 2026
-              </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
-                <p className="leading-relaxed">
-                  A thorough <strong>site audit check</strong> covers more than just page speed. In 2026, Google's algorithm evaluates hundreds of signals across multiple dimensions. Here is the complete <strong>website SEO audit checklist</strong> our tool uses. use it as a reference even if you audit manually.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-2 gap-4 mt-6">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <Search className="w-5 h-5 text-blue-500" />
-                    Technical SEO
-                  </h3>
-                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Unique title tag on every page (50-60 chars)</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Unique meta description (120-158 chars)</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> One H1 per page, logical H2-H6 hierarchy</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Canonical tag on every page</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> XML sitemap submitted to Google Search Console</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Robots.txt configured correctly</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Schema markup (Article, FAQ, HowTo, Organization)</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> No broken internal links or orphan pages</li>
-                  </ul>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <Gauge className="w-5 h-5 text-orange-500" />
-                    Performance
-                  </h3>
-                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> LCP under 2.5 seconds</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> INP under 200 milliseconds</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> CLS under 0.1</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Images in WebP/AVIF format</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Browser caching enabled</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> CSS and JS minified</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Critical CSS inlined</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> CDN for static assets</li>
-                  </ul>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <Smartphone className="w-5 h-5 text-purple-500" />
-                    Mobile & Security
-                  </h3>
-                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Viewport meta tag configured</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Touch targets minimum 48px</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> No horizontal scroll on mobile</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> HTTPS enforced sitewide</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Security headers (HSTS, CSP, X-Frame-Options)</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> No mixed content warnings</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> TLS 1.2 or higher</li>
-                  </ul>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <Accessibility className="w-5 h-5 text-green-500" />
-                    Accessibility & Content
-                  </h3>
-                  <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Alt text on all images</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Form labels associated with inputs</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> ARIA roles where needed</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Color contrast WCAG AA compliant</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Keyboard navigation works</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Content over 300 words per page</li>
-                    <li className="flex items-start gap-2"><span className="text-green-500">✓</span> Clear calls-to-action present</li>
-                  </ul>
-                </div>
-              </div>
-              <p className="text-gray-700 dark:text-gray-300 mt-6 leading-relaxed">
-                Our tool runs every item on this <strong>website SEO audit checklist performance analysis</strong> automatically and scores your site against each category. You do not need to memorize the checklist. just run the audit and follow the prioritized fix list.
-              </p>
-            </section>
-
-            <InContentAd />
-
-            {/* Section 4: Platform-Specific */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Common Issues by Platform
-              </h2>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-4">Common Issues by Platform</h3>
               <div className="space-y-6">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">WordPress Sites</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                    The most common issues on WordPress are plugin bloat from inactive plugins that still load assets, missing caching configuration, oversized images uploaded without optimization, default permalink structures that are not SEO-friendly, and theme bloat with unused CSS and JavaScript.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Quick wins include installing a caching plugin like WP Rocket or W3 Total Cache, compressing all images with ShortPixel or Imagify, removing unused plugins, switching to pretty permalinks, and using a lightweight theme such as GeneratePress, Kadence, or Astra.
-                  </p>
-                </div>
-
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Shopify Stores</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                    The most common issues on Shopify are unoptimized product images since Shopify's CDN helps but does not compress enough, heavy theme JavaScript, third-party app scripts loading on every page, missing alt text on product photos, and duplicate content from collection filters.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Quick wins include compressing images before upload using TinyPNG, lazy loading below-fold images, removing apps you do not use since each adds scripts, adding unique descriptions to collection pages, and using canonical tags on filtered collection URLs.
-                  </p>
-                </div>
-
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Next.js and React Apps</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
-                    The most common issues on modern frameworks are client-side rendering without proper meta tag injection, hydration mismatches, large JavaScript bundles without code splitting, missing image optimization when next/image is not used, and client-side-only navigation that hurts crawlability.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    Quick wins include using Next.js App Router with generateMetadata for SEO, implementing next/image with proper sizing, adding dynamic imports for heavy components, ensuring server-side rendering for critical pages, and submitting a sitemap via robots.txt.
-                  </p>
-                </div>
+                {PLATFORMS.map((p) => (
+                  <div key={p.title} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{p.title}</h4>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">{p.issues}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{p.fixes}</p>
+                  </div>
+                ))}
               </div>
             </section>
 
-            <InContentAd />
-
-            {/* Section 5: Internal Links */}
-            <section className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                More Free Tools to Grow Your Online Presence
-              </h2>
-              <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                A fast, optimized website is just the start. Here are other free tools from DevelopersMatrix that help you convert traffic into customers and career opportunities:
-              </p>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a
-                  href="/tools/ai-resume-builder"
-                  className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md"
-                >
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">
-                    AI Resume Builder
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Build an ATS-optimized resume in minutes. Perfect for developers, designers, and tech professionals looking for their next role.
-                  </p>
-                </a>
-                <a
-                  href="/tools/ai-content-detector"
-                  className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md"
-                >
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">
-                    AI Content Detector
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Check if your content reads as AI-generated. Ensure your blog posts pass human quality standards and avoid Google penalties.
-                  </p>
-                </a>
-                <a
-                  href="/tools/ai-interview-simulator"
-                  className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md"
-                >
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">
-                    AI Interview Simulator
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Practice technical and behavioral interviews with AI feedback. Build confidence before your next job interview or client pitch.
-                  </p>
-                </a>
-                <a
-                  href="/tools/ai-cover-letter-generator"
-                  className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md"
-                >
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">
-                    AI Cover Letter Generator
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Generate personalized cover letters tailored to specific job descriptions. Save hours of writing time while sounding authentically you.
-                  </p>
-                </a>
-                <a
-                  href="/tools/salary-estimator"
-                  className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md"
-                >
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">
-                    Salary Estimator
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Know your market worth before salary negotiations. Compare compensation by role, location, and experience level across the tech industry.
-                  </p>
-                </a>
-                <a
-                  href="/tools"
-                  className="group block bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5 shadow-sm border border-blue-100 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all hover:shadow-md"
-                >
-                  <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">
-                    View All 20+ Free Tools →
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Explore productivity planners, habit trackers, startup idea generators, budget planners, and more. Everything you need to grow.
-                  </p>
-                </a>
-              </div>
-            </section>
-
-            <InContentAd />
-
-            {/* Section 6: Action Plan */}
+            {/* Section 8: Action plan */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 How to Turn Audit Results Into Ranking Improvements
               </h2>
-              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+              <div className="space-y-4 text-gray-700 dark:text-gray-300">
                 <p className="leading-relaxed">
-                  Getting a report is useless if you do not act on it. Here is the exact priority order we recommend for fixing issues based on impact and effort required.
+                  Getting a report is useless if you do not act on it. Here is the priority order we recommend for fixing issues, based on impact and effort.
                 </p>
-
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Phase 1: Critical Fixes (Do These Today)</h3>
-                <p className="leading-relaxed">Fix broken links first. Internal 404s waste crawl budget and hurt user experience. Our tool lists exact URLs so you know exactly what to fix.</p>
-                <p className="leading-relaxed">Add missing meta descriptions next. Every page without one is losing click-through rate. Write compelling descriptions between 120 and 158 characters.</p>
-                <p className="leading-relaxed">Enable HTTPS if your site is not already on it. In 2026, Google marks non-HTTPS sites as Not Secure and rankings suffer.</p>
-                <p className="leading-relaxed">Fix missing alt text on images. Screen readers need them, and image search traffic depends on them.</p>
-                <p className="leading-relaxed">Add a canonical tag to every page. This prevents duplicate content issues, especially on e-commerce filter pages.</p>
-
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Phase 2: Performance Optimization (This Week)</h3>
-                <p className="leading-relaxed">Compress all images. Convert PNGs to WebP or AVIF. Use responsive images. Implement lazy loading.</p>
-                <p className="leading-relaxed">Enable browser caching with proper cache headers for static assets. This alone can cut repeat-visit load times by 50 percent.</p>
-                <p className="leading-relaxed">Minify CSS and JavaScript by removing whitespace and unused code. Tools like PurgeCSS find CSS you never use.</p>
-                <p className="leading-relaxed">Move to a faster host or CDN if your Time to First Byte is over 800 milliseconds. Cloudflare's free plan helps enormously.</p>
-                <p className="leading-relaxed">Defer non-critical JavaScript. Scripts for analytics, chat widgets, and social feeds do not need to block page rendering.</p>
-
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">Phase 3: Content and SEO Enhancements (This Month)</h3>
-                <p className="leading-relaxed">Add schema markup. FAQ schema, HowTo schema, Article schema, and Organization schema are must-haves in 2026.</p>
-                <p className="leading-relaxed">Improve internal linking by connecting related articles. Every important page should have at least 3 to 5 internal links pointing to it.</p>
-                <p className="leading-relaxed">Update thin content. Pages under 300 words rarely rank well. Expand them with genuinely useful information.</p>
-                <p className="leading-relaxed">Add author bios and dates. This is critical for E-E-A-T signals, especially on informational content.</p>
-                <p className="leading-relaxed">Create an XML sitemap and submit it through Google Search Console so crawlers find every page.</p>
-
+                {PHASES.map((phase) => (
+                  <div key={phase.title}>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">{phase.title}</h3>
+                    <ul className="space-y-2">
+                      {phase.steps.map((s) => (
+                        <li key={s} className="leading-relaxed">{s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
                 <p className="leading-relaxed mt-4">
-                  After completing each phase, re-run our audit to confirm the fixes worked. Expect 2 to 4 weeks for Google to recrawl and reflect improvements in rankings. Do not chase a perfect 100 out of 100 score. An 85 with great content beats a 98 with thin content every time.
+                  After each phase, run the audit again to confirm the fixes worked, then give Google a few weeks to recrawl. Do not chase a perfect 100. An 85 with great content beats a 98 with thin content.
                 </p>
               </div>
             </section>
 
             <InContentAd />
 
-            {/* Section 7: FAQ Accordion */}
+            {/* Section 9: FAQ */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 Frequently Asked Questions About Website Audits
@@ -1062,9 +756,9 @@ export default function WebsiteAuditPage() {
                     key={index}
                     className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden"
                   >
-                    <summary className="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
+                    <summary className="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-colors">
                       <span className="font-semibold text-gray-900 dark:text-white pr-4">{faq.question}</span>
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center text-sm group-open:rotate-180 transition-transform">
+                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center text-sm group-open:rotate-180 transition-transform" aria-hidden="true">
                         ▼
                       </span>
                     </summary>
@@ -1076,61 +770,66 @@ export default function WebsiteAuditPage() {
               </div>
             </section>
 
-      {/* Section 8: CTA */}
-            <section className="mb-12">
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white text-center">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                  Audit Your Website in Seconds. It is Free
-                </h2>
-                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                  No signup. No credit card. Paste a URL and get a clear list of what to fix, in order of impact.
-                </p>
-                <a
-                  href="#website-audit"
-                  className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-lg"
-                >
-                  Run Your Free Website Audit
-                </a>
-              </div>
-            </section>
+            {/* CTA */}
+            <div className="mb-12 rounded-2xl bg-blue-600 p-8 text-white text-center">
+              <p className="text-2xl sm:text-3xl font-bold mb-4">Audit Your Website in Seconds. It is Free</p>
+              <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+                No signup. No credit card. Paste a URL and get a clear list of what to fix, in order of impact.
+              </p>
+              <a
+                href="#website-audit"
+                className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+              >
+                Run Your Free Website Audit
+              </a>
+            </div>
+
+            {/* Related links */}
+            <nav aria-label="Related guides and tools">
+              <p className="font-semibold text-gray-900 dark:text-white mb-3">Keep going</p>
+              <ul className="flex flex-wrap gap-2 text-sm">
+                {[
+                  ['/blog/website-audit-checklist-2026', 'Website audit checklist'],
+                  ['/blog/on-site-seo-guide-2026', 'On page SEO guide'],
+                  ['/blog/website-code-audit-guide', 'Website code audit guide'],
+                  ['/services/website-audit', 'Website audit services'],
+                  ['/tools/ai-content-detector', 'AI Content Detector'],
+                  ['/tools/ai-resume-builder', 'AI Resume Builder'],
+                  ['/tools/ai-interview-simulator', 'AI Interview Simulator'],
+                  ['/tools/ai-cover-letter-generator', 'AI Cover Letter Generator'],
+                  ['/tools/salary-estimator', 'Salary Estimator'],
+                  ['/tools', 'All 20+ free tools'],
+                ].map(([href, label]) => (
+                  <li key={href}>
+                    <a href={href} className="inline-flex rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-gray-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-blue-300">
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           {/* Sidebar */}
           <div className="lg:w-80 flex-shrink-0">
             <div className="sticky top-24 space-y-6">
               <SidebarAd />
-
               <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Related Resources</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Website Audit Guides</h3>
                 <ul className="space-y-3">
-                  <li>
-                    <a href="/tools/ai-resume-builder" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      AI Resume Builder
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/tools/ai-content-detector" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      AI Content Detector
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/tools/ai-interview-simulator" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      Interview Simulator
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      SEO Guides and Tips
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/trends" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
-                      Tech Trends 2026
-                    </a>
-                  </li>
+                  {[
+                    ['/blog/website-audit-checklist-2026', 'Website audit checklist'],
+                    ['/blog/on-site-seo-guide-2026', 'On page SEO guide'],
+                    ['/blog/website-code-audit-guide', 'Website code audit guide'],
+                    ['/services/website-audit', 'Website audit services and pricing'],
+                    ['/blog', 'SEO guides and tips'],
+                  ].map(([href, label]) => (
+                    <li key={href}>
+                      <a href={href} className="text-sm text-blue-600 dark:text-blue-400 hover:underline">{label}</a>
+                    </li>
+                  ))}
                 </ul>
               </div>
-
               <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Core Web Vitals Targets</h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">What Google counts as good, for 75% of visits</p>

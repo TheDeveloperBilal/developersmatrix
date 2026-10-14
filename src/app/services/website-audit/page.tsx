@@ -9,14 +9,10 @@ import { generatePageMetadata } from '@/lib/seo/metadata';
 // PRICING. Everything on this page and in the structured data reads from this
 // block, so changing a number here changes it everywhere including the schema.
 //
-// How these were set (Sept 2026):
-//   WebFX's buyer survey puts 43% of businesses at $101 to $750 for an audit,
-//   with micro and startup buyers at $50 to $750 and small business up to $2,500.
-//   The cheapest competitor ranking on page one for "website audit services"
-//   charges $149. Full agency audits start around $2,500 and run to $8,600+.
-//   These sit above the floor (so the service does not read as cheap and
-//   automated) and well below agency pricing, which is the right position
-//   while the site has no reviews or case studies to justify a premium.
+// How these were set:
+//   Sept 2026: $199 / $499 / $249 a month, priced against the market.
+//   Oct 2026: lowered by the owner to $9.99 / $49 / $15 a month so the first
+//   clients can try the service while the site has no reviews or case studies.
 //   Revisit once there are published results to point at.
 // ---------------------------------------------------------------------------
 const PRICING = {
@@ -26,7 +22,7 @@ const PRICING = {
     {
       id: 'essential',
       name: 'Essential Audit',
-      price: 199,
+      price: 9.99,
       turnaround: '3 working days',
       summary: 'A full technical and on page review of a single site, delivered as a prioritised report.',
       bestFor: 'Small business sites and portfolios under 100 pages',
@@ -42,7 +38,7 @@ const PRICING = {
     {
       id: 'complete',
       name: 'Complete Audit',
-      price: 499,
+      price: 49,
       turnaround: '5 working days',
       featured: true,
       summary: 'Everything in Essential, plus content, structured data and a competitor comparison.',
@@ -60,7 +56,7 @@ const PRICING = {
     {
       id: 'ongoing',
       name: 'Ongoing Monitoring',
-      price: 249,
+      price: 15,
       period: 'month',
       turnaround: 'Monthly report',
       summary: 'A monthly re audit so regressions get caught in weeks rather than quarters.',
@@ -99,7 +95,7 @@ const faqs = [
   {
     question: 'How much does a website audit cost?',
     answer:
-      `Most businesses pay between ${PRICING.currencySymbol}101 and ${PRICING.currencySymbol}750. WebFX surveyed buyers and found 43 percent land in that band, with startups and micro businesses paying ${PRICING.currencySymbol}50 to ${PRICING.currencySymbol}750 and small businesses going up to ${PRICING.currencySymbol}2,500. Full agency audits sold through a sales process start around ${PRICING.currencySymbol}2,500 and run past ${PRICING.currencySymbol}8,000 for large sites. Our pricing is published above so you can decide without booking a call: ${PRICING.currencySymbol}${PRICING.tiers[0].price} for the Essential Audit, ${PRICING.currencySymbol}${PRICING.tiers[1].price} for the Complete Audit, and ${PRICING.currencySymbol}${PRICING.tiers[2].price} a month for ongoing monitoring. Two things worth knowing at either end of the range. Anything advertised under ${PRICING.currencySymbol}50 is almost always an automated tool export with no human review, and you can get that free from our own audit tool. Anything over ${PRICING.currencySymbol}2,000 should come with named consultants and a defined scope, not just a bigger number.`,
+      `Most businesses pay between ${PRICING.currencySymbol}101 and ${PRICING.currencySymbol}750. WebFX surveyed buyers and found 43 percent land in that band, with startups and micro businesses paying ${PRICING.currencySymbol}50 to ${PRICING.currencySymbol}750 and small businesses going up to ${PRICING.currencySymbol}2,500. Full agency audits sold through a sales process start around ${PRICING.currencySymbol}2,500 and run past ${PRICING.currencySymbol}8,000 for large sites. Our prices are published above and sit well below that range: ${PRICING.currencySymbol}${PRICING.tiers[0].price} for the Essential Audit, ${PRICING.currencySymbol}${PRICING.tiers[1].price} for the Complete Audit, and ${PRICING.currencySymbol}${PRICING.tiers[2].price} a month for ongoing monitoring. The scope of each audit is fixed and listed in full, and every report is reviewed by a person rather than exported from a tool. Anything over ${PRICING.currencySymbol}2,000 elsewhere should come with named consultants and a defined scope, not just a bigger number.`,
   },
   {
     question: 'What is the difference between this and your free audit tool?',
@@ -250,7 +246,7 @@ export default function WebsiteAuditServicesPage() {
                 >
                   {tier.featured && (
                     <span className="self-start text-xs font-medium px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 mb-3">
-                      Most chosen
+                      Recommended
                     </span>
                   )}
                   <h3 className="text-lg font-semibold">{tier.name}</h3>
