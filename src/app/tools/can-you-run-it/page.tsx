@@ -55,9 +55,26 @@ const toolFaqs = [
   },
   {
     question: "What is the difference between minimum and recommended requirements?",
-    answer: "Minimum requirements mean the game will run, but often at low settings with reduced resolution and inconsistent frame rates. This is for players who just want to experience the game regardless of visual quality. Recommended requirements mean you can play at medium to high settings with stable 60 FPS at 1080p. This is the target for most players who want a good experience without needing top-tier hardware. The checker explains which category your hardware falls into for each game."
+    answer: "Minimum requirements mean the game will run, but often at low settings with reduced resolution and inconsistent frame rates. This is for players who just want to experience the game regardless of visual quality. Recommended requirements mean you can play at medium to high settings with stable 60 FPS at 1080p. This is the target for most players who want a good experience without needing top tier hardware. The checker explains which category your hardware falls into for each game."
   }
 ];
+
+// Most searched first: GTA 6 and the games whose pages already earn impressions.
+const POPULAR_IDS = ['gta-6', 'counter-strike-2', 'battlefield-6', 'starfield', 'cyberpunk-2077', 'arc-raiders'];
+const popularGames = POPULAR_IDS
+  .map((id) => gamesDatabase.find((g) => g.id === id))
+  .filter((g): g is (typeof gamesDatabase)[number] => Boolean(g));
+const otherGames = gamesDatabase
+  .filter((g) => !POPULAR_IDS.includes(g.id))
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+/** "12 GB RAM" and "70 GB storage", skipping anything the publisher did not list. */
+function cardSpec(game: (typeof gamesDatabase)[number]) {
+  const parts = [game.minimumRequirements.memory.replace(/\s*\(.*?\)/g, '').trim()];
+  const storage = game.minimumRequirements.storage;
+  if (/available space/i.test(storage)) parts.push(storage.replace(/\s*available space.*$/i, ' storage'));
+  return parts.join(', ');
+}
 
 export default function CanYouRunItPage() {
   return (
@@ -116,12 +133,14 @@ export default function CanYouRunItPage() {
           {/* Background: a quiet grid and two soft light fields for the glass to sit on.
               The clipping lives on this layer only. If the section itself clipped, the
               browser could scroll it sideways when a form field inside takes focus,
-              which shows up on phones as the whole tool sliding off screen. */}
+              which shows up on phones as the whole tool sliding off screen.
+              The light fields are radial gradients rather than blurred circles: the
+              same soft glow, without a 150px blur filter for phones to paint. */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-clip">
             <div className="absolute inset-0 bg-[#f5f6fa] dark:bg-[#07080c]" />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.045)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_75%_55%_at_50%_0%,black,transparent)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)]" />
-            <div className="absolute -top-56 left-[8%] h-[36rem] w-[36rem] rounded-full bg-indigo-300/30 blur-[150px] dark:bg-indigo-500/[0.14]" />
-            <div className="absolute top-40 right-[4%] h-[30rem] w-[30rem] rounded-full bg-sky-200/40 blur-[150px] dark:bg-sky-500/[0.08]" />
+            <div className="absolute -top-[28rem] left-[-6%] h-[64rem] w-[64rem] rounded-full bg-[radial-gradient(closest-side,rgba(165,180,252,0.42),rgba(165,180,252,0.12)_55%,transparent)] dark:bg-[radial-gradient(closest-side,rgba(99,102,241,0.16),rgba(99,102,241,0.05)_55%,transparent)]" />
+            <div className="absolute -top-28 right-[-8%] h-[56rem] w-[56rem] rounded-full bg-[radial-gradient(closest-side,rgba(186,230,253,0.5),rgba(186,230,253,0.15)_55%,transparent)] dark:bg-[radial-gradient(closest-side,rgba(14,165,233,0.1),rgba(14,165,233,0.03)_55%,transparent)]" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-12 sm:pt-14 sm:pb-16">
@@ -151,10 +170,64 @@ export default function CanYouRunItPage() {
               <div id="can-you-run-it" className="scroll-mt-24">
                 <CanYouRunItClient />
               </div>
-              <InContentAd />
 
-              <aside className="mt-8">
-                <div className="rounded-2xl border border-white/70 bg-white/55 p-5 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] dark:border-white/[0.08] dark:bg-slate-900/40 dark:shadow-none">
+              {/* Every game page as a real link, most searched first. These pages were
+                  orphaned before: in the sitemap with no internal link pointing at them. */}
+              <section id="games" aria-labelledby="games-title" className="mt-12 scroll-mt-24">
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Popular game checks</p>
+                    <h2 id="games-title" className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">Check a Specific Game</h2>
+                  </div>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{gamesDatabase.length} games, each with its own requirements page</p>
+                </div>
+                <p className="mt-2 max-w-3xl text-slate-600 dark:text-slate-300">
+                  Every game below has its own page with the publisher stated minimum and recommended specs, what each requirement actually means, and the cheapest upgrade if your machine falls short.
+                </p>
+
+                <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {popularGames.map((game) => (
+                    <li key={game.id}>
+                      <a
+                        href={`/tools/can-you-run-it/${game.id}`}
+                        className="group flex h-full flex-col justify-between gap-4 rounded-2xl border border-slate-900/[0.07] bg-white p-5 transition-colors hover:border-slate-900/25 dark:border-white/10 dark:bg-slate-900/60 dark:hover:border-white/30 sm:bg-white/80"
+                      >
+                        <span>
+                          <span className="block text-base font-semibold text-slate-900 dark:text-white">
+                            Can you run {game.name}?
+                          </span>
+                          <span className="mt-1 block text-sm text-slate-500 dark:text-slate-400">
+                            {game.requirementsStatus === 'unannounced'
+                              ? 'No PC specs published yet'
+                              : `Minimum: ${cardSpec(game)}`}
+                          </span>
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 dark:text-white">
+                          See the requirements
+                          <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                <ul className="mt-4 grid grid-cols-1 gap-x-6 gap-y-0.5 sm:grid-cols-2 lg:grid-cols-4">
+                  {otherGames.map((game) => (
+                    <li key={game.id}>
+                      <a
+                        href={`/tools/can-you-run-it/${game.id}`}
+                        className="flex items-center justify-between gap-3 border-b border-slate-900/[0.06] py-2.5 text-sm text-slate-700 transition-colors hover:text-slate-900 dark:border-white/[0.06] dark:text-slate-300 dark:hover:text-white"
+                      >
+                        <span className="truncate">Can you run {game.name}?</span>
+                        <span aria-hidden="true" className="shrink-0 text-slate-400">&rarr;</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              <aside className="mt-10">
+                <div className="rounded-2xl border border-white/70 bg-white/90 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] dark:border-white/[0.08] dark:bg-slate-900/60 dark:shadow-none sm:bg-white/55 sm:backdrop-blur-xl sm:dark:bg-slate-900/40">
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 mb-3">Related resources</h3>
                   <div className="flex flex-wrap gap-2 text-sm">
                     {[
@@ -174,8 +247,6 @@ export default function CanYouRunItPage() {
                     ))}
                   </div>
                 </div>
-
-                <SidebarAd />
               </aside>
             </div>
           </div>
@@ -185,7 +256,7 @@ export default function CanYouRunItPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Main Content */}
-            <div className="flex-1 space-y-16">
+            <div className="flex-1 min-w-0 space-y-16">
 
               {/* Direct answer */}
               <section>
@@ -265,130 +336,7 @@ export default function CanYouRunItPage() {
                 </div>
               </section>
 
-              {/* Every game page, as real links. These pages were orphaned before:
-                  in the sitemap but with no internal link pointing at them. */}
-              <section>
-                <h2 className="text-2xl font-bold mb-2">Check a Specific Game</h2>
-                <p className="text-muted-foreground mb-6">
-                  Every game below has its own page with the publisher stated minimum and recommended specs, what each requirement actually means, and the cheapest upgrade if your machine falls short.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {gamesDatabase.map((game) => (
-                    <a
-                      key={game.id}
-                      href={`/tools/can-you-run-it/${game.id}`}
-                      className="group flex items-center justify-between gap-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-sm transition-all"
-                    >
-                      <span className="min-w-0">
-                        <span className="block font-medium text-sm text-gray-900 dark:text-white truncate">
-                          Can you run {game.name}?
-                        </span>
-                        <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                          {game.requirementsStatus === 'unannounced'
-                            ? 'No PC specs published yet'
-                            : 'Official PC requirements'}
-                        </span>
-                      </span>
-                      <span className="text-gray-400 group-hover:text-purple-600 transition-colors shrink-0" aria-hidden="true">&rarr;</span>
-                    </a>
-                  ))}
-                </div>
-              </section>
-
-              {/* 4 Key Capabilities */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Four Features That Give You Hardware Clarity</h2>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {[
-                    { num: "1", title: "Spec Comparison Engine", color: "bg-slate-900/[0.05] text-slate-600 dark:bg-white/[0.06] dark:text-slate-300", text: "Pick your processor and graphics card from the list and add your memory and free space. Each part is compared against the minimum the publisher released, using a performance rating for that exact model rather than the model number alone. Only real models are accepted, so a typo cannot produce a fake result." },
-                    { num: "2", title: "FPS Estimator", color: "bg-slate-900/[0.05] text-slate-600 dark:bg-white/[0.06] dark:text-slate-300", text: "Instead of a plain yes or no, you get a likely preset and a frame rate range, based on how far your graphics card sits above the game's minimum. It is an estimate, not a benchmark, but it tells you whether the game is worth buying on your current machine." },
-                    { num: "3", title: "Upgrade Suggestions", color: "bg-slate-900/[0.05] text-slate-600 dark:bg-white/[0.06] dark:text-slate-300", text: "If your PC falls short, the checker names the part that fails and the part the publisher lists as the minimum, so you know exactly what to aim for. Often it is just one component, such as going from 8GB to 16GB of memory." },
-                    { num: "4", title: "Games Database", color: "bg-slate-900/[0.05] text-slate-600 dark:bg-white/[0.06] dark:text-slate-300", text: "The database covers major PC releases across genres, from long running classics to titles that have not shipped yet. Each entry lists the publisher stated minimum and recommended specs so you are comparing your hardware against the numbers the developer actually published." },
-                  ].map((f) => (
-                    <div key={f.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className={`w-8 h-8 rounded-lg ${f.color} flex items-center justify-center text-sm font-bold`}>{f.num}</div>
-                        <h3 className="font-semibold">{f.title}</h3>
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* Five Hardware Mistakes */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Five Hardware Mistakes That Waste Your Money</h2>
-                <div className="space-y-4">
-                  {[
-                    { num: "1", title: "Ignoring Storage Speed", text: "Modern games stream assets in real time. A hard disk drive creates stuttering, texture pop-in, and long load times that ruin immersion. Many players blame their GPU when the real bottleneck is a slow HDD.", fix: "Each game page says when the publisher requires an SSD. If your storage is a hard drive, upgrade to an SSD first. It is usually the cheapest change on the list and the one you notice most." },
-                    { num: "2", title: "Trusting Minimum Requirements", text: "Minimum specs mean the game will launch, not that it will be enjoyable. At minimum settings, you often get sub-30 FPS, blurry textures, and input lag. Players who trust minimum requirements end up disappointed and request refunds.", fix: "The checker scores you against the published minimum and gives a likely preset and frame rate range. Each game page shows the recommended spec beside it, so you can see how much headroom you really have." },
-                    { num: "3", title: "Buying Before Checking", text: "Impulse buying a game during a sale, then discovering your PC cannot handle it, is a common and expensive mistake. Steam refunds help, but only if you have played less than 2 hours, which is not always enough to discover performance issues.", fix: "Check requirements before every purchase, especially for AAA titles. The 30 seconds spent in the checker saves hours of downloading, potential refund hassle, and the disappointment of an unplayable game." },
-                    { num: "4", title: "Neglecting Driver Updates", text: "Outdated GPU drivers can reduce performance by 10 to 20 percent for new releases. Game-specific driver optimizations from NVIDIA and AMD often arrive day-one for major titles. Players who never update drivers leave free performance on the table.", fix: "Update your graphics driver before judging your hardware. Sometimes a driver update is the difference between unplayable and smooth." },
-                    { num: "5", title: "Underestimating RAM", text: "8GB of RAM was enough for most games a few years ago. Many big releases now list 16GB as the recommended amount, and several ask for it even at minimum. Running a game with too little memory causes constant disk swapping, which creates stuttering far worse than low frame rates.", fix: "The checker highlights RAM requirements clearly. If you have 8GB and the game recommends 16GB, the RAM upgrade is almost always the priority over a GPU upgrade. 16GB DDR4 costs 30 to 50 dollars and fixes stuttering in most cases." },
-                  ].map((m) => (
-                    <div key={m.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">{m.num}</div>
-                        <h3 className="font-semibold">{m.title}</h3>
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{m.text}</p>
-                      <p className="text-sm leading-relaxed"><strong className="text-foreground">Fix:</strong> {m.fix}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Use Cases */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">When Should You Check Your PC Specs?</h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { title: "Before Every Purchase", text: "Check requirements before buying any game over 30 dollars. The 30 seconds in the tool saves potential refund hassle and hours of disappointment. Especially important for pre-orders of unreleased titles." },
-                    { title: "Hardware Upgrade Planning", text: "Thinking about a GPU or RAM upgrade? Check your target games first. The tool shows exactly which component is the bottleneck and what upgrade gives the best performance per dollar." },
-                    { title: "Budget Gamers", text: "If you cannot afford frequent upgrades, the checker helps you find games that run well on your current hardware. Discover indie gems and older AAA titles that provide great experiences without demanding new components." },
-                    { title: "Free Game Weekends", text: "Free weekends let you test games before buying, but only if your PC can run them. Check requirements first so you do not waste the limited free period on a game your hardware cannot handle." },
-                    { title: "New PC Builders", text: "Building a new PC? Use the checker to validate your parts list against the games you want to play. Make sure your 1,200 dollar build actually achieves your target performance before you buy components." },
-                    { title: "Laptop Gamers", text: "Laptop graphics chips usually run slower than the desktop cards they share a name with. The checker rates the desktop version, so on a laptop treat a pass as a best case and a borderline result as a likely fail." },
-                  ].map((u) => (
-                    <div key={u.title} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-                      <h3 className="font-semibold mb-2">{u.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{u.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Internal Links */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Complete Your Gaming Toolkit</h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[
-                    { href: "/trends/gta-6-release-everything-we-know", title: "GTA 6 News", desc: "Release date and system requirements" },
-                    { href: "/tools/salary-estimator", title: "Salary Estimator", desc: "Know your market worth" },
-                    { href: "/tools/budget-planner", title: "Budget Planner", desc: "Plan your upgrade budget" },
-                    { href: "/tools/website-audit", title: "Website Audit", desc: "Check your site speed and SEO" },
-                    { href: "/tools/habit-tracker", title: "Habit Tracker", desc: "Build consistent routines" },
-                    { href: "/tools/productivity-planner", title: "Productivity Planner", desc: "Optimize your workflow" },
-                    { href: "/tools", title: "All Tools", desc: "Every free tool on the site" },
-                  ].map((link) => (
-                    <a key={link.href} href={link.href} className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <p className="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{link.title}</p>
-                          <p className="text-xs text-muted-foreground">{link.desc}</p>
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </section>
-
-              <InContentAd />
-
-              {/* 3-Phase Workflow */}
+              {/* Workflow */}
               <section>
                 <h2 className="text-2xl font-bold mb-6">How to Check Your PC in 60 Seconds</h2>
                 <div className="grid sm:grid-cols-3 gap-6">
@@ -405,6 +353,119 @@ export default function CanYouRunItPage() {
                   ))}
                 </div>
               </section>
+
+              {/* Score: merged from the old features list and the compatibility score section */}
+              <section>
+                <h2 className="text-2xl font-bold mb-4">How the Can You Run It Score Works</h2>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Most requirement checkers stop at a yes or no. Ours scores each part of your PC against the specs the publisher released, weights each part by how much it affects frame rate and playability, and turns that into one number with the reasoning behind it. Nothing is more frustrating than downloading 80GB and finding out your PC cannot run the game, so the score is built to tell you before you buy.
+                </p>
+
+                <div className="grid md:grid-cols-3 gap-4 mb-8">
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">0 to 100</div>
+                    <h3 className="font-semibold mb-2">Compatibility Score Range</h3>
+                    <p className="text-sm text-muted-foreground">80 and above means comfortable headroom. 60 to 79 is playable with settings adjustments. Below 60 means you will struggle.</p>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">40%</div>
+                    <h3 className="font-semibold mb-2">GPU Weight</h3>
+                    <p className="text-sm text-muted-foreground">The graphics card is the single most important component for gaming performance. It carries the highest weight in our scoring.</p>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">4</div>
+                    <h3 className="font-semibold mb-2">Components Scored</h3>
+                    <p className="text-sm text-muted-foreground">Your GPU, CPU, RAM and storage speed are each scored against the game requirements, then weighted into one number.</p>
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-semibold mb-4">How the Score Is Calculated</h3>
+                <ol className="space-y-3 text-muted-foreground mb-8">
+                  {[
+                    ["Component comparison", "Your CPU, GPU and RAM are compared against the game's minimum and recommended requirements using our relative performance rating for each model. Only real models are accepted, so a typo cannot produce a fake result."],
+                    ["Weighted scoring", "The GPU contributes 40% of the score, the CPU 30%, RAM 15% and storage speed 15%."],
+                    ["Frame rate estimate", "You get a likely preset and a frame rate range based on how far your graphics card sits above the game's minimum. It is an estimate, not a benchmark."],
+                    ["Bottleneck and upgrade", "The tool shows which component falls short and names the part the publisher lists as the minimum, so you know exactly what to aim for. Often it is one part, such as going from 8GB to 16GB of memory."],
+                  ].map(([t, d], i) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">{i + 1}</span>
+                      <span><strong className="text-foreground">{t}:</strong> {d}</span>
+                    </li>
+                  ))}
+                </ol>
+
+                <h3 className="text-xl font-semibold mb-3">Where the Requirements Come From</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  The database covers major PC releases across genres, from long running classics to titles that have not shipped yet. Each entry lists the minimum and recommended specs the publisher released, links to that source on the game&rsquo;s own page, and shows the date the figures were last checked. When a publisher has not released PC specs, the page says so instead of guessing.
+                </p>
+              </section>
+
+              <InContentAd />
+
+              {/* Hardware: merged from the mistakes, use cases and 2026 hardware sections */}
+              <section>
+                <h2 className="text-2xl font-bold mb-4">What Hardware Matters for PC Games in 2026</h2>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  New releases keep asking for more, but they rarely ask for everything at once. Fix the part that holds you back, in this order, and you avoid paying for upgrades you do not need.
+                </p>
+
+                <h3 className="text-xl font-semibold mb-4">Upgrade Priority for New Releases</h3>
+                <ol className="space-y-3 mb-10">
+                  {[
+                    ["Memory: 16GB", "Many big releases now list 16GB as the recommended amount, and several ask for it even at minimum. Too little memory causes constant swapping to disk and stuttering far worse than a low frame rate. 16GB of DDR4 usually costs 30 to 50 dollars."],
+                    ["Storage: an SSD with room to spare", "Open world games stream data while you play. A hard drive causes stuttering and texture pop in that no graphics card can fix, and many publishers now require an SSD."],
+                    ["Graphics memory: check the recommended spec", "Cards with 8GB of video memory can run short at high texture settings in recent releases. Before buying a card, compare its memory with the recommended spec of the games you play most."],
+                    ["Graphics card: aim for the recommended tier", "Upgrade the card after memory and storage are covered, and aim for the recommended spec rather than the minimum so the next few releases still run well."],
+                  ].map(([t, d], i) => (
+                    <li key={t} className="flex items-start gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
+                      <span className="bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold rounded-lg px-2 py-1 text-xs flex-shrink-0">{i + 1}</span>
+                      <span>
+                        <span className="block font-medium text-sm">{t}</span>
+                        <span className="block text-sm text-muted-foreground mt-0.5">{d}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+
+                <h3 className="text-xl font-semibold mb-4">Five Hardware Mistakes That Waste Your Money</h3>
+                <div className="space-y-4 mb-10">
+                  {[
+                    { num: "1", title: "Ignoring Storage Speed", text: "Modern games stream assets in real time. A hard disk drive creates stuttering, texture pop in, and long load times. Many players blame their GPU when the real bottleneck is a slow HDD.", fix: "Each game page says when the publisher requires an SSD. If your storage is a hard drive, upgrade to an SSD first. It is usually the cheapest change on the list and the one you notice most." },
+                    { num: "2", title: "Trusting Minimum Requirements", text: "Minimum specs mean the game will launch, not that it will be enjoyable. At minimum settings you often get below 30 FPS, blurry textures and input lag.", fix: "The checker scores you against the published minimum and gives a likely preset and frame rate range. Each game page shows the recommended spec beside it, so you can see how much headroom you really have." },
+                    { num: "3", title: "Buying Before Checking", text: "Buying a game in a sale and then finding out your PC cannot handle it is a common and expensive mistake. Steam refunds help, but only if you have played less than 2 hours, which is not always enough to find performance problems.", fix: "Check requirements before every purchase, especially for big releases. Thirty seconds in the checker saves hours of downloading and the disappointment of an unplayable game." },
+                    { num: "4", title: "Neglecting Driver Updates", text: "Outdated graphics drivers can cost new releases a noticeable amount of performance. NVIDIA, AMD and Intel often ship game specific driver updates for major titles on launch day.", fix: "Update your graphics driver before judging your hardware. Sometimes a driver update is the difference between unplayable and smooth." },
+                    { num: "5", title: "Underestimating RAM", text: "8GB of RAM was enough for most games a few years ago. Many big releases now list 16GB as the recommended amount, and several ask for it even at minimum.", fix: "If you have 8GB and the game recommends 16GB, the memory upgrade is almost always the priority over a new graphics card." },
+                  ].map((m) => (
+                    <div key={m.num} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-sm font-bold">{m.num}</div>
+                        <h4 className="font-semibold">{m.title}</h4>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-2">{m.text}</p>
+                      <p className="text-sm leading-relaxed"><strong className="text-foreground">Fix:</strong> {m.fix}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <h3 className="text-xl font-semibold mb-4">When to Run a Check</h3>
+                <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+                  {[
+                    { title: "Before every purchase", text: "Especially for pre orders and anything over 30 dollars. The check takes less time than reading the store page." },
+                    { title: "Planning an upgrade", text: "Check your target games first. The result shows which component is the bottleneck, so you spend on the part that matters." },
+                    { title: "Building a new PC", text: "Test your parts list against the games you want to play before you buy any components." },
+                    { title: "Free weekends and trials", text: "Make sure the game runs before you spend a limited free period downloading it." },
+                    { title: "Gaming on a budget", text: "Find the games that already run well on your current machine instead of upgrading for every release." },
+                    { title: "Gaming on a laptop", text: "Laptop graphics chips usually run slower than the desktop cards they share a name with. Treat a pass as a best case and a borderline result as a likely fail." },
+                  ].map((u) => (
+                    <div key={u.title}>
+                      <dt className="font-semibold">{u.title}</dt>
+                      <dd className="mt-1 text-sm text-muted-foreground leading-relaxed">{u.text}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+
+              <InContentAd />
 
               {/* FAQ */}
               <section>
@@ -426,16 +487,41 @@ export default function CanYouRunItPage() {
                 </div>
               </section>
 
-              {/* CTA Banner */}
-              <section className="relative overflow-hidden rounded-3xl bg-slate-900 p-8 text-white text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] dark:bg-white/[0.04] dark:ring-1 dark:ring-white/10">
-                <h2 className="text-2xl font-bold mb-3">Know Before You Buy</h2>
+              {/* CTA */}
+              <div className="relative overflow-hidden rounded-3xl bg-slate-900 p-8 text-white text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] dark:bg-white/[0.04] dark:ring-1 dark:ring-white/10">
+                <p className="text-2xl font-bold mb-3">Know Before You Buy</p>
                 <p className="text-white/90 mb-6 max-w-xl mx-auto">
                   Check your specs first. Free, instant, and saves you from unplayable games.
                 </p>
                 <a href="#can-you-run-it" className="inline-flex items-center px-6 py-3 rounded-xl bg-white text-slate-900 font-semibold hover:bg-slate-100 transition-colors">
-                  Check Your PC Now →
+                  Check Your PC Now <span aria-hidden="true" className="ml-1">&rarr;</span>
                 </a>
-              </section>
+              </div>
+
+              {/* Related: merged from the two old link grids */}
+              <nav aria-label="More from DevelopersMatrix">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">More from DevelopersMatrix</p>
+                <ul className="flex flex-wrap gap-2 text-sm">
+                  {[
+                    ["/gta-6", "GTA 6 hub"],
+                    ["/trends/gta-6-release-everything-we-know", "GTA 6 news"],
+                    ["/trends", "Tech trends 2026"],
+                    ["/tools/budget-planner", "Budget Planner"],
+                    ["/tools/salary-estimator", "Salary Estimator"],
+                    ["/tools/habit-tracker", "Habit Tracker"],
+                    ["/tools/productivity-planner", "Productivity Planner"],
+                    ["/tools/website-audit", "Website Audit"],
+                    ["/blog", "Guides"],
+                    ["/tools", "All tools"],
+                  ].map(([href, label]) => (
+                    <li key={href}>
+                      <a href={href} className="inline-flex rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white">
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
             </div>
 
@@ -454,181 +540,6 @@ export default function CanYouRunItPage() {
           </div>
         </div>
       </main>
-
-      {/* SEO Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-4xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Free PC Game Requirements Checker: Can You Run It? Find Out in Seconds
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            Nothing is more frustrating than buying a game, downloading 80GB, and discovering your PC cannot run it. Our <strong>free "Can You Run It" tool</strong> checks your hardware against any game's system requirements instantly. Compare your CPU, GPU, RAM, and storage against minimum and recommended specs. Know before you buy. Save your money and your time.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Why PC Gamers Need a System Requirements Checker
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Modern AAA games require powerful hardware. Red Dead Redemption 2 asks for 150GB of space. Cyberpunk 2077 needs ray tracing capable cards for the best experience. Starfield and Baldur&rsquo;s Gate 3 pushed hardware limits in 2024 and 2025. In 2026 the requirements keep climbing. Our <strong>PC game requirements checker</strong> reads your system specs and compares them against the requirements the publisher actually released, giving you a clear verdict with the reasoning behind it.
-          </p>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-            The tool also suggests upgrade paths. If your CPU meets requirements but your GPU falls short, you will know exactly which component to upgrade. If you are short on RAM, we recommend the optimal amount. This targeted approach saves money. Why replace your entire PC when a $200 GPU upgrade or $60 RAM boost would solve the problem?
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            How to Check If Your PC Can Run a Game
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">1. Select Your Game</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Choose from our database of major releases including new titles, and upcoming titles.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">2. Enter Your Specs</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Pick your processor and graphics card from the list, then add your memory and free storage.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">3. Get Results</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Instant comparison against minimum and recommended requirements. See which components pass and which need upgrades.</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">4. Upgrade Smartly</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Get specific upgrade recommendations. Buy only what you need. No unnecessary component replacements.</p>
-            </div>
-          </div>
-
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-            Related Gaming Tools
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-3 mb-8">
-            <a href="/gta-6" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">GTA 6 Hub</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Release date, specs, and news</p>
-              </div>
-            </a>
-            <a href="/trends" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Tech Trends 2026</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Gaming hardware trends and reviews</p>
-              </div>
-            </a>
-            <a href="/tools/habit-tracker" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Habit Tracker</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Track gaming and productivity habits</p>
-              </div>
-            </a>
-            <a href="/blog" className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white text-sm">Gaming Guides</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">PC building and optimization tips</p>
-              </div>
-            </a>
-          </div>
-
-          
-            {/* Section: DevelopersMatrix Compatibility Score */}
-            <section>
-              <h2 className="text-2xl font-bold mb-6">
-                The DevelopersMatrix Compatibility Score: How We Calculate Your Verdict
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Most PC requirement checkers give you a simple yes or no. The <strong>DevelopersMatrix Compatibility Score</strong> goes deeper by analyzing how each of your components performs relative to the game's demands, then weighting them by real-world impact on frame rate and playability.
-              </p>
-
-              <div className="grid md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">0-100</div>
-                  <h3 className="font-semibold mb-2">Compatibility Score Range</h3>
-                  <p className="text-sm text-muted-foreground">80 and above means comfortable headroom. 60 to 79 is playable with settings adjustments. Below 60 means you will struggle.</p>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">40%</div>
-                  <h3 className="font-semibold mb-2">GPU Weight</h3>
-                  <p className="text-sm text-muted-foreground">The graphics card is the single most important component for gaming performance. It carries the highest weight in our scoring algorithm.</p>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">4</div>
-                  <h3 className="font-semibold mb-2">Components Scored</h3>
-                  <p className="text-sm text-muted-foreground">Your GPU, CPU, RAM and storage speed are each scored against the game requirements, then weighted into one number.</p>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-semibold mb-4">How the Score Is Calculated</h3>
-              <ol className="space-y-3 text-muted-foreground mb-6">
-                <li className="flex items-start gap-3">
-                  <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">1</span>
-                  <span><strong>Component comparison:</strong> Your CPU, GPU, and RAM are compared against the game's minimum and recommended requirements using our relative performance rating for each model.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">2</span>
-                  <span><strong>Weighted scoring:</strong> GPU contributes 40% of the score, CPU contributes 30%, RAM contributes 15%, and storage speed contributes 15%.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">3</span>
-                  <span><strong>FPS estimation:</strong> We give a likely preset and a frame rate range based on how far your graphics card sits above the game's minimum.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm">4</span>
-                  <span><strong>Bottleneck identification:</strong> The tool shows which component falls short and names the part the publisher lists as the minimum for it.</span>
-                </li>
-              </ol>
-            </section>
-
-
-            {/* Section: Expert Commentary */}
-            <section>
-              <h2 className="text-2xl font-bold mb-6">
-                PC Gaming in 2026: What Hardware Actually Matters
-              </h2>
-
-              <h3 className="text-xl font-semibold mb-4">Upgrade Priority for 2026-2027 Titles</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
-                  <div className="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 font-bold rounded-lg px-2 py-1 text-xs flex-shrink-0">P1</div>
-                  <div>
-                    <p className="font-medium text-sm">VRAM: 12GB minimum for AAA high settings</p>
-                    <p className="text-xs text-muted-foreground">8GB cards struggle with texture streaming in 2026 titles. 12GB is the new safe minimum.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
-                  <div className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 font-bold rounded-lg px-2 py-1 text-xs flex-shrink-0">P2</div>
-                  <div>
-                    <p className="font-medium text-sm">Storage: NVMe SSD with 500GB+ free space</p>
-                    <p className="text-xs text-muted-foreground">Open-world games stream assets continuously. HDDs cause stuttering that no GPU can fix.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
-                  <div className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 font-bold rounded-lg px-2 py-1 text-xs flex-shrink-0">P3</div>
-                  <div>
-                    <p className="font-medium text-sm">RAM: 32GB for future-proofing</p>
-                    <p className="text-xs text-muted-foreground">16GB works today. 32GB ensures you won't need another RAM upgrade for 3-4 years.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700">
-                  <div className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 font-bold rounded-lg px-2 py-1 text-xs flex-shrink-0">P4</div>
-                  <div>
-                    <p className="font-medium text-sm">GPU: RTX 4060 or RX 7700 XT as baseline</p>
-                    <p className="text-xs text-muted-foreground">Only upgrade GPU after addressing VRAM, storage, and RAM. A 12GB RTX 3060 beats an 8GB 4060.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 border border-purple-100 dark:border-purple-800">
-            <h3 className="text-lg font-semibold text-purple-900 dark:text-purple-200 mb-2">
-              Check Your PC Now
-            </h3>
-            <p className="text-purple-800 dark:text-purple-300 text-sm mb-4">
-              Stop guessing. Stop wasting money on games your PC cannot run. Use our free tool and know for sure in seconds.
-            </p>
-            <p className="text-purple-700 dark:text-purple-400 text-xs">
-              100% free. Instant results.
-            </p>
-          </div>
-        </div>
-      </div>
     </>
   );
 }
