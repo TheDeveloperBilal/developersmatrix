@@ -51,7 +51,7 @@ export default function FeaturedGrid() {
             >
               <div
                 aria-hidden="true"
-                className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-600/30 blur-3xl transition-all duration-500 group-hover:bg-brand-600/45"
+                className="absolute -right-32 -top-32 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(closest-side,rgba(124,58,237,0.45),transparent)] opacity-70 transition-opacity duration-500 group-hover:opacity-100"
               />
               <div
                 aria-hidden="true"

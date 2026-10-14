@@ -61,8 +61,8 @@ export default function SiteFooter() {
         aria-hidden="true"
         className="dot-grid absolute inset-0 opacity-[0.12] [background-image:radial-gradient(circle,rgba(255,255,255,0.6)_1px,transparent_1px)]"
       />
-      <div aria-hidden="true" className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-brand-600/25 blur-3xl" />
-      <div aria-hidden="true" className="absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-brand-800/30 blur-3xl" />
+      <div aria-hidden="true" className="absolute -left-56 -top-16 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(closest-side,rgba(124,58,237,0.25),transparent)]" />
+      <div aria-hidden="true" className="absolute -right-56 -bottom-16 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(closest-side,rgba(91,33,182,0.3),transparent)]" />
 
       <div className="shell relative py-14 lg:py-16">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">

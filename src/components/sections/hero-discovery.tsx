@@ -31,7 +31,7 @@ export default function HeroDiscovery({
   return (
     <section className="relative overflow-hidden bg-ink-50/50">
       <div aria-hidden="true" className="dot-grid absolute inset-0 [mask-image:radial-gradient(ellipse_75%_70%_at_50%_0%,black,transparent)]" />
-      <div aria-hidden="true" className="absolute -top-40 right-0 h-96 w-[40rem] rounded-full bg-brand-100/60 blur-3xl" />
+      <div aria-hidden="true" className="absolute -top-56 -right-16 h-[32rem] w-[48rem] rounded-full bg-[radial-gradient(closest-side,rgba(237,233,254,0.6),transparent)]" />
 
       <div className="shell relative grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1fr_1.05fr] lg:gap-16 lg:py-24 overflow-hidden">
         {/* Copy */}

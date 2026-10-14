@@ -47,7 +47,7 @@ export function FinalCta() {
       <div aria-hidden="true" className="dot-grid absolute inset-0 [mask-image:radial-gradient(ellipse_60%_70%_at_50%_50%,black,transparent)]" />
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-1/2 h-72 w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-100/50 blur-3xl"
+        className="absolute left-1/2 top-1/2 h-[26rem] w-[54rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(237,233,254,0.5),transparent)]"
       />
       <div className="shell relative text-center">
         <Reveal>
