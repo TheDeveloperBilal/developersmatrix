@@ -5,9 +5,10 @@
  * HTML, and through oneLine() before it lands in a subject line.
  */
 import { budgetLabel, serviceLabel } from '@/lib/contact-form';
+import { AUDIT_PRICING, REFUND_WINDOW_DAYS, findTier, tierPrice } from '@/lib/audit-pricing';
 
 export interface ContactFormData {
-  type: 'general' | 'collaboration';
+  type: 'general' | 'collaboration' | 'audit-order';
   name: string;
   email: string;
   message: string;
@@ -15,6 +16,9 @@ export interface ContactFormData {
   company?: string;
   service?: string;
   budget?: string;
+  /** Audit orders only. `site` is already reduced to a bare host name. */
+  tier?: string;
+  site?: string;
 }
 
 type Built = { subject: string; html: string; text: string };
@@ -139,6 +143,92 @@ Sent ${stamp()}`;
   return { subject, html, text };
 }
 
+/** Order from the Website Audit Services page, delivered to you. */
+export function buildAuditOrderEmail(data: ContactFormData): Built {
+  const tier = findTier(data.tier);
+  const tierName = tier ? tier.name : 'Unknown audit';
+  const price = tier ? tierPrice(tier) : 'Unknown';
+  const site = data.site || 'Not given';
+  const subject = `Audit order: ${tierName} (${price}) for ${oneLine(site, 80)}`;
+  const notes = data.message.trim() || 'No notes added.';
+
+  const html = shell(subject, `
+    <p style="margin:0 0 16px;font-size:15px;font-weight:600;">New audit order from the services page</p>
+    <table style="border-collapse:collapse;width:100%;">
+      ${row('Audit', tierName)}
+      ${row('Price', price)}
+      ${row('Website', site)}
+      ${row('Name', data.name)}
+      ${row('Email', data.email)}
+    </table>
+    ${messageBlock(notes)}
+    <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Next: confirm the scope and send the PayPal link within 24 hours. Press Reply to answer the customer directly.</p>
+  `);
+
+  const text = `New audit order from the services page
+
+Audit: ${tierName}
+Price: ${price}
+Website: ${site}
+Name: ${data.name}
+Email: ${data.email}
+
+${notes}
+
+Next: confirm the scope and send the PayPal link within 24 hours.
+
+Sent ${stamp()}`;
+
+  return { subject, html, text };
+}
+
+/** Receipt for an audit order, with the steps that follow. */
+function buildAuditOrderReceipt(data: ContactFormData, first: string): Built {
+  const tier = findTier(data.tier) ?? AUDIT_PRICING.tiers[0];
+  const label = `${tier.name} (${tierPrice(tier)})`;
+  const site = data.site || 'your website';
+  const subject = 'We received your audit order | DevelopersMatrix';
+  const delivery = tier.period
+    ? 'We send your first report after the first full re audit, and then one report every month.'
+    : `Your report arrives within ${tier.turnaround}.`;
+  const steps = [
+    `Within 24 hours we confirm the scope for ${site} and email you a PayPal payment link. Nothing is charged before then.`,
+    'Once you pay, you give us read access to Search Console and Analytics. Our email explains how.',
+    delivery,
+  ];
+  const refund = `If the report is late, or you are not satisfied and tell us within ${REFUND_WINDOW_DAYS} days of delivery, we refund the full amount.`;
+
+  const html = shell(subject, `
+    <p style="margin:0 0 16px;font-size:15px;">Hi ${esc(first)},</p>
+    <p style="margin:0 0 16px;font-size:15px;">Thank you for your ${esc(label)} order for ${esc(site)}. Here is what happens next:</p>
+    <ol style="margin:0 0 16px;padding-left:20px;font-size:15px;">
+      ${steps.map((st) => `<li style="margin:0 0 8px;">${esc(st)}</li>`).join('')}
+    </ol>
+    <p style="margin:0 0 16px;font-size:15px;">${esc(refund)}</p>
+    <p style="margin:0 0 16px;font-size:15px;">If you need to add something, just reply to this email.</p>
+    <p style="margin:0 0 4px;font-size:15px;">The DevelopersMatrix Team</p>
+    <p style="margin:0;font-size:13px;color:#6b7280;">developersmatrix.com</p>
+    <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">You received this because someone used this address to order a website audit on DevelopersMatrix. If that was not you, you can ignore this email and nothing will be charged.</p>
+  `);
+
+  const text = `Hi ${first},
+
+Thank you for your ${label} order for ${site}. Here is what happens next:
+
+${steps.map((st, i) => `${i + 1}. ${st}`).join('\n')}
+
+${refund}
+
+If you need to add something, just reply to this email.
+
+The DevelopersMatrix Team
+https://developersmatrix.com
+
+You received this because someone used this address to order a website audit on DevelopersMatrix. If that was not you, you can ignore this email and nothing will be charged.`;
+
+  return { subject, html, text };
+}
+
 /**
  * Short receipt sent to the visitor. It deliberately does not repeat their
  * message, so the form cannot be used to send someone else arbitrary text.
@@ -146,6 +236,7 @@ Sent ${stamp()}`;
 export function buildAutoReply(data: ContactFormData): Built {
   const isCollab = data.type === 'collaboration';
   const first = oneLine(data.name, 60).split(' ')[0] || 'there';
+  if (data.type === 'audit-order') return buildAuditOrderReceipt(data, first);
   const subject = isCollab
     ? 'We received your enquiry | DevelopersMatrix'
     : 'We received your message | DevelopersMatrix';

@@ -54,7 +54,7 @@ export default function TrendingNow({
               Trend reports worth reading
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink-500">
-              In depth reports on AI, careers, gaming and making money online, each showing the
+              Detailed reports on AI, careers, gaming and making money online, each showing the
               date it was last updated.
             </p>
           </div>

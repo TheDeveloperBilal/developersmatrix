@@ -50,7 +50,7 @@ const topicClusters = [
   {
     icon: TrendingUp,
     title: "Trends & Insights",
-    text: "Read in depth trend reports on AI, careers, security and gaming, each with the date it was last updated, plus practical guides on interviews, resumes and SEO.",
+    text: "Read detailed trend reports on AI, careers, security and gaming, each with the date it was last updated, plus practical guides on interviews, resumes and SEO.",
     links: [
       { label: "Trend Radar", href: "/trends" },
       { label: "Blog", href: "/blog" },
@@ -81,7 +81,7 @@ export default function SeoContentSection() {
               Free AI tools that do what they say
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink-500">
-              DevelopersMatrix brings free browser tools, in depth trend reports and practical
+              DevelopersMatrix brings free browser tools, detailed trend reports and practical
               career guides together in one place. Whether you are fixing your resume, auditing a
               website or planning a budget, each tool is built to save you time, with no signup.
             </p>

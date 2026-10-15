@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { sendEmail, isEmailConfigured } from '@/lib/email';
-import { buildGeneralEmail, buildCollaborationEmail, buildAutoReply } from '@/lib/email-templates';
+import { buildGeneralEmail, buildCollaborationEmail, buildAuditOrderEmail, buildAutoReply } from '@/lib/email-templates';
 import { rateLimit, callerKey } from '@/lib/website-audit/rate-limit';
 import {
   CONTACT_EMAIL,
   EMPTY_FORM,
   MIN_FILL_MS,
+  normalizeSite,
   validateForm,
   type FormKind,
   type FormValues,
@@ -33,7 +34,7 @@ export async function POST(request: Request) {
   }
 
   const kind = body.type;
-  if (kind !== 'general' && kind !== 'collaboration') {
+  if (kind !== 'general' && kind !== 'collaboration' && kind !== 'audit-order') {
     return NextResponse.json({ error: 'Unknown form.' }, { status: 400 });
   }
 
@@ -62,6 +63,8 @@ export async function POST(request: Request) {
     service: str(body.service).trim(),
     budget: str(body.budget).trim(),
     message: str(body.message).trim(),
+    tier: str(body.tier).trim(),
+    siteUrl: str(body.siteUrl).trim(),
   };
 
   const fieldErrors = validateForm(kind as FormKind, values);
@@ -89,9 +92,16 @@ export async function POST(request: Request) {
     company: values.company,
     service: values.service,
     budget: values.budget,
+    tier: values.tier,
+    site: normalizeSite(values.siteUrl),
   };
 
-  const notice = kind === 'general' ? buildGeneralEmail(data) : buildCollaborationEmail(data);
+  const notice =
+    kind === 'general'
+      ? buildGeneralEmail(data)
+      : kind === 'audit-order'
+        ? buildAuditOrderEmail(data)
+        : buildCollaborationEmail(data);
 
   try {
     await sendEmail({ ...notice, replyTo: values.email });

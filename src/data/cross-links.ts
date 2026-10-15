@@ -126,7 +126,7 @@ const tagToBlogMap: Record<string, string[]> = {
   'career': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', 'technical-interview-prep-2026', '5-job-offers-30-days-ai'],
   'interview': ['faang-interview-playbook-2026', 'technical-interview-prep-2026'],
   'resume': ['ats-resume-guide-2026', 'best-free-resume-builders-2026', 'built-resume-builder-48-hours'],
-  'startup': ['startup-funding-guide-2026', 'ai-automation-business-ideas-2026'],
+  'startup': ['ai-automation-business-ideas-2026', 'how-to-start-an-ai-automation-agency-2026'],
   'seo': ['website-audit-checklist-2026', 'on-site-seo-guide-2026'],
   'website': ['website-audit-checklist-2026', 'website-code-audit-guide'],
   'audit': ['website-audit-checklist-2026', 'website-code-audit-guide'],

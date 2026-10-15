@@ -39,7 +39,10 @@ Series A funding marks the transition from startup to scale-up.
     tags: ['Startup', 'Funding', 'Investment', 'Entrepreneurship'],
     publishedAt: '2026-01-10',
     readTime: 12,
-    image: '/images/blog/chatgpt-ai.jpg'
+    image: '/images/blog/chatgpt-ai.jpg',
+    // Around 100 words, too thin to rank. Kept out of the index, the sitemap and
+    // the guide counts until it is rewritten.
+    noindex: true
   }
 ];
 

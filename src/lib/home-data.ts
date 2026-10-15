@@ -312,7 +312,7 @@ export const goals: Goal[] = [
     id: "trends",
     label: "Find the latest trends",
     icon: TREND_RADAR_ICON,
-    headline: "In depth reports, kept current",
+    headline: "Detailed reports, kept current",
     tools: [
       { name: "Trend Radar", href: "/trends", icon: TREND_RADAR_ICON, note: "Reports by topic" },
       { name: "Can You Run It", href: "/tools/can-you-run-it", icon: TOOL_ICONS["can-you-run-it"], note: "Check your PC" },
@@ -357,7 +357,7 @@ export const toolUpdates: UpdateItem[] = [
 export const homeFaqs = [
   {
     question: "What is DevelopersMatrix?",
-    answer: `DevelopersMatrix is a free platform with ${TOOLS_LABEL} browser tools for resumes, cover letters, interview practice, website audits, prompts, budgeting and more, plus in depth trend reports and guides. No signup required.`,
+    answer: `DevelopersMatrix is a free platform with ${TOOLS_LABEL} browser tools for resumes, cover letters, interview practice, website audits, prompts, budgeting and more, plus detailed trend reports and guides. No signup required.`,
   },
   {
     question: "Are the tools on DevelopersMatrix really free?",
