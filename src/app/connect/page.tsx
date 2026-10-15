@@ -5,6 +5,8 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 import { siteConfig } from "@/data/config";
 import { TOOLS_LABEL } from "@/lib/home-data";
 import { CONTACT_EMAIL } from "@/lib/contact-form";
+import { getBlogSummaries } from "@/data/blog";
+import { getIndexableTrends } from "@/data/trends-data";
 import ConnectWithUsClient from "./ConnectWithUsClient";
 
 export const metadata: Metadata = {
@@ -21,6 +23,32 @@ export const metadata: Metadata = {
     url: `${siteConfig.url}/connect`,
   },
 };
+
+// Who reads which part of the site. Kept descriptive on purpose: no traffic
+// figures are published here while the site is still growing. Page level
+// numbers are shared privately with a quote.
+const audiences = [
+  {
+    who: "Developers and tech professionals",
+    reads: "AI agent guides, coding tool comparisons and developer career advice",
+    fits: "Developer tools, SaaS, courses",
+  },
+  {
+    who: "Job seekers and career changers",
+    reads: "The resume builder, cover letter generator, interview simulator and salary estimator",
+    fits: "Career platforms, job boards, learning",
+  },
+  {
+    who: "Site owners and marketers",
+    reads: "The website audit tool, SEO checklists and on page guides",
+    fits: "Hosting, SEO software, analytics",
+  },
+  {
+    who: "Creators and side hustlers",
+    reads: "Trend reports on AI side hustles, social media and making money online",
+    fits: "AI tools, creator software, templates",
+  },
+];
 
 const glance = [
   { term: "Free tools on the site", detail: `${TOOLS_LABEL}, plus trend reports and guides` },
@@ -49,7 +77,7 @@ const faqs = [
   {
     question: "Are traffic figures available before booking?",
     answer:
-      "Yes. Mention the pages or topics that interest you, and we will share current figures for them along with your quote.",
+      "Yes. Mention the pages or topics that interest you, and we will share current figures for them along with your quote, so you can judge a placement on real numbers before you pay.",
   },
   {
     question: "What happens if a reply does not arrive?",
@@ -58,6 +86,14 @@ const faqs = [
 ];
 
 export default function ConnectPage() {
+  const guideCount = getBlogSummaries().filter((p) => !p.noindex).length;
+  const trendCount = getIndexableTrends().length;
+  const library = [
+    { value: TOOLS_LABEL, label: "Free tools to use any time" },
+    { value: String(guideCount), label: "Practical guides on the blog" },
+    { value: String(trendCount), label: "Trend reports with update dates" },
+  ];
+
   return (
     <>
       <BreadcrumbSchema
@@ -133,6 +169,52 @@ export default function ConnectPage() {
                 </dl>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Audience */}
+        <section className="border-b border-ink-200 bg-white dark:border-ink-800 dark:bg-ink-900">
+          <div className="shell grid gap-12 py-14 lg:grid-cols-12 lg:gap-16 lg:py-20">
+            <div className="lg:col-span-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
+                A growing, focused audience
+              </p>
+              <h2 className="mt-2 font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-4xl">
+                Who You Reach With Us
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-ink-600 dark:text-ink-300">
+                DevelopersMatrix is a young site, and we would rather say so than inflate it. What we offer is a clear match: readers who arrive with a specific job to do, on pages built around that job.
+              </p>
+              <p className="mt-4 leading-relaxed text-ink-600 dark:text-ink-300">
+                That is also why budgets start small, from under $50, and why current figures for any page are shared privately with your quote.
+              </p>
+              <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 dark:border-ink-800 dark:bg-ink-800">
+                {library.map((s) => (
+                  <div key={s.label} className="flex flex-col-reverse justify-end gap-1.5 bg-white p-4 dark:bg-ink-900 sm:p-5">
+                    <dt className="text-xs leading-snug text-ink-600 dark:text-ink-300 sm:text-sm">{s.label}</dt>
+                    <dd className="font-sora text-2xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-3xl">{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <ul className="divide-y divide-ink-200 border-y border-ink-200 dark:divide-ink-800 dark:border-ink-800 lg:col-span-7">
+              {audiences.map((a, i) => (
+                <li key={a.who} className="grid gap-2 py-6 sm:grid-cols-[3rem_1fr] sm:gap-4">
+                  <span className="font-sora text-sm font-semibold tabular-nums text-brand-700 dark:text-brand-300 sm:pt-1">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-sora text-lg font-semibold text-ink-950 dark:text-white">{a.who}</h3>
+                    <p className="mt-1.5 leading-relaxed text-ink-600 dark:text-ink-300">
+                      <span className="font-medium text-ink-800 dark:text-ink-100">What they use:</span> {a.reads}.
+                    </p>
+                    <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
+                      <span className="font-medium">A natural fit for:</span> {a.fits}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

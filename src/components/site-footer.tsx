@@ -78,7 +78,7 @@ export default function SiteFooter() {
               />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
-              Free AI tools, in depth trend reports and practical guides for developers, creators and
+              Free AI tools, detailed trend reports and practical guides for developers, creators and
               professionals building better careers and businesses.
             </p>
             <p className="mt-4 text-sm text-white/55">

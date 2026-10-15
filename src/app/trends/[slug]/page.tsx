@@ -323,7 +323,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                   15 AI Side Hustles at a Glance
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 mb-4">
-                  Compare all 15 hustles by tools needed, earning ceiling, barrier to entry, and who each is best for.
+                  Compare all 15 hustles by tools needed, estimated earning ceiling, barrier to entry, and who each is best for.
                 </p>
                 <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
                   <Table>
@@ -366,10 +366,10 @@ export default async function TrendPage({ params }: TrendPageProps) {
             {trend.content.earningRanges && trend.content.earningRanges.length > 0 && (
               <section>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
-                  Real Income Data by Experience Level
+                  Estimated Income by Experience Level
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 mb-4">
-                  See what beginners, intermediates, and pros actually earn, plus how long until your first paid client.
+                  Rough estimates of what is possible with steady effort, not guarantees. For comparison, the median US side hustle earned $200 a month in Bankrate&apos;s June 2025 survey.
                 </p>
                 <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
                   <Table>

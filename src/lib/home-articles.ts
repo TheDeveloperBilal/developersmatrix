@@ -6,6 +6,7 @@
 // means only server code reads the corpus; the sections receive finished cards
 // as props instead.
 import blogsJson from "@/data/high-quality-blogs.json";
+import { getBlogSummaries } from "@/data/blog";
 
 export type Article = {
   title: string;
@@ -67,8 +68,10 @@ export const articles: Article[] = rawBlogs
 // The single newest blog (for featured right-side card)
 export const latestArticle = articles[0];
 
-// Total number of published guides, for honest counts on the homepage.
-export const guideCount = rawBlogs.length;
+// Total number of published guides, for honest counts on the homepage. Counted
+// the same way as the /blog index (every indexable post), so the two pages
+// always show the same number.
+export const guideCount = getBlogSummaries().filter((p) => !p.noindex).length;
 
 // Newest guides by publish date, for the homepage changelog.
 export function newestGuides(limit: number) {

@@ -1,14 +1,16 @@
 /**
- * Shared rules for the Contact and Connect forms.
+ * Shared rules for the Contact form, the Connect form and the audit order form.
  *
  * The browser and /api/contact both import this file, so a message that
  * passes the checks on the page also passes them on the server, and the
  * visitor sees the same wording in both places.
  */
 
+import { findTier } from '@/lib/audit-pricing';
+
 export const CONTACT_EMAIL = 'info@developersmatrix.com';
 
-export type FormKind = 'general' | 'collaboration';
+export type FormKind = 'general' | 'collaboration' | 'audit-order';
 
 export const SERVICES = [
   { value: 'sponsored-post', label: 'Sponsored or guest post' },
@@ -20,11 +22,12 @@ export const SERVICES = [
 ] as const;
 
 export const BUDGETS = [
-  { value: 'under-500', label: 'Under $500' },
+  { value: 'under-50', label: 'Under $50' },
+  { value: '50-100', label: '$50 to $100' },
+  { value: '100-250', label: '$100 to $250' },
+  { value: '250-500', label: '$250 to $500' },
   { value: '500-1000', label: '$500 to $1,000' },
-  { value: '1000-2500', label: '$1,000 to $2,500' },
-  { value: '2500-5000', label: '$2,500 to $5,000' },
-  { value: '5000-plus', label: '$5,000 or more' },
+  { value: '1000-plus', label: '$1,000 or more' },
   { value: 'not-sure', label: 'Not sure yet' },
 ] as const;
 
@@ -36,6 +39,7 @@ export const LIMITS = {
   email: 200,
   subject: 150,
   company: 120,
+  siteUrl: 200,
   messageMin: 20,
   messageMax: 5000,
 } as const;
@@ -51,6 +55,9 @@ export interface FormValues {
   service: string;
   budget: string;
   message: string;
+  /** Audit order form only. */
+  tier: string;
+  siteUrl: string;
 }
 
 export const EMPTY_FORM: FormValues = {
@@ -61,6 +68,8 @@ export const EMPTY_FORM: FormValues = {
   service: '',
   budget: '',
   message: '',
+  tier: '',
+  siteUrl: '',
 };
 
 export type FieldErrors = Partial<Record<keyof FormValues, string>>;
@@ -69,6 +78,24 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export function isEmail(value: string): boolean {
   return EMAIL_RE.test(value.trim());
+}
+
+const HOST_RE = /^(?=.{4,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
+
+/**
+ * Turns whatever was typed ("https://www.Example.com/shop?x=1") into a bare
+ * host name ("www.example.com"). Returns an empty string when it is not a
+ * real looking domain, so only a clean host ever reaches an email.
+ */
+export function normalizeSite(value: string): string {
+  const host = value
+    .trim()
+    .toLowerCase()
+    .replace(/^[a-z]+:\/\//, '')
+    .split(/[/?#\s]/)[0]
+    .replace(/:\d+$/, '')
+    .replace(/\.$/, '');
+  return HOST_RE.test(host) ? host : '';
 }
 
 export function serviceLabel(value: string | undefined): string {
@@ -101,6 +128,15 @@ export function validateForm(kind: FormKind, v: FormValues): FieldErrors {
     if (!SERVICES.some((s) => s.value === v.service)) e.service = 'Please pick what you are interested in.';
     if (v.budget && !BUDGETS.some((b) => b.value === v.budget)) e.budget = 'Please pick a budget from the list.';
     if (v.company.trim().length > LIMITS.company) e.company = `Please keep this under ${LIMITS.company} characters.`;
+  }
+
+  if (kind === 'audit-order') {
+    if (!findTier(v.tier)) e.tier = 'Please choose an audit.';
+    if (!v.siteUrl.trim()) e.siteUrl = 'Please add the website you want audited.';
+    else if (v.siteUrl.trim().length > LIMITS.siteUrl || !normalizeSite(v.siteUrl)) e.siteUrl = 'That does not look like a website address. Try something like example.com.';
+    // Notes are optional on an order.
+    if (message.length > LIMITS.messageMax) e.message = `Please keep this under ${LIMITS.messageMax} characters.`;
+    return e;
   }
 
   if (!message) e.message = 'Please write a message.';

@@ -4,73 +4,12 @@ import Link from 'next/link';
 import { BreadcrumbSchema, FAQSchema } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/data/config';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { AUDIT_PRICING, REFUND_WINDOW_DAYS } from '@/lib/audit-pricing';
+import AuditOrderForm from './AuditOrderForm';
 
-// ---------------------------------------------------------------------------
-// PRICING. Everything on this page and in the structured data reads from this
-// block, so changing a number here changes it everywhere including the schema.
-//
-// How these were set:
-//   Sept 2026: $199 / $499 / $249 a month, priced against the market.
-//   Oct 2026: lowered by the owner to $9.99 / $49 / $15 a month so the first
-//   clients can try the service while the site has no reviews or case studies.
-//   Revisit once there are published results to point at.
-// ---------------------------------------------------------------------------
-const PRICING = {
-  currency: 'USD',
-  currencySymbol: '$',
-  tiers: [
-    {
-      id: 'essential',
-      name: 'Essential Audit',
-      price: 9.99,
-      turnaround: '3 working days',
-      summary: 'A full technical and on page review of a single site, delivered as a prioritised report.',
-      bestFor: 'Small business sites and portfolios under 100 pages',
-      includes: [
-        'Crawl of up to 100 pages',
-        'Technical SEO review: indexing, canonicals, redirects, status codes',
-        'Core Web Vitals and page speed analysis on your five most important pages',
-        'On page review: titles, meta descriptions, heading structure, internal links',
-        'Mobile rendering and accessibility check',
-        'Findings ranked by impact, with the fix for each one written out',
-      ],
-    },
-    {
-      id: 'complete',
-      name: 'Complete Audit',
-      price: 49,
-      turnaround: '5 working days',
-      featured: true,
-      summary: 'Everything in Essential, plus content, structured data and a competitor comparison.',
-      bestFor: 'Content sites, ecommerce and anyone whose traffic has dropped',
-      includes: [
-        'Crawl of up to 1,000 pages',
-        'Everything in the Essential Audit',
-        'Content review: thin pages, duplication and keyword cannibalisation',
-        'Structured data validation across every template',
-        'Backlink profile review, including spam and disavow candidates',
-        'Comparison against three competitors you name',
-        'A 45 minute call to walk through the findings',
-      ],
-    },
-    {
-      id: 'ongoing',
-      name: 'Ongoing Monitoring',
-      price: 15,
-      period: 'month',
-      turnaround: 'Monthly report',
-      summary: 'A monthly re audit so regressions get caught in weeks rather than quarters.',
-      bestFor: 'Sites that ship changes often, or teams without an in house SEO',
-      includes: [
-        'Monthly full re audit',
-        'Alerts when a check that was passing starts failing',
-        'Search Console and Analytics reviewed alongside the crawl',
-        'A short written summary of what changed and what to do',
-        'Email access for questions between reports',
-      ],
-    },
-  ],
-};
+// Pricing lives in lib/audit-pricing.ts so the order form and the order emails
+// quote exactly the same names, prices and turnaround times as this page.
+const PRICING = AUDIT_PRICING;
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Website Audit Services: Scope and Pricing',
@@ -108,19 +47,29 @@ const faqs = [
       `The Essential Audit is delivered in ${PRICING.tiers[0].turnaround} and the Complete Audit in ${PRICING.tiers[1].turnaround}, measured from the point we have access to your Search Console and Analytics. Larger sites and ecommerce catalogues can take longer, and if that applies we say so before taking payment rather than after.`,
   },
   {
-    question: 'What do I actually receive?',
+    question: 'What does the audit report include?',
     answer:
-      'A written report listing every finding, ranked by how much fixing it is worth rather than by severity score. Each finding names the affected URLs, explains what is wrong in plain language, and gives the specific fix. No 40 page PDF of automated output with a health score on the front. The Complete Audit also includes a call to walk through it.',
+      'A written report listing every finding, ranked by how much fixing it is worth rather than by severity score. Each finding names the affected URLs, explains what is wrong in plain language, and gives the specific fix. No 40 page PDF of automated output with a health score on the front.',
   },
   {
-    question: 'Do I need to give you access to my website?',
+    question: 'Does the audit need access to the website?',
     answer:
       'Read access to Google Search Console and Google Analytics, which takes two minutes to grant and which you can revoke at any time. We do not need login access to your CMS, hosting or server, and we do not ask for it. If a finding needs a change made, we describe the change and you or your developer make it.',
   },
   {
-    question: 'Will an audit improve my rankings?',
+    question: 'Will an audit improve search rankings?',
     answer:
       'An audit does not improve rankings by itself. It tells you what to change. Implementing the changes is what moves things, and how much they move depends on what was wrong, how competitive your market is, and how much authority your site already has. Anyone who promises a specific ranking outcome from an audit is guessing. What an audit reliably does is stop you spending money on the wrong problem.',
+  },
+  {
+    question: 'How does payment for a website audit work?',
+    answer:
+      'By PayPal. There is no payment form on this site and we never ask for card details. Send the order form, and within 24 hours we email you the confirmed scope and a PayPal payment link. You can pay with your PayPal balance, or with a debit or credit card through PayPal where your country supports it. Work starts once the payment arrives. Ongoing Monitoring is billed monthly through PayPal and can be cancelled at any time.',
+  },
+  {
+    question: 'What is the refund policy for website audits?',
+    answer:
+      `You get your money back. If the report arrives later than the promised turnaround, we refund the full amount. If it arrives on time but you are not satisfied, tell us within ${REFUND_WINDOW_DAYS} days of delivery and we refund the full amount, with no forms to fill in. The same promise applies to every monthly monitoring report. Refunds go back through PayPal to the account you paid from.`,
   },
   {
     question: 'Can you fix the issues as well as find them?',
@@ -170,7 +119,7 @@ export default function WebsiteAuditServicesPage() {
 
       <main className="min-h-screen bg-background">
         {/* Hero */}
-        <section className="border-b bg-muted/20">
+        <section className="border-b bg-muted/20 border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <p className="text-xs font-medium text-muted-foreground mb-3">
               Fixed pricing. No sales call.
@@ -192,24 +141,36 @@ export default function WebsiteAuditServicesPage() {
               </a>
               <Link
                 href="/tools/website-audit"
-                className="inline-flex items-center px-5 py-2.5 rounded-lg border font-medium hover:bg-muted transition-colors"
+                className="inline-flex items-center px-5 py-2.5 rounded-lg border font-medium hover:bg-muted transition-colors border-border"
               >
                 Run the free audit first
               </Link>
               <a
                 href="/sample-website-audit-report.pdf"
-                className="inline-flex items-center px-5 py-2.5 rounded-lg border font-medium hover:bg-muted transition-colors"
+                className="inline-flex items-center px-5 py-2.5 rounded-lg border font-medium hover:bg-muted transition-colors border-border"
               >
                 See a sample report
               </a>
             </div>
+            <ul className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-x-6">
+              {[
+                'Pay by PayPal after we confirm the scope',
+                `Full refund if late, or if you are not satisfied within ${REFUND_WINDOW_DAYS} days`,
+                'Reply within 24 hours',
+              ].map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <span className="text-blue-600 dark:text-blue-400" aria-hidden="true">✓</span>
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
         {/* Start free */}
-        <section className="border-b">
+        <section className="border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="rounded-xl border bg-blue-50 dark:bg-blue-950/20 p-6">
+            <div className="rounded-xl border bg-blue-50 dark:bg-blue-950/20 p-6 border-border">
               <h2 className="text-lg font-semibold mb-2">Start with the free tool, not with us</h2>
               <p className="text-sm text-muted-foreground max-w-3xl">
                 Our{' '}
@@ -226,7 +187,7 @@ export default function WebsiteAuditServicesPage() {
         </section>
 
         {/* Pricing */}
-        <section id="pricing" className="border-b">
+        <section id="pricing" className="border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-2">What a website audit costs</h2>
             <p className="text-muted-foreground mb-8 max-w-2xl">
@@ -273,24 +234,113 @@ export default function WebsiteAuditServicesPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href="/contact"
+                  <a
+                    href={`#order-${tier.id}`}
                     className={`text-center px-4 py-2.5 rounded-lg font-medium transition-colors ${
                       tier.featured
                         ? 'bg-blue-600 text-white hover:bg-blue-700'
-                        : 'border hover:bg-muted'
+                        : 'border border-border hover:bg-muted'
                     }`}
                   >
-                    Request this audit
-                  </Link>
+                    Order the {tier.name}
+                  </a>
                 </div>
               ))}
+            </div>
+            <p className="mt-6 text-sm text-muted-foreground">
+              Nothing is paid on this site. After you order, we confirm the scope and email a PayPal link.
+            </p>
+          </div>
+        </section>
+
+        {/* Order */}
+        <section id="order" className="border-b bg-muted/20 scroll-mt-20 border-border">
+          {PRICING.tiers.map((t) => (
+            <span key={t.id} id={`order-${t.id}`} aria-hidden="true" className="block scroll-mt-20" />
+          ))}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h2 className="text-2xl font-bold mb-2">Order your website audit</h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl">
+              Pick an audit, tell us the website, and we take it from there. Nothing is charged
+              until you have seen the confirmed scope.
+            </p>
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+              <div className="order-2 space-y-8 lg:order-1 lg:col-span-5">
+                <div>
+                  <h3 className="font-semibold mb-4">What happens next</h3>
+                  <ol className="space-y-5">
+                    {[
+                      {
+                        t: 'Send the order form',
+                        b: 'Choose an audit and add your website. Nothing is charged at this point.',
+                      },
+                      {
+                        t: 'We confirm the scope within 24 hours',
+                        b: 'We check the size of the site and email you the confirmed scope with a PayPal payment link. If the site does not fit the audit you chose, we say so before you pay.',
+                      },
+                      {
+                        t: 'Pay and share read access',
+                        b: 'Pay through the PayPal link, then give us read access to Search Console and Analytics. Our email explains how, and it takes about two minutes.',
+                      },
+                      {
+                        t: 'Receive your report',
+                        b: `The Essential Audit arrives within ${PRICING.tiers[0].turnaround} and the Complete Audit within ${PRICING.tiers[1].turnaround}. Monitoring reports arrive once a month.`,
+                      },
+                    ].map((s, i) => (
+                      <li key={s.t} className="flex gap-4">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+                          {i + 1}
+                        </span>
+                        <div>
+                          <p className="font-medium">{s.t}</p>
+                          <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{s.b}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <div id="payment-and-refunds" className="rounded-xl border bg-background p-5 sm:p-6 scroll-mt-20 border-border">
+                  <h3 className="font-semibold mb-3">Payment and refunds</h3>
+                  <ul className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                    <li>
+                      <span className="font-medium text-foreground">How you pay.</span> By PayPal link, sent by
+                      email once the scope is confirmed. Use your PayPal balance, or a debit or credit card
+                      through PayPal where your country supports it. We never ask for card details.
+                    </li>
+                    <li>
+                      <span className="font-medium text-foreground">When you pay.</span> Before work starts.
+                      Turnaround is counted from the payment and read access, not from the order.
+                    </li>
+                    <li>
+                      <span className="font-medium text-foreground">Late report.</span> If your report arrives
+                      after the promised turnaround, we refund the full amount.
+                    </li>
+                    <li>
+                      <span className="font-medium text-foreground">Not satisfied.</span> Tell us within{' '}
+                      {REFUND_WINDOW_DAYS} days of delivery and we refund the full amount. Just reply to the
+                      delivery email.
+                    </li>
+                    <li>
+                      <span className="font-medium text-foreground">Monitoring.</span> Billed monthly through
+                      PayPal. Cancel any time and the next month is not charged. The refund promise applies to
+                      every monthly report.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="order-1 lg:order-2 lg:col-span-7">
+                <div className="rounded-xl border bg-background p-5 shadow-sm sm:p-8 border-border">
+                  <AuditOrderForm />
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* What you get */}
-        <section className="border-b">
+        <section className="border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-6">What the report actually looks like</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -312,7 +362,7 @@ export default function WebsiteAuditServicesPage() {
                   body: 'A crawl on its own has no idea which pages matter. Findings are cross referenced with your Search Console and Analytics so the priorities reflect your actual traffic.',
                 },
               ].map((c) => (
-                <div key={c.title} className="rounded-xl border p-5">
+                <div key={c.title} className="rounded-xl border p-5 border-border">
                   <h3 className="font-semibold mb-2">{c.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{c.body}</p>
                 </div>
@@ -322,9 +372,9 @@ export default function WebsiteAuditServicesPage() {
         </section>
 
         {/* Sample report */}
-        <section className="border-b">
+        <section className="border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="rounded-xl border p-6 sm:p-8 max-w-4xl">
+            <div className="rounded-xl border p-6 sm:p-8 max-w-4xl border-border">
               <h2 className="text-2xl font-bold mb-3">Read a real report before you buy</h2>
               <p className="text-muted-foreground mb-5">
                 Three pages from an actual Complete Audit, with the client name and URLs
@@ -345,7 +395,7 @@ export default function WebsiteAuditServicesPage() {
         </section>
 
         {/* Honest section */}
-        <section className="border-b">
+        <section className="border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-6">When you should not buy an audit</h2>
             <div className="grid sm:grid-cols-3 gap-6 max-w-5xl">
@@ -363,7 +413,7 @@ export default function WebsiteAuditServicesPage() {
                   b: 'An audit is only worth what gets implemented. If there is no developer time available for the next six months, the report will go stale before it gets used.',
                 },
               ].map((c) => (
-                <div key={c.t} className="rounded-xl border border-dashed p-5">
+                <div key={c.t} className="rounded-xl border border-dashed p-5 border-border">
                   <h3 className="font-semibold mb-2">{c.t}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{c.b}</p>
                 </div>
@@ -373,7 +423,7 @@ export default function WebsiteAuditServicesPage() {
         </section>
 
         {/* FAQ */}
-        <section className="border-b">
+        <section className="border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-6">Common questions</h2>
             <div className="space-y-6 max-w-3xl">

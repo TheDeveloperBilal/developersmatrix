@@ -47,7 +47,7 @@ export default function HeroDiscovery({
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-500 sm:text-lg">
-            DevelopersMatrix combines {toolsLabel} free AI tools, in depth technology trend reports
+            DevelopersMatrix combines {toolsLabel} free AI tools, detailed technology trend reports
             and practical career guides into one platform. Everything free, everything in your
             browser.
           </p>
