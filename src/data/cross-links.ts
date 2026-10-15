@@ -55,7 +55,7 @@ const trendToToolsMap: Record<string, string[]> = {
 };
 
 const trendToBlogsMap: Record<string, string[]> = {
-  'ai-agents-autonomous-systems-2026': ['autonomous-ai-agents-by-industry'],
+  'ai-agents-autonomous-systems-2026': ['autonomous-ai-agents-examples-2026'],
   'ai-coding-assistants-comparison-2026': ['ai-tools-developers-2026', 'faang-interview-playbook-2026'],
   'learn-programming-2026-complete-guide': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
   'tech-skills-demand-2026': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', '5-job-offers-30-days-ai'],
@@ -117,10 +117,10 @@ const tagToToolMap: Record<string, string[]> = {
 };
 
 const tagToBlogMap: Record<string, string[]> = {
-  'ai': ['autonomous-ai-agents-by-industry', 'ai-tools-developers-2026'],
-  'artificial intelligence': ['autonomous-ai-agents-by-industry', 'ai-tools-developers-2026'],
-  'agent': ['autonomous-ai-agents-by-industry'],
-  'automation': ['autonomous-ai-agents-by-industry', 'ai-automation-business-ideas-2026'],
+  'ai': ['autonomous-ai-agents-examples-2026', 'ai-tools-developers-2026'],
+  'artificial intelligence': ['autonomous-ai-agents-examples-2026', 'ai-tools-developers-2026'],
+  'agent': ['autonomous-ai-agents-examples-2026'],
+  'automation': ['autonomous-ai-agents-examples-2026', 'ai-automation-business-ideas-2026'],
   'programming': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', 'technical-interview-prep-2026'],
   'coding': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', 'technical-interview-prep-2026'],
   'career': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', 'technical-interview-prep-2026', '5-job-offers-30-days-ai'],
