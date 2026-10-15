@@ -177,16 +177,16 @@ export default function ConnectPage() {
           <div className="shell grid gap-12 py-14 lg:grid-cols-12 lg:gap-16 lg:py-20">
             <div className="lg:col-span-5">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
-                A growing, focused audience
+                A focused, high intent audience
               </p>
               <h2 className="mt-2 font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-4xl">
                 Who You Reach With Us
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-                DevelopersMatrix is a young site, and we would rather say so than inflate it. What we offer is a clear match: readers who arrive with a specific job to do, on pages built around that job.
+                DevelopersMatrix is built around intent. Readers arrive with a specific job to do, whether that is fixing a website, preparing for an interview or finding an AI tool worth paying for, and every page is designed around that job. Your brand appears at the moment it is most useful.
               </p>
               <p className="mt-4 leading-relaxed text-ink-600 dark:text-ink-300">
-                That is also why budgets start small, from under $50, and why current figures for any page are shared privately with your quote.
+                Budgets start from under $50, and current figures for any page you are interested in are shared with your quote.
               </p>
               <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 dark:border-ink-800 dark:bg-ink-800">
                 {library.map((s) => (
