@@ -64,6 +64,14 @@ const nextConfig: NextConfig = {
         destination: "/blog/website-audit-checklist-2026",
         permanent: true,
       },
+      // AI agents posts merged on 15 Oct 2026. The examples post held the stronger
+      // positions for the shared agent queries, so it keeps the URL and now covers
+      // all twelve industries plus the implementation plan from the old post.
+      {
+        source: "/blog/autonomous-ai-agents-by-industry",
+        destination: "/blog/autonomous-ai-agents-examples-2026",
+        permanent: true,
+      },
       // AI side hustle cluster merged on 2 Oct 2026. Both posts competed with the
       // trend page for the same queries; the trend page held the stronger positions
       // (9.5 average vs 14.3 and 16.7) and almost all impressions, so it keeps the URL.
