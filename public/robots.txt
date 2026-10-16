@@ -67,8 +67,9 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+# ByteDance crawler: heavy crawling, no referral traffic
 User-agent: Bytespider
-Allow: /
+Disallow: /
 
 User-agent: CCBot
 Allow: /

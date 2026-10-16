@@ -1,0 +1,8 @@
+# Files Vercel does not need to build or serve the site.
+# Every pattern starts with "/" so it only matches the repository root.
+# Without it, "seo/" would also hide src/lib/seo and src/components/seo.
+/seo/
+/scripts/
+/data-src/
+/*.md
+!/README.md

@@ -242,7 +242,7 @@ export default function WebsiteAuditServicesPage() {
                         : 'border border-border hover:bg-muted'
                     }`}
                   >
-                    Order the {tier.name}
+                    {tier.period ? `Start ${tier.name}` : `Order the ${tier.name}`}
                   </a>
                 </div>
               ))}

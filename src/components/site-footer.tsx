@@ -111,7 +111,7 @@ export default function SiteFooter() {
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.name}>
-                    <Link
+                    <Link prefetch={false}
                       href={link.href}
                       className="text-sm text-white/60 transition-colors hover:text-white"
                     >
