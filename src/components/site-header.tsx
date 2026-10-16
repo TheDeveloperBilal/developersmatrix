@@ -53,7 +53,7 @@ function MegaMenu() {
             <ul className="space-y-1">
               {featuredTools.map((tool) => (
                 <li key={tool.name}>
-                  <Link
+                  <Link prefetch={false}
                     href={tool.href}
                     className="group flex gap-3.5 rounded-xl p-2.5 transition-colors hover:bg-brand-50"
                   >
@@ -93,7 +93,7 @@ function MegaMenu() {
             <ul className="space-y-px">
               {moreTools.map((tool) => (
                 <li key={tool.name}>
-                  <Link
+                  <Link prefetch={false}
                     href={tool.href}
                     className="group flex items-center gap-3 rounded-lg px-2.5 py-2 transition-colors hover:bg-brand-50"
                   >
@@ -117,7 +117,7 @@ function MegaMenu() {
             <ul className="space-y-0.5">
               {categories.map((cat) => (
                 <li key={cat.name}>
-                  <Link
+                  <Link prefetch={false}
                     href={cat.href}
                     className="group flex items-center justify-between rounded-lg px-2.5 py-2 transition-colors hover:bg-white"
                   >
@@ -129,7 +129,7 @@ function MegaMenu() {
                 </li>
               ))}
             </ul>
-            <Link
+            <Link prefetch={false}
               href="/tools"
               className="mt-4 inline-flex items-center gap-1.5 px-2.5 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700"
             >
@@ -144,7 +144,7 @@ function MegaMenu() {
           <p className="text-xs text-ink-400">
             {TOOLS_LABEL} free tools · No signup · Works in your browser
           </p>
-          <Link
+          <Link prefetch={false}
             href="/tools/website-audit"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 hover:text-brand-700"
           >
@@ -263,7 +263,7 @@ export default function SiteHeader() {
           </div>
 
           {navLinks.map((link) => (
-            <Link
+            <Link prefetch={false}
               key={link.name}
               href={link.href}
               className="rounded-full px-4 py-2.5 text-[0.9375rem] font-medium text-ink-700 transition-colors hover:bg-brand-50 hover:text-brand-700"
@@ -335,7 +335,7 @@ export default function SiteHeader() {
                     All tools
                   </p>
                   {[...featuredTools, ...moreTools].map((tool) => (
-                    <Link
+                    <Link prefetch={false}
                       key={tool.name}
                       href={tool.href}
                       onClick={() => setMobileOpen(false)}
@@ -365,7 +365,7 @@ export default function SiteHeader() {
                   </p>
                   <div className="grid grid-cols-2 gap-1">
                     {categories.map((cat) => (
-                      <Link
+                      <Link prefetch={false}
                         key={cat.name}
                         href={cat.href}
                         onClick={() => setMobileOpen(false)}
@@ -380,7 +380,7 @@ export default function SiteHeader() {
             )}
 
             {navLinks.map((link) => (
-              <Link
+              <Link prefetch={false}
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}

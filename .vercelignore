@@ -1,0 +1,7 @@
+# Files Vercel does not need to build or serve the site.
+seo/
+scripts/
+data-src/
+*.md
+!README.md
+disavow-developersmatrix.txt
