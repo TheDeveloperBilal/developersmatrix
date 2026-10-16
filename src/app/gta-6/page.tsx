@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GTA 6 Release Date, Price and PC News",
     description: "GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S. Preorders are open at $79.99 and $99.99. No PC version has been announced.",
-    images: ['/og-gta6.png'],
+    images: ['/images/blog/gta6-news.jpg'],
   },
 };
 
@@ -65,7 +65,7 @@ export default function GTA6Page() {
       <ArticleSchema
         headline="GTA 6 Release Date November 19 2026 Confirmed"
         description="Official confirmation, system requirements, gameplay features, and latest news about Grand Theft Auto VI releasing November 19, 2026."
-        image={`${siteConfig.url}/og-gta6.png`}
+        image={`${siteConfig.url}/images/blog/gta6-news.jpg`}
         url={`${siteConfig.url}/gta-6`}
         datePublished="2026-05-08T00:00:00+00:00"
         dateModified="2026-10-08T00:00:00+00:00"
