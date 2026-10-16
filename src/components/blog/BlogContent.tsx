@@ -274,7 +274,10 @@ export function BlogContent({ content }: { content: string }) {
       // Ordered lists
       .replace(/^(\d+)\.\s+(.+)$/gm, '<li class="blog-oli" data-num="$1">$2</li>')
       // Links [text](url)
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="blog-link" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m: string, text: string, href: string) =>
+        href.startsWith('/') || href.startsWith('#')
+          ? `<a href="${href}" class="blog-link">${text}</a>`
+          : `<a href="${href}" class="blog-link" target="_blank" rel="noopener noreferrer">${text}</a>`)
       // Auto-link bare URLs (not already in <a> tags)
       .replace(/(?<!["\'>]|href=\")(https?:\/\/[^\s<>"{}|\^`\[\]]+)/g, '<a href="$1" class="blog-link" target="_blank" rel="noopener noreferrer">$1</a>')
       // Horizontal rule
