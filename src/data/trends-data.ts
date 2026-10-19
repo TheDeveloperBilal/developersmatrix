@@ -380,7 +380,7 @@ export const allTrends: TrendItem[] = [
       ],
       resources: [
         { title: 'Multiagent Systems Course', url: 'https://www.deeplearning.ai/', type: 'course' },
-        { title: 'Enterprise AI Agents Case Studies', url: 'https://www.gartner.com/en/newsroom/artificial-intelligence', type: 'article' }
+        { title: 'Gartner: 40% of Enterprise Apps Will Feature AI Agents by 2026', url: 'https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps-will-feature-task-specific-ai-agents-by-2026-up-from-less-than-5-percent-in-2025', type: 'article' }
       ]
     },
     metaTitle: 'Multiagent Systems for Enterprise 2026',
@@ -444,7 +444,7 @@ export const allTrends: TrendItem[] = [
         { title: 'AI Content Creation Business: Build a $10K/Month Agency', url: '/blog/ai-content-creation-business-2026', type: 'article' },
         { title: 'Upwork Future Workforce Index 2026', url: 'https://investors.upwork.com/news-releases/news-release-details/upworks-future-workforce-index-2026-how-ai-redefining-value-work', type: 'article' },
         { title: 'Bankrate Side Hustle Survey 2025', url: 'https://www.bankrate.com/press-releases/fewer-americans-have-a-side-hustle-in-2025/', type: 'article' },
-        { title: 'Freelancing with AI Best Practices', url: 'https://www.upwork.com/resources/freelancer-skills', type: 'article' },
+        { title: 'Upwork In Demand Skills 2026', url: 'https://investors.upwork.com/news-releases/news-release-details/upworks-demand-skills-2026-demand-top-ai-skills-more-doubles-ai', type: 'article' },
         { title: 'Digital Product Creation Guide', url: 'https://www.shopify.com/blog/digital-products', type: 'article' }
       ],
       faqs: [
@@ -1236,8 +1236,7 @@ export const allTrends: TrendItem[] = [
         'AI tools help compete with larger teams'
       ],
       resources: [
-        { title: 'Creator Economy Report 2026', url: 'https://www.statista.com/topics/7613/content-creator-economy/', type: 'article' },
-        { title: 'Linktree Creator Guide', url: 'https://linktr.ee/creator-guide', type: 'article' }
+        { title: 'Creator Economy Report 2026', url: 'https://www.statista.com/topics/7613/content-creator-economy/', type: 'article' }
       ],
       faqs: [
         { question: 'How much money can a beginner creator realistically make in 2026?', answer: 'Most beginner creators earn nothing for the first 6 to 12 months while building an audience. The creator middle class, those earning $50,000 to $200,000 annually, typically has 2 to 4 years of consistent content creation. The key is treating it as a business from day one, not a hobby that might pay off.' },
@@ -1457,7 +1456,7 @@ export const allTrends: TrendItem[] = [
         { question: 'What skills do I need to succeed with no-code?', answer: 'You do not need coding skills, but you do need logical thinking and a basic understanding of databases, user flows, and design. The most successful no-code builders think like product managers: they define requirements clearly, map user journeys, and iterate based on feedback. Familiarity with design tools like Figma and an understanding of APIs and webhooks will accelerate your builds significantly.' },
       ],
       resources: [
-        { title: 'No-Code Tools Comparison', url: 'https://zapier.com/blog/best-no-code-apps/', type: 'article' },
+        { title: 'Zapier: The Best No Code App Builders', url: 'https://zapier.com/blog/best-no-code-app-builder/', type: 'article' },
         { title: 'Bubble Academy', url: 'https://bubble.io/academy', type: 'course' }
       ]
     },
