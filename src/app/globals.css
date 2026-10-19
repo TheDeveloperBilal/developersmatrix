@@ -581,6 +581,7 @@
 .blog-content-wrapper .blog-link {
   color: oklch(0.55 0.25 270);
   font-weight: 500;
+  overflow-wrap: anywhere;
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 2px;
@@ -1105,4 +1106,41 @@ svg[data-draw].draw-in :is(path, line, circle, rect, polyline, polygon, ellipse)
     stroke-dashoffset: 0 !important;
     animation: none !important;
   }
+}
+
+/* Stacked tables on phones. A table with .table-stack keeps its normal
+   layout from 640px up. Below that, each row becomes a small card: the row
+   header is the card title and every cell shows its column name from
+   data-label, so nothing scrolls sideways. .table-stack--block puts the
+   label above the value, for cells that hold sentences, and
+   .table-stack--grid lays three short values side by side under the title. */
+@media (max-width: 639.98px) {
+  .table-stack { min-width: 0; }
+  .table-stack thead {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  .table-stack tbody,
+  .table-stack tr,
+  .table-stack tbody th,
+  .table-stack tbody td { display: block; }
+  .table-stack tbody tr { padding: 0.875rem 1rem; }
+  .table-stack tbody th,
+  .table-stack tbody td { padding: 0; border: 0; text-align: left; white-space: normal; }
+  .table-stack tbody th { margin-bottom: 0.375rem; font-weight: 600; }
+  .table-stack td[data-label] {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; padding: 0.125rem 0; text-align: right;
+  }
+  .table-stack td[data-label]::before {
+    content: attr(data-label); flex: none; max-width: 50%; text-align: left;
+    font-family: var(--font-inter, ui-sans-serif), system-ui, sans-serif;
+    font-size: 0.75rem; font-weight: 500; color: var(--muted-foreground);
+  }
+  .table-stack--block td[data-label] { display: block; padding: 0.25rem 0; text-align: left; }
+  .table-stack--block td[data-label]::before { display: block; max-width: none; margin-bottom: 0.125rem; }
+  .table-stack--grid tbody tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0.75rem; }
+  .table-stack--grid tbody th { grid-column: 1 / -1; }
+  .table-stack--grid td[data-label] { display: block; text-align: left; }
+  .table-stack--grid td[data-label]::before { display: block; max-width: none; margin-bottom: 0.125rem; font-size: 0.6875rem; }
 }

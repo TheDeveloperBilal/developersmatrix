@@ -178,7 +178,7 @@ export default function AIContentDetectorPage() {
                   34 it had never seen.
                 </p>
                 <div className="mb-4 overflow-x-auto">
-                  <table className="w-full min-w-[480px] border-collapse text-sm">
+                  <table className="table-stack table-stack--grid w-full border-collapse text-sm sm:min-w-[480px]">
                     <thead>
                       <tr className="border-b border-gray-200 text-left dark:border-gray-700">
                         <th className="py-2 pr-4 font-semibold text-gray-900 dark:text-white">All 57 texts</th>
@@ -189,16 +189,16 @@ export default function AIContentDetectorPage() {
                     </thead>
                     <tbody className="text-gray-700 dark:text-gray-300">
                       <tr className="border-b border-gray-100 dark:border-gray-800">
-                        <td className="py-2 pr-4">30 human texts</td>
-                        <td className="py-2 pr-4">18</td>
-                        <td className="py-2 pr-4">12</td>
-                        <td className="py-2">0</td>
+                        <th scope="row" className="py-2 pr-4 text-left font-medium text-gray-900 dark:text-white">30 human texts</th>
+                        <td data-label="Likely human" className="py-2 pr-4">18</td>
+                        <td data-label="Unclear" className="py-2 pr-4">12</td>
+                        <td data-label="Likely AI" className="py-2">0</td>
                       </tr>
                       <tr>
-                        <td className="py-2 pr-4">27 AI texts</td>
-                        <td className="py-2 pr-4">0</td>
-                        <td className="py-2 pr-4">11</td>
-                        <td className="py-2">16</td>
+                        <th scope="row" className="py-2 pr-4 text-left font-medium text-gray-900 dark:text-white">27 AI texts</th>
+                        <td data-label="Likely human" className="py-2 pr-4">0</td>
+                        <td data-label="Unclear" className="py-2 pr-4">11</td>
+                        <td data-label="Likely AI" className="py-2">16</td>
                       </tr>
                     </tbody>
                   </table>

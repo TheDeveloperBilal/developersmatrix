@@ -351,7 +351,7 @@ function UnannouncedGamePage({ game }: { game: Game }) {
               evidence available, and they are worth more than any prediction chart.
             </p>
             <div className="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-700">
-              <table className="w-full text-sm">
+              <table className="table-stack table-stack--block w-full text-sm">
                 <thead className="bg-gray-50 dark:bg-gray-800">
                   <tr>
                     <th scope="col" className="text-left font-semibold text-gray-700 dark:text-gray-200 px-5 py-3">Title</th>
@@ -362,14 +362,14 @@ function UnannouncedGamePage({ game }: { game: Game }) {
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                   {ROCKSTAR_PC_BASELINES.map((b) => (
                     <tr key={b.game} className="bg-white dark:bg-gray-800/50 align-top">
-                      <td className="px-5 py-4">
+                      <th scope="row" className="px-5 py-4 text-left font-normal">
                         <a href={b.source} target="_blank" rel="noopener noreferrer" className="font-semibold text-purple-700 dark:text-purple-300 underline underline-offset-2">
                           {b.game}
                         </a>
                         <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">PC release {b.year}</span>
-                      </td>
-                      <td className="px-5 py-4 text-gray-700 dark:text-gray-300">{b.minimum}</td>
-                      <td className="px-5 py-4 text-gray-700 dark:text-gray-300">{b.recommended}</td>
+                      </th>
+                      <td data-label="Minimum" className="px-5 py-4 text-gray-700 dark:text-gray-300">{b.minimum}</td>
+                      <td data-label="Recommended" className="px-5 py-4 text-gray-700 dark:text-gray-300">{b.recommended}</td>
                     </tr>
                   ))}
                 </tbody>

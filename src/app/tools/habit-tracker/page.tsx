@@ -201,7 +201,7 @@ export default function HabitTrackerPage() {
               <section className="mb-12">
                 <h2 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl">Habit Ideas to Start With</h2>
                 <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <table className="w-full min-w-[30rem] text-left text-sm">
+                  <table className="table-stack w-full text-left text-sm sm:min-w-[30rem]">
                     <thead className="bg-zinc-50 text-[12px] uppercase tracking-[0.08em] text-zinc-500 dark:bg-zinc-900">
                       <tr>
                         <th scope="col" className="px-4 py-3 font-medium">Area</th>

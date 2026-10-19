@@ -246,7 +246,7 @@ export default function AIPromptLibraryClient() {
       <div className="grid grid-cols-1 lg:h-[min(860px,calc(100vh-7rem))] lg:min-h-[620px] lg:grid-cols-[200px_minmax(0,1fr)_400px]">
         {/* Category index */}
         <nav aria-label="Prompt categories" className="border-b border-zinc-200 dark:border-zinc-800 lg:min-h-0 lg:overflow-y-auto lg:border-b-0 lg:border-r">
-          <ul className="flex gap-2 overflow-x-auto p-3 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:p-3">
+          <ul className="flex gap-2 overflow-x-auto p-3 [scrollbar-width:none] lg:flex-col lg:gap-0.5 lg:overflow-visible lg:p-3 [&::-webkit-scrollbar]:hidden">
             {shelves.map((s) => {
               const active = shelf === s.id;
               const n = counts[s.id] ?? 0;
