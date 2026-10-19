@@ -327,7 +327,7 @@ export default function ResumeBuilderPage() {
                   With dozens of resume builders on the market, how do you choose? Here is a simple comparison of popular options. Prices are entry prices at the time of writing and may have changed.
                 </p>
                 <div className="overflow-x-auto">
-                  <table className="w-full text-sm text-left border border-gray-200 dark:border-gray-700 rounded-lg">
+                  <table className="table-stack w-full text-sm text-left border border-gray-200 dark:border-gray-700 rounded-lg">
                     <thead>
                       <tr className="bg-gray-50 dark:bg-gray-800">
                         <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Feature</th>
@@ -339,39 +339,39 @@ export default function ResumeBuilderPage() {
                     </thead>
                     <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                       <tr>
-                        <td className="px-4 py-3 font-medium">Price</td>
-                        <td className="px-4 py-3 text-green-600 font-bold">Free</td>
-                        <td className="px-4 py-3">$2.95+</td>
-                        <td className="px-4 py-3">$2.70+</td>
-                        <td className="px-4 py-3">Free / Pro</td>
+                        <th scope="row" className="px-4 py-3 font-medium">Price</th>
+                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600 font-bold">Free</td>
+                        <td data-label="Resume.io" className="px-4 py-3">$2.95+</td>
+                        <td data-label="Zety" className="px-4 py-3">$2.70+</td>
+                        <td data-label="Canva" className="px-4 py-3">Free / Pro</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-3 font-medium">Single column ATS templates</td>
-                        <td className="px-4 py-3 text-green-600">All three</td>
-                        <td className="px-4 py-3">Some</td>
-                        <td className="px-4 py-3">Some</td>
-                        <td className="px-4 py-3">Few, many are design led</td>
+                        <th scope="row" className="px-4 py-3 font-medium">Single column ATS templates</th>
+                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">All three</td>
+                        <td data-label="Resume.io" className="px-4 py-3">Some</td>
+                        <td data-label="Zety" className="px-4 py-3">Some</td>
+                        <td data-label="Canva" className="px-4 py-3">Few, many are design led</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-3 font-medium">Built for developers</td>
-                        <td className="px-4 py-3 text-green-600">Yes</td>
-                        <td className="px-4 py-3">General purpose</td>
-                        <td className="px-4 py-3">General purpose</td>
-                        <td className="px-4 py-3">General purpose</td>
+                        <th scope="row" className="px-4 py-3 font-medium">Built for developers</th>
+                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">Yes</td>
+                        <td data-label="Resume.io" className="px-4 py-3">General purpose</td>
+                        <td data-label="Zety" className="px-4 py-3">General purpose</td>
+                        <td data-label="Canva" className="px-4 py-3">General purpose</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-3 font-medium">Data stored</td>
-                        <td className="px-4 py-3 text-green-600">Your browser only</td>
-                        <td className="px-4 py-3">Account</td>
-                        <td className="px-4 py-3">Account</td>
-                        <td className="px-4 py-3">Account</td>
+                        <th scope="row" className="px-4 py-3 font-medium">Data stored</th>
+                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">Your browser only</td>
+                        <td data-label="Resume.io" className="px-4 py-3">Account</td>
+                        <td data-label="Zety" className="px-4 py-3">Account</td>
+                        <td data-label="Canva" className="px-4 py-3">Account</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-3 font-medium">Signup Required</td>
-                        <td className="px-4 py-3 text-green-600">No</td>
-                        <td className="px-4 py-3">Yes</td>
-                        <td className="px-4 py-3">Yes</td>
-                        <td className="px-4 py-3">Yes</td>
+                        <th scope="row" className="px-4 py-3 font-medium">Signup Required</th>
+                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">No</td>
+                        <td data-label="Resume.io" className="px-4 py-3">Yes</td>
+                        <td data-label="Zety" className="px-4 py-3">Yes</td>
+                        <td data-label="Canva" className="px-4 py-3">Yes</td>
                       </tr>
                     </tbody>
                   </table>

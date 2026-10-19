@@ -182,7 +182,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
           </nav>
 
           {/* Category & Status */}
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
             <Badge className={`${categoryBg} ${categoryColor} border-0`}>
               {categoryInfo?.name}
             </Badge>

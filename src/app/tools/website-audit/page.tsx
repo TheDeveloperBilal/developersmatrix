@@ -378,8 +378,8 @@ export default function WebsiteAuditPage() {
             What Your Website Audit Score Means
           </h2>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+          <div className="overflow-x-auto max-sm:rounded-xl max-sm:border max-sm:border-gray-200 max-sm:dark:border-gray-700">
+            <table className="table-stack table-stack--block w-full text-left border-collapse">
               <thead>
                 <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                   <th className="p-4 text-sm font-semibold text-gray-900 dark:text-white">Score Range</th>
@@ -397,10 +397,10 @@ export default function WebsiteAuditPage() {
                   ['Below 40', 'Critical', 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400', 'Severe issues that may be stopping Google from indexing or trusting pages. Escalate now.', 'Emergency'],
                 ].map(([range, rating, cls, meaning, priority], i, all) => (
                   <tr key={range} className={i < all.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''}>
-                    <td className="p-4 font-medium text-gray-900 dark:text-white">{range}</td>
-                    <td className="p-4"><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cls}`}>{rating}</span></td>
-                    <td className="p-4">{meaning}</td>
-                    <td className="p-4 text-gray-500 dark:text-gray-400">{priority}</td>
+                    <th scope="row" className="p-4 font-medium text-gray-900 dark:text-white">{range}</th>
+                    <td data-label="Rating" className="p-4"><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cls}`}>{rating}</span></td>
+                    <td data-label="What it means" className="p-4">{meaning}</td>
+                    <td data-label="Priority" className="p-4 text-gray-500 dark:text-gray-400">{priority}</td>
                   </tr>
                 ))}
               </tbody>
@@ -638,8 +638,8 @@ export default function WebsiteAuditPage() {
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 If you have looked up website audit cost, you know the range is wide. Agencies charge anywhere from $500 to $5,000 for a full manual audit. Subscription tools like Ahrefs and Semrush run from about $99 to several hundred dollars a month, and desktop crawlers like Screaming Frog charge an annual licence. For a small business site, a portfolio, a blog or a startup, a <strong>free website audit tool</strong> covers most of what matters.
               </p>
-              <div className="mt-6 overflow-x-auto">
-                <table className="w-full text-sm text-left">
+              <div className="mt-6 overflow-x-auto max-sm:rounded-xl max-sm:border max-sm:border-gray-200 max-sm:dark:border-gray-700">
+                <table className="table-stack table-stack--block w-full text-sm text-left">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-300">
                     <tr>
                       <th className="px-4 py-3">Option</th>
@@ -658,10 +658,10 @@ export default function WebsiteAuditPage() {
                       ['Agency audit', '$500 to $5,000', 'Custom strategy and manual review', 'Slow turnaround, high cost'],
                     ].map(([name, cost, best, limit]) => (
                       <tr key={name} className="bg-white dark:bg-gray-800">
-                        <td className="px-4 py-3 font-semibold text-gray-900 dark:text-white">{name}</td>
-                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{cost}</td>
-                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{best}</td>
-                        <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{limit}</td>
+                        <th scope="row" className="px-4 py-3 font-semibold text-gray-900 dark:text-white">{name}</th>
+                        <td data-label="Cost" className="px-4 py-3 text-gray-600 dark:text-gray-400">{cost}</td>
+                        <td data-label="Best for" className="px-4 py-3 text-gray-600 dark:text-gray-400">{best}</td>
+                        <td data-label="Limitations" className="px-4 py-3 text-gray-600 dark:text-gray-400">{limit}</td>
                       </tr>
                     ))}
                   </tbody>

@@ -183,7 +183,7 @@ export default function StartupIdeaPage() {
               <section className="mb-12">
                 <h2 className="mb-6 text-2xl font-bold text-stone-900 dark:text-white sm:text-3xl">Business Models Compared</h2>
                 <div className="overflow-x-auto rounded-2xl border border-stone-200 dark:border-stone-800">
-                  <table className="w-full min-w-[34rem] text-left text-sm">
+                  <table className="table-stack table-stack--block w-full text-left text-sm sm:min-w-[34rem]">
                     <thead className="bg-stone-50 text-[12px] uppercase tracking-[0.08em] text-stone-500 dark:bg-stone-900">
                       <tr>
                         <th scope="col" className="px-4 py-3 font-medium">Model</th>
@@ -196,9 +196,9 @@ export default function StartupIdeaPage() {
                       {modelRows.map(([m, c, t, r]) => (
                         <tr key={m}>
                           <th scope="row" className="px-4 py-3 font-medium text-stone-900 dark:text-white">{m}</th>
-                          <td className="px-4 py-3 text-stone-600 dark:text-stone-400">{c}</td>
-                          <td className="px-4 py-3 text-stone-600 dark:text-stone-400">{t}</td>
-                          <td className="px-4 py-3 text-stone-600 dark:text-stone-400">{r}</td>
+                          <td data-label="Start up cost" className="px-4 py-3 text-stone-600 dark:text-stone-400">{c}</td>
+                          <td data-label="Time to first income" className="px-4 py-3 text-stone-600 dark:text-stone-400">{t}</td>
+                          <td data-label="Main catch" className="px-4 py-3 text-stone-600 dark:text-stone-400">{r}</td>
                         </tr>
                       ))}
                     </tbody>

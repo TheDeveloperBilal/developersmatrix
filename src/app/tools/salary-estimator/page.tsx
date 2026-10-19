@@ -155,7 +155,7 @@ export default function SalaryEstimatorPage() {
                   Yearly pay before tax, {DATA_PERIOD}. The middle half is the 25th to the 75th percentile. Select a job to open it in the estimator.
                 </p>
                 <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <table className="w-full min-w-[34rem] text-left text-sm">
+                  <table className="table-stack table-stack--grid w-full text-left text-sm sm:min-w-[34rem]">
                     <thead className="bg-zinc-50 text-[12px] uppercase tracking-[0.08em] text-zinc-500 dark:bg-zinc-900">
                       <tr>
                         <th scope="col" className="px-4 py-3 font-medium">Job</th>
@@ -170,9 +170,9 @@ export default function SalaryEstimatorPage() {
                           <th scope="row" className="px-4 py-2.5 font-medium text-zinc-900 dark:text-white">
                             <a href={`?job=${job.code}#salary-estimator`} className="hover:text-teal-700 hover:underline dark:hover:text-teal-400">{job.name}</a>
                           </th>
-                          <td className="px-4 py-2.5 text-right font-mono tabular-nums text-zinc-900 dark:text-white">{usd(n.p[2])}</td>
-                          <td className="whitespace-nowrap px-4 py-2.5 text-right font-mono tabular-nums text-zinc-600 dark:text-zinc-400">{usd(n.p[1])} to {usd(n.p[3])}</td>
-                          <td className="px-4 py-2.5 text-right font-mono tabular-nums text-zinc-600 dark:text-zinc-400">{n.emp ? n.emp.toLocaleString('en-US') : 'n/a'}</td>
+                          <td data-label="Median" className="px-4 py-2.5 text-right font-mono tabular-nums text-zinc-900 dark:text-white">{usd(n.p[2])}</td>
+                          <td data-label="Middle half" className="whitespace-nowrap px-4 py-2.5 text-right font-mono tabular-nums text-zinc-600 dark:text-zinc-400">{usd(n.p[1])} to {usd(n.p[3])}</td>
+                          <td data-label="Jobs in the US" className="px-4 py-2.5 text-right font-mono tabular-nums text-zinc-600 dark:text-zinc-400">{n.emp ? n.emp.toLocaleString('en-US') : 'n/a'}</td>
                         </tr>
                       ))}
                     </tbody>
