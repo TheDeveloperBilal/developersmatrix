@@ -1,0 +1,64 @@
+name: IndexNow
+
+# Vercel reports each deployment back to GitHub. When a production deployment
+# succeeds, send the pages whose sitemap lastmod changed to IndexNow.
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: 'Optional: pages to submit by hand, separated by spaces (e.g. /blog/my-post /tools)'
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       startsWith(github.event.deployment.environment, 'Production'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Restore last submitted sitemap dates
+        uses: actions/cache/restore@v4
+        with:
+          path: .indexnow
+          key: indexnow-state-${{ github.run_id }}
+          restore-keys: indexnow-state-
+
+      # Give the production domain a moment to point at the new deployment.
+      - name: Wait for the domain
+        if: github.event_name == 'deployment_status'
+        run: sleep 45
+
+      - name: Submit by hand
+        if: github.event_name == 'workflow_dispatch' && inputs.urls != ''
+        env:
+          URLS: ${{ inputs.urls }}
+        run: node scripts/indexnow.mjs $URLS
+
+      - name: Submit changed pages
+        if: github.event_name == 'deployment_status' || inputs.urls == ''
+        run: node scripts/indexnow.mjs --changed --state .indexnow/state.json
+
+      - name: Save submitted sitemap dates
+        if: success() && (github.event_name == 'deployment_status' || inputs.urls == '')
+        uses: actions/cache/save@v4
+        with:
+          path: .indexnow
+          key: indexnow-state-${{ github.run_id }}
