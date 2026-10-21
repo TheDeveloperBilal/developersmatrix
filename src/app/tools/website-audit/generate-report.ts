@@ -34,7 +34,9 @@ OVERALL SCORE: ${result.overallScore}/100 (Grade: ${result.overallScore >= 90 ? 
 CATEGORY SCORES
 ---------------
 ${Object.entries(result.scores).map(([cat, score]) => 
-  `${cat.toUpperCase()}: ${score.score}/100 (${score.issues} issues, ${score.passed}/${score.passed + score.failed} checks passed)`
+  score.scored === false
+    ? `${cat.toUpperCase()}: tips only, not scored (${score.issues} ${score.issues === 1 ? 'tip' : 'tips'})`
+    : `${cat.toUpperCase()}: ${score.score}/100 (${score.issues} ${score.issues === 1 ? 'finding' : 'findings'}, ${score.passed}/${score.passed + score.failed} named checks passed)`
 ).join('\n')}
 
 ISSUE SEVERITY BREAKDOWN
@@ -274,20 +276,28 @@ export function generateHTMLReport(result: WebsiteAuditResult): string {
     
     <p style="font-size:15px;color:#475569;margin-bottom:24px;">
       This report provides a comprehensive technical analysis of <strong>${esc(result.domain)}</strong>. 
-      The site was audited across 8 categories with ${result.issues.length} findings in total,
+      The site was scored across 7 categories, with conversion listed as tips, and ${result.issues.length} findings in total,
       including ${result.issues.filter(i => i.severity === 'critical').length} critical and ${result.issues.filter(i => i.severity === 'high').length} high priority findings.
     </p>
     
     <h2>Score Breakdown</h2>
     <div class="score-grid">
-      ${(Object.entries(result.scores) as Array<[string, AuditScore]>).map(([cat, score]) => `
+      ${(Object.entries(result.scores) as Array<[string, AuditScore]>).map(([cat, score]) => score.scored === false ? `
+        <div class="score-item">
+          <div class="score-item-header">
+            <div class="score-item-name">${esc(cat)}</div>
+            <div class="score-item-value" style="font-size:14px;color:#64748b;font-weight:600;">Tips only</div>
+          </div>
+          <div class="score-item-issues">${score.issues} ${score.issues === 1 ? 'tip' : 'tips'} &nbsp;|&nbsp; not part of the overall score</div>
+        </div>
+      ` : `
         <div class="score-item">
           <div class="score-item-header">
             <div class="score-item-name">${esc(cat)}</div>
             <div class="score-item-value" style="color:${score.score >= 70 ? '#10b981' : score.score >= 50 ? '#eab308' : '#ef4444'};">${score.score}<span style="font-size:14px;color:#94a3b8;font-weight:400;">/100</span></div>
           </div>
           <div class="score-item-bar">${scoreBar(score.score)}</div>
-          <div class="score-item-issues">${score.issues} issues &nbsp;|&nbsp; ${score.passed}/${score.passed + score.failed} checks passed</div>
+          <div class="score-item-issues">${score.issues} ${score.issues === 1 ? 'finding' : 'findings'} &nbsp;|&nbsp; ${score.passed}/${score.passed + score.failed} named checks passed</div>
         </div>
       `).join('')}
     </div>

@@ -22,6 +22,7 @@ const STATUS = {
   warning: { label: 'Warning', text: 'text-[#8a5a00]', bg: 'bg-[#fdf4e3]', border: 'border-[#f5d9a0]', dot: 'bg-[#e8a33d]' },
   fail:    { label: 'Failed',  text: 'text-[#a3242b]', bg: 'bg-[#fdeceb]', border: 'border-[#f5c2c0]', dot: 'bg-[#d93a36]' },
   'not-run': { label: 'Not run', text: 'text-gray-500', bg: 'bg-gray-50', border: 'border-gray-200', dot: 'bg-gray-400' },
+  tip:     { label: 'Tip',     text: 'text-[#1d4ed8]', bg: 'bg-[#eff4ff]', border: 'border-[#c7d7fe]', dot: 'bg-[#3b6ff5]' },
 } as const;
 
 function StatusIcon({ status, size = 20 }: { status: CheckStatus; size?: number }) {
@@ -47,8 +48,28 @@ function StatusIcon({ status, size = 20 }: { status: CheckStatus; size?: number 
       </svg>
     );
   }
+  if (status === 'tip') {
+    return (
+      <svg {...common} className="text-[#3b6ff5] shrink-0" fill="currentColor">
+        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v.5a.75.75 0 001.5 0v-.5zM10 9a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 9z" clipRule="evenodd" />
+      </svg>
+    );
+  }
   return <svg {...common} className="text-gray-400 shrink-0" fill="currentColor"><circle cx="10" cy="10" r="8" /></svg>;
 }
+
+/* ---------- category order, matching the weights in scoring.ts ---------- */
+
+const CATEGORY_ORDER: [keyof WebsiteAuditResult['scores'], string][] = [
+  ['seo', 'SEO'],
+  ['technical', 'Technical'],
+  ['performance', 'Performance'],
+  ['security', 'Security'],
+  ['content', 'Content'],
+  ['accessibility', 'Accessibility'],
+  ['mobile', 'Mobile'],
+  ['conversion', 'Conversion'],
+];
 
 /* ---------- score ring ---------- */
 
@@ -323,6 +344,12 @@ function CheckRow({ check }: { check: CheckResult }) {
           <span className="block text-sm font-medium text-gray-900">{check.definition.name}</span>
           {check.status === 'pass' ? (
             <span className="mt-0.5 block text-xs text-gray-500">{check.definition.passText}</span>
+          ) : check.status === 'not-run' ? (
+            <span className="mt-0.5 block text-xs text-gray-500">We do not measure this yet, so it is not counted as a pass.</span>
+          ) : check.status === 'tip' ? (
+            <span className="mt-0.5 block text-xs text-gray-600">
+              {check.findings.length} {check.findings.length === 1 ? 'tip' : 'tips'}, not part of the score
+            </span>
           ) : (
             <span className="mt-0.5 block text-xs text-gray-600">
               {check.findings.length} issue{check.findings.length === 1 ? '' : 's'} found
@@ -350,7 +377,7 @@ function CheckRow({ check }: { check: CheckResult }) {
 /* ---------- one group ---------- */
 
 function GroupSection({ group }: { group: GroupResult }) {
-  const order: Record<CheckStatus, number> = { fail: 0, warning: 1, pass: 2, 'not-run': 3 };
+  const order: Record<CheckStatus, number> = { fail: 0, warning: 1, tip: 2, pass: 3, 'not-run': 4 };
   const checks = [...group.checks].sort((a, b) => order[a.status] - order[b.status]);
 
   return (
@@ -363,6 +390,7 @@ function GroupSection({ group }: { group: GroupResult }) {
         <div className="flex items-center gap-3 text-xs font-medium">
           {group.failed > 0 && <span className="flex items-center gap-1.5 text-[#a3242b]"><span className="h-2 w-2 rounded-full bg-[#d93a36]" />{group.failed} failed</span>}
           {group.warnings > 0 && <span className="flex items-center gap-1.5 text-[#8a5a00]"><span className="h-2 w-2 rounded-full bg-[#e8a33d]" />{group.warnings} warning{group.warnings === 1 ? '' : 's'}</span>}
+          {group.tips > 0 && <span className="flex items-center gap-1.5 text-[#1d4ed8]"><span className="h-2 w-2 rounded-full bg-[#3b6ff5]" />{group.tips} tip{group.tips === 1 ? '' : 's'}</span>}
           {group.passed > 0 && <span className="flex items-center gap-1.5 text-[#0f7b3e]"><span className="h-2 w-2 rounded-full bg-[#16a34a]" />{group.passed} passed</span>}
         </div>
       </header>
@@ -444,6 +472,27 @@ export default function AuditReport({
           </div>
         </div>
 
+        <div className="mt-5">
+          <p className="text-xs font-medium text-gray-500">Category scores</p>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {CATEGORY_ORDER.map(([key, label]) => {
+              const cat = result.scores?.[key];
+              if (!cat) return null;
+              const tipsOnly = cat.scored === false;
+              return (
+                <li key={key} className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-xs">
+                  <span className="text-gray-600">{label}</span>
+                  {tipsOnly ? (
+                    <span className="font-medium text-[#1d4ed8]">Tips only</span>
+                  ) : (
+                    <span className="font-semibold tabular-nums" style={{ color: scoreColour(cat.score) }}>{cat.score}</span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
         <div className="mt-6 flex flex-wrap gap-2 print:hidden">
           {onExportPdf && (
             <button type="button" onClick={onExportPdf}
@@ -472,8 +521,9 @@ export default function AuditReport({
 
       <p className="px-1 pb-2 text-xs leading-relaxed text-gray-500">
         A check is marked passed when the audit ran it and raised nothing against it.
-        Core Web Vitals come from Google PageSpeed Insights. Everything else is measured
-        directly from the pages crawled.
+        Not run means we do not measure that check yet. Tips are conversion suggestions
+        and do not change the score. Core Web Vitals come from Google PageSpeed Insights.
+        Everything else is measured directly from the pages crawled.
       </p>
     </div>
   );

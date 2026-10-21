@@ -56,6 +56,8 @@ export interface ImageInfo {
   height?: number;
   loading?: string;
   size?: number;
+  /** True when the image fills a box that already has a size (for example next/image fill), so it cannot shift the layout. */
+  sizedByContainer?: boolean;
 }
 
 export interface ScriptInfo {
@@ -266,8 +268,11 @@ export interface AuditScore {
   maxScore: number;
   issues: number;
   criticalIssues: number;
+  /** Named checks in this category that passed, and that failed or warned. */
   passed: number;
   failed: number;
+  /** False for categories shown as tips only (conversion). */
+  scored?: boolean;
 }
 
 export interface ContentAnalysis {

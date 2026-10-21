@@ -129,6 +129,16 @@ export class SEOAuditor {
     // Alt Tags
     this.analyzeAltTags(pages, issues);
 
+    // These are reported by another module that checks them across the whole
+    // crawl, so reporting them here as well counted one problem twice:
+    // duplicate titles and descriptions, missing canonicals, long URLs and
+    // URL parameters (technical module), skipped heading levels (accessibility,
+    // which walks the real heading order).
+    const reportedElsewhere = ['duplicate_title_', 'duplicate_meta_', 'missing_canonical_', 'long_url_', 'query_params_', 'heading_hierarchy_'];
+    const own = issues.filter((i) => !reportedElsewhere.some((prefix) => i.id.startsWith(prefix)));
+    issues.length = 0;
+    issues.push(...own);
+
     // Calculate score
     const totalChecks = 25;
     // A check counts as passed only if it raised no finding at all. Previously this
@@ -605,7 +615,7 @@ export class SEOAuditor {
         id: 'missing_og_title',
         category: 'seo',
         type: 'missing_og_tags',
-        severity: 'medium',
+        severity: 'low',
         title: 'Missing Open Graph Title',
         description: 'No og:title tag found on the main page.',
         impact: 'When the page is shared on Facebook, LinkedIn or X, the platform has to guess the title, so the preview may look wrong.',
@@ -645,7 +655,7 @@ export class SEOAuditor {
         id: 'missing_og_image',
         category: 'seo',
         type: 'missing_og_tags',
-        severity: 'medium',
+        severity: 'low',
         title: 'Missing Open Graph Image',
         description: 'No og:image tag found on the main page.',
         impact: 'Shared links will not display an image preview on social platforms.',
