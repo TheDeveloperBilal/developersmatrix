@@ -5,10 +5,9 @@
  * That gives a number but not a name, so a report cannot say "Meta Title Test:
  * passed". This layer gives every check a name and maps findings back onto it.
  *
- * The logic is the same one the auditors already use: an auditor runs all of
- * its checks on every audit, so a check with no finding against it passed.
- * Nothing here invents a result. A check only appears if the auditor that
- * covers it actually ran.
+ * A check with no finding against it passed, unless the engine lists it in
+ * result.notMeasured, in which case it shows as "Not checked". Nothing here
+ * invents a result.
  *
  * Findings that match no named check are not discarded. They surface in the
  * group's additional findings so the report stays complete.
@@ -90,24 +89,24 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     passText: 'No single term is repeated at an unnatural rate.',
     match: { ids: ['keyword_stuffing', 'repeated_phrases'], types: ['keyword_stuffing'] } },
   { id: 'broken-links', name: 'Broken Links Test', group: 'common-seo', category: 'technical',
-    passText: 'No broken internal links were found.',
+    passText: 'Every linked page we crawled loaded without an error.',
     match: { ids: ['tech-404-in-crawl'], types: ['broken_link'] } },
   { id: 'internal-links', name: 'Internal Linking Test', group: 'common-seo', category: 'technical',
     passText: 'Pages are linked to each other well enough to be discovered.',
     match: { ids: ['tech-low-internal-links', 'tech-orphan-pages', 'tech-too-many-links', 'low_internal_links'] } },
 
   // ---- Speed ------------------------------------------------------------
-  { id: 'load-time', name: 'Page Load Time Test', group: 'speed', category: 'performance',
-    passText: 'The page responded quickly.',
+  { id: 'load-time', name: 'Server Response Time Test', group: 'speed', category: 'performance',
+    passText: 'The server answered our requests quickly. See the Google speed data for real load times.',
     match: { types: ['slow_load_time'], ids: ['tech-slow-response'] } },
-  { id: 'page-size', name: 'Page Size Test', group: 'speed', category: 'performance',
-    passText: 'The page weight is reasonable.',
+  { id: 'page-size', name: 'HTML Size Test', group: 'speed', category: 'performance',
+    passText: 'The HTML document is a reasonable size.',
     match: { types: ['large_page_size'] } },
-  { id: 'image-size', name: 'Image Optimization Test', group: 'speed', category: 'performance',
-    passText: 'Images are sized appropriately for the web.',
+  { id: 'image-size', name: 'Image Dimensions Test', group: 'speed', category: 'performance',
+    passText: 'Images declare their width and height, so the layout does not jump while they load.',
     match: { types: ['large_image'] } },
   { id: 'render-blocking', name: 'Render Blocking Resources Test', group: 'speed', category: 'performance',
-    passText: 'Nothing blocks the first paint.',
+    passText: 'No scripts in the head block the first paint.',
     match: { types: ['render_blocking'] } },
   { id: 'lazy-loading', name: 'Image Lazy Loading Test', group: 'speed', category: 'performance',
     passText: 'Below the fold images defer loading.',
@@ -136,7 +135,7 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     passText: 'X-Content-Type-Options is set to nosniff.',
     match: { ids: ['no_x_content_type'] } },
   { id: 'referrer-policy', name: 'Referrer Policy Test', group: 'server-security', category: 'security',
-    passText: 'A Referrer-Policy is set.',
+    passText: 'No unsafe Referrer-Policy is set (browsers default to a safe policy).',
     match: { ids: ['no_referrer_policy'] } },
   { id: 'permissions-policy', name: 'Permissions Policy Test', group: 'server-security', category: 'security',
     passText: 'A Permissions-Policy is set.',
@@ -146,7 +145,7 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     match: { ids: ['no_sri'] } },
   { id: 'server-errors', name: 'Server Response Test', group: 'server-security', category: 'technical',
     passText: 'Every crawled page returned a healthy status.',
-    match: { ids: ['tech-server-errors', 'tech-http-redirects'] } },
+    match: { ids: ['tech-server-errors'] } },
 
   // ---- Mobile -----------------------------------------------------------
   { id: 'viewport', name: 'Viewport Meta Tag Test', group: 'mobile', category: 'mobile',
@@ -161,20 +160,17 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
   { id: 'theme-color', name: 'Theme Color Test', group: 'mobile', category: 'mobile',
     passText: 'A theme colour is declared for mobile browsers.',
     match: { ids: ['no_theme_color'] } },
-  { id: 'apple-capable', name: 'Web App Capable Test', group: 'mobile', category: 'mobile',
-    passText: 'Mobile web app meta tags are present.',
-    match: { ids: ['no_apple_capable'] } },
   { id: 'mobile-cta', name: 'Mobile Call to Action Test', group: 'mobile', category: 'conversion',
     passText: 'A call to action stays reachable on mobile.',
     match: { ids: ['conv-no-sticky-mobile-cta'] } },
 
   // ---- Advanced SEO -----------------------------------------------------
   { id: 'robots-txt', name: 'Robots.txt Test', group: 'advanced-seo', category: 'technical',
-    passText: 'robots.txt exists and does not block the site.',
+    passText: 'robots.txt does not block Google from the site or from linked pages.',
     match: { idPrefix: ['tech-robots-', 'tech-missing-robots'], types: ['missing_robots_txt'] } },
   { id: 'sitemap', name: 'XML Sitemap Test', group: 'advanced-seo', category: 'technical',
-    passText: 'An XML sitemap was found.',
-    match: { ids: ['tech-missing-sitemap', 'tech-sitemap-coverage', 'tech-sitemap-index', 'check_sitemap'],
+    passText: 'An XML sitemap was found and loads.',
+    match: { ids: ['tech-missing-sitemap', 'tech-sitemap-broken', 'tech-sitemap-empty'],
              types: ['missing_sitemap'] } },
   { id: 'canonical', name: 'Canonical Tag Test', group: 'advanced-seo', category: 'technical',
     passText: 'Canonical tags are present and valid.',
@@ -182,7 +178,7 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
              types: ['missing_canonical'] } },
   { id: 'redirects', name: 'Redirect Chain Test', group: 'advanced-seo', category: 'technical',
     passText: 'No redirect chains were found.',
-    match: { ids: ['tech-redirect-chains'], types: ['redirect_chain'] } },
+    match: { ids: ['tech-redirect-chains', 'tech-temporary-redirects', 'tech-links-to-redirects'], types: ['redirect_chain'] } },
   { id: 'duplicate-content', name: 'Duplicate Content Test', group: 'advanced-seo', category: 'technical',
     passText: 'No duplicate titles, descriptions or near duplicate pages.',
     match: { ids: ['tech-duplicate-titles', 'tech-duplicate-descriptions', 'tech-near-duplicate'],
@@ -197,9 +193,9 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     passText: 'URLs are clean and a sensible depth.',
     match: { ids: ['tech-long-urls', 'tech-deep-pages', 'tech-session-params', 'tech-filter-params'],
              types: ['url_structure'] } },
-  { id: 'crawlability', name: 'Crawlability Test', group: 'advanced-seo', category: 'technical',
-    passText: 'Content is reachable without JavaScript interaction.',
-    match: { ids: ['tech-infinite-scroll', 'tech-pagination-no-rel'] } },
+  { id: 'noindex', name: 'Noindex Test', group: 'advanced-seo', category: 'seo',
+    passText: 'No crawled page is kept out of Google by a noindex rule.',
+    match: { idPrefix: ['noindex_'] } },
 
   // ---- Social -----------------------------------------------------------
   { id: 'og-tags', name: 'Open Graph Test', group: 'social', category: 'seo',
@@ -251,8 +247,9 @@ function matchesGeneric(issue: AuditIssue, m: Matcher): boolean {
 }
 
 /** Severity decides whether a finding is a hard fail or a warning. */
-function statusFor(findings: AuditIssue[]): CheckStatus {
-  if (findings.length === 0) return 'pass';
+function statusFor(findings: AuditIssue[], measured = true): CheckStatus {
+  // A check the engine could not measure is "not checked", never a free pass.
+  if (findings.length === 0) return measured ? 'pass' : 'not-run';
   return findings.some((f) => f.severity === 'critical' || f.severity === 'high') ? 'fail' : 'warning';
 }
 
@@ -274,6 +271,7 @@ export interface BuiltReport {
 export function buildReport(result: WebsiteAuditResult): BuiltReport {
   const issues = result.issues ?? [];
   const defs = CHECK_DEFINITIONS;
+  const notMeasured = new Set(result.notMeasured ?? []);
 
   // Every finding belongs to exactly one check. Two passes so that a check
   // naming an id beats a check naming only the shared type.
@@ -294,7 +292,7 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
       .filter((d) => d.group === group.id)
       .map((definition) => {
         const findings = issues.filter((i) => owner.get(i) === definition.id);
-        return { definition, status: statusFor(findings), findings };
+        return { definition, status: statusFor(findings, !notMeasured.has(definition.id)), findings };
       });
 
     return {

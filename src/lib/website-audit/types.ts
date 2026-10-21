@@ -1,4 +1,4 @@
-// Types for AI Website Audit Tool
+// Types for the Website Audit Tool
 
 export interface AuditConfig {
   url: string;
@@ -9,10 +9,23 @@ export interface AuditConfig {
 }
 
 export interface PageData {
+  /** The URL the page was requested at. */
   url: string;
+  /** The URL that finally answered after redirects. Equal to url when there were none. */
+  finalUrl: string;
+  /** Redirects answered before finalUrl, in order. */
+  redirectChain: { url: string; status: number }[];
+  contentType: string;
   title: string;
+  /** Number of <title> elements in <head>. More than one is an error. */
+  titleCount: number;
   html: string;
+  /** Visible text of the body: scripts, styles, templates and SVG removed, one block per line. */
   text: string;
+  /** Visible text of the main content (main, article, or body without header, nav, footer, aside). */
+  mainText: string;
+  /** JSON-LD blocks that could not be parsed. */
+  structuredDataErrors: number;
   headers: Record<string, string>;
   statusCode: number;
   loadTime: number;
@@ -66,6 +79,10 @@ export interface MetaInfo {
   keywords?: string;
   canonical?: string;
   robots?: string;
+  /** meta name="googlebot", which Google reads in addition to robots. */
+  googlebot?: string;
+  /** X-Robots-Tag response header. */
+  xRobotsTag?: string;
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
@@ -103,7 +120,51 @@ export interface FormInput {
   id?: string;
   placeholder?: string;
   required?: boolean;
+  /** True when the field has an accessible name: label[for], a wrapping label, aria-label, aria-labelledby or title. */
   hasLabel: boolean;
+}
+
+/** What we learned about robots.txt and the XML sitemap for the whole site. */
+export interface SiteContext {
+  /** What the visitor typed, after adding https:// when needed. */
+  enteredUrl: string;
+  /** Where the homepage request finally landed. */
+  finalUrl: string;
+  origin: string;
+  host: string;
+  /** Redirects between enteredUrl and finalUrl. */
+  homeRedirects: { url: string; status: number }[];
+  robots: {
+    url: string;
+    /** HTTP status, or null when the request failed outright. */
+    status: number | null;
+    /** True only for a 2xx plain text answer that is not an HTML page. */
+    found: boolean;
+    body: string | null;
+  };
+  sitemaps: SitemapInfo[];
+}
+
+export interface SitemapInfo {
+  url: string;
+  /** Listed in robots.txt, or found by trying the usual addresses. */
+  source: 'robots' | 'probe';
+  status: number | null;
+  /** urlset: a list of pages. index: a list of sitemaps. gzip: compressed, not inspected. */
+  kind: 'urlset' | 'index' | 'gzip' | 'invalid' | null;
+  urlCount: number;
+  childCount: number;
+  ok: boolean;
+}
+
+/** The light page record returned to the browser. Raw HTML stays on the server. */
+export interface PageSummary {
+  url: string;
+  finalUrl: string;
+  statusCode: number;
+  title: string;
+  loadTime: number;
+  size: number;
 }
 
 export interface AuditIssue {
@@ -299,8 +360,14 @@ export interface WebsiteAuditResult {
   
   recommendations: string[];
   
-  pageData: PageData[];
-  
+  pageData: PageSummary[];
+
+  /** robots.txt, sitemap and redirect facts the report can show. */
+  site?: Omit<SiteContext, 'robots'> & { robots: Omit<SiteContext['robots'], 'body'> };
+
+  /** Ids of named checks this audit could not measure, shown as "Not checked". */
+  notMeasured?: string[];
+
   contentAnalysis: ContentAnalysis;
   
   quickWins: AuditIssue[];
