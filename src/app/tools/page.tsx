@@ -115,7 +115,7 @@ const faqs = [
   {
     question: 'Which tool is the best place to start?',
     answer:
-      'Choose a goal at the top of this page and the list narrows to the tools that fit. If you run a website, the AI Website Audit is a good first step. If you are job hunting, start with the AI Resume Builder.',
+      'Choose a goal at the top of this page and the list narrows to the tools that fit. If you run a website, the Website Audit is a good first step. If you are job hunting, start with the AI Resume Builder.',
   },
   {
     question: 'Does the team take tool suggestions?',

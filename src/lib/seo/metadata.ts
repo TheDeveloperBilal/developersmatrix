@@ -146,7 +146,7 @@ export const pageMetadata = {
 export const toolMetadata: Record<string, PageMetadataOptions> = {
   'website-audit': {
     title: 'Free Website Audit Tool: SEO and Speed Check',
-    description: 'Free AI-powered website audit tool. Check SEO, page speed, Core Web Vitals, mobile UX, security, and accessibility. Get instant scores and actionable fixes. No signup needed.',
+    description: 'Free website audit tool. Check SEO, page speed, Core Web Vitals, mobile, security and accessibility. Get a score out of 100 and a fix list. No signup needed.',
     keywords: [
       'free website audit tool',
       'website seo checker free',

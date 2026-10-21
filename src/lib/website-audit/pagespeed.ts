@@ -107,6 +107,14 @@ type LhAudit = {
   details?: { overallSavingsMs?: number; overallSavingsBytes?: number };
 };
 
+/** The final frame Lighthouse saw on its phone, as a data URI. Only image data is accepted. */
+function readScreenshot(audits: Record<string, LhAudit> | undefined): string | undefined {
+  const data = (audits?.['final-screenshot'] as { details?: { data?: unknown } } | undefined)?.details?.data;
+  if (typeof data !== 'string' || !/^data:image\/(jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(data)) return undefined;
+  // About 50 to 100 KB normally. Refuse anything oversized.
+  return data.length <= 400_000 ? data : undefined;
+}
+
 function readOpportunities(audits: Record<string, LhAudit> | undefined): PageSpeedOpportunity[] {
   if (!audits) return [];
   const out: PageSpeedOpportunity[] = [];
@@ -237,6 +245,7 @@ export async function fetchPageSpeed(
         seo: categoryScore(lh?.categories, 'seo'),
       },
       finalUrl: lh?.finalUrl ?? lh?.requestedUrl ?? url,
+      screenshot: readScreenshot(audits),
     };
   } catch (err) {
     const aborted = err instanceof Error && err.name === 'AbortError';

@@ -6,6 +6,7 @@
 // test and says nothing about the server software itself.
 
 import * as cheerio from 'cheerio';
+import { sameSiteHost } from './domains';
 import type { PageData, AuditIssue, AuditScore } from './types';
 
 /** Third party hosts whose scripts change on purpose, so SRI cannot be used with them. */
@@ -24,6 +25,15 @@ const SECOND_LEVEL = new Set(['co', 'com', 'org', 'net', 'gov', 'ac', 'edu', 'lt
 
 /** 180 days, the minimum HSTS max-age most guidance accepts. */
 const HSTS_MIN_SECONDS = 15552000;
+
+/** A plain email address. Kept simple on purpose: it only has to find addresses, not validate them. */
+const EMAIL_PATTERN = /[a-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}/gi;
+
+/** Retina image names such as logo@2x.png look like email addresses. */
+const IMAGE_FILE_ENDING = /\.(png|jpe?g|gif|webp|svg)$/i;
+
+/** Reserved example domains, used in placeholders and documentation. */
+const PLACEHOLDER_EMAIL_DOMAINS = ['example.com', 'example.org', 'example.net'];
 
 function finalUrlOf(page: PageData): string {
   return page.finalUrl || page.url;
@@ -91,6 +101,10 @@ export class SecurityAuditor {
 
     // Server version and cookie flags
     this.analyzeServerAndCookies(pages, issues);
+
+    // Tips: email addresses bots can read, new tab links without noopener
+    this.analyzePlaintextEmail(pages, issues);
+    this.analyzeBlankLinks(pages, issues);
 
     // Calculate score
     const totalChecks = 12;
@@ -636,6 +650,124 @@ export class SecurityAuditor {
         codeSnippet: 'Set-Cookie: session=abc123; Path=/; Secure; HttpOnly; SameSite=Lax',
       });
     }
+  }
+
+  /** Email addresses in the visible text or in mailto links. A tip, not a fault. */
+  private analyzePlaintextEmail(pages: PageData[], issues: AuditIssue[]): void {
+    pages.forEach((page) => {
+      const $ = cheerio.load(page.html || '');
+      const found = new Set<string>();
+
+      const consider = (raw: string) => {
+        const email = raw.trim().toLowerCase().replace(/^[.]+|[.]+$/g, '');
+        if (!email.includes('@')) return;
+        if (IMAGE_FILE_ENDING.test(email)) return;
+        const domain = email.split('@').pop() || '';
+        if (PLACEHOLDER_EMAIL_DOMAINS.some((d) => domain === d || domain.endsWith(`.${d}`))) return;
+        found.add(email);
+      };
+
+      for (const m of (page.text || '').match(EMAIL_PATTERN) || []) consider(m);
+      $('a[href]').each((_, el) => {
+        const href = ($(el).attr('href') || '').trim();
+        if (!/^mailto:/i.test(href)) return;
+        let value = href.replace(/^mailto:/i, '').split('?')[0];
+        try {
+          value = decodeURIComponent(value);
+        } catch {
+          // keep the raw value
+        }
+        for (const part of value.split(/[,;]/)) {
+          const m = part.match(EMAIL_PATTERN);
+          if (m) consider(m[0]);
+        }
+      });
+
+      if (found.size === 0) return;
+      const list = [...found];
+      issues.push({
+        id: `plaintext_email_${page.url}`,
+        category: 'security',
+        type: 'plaintext_email',
+        severity: 'low',
+        informational: true,
+        title: 'Email Address Shown in Plain Text',
+        description: `We found ${list.length} email ${list.length === 1 ? 'address' : 'addresses'} in the text or mailto links of ${page.url}: ${list.slice(0, 3).join(', ')}${list.length > 3 ? ' and more' : ''}.`,
+        impact: 'Bots that collect addresses for spam can read these. Showing a business contact address is common and often fine; a contact form, or an address that is lightly hidden from bots, usually means less spam.',
+        suggestion: 'If spam is not a problem, leave it. If it is, use a contact form, or turn on your host or CDN email protection (for example Cloudflare Email Address Obfuscation), which hides the address from simple bots but still shows it to people.',
+        url: page.url,
+        priority: 1,
+        affectedUrls: [page.url],
+        fixInstructions: [
+          { step: 1, title: 'Decide whether it matters', description: 'If the inbox gets little spam, nothing needs to change.' },
+          { step: 2, title: 'Use a contact form', description: 'A form with spam protection lets people reach you without showing the address at all.' },
+          { step: 3, title: 'Or hide it from bots', description: 'Turn on email obfuscation in your CDN, or write the address with a small script so it is not in the raw HTML.' }
+        ],
+        timeToFix: '15 minutes',
+        difficulty: 'easy',
+      });
+    });
+  }
+
+  /** target="_blank" links to other sites without rel="noopener" or rel="noreferrer". A tip, not a fault. */
+  private analyzeBlankLinks(pages: PageData[], issues: AuditIssue[]): void {
+    pages.forEach((page) => {
+      let pageHost = '';
+      try {
+        pageHost = new URL(finalUrlOf(page)).hostname.toLowerCase().replace(/^www\./, '');
+      } catch {
+        return;
+      }
+
+      const $ = cheerio.load(page.html || '');
+      const unsafe: { href: string; outerHTML: string }[] = [];
+      $('a[target]').each((_, el) => {
+        const $a = $(el);
+        if (($a.attr('target') || '').trim().toLowerCase() !== '_blank') return;
+        const href = ($a.attr('href') || '').trim();
+        if (!/^https?:\/\//i.test(href)) return;
+        let host = '';
+        try {
+          host = new URL(href).hostname.toLowerCase().replace(/^www\./, '');
+        } catch {
+          return;
+        }
+        // Your own subdomains (shop.example.com) are the same site.
+        if (!host || host === pageHost || sameSiteHost(host, pageHost)) return;
+        const rel = ($a.attr('rel') || '').toLowerCase().split(/\s+/);
+        if (rel.includes('noopener') || rel.includes('noreferrer')) return;
+        unsafe.push({ href, outerHTML: $.html(el).slice(0, 200) });
+      });
+
+      if (unsafe.length === 0) return;
+      issues.push({
+        id: `unsafe_blank_links_${page.url}`,
+        category: 'security',
+        type: 'unsafe_blank_link',
+        severity: 'low',
+        informational: true,
+        title: 'External Links Open a New Tab Without rel="noopener"',
+        description: `${unsafe.length} ${unsafe.length === 1 ? 'link' : 'links'} on ${page.url} ${unsafe.length === 1 ? 'opens' : 'open'} another site in a new tab without rel="noopener" or rel="noreferrer", for example ${unsafe[0].href}.`,
+        impact: 'In old browsers, a page opened this way could use window.opener to send your tab to a different page, such as a fake login. Chrome, Firefox and Safari have treated target="_blank" as noopener by default since 2021, so the risk today is small. Adding rel="noopener" is still a cheap best practice.',
+        suggestion: 'Add rel="noopener" to links that open other sites in a new tab. Add noreferrer as well only if you do not want the other site to see that the visitor came from you.',
+        url: page.url,
+        priority: 1,
+        affectedUrls: [page.url],
+        affectedElements: unsafe.slice(0, 5).map((u) => ({
+          tag: 'a',
+          attributes: { href: u.href, target: '_blank' },
+          outerHTML: u.outerHTML,
+          selector: `a[href="${u.href}"]`,
+        })),
+        codeSnippet: '<!-- BEFORE -->\n<a href="https://other-site.com" target="_blank">Partner</a>\n\n<!-- AFTER -->\n<a href="https://other-site.com" target="_blank" rel="noopener">Partner</a>',
+        fixInstructions: [
+          { step: 1, title: 'Find the links', description: 'Search your templates and content for target="_blank".' },
+          { step: 2, title: 'Add rel="noopener"', description: 'Add it to each link that points to another site. Many CMS editors and frameworks have a setting that adds it for you.' }
+        ],
+        timeToFix: '10 minutes',
+        difficulty: 'easy',
+      });
+    });
   }
 
   private getSeverityWeight(severity: string): number {

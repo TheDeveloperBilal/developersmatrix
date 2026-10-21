@@ -64,7 +64,7 @@ const PATHS: { title: string; blurb: string; steps: string[]; tool: { slug: stri
     title: 'Stay safe online',
     blurb: 'Understand new threats and protect your accounts and your site.',
     steps: ['ai-cybersecurity-threats-protection-2026', 'passwordless-authentication-future'],
-    tool: { slug: 'website-audit', name: 'AI Website Audit', href: '/tools/website-audit' },
+    tool: { slug: 'website-audit', name: 'Website Audit', href: '/tools/website-audit' },
   },
 ];
 

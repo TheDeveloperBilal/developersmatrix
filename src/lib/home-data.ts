@@ -43,9 +43,9 @@ export const explorerCategories = [
 // Only tools that exist. The homepage counts tools from this list.
 export const explorerTools: ExplorerTool[] = [
   {
-    name: "AI Website Audit",
+    name: "Website Audit",
     href: "/tools/website-audit",
-    description: "Around 150 checks across SEO, speed, security, mobile and more, with a prioritized fix list.",
+    description: "70 named checks across SEO, speed, security, mobile and more, with a prioritized fix list.",
     category: "SEO",
     icon: TOOL_ICONS["website-audit"],
   },
@@ -213,7 +213,7 @@ export const goals: Goal[] = [
     icon: TOOL_ICONS["website-audit"],
     headline: "Audit, fix and grow your site",
     tools: [
-      { name: "AI Website Audit", href: "/tools/website-audit", icon: TOOL_ICONS["website-audit"], note: "Start with a full health score" },
+      { name: "Website Audit", href: "/tools/website-audit", icon: TOOL_ICONS["website-audit"], note: "Start with a full health score" },
       { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: TOOL_ICONS["ai-content-detector"], note: "Keep content human and original" },
       { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: TOOL_ICONS["ai-prompt-library"], note: "Prompts for SEO and content" },
     ],
@@ -369,7 +369,7 @@ export const homeFaqs = [
   },
   {
     question: "What does the Website Audit Tool check?",
-    answer: "It runs around 150 checks across eight areas: SEO, technical setup, performance, mobile, security, accessibility, content and conversion. You get a score out of 100 plus a prioritized list of fixes.",
+    answer: "It runs 70 named checks across seven scored areas: SEO, technical setup, performance, mobile, security, accessibility and content, plus conversion tips that do not change the score. You get a score out of 100 plus a prioritized list of fixes.",
   },
   {
     question: "How does the Interview Simulator give feedback?",

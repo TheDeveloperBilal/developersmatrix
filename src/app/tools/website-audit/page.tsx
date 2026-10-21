@@ -13,7 +13,7 @@ export const metadata: Metadata = generatePageMetadata({
   description: `Audit your website online free. ${NAMED_CHECK_COUNT} named checks for SEO, speed, mobile and security, plus Core Web Vitals. A score out of 100 and a fix list. No signup.`,
   keywords: ['audit website online', 'website audit tool online', 'website audit', 'audit website', 'audit a website', 'website auditor tool online', 'site audit online', 'site auditor online', 'audit checker', 'online website audit', 'web site audit', 'website auditor', 'web audit tool', 'website code audit', 'audit my website', 'audit of website', 'free website audit tool', 'website health check free', 'seo audit tool online', 'technical seo audit free', 'seo score checker', 'website performance checker', 'google core web vitals checker', 'website speed test tool', 'mobile friendly test tool', 'accessibility audit tool free', 'website security scanner free', 'free website analyzer', 'website grader', 'grade my website'],
   path: "/tools/website-audit",
-  modifiedTime: "2026-10-22",
+  modifiedTime: "2026-10-23",
 });
 
 const toolFaqs = [
@@ -27,11 +27,11 @@ const toolFaqs = [
   },
   {
     question: "How is a website grade calculated?",
-    answer: "Every finding has a severity (critical, high, medium or low) and costs points in its category. A problem found on every page costs more than one found on a single page, and small low priority notes are capped per category so a pile of minor notes cannot sink a score. The seven categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or a homepage set to noindex, caps the grade at 55. The report shows every category score next to the overall grade."
+    answer: "Every finding has a severity (critical, high, medium or low) and costs points in its category. A problem found on every page costs more than one found on a single page, and small low priority notes are capped per category so a pile of minor notes cannot sink a score. The seven categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or a homepage set to noindex, caps the grade at 55. Tips, such as conversion ideas, email records or AI crawler settings, are shown but never change the grade. The report shows every category score next to the overall grade."
   },
   {
     question: "What does the website audit tool check in 2026?",
-    answer: `Our website audit tool runs ${NAMED_CHECK_COUNT} named checks across seven scored areas. SEO covers title tags, meta descriptions, H1 and headings, image alt text, canonical tags, noindex, structured data, Open Graph and internal links. Technical covers robots.txt (read the way Google reads it), the XML sitemap, redirect chains, 404s and server errors in the crawl, hreflang, duplicate titles and descriptions, and URL structure. Performance looks at HTML size, server response time, render blocking files, image width and height, lazy loading, text compression and cache headers. Security checks HTTPS, HSTS, Content Security Policy and other security headers, mixed content, insecure forms and cookie flags. Accessibility covers alt text, form labels, page language, landmarks, heading order and link text. Content looks at word count, readability (English only), keyword stuffing and trust signals. Mobile checks the viewport and theme colour. Conversion tips are listed separately and do not count toward the score.`
+    answer: `Our website audit tool runs ${NAMED_CHECK_COUNT} named checks across seven scored areas. SEO covers title tags, meta descriptions, H1 and headings, image alt text, keyword use in the title, favicon, doctype, charset, deprecated HTML, canonical tags, noindex, nofollow, structured data and Open Graph. Technical covers robots.txt (read the way Google reads it), the XML sitemap, redirects, broken links (we request the links on the pages we scan, up to 40 internal and 20 outbound), the 404 page and soft 404s, www and non www versions, meta refresh, hreflang, duplicate titles and URL structure. Performance looks at server response, HTML and DOM size, render blocking files, image sizes and formats, lazy loading, compression, caching, minified CSS and JavaScript, and HTTP/2. Security checks HTTPS and the http to https redirect, HSTS, Content Security Policy and other headers, mixed content, open directory listings and insecure forms. Accessibility covers form labels, page language, link text, landmarks, hidden focusable elements and heading order. Content looks at word count, readability (English only), keyword stuffing and trust signals. Mobile checks the viewport, responsive CSS and theme colour, and Google PageSpeed adds a mobile snapshot. Tips that do not change the score cover conversion, analytics, SPF and DMARC email records, ads.txt and whether AI search crawlers can read your site. We do not measure font size, tap targets or colour contrast, because those need a real browser.`
   },
   {
     question: "How accurate is this compared to Google Lighthouse?",
@@ -55,7 +55,7 @@ const toolFaqs = [
   },
   {
     question: "Can I download or share the audit report?",
-    answer: "Absolutely. After running an audit, copy the full text report to your clipboard or save a professionally formatted PDF. The PDF includes colour coded scores for each category, issues organized by severity level, a fix for each finding, a content analysis summary, and a clean summary perfect for stakeholders. It is ideal for sharing with clients, team members, or freelancers who will implement the fixes."
+    answer: "Absolutely. After running an audit, copy the full text report to your clipboard or save a professionally formatted PDF. The on screen report also shows a Google search preview of your homepage and a mobile snapshot from Google PageSpeed. The PDF includes colour coded scores for each category, issues organized by severity level, a fix for each finding, a content analysis summary, and a clean summary perfect for stakeholders. It is ideal for sharing with clients, team members, or freelancers who will implement the fixes."
   },
   {
     question: "What is a free website health check and why do I need one?",
@@ -139,7 +139,7 @@ const CHECKLIST = [
     title: 'Performance',
     icon: Gauge,
     iconClass: 'text-orange-500',
-    what: 'Server Response Time, HTML Size, Image Dimensions, Render Blocking Resources, Image Lazy Loading and Text Compression tests.',
+    what: 'Server Response Time, HTML Size, DOM Size, Image Dimensions, Modern Image Format, Render Blocking Resources, Image Lazy Loading, Text Compression, Caching Headers, Minification and HTTP/2 tests.',
     items: [
       'LCP under 2.5 seconds',
       'INP under 200 milliseconds',
@@ -155,7 +155,7 @@ const CHECKLIST = [
     title: 'Mobile and Security',
     icon: Smartphone,
     iconClass: 'text-purple-500',
-    what: 'Viewport, Theme Color, HTTPS, Mixed Content and security header tests.',
+    what: 'Viewport, Media Query Responsive, Theme Color, HTTPS, Mixed Content, Directory Browsing and security header tests.',
     items: [
       'Viewport meta tag configured',
       'Tap targets at least 48 pixels',
@@ -169,7 +169,7 @@ const CHECKLIST = [
     title: 'Accessibility and Content',
     icon: Accessibility,
     iconClass: 'text-green-500',
-    what: 'Image Alt Text, Heading Structure, Content Length, Readability and Keyword Stuffing tests.',
+    what: 'Image Alt Text, Heading Structure, Form Label, Page Language, Link Text, Content Length, Readability and Keyword Stuffing tests.',
     items: [
       'Alt text on all images',
       'Form labels linked to their inputs',
@@ -183,9 +183,9 @@ const CHECKLIST = [
 
 const PROBLEMS = [
   { title: 'Slow Server Response Times', text: 'If your server takes over 800 milliseconds to respond, you have lost time before the page even starts loading. Cheap shared hosting, slow databases and missing caching are the usual causes. The audit measures Time to First Byte so you can see whether the delay is on the server or in the page itself.' },
-  { title: 'Unoptimized Images', text: 'Serving a 2MB hero image as a PNG is one of the most common reasons a page is slow. WebP and AVIF files are usually far smaller at the same quality, responsive images with srcset serve the right size for each screen, and lazy loading delays images below the fold. The audit checks lazy loading and whether images declare their width and height.' },
+  { title: 'Unoptimized Images', text: 'Serving a 2MB hero image as a PNG is one of the most common reasons a page is slow. WebP and AVIF files are usually far smaller at the same quality, responsive images with srcset serve the right size for each screen, and lazy loading delays images below the fold. The audit checks lazy loading, whether images declare their width and height, and whether they are served as WebP or AVIF.' },
   { title: 'Missing or Duplicate Meta Descriptions', text: 'Google often uses the meta description for the search result snippet. Without one, Google picks text from the page that may not earn the click. Every important page should have a unique description between 120 and 158 characters.' },
-  { title: 'Broken Internal Links and Orphan Pages', text: 'Broken links waste crawl budget and frustrate visitors. Pages with no internal links pointing to them are hard for Google to find at all. The audit flags broken links on the pages it scans, with the exact URLs.' },
+  { title: 'Broken Internal Links and Orphan Pages', text: 'Broken links waste crawl budget and frustrate visitors. Pages with no internal links pointing to them are hard for Google to find at all. The audit requests the links on the pages it scans, up to 40 internal and 20 outbound per audit, and lists each broken one with the page it was found on.' },
   { title: 'Missing Schema Markup', text: 'Structured data helps Google understand your content and can unlock rich results such as breadcrumbs in search. Article, FAQ and Organization markup suit most content sites. The audit checks whether structured data is present and readable.' },
   { title: 'Poor Accessibility', text: 'Missing alt text, form fields without labels, low contrast and keyboard traps shut out visitors who rely on assistive technology, and in many places accessibility is also a legal requirement under standards such as WCAG 2.1 AA.' },
   { title: 'Third Party Script Bloat', text: 'Analytics, chat widgets, ad networks and social embeds each add weight. A heavy tag manager setup or chat widget can add seconds to load time on a phone. Load these scripts after the main content, or remove the ones you do not use.' },
@@ -193,7 +193,7 @@ const PROBLEMS = [
 
 const GOOGLE_CHECKS = [
   { title: 'Core Web Vitals', text: 'Google measures three metrics. Largest Contentful Paint tracks loading speed and should stay under 2.5 seconds. Interaction to Next Paint measures responsiveness and should stay under 200 milliseconds. Cumulative Layout Shift tracks visual stability and should stay under 0.1. The audit reports all three from Google PageSpeed where Google has field data for the page.' },
-  { title: 'Mobile First Indexing', text: 'Google uses the mobile version of your page for indexing and ranking. If the mobile site is slow, broken or missing content compared with desktop, that is the version Google judges. The audit checks the mobile viewport and theme colour. It does not measure tap targets or font sizes yet.' },
+  { title: 'Mobile First Indexing', text: 'Google uses the mobile version of your page for indexing and ranking. If the mobile site is slow, broken or missing content compared with desktop, that is the version Google judges. The audit checks the mobile viewport, responsive CSS and theme colour, and shows a mobile snapshot from Google PageSpeed. Font size and tap target size need a real browser, so check those on a phone or in the PageSpeed results.' },
   { title: 'Trust Signals and E-E-A-T', text: 'Experience, Expertise, Authoritativeness and Trustworthiness. Quality raters look for author information, sources, secure connections, privacy policies and about pages. The audit checks for common trust signals and flags what is missing.' },
   { title: 'Technical Foundations', text: 'Canonical tags, one H1 per page, sensible meta descriptions, structured data, an XML sitemap and a correct robots.txt. They are not glamorous, but everything else builds on them. A broken canonical tag alone can stop the right page from ranking.' },
 ];
@@ -327,7 +327,7 @@ export default function WebsiteAuditPage() {
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Mobile and UX</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Tests the mobile viewport and theme colour. Tap target size and font size are not measured yet, so the report shows them as Not run.
+                Tests the mobile viewport, responsive CSS and theme colour, and shows a mobile snapshot from Google PageSpeed. Font size and tap target size need a real browser, so we leave those to the PageSpeed results rather than guess.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
@@ -339,7 +339,7 @@ export default function WebsiteAuditPage() {
           </div>
 
           <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-            Each finding costs points in its category by severity, and the seven category scores are weighted into your overall Site Health Score out of 100. Core Web Vitals are shown next to the score, not inside it.
+            Each finding costs points in its category by severity, and the seven category scores are weighted into your overall Site Health Score out of 100. Core Web Vitals are shown next to the score, not inside it, and tips such as conversion ideas or email records never change it.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-3">URL Audit: Check a Single Page or a Whole Site</h3>
@@ -557,12 +557,12 @@ export default function WebsiteAuditPage() {
                   A <strong>website code audit</strong> goes deeper than surface level SEO checks. It examines the markup, stylesheets and scripts that power your site. Heavy CSS, render blocking JavaScript and messy markup are invisible to visitors but slow the page down and make it harder for search engines to read.
                 </p>
                 <p className="leading-relaxed">
-                  This tool covers the code checks that can be measured automatically from the outside: HTML size, render blocking stylesheets and scripts, text compression, image width, height and lazy loading, heading structure, image alt text, structured data, mixed content and security headers. Deeper work such as full HTML validation, finding unused CSS rules and profiling JavaScript needs access to the code itself, and our code audit guide walks through it step by step.
+                  This tool covers the code checks that can be measured automatically from the outside: doctype and charset, deprecated HTML, HTML and DOM size, render blocking stylesheets and scripts, minified CSS and JavaScript, text compression, caching headers, image width, height, format and lazy loading, heading structure, image alt text, structured data, mixed content and security headers. Deeper work such as full HTML validation, finding unused CSS rules and profiling JavaScript needs access to the code itself, and our code audit guide walks through it step by step.
                 </p>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mt-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">What Our Website Code Audit Checks</h3>
                   <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
-                    {['HTML size and number of script files', 'Render blocking CSS and JavaScript', 'Text compression (gzip or Brotli)', 'Image width, height and lazy loading', 'Heading hierarchy (H1 through H6)', 'Missing alt attributes on images', 'Structured data present and valid', 'Mixed content, subresource integrity and security headers'].map((c) => (
+                    {['Doctype, charset and deprecated HTML tags', 'HTML size, DOM size and number of script files', 'Render blocking CSS and JavaScript', 'Minified CSS and JavaScript', 'Text compression (gzip or Brotli)', 'Image width, height and lazy loading', 'Heading hierarchy (H1 through H6)', 'Missing alt attributes on images', 'Structured data present and valid', 'Mixed content, subresource integrity and security headers'].map((c) => (
                       <li key={c} className="flex items-start gap-2"><span className="text-green-500 mt-0.5" aria-hidden="true">✓</span><span>{c}</span></li>
                     ))}
                   </ul>

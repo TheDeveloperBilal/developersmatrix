@@ -19,7 +19,7 @@ export type Tool = {
 
 export const featuredTools: Tool[] = [
   {
-    name: "AI Website Audit",
+    name: "Website Audit",
     href: "/tools/website-audit",
     description:
       "Run a full health check on any website. SEO, speed, security, mobile UX and content quality scored in seconds.",
@@ -162,7 +162,7 @@ export const categories: Category[] = [
 ];
 
 export const tickerItems = [
-  { tag: "TOOL", label: "AI Website Audit", href: "/tools/website-audit" },
+  { tag: "TOOL", label: "Website Audit", href: "/tools/website-audit" },
   { tag: "TREND", label: "AI Agents in 2026", href: "/trends" },
   { tag: "TOOL", label: "Resume Builder", href: "/tools/ai-resume-builder" },
   { tag: "GUIDE", label: "Technical Interview Prep", href: "/blog/technical-interview-prep-2026" },

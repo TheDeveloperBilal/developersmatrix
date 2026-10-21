@@ -58,6 +58,9 @@ export class TechnicalAuditor {
     // Link Depth Analysis
     this.analyzeLinkDepth(pages, issues);
 
+    // Analytics tag on the homepage (a tip, never scored)
+    this.analyzeAnalytics(pages, issues);
+
     // Calculate score
     const totalChecks = 32;
     // A check counts as passed only if it raised no finding at all. Previously this
@@ -1116,6 +1119,40 @@ export class TechnicalAuditor {
     }
   }
 
+  // --- Analytics ---
+  // A tip only. Analytics does not affect rankings, and tags loaded later by a
+  // tag manager or by scripts, or analytics run on the server, are invisible
+  // in the HTML, so a missing tag here proves nothing.
+
+  private analyzeAnalytics(pages: PageData[], issues: AuditIssue[]) {
+    const home = pages[0];
+    if (!home || !(home.html || '').trim()) return;
+    if (detectAnalytics(home.html).length > 0) return;
+
+    issues.push({
+      id: 'no_analytics',
+      category: 'technical',
+      type: 'missing_analytics',
+      severity: 'low',
+      informational: true,
+      title: 'No Analytics Tag Found',
+      description: 'We did not find a common analytics tag in the homepage HTML.',
+      impact: 'Analytics has no effect on rankings, but without it you cannot see how many people visit, where they come from or what they do. Tags loaded later by a tag manager or by other scripts, and analytics that runs on the server, are invisible to us, so ignore this if you already measure traffic.',
+      suggestion: 'If you do not measure visits yet, add an analytics tool such as Google Analytics, Plausible, Fathom, Matomo, Cloudflare Web Analytics or Vercel Web Analytics, and connect Google Search Console to see search traffic. If you already measure traffic, ignore this.',
+      url: home.url,
+      priority: 2,
+      affectedUrls: [home.url],
+      fixInstructions: [
+        { step: 1, title: 'Check whether you already measure traffic', description: 'Look in your host dashboard, CDN and tag manager. Many hosts offer simple visitor stats that need no tag in the page.' },
+        { step: 2, title: 'Pick a tool', description: 'Choose one that fits your privacy needs. Cookie free tools such as Plausible or Cloudflare Web Analytics often need no cookie banner; Google Analytics usually does in the EU and UK.' },
+        { step: 3, title: 'Add the tag to every page', description: 'Put the snippet in your shared layout so it loads on every page, then check the tool shows your own visit.' },
+        { step: 4, title: 'Connect Search Console', description: 'Google Search Console shows the searches that bring people to your site, which no analytics tag can.' }
+      ],
+      timeToFix: '20 minutes',
+      difficulty: 'easy',
+    });
+  }
+
   // --- Helpers ---
 
   private createScore(score: number, totalChecks: number, passedChecks: number, issues: number): AuditScore {
@@ -1261,4 +1298,79 @@ function countEmptyValues(value: unknown, depth = 0): number {
     }
   }
   return count;
+}
+
+/**
+ * Where to look for each analytics signature.
+ * html: anywhere in the HTML. These are addresses that only appear when the tag is there.
+ * script: script src addresses and inline scripts that are code, not page data.
+ *   Used for plain words such as "umami" or "mixpanel" that could also be page text.
+ * src: script src addresses only.
+ */
+type AnalyticsScope = 'html' | 'script' | 'src';
+
+const ANALYTICS_SIGNATURES: { name: string; scope: AnalyticsScope; patterns: string[] }[] = [
+  { name: 'Google Tag Manager', scope: 'html', patterns: ['googletagmanager.com/gtm.js', 'gtm.js?id=', 'googletagmanager.com/ns.html'] },
+  { name: 'Google Analytics', scope: 'html', patterns: ['googletagmanager.com/gtag/js', 'google-analytics.com/analytics.js', 'google-analytics.com/ga.js'] },
+  { name: 'Plausible', scope: 'html', patterns: ['plausible.io/js'] },
+  { name: 'Fathom', scope: 'html', patterns: ['usefathom.com'] },
+  { name: 'Matomo', scope: 'html', patterns: ['matomo.js', 'piwik.js'] },
+  { name: 'Cloudflare Web Analytics', scope: 'html', patterns: ['static.cloudflareinsights.com'] },
+  { name: 'Vercel Web Analytics', scope: 'html', patterns: ['/_vercel/insights', 'va.vercel-scripts.com'] },
+  { name: 'Microsoft Clarity', scope: 'html', patterns: ['clarity.ms'] },
+  { name: 'Shopify Analytics', scope: 'html', patterns: ['trekkie', 'shopifyanalytics', 'monorail-edge'] },
+  { name: 'Meta Pixel', scope: 'html', patterns: ['connect.facebook.net/en_us/fbevents.js', '/fbevents.js'] },
+  { name: 'Yandex Metrica', scope: 'html', patterns: ['mc.yandex.ru'] },
+  { name: 'Adobe Analytics', scope: 'html', patterns: ['assets.adobedtm.com'] },
+  { name: 'HubSpot', scope: 'html', patterns: ['js.hs-scripts.com', 'js.hs-analytics.net'] },
+  { name: 'LinkedIn Insight', scope: 'html', patterns: ['snap.licdn.com'] },
+  { name: 'Wix Analytics', scope: 'html', patterns: ['static.parastorage.com/services/wix-thunderbolt'] },
+  { name: 'Squarespace Analytics', scope: 'html', patterns: ['static1.squarespace.com/static/vta'] },
+  { name: 'Segment', scope: 'html', patterns: ['cdn.segment.com'] },
+  { name: 'PostHog', scope: 'script', patterns: ['posthog'] },
+  { name: 'Hotjar', scope: 'html', patterns: ['static.hotjar.com'] },
+  { name: 'Simple Analytics', scope: 'script', patterns: ['simpleanalytics'] },
+  { name: 'Umami', scope: 'html', patterns: ['cloud.umami.is'] },
+  { name: 'Umami', scope: 'script', patterns: ['umami'] },
+  { name: 'Jetpack Stats', scope: 'html', patterns: ['stats.wp.com'] },
+  { name: 'Gauges', scope: 'script', patterns: ['gauges'] },
+  { name: 'Heap', scope: 'html', patterns: ['heapanalytics.com'] },
+  { name: 'Heap', scope: 'src', patterns: ['heap-'] },
+  { name: 'Mixpanel', scope: 'html', patterns: ['cdn.mxpnl.com'] },
+  { name: 'Mixpanel', scope: 'script', patterns: ['mixpanel'] },
+];
+
+/** Inline scripts that carry page data rather than code, such as Next.js flight data. */
+const DATA_SCRIPT = /^\s*\(?\s*(self|window)\.(__next_f|__NEXT_DATA__|__NUXT__|__APOLLO_STATE__|__remixContext|__staticRouterHydrationData)/i;
+const DATA_SCRIPT_TYPES = /^(application\/(ld\+)?json|importmap|speculationrules|text\/template|text\/x-template)$/i;
+
+/**
+ * Names of the analytics tools whose tags appear in this HTML, for example
+ * ['Google Tag Manager', 'Plausible']. Tags that a tag manager or another
+ * script adds later are not in the HTML, so an empty list is not proof.
+ */
+export function detectAnalytics(html: string): string[] {
+  const lowerHtml = (html || '').toLowerCase();
+  const srcs: string[] = [];
+  const code: string[] = [];
+  const scriptTag = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = scriptTag.exec(lowerHtml)) !== null) {
+    const attrs = m[1];
+    const src = attr(` ${attrs}`, 'src');
+    if (src) srcs.push(src);
+    const type = (attr(` ${attrs}`, 'type') || '').trim();
+    const body = m[2];
+    if (body.trim() && !DATA_SCRIPT_TYPES.test(type) && !DATA_SCRIPT.test(body)) code.push(body);
+  }
+  const srcText = srcs.join('\n');
+  const scriptText = `${srcText}\n${code.join('\n')}`;
+
+  const found: string[] = [];
+  for (const sig of ANALYTICS_SIGNATURES) {
+    if (found.includes(sig.name)) continue;
+    const haystack = sig.scope === 'html' ? lowerHtml : sig.scope === 'script' ? scriptText : srcText;
+    if (sig.patterns.some((p) => haystack.includes(p))) found.push(sig.name);
+  }
+  return found;
 }

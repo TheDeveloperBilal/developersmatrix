@@ -16,6 +16,37 @@ const FRAMEWORK_DATA = /^\s*\(?\s*(self|window)\.(__next_f|__NEXT_DATA__|__NUXT_
 
 const COMPRESSED_ENCODINGS = /\b(gzip|br|zstd|deflate|compress)\b/i;
 
+/** File endings of image formats that have smaller modern replacements. */
+const LEGACY_EXTENSION = /\.(jpe?g|png|gif|bmp)$/i;
+
+/**
+ * Image addresses that a CDN or framework already serves as WebP or AVIF to
+ * browsers that support it, so the file ending says nothing about what arrives.
+ */
+const MODERN_FORMAT_HINTS = [
+  '/_next/image',
+  'f_auto',
+  'auto=format',
+  'fm=webp',
+  'fm=avif',
+  'format=webp',
+  'format=auto',
+  '/cdn-cgi/image/',
+  'imagekit',
+  // Shopify's CDN and WordPress.com's image service pick WebP for browsers that accept it.
+  'cdn.shopify.com',
+  '.wp.com/',
+  // Shopify themes now serve the same CDN from the store's own domain.
+  '/cdn/shop/',
+  // Wix, Vercel, Netlify, Cloudflare Images and Nuxt image services.
+  'enc_auto',
+  'wixstatic.com',
+  '/_vercel/image',
+  '/.netlify/images',
+  'imagedelivery.net',
+  '/_ipx/',
+];
+
 export class PerformanceAuditor {
   private docs = new WeakMap<PageData, cheerio.CheerioAPI>();
 
@@ -59,6 +90,12 @@ export class PerformanceAuditor {
 
     // Cache Headers
     this.analyzeCache(pages, issues);
+
+    // Number of HTML elements
+    this.analyzeDomSize(pages, issues);
+
+    // JPEG, PNG and GIF images that could be WebP or AVIF
+    this.analyzeImageFormats(pages, issues);
 
     // Calculate score
     const totalChecks = 15;
@@ -397,6 +434,114 @@ export class PerformanceAuditor {
           priority: 2,
         });
       }
+    });
+  }
+
+  /** Elements in the HTML the server sent. Elements added later by scripts are not counted. */
+  private analyzeDomSize(pages: PageData[], issues: AuditIssue[]): void {
+    pages.forEach((page) => {
+      const $ = this.doc(page);
+      // Lighthouse counts the elements inside <body>.
+      const count = $('body *').length;
+      if (count <= 1400) return;
+
+      const severity = count > 3000 ? 'medium' : 'low';
+      const countText = count.toLocaleString('en-US');
+      issues.push({
+        id: `dom_size_${page.url}`,
+        category: 'performance',
+        type: 'dom_size',
+        severity,
+        title: 'Very Many HTML Elements on the Page',
+        description: `The HTML that ${page.url} sends contains ${countText} elements. Google's Lighthouse flags pages above about 1,400 elements. We count the HTML the server sends, so elements that scripts add after the page loads are not included.`,
+        impact: 'A large page makes the browser work harder for layout, styling and every script that touches the page. Phones feel this most: scrolling, tapping and typing can lag.',
+        suggestion: 'Look for repeated or hidden blocks: big menus with every item written out, hidden tabs and sliders, the same SVG icon pasted many times, long lists and deeply nested wrapper elements from page builders. Load hidden parts when they are opened, and paginate long lists.',
+        url: page.url,
+        priority: severity === 'medium' ? 4 : 2,
+        affectedUrls: [page.url],
+        fixInstructions: [
+          { step: 1, title: 'Find the biggest sections', description: 'Open the page in Chrome DevTools, run Lighthouse and read the DOM size item ("Optimize DOM size" in current versions). It names the deepest and widest parts of the page.' },
+          { step: 2, title: 'Trim repeated markup', description: 'Reuse SVG icons with <use>, remove wrapper elements that do nothing, and keep menus to the links people need.' },
+          { step: 3, title: 'Load hidden content later', description: 'Render tabs, accordions, modals and long lists when they are opened or scrolled into view, not all at once.' }
+        ],
+        timeToFix: '1 to 3 hours',
+        difficulty: 'medium',
+      });
+    });
+  }
+
+  /** JPEG, PNG, GIF and BMP images that are not already served as WebP or AVIF by a <picture> or an image CDN. */
+  private analyzeImageFormats(pages: PageData[], issues: AuditIssue[]): void {
+    pages.forEach((page) => {
+      const $ = this.doc(page);
+      const base = page.finalUrl || page.url;
+      const legacy: string[] = [];
+
+      $('img').each((_, el) => {
+        const $img = $(el);
+        let src = ($img.attr('src') || '').trim();
+        if (!src) src = (($img.attr('srcset') || '').trim().split(',')[0] || '').trim().split(/\s+/)[0] || '';
+        if (!src || /^data:/i.test(src)) return;
+
+        const lower = src.toLowerCase();
+        if (MODERN_FORMAT_HINTS.some((hint) => lower.includes(hint))) return;
+
+        // A <picture> with a WebP or AVIF <source> already gives modern browsers a modern file.
+        const picture = $img.closest('picture');
+        if (picture.length > 0) {
+          const modern = picture.find('source').filter((__, s) =>
+            /image\/(webp|avif)/i.test($(s).attr('type') || '') || /\.(webp|avif)(\?|\s|,|$)/i.test($(s).attr('srcset') || '')
+          ).length > 0;
+          if (modern) return;
+        }
+
+        let path = '';
+        try {
+          path = new URL(src, base).pathname;
+        } catch {
+          path = src.split(/[?#]/)[0];
+        }
+        if (!LEGACY_EXTENSION.test(path)) return;
+        legacy.push(path);
+      });
+
+      if (legacy.length < 3) return;
+
+      const names = [...new Set(legacy.map((p) => {
+        const name = p.split('/').filter(Boolean).pop() || p;
+        try {
+          return decodeURIComponent(name);
+        } catch {
+          return name;
+        }
+      }))];
+      issues.push({
+        id: `legacy_images_${page.url}`,
+        category: 'performance',
+        type: 'legacy_image_format',
+        severity: 'low',
+        title: 'Images Not Served in WebP or AVIF',
+        description: `${legacy.length} images on ${page.url} are JPEG, PNG, GIF or BMP files, for example ${names.slice(0, 5).join(', ')}.`,
+        impact: 'WebP and AVIF files are usually much smaller than JPEG or PNG at the same visual quality, so images arrive sooner, especially on mobile data. Some hosts and CDNs convert formats automatically for browsers that support them; if yours does, you can ignore this.',
+        suggestion: 'Convert photos and large graphics to WebP or AVIF, or serve them through a <picture> element with a WebP or AVIF <source> and the original file as a fallback. Many hosts, CDNs and image plugins can do this for you.',
+        url: page.url,
+        priority: 3,
+        affectedUrls: [page.url],
+        affectedElements: legacy.slice(0, 5).map((p) => ({
+          tag: 'img',
+          attributes: { src: p },
+          outerHTML: `<img src="${p}">`,
+          selector: `img[src*="${p.split('/').pop() || p}"]`,
+        })),
+        codeSnippet: '<picture>\n  <source srcset="photo.avif" type="image/avif">\n  <source srcset="photo.webp" type="image/webp">\n  <img src="photo.jpg" alt="Description" width="800" height="600">\n</picture>',
+        fixInstructions: [
+          { step: 1, title: 'Check what your host already does', description: 'Open the image address in Chrome DevTools, Network tab, and look at the Content-Type of the response. If it says image/webp or image/avif, the CDN already converts it and nothing needs to change.' },
+          { step: 2, title: 'Convert the files', description: 'Use your image plugin, build tool or a converter such as Squoosh to make WebP or AVIF versions.' },
+          { step: 3, title: 'Serve them with a fallback', description: 'Use a <picture> element with the new formats first and the original as the <img>, so older browsers still get a picture.' }
+        ],
+        timeToFix: '30 minutes',
+        difficulty: 'easy',
+      });
     });
   }
 

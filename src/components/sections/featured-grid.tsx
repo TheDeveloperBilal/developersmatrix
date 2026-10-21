@@ -68,10 +68,10 @@ export default function FeaturedGrid() {
                 </div>
 
                 <h3 className="mt-7 font-sora text-2xl font-bold leading-tight tracking-tight sm:text-[1.75rem]">
-                  AI Website Audit
+                  Free Website Audit
                 </h3>
                 <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
-                  Around 150 checks across eight areas, from SEO and speed to security and
+                  70 named checks, from SEO and speed to security and
                   accessibility, with a prioritized fix list you can act on the same day.
                 </p>
 

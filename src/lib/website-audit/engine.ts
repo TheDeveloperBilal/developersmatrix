@@ -21,15 +21,17 @@ import { ConversionAuditor } from './conversion-audit';
 import { TechnicalAuditor } from './technical-audit';
 import { scoreCategory, overallScore, CATEGORY_WEIGHTS } from './scoring';
 import { buildReport } from './check-catalogue';
+import { runSiteChecks } from './site-checks';
 import type { AuditCategory } from './types';
 
 /**
- * Named checks this engine cannot measure from raw HTML, so the report shows
- * "Not checked" instead of a pass it never earned.
- * - broken-links: links are not requested one by one yet.
- * - font-size and tap-targets: need the rendered page and its CSS.
+ * Named checks this engine can never measure from HTML and headers alone.
+ * Empty since Round C: broken links are now requested one by one, and the
+ * font size and tap target checks were removed from the catalogue because
+ * they need a real browser (Google PageSpeed covers layout on phones).
+ * Checks that could not finish on a given run are added per audit.
  */
-const NOT_MEASURED = ['broken-links', 'font-size', 'tap-targets'];
+const NOT_MEASURED: string[] = [];
 
 export class WebsiteAuditEngine {
   private crawler: WebsiteCrawler;
@@ -64,6 +66,16 @@ export class WebsiteAuditEngine {
     // module. Auditing their content as well would blame the error page for a
     // missing title, H1 and viewport that the real pages have.
     const contentPages = pages.filter((p) => p.statusCode >= 200 && p.statusCode < 300);
+
+    // Site wide checks make their own requests, so start them now and let
+    // them run while the modules below read the pages.
+    const siteChecksPromise = runSiteChecks({
+      pages: contentPages,
+      allPages: pages,
+      site: this.crawler.getSiteContext(),
+      robots: this.crawler.getParsedRobots(),
+      userAgent: this.config.userAgent,
+    });
     
     onProgress?.({
       status: 'analyzing',
@@ -172,8 +184,12 @@ export class WebsiteAuditEngine {
       errors: [],
     });
     
+    const siteChecks = await siteChecksPromise;
+    const notMeasured = [...new Set([...NOT_MEASURED, ...siteChecks.notMeasured])];
+
     // Combine all issues
     const allIssues: AuditIssue[] = [
+      ...siteChecks.issues,
       ...seoResult.issues,
       ...technicalResult.issues,
       ...performanceResult.issues,
@@ -184,6 +200,14 @@ export class WebsiteAuditEngine {
       ...conversionResult.issues,
     ];
     
+    // When the link check ran, it reports crawled 404s together with every
+    // other broken internal link, so the technical module's own 404 finding
+    // would count the same pages twice.
+    if (siteChecks.facts.links) {
+      const i = allIssues.findIndex((issue) => issue.id === 'tech-404-in-crawl');
+      if (i !== -1) allIssues.splice(i, 1);
+    }
+
     // Two modules can report the very same finding (same id, for example
     // missing alt text from SEO and accessibility). Show it once.
     const seen = new Set<string>();
@@ -202,17 +226,22 @@ export class WebsiteAuditEngine {
     // modules' own scores used fixed check counts and let per page findings
     // stack, so they are replaced here. See scoring.ts.
     const categories: AuditCategory[] = ['seo', 'technical', 'performance', 'mobile', 'security', 'accessibility', 'content', 'conversion'];
-    const named = buildReport({ issues: allIssues, notMeasured: NOT_MEASURED } as unknown as WebsiteAuditResult);
+    const named = buildReport({ issues: allIssues, notMeasured } as unknown as WebsiteAuditResult);
     const namedChecks = named.groups.flatMap((g) => g.checks);
     const pageCount = Math.max(1, contentPages.length);
     let hasCritical = false;
     const scores = Object.fromEntries(
       categories.map((category) => {
         const own = allIssues.filter((i) => i.category === category);
-        const result = scoreCategory(own, pageCount);
+        // Informational findings (email records, analytics, AI crawler
+        // choices) are shown as tips and never cost points.
+        const result = scoreCategory(own.filter((i) => !i.informational), pageCount);
         const scored = CATEGORY_WEIGHTS[category] > 0;
         if (scored && result.critical) hasCritical = true;
-        const checks = namedChecks.filter((c) => c.definition.category === category && c.status !== 'not-run');
+        // Tips and checks that could not run are neither passes nor failures.
+        const checks = namedChecks.filter(
+          (c) => c.definition.category === category && (c.status === 'pass' || c.status === 'fail' || c.status === 'warning')
+        );
         const passed = checks.filter((c) => c.status === 'pass').length;
         const score: AuditScore = {
           category,
@@ -291,7 +320,8 @@ export class WebsiteAuditEngine {
         robots: { url: site.robots.url, status: site.robots.status, found: site.robots.found },
         sitemaps: site.sitemaps,
       },
-      notMeasured: NOT_MEASURED,
+      notMeasured,
+      siteChecks: siteChecks.facts,
       contentAnalysis: contentResult.contentAnalysis,
       quickWins,
       criticalIssues,

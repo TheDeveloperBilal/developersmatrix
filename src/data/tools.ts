@@ -148,13 +148,13 @@ export const tools: Tool[] = [
   {
     id: 'website-audit',
     slug: 'website-audit',
-    name: 'AI Website Audit',
-    description: 'Run around 150 checks on any website across SEO, speed, security, mobile, accessibility and content, then get a fix list ordered by impact. Speed data comes from Google PageSpeed.',
+    name: 'Website Audit',
+    description: 'Run 70 named checks on any website across SEO, speed, security, mobile, accessibility and content, then get a fix list ordered by severity. Speed data comes from Google PageSpeed.',
     shortDescription: 'Score any website and get a prioritized fix list',
     icon: 'FileSearch',
     category: 'seo',
     features: [
-      'Around 150 checks in eight areas',
+      '70 named checks in seven scored areas',
       'Fixes ordered by how much they matter',
       'Core Web Vitals from Google PageSpeed',
       'Downloadable report'

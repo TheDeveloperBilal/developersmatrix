@@ -17,7 +17,7 @@ const columns = [
   {
     title: "Tools",
     links: [
-      { name: "AI Website Audit", href: "/tools/website-audit" },
+      { name: "Website Audit", href: "/tools/website-audit" },
       { name: "AI Resume Builder", href: "/tools/ai-resume-builder" },
       { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator" },
       { name: "Interview Simulator", href: "/tools/ai-interview-simulator" },

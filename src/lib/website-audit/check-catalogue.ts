@@ -24,6 +24,7 @@ export type GroupId =
   | 'server-security'
   | 'mobile'
   | 'advanced-seo'
+  | 'accessibility'
   | 'social';
 
 export interface CheckGroup {
@@ -33,11 +34,12 @@ export interface CheckGroup {
 }
 
 export const CHECK_GROUPS: CheckGroup[] = [
-  { id: 'common-seo', name: 'Common SEO Issues', description: 'The on-page fundamentals search engines read first.' },
+  { id: 'common-seo', name: 'Common SEO Issues', description: 'The on page basics search engines read first.' },
   { id: 'speed', name: 'Speed Optimizations', description: 'What makes the page slow, and by how much.' },
   { id: 'server-security', name: 'Server and Security', description: 'HTTPS, headers and how the server responds.' },
   { id: 'mobile', name: 'Mobile Usability', description: 'How the page behaves on a phone, which is what Google indexes.' },
   { id: 'advanced-seo', name: 'Advanced SEO', description: 'Crawling, indexing, canonicals and structured data.' },
+  { id: 'accessibility', name: 'Accessibility', description: 'Whether people using screen readers and keyboards can use the page.' },
   { id: 'social', name: 'Social and Sharing', description: 'How the page looks when someone shares it.' },
 ];
 
@@ -90,11 +92,29 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     passText: 'No single term is repeated at an unnatural rate.',
     match: { ids: ['keyword_stuffing', 'repeated_phrases'], types: ['keyword_stuffing'] } },
   { id: 'broken-links', name: 'Broken Links Test', group: 'common-seo', category: 'technical',
-    passText: 'Every linked page we crawled loaded without an error.',
-    match: { ids: ['tech-404-in-crawl'], types: ['broken_link'] } },
+    passText: 'Every link we could check loaded. We check the crawled pages plus up to 40 more internal and 20 outbound links per audit, and skip links behind bot protection.',
+    match: { ids: ['tech-404-in-crawl', 'tech-broken-internal-links', 'tech-broken-external-links'], types: ['broken_link'] } },
   { id: 'internal-links', name: 'Internal Linking Test', group: 'common-seo', category: 'technical',
     passText: 'Pages are linked to each other well enough to be discovered.',
     match: { ids: ['tech-low-internal-links', 'tech-orphan-pages', 'tech-too-many-links', 'low_internal_links'] } },
+  { id: 'keyword-usage', name: 'Keyword Usage Test', group: 'common-seo', category: 'seo',
+    passText: 'The words used most on the homepage also appear in its title, or the page is too short or not in English to judge.',
+    match: { ids: ['keyword_usage'] } },
+  { id: 'favicon', name: 'Favicon Test', group: 'common-seo', category: 'seo',
+    passText: 'A favicon is declared, or found at /favicon.ico, and it loads.',
+    match: { ids: ['seo-no-favicon', 'seo-favicon-broken'] } },
+  { id: 'doctype', name: 'Doctype Test', group: 'common-seo', category: 'seo',
+    passText: 'Every page starts with an HTML doctype, so browsers use standards mode.',
+    match: { idPrefix: ['no_doctype_'] } },
+  { id: 'charset', name: 'Charset Declaration Test', group: 'common-seo', category: 'seo',
+    passText: 'Every page declares its character encoding.',
+    match: { idPrefix: ['no_charset_'] } },
+  { id: 'deprecated-html', name: 'Deprecated HTML Test', group: 'common-seo', category: 'seo',
+    passText: 'No obsolete HTML tags such as font, center or marquee were found.',
+    match: { idPrefix: ['deprecated_html_'] } },
+  { id: 'analytics', name: 'Analytics Test', group: 'common-seo', category: 'technical',
+    passText: 'An analytics tag was found in the homepage HTML.',
+    match: { ids: ['no_analytics'] } },
 
   // ---- Speed ------------------------------------------------------------
   { id: 'load-time', name: 'Server Response Time Test', group: 'speed', category: 'performance',
@@ -114,12 +134,27 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     match: { types: ['missing_lazy_loading'] } },
   { id: 'compression', name: 'Text Compression Test', group: 'speed', category: 'performance',
     passText: 'Text assets are served compressed.',
-    match: { types: ['missing_compression'] } },
+    match: { ids: ['no_compression'], idPrefix: ['no_compression_'] } },
+  { id: 'caching', name: 'Caching Headers Test', group: 'speed', category: 'performance',
+    passText: 'CSS and JavaScript files are cached for at least a week, and pages send caching headers.',
+    match: { ids: ['perf-short-asset-cache'], idPrefix: ['no_cache_'] } },
+  { id: 'minification', name: 'Minification Test', group: 'speed', category: 'performance',
+    passText: 'The CSS and JavaScript files we checked are minified.',
+    match: { ids: ['perf-unminified-assets'] } },
+  { id: 'image-format', name: 'Modern Image Format Test', group: 'speed', category: 'performance',
+    passText: 'Images use WebP or AVIF, or are served through a service that converts them.',
+    match: { idPrefix: ['legacy_images_'] } },
+  { id: 'dom-size', name: 'DOM Size Test', group: 'speed', category: 'performance',
+    passText: 'Pages have a reasonable number of HTML elements (under about 1,400).',
+    match: { idPrefix: ['dom_size_'] } },
+  { id: 'http2', name: 'HTTP/2 Test', group: 'speed', category: 'performance',
+    passText: 'The server supports HTTP/2.',
+    match: { ids: ['perf-no-http2'] } },
 
   // ---- Server and Security ---------------------------------------------
   { id: 'https', name: 'HTTPS Test', group: 'server-security', category: 'security',
-    passText: 'The site is served over HTTPS.',
-    match: { types: ['missing_https'] } },
+    passText: 'The site is served over HTTPS, and the http:// address redirects to it.',
+    match: { ids: ['tech-http-not-redirected'], types: ['missing_https'] } },
   { id: 'mixed-content', name: 'Mixed Content Test', group: 'server-security', category: 'security',
     passText: 'No insecure resources load on a secure page.',
     match: { types: ['mixed_content'] } },
@@ -147,17 +182,32 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
   { id: 'server-errors', name: 'Server Response Test', group: 'server-security', category: 'technical',
     passText: 'Every crawled page returned a healthy status.',
     match: { ids: ['tech-server-errors'] } },
+  { id: 'directory-listing', name: 'Directory Browsing Test', group: 'server-security', category: 'security',
+    passText: 'The folders we tried do not list their files.',
+    match: { ids: ['sec-directory-listing'] } },
+  { id: 'plaintext-email', name: 'Plaintext Email Test', group: 'server-security', category: 'security',
+    passText: 'No email addresses are shown as plain text for spam bots to collect.',
+    match: { idPrefix: ['plaintext_email_'] } },
+  { id: 'unsafe-links', name: 'Unsafe Cross Origin Links Test', group: 'server-security', category: 'security',
+    passText: 'Links that open other sites in a new tab use rel="noopener" or rel="noreferrer".',
+    match: { idPrefix: ['unsafe_blank_links_'] } },
+  { id: 'spf', name: 'SPF Record Test', group: 'server-security', category: 'security',
+    passText: 'The domain has one valid SPF record for email.',
+    match: { ids: ['email-no-spf', 'email-spf-multiple'] } },
+  { id: 'dmarc', name: 'DMARC Record Test', group: 'server-security', category: 'security',
+    passText: 'The domain publishes a DMARC record for email.',
+    match: { ids: ['email-no-dmarc'] } },
+  { id: 'ads-txt', name: 'Ads.txt Test', group: 'server-security', category: 'technical',
+    passText: 'Either the homepage shows no ads, or ads.txt exists and lists the publisher ID.',
+    match: { ids: ['ads-txt-missing', 'ads-txt-missing-publisher'] } },
 
   // ---- Mobile -----------------------------------------------------------
   { id: 'viewport', name: 'Viewport Meta Tag Test', group: 'mobile', category: 'mobile',
     passText: 'A viewport meta tag is present.',
     match: { types: ['missing_viewport'] } },
-  { id: 'font-size', name: 'Legible Font Size Test', group: 'mobile', category: 'mobile',
-    passText: 'Body text is large enough to read on a phone.',
-    match: { types: ['text_too_small'] } },
-  { id: 'tap-targets', name: 'Tap Target Size Test', group: 'mobile', category: 'mobile',
-    passText: 'Buttons and links are big enough to tap.',
-    match: { types: ['touch_target_small'], ids: ['conv-small-tap-targets'] } },
+  { id: 'responsive-css', name: 'Media Query Responsive Test', group: 'mobile', category: 'mobile',
+    passText: 'The stylesheets include @media rules that adapt the layout to small screens.',
+    match: { ids: ['mobile-no-media-queries'] } },
   { id: 'theme-color', name: 'Theme Color Test', group: 'mobile', category: 'mobile',
     passText: 'A theme colour is declared for mobile browsers.',
     match: { ids: ['no_theme_color'] } },
@@ -197,6 +247,41 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
   { id: 'noindex', name: 'Noindex Test', group: 'advanced-seo', category: 'seo',
     passText: 'No crawled page is kept out of Google by a noindex rule.',
     match: { idPrefix: ['noindex_'] } },
+  { id: 'nofollow', name: 'Nofollow Test', group: 'advanced-seo', category: 'seo',
+    passText: 'No crawled page tells Google to ignore all of its links.',
+    match: { idPrefix: ['nofollow_'] } },
+  { id: 'meta-refresh', name: 'Meta Refresh Test', group: 'advanced-seo', category: 'seo',
+    passText: 'No page uses a meta refresh to reload or redirect.',
+    match: { idPrefix: ['meta_refresh_'] } },
+  { id: 'custom-404', name: 'Custom 404 Page Test', group: 'advanced-seo', category: 'technical',
+    passText: 'A page that does not exist answers 404 and shows a helpful error page.',
+    match: { ids: ['tech-soft-404', 'tech-404-redirects-home', 'tech-default-404'] } },
+  { id: 'url-canonicalization', name: 'URL Canonicalization Test', group: 'advanced-seo', category: 'technical',
+    passText: 'The www and non www addresses lead to one version of the site.',
+    match: { ids: ['tech-duplicate-host', 'tech-alt-host-different'] } },
+  { id: 'ai-crawlers', name: 'AI Crawler Access Test', group: 'advanced-seo', category: 'technical',
+    passText: 'robots.txt lets AI search crawlers (ChatGPT search, Perplexity, Claude) read the homepage.',
+    match: { ids: ['ai-search-bots-blocked'] } },
+
+  // ---- Accessibility ----------------------------------------------------
+  { id: 'form-labels', name: 'Form Label Test', group: 'accessibility', category: 'accessibility',
+    passText: 'Every form field has a label that screen readers can announce.',
+    match: { idPrefix: ['no_label_', 'placeholder_only_'] } },
+  { id: 'page-language', name: 'Page Language Test', group: 'accessibility', category: 'accessibility',
+    passText: 'Every page declares a valid language, so screen readers pronounce it correctly.',
+    match: { idPrefix: ['no_lang_', 'invalid_lang_'] } },
+  { id: 'link-text', name: 'Link Text Test', group: 'accessibility', category: 'accessibility',
+    passText: 'Links say where they go, rather than "click here" or "read more".',
+    match: { idPrefix: ['vague_links_'] } },
+  { id: 'landmarks', name: 'Landmarks and Skip Link Test', group: 'accessibility', category: 'accessibility',
+    passText: 'The page has main landmarks and a way to skip to the content.',
+    match: { ids: ['no_landmarks', 'no_skip_link'] } },
+  { id: 'aria-hidden', name: 'Hidden Focusable Elements Test', group: 'accessibility', category: 'accessibility',
+    passText: 'Nothing hidden from screen readers can still receive keyboard focus.',
+    match: { idPrefix: ['aria_hidden_focusable_'] } },
+  { id: 'new-tab-links', name: 'New Tab Warning Test', group: 'accessibility', category: 'accessibility',
+    passText: 'Links that open a new tab say so.',
+    match: { idPrefix: ['new_window_links_'] } },
 
   // ---- Social -----------------------------------------------------------
   { id: 'og-tags', name: 'Open Graph Test', group: 'social', category: 'seo',
@@ -253,10 +338,17 @@ function matchesGeneric(issue: AuditIssue, m: Matcher): boolean {
 
 /** Severity decides whether a finding is a hard fail or a warning. */
 function statusFor(findings: AuditIssue[], measured = true, tipsOnly = false): CheckStatus {
+  // A check that could not run this time is "not run", even if part of it found something.
+  if (!measured && findings.length === 0) return 'not-run';
   // A check the engine could not measure is "not checked", never a free pass.
   if (findings.length === 0) return measured ? 'pass' : 'not-run';
   if (tipsOnly) return 'tip';
   return findings.some((f) => f.severity === 'critical' || f.severity === 'high') ? 'fail' : 'warning';
+}
+
+/** Conversion suggestions and informational findings are tips: shown, never scored. */
+export function isTip(issue: AuditIssue): boolean {
+  return issue.category === 'conversion' || issue.informational === true;
 }
 
 /** Which internal category each group draws from, for the additional findings bucket. */
@@ -266,7 +358,8 @@ const GROUP_CATEGORIES: Record<GroupId, AuditCategory[]> = {
   'server-security': ['security'],
   mobile: ['mobile'],
   'advanced-seo': ['technical'],
-  social: ['conversion', 'accessibility'],
+  accessibility: ['accessibility'],
+  social: ['conversion'],
 };
 
 export interface BuiltReport {
@@ -302,7 +395,7 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
           definition,
           // Tip only when every finding is a conversion suggestion. A content
           // finding under the same check still counts as a warning.
-          status: statusFor(findings, !notMeasured.has(definition.id), findings.every((f) => f.category === 'conversion')),
+          status: statusFor(findings, !notMeasured.has(definition.id), findings.every(isTip)),
           findings,
         };
       });
@@ -325,7 +418,7 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
       groups.find((g) => GROUP_CATEGORIES[g.group.id].includes(issue.category)) ??
       groups.find((g) => g.group.id === 'advanced-seo')!;
     target.additionalFindings.push(issue);
-    if (issue.category === 'conversion') target.tips += 1;
+    if (isTip(issue)) target.tips += 1;
     else if (issue.severity === 'critical' || issue.severity === 'high') target.failed += 1;
     else target.warnings += 1;
   }
