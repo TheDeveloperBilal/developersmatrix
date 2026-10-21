@@ -47,6 +47,20 @@ function pageKey(href: string): string {
   }
 }
 
+/**
+ * An image without width and height can still be safe from layout shift when
+ * its box is sized some other way. next/image "fill" images sit absolutely
+ * positioned inside a parent that already has a size; an inline aspect-ratio
+ * reserves the space too.
+ */
+function sizedByContainer(nimg: string | undefined, style: string | undefined): boolean {
+  if ((nimg || '').toLowerCase() === 'fill') return true;
+  const css = (style || '').toLowerCase().replace(/\s+/g, '');
+  if (!css) return false;
+  if (css.includes('aspect-ratio:')) return true;
+  return css.includes('position:absolute') && css.includes('width:100%') && css.includes('height:100%');
+}
+
 export class WebsiteCrawler {
   private config: Required<AuditConfig>;
   private enteredUrl: string;
@@ -349,6 +363,7 @@ export class WebsiteCrawler {
         width: Number.isFinite(w) ? w : undefined,
         height: Number.isFinite(h) ? h : undefined,
         loading: $el.attr('loading'),
+        sizedByContainer: sizedByContainer($el.attr('data-nimg'), $el.attr('style')),
       });
     });
     return images;

@@ -71,6 +71,13 @@ export class AccessibilityAuditor {
     // Skip Link Analysis
     this.analyzeSkipLinks(pages, issues);
 
+    // A missing or repeated H1 and missing alt text are reported once, by the
+    // SEO module, so the same problem does not cost points twice.
+    const reportedElsewhere = ['no_h1_', 'multiple_h1_', 'missing_alt_'];
+    const own = issues.filter((i) => !reportedElsewhere.some((prefix) => i.id.startsWith(prefix)));
+    issues.length = 0;
+    issues.push(...own);
+
     // Calculate score
     const totalChecks = 14;
     // A check counts as passed only if it raised no finding at all. Previously this

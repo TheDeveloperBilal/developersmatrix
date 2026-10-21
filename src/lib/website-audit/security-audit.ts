@@ -310,6 +310,35 @@ export class SecurityAuditor {
         timeToFix: '1 to 3 hours',
         difficulty: 'hard',
       });
+    } else {
+      // A policy is present. It only stops injected scripts when it says
+      // which scripts may run (script-src, or default-src as the fallback).
+      // A policy with only frame-ancestors or upgrade-insecure-requests is
+      // useful, but it does not protect against cross site scripting.
+      const policy = [cspHeader, cspMeta].filter(Boolean).join('; ');
+      const directives = policy
+        .split(/[;,]/)
+        .map((d) => d.trim().split(/\s+/)[0]?.toLowerCase())
+        .filter(Boolean);
+      const limitsScripts = directives.includes('script-src') || directives.includes('default-src');
+      if (!limitsScripts) {
+        issues.push({
+          id: 'csp_no_script_rules',
+          category: 'security',
+          type: 'missing_security_header',
+          severity: 'low',
+          title: 'Content-Security-Policy Does Not Limit Scripts',
+          description: `A Content-Security-Policy is set (${directives.slice(0, 4).join(', ')}), but it has no script-src or default-src rule, so it does not decide which scripts may run.`,
+          impact: 'The policy still does its other jobs, such as stopping other sites from framing yours. It will not stop an injected script from running.',
+          suggestion: 'When you are ready, add a nonce or hash based script-src in report only mode first, then enforce it. Sites that rely on many third party tags (ads, analytics) often need careful testing before this step.',
+          url: mainPage.url,
+          priority: 2,
+          affectedUrls: [mainPage.url],
+          codeSnippet: cspSnippet,
+          timeToFix: '1 to 3 hours',
+          difficulty: 'hard',
+        });
+      }
     }
 
     // X-XSS-Protection: the old filter was removed from browsers and could itself leak data.

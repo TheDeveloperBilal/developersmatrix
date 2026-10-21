@@ -19,6 +19,9 @@ import { AccessibilityAuditor } from './accessibility-audit';
 import { ContentAuditor } from './content-audit';
 import { ConversionAuditor } from './conversion-audit';
 import { TechnicalAuditor } from './technical-audit';
+import { scoreCategory, overallScore, CATEGORY_WEIGHTS } from './scoring';
+import { buildReport } from './check-catalogue';
+import type { AuditCategory } from './types';
 
 /**
  * Named checks this engine cannot measure from raw HTML, so the report shows
@@ -195,30 +198,41 @@ export class WebsiteAuditEngine {
     // Sort issues by priority
     allIssues.sort((a, b) => b.priority - a.priority);
     
-    // Calculate overall score
-    const overallScore = this.calculateOverallScore({
-      seo: seoResult.score,
-      technical: technicalResult.score,
-      performance: performanceResult.score,
-      mobile: mobileResult.score,
-      security: securityResult.score,
-      accessibility: accessibilityResult.score,
-      content: contentResult.score,
-      conversion: conversionResult.score,
-    });
-    
-    // Update critical issue counts
-    const scores = {
-      seo: { ...seoResult.score, criticalIssues: seoResult.issues.filter(i => i.severity === 'critical').length },
-      technical: { ...technicalResult.score, criticalIssues: technicalResult.issues.filter(i => i.severity === 'critical').length },
-      performance: { ...performanceResult.score, criticalIssues: performanceResult.issues.filter(i => i.severity === 'critical').length },
-      mobile: { ...mobileResult.score, criticalIssues: mobileResult.issues.filter(i => i.severity === 'critical').length },
-      security: { ...securityResult.score, criticalIssues: securityResult.issues.filter(i => i.severity === 'critical').length },
-      accessibility: { ...accessibilityResult.score, criticalIssues: accessibilityResult.issues.filter(i => i.severity === 'critical').length },
-      content: { ...contentResult.score, criticalIssues: contentResult.issues.filter(i => i.severity === 'critical').length },
-      conversion: { ...conversionResult.score, criticalIssues: conversionResult.issues.filter(i => i.severity === 'critical').length },
-    };
-    
+    // Score every category from the final, de-duplicated findings. The
+    // modules' own scores used fixed check counts and let per page findings
+    // stack, so they are replaced here. See scoring.ts.
+    const categories: AuditCategory[] = ['seo', 'technical', 'performance', 'mobile', 'security', 'accessibility', 'content', 'conversion'];
+    const named = buildReport({ issues: allIssues, notMeasured: NOT_MEASURED } as unknown as WebsiteAuditResult);
+    const namedChecks = named.groups.flatMap((g) => g.checks);
+    const pageCount = Math.max(1, contentPages.length);
+    let hasCritical = false;
+    const scores = Object.fromEntries(
+      categories.map((category) => {
+        const own = allIssues.filter((i) => i.category === category);
+        const result = scoreCategory(own, pageCount);
+        const scored = CATEGORY_WEIGHTS[category] > 0;
+        if (scored && result.critical) hasCritical = true;
+        const checks = namedChecks.filter((c) => c.definition.category === category && c.status !== 'not-run');
+        const passed = checks.filter((c) => c.status === 'pass').length;
+        const score: AuditScore = {
+          category,
+          score: result.score,
+          maxScore: 100,
+          issues: own.length,
+          criticalIssues: own.filter((i) => i.severity === 'critical').length,
+          passed,
+          failed: checks.length - passed,
+          scored,
+        };
+        return [category, score];
+      })
+    ) as WebsiteAuditResult['scores'];
+
+    const overall = overallScore(
+      Object.fromEntries(categories.map((c) => [c, scores[c].score])) as Record<AuditCategory, number>,
+      hasCritical
+    );
+
     // Generate recommendations
     const recommendations = this.generateRecommendations(allIssues);
     
@@ -263,7 +277,7 @@ export class WebsiteAuditEngine {
       scannedAt: new Date().toISOString(),
       scanDuration,
       pagesScanned: pages.length,
-      overallScore,
+      overallScore: overall,
       scores,
       issues: allIssues,
       recommendations,
@@ -283,34 +297,6 @@ export class WebsiteAuditEngine {
       criticalIssues,
       summary,
     };
-  }
-
-  private calculateOverallScore(scores: Record<string, AuditScore>): number {
-    // Weighted average based on category importance. Conversion is shown as
-    // suggestions only: it is judged from page wording, which cannot tell a
-    // good page from a bad one reliably enough to move the score.
-    const weights: Record<string, number> = {
-      seo: 0.2,
-      technical: 0.14,
-      performance: 0.15,
-      mobile: 0.13,
-      security: 0.13,
-      accessibility: 0.1,
-      content: 0.15,
-      conversion: 0,
-    };
-
-    let totalScore = 0;
-    let totalWeight = 0;
-
-    Object.entries(scores).forEach(([category, score]) => {
-      const weight = weights[category] ?? 0.1;
-      if (weight === 0) return;
-      totalScore += score.score * weight;
-      totalWeight += weight;
-    });
-    
-    return Math.round(totalScore / totalWeight);
   }
 
   private generateRecommendations(issues: AuditIssue[]): string[] {
@@ -341,7 +327,7 @@ export class WebsiteAuditEngine {
       recommendations.push('Implement security headers to protect against common vulnerabilities.');
     }
     if (categories.has('conversion')) {
-      recommendations.push('Add clear calls-to-action and trust signals to improve conversions.');
+      recommendations.push('Review the conversion tips: they do not change the score, but clear calls to action and contact details help visitors act.');
     }
     
     return [...new Set(recommendations)].slice(0, 15);
@@ -358,6 +344,8 @@ export class WebsiteAuditEngine {
     
     // Identify strengths (high scores)
     Object.entries(scores).forEach(([category, score]) => {
+      // Conversion is tips only, so it is neither a strength nor a weakness.
+      if (score.scored === false) return;
       if (score.score >= 80) {
         strengths.push(`Strong ${category} performance (${score.score}/100)`);
       } else if (score.score < 50) {

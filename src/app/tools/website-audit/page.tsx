@@ -6,59 +6,60 @@ import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import WebsiteAuditClient from './WebsiteAuditClient';
+import { NAMED_CHECK_COUNT } from '@/lib/website-audit/check-catalogue';
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Free Website Audit Tool Online: Score Your Site",
-  description: "Audit your website online free. Around 150 checks across SEO, speed, Core Web Vitals, mobile and security. Get a score out of 100 and a fix list. No signup.",
+  description: `Audit your website online free. ${NAMED_CHECK_COUNT} named checks for SEO, speed, mobile and security, plus Core Web Vitals. A score out of 100 and a fix list. No signup.`,
   keywords: ['audit website online', 'website audit tool online', 'website audit', 'audit website', 'audit a website', 'website auditor tool online', 'site audit online', 'site auditor online', 'audit checker', 'online website audit', 'web site audit', 'website auditor', 'web audit tool', 'website code audit', 'audit my website', 'audit of website', 'free website audit tool', 'website health check free', 'seo audit tool online', 'technical seo audit free', 'seo score checker', 'website performance checker', 'google core web vitals checker', 'website speed test tool', 'mobile friendly test tool', 'accessibility audit tool free', 'website security scanner free', 'free website analyzer', 'website grader', 'grade my website'],
   path: "/tools/website-audit",
-  modifiedTime: "2026-10-14",
+  modifiedTime: "2026-10-22",
 });
 
 const toolFaqs = [
   {
     question: "Is this website audit tool completely free?",
-    answer: "Yes, 100% free. No signup required, no credit card needed, and no usage limits. We believe every website owner deserves access to professional grade audit tools regardless of budget. Run as many audits as you want on as many sites as you own."
+    answer: "Yes, 100% free. No signup, no credit card and no daily cap. We believe every website owner deserves access to professional grade audit tools regardless of budget. You can audit as many sites as you own. To keep the tool fast for everyone, one visitor can run up to 6 audits a minute."
   },
   {
     question: "Is this a website grader?",
-    answer: "Yes. A website grader scores your site out of 100 and tells you what is holding the score down. That is exactly what this tool does, across eight categories: technical SEO, performance, mobile usability, security, accessibility, content quality, conversion and Core Web Vitals. The difference is what happens after the grade. Most website graders show you a number and then ask for your email to see the detail. You get the full breakdown here, every failing check with the specific fix, with no signup."
+    answer: "Yes. A website grader scores your site out of 100 and tells you what is holding the score down. That is exactly what this tool does, across seven scored areas: SEO, technical, performance, security, content, accessibility and mobile. Conversion tips are listed separately and do not change the grade, and Google Core Web Vitals are shown next to the report. The difference is what happens after the grade. Most website graders show you a number and then ask for your email to see the detail. You get the full breakdown here, every failing check with the specific fix, with no signup."
   },
   {
     question: "How is a website grade calculated?",
-    answer: "Each of the around 150 checks passes or fails, and each category produces its own score from the checks inside it. The overall grade is the weighted average, with technical SEO and performance carrying the most weight because they have the clearest relationship to rankings. A failing check on something Google uses directly, such as a missing title tag or an LCP over 2.5 seconds, costs more than a failing check on something advisory. The report shows every category score alongside the overall grade so you can see which area is dragging you down."
+    answer: "Every finding has a severity (critical, high, medium or low) and costs points in its category. A problem found on every page costs more than one found on a single page, and small low priority notes are capped per category so a pile of minor notes cannot sink a score. The seven categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or a homepage set to noindex, caps the grade at 55. The report shows every category score next to the overall grade."
   },
   {
     question: "What does the website audit tool check in 2026?",
-    answer: "Our AI website audit tool performs around 150 checks across 8 categories. For Technical SEO, we examine title tags, meta descriptions, headings, canonical URLs, schema markup, and internal links. For Performance, we look at page size, load time, render blocking resources, image optimization, and caching. Mobile UX covers viewport settings, touch targets, responsive design, and mobile meta tags. Security checks include HTTPS enforcement, security headers, mixed content detection, and TLS version. Accessibility tests cover alt text, form labels, ARIA roles, heading hierarchy, and color contrast. Content Quality analyzes readability, word count, calls to action, and trust signals. Finally, Conversion Optimization checks value propositions, social proof, and form security."
+    answer: `Our website audit tool runs ${NAMED_CHECK_COUNT} named checks across seven scored areas. SEO covers title tags, meta descriptions, H1 and headings, image alt text, canonical tags, noindex, structured data, Open Graph and internal links. Technical covers robots.txt (read the way Google reads it), the XML sitemap, redirect chains, 404s and server errors in the crawl, hreflang, duplicate titles and descriptions, and URL structure. Performance looks at HTML size, server response time, render blocking files, image width and height, lazy loading, text compression and cache headers. Security checks HTTPS, HSTS, Content Security Policy and other security headers, mixed content, insecure forms and cookie flags. Accessibility covers alt text, form labels, page language, landmarks, heading order and link text. Content looks at word count, readability (English only), keyword stuffing and trust signals. Mobile checks the viewport and theme colour. Conversion tips are listed separately and do not count toward the score.`
   },
   {
     question: "How accurate is this compared to Google Lighthouse?",
-    answer: "Our scoring correlates strongly with Google Lighthouse, PageSpeed Insights, and WebPageTest results. We use the same Core Web Vitals metrics that Google uses as direct ranking factors: Largest Contentful Paint for loading speed, Interaction to Next Paint for responsiveness, and Cumulative Layout Shift for visual stability. The key difference is that we add SEO specific checks that Lighthouse does not cover. We analyze meta tag completeness, validate schema markup, and score keyword density. Think of our tool as combining Lighthouse, an SEO analyzer, and a security scanner into one comprehensive audit."
+    answer: "They measure different things. Lighthouse loads one page in a real browser and measures speed. We read the HTML and headers of up to 5 pages and focus on the SEO, crawling, indexing and security checks Lighthouse does not cover in depth. The speed numbers in our report come straight from Google PageSpeed Insights, which runs Lighthouse, plus real Chrome user data when Google has enough of it. Our own score is separate from the Lighthouse score, so the two numbers will differ."
   },
   {
     question: "Will fixing audit issues actually improve my Google rankings?",
-    answer: "Yes, but with realistic expectations. Technical SEO fixes like repairing broken links, adding missing meta tags, and resolving duplicate content typically show ranking improvements within 2 to 4 weeks. Core Web Vitals improvements such as faster page speed and better layout stability can take 4 to 8 weeks for Google to fully recrawl and reassess. Security fixes like enabling HTTPS and adding proper headers act as immediate trust signals. Content improvements such as better readability and stronger calls to action impact engagement metrics, which indirectly affect rankings over time. We prioritize every fix by impact so you focus on what moves the needle first."
+    answer: "They can, but nothing guarantees rankings. Fixes such as adding a missing title tag, repairing broken internal links or removing a stray noindex take away things that hold a page back. Google has to recrawl a page before it sees a fix, which can take days or weeks. HTTPS is a light ranking signal. Other security headers protect your visitors but are not ranking factors. We order every fix by severity so you start with what matters most."
   },
   {
     question: "How often should I run a website audit in 2026?",
-    answer: "For active business websites, monthly audits hit the sweet spot. After any major update such as a new design, CMS upgrade, content migration, or plugin installation, run an audit immediately because broken updates are the single most common cause of ranking drops. Ecommerce sites should audit weekly during high traffic periods like Black Friday and holiday seasons. After you fix issues, audit again in 2 to 4 weeks to confirm the improvements took effect. For stagnant brochure sites that rarely change, quarterly audits are sufficient."
+    answer: "For an active business website, once a month is a sensible rhythm. Run one straight away after any big change, such as a redesign, a CMS or theme update, a content migration or a new plugin, because that is when titles, canonicals, redirects and robots rules most often break without anyone noticing. Busy online shops can check weekly in peak seasons. After you fix something, run the audit again as soon as the fix is live to confirm it worked. A small brochure site that rarely changes is fine with a check every few months."
   },
   {
     question: "Does this work for WordPress, Shopify, Next.js, and other platforms?",
-    answer: "Yes. Any publicly accessible website works regardless of the technology stack underneath. We analyze the rendered HTML output, so the platform itself does not matter. WordPress sites often struggle with plugin bloat and caching misconfiguration. Shopify stores frequently have image optimization issues and heavy third party scripts. Next.js and React applications commonly face hydration problems and missing meta tags. Our tool detects platform specific patterns and tailors recommendations accordingly."
+    answer: "Yes. Any publicly accessible website works regardless of the technology stack underneath. We read the HTML your server sends, so the platform itself does not matter. WordPress sites often struggle with plugin bloat and caching misconfiguration. Shopify stores frequently have image optimization issues and heavy third party scripts. Next.js and React applications commonly face hydration problems and missing meta tags. We do not run JavaScript, so if content only appears after scripts run, the audit flags it."
   },
   {
     question: "What is a good website audit score?",
-    answer: "A score between 90 and 100 means excellent. Your site is well optimized with minimal issues and you are likely ranking well already. A score between 70 and 89 is good. Most websites fall into this range, and while the foundation is solid, some improvements remain. A score between 50 and 69 is fair. Significant issues are affecting performance and SEO, and you should expect ranking struggles. A score below 50 is poor and demands immediate attention. Your site may be penalized or even deindexed. Do not obsess over a perfect 100. An 85 with strong content consistently outranks a 98 with thin content."
+    answer: "A score between 90 and 100 is excellent: the technical basics are in place and the remaining notes are small. 75 to 89 is good, with a few things worth fixing. 60 to 74 needs work, usually several medium or high findings in one or two areas. 40 to 59 is poor, and any site with a critical finding, such as no HTTPS or a homepage set to noindex, lands here at most. Below 40 means serious problems in several areas, so start with the critical and high findings. Do not chase a perfect 100. A high score does not guarantee rankings, and a site with useful content and a score of 85 can outrank a thin site that scores 98."
   },
   {
     question: "Can I download or share the audit report?",
-    answer: "Absolutely. After running an audit, copy the full text report to your clipboard or download a professionally formatted PDF. The PDF includes colour coded scores for each category, issues organized by severity level, actionable recommendations prioritized by impact, a complete content analysis breakdown, and a clean summary perfect for stakeholders. It is ideal for sharing with clients, team members, or freelancers who will implement the fixes."
+    answer: "Absolutely. After running an audit, copy the full text report to your clipboard or save a professionally formatted PDF. The PDF includes colour coded scores for each category, issues organized by severity level, a fix for each finding, a content analysis summary, and a clean summary perfect for stakeholders. It is ideal for sharing with clients, team members, or freelancers who will implement the fixes."
   },
   {
     question: "What is a free website health check and why do I need one?",
-    answer: "A free website health check is a quick diagnostic scan that evaluates your site's core performance indicators without any cost or commitment. It checks your site's crawlability, server response time, image optimization, security headers, mobile responsiveness, and Core Web Vitals. You need one because problems like slow load times, broken links, or missing meta tags often go unnoticed until they cause ranking drops. Running regular health checks catches these issues early, before they impact your traffic or revenue. Our tool delivers a full health check in under 30 seconds with no signup required."
+    answer: "A free website health check is a quick diagnostic scan that evaluates your site's core performance indicators without any cost or commitment. It checks your site's crawlability, server response time, images, security headers, the mobile viewport, and Core Web Vitals from Google PageSpeed. You need one because problems like slow load times, broken links, or missing meta tags often go unnoticed until they cause ranking drops. Running regular health checks catches these issues early, before they impact your traffic or revenue. Our tool returns the report in under a minute with no signup required."
   },
   {
     question: "How much does a website audit cost in 2026?",
@@ -66,11 +67,11 @@ const toolFaqs = [
   },
   {
     question: "Can I audit a single URL instead of my entire website?",
-    answer: "Yes, absolutely. Our URL audit feature is designed for exactly this use case. Paste any individual page URL and get a deep analysis of that specific page's technical SEO, performance, content quality, and accessibility. This is perfect for checking a new blog post before publishing, verifying a landing page after a redesign, auditing a competitor's top ranking article, or spot checking a product page that dropped in conversions. While full site crawls are better for finding systemic issues like orphan pages and duplicate content, a single URL audit gives you granular, actionable data faster."
+    answer: "Yes. A URL audit starts from the page you paste and also checks up to 4 pages it links to, covering technical SEO, performance, content quality, and accessibility. This is useful for checking a new blog post before publishing, verifying a landing page after a redesign, auditing a competitor's top ranking article, or spot checking a product page that dropped in conversions. Full site crawls are better for systemic issues like duplicate content and internal linking gaps, but a single URL audit gives you focused, actionable data faster."
   },
   {
     question: "What is the best online website auditor for small businesses?",
-    answer: "For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with around 150 checks across 8 categories, making it ideal for small sites that need quick, actionable insights without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals, but it lacks SEO and security checks. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full site technical crawling. Avoid expensive all in one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence."
+    answer: `For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with ${NAMED_CHECK_COUNT} named checks across seven scored areas, which suits small sites that need quick, actionable fixes without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals. It has a short SEO section and focuses on speed. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full site technical crawling. Avoid expensive all in one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence.`
   },
   {
     question: "Why is my website audit score low?",
@@ -78,42 +79,42 @@ const toolFaqs = [
   },
   {
     question: "Can I audit a competitor's website?",
-    answer: "Yes. The tool audits any publicly accessible URL. Enter any website address to see its technical health score, identify weaknesses in its SEO foundation, and benchmark it against your own site."
+    answer: "Yes. The tool audits any publicly accessible URL. Enter any website address to see its technical health score, identify weaknesses in its SEO foundation, and compare it with your own site."
   },
   {
     question: "How is this different from Google Search Console?",
-    answer: "Google Search Console reports on how Google sees your site after the fact. indexing status, manual actions, and search performance data. The DevelopersMatrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
+    answer: "Google Search Console reports on how Google sees your site after the fact: indexing status, manual actions, and search performance data. The DevelopersMatrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
   },
   {
     question: "What makes the DevelopersMatrix Site Health Score different from other audit tools?",
-    answer: "Unlike generic pass or fail checkers, our scoring engine weights each check by its correlation with search ranking performance. For example, missing title tags carry a higher penalty than minor heading hierarchy issues because they impact rankings more severely. The score also factors in industry context: an ecommerce site is evaluated against ecommerce benchmarks, not generic standards."
+    answer: "Generic pass or fail checkers count every failure the same. Ours does not. Each finding costs points by severity, so a missing title tag costs more than a long meta description, and a problem on every page costs more than one on a single page. Low priority notes are capped per category, so a pile of minor notes cannot sink the score. Any critical finding, such as robots.txt blocking Googlebot or a password form on plain HTTP, caps the grade at 55, because a site with one of those problems is not healthy whatever else it gets right."
   },
 ];
 
 // A real run of this tool on developersmatrix.com, copied from the API
-// response on 14 October 2026. Update by running the tool again; never edit
-// the numbers by hand.
+// response on 21 October 2026. Update by running the tool again; never edit
+// the numbers by hand. Conversion is left out because it is tips only and
+// does not count toward the score.
 const SAMPLE = {
-  date: '14 October 2026',
-  overall: 77,
+  date: '21 October 2026',
+  overall: 93,
   pages: 5,
-  findings: { total: 50, critical: 1, high: 1, medium: 19, low: 29 },
+  findings: { total: 22, critical: 0, high: 0, medium: 3, low: 19 },
   categories: [
-    ['SEO', 94],
-    ['Technical', 92],
-    ['Content', 88],
-    ['Mobile', 83],
-    ['Performance', 79],
-    ['Security', 79],
-    ['Accessibility', 43],
-    ['Conversion', 40],
+    ['SEO', 96],
+    ['Technical', 100],
+    ['Content', 96],
+    ['Mobile', 100],
+    ['Performance', 84],
+    ['Security', 83],
+    ['Accessibility', 90],
   ] as [string, number][],
   top: [
-    { title: 'No Clear Call to Action Found', area: 'Conversion', severity: 'critical', fix: 'Add a primary and a secondary call to action above the fold.' },
-    { title: 'Form Inputs Without Labels', area: 'Accessibility', severity: 'high', fix: 'Give every input a label element linked with the for attribute.' },
-    { title: 'Missing X Frame Options Header', area: 'Security', severity: 'medium', fix: 'Send X-Frame-Options: DENY or SAMEORIGIN from the server.' },
-    { title: '22 Small Tap Targets Detected', area: 'Mobile', severity: 'medium', fix: 'Make buttons and links at least 48 by 48 pixels on phones.' },
-    { title: 'Fixed Width Layout', area: 'Mobile', severity: 'medium', fix: 'Use responsive units such as %, rem or vw instead of fixed pixels.' },
+    { title: 'Missing Content-Security-Policy', area: 'Security', severity: 'medium', fix: "Start with a report only policy, then enforce it. At minimum send frame-ancestors 'self'; object-src 'none'; base-uri 'self'." },
+    { title: 'No Clickjacking Protection', area: 'Security', severity: 'medium', fix: "Send Content-Security-Policy: frame-ancestors 'self', with X-Frame-Options: SAMEORIGIN as a fallback." },
+    { title: 'Missing X-Content-Type-Options Header', area: 'Security', severity: 'medium', fix: 'Send X-Content-Type-Options: nosniff with every response.' },
+    { title: 'Title May Be Cut Short in Search Results', area: 'SEO', severity: 'low', fix: 'Keep the most important words in the first 50 to 60 characters.' },
+    { title: 'Links Opening in a New Tab Without Warning', area: 'Accessibility', severity: 'low', fix: 'Tell visitors when a link opens a new tab, with visible text or a labelled icon.' },
   ],
 };
 
@@ -138,7 +139,7 @@ const CHECKLIST = [
     title: 'Performance',
     icon: Gauge,
     iconClass: 'text-orange-500',
-    what: 'Page Load Time, Page Size, Image Optimization, Render Blocking Resources, Lazy Loading and Text Compression tests.',
+    what: 'Server Response Time, HTML Size, Image Dimensions, Render Blocking Resources, Image Lazy Loading and Text Compression tests.',
     items: [
       'LCP under 2.5 seconds',
       'INP under 200 milliseconds',
@@ -154,7 +155,7 @@ const CHECKLIST = [
     title: 'Mobile and Security',
     icon: Smartphone,
     iconClass: 'text-purple-500',
-    what: 'Viewport, Legible Font Size, Tap Target Size, HTTPS, Mixed Content and security header tests.',
+    what: 'Viewport, Theme Color, HTTPS, Mixed Content and security header tests.',
     items: [
       'Viewport meta tag configured',
       'Tap targets at least 48 pixels',
@@ -182,7 +183,7 @@ const CHECKLIST = [
 
 const PROBLEMS = [
   { title: 'Slow Server Response Times', text: 'If your server takes over 800 milliseconds to respond, you have lost time before the page even starts loading. Cheap shared hosting, slow databases and missing caching are the usual causes. The audit measures Time to First Byte so you can see whether the delay is on the server or in the page itself.' },
-  { title: 'Unoptimized Images', text: 'Serving a 2MB hero image as a PNG is one of the most common reasons a page is slow. WebP and AVIF files are usually far smaller at the same quality, responsive images with srcset serve the right size for each screen, and lazy loading delays images below the fold. The audit checks all three.' },
+  { title: 'Unoptimized Images', text: 'Serving a 2MB hero image as a PNG is one of the most common reasons a page is slow. WebP and AVIF files are usually far smaller at the same quality, responsive images with srcset serve the right size for each screen, and lazy loading delays images below the fold. The audit checks lazy loading and whether images declare their width and height.' },
   { title: 'Missing or Duplicate Meta Descriptions', text: 'Google often uses the meta description for the search result snippet. Without one, Google picks text from the page that may not earn the click. Every important page should have a unique description between 120 and 158 characters.' },
   { title: 'Broken Internal Links and Orphan Pages', text: 'Broken links waste crawl budget and frustrate visitors. Pages with no internal links pointing to them are hard for Google to find at all. The audit flags broken links on the pages it scans, with the exact URLs.' },
   { title: 'Missing Schema Markup', text: 'Structured data helps Google understand your content and can unlock rich results such as breadcrumbs in search. Article, FAQ and Organization markup suit most content sites. The audit checks whether structured data is present and readable.' },
@@ -192,7 +193,7 @@ const PROBLEMS = [
 
 const GOOGLE_CHECKS = [
   { title: 'Core Web Vitals', text: 'Google measures three metrics. Largest Contentful Paint tracks loading speed and should stay under 2.5 seconds. Interaction to Next Paint measures responsiveness and should stay under 200 milliseconds. Cumulative Layout Shift tracks visual stability and should stay under 0.1. The audit reports all three from Google PageSpeed where Google has field data for the page.' },
-  { title: 'Mobile First Indexing', text: 'Google uses the mobile version of your page for indexing and ranking. If the mobile site is slow, broken or missing content compared with desktop, that is the version Google judges. The audit tests the viewport, tap targets and font sizes.' },
+  { title: 'Mobile First Indexing', text: 'Google uses the mobile version of your page for indexing and ranking. If the mobile site is slow, broken or missing content compared with desktop, that is the version Google judges. The audit checks the mobile viewport and theme colour. It does not measure tap targets or font sizes yet.' },
   { title: 'Trust Signals and E-E-A-T', text: 'Experience, Expertise, Authoritativeness and Trustworthiness. Quality raters look for author information, sources, secure connections, privacy policies and about pages. The audit checks for common trust signals and flags what is missing.' },
   { title: 'Technical Foundations', text: 'Canonical tags, one H1 per page, sensible meta descriptions, structured data, an XML sitemap and a correct robots.txt. They are not glamorous, but everything else builds on them. A broken canonical tag alone can stop the right page from ranking.' },
 ];
@@ -240,14 +241,14 @@ export default function WebsiteAuditPage() {
         items={[
           { name: 'Home', url: siteConfig.url },
           { name: 'Tools', url: `${siteConfig.url}/tools` },
-          { name: 'AI Website Audit', url: `${siteConfig.url}/tools/website-audit` }
+          { name: 'Website Audit', url: `${siteConfig.url}/tools/website-audit` }
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Website Audit Tool"
+        name="DevelopersMatrix Website Audit Tool"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
-        description="Free AI-powered website audit tool for comprehensive SEO, performance, security, and accessibility analysis. Around 150 checks with instant actionable recommendations."
+        description={`Free website audit tool for SEO, technical, performance, security, content, accessibility and mobile checks. ${NAMED_CHECK_COUNT} named checks, a score out of 100 and a fix list ordered by severity.`}
         url={`${siteConfig.url}/tools/website-audit`}
         offers={{
           price: "0",
@@ -258,7 +259,7 @@ export default function WebsiteAuditPage() {
 
       <HowToSchema
         name="How to Audit Your Website for SEO, Speed and Security in 2026"
-        description="Step-by-step guide to running a comprehensive website audit using the DevelopersMatrix free tool. Covers preparation, execution, and prioritizing fixes by impact."
+        description="Step by step guide to running a website audit using the DevelopersMatrix free tool. Covers preparation, running the audit, and prioritizing fixes by severity."
         url={`${siteConfig.url}/tools/website-audit`}
         totalTime="PT5M"
         estimatedCost={{ currency: 'USD', value: '0' }}
@@ -266,31 +267,31 @@ export default function WebsiteAuditPage() {
         step={[
           {
             name: "Prepare your website URL",
-            text: "Copy the exact URL of the page or site you want to audit. Use the canonical version with https:// and without tracking parameters. If auditing a single page, use that specific URL. For a full site scan, use your homepage. Make sure the site is publicly accessible and not behind a login wall or IP restriction."
+            text: "Copy the exact URL of the page or site you want to audit. Use the canonical version with https:// and without tracking parameters. If auditing a single page, use that specific URL. For a wider view of the site, use your homepage, since the tool also checks up to 4 pages it links to. Make sure the site is publicly accessible and not behind a login wall or IP restriction."
           },
           {
             name: "Enter the URL and start the audit",
-            text: "Paste your URL into the audit input field and click 'Run Audit'. The tool will crawl your page, analyze the HTML structure, run JavaScript where needed, and perform around 150 checks across 8 categories. This typically takes 10 to 30 seconds depending on page complexity. Do not refresh the page during the scan."
+            text: `Paste your URL into the audit input field and click 'Audit Website'. The tool fetches your page and up to 4 internal pages it links to, reads the HTML your server sends, and runs ${NAMED_CHECK_COUNT} named checks across seven scored areas. This usually takes under a minute. Do not refresh the page during the scan.`
           },
           {
             name: "Review your overall score and category breakdown",
-            text: "Your report opens with an overall score out of 100, followed by 7 category scores: Technical SEO, Performance, Mobile UX, Security, Accessibility, Content Quality, and Conversion. Click any category to expand detailed findings. A score below 50 in any category requires immediate attention. Scores between 50 and 69 indicate moderate issues. Scores above 70 are solid with minor improvements available."
+            text: "Your report opens with an overall score out of 100, followed by 7 category scores: SEO, Technical, Performance, Security, Content, Accessibility, and Mobile. Conversion tips are listed separately and do not change the score, and Core Web Vitals from Google PageSpeed appear next to the report. Click any failing check to see the detail and the fix. A score below 50 in any category requires immediate attention. Scores between 50 and 69 indicate moderate issues. Scores above 70 are solid with minor improvements available."
           },
           {
             name: "Prioritize fixes by impact level",
-            text: "Each finding is labeled Critical, High, Medium, or Low. Always fix Critical issues first. These include missing title tags, broken canonical URLs, HTTPS failures, and severe accessibility violations that may trigger legal issues. High priority covers Core Web Vitals failures, missing meta descriptions, and broken internal links. Medium includes image optimization, heading hierarchy, and minor schema issues. Low priority items are optimization suggestions like reducing DOM depth or minifying CSS. Focus on the top 10 issues for maximum impact with minimum effort."
+            text: "Each finding is labeled Critical, High, Medium, or Low. Always fix Critical issues first. These include no HTTPS, a homepage set to noindex, robots.txt blocking Googlebot, a password form on plain HTTP, and server errors. High priority covers a missing title tag, no mobile viewport, broken internal links found in the crawl, mixed content, duplicate titles, and a broken sitemap. Medium includes a missing H1, a missing canonical tag, missing security headers, and no text compression. Low priority items are small notes such as title or description length and the Open Graph description. Work down the list in that order."
           },
           {
             name: "Fix Technical SEO issues first",
-            text: "Technical SEO is the foundation. Start with your title tag and meta description. Ensure every page has a unique, descriptive title under 60 characters and a meta description under 160 characters. Fix any broken internal links and redirect chains. Add a canonical tag to every page. Verify your XML sitemap is submitted to Google Search Console. These fixes alone often improve rankings within 2 to 4 weeks."
+            text: "Technical SEO is the foundation. Start with your title tag and meta description. Ensure every page has a unique, descriptive title under 60 characters and a meta description under 160 characters. Fix any broken internal links and redirect chains. Add a canonical tag to every page. Verify your XML sitemap is submitted to Google Search Console. Google sees these fixes the next time it crawls the page."
           },
           {
             name: "Address Core Web Vitals and performance",
-            text: "Performance improvements require the most technical skill but yield strong results. Compress images using WebP or AVIF formats. Enable browser caching for static assets. Minify CSS, JavaScript, and HTML. Remove render-blocking resources by inlining critical CSS and deferring non-essential scripts. Use a CDN for asset delivery. If your server response time exceeds 800ms, consider upgrading your hosting or enabling server-side caching."
+            text: "Performance improvements require the most technical skill but yield strong results. Compress images using WebP or AVIF formats. Enable browser caching for static assets. Minify CSS, JavaScript, and HTML. Remove render blocking resources by inlining critical CSS and deferring scripts the page does not need straight away. Use a CDN for asset delivery. If your server response time exceeds 800ms, consider upgrading your hosting or enabling server side caching."
           },
           {
             name: "Re-audit after implementing fixes",
-            text: "Run a second audit 2 to 4 weeks after implementing fixes to confirm improvements. Some changes like DNS updates, CDN propagation, and Google recrawling take time to reflect. Compare your new scores to the baseline and document the delta. If a critical issue persists, verify your fix was deployed correctly and clear any server or CDN caches that might be serving the old version."
+            text: "Run the audit again once your fixes are live to confirm them, because the score is recalculated on every run. Rankings take longer, since Google has to recrawl the page first, which can take days or weeks. Some changes like DNS updates and CDN propagation also take time to reflect. Compare your new scores to the baseline and document the delta. If a critical issue persists, verify your fix was deployed correctly and clear any server or CDN caches that might be serving the old version."
           }
         ]}
       />
@@ -307,7 +308,7 @@ export default function WebsiteAuditPage() {
             How to Audit a Website Online With This Tool
           </h2>
           <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-8">
-            To audit a website, paste its URL into the box at the top of this page and press Audit Website. The tool runs around 150 checks across 8 areas: SEO, technical, performance, mobile, security, accessibility, content and conversion. It crawls the page, measures speed, validates SEO signals, checks mobile usability and tests the security setup in one pass, then returns a scored report within seconds.
+            To audit a website, paste its URL into the box at the top of this page and press Audit Website. The tool fetches that page and up to 4 internal pages it links to, reads the HTML your server sends, and runs {NAMED_CHECK_COUNT} named checks across seven scored areas: SEO, technical, performance, security, content, accessibility and mobile, plus conversion tips that do not change the score. Speed data comes from Google PageSpeed Insights. You get a scored report in under a minute.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -326,7 +327,7 @@ export default function WebsiteAuditPage() {
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Mobile and UX</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Tests the mobile viewport, tap target sizing, font legibility, content width and other mobile usability signals.
+                Tests the mobile viewport and theme colour. Tap target size and font size are not measured yet, so the report shows them as Not run.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
@@ -338,7 +339,7 @@ export default function WebsiteAuditPage() {
           </div>
 
           <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-            Each check is scored individually and weighted to produce your overall Site Health Score out of 100.
+            Each finding costs points in its category by severity, and the seven category scores are weighted into your overall Site Health Score out of 100. Core Web Vitals are shown next to the score, not inside it.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-3">URL Audit: Check a Single Page or a Whole Site</h3>
@@ -347,7 +348,7 @@ export default function WebsiteAuditPage() {
               Sometimes you do not need a full site crawl. You need a <strong>URL audit</strong> on the one page that matters: a product page that is not converting, a blog post that dropped in rankings, or a landing page you are about to launch. Paste that exact URL and the audit starts there. The tool scans the page you enter and up to four more pages it links to, so a homepage URL gives you a quick view of the whole site and a deep URL keeps the audit focused.
             </p>
             <p>
-              A focused URL audit is also a fast way to study a competitor. Audit their top ranking page and compare the result with yours: whether they use structured data, how heavy their images are, and how clean their heading structure is. For developers, it is a quick check after a deployment that titles, meta tags and security headers came through as intended.
+              A focused URL audit is also a fast way to study a competitor. Audit their top ranking page and compare the result with yours: whether they use structured data, whether their images are sized and lazy loaded, and how clean their heading structure is. For developers, it is a quick check after a deployment that titles, meta tags and security headers came through as intended.
             </p>
           </div>
 
@@ -417,7 +418,7 @@ export default function WebsiteAuditPage() {
               A <strong>website grader</strong> gives your site a number out of 100. That number is only useful if you can see what produced it. Most graders show you the score, colour it red, and then ask for your email before they will tell you which checks failed. This one does not. Enter a URL and you get the grade and the full breakdown in the same screen, with no signup.
             </p>
             <p>
-              The grade comes from around 150 individual checks grouped into eight categories. Each category is scored on its own, then weighted into the overall number. Technical SEO and performance carry the most weight, because those two have the clearest and most direct relationship with how Google ranks you. A missing title tag or a Largest Contentful Paint above 2.5 seconds costs you more than a missing theme colour meta tag.
+              The grade comes from {NAMED_CHECK_COUNT} named checks across seven scored categories. Every finding has a severity (critical, high, medium or low) and costs points in its category, and a problem found on every page costs more than one found on a single page. Small low priority notes are capped per category, so a pile of minor notes cannot sink a score. The categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or robots.txt blocking Googlebot, caps the grade at 55. Core Web Vitals from Google are shown next to the grade but are not part of it yet.
             </p>
           </div>
 
@@ -477,6 +478,7 @@ export default function WebsiteAuditPage() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">Conversion is listed as tips and does not count toward the score.</p>
             </div>
           </div>
 
@@ -496,7 +498,7 @@ export default function WebsiteAuditPage() {
             ))}
           </ol>
           <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed max-w-3xl">
-            Read every finding against your own page before acting on it. An automated check reads code, not intent. The call to action check, for example, looks for common button wording such as Get started or Sign up, so a page whose buttons say something else can still be flagged. Sorting real problems from noise like this is what our{' '}
+            Read every finding against your own page before acting on it. An automated check reads code, not intent. The trust signals check, for example, only counts clear wording such as named reviews, review counts or a guarantee, so a page that earns trust in other ways can still be flagged. Sorting real problems from noise like this is what our{' '}
             <a href="/services/website-audit" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">manual website audit</a>{' '}
             does.
           </p>
@@ -516,7 +518,7 @@ export default function WebsiteAuditPage() {
                 Site Audit Checklist: What Each Check Means
               </h2>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                A thorough <strong>site audit check</strong> covers more than page speed. This is the technical SEO checklist the tool works through, with the named checks you will see in your report. Use it as a reference even if you audit by hand.
+                A thorough <strong>site audit check</strong> covers more than page speed. This is the technical SEO checklist we recommend. The small line under each heading names the checks you will see in your report, and the ticked items are what to confirm, with the tool or by hand.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 {CHECKLIST.map((group) => {
@@ -555,12 +557,12 @@ export default function WebsiteAuditPage() {
                   A <strong>website code audit</strong> goes deeper than surface level SEO checks. It examines the markup, stylesheets and scripts that power your site. Heavy CSS, render blocking JavaScript and messy markup are invisible to visitors but slow the page down and make it harder for search engines to read.
                 </p>
                 <p className="leading-relaxed">
-                  This tool covers the code checks that can be measured automatically from the outside: page size, render blocking stylesheets and scripts, text compression, image optimisation and lazy loading, heading structure, image alt text, structured data, mixed content and security headers. Deeper work such as full HTML validation, finding unused CSS rules and profiling JavaScript needs access to the code itself, and our code audit guide walks through it step by step.
+                  This tool covers the code checks that can be measured automatically from the outside: HTML size, render blocking stylesheets and scripts, text compression, image width, height and lazy loading, heading structure, image alt text, structured data, mixed content and security headers. Deeper work such as full HTML validation, finding unused CSS rules and profiling JavaScript needs access to the code itself, and our code audit guide walks through it step by step.
                 </p>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mt-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">What Our Website Code Audit Checks</h3>
                   <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
-                    {['Page size and number of requests', 'Render blocking CSS and JavaScript', 'Text compression (gzip or Brotli)', 'Image size, format and lazy loading', 'Heading hierarchy (H1 through H6)', 'Missing alt attributes on images', 'Structured data present and valid', 'Mixed content, subresource integrity and security headers'].map((c) => (
+                    {['HTML size and number of script files', 'Render blocking CSS and JavaScript', 'Text compression (gzip or Brotli)', 'Image width, height and lazy loading', 'Heading hierarchy (H1 through H6)', 'Missing alt attributes on images', 'Structured data present and valid', 'Mixed content, subresource integrity and security headers'].map((c) => (
                       <li key={c} className="flex items-start gap-2"><span className="text-green-500 mt-0.5" aria-hidden="true">✓</span><span>{c}</span></li>
                     ))}
                   </ul>
@@ -608,7 +610,7 @@ export default function WebsiteAuditPage() {
 
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">Why Use a Free Website Audit Tool Online</h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Think of it as an audit checker you can run as often as you like: after a redesign, before a launch, or whenever traffic dips. A good online website auditor should give you the whole picture without getting in the way.
+                Think of it as an audit checker you can run whenever you need it: after a redesign, before a launch, or whenever traffic dips. A good online website auditor should give you the whole picture without getting in the way.
               </p>
               <ul className="mt-4 grid sm:grid-cols-2 gap-4">
                 {[

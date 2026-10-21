@@ -899,11 +899,13 @@ export class TechnicalAuditor {
   private analyzeStatusCodes(pages: PageData[], issues: AuditIssue[]) {
     const serverErrors = pages.filter(p => p.statusCode >= 500);
     if (serverErrors.length > 0) {
+      // One failing subpage can be a passing glitch. Most of the site failing is not.
+      const widespread = serverErrors.length * 2 >= pages.length;
       issues.push({
         id: 'tech-server-errors',
         category: 'technical',
         type: 'broken_link',
-        severity: 'critical',
+        severity: widespread ? 'critical' : 'high',
         title: `${serverErrors.length} Server Error${serverErrors.length > 1 ? 's' : ''} (5xx)`,
         description: `${serverErrors.length > 1 ? 'These pages' : 'This page'} returned a server error when we requested ${serverErrors.length > 1 ? 'them' : 'it'}.`,
         impact: 'Visitors and crawlers get an error page. If 5xx errors persist, Google slows its crawling and can eventually drop the affected pages.',

@@ -31,6 +31,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import type { WebsiteAuditResult, AuditIssue, AuditScore, ContentAnalysis } from '@/lib/website-audit/types';
+import { NAMED_CHECK_COUNT } from '@/lib/website-audit/check-catalogue';
 
 // Category icons and colors
 const categoryConfig = {
@@ -101,7 +102,7 @@ export default function WebsiteAuditClient() {
       'Checking security headers...',
       'Scanning accessibility...',
       'Analyzing content quality...',
-      'Checking mobile responsiveness...',
+      'Checking mobile viewport...',
       'Generating report...',
     ];
 
@@ -313,8 +314,8 @@ export default function WebsiteAuditClient() {
 
             {/* Description */}
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8">
-              Audit a website online in seconds. Paste any URL and get a score out of 100 from around 150 checks across SEO,
-              speed, Core Web Vitals, mobile, security and accessibility, with a plain fix list for everything that failed. Free, no signup.
+              Audit a website online in seconds. Paste any URL and get a score out of 100 from {NAMED_CHECK_COUNT} named checks across SEO,
+              technical, speed, mobile, security, content and accessibility, plus Core Web Vitals from Google PageSpeed and a plain fix list for everything that failed. Free, no signup.
             </p>
 
             {/* Stats */}
@@ -327,8 +328,8 @@ export default function WebsiteAuditClient() {
               {[
                 // Facts about the tool itself. The old counters (3,427 audits and so on)
                 // were hardcoded numbers, not real usage.
-                { label: 'Checks', value: 'About 150', icon: <BarChart3 className="w-4 h-4" /> },
-                { label: 'Categories', value: '8', icon: <Gauge className="w-4 h-4" /> },
+                { label: 'Checks', value: `${NAMED_CHECK_COUNT} named`, icon: <BarChart3 className="w-4 h-4" /> },
+                { label: 'Categories', value: '7 scored', icon: <Gauge className="w-4 h-4" /> },
                 { label: 'Speed data', value: 'Google PageSpeed', icon: <Globe className="w-4 h-4" /> },
               ].map((stat, i) => (
                 <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
@@ -488,14 +489,14 @@ export default function WebsiteAuditClient() {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: Search, title: 'Technical SEO', desc: 'Title tags, meta descriptions, headings, canonicals, schema markup', color: 'blue' },
-                { icon: Gauge, title: 'Performance', desc: 'Page size, load time, scripts, CSS, image optimization', color: 'orange' },
-                { icon: Smartphone, title: 'Mobile UX', desc: 'Viewport, touch targets, responsive layout, mobile meta', color: 'purple' },
+                { icon: Search, title: 'Technical SEO', desc: 'Title tags, meta descriptions, headings, canonicals, schema, robots.txt, sitemap', color: 'blue' },
+                { icon: Gauge, title: 'Performance', desc: 'HTML size, server response, render blocking files, images, caching', color: 'orange' },
+                { icon: Smartphone, title: 'Mobile UX', desc: 'Viewport, theme colour, mobile meta tags', color: 'purple' },
                 { icon: Shield, title: 'Security', desc: 'HTTPS, security headers, mixed content, form security', color: 'red' },
-                { icon: Accessibility, title: 'Accessibility', desc: 'Alt text, labels, heading hierarchy, ARIA, link text', color: 'green' },
-                { icon: FileText, title: 'Content Quality', desc: 'Readability, word count, vocabulary, keyword density', color: 'indigo' },
-                { icon: Target, title: 'Conversion', desc: 'CTAs, trust signals, value proposition, social proof', color: 'pink' },
-                { icon: Sparkles, title: 'AI Insights', desc: 'Smart recommendations, quick wins, priority actions', color: 'violet' },
+                { icon: Accessibility, title: 'Accessibility', desc: 'Alt text, form labels, landmarks, heading order, link text', color: 'green' },
+                { icon: FileText, title: 'Content Quality', desc: 'Readability, word count, keyword stuffing, trust signals', color: 'indigo' },
+                { icon: Target, title: 'Conversion', desc: 'Tips on CTAs, trust and contact details (not scored)', color: 'pink' },
+                { icon: Sparkles, title: 'Fix Guides', desc: 'Step by step fixes, code examples, ordered by severity', color: 'violet' },
               ].map((feature, i) => (
                 <motion.div
                   key={i}
@@ -523,10 +524,10 @@ export default function WebsiteAuditClient() {
                 Why Website Audits Matter for Your Online Success
               </h2>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                A comprehensive website audit is the foundation of any successful digital strategy. 
-                Our free AI-powered website audit tool analyzes around 150 technical and on-page factors 
-                that search engines like Google use to rank your site. From broken links and slow page speeds 
-                to missing meta tags and poor mobile usability. We catch issues that could be holding 
+                A website audit is the foundation of any successful digital strategy.
+                Our free website audit tool reads the HTML and headers of your page and up to 4 pages it links to,
+                and checks the things that stop Google from crawling, indexing and trusting a site. From broken internal links
+                and slow server responses to missing meta tags and a missing mobile viewport, we catch issues that could be holding
                 your site back from reaching its full potential.
               </p>
             </div>
@@ -550,14 +551,14 @@ export default function WebsiteAuditClient() {
                 <Smartphone className="w-6 h-6 text-purple-500 mb-3" />
                 <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Mobile-First Optimization</h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  With 60%+ traffic from mobile devices, ensure your site delivers on every screen size.
+                  Most visits now come from phones, so make sure your site works on every screen size.
                 </p>
               </div>
               <div className="p-5 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
                 <Shield className="w-6 h-6 text-red-500 mb-3" />
                 <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Security & Trust</h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Detect HTTPS issues, missing security headers, and vulnerabilities that put users at risk.
+                  Detect HTTPS issues, missing security headers, insecure forms and other problems that put users at risk.
                 </p>
               </div>
             </div>
@@ -569,7 +570,7 @@ export default function WebsiteAuditClient() {
               <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>Completely Free:</strong> No signup, no credit card, unlimited audits</span>
+                  <span><strong>Completely Free:</strong> No signup, no credit card, no daily cap</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
@@ -581,11 +582,11 @@ export default function WebsiteAuditClient() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>Around 150 Checks:</strong> SEO, technical, speed, mobile, security, accessibility, content, conversion</span>
+                  <span><strong>{NAMED_CHECK_COUNT} Named Checks:</strong> SEO, technical, speed, mobile, security, accessibility and content, plus conversion tips</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
-                  <span><strong>Quick Wins:</strong> Focus on high-impact, easy-to-implement fixes first</span>
+                  <span><strong>Quick Wins:</strong> Start with the findings that matter most, each with clear fix steps</span>
                 </li>
               </ul>
             </div>

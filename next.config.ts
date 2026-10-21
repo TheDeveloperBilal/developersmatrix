@@ -14,6 +14,32 @@ const nextConfig: NextConfig = {
             key: "X-DNS-Prefetch-Control",
             value: "on",
           },
+          // Security headers, added 22 Oct 2026. Kept deliberately light so
+          // nothing breaks: Google Tag Manager, Analytics and AdSense still
+          // load, AdSense's own iframes are unaffected, and the interview
+          // simulator can still ask for the microphone on our own pages.
+          // A full script-src policy needs nonces on every page, which would
+          // stop pages being served from cache, so it is not set here.
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self'; object-src 'none'; base-uri 'self'",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), geolocation=(), microphone=(self), usb=(), payment=()",
+          },
         ],
       },
       {

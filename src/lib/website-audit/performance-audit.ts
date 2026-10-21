@@ -149,6 +149,9 @@ export class PerformanceAuditor {
         const type = ($s.attr('type') || '').trim().toLowerCase();
         if (!EXECUTABLE_TYPES.has(type) || type === 'module') return;
         if ($s.attr('async') !== undefined || $s.attr('defer') !== undefined) return;
+        // nomodule scripts are legacy polyfills. Every modern browser skips
+        // them without downloading, so they block nothing. Next.js adds one.
+        if ($s.attr('nomodule') !== undefined) return;
         blocking.push($s.attr('src') || '');
       });
 
@@ -296,7 +299,7 @@ export class PerformanceAuditor {
 
       // Check for images without dimensions
       const imagesWithoutDimensions = images.filter(
-        (img) => (!img.width || !img.height) && !img.src?.includes('data:')
+        (img) => (!img.width || !img.height) && !img.src?.includes('data:') && !img.sizedByContainer
       );
 
       if (imagesWithoutDimensions.length > 3) {

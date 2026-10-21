@@ -15,7 +15,8 @@
 
 import type { AuditIssue, WebsiteAuditResult, AuditCategory } from './types';
 
-export type CheckStatus = 'pass' | 'warning' | 'fail' | 'not-run';
+/** tip: a conversion suggestion. It is shown, but it is not a pass or a fail and does not change the score. */
+export type CheckStatus = 'pass' | 'warning' | 'fail' | 'not-run' | 'tip';
 
 export type GroupId =
   | 'common-seo'
@@ -127,7 +128,7 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     match: { ids: ['no_hsts'] } },
   { id: 'csp', name: 'Content Security Policy Test', group: 'server-security', category: 'security',
     passText: 'A Content-Security-Policy is present.',
-    match: { ids: ['no_csp'] } },
+    match: { ids: ['no_csp', 'csp_no_script_rules'] } },
   { id: 'x-frame', name: 'Clickjacking Protection Test', group: 'server-security', category: 'security',
     passText: 'X-Frame-Options or frame-ancestors is set.',
     match: { ids: ['no_x_frame_options'] } },
@@ -212,6 +213,9 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
              types: ['missing_social_proof'] } },
 ];
 
+/** How many named checks the report shows. Page copy reads this, so it never drifts. */
+export const NAMED_CHECK_COUNT = CHECK_DEFINITIONS.length;
+
 export interface CheckResult {
   definition: CheckDefinition;
   status: CheckStatus;
@@ -226,6 +230,7 @@ export interface GroupResult {
   passed: number;
   warnings: number;
   failed: number;
+  tips: number;
 }
 
 /**
@@ -247,9 +252,10 @@ function matchesGeneric(issue: AuditIssue, m: Matcher): boolean {
 }
 
 /** Severity decides whether a finding is a hard fail or a warning. */
-function statusFor(findings: AuditIssue[], measured = true): CheckStatus {
+function statusFor(findings: AuditIssue[], measured = true, tipsOnly = false): CheckStatus {
   // A check the engine could not measure is "not checked", never a free pass.
   if (findings.length === 0) return measured ? 'pass' : 'not-run';
+  if (tipsOnly) return 'tip';
   return findings.some((f) => f.severity === 'critical' || f.severity === 'high') ? 'fail' : 'warning';
 }
 
@@ -265,7 +271,7 @@ const GROUP_CATEGORIES: Record<GroupId, AuditCategory[]> = {
 
 export interface BuiltReport {
   groups: GroupResult[];
-  totals: { passed: number; warnings: number; failed: number; total: number };
+  totals: { passed: number; warnings: number; failed: number; tips: number; total: number };
 }
 
 export function buildReport(result: WebsiteAuditResult): BuiltReport {
@@ -292,7 +298,13 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
       .filter((d) => d.group === group.id)
       .map((definition) => {
         const findings = issues.filter((i) => owner.get(i) === definition.id);
-        return { definition, status: statusFor(findings, !notMeasured.has(definition.id)), findings };
+        return {
+          definition,
+          // Tip only when every finding is a conversion suggestion. A content
+          // finding under the same check still counts as a warning.
+          status: statusFor(findings, !notMeasured.has(definition.id), findings.every((f) => f.category === 'conversion')),
+          findings,
+        };
       });
 
     return {
@@ -302,6 +314,7 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
       passed: checks.filter((c) => c.status === 'pass').length,
       warnings: checks.filter((c) => c.status === 'warning').length,
       failed: checks.filter((c) => c.status === 'fail').length,
+      tips: checks.filter((c) => c.status === 'tip').length,
     };
   });
 
@@ -312,7 +325,8 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
       groups.find((g) => GROUP_CATEGORIES[g.group.id].includes(issue.category)) ??
       groups.find((g) => g.group.id === 'advanced-seo')!;
     target.additionalFindings.push(issue);
-    if (issue.severity === 'critical' || issue.severity === 'high') target.failed += 1;
+    if (issue.category === 'conversion') target.tips += 1;
+    else if (issue.severity === 'critical' || issue.severity === 'high') target.failed += 1;
     else target.warnings += 1;
   }
 
@@ -321,9 +335,10 @@ export function buildReport(result: WebsiteAuditResult): BuiltReport {
       passed: acc.passed + g.passed,
       warnings: acc.warnings + g.warnings,
       failed: acc.failed + g.failed,
+      tips: acc.tips + g.tips,
       total: acc.total + g.checks.length + g.additionalFindings.length,
     }),
-    { passed: 0, warnings: 0, failed: 0, total: 0 }
+    { passed: 0, warnings: 0, failed: 0, tips: 0, total: 0 }
   );
 
   return { groups, totals };
