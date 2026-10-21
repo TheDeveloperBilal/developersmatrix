@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { WebsiteAuditEngine } from '@/lib/website-audit/engine';
 import type { CrawlProgress } from '@/lib/website-audit/types';
 import { rateLimit, callerKey } from '@/lib/website-audit/rate-limit';
+import { BlockedUrlError } from '@/lib/website-audit/safe-fetch';
+import { SiteResponseError } from '@/lib/website-audit/crawler';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -72,7 +74,8 @@ export async function POST(request: NextRequest) {
 
     // Validate URL format
     try {
-      new URL(normalizedUrl);
+      const parsed = new URL(normalizedUrl);
+      if (!parsed.hostname.includes('.')) throw new Error('no dot');
     } catch {
       return NextResponse.json(
         { success: false, error: 'Invalid URL format' },
@@ -83,8 +86,10 @@ export async function POST(request: NextRequest) {
     // Create audit engine
     const engine = new WebsiteAuditEngine({
       url: normalizedUrl,
-      maxPages: Math.min(maxPages, 10), // Limit to 10 pages max
-      timeout: 30000,
+      maxPages: Math.max(1, Math.min(Number(maxPages) || 5, 10)), // 1 to 10 pages
+      // 12s per page. The crawl fetches the homepage, then the other pages
+      // together, so this keeps the whole audit inside the 45 second budget.
+      timeout: 12000,
     });
 
     // PageSpeed used to run here alongside the crawl. It now has its own
@@ -107,6 +112,13 @@ export async function POST(request: NextRequest) {
     console.error('Website audit error:', error);
 
     const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+
+    if (error instanceof BlockedUrlError) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    }
+    if (error instanceof SiteResponseError) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 422 });
+    }
 
     // A site we cannot reach is the caller's input being wrong, not our server
     // breaking. Returning 500 for it makes real outages impossible to spot in

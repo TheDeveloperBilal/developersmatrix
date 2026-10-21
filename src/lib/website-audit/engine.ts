@@ -20,6 +20,14 @@ import { ContentAuditor } from './content-audit';
 import { ConversionAuditor } from './conversion-audit';
 import { TechnicalAuditor } from './technical-audit';
 
+/**
+ * Named checks this engine cannot measure from raw HTML, so the report shows
+ * "Not checked" instead of a pass it never earned.
+ * - broken-links: links are not requested one by one yet.
+ * - font-size and tap-targets: need the rendered page and its CSS.
+ */
+const NOT_MEASURED = ['broken-links', 'font-size', 'tap-targets'];
+
 export class WebsiteAuditEngine {
   private crawler: WebsiteCrawler;
   private config: Required<AuditConfig>;
@@ -27,8 +35,8 @@ export class WebsiteAuditEngine {
   constructor(config: AuditConfig) {
     this.config = {
       maxPages: config.maxPages ?? 5,
-      timeout: config.timeout ?? 30000,
-      userAgent: config.userAgent ?? 'DevelopersMatrix-Audit-Bot/1.0',
+      timeout: config.timeout ?? 12000,
+      userAgent: config.userAgent ?? 'Mozilla/5.0 (compatible; DevelopersMatrixAudit/1.1; +https://developersmatrix.com/tools/website-audit)',
       followRedirects: config.followRedirects ?? true,
       ...config,
     };
@@ -47,6 +55,12 @@ export class WebsiteAuditEngine {
     if (pages.length === 0) {
       throw new Error('Failed to fetch any pages from the website');
     }
+    // Every page module reads the address that actually answered.
+    for (const p of pages) p.url = p.finalUrl || p.url;
+    // Error pages (a linked 404, a 500) are reported once by the technical
+    // module. Auditing their content as well would blame the error page for a
+    // missing title, H1 and viewport that the real pages have.
+    const contentPages = pages.filter((p) => p.statusCode >= 200 && p.statusCode < 300);
     
     onProgress?.({
       status: 'analyzing',
@@ -59,7 +73,7 @@ export class WebsiteAuditEngine {
     
     // Run all audits
     const seoAuditor = new SEOAuditor();
-    const seoResult = seoAuditor.analyze(pages);
+    const seoResult = seoAuditor.analyze(contentPages);
     
     onProgress?.({
       status: 'analyzing',
@@ -71,7 +85,8 @@ export class WebsiteAuditEngine {
     });
     
     const technicalAuditor = new TechnicalAuditor();
-    const technicalResult = technicalAuditor.analyze(pages, this.crawler.getRobotsTxt(), this.crawler.getSitemapUrls());
+    const site = this.crawler.getSiteContext();
+    const technicalResult = technicalAuditor.analyze(pages, site, this.crawler.getParsedRobots());
     
     onProgress?.({
       status: 'analyzing',
@@ -83,7 +98,7 @@ export class WebsiteAuditEngine {
     });
     
     const performanceAuditor = new PerformanceAuditor();
-    const performanceResult = performanceAuditor.analyze(pages);
+    const performanceResult = performanceAuditor.analyze(contentPages);
     
     onProgress?.({
       status: 'analyzing',
@@ -95,7 +110,7 @@ export class WebsiteAuditEngine {
     });
     
     const mobileAuditor = new MobileAuditor();
-    const mobileResult = mobileAuditor.analyze(pages);
+    const mobileResult = mobileAuditor.analyze(contentPages);
     
     onProgress?.({
       status: 'analyzing',
@@ -107,7 +122,7 @@ export class WebsiteAuditEngine {
     });
     
     const securityAuditor = new SecurityAuditor();
-    const securityResult = securityAuditor.analyze(pages);
+    const securityResult = securityAuditor.analyze(contentPages);
     
     onProgress?.({
       status: 'analyzing',
@@ -119,7 +134,7 @@ export class WebsiteAuditEngine {
     });
     
     const accessibilityAuditor = new AccessibilityAuditor();
-    const accessibilityResult = accessibilityAuditor.analyze(pages);
+    const accessibilityResult = accessibilityAuditor.analyze(contentPages);
     
     onProgress?.({
       status: 'analyzing',
@@ -131,7 +146,7 @@ export class WebsiteAuditEngine {
     });
     
     const contentAuditor = new ContentAuditor();
-    const contentResult = contentAuditor.analyze(pages);
+    const contentResult = contentAuditor.analyze(contentPages);
     
     onProgress?.({
       status: 'analyzing',
@@ -143,7 +158,7 @@ export class WebsiteAuditEngine {
     });
     
     const conversionAuditor = new ConversionAuditor();
-    const conversionResult = conversionAuditor.analyze(pages);
+    const conversionResult = conversionAuditor.analyze(contentPages);
     
     onProgress?.({
       status: 'scoring',
@@ -166,6 +181,17 @@ export class WebsiteAuditEngine {
       ...conversionResult.issues,
     ];
     
+    // Two modules can report the very same finding (same id, for example
+    // missing alt text from SEO and accessibility). Show it once.
+    const seen = new Set<string>();
+    const uniqueIssues = allIssues.filter((issue) => {
+      if (seen.has(issue.id)) return false;
+      seen.add(issue.id);
+      return true;
+    });
+    allIssues.length = 0;
+    allIssues.push(...uniqueIssues);
+
     // Sort issues by priority
     allIssues.sort((a, b) => b.priority - a.priority);
     
@@ -220,8 +246,19 @@ export class WebsiteAuditEngine {
       errors: [],
     });
     
+    // Raw HTML and full text stay on the server. Sending them back made each
+    // response about 2 MB, and the browser never used them.
+    const pageData = pages.map((p) => ({
+      url: p.url,
+      finalUrl: p.finalUrl,
+      statusCode: p.statusCode,
+      title: p.title,
+      loadTime: p.loadTime,
+      size: p.size,
+    }));
+
     return {
-      url: this.config.url,
+      url: site.finalUrl || this.config.url,
       domain: this.crawler.getDomain(),
       scannedAt: new Date().toISOString(),
       scanDuration,
@@ -230,7 +267,17 @@ export class WebsiteAuditEngine {
       scores,
       issues: allIssues,
       recommendations,
-      pageData: pages,
+      pageData,
+      site: {
+        enteredUrl: site.enteredUrl,
+        finalUrl: site.finalUrl,
+        origin: site.origin,
+        host: site.host,
+        homeRedirects: site.homeRedirects,
+        robots: { url: site.robots.url, status: site.robots.status, found: site.robots.found },
+        sitemaps: site.sitemaps,
+      },
+      notMeasured: NOT_MEASURED,
       contentAnalysis: contentResult.contentAnalysis,
       quickWins,
       criticalIssues,
@@ -239,23 +286,26 @@ export class WebsiteAuditEngine {
   }
 
   private calculateOverallScore(scores: Record<string, AuditScore>): number {
-    // Weighted average based on category importance
+    // Weighted average based on category importance. Conversion is shown as
+    // suggestions only: it is judged from page wording, which cannot tell a
+    // good page from a bad one reliably enough to move the score.
     const weights: Record<string, number> = {
-      seo: 0.18,
-      technical: 0.10,
-      performance: 0.13,
+      seo: 0.2,
+      technical: 0.14,
+      performance: 0.15,
       mobile: 0.13,
       security: 0.13,
-      accessibility: 0.08,
-      content: 0.13,
-      conversion: 0.12,
+      accessibility: 0.1,
+      content: 0.15,
+      conversion: 0,
     };
-    
+
     let totalScore = 0;
     let totalWeight = 0;
-    
+
     Object.entries(scores).forEach(([category, score]) => {
-      const weight = weights[category] || 0.1;
+      const weight = weights[category] ?? 0.1;
+      if (weight === 0) return;
       totalScore += score.score * weight;
       totalWeight += weight;
     });
