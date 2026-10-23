@@ -593,7 +593,18 @@ export class WebsiteCrawler {
     // each once, and only where robots.txt lets a crawler in.
     const queue: string[] = [];
     const queued = new Set<string>([pageKey(first.url), pageKey(first.finalUrl)]);
-    for (const link of first.links) {
+    // A link that only adds a query string (/?r=0, /?ref=nav) is almost always
+    // the same page again. Crawling it wastes one of the few pages and creates
+    // fake "duplicate title" findings, so each path is crawled once, and plain
+    // links win over links with a query string.
+    const pathOf = (href: string) => {
+      const k = pageKey(href);
+      const q = k.indexOf('?');
+      return q === -1 ? k : k.slice(0, q);
+    };
+    const queuedPaths = new Set<string>([pathOf(first.url), pathOf(first.finalUrl)]);
+    const candidates = [...first.links.filter((l) => !/\?./.test(l.href.split('#')[0])), ...first.links.filter((l) => /\?./.test(l.href.split('#')[0]))];
+    for (const link of candidates) {
       if (queue.length >= this.config.maxPages - 1) break;
       if (!link.isInternal) continue;
       let u: URL;
@@ -605,9 +616,11 @@ export class WebsiteCrawler {
       u.hash = '';
       if (NON_PAGE_EXTENSIONS.test(u.pathname)) continue;
       const key = pageKey(u.href);
-      if (queued.has(key)) continue;
+      const path = pathOf(u.href);
+      if (queued.has(key) || queuedPaths.has(path)) continue;
       if (this.parsedRobots && !isAllowed(this.parsedRobots, 'DevelopersMatrixAudit', u.pathname + u.search)) continue;
       queued.add(key);
+      queuedPaths.add(path);
       queue.push(u.href);
     }
 

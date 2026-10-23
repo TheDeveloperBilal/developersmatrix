@@ -350,8 +350,10 @@ async function linkCheck(
   });
 
   // None of the extra links got an answer: we ran out of time or every one
-  // was blocked. Report crawled 404s through the technical module instead.
-  if (queue.length > 0 && probed === 0) throw new NoVerdict();
+  // was blocked. Crawled 404s are then reported by the technical module.
+  // Also no verdict when every answer came from bot protection: "0 broken"
+  // would only mean we were not allowed to look.
+  if (queue.length > 0 && (probed === 0 || result.checked === 0)) throw new NoVerdict();
 
   result.notChecked = Math.max(0, found - probed);
   result.broken.unshift(...crawledBroken);
