@@ -190,6 +190,13 @@ export interface AuditIssue {
   estimatedImpact?: string;
   timeToFix?: string;
   difficulty?: 'easy' | 'medium' | 'hard';
+
+  /**
+   * True for findings that are worth knowing but say nothing about how well
+   * the site is built or ranks (email records, analytics, AI crawler choices).
+   * They show as tips and never change a score.
+   */
+  informational?: boolean;
 }
 
 export interface ElementInfo {
@@ -258,7 +265,18 @@ export type IssueType =
   | 'internal_linking'
   | 'redirect_chain'
   | 'missing_sitemap'
-  | 'missing_robots_txt';
+  | 'missing_robots_txt'
+  | 'missing_doctype'
+  | 'missing_charset'
+  | 'meta_refresh'
+  | 'deprecated_html'
+  | 'keyword_usage'
+  | 'nofollow'
+  | 'dom_size'
+  | 'legacy_image_format'
+  | 'plaintext_email'
+  | 'unsafe_blank_link'
+  | 'missing_analytics';
 
 export type IssueSeverity = 'critical' | 'high' | 'medium' | 'low';
 
@@ -337,6 +355,8 @@ export interface PageSpeedData {
     seo: number | null;
   };
   finalUrl?: string;
+  /** What the page looked like on Google's test phone, as a data:image URI. */
+  screenshot?: string;
   unavailableReason?: string;
   rawError?: string;
 }
@@ -372,6 +392,9 @@ export interface WebsiteAuditResult {
 
   /** Ids of named checks this audit could not measure, shown as "Not checked". */
   notMeasured?: string[];
+
+  /** Facts from the site wide checks (links, 404 page, favicon, DNS, AI crawlers, search preview). */
+  siteChecks?: import('./site-checks').SiteCheckFacts;
 
   contentAnalysis: ContentAnalysis;
   

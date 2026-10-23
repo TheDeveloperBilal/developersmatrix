@@ -206,6 +206,25 @@ function PageSpeedSection({
       </div>
 
       <div className="space-y-6 px-6 py-5">
+        {psi.screenshot && (
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={psi.screenshot}
+              alt={`How ${result.domain} looked on Google's test phone`}
+              className="w-40 shrink-0 rounded-md border border-gray-200"
+              loading="lazy"
+            />
+            <div className="min-w-0">
+              <h3 className="text-sm font-semibold text-gray-900">Mobile snapshot</h3>
+              <p className="mt-1 text-xs leading-relaxed text-gray-600">
+                The last frame Google&apos;s test phone saw when the page finished loading. Check that the main
+                content fits the screen and nothing is cut off.
+              </p>
+            </div>
+          </div>
+        )}
+
         {psi.hasFieldData ? (
           <div>
             <div className="flex flex-wrap items-baseline gap-2">
@@ -345,7 +364,7 @@ function CheckRow({ check }: { check: CheckResult }) {
           {check.status === 'pass' ? (
             <span className="mt-0.5 block text-xs text-gray-500">{check.definition.passText}</span>
           ) : check.status === 'not-run' ? (
-            <span className="mt-0.5 block text-xs text-gray-500">We do not measure this yet, so it is not counted as a pass.</span>
+            <span className="mt-0.5 block text-xs text-gray-500">We could not get a clear answer for this check on this run (the site was slow, blocked our request, or there was nothing to test), so it is not counted as a pass.</span>
           ) : check.status === 'tip' ? (
             <span className="mt-0.5 block text-xs text-gray-600">
               {check.findings.length} {check.findings.length === 1 ? 'tip' : 'tips'}, not part of the score
@@ -412,6 +431,78 @@ function GroupSection({ group }: { group: GroupResult }) {
           </div>
         </div>
       )}
+    </section>
+  );
+}
+
+/* ---------- Google search preview ---------- */
+
+function truncate(text: string, max: number): string {
+  const t = text.replace(/\s+/g, ' ').trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max);
+  const space = cut.lastIndexOf(' ');
+  return `${(space > max * 0.6 ? cut.slice(0, space) : cut).trim()}...`;
+}
+
+function SearchPreview({ result }: { result: WebsiteAuditResult }) {
+  const p = result.siteChecks?.preview;
+  if (!p) return null;
+  let crumb = p.url;
+  try {
+    const u = new URL(p.url);
+    crumb = [u.hostname, ...u.pathname.split('/').filter(Boolean)].join(' > ');
+  } catch {
+    /* keep the raw url */
+  }
+  return (
+    <section className="rounded-lg border border-gray-200 bg-white px-5 py-5 sm:px-6">
+      <h2 className="text-base font-semibold text-gray-900">Google search preview</h2>
+      <p className="mt-0.5 text-xs text-gray-500">
+        An estimate built from your homepage title and meta description. Google cuts titles by width,
+        not by a fixed number of letters, and sometimes writes its own description.
+      </p>
+      <div className="mt-4 max-w-xl" style={{ fontFamily: "Arial, sans-serif" }}>
+        <div className="truncate text-xs text-[#202124]">{crumb}</div>
+        <div className="mt-0.5 text-lg leading-snug text-[#1a0dab]">
+          {p.title ? truncate(p.title, 60) : <span className="italic text-gray-500">No title tag</span>}
+        </div>
+        <div className="mt-0.5 text-sm leading-snug text-[#4d5156]">
+          {p.description ? truncate(p.description, 158) : <span className="italic text-gray-500">No meta description, so Google will pick text from the page.</span>}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- what the site wide checks found ---------- */
+
+function SiteFacts({ result }: { result: WebsiteAuditResult }) {
+  const f = result.siteChecks;
+  if (!f) return null;
+  const rows: [string, string][] = [];
+  if (f.links) {
+    rows.push(['Links checked', `${f.links.checked} (${f.links.internalChecked} internal, ${f.links.externalChecked} outbound), ${f.links.broken.length} broken${f.links.unverified ? `, ${f.links.unverified} would not let us check` : ''}${f.links.notChecked ? `, ${f.links.notChecked} more not checked` : ''}`]);
+  }
+  if (f.http2) rows.push(['Protocol', f.http2.protocol === 'h2' ? `HTTP/2${f.http2.http3Advertised ? ', HTTP/3 offered' : ''}` : f.http2.protocol || 'unknown']);
+  if (f.email) rows.push(['Email records', `SPF ${f.email.spf ? 'found' : 'missing'}, DMARC ${f.email.dmarc ? 'found' : 'missing'}`]);
+  if (f.ads) rows.push(['Ads', f.ads.adsFound ? `Ad code found, ads.txt ${f.ads.adsTxtFound ? 'found' : 'missing'}` : 'No ad code found']);
+  if (f.aiCrawlers) {
+    const blocked = f.aiCrawlers.filter((c) => !c.allowed);
+    rows.push(['AI crawlers', blocked.length === 0 ? 'All allowed by robots.txt' : `Blocked: ${blocked.map((c) => c.token).join(', ')}`]);
+  }
+  if (rows.length === 0) return null;
+  return (
+    <section className="rounded-lg border border-gray-200 bg-white px-5 py-5 sm:px-6">
+      <h2 className="text-base font-semibold text-gray-900">What we checked across the site</h2>
+      <dl className="mt-3 divide-y divide-gray-100 text-sm">
+        {rows.map(([k, v]) => (
+          <div key={k} className="flex flex-col gap-0.5 py-2 sm:flex-row sm:gap-4">
+            <dt className="w-36 shrink-0 text-gray-500">{k}</dt>
+            <dd className="min-w-0 break-words text-gray-900">{v}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }
@@ -515,15 +606,20 @@ export default function AuditReport({
         </div>
       </section>
 
+      <SearchPreview result={result} />
+
       <PageSpeedSection result={result} status={psiStatus} />
+
+      <SiteFacts result={result} />
 
       {report.groups.map((g) => <GroupSection key={g.group.id} group={g} />)}
 
       <p className="px-1 pb-2 text-xs leading-relaxed text-gray-500">
         A check is marked passed when the audit ran it and raised nothing against it.
-        Not run means we do not measure that check yet. Tips are conversion suggestions
-        and do not change the score. Core Web Vitals come from Google PageSpeed Insights.
-        Everything else is measured directly from the pages crawled.
+        Not run means we could not get a clear answer this time, so it is not counted as a pass.
+        Tips are conversion suggestions and informational notes, and they do not change the
+        score. Core Web Vitals come from Google PageSpeed Insights. Everything else is
+        measured directly from the pages and files we fetched.
       </p>
     </div>
   );

@@ -489,11 +489,11 @@ export default function WebsiteAuditClient() {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: Search, title: 'Technical SEO', desc: 'Title tags, meta descriptions, headings, canonicals, schema, robots.txt, sitemap', color: 'blue' },
-                { icon: Gauge, title: 'Performance', desc: 'HTML size, server response, render blocking files, images, caching', color: 'orange' },
-                { icon: Smartphone, title: 'Mobile UX', desc: 'Viewport, theme colour, mobile meta tags', color: 'purple' },
-                { icon: Shield, title: 'Security', desc: 'HTTPS, security headers, mixed content, form security', color: 'red' },
-                { icon: Accessibility, title: 'Accessibility', desc: 'Alt text, form labels, landmarks, heading order, link text', color: 'green' },
+                { icon: Search, title: 'Technical SEO', desc: 'Titles, descriptions, headings, canonicals, schema, robots.txt, sitemap, broken links, 404 page', color: 'blue' },
+                { icon: Gauge, title: 'Performance', desc: 'Server response, page and DOM size, render blocking files, image formats, caching, minification, HTTP/2', color: 'orange' },
+                { icon: Smartphone, title: 'Mobile UX', desc: 'Viewport, responsive CSS, theme colour, mobile snapshot from Google', color: 'purple' },
+                { icon: Shield, title: 'Security', desc: 'HTTPS, security headers, mixed content, open folders, SPF and DMARC', color: 'red' },
+                { icon: Accessibility, title: 'Accessibility', desc: 'Form labels, page language, link text, landmarks, heading order', color: 'green' },
                 { icon: FileText, title: 'Content Quality', desc: 'Readability, word count, keyword stuffing, trust signals', color: 'indigo' },
                 { icon: Target, title: 'Conversion', desc: 'Tips on CTAs, trust and contact details (not scored)', color: 'pink' },
                 { icon: Sparkles, title: 'Fix Guides', desc: 'Step by step fixes, code examples, ordered by severity', color: 'violet' },
@@ -525,8 +525,8 @@ export default function WebsiteAuditClient() {
               </h2>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                 A website audit is the foundation of any successful digital strategy.
-                Our free website audit tool reads the HTML and headers of your page and up to 4 pages it links to,
-                and checks the things that stop Google from crawling, indexing and trusting a site. From broken internal links
+                Our free website audit tool reads the HTML and headers of your page and up to 4 pages it links to, requests
+                the links, files and records around them, and checks the things that stop Google from crawling, indexing and trusting a site. From broken internal links
                 and slow server responses to missing meta tags and a missing mobile viewport, we catch issues that could be holding
                 your site back from reaching its full potential.
               </p>

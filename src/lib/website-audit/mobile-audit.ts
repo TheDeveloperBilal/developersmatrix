@@ -55,7 +55,7 @@ export class MobileAuditor {
   }
 
   private analyzeViewport(pages: PageData[], issues: AuditIssue[]): void {
-    pages.forEach((page) => {
+    pages.forEach((page, index) => {
       const viewport = (page.meta.viewport || '').trim();
 
       if (!viewport) {
@@ -63,7 +63,10 @@ export class MobileAuditor {
           id: `no_viewport_${page.url}`,
           category: 'mobile',
           type: 'missing_viewport',
-          severity: 'high',
+          // Google indexes the mobile version of a page. Without a viewport the
+          // homepage is a shrunken desktop page on every phone, which is a
+          // fatal problem for the site, not a detail.
+          severity: index === 0 ? 'critical' : 'high',
           title: 'Missing Viewport Meta Tag',
           description: `We found no viewport meta tag on ${page.url}.`,
           impact: 'Without a viewport tag, phones show the desktop layout shrunk down to fit the screen, so text is tiny and visitors have to pinch and zoom to read or tap anything.',

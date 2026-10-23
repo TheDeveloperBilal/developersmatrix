@@ -20,9 +20,9 @@ const topicClusters = [
   {
     icon: TOOL_ICONS["website-audit"],
     title: "SEO & Website Tools",
-    text: "Run around 150 checks across SEO, performance, security, mobile, accessibility and content. Get a prioritized fix list you can act on the same day.",
+    text: "Run 70 named checks across SEO, performance, security, mobile, accessibility and content. Get a prioritized fix list you can act on the same day.",
     links: [
-      { label: "AI Website Audit", href: "/tools/website-audit" },
+      { label: "Website Audit", href: "/tools/website-audit" },
       { label: "Website Audit Services", href: "/services/website-audit" },
       { label: "AI Content Detector", href: "/tools/ai-content-detector" },
     ],
