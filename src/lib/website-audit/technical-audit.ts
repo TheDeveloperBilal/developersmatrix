@@ -714,10 +714,18 @@ export class TechnicalAuditor {
     // One entry per real page: two crawled URLs that ended up at the same
     // address are the same page, not duplicates.
     const seen = new Set<string>();
+    const crawledKeys = new Set(pages.map((p) => urlKey(p.finalUrl || p.url)));
     const unique = pages.filter((p) => {
       const key = urlKey(p.finalUrl || p.url);
       if (seen.has(key)) return false;
       seen.add(key);
+      // A page whose canonical points to another crawled page has already
+      // told Google it is a copy, so it is not a duplicate problem.
+      const canonical = (p.meta.canonical || '').trim();
+      if (canonical) {
+        const target = urlKey(canonical, p.finalUrl || p.url);
+        if (target !== key && crawledKeys.has(target)) return false;
+      }
       return true;
     });
 

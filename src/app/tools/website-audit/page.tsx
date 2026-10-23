@@ -92,29 +92,30 @@ const toolFaqs = [
 ];
 
 // A real run of this tool on developersmatrix.com, copied from the API
-// response on 21 October 2026. Update by running the tool again; never edit
-// the numbers by hand. Conversion is left out because it is tips only and
-// does not count toward the score.
+// response on 23 October 2026, after we fixed what the 21 October run found
+// (three missing security headers). Update by running the tool again; never
+// edit the numbers by hand. Conversion is left out because it is tips only
+// and does not count toward the score.
 const SAMPLE = {
-  date: '21 October 2026',
-  overall: 93,
+  date: '23 October 2026',
+  overall: 97,
   pages: 5,
-  findings: { total: 22, critical: 0, high: 0, medium: 3, low: 19 },
+  findings: { total: 21, critical: 0, high: 0, medium: 0, low: 21 },
   categories: [
-    ['SEO', 96],
+    ['SEO', 98],
     ['Technical', 100],
-    ['Content', 96],
+    ['Content', 97],
     ['Mobile', 100],
-    ['Performance', 84],
-    ['Security', 83],
-    ['Accessibility', 90],
+    ['Performance', 93],
+    ['Security', 97],
+    ['Accessibility', 97],
   ] as [string, number][],
   top: [
-    { title: 'Missing Content-Security-Policy', area: 'Security', severity: 'medium', fix: "Start with a report only policy, then enforce it. At minimum send frame-ancestors 'self'; object-src 'none'; base-uri 'self'." },
-    { title: 'No Clickjacking Protection', area: 'Security', severity: 'medium', fix: "Send Content-Security-Policy: frame-ancestors 'self', with X-Frame-Options: SAMEORIGIN as a fallback." },
-    { title: 'Missing X-Content-Type-Options Header', area: 'Security', severity: 'medium', fix: 'Send X-Content-Type-Options: nosniff with every response.' },
-    { title: 'Title May Be Cut Short in Search Results', area: 'SEO', severity: 'low', fix: 'Keep the most important words in the first 50 to 60 characters.' },
-    { title: 'Links Opening in a New Tab Without Warning', area: 'Accessibility', severity: 'low', fix: 'Tell visitors when a link opens a new tab, with visible text or a labelled icon.' },
+    { title: 'Very Many HTML Elements on the Page', area: 'Performance', severity: 'low', fix: 'Look for repeated or hidden blocks, such as big menus, hidden tabs and sliders, and trim what the first screen does not need.' },
+    { title: 'Images Not Served in WebP or AVIF', area: 'Performance', severity: 'low', fix: 'Convert the blog images to WebP or AVIF, or serve them through next/image.' },
+    { title: 'Images Without Width and Height', area: 'Performance', severity: 'low', fix: 'Add width and height attributes that match each image, or set an aspect-ratio in CSS.' },
+    { title: 'Title May Be Cut Short in Search Results', area: 'SEO', severity: 'low', fix: 'Put the most important words first so they show even if the end is cut.' },
+    { title: 'Content-Security-Policy Does Not Limit Scripts', area: 'Security', severity: 'low', fix: 'Add a nonce or hash based script-src in report only mode first, then enforce it once ads and analytics are tested.' },
   ],
 };
 
