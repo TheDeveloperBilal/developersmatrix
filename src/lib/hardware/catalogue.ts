@@ -216,6 +216,7 @@ export const CPUS: HardwareItem[] = [
   { name: 'Intel Core i7-8700K', score: 45, brand: 'Intel' },
   { name: 'Intel Core i7-8700', score: 43, brand: 'Intel' },
   { name: 'Intel Core i5-8600K', score: 38, brand: 'Intel' },
+  { name: 'Intel Core i5-8500', score: 36, brand: 'Intel' },
   { name: 'Intel Core i5-8400', score: 35, brand: 'Intel' },
   { name: 'Intel Core i3-8100', score: 20, brand: 'Intel' },
   // Intel 7th gen
@@ -382,6 +383,21 @@ export function matchHardware(text: string, kind: HardwareKind): HardwareItem | 
     if (hit) return hit;
   }
   return null;
+}
+
+/**
+ * Every catalogue part named in a publisher string, in the order listed.
+ * "GTX 970 / GTX 1060 / RX 470" gives three parts. Used to compare a visitor
+ * with the listed part from their own brand.
+ */
+export function matchAllHardware(text: string, kind: HardwareKind): HardwareItem[] {
+  if (!text || typeof text !== 'string') return [];
+  const found: HardwareItem[] = [];
+  for (const segment of text.split(/\/|,|\||\bor\b/i)) {
+    const hit = matchSegment(segment, kind);
+    if (hit && !found.includes(hit)) found.push(hit);
+  }
+  return found;
 }
 
 /** Up to `limit` catalogue names that contain what the visitor has typed so far. */

@@ -410,7 +410,7 @@ export const tools: Tool[] = [
     features: [
       'Compare PC specs to game requirements',
       'Minimum and recommended specs side by side',
-      '26 games checked against publisher specs',
+      '31 games checked against publisher specs',
       'Performance prediction',
       'Hardware upgrade suggestions',
       'FPS estimator'

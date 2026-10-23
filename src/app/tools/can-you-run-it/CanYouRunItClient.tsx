@@ -365,6 +365,25 @@ export default function CanYouRunItClient() {
     }
   };
 
+  // Game pages link here as /tools/can-you-run-it#game=<id>, so the visitor
+  // arrives with that game already chosen. A hash rather than a query string
+  // keeps a single URL for search engines.
+  useEffect(() => {
+    const fromHash = () => {
+      const match = window.location.hash.match(/^#game=([a-z0-9-]+)$/);
+      const game = match ? gamesDatabase.find((g) => g.id === match[1]) : undefined;
+      if (!game) return;
+      setSelected(game);
+      setResult(null);
+      setError(null);
+      const target = window.innerWidth < 1024 ? panelRef.current : document.getElementById('can-you-run-it');
+      requestAnimationFrame(() => target?.scrollIntoView({ block: 'start' }));
+    };
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+    return () => window.removeEventListener('hashchange', fromHash);
+  }, []);
+
   const check = async () => {
     if (!selected) return;
     if (!cpuMatch || !gpuMatch) {
