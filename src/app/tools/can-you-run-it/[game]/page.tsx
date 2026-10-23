@@ -14,6 +14,7 @@ import {
   Building2,
 } from 'lucide-react';
 import { gamesDatabase, type Game, type GameRequirement } from '@/data/games-database';
+import { relatedGames } from '@/data/related-games';
 import { siteConfig } from '@/data/config';
 import { FAQSchema, BreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 
@@ -459,9 +460,8 @@ function UnannouncedGamePage({ game }: { game: Game }) {
               Games you can check today
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {gamesDatabase
-                .filter((g) => g.id !== game.id && g.requirementsStatus !== 'unannounced')
-                .slice(0, 6)
+              {relatedGames(game)
+                .filter((g) => g.requirementsStatus !== 'unannounced')
                 .map((g) => (
                   <Link
                     key={g.id}
@@ -501,14 +501,14 @@ export default async function GamePage({ params }: GamePageProps) {
   const storageSize = /^\d/.test(min.storage) ? min.storage.replace(' available space', '') : null;
   const mentionsSsd = !!game.requirementsNote && /SSD/.test(game.requirementsNote);
 
-  const quickAnswer =
+  const quickAnswer = (
     game.quickAnswer ||
     `To run ${game.name} at minimum settings you need an ${min.processor.split('/')[0].trim()} or better, ` +
       `${min.memory.replace(' RAM', '')} of memory, and graphics at least as fast as the ${min.graphics.split('/')[0].trim()}. ` +
       (hasRecommended
         ? `For comfortable frame rates, aim for the ${rec.graphics.split('/')[0].trim()} with ${rec.memory.replace(' RAM', '')} of memory. `
         : '') +
-      (storageSize ? `Set aside ${storageSize} of drive space.` : '');
+      (storageSize ? `Set aside ${storageSize} of drive space.` : '')).trim();
 
   // Joins a spec tier into one readable line, skipping fields the publisher left blank.
   const specLine = (req: GameRequirement) =>
@@ -556,7 +556,7 @@ export default async function GamePage({ params }: GamePageProps) {
     },
   ];
 
-  const related = gamesDatabase.filter((g) => g.id !== game.id).slice(0, 6);
+  const related = relatedGames(game);
 
   const videoGameSchema = {
     '@context': 'https://schema.org',
@@ -645,12 +645,13 @@ export default async function GamePage({ params }: GamePageProps) {
             <p className="text-base sm:text-lg leading-relaxed text-gray-800 dark:text-gray-100">
               {quickAnswer}
             </p>
-            <Link
-              href="/tools/can-you-run-it"
+            {/* A plain link, so the checker page loads fresh and reads the game from the hash. */}
+            <a
+              href={`/tools/can-you-run-it#game=${game.id}`}
               className="mt-5 inline-flex items-center gap-2 rounded-xl bg-purple-600 hover:bg-purple-700 px-5 py-3 text-sm font-semibold text-white transition-colors"
             >
               Check your own PC <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
+            </a>
           </section>
 
           <section className="mb-12">

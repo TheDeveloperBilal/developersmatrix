@@ -336,6 +336,7 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
+  { kind: "Updated", title: "Can You Run It: Resident Evil Requiem, Crimson Desert and 3 more games added", meta: "Tool · Gaming", href: "/tools/can-you-run-it", date: "2026-10-23" },
   { kind: "Updated", title: "Productivity Planner rebuilt as an hour by hour day timeline", meta: "Tool · Productivity", href: "/tools/productivity-planner", date: "2026-10-07" },
   { kind: "Updated", title: "Habit Tracker rebuilt with real date streaks and a 12 week wall", meta: "Tool · Productivity", href: "/tools/habit-tracker", date: "2026-10-07" },
   { kind: "Updated", title: "Budget Planner rebuilt as a monthly statement with a savings goal", meta: "Tool · Finance", href: "/tools/budget-planner", date: "2026-10-07" },

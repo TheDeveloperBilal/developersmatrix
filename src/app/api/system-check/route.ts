@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { gamesDatabase, type GameRequirement } from '@/data/games-database';
-import { matchHardware, suggestHardware, type HardwareItem } from '@/lib/hardware/catalogue';
+import { matchHardware, matchAllHardware, suggestHardware, type HardwareItem, type HardwareKind } from '@/lib/hardware/catalogue';
 
 export const runtime = 'nodejs';
 
@@ -39,11 +39,32 @@ function ratioStatus(ratio: number): Status {
   return 'fail';
 }
 
+// Publishers list several parts they treat as equal ("GTX 1060 / RX 580"), and
+// often the parts are not equally fast. Any of them is enough to run the game
+// in the publisher's own words, so the visitor is compared with the slowest
+// listed part. Comparing only with the first part used to fail visitors whose
+// exact processor or graphics card the publisher names.
+// One exception: an Intel Arc card on the same line is often far slower than
+// the NVIDIA and AMD cards next to it, so it only sets the bar for visitors
+// with Intel graphics.
+function requiredPart(text: string, kind: HardwareKind, yours: HardwareItem): HardwareItem | null {
+  const listed = matchAllHardware(text, kind);
+  if (listed.length === 0) return null;
+  let pool = listed;
+  if (kind === 'gpu') {
+    const intel = listed.filter((part) => part.brand === 'Intel');
+    const others = listed.filter((part) => part.brand !== 'Intel');
+    if (yours.brand === 'Intel' && intel.length > 0) pool = intel;
+    else if (others.length > 0) pool = others;
+  }
+  return pool.reduce((lowest, part) => (part.score < lowest.score ? part : lowest));
+}
+
 function calculatePerformance(cpu: HardwareItem, gpu: HardwareItem, specs: SystemSpecs, req: GameRequirement) {
   const minRam = parseRequirement(req.memory);
   const minStorage = parseStorageGB(req.storage);
-  const minCpu = matchHardware(req.processor, 'cpu');
-  const minGpu = matchHardware(req.graphics, 'gpu');
+  const minCpu = requiredPart(req.processor, 'cpu', cpu);
+  const minGpu = requiredPart(req.graphics, 'gpu', gpu);
   const minCpuScore = minCpu ? minCpu.score : UNKNOWN_REQUIREMENT_SCORE;
   const minGpuScore = minGpu ? minGpu.score : UNKNOWN_REQUIREMENT_SCORE;
 

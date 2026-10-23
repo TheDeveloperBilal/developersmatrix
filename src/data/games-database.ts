@@ -8,7 +8,8 @@
 // 'unannounced' (see GTA 6). If it publishes a minimum spec only, set
 // recommendedPublished to false.
 //
-// All official entries were checked against their sources on 30 September 2026.
+// The original official entries were checked against their sources on 30 September 2026.
+// Entries added later were checked on the date stored in ADDED_ON.
 
 export interface GameRequirement {
   os: string;
@@ -61,6 +62,8 @@ export interface Game {
 }
 
 const CHECKED = 'September 30, 2026';
+// Titles added later carry the date they were copied from their source.
+const ADDED_ON = 'October 23, 2026';
 
 const NOT_PUBLISHED = (who: string): GameRequirement => ({
   os: `Not published by ${who}`,
@@ -1146,6 +1149,215 @@ export const gamesDatabase: Game[] = [
     tags: ['Soulslike', 'Cooperative', 'Roguelike', 'Action RPG'],
     trending: false,
     popularity: 82
+  },
+  // ==================== ADDED 23 OCTOBER 2026 ====================
+  // Each entry below was copied from its source on 23 October 2026.
+  {
+    id: 'resident-evil-requiem',
+    name: 'Resident Evil Requiem',
+    developer: 'Capcom',
+    publisher: 'Capcom',
+    releaseDate: 'February 27, 2026',
+    genre: ['Horror', 'Survival', 'Action'],
+    rating: 0,
+    price: '$69.99',
+    platforms: ['PC', 'PS5', 'Xbox Series X|S'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Resident Evil Requiem is the ninth main game in Capcom\'s survival horror series, built around FBI analyst Grace Ashcroft and a return to Raccoon City.',
+    minimumRequirements: {
+      os: 'Windows 11, 64 bit',
+      processor: 'Intel Core i5-8500 / AMD Ryzen 5 3500',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1660 6GB / AMD Radeon RX 5500 XT 8GB',
+      directX: 'Version 12',
+      storage: 'Not listed by Capcom'
+    },
+    recommendedRequirements: {
+      os: 'Windows 11, 64 bit',
+      processor: 'Intel Core i7-8700 / AMD Ryzen 5 5500',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 2060 Super 8GB / AMD Radeon RX 6600 8GB',
+      directX: 'Version 12',
+      storage: 'Not listed by Capcom'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Resident Evil Requiem on Steam', url: 'https://store.steampowered.com/app/3764200/' },
+    requirementsCheckedOn: ADDED_ON,
+    requirementsNote: 'Capcom says an SSD is required. Its minimum spec targets 1080p upscaled from 640p at 30 fps, and its recommended spec targets 1080p upscaled from 720p at 60 fps.',
+    features: [
+      'Survival horror in first or third person',
+      'New lead character, Grace Ashcroft',
+      'Return to Raccoon City'
+    ],
+    tags: ['Horror', 'Survival', 'Story Rich', 'Capcom'],
+    trending: true,
+    popularity: 90
+  },
+  {
+    id: 'crimson-desert',
+    name: 'Crimson Desert',
+    developer: 'Pearl Abyss',
+    publisher: 'Pearl Abyss',
+    releaseDate: 'March 19, 2026',
+    genre: ['Action', 'Adventure', 'Open World'],
+    rating: 0,
+    price: '$69.99',
+    platforms: ['PC', 'Mac', 'PS5', 'Xbox Series X|S'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Crimson Desert is an open world action adventure from Pearl Abyss, the studio behind Black Desert. You play as Kliff, a mercenary fighting his way across the continent of Pywel.',
+    minimumRequirements: {
+      os: 'Windows 10, 64 bit',
+      processor: 'Intel Core i5-8500 / AMD Ryzen 5 2600X',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1060 / AMD Radeon RX 5500 XT',
+      directX: 'Version 12',
+      storage: '150 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 10, 64 bit',
+      processor: 'Intel Core i5-11600K / AMD Ryzen 5 5600',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 2080 / AMD Radeon RX 6700 XT',
+      directX: 'Version 12',
+      storage: '150 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Crimson Desert on Steam', url: 'https://store.steampowered.com/app/3321460/' },
+    requirementsCheckedOn: ADDED_ON,
+    requirementsNote: 'An SSD is required at both tiers.',
+    features: [
+      'Large open world with mounted combat',
+      'Single player story',
+      'Built on Pearl Abyss\'s own BlackSpace Engine'
+    ],
+    tags: ['Open World', 'Action', 'Adventure', 'Fantasy'],
+    trending: true,
+    popularity: 88
+  },
+  {
+    id: 'kingdom-come-deliverance-2',
+    name: 'Kingdom Come: Deliverance II',
+    searchName: 'Kingdom Come Deliverance 2',
+    developer: 'Warhorse Studios',
+    publisher: 'Deep Silver',
+    releaseDate: 'February 4, 2025',
+    genre: ['RPG', 'Open World', 'Medieval'],
+    rating: 0,
+    price: '$59.99',
+    platforms: ['PC', 'PS5', 'Xbox Series X|S'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Kingdom Come: Deliverance II is a story driven medieval RPG from Warhorse Studios. It continues Henry\'s story in 15th century Bohemia, with realistic combat and no magic.',
+    minimumRequirements: {
+      os: 'Windows 10 or newer, 64 bit',
+      processor: 'Intel Core i5-8400 / AMD Ryzen 5 2600',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580',
+      directX: 'Not listed',
+      storage: '100 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 10 or newer, 64 bit',
+      processor: 'Intel Core i7-13700K / AMD Ryzen 7 7800X3D',
+      memory: '32 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 4070 / AMD Radeon RX 7800 XT',
+      directX: 'Not listed',
+      storage: '100 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Kingdom Come: Deliverance II on Steam', url: 'https://store.steampowered.com/app/1771300/' },
+    requirementsCheckedOn: ADDED_ON,
+    requirementsNote: 'An SSD is required at both tiers. The recommended spec is unusually high, with 32 GB of memory and a current generation processor.',
+    features: [
+      'Historical open world RPG',
+      'First person melee combat',
+      'Choices that change the story'
+    ],
+    tags: ['RPG', 'Open World', 'Medieval', 'Story Rich'],
+    trending: false,
+    popularity: 87
+  },
+  {
+    id: 'assassins-creed-shadows',
+    name: 'Assassin\'s Creed Shadows',
+    developer: 'Ubisoft Quebec',
+    publisher: 'Ubisoft',
+    releaseDate: 'March 20, 2025',
+    genre: ['Action RPG', 'Open World', 'Stealth'],
+    rating: 0,
+    price: '$69.99',
+    platforms: ['PC', 'PS5', 'Xbox Series X|S'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Assassin\'s Creed Shadows is set in feudal Japan and lets you switch between two leads, the shinobi Naoe and the samurai Yasuke.',
+    minimumRequirements: {
+      os: 'Windows 10/11, 64 bit',
+      processor: 'Intel Core i7-8700K / AMD Ryzen 5 3600',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1650 4GB / AMD Radeon RX 5500 XT 8GB / Intel Arc A380 6GB',
+      directX: 'Version 12',
+      storage: '115 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 10/11, 64 bit',
+      processor: 'Intel Core i5-11600K / AMD Ryzen 5 5600X',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 3060 Ti 8GB / AMD Radeon RX 6700 XT 12GB / Intel Arc B580 12GB',
+      directX: 'Version 12',
+      storage: '115 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Assassin\'s Creed Shadows on Steam', url: 'https://store.steampowered.com/app/3159330/' },
+    requirementsCheckedOn: ADDED_ON,
+    requirementsNote: 'The game must be installed on an SSD. Intel Arc cards need Resizable BAR turned on.',
+    features: [
+      'Two playable leads with different styles',
+      'Open world feudal Japan',
+      'Seasons and weather that change the map'
+    ],
+    tags: ['Open World', 'Stealth', 'Action RPG', 'Historical'],
+    trending: false,
+    popularity: 86
+  },
+  {
+    id: 'call-of-duty-black-ops-7',
+    name: 'Call of Duty: Black Ops 7',
+    searchName: 'Black Ops 7',
+    developer: 'Treyarch and Raven Software',
+    publisher: 'Activision',
+    releaseDate: 'November 14, 2025',
+    genre: ['FPS', 'Military', 'Multiplayer'],
+    rating: 0,
+    price: '$69.99',
+    platforms: ['PC', 'PS5', 'PS4', 'Xbox Series X|S', 'Xbox One'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Call of Duty: Black Ops 7 is the 2025 Call of Duty from Treyarch and Raven Software, with a cooperative campaign, multiplayer and Zombies.',
+    minimumRequirements: {
+      os: 'Windows 10, 64 bit (latest update)',
+      processor: 'Intel Core i5-6600 / AMD Ryzen 5 1400',
+      memory: '8 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 970 / GTX 1060 / AMD Radeon RX 470 / Intel Arc A580',
+      directX: 'Not listed',
+      storage: 'Not listed by Activision'
+    },
+    recommendedRequirements: {
+      os: 'Windows 11, 64 bit (latest update)',
+      processor: 'Intel Core i7-6700K / AMD Ryzen 5 1600X',
+      memory: '12 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 3060 / AMD Radeon RX 6600 XT / Intel Arc B580',
+      directX: 'Not listed',
+      storage: 'Not listed by Activision'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Black Ops 7 PC page on callofduty.com', url: 'https://www.callofduty.com/blackops7/pc' },
+    requirementsCheckedOn: ADDED_ON,
+    requirementsNote: 'An SSD is required. Activision asks for 3 GB of video memory at minimum and 8 GB for the recommended spec. TPM 2.0 and Secure Boot must be turned on, the processor must support AVX, and Intel Arc cards need Resizable BAR.',
+    features: [
+      'Campaign playable solo or in cooperative',
+      'Multiplayer and Zombies',
+      'Recommended spec targets 60 fps on high settings'
+    ],
+    tags: ['FPS', 'Multiplayer', 'Zombies', 'Military'],
+    trending: true,
+    popularity: 91
   }
 ];
 
