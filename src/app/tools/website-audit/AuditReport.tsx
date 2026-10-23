@@ -440,9 +440,9 @@ function GroupSection({ group }: { group: GroupResult }) {
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? iso
-    : d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+  if (Number.isNaN(d.getTime())) return iso;
+  // Two audits on the same day are told apart by the time.
+  return `${d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}, ${d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}`;
 }
 
 function HistoryPanel({
@@ -479,7 +479,7 @@ function HistoryPanel({
         <div className="mt-4 space-y-4">
           <p className="text-sm text-gray-700">
             On {formatDate(comparison.previous.scannedAt)} this site scored{' '}
-            <span className="font-semibold tabular-nums">{comparison.previous.score}</span>. Today it scores{' '}
+            <span className="font-semibold tabular-nums">{comparison.previous.score}</span>. Now it scores{' '}
             <span className="font-semibold tabular-nums">{result.overallScore}</span>
             {comparison.scoreChange === 0 ? ', no change.' : (
               <span className={comparison.scoreChange > 0 ? 'font-semibold text-[#0f7b3e]' : 'font-semibold text-[#a3242b]'}>

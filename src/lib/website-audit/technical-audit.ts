@@ -248,7 +248,29 @@ export class TechnicalAuditor {
       return;
     }
 
-    const broken = listed.filter((s) => !s.ok);
+    // A sitemap that answers 401, 403, 429 or 503 refused our scanner. Google
+    // may still be allowed in, so this is a note to check, not a broken file.
+    const refused = (s: (typeof listed)[number]) => s.status !== null && [401, 403, 429, 503].includes(s.status);
+    const blocked = listed.filter((s) => !s.ok && refused(s));
+    if (blocked.length > 0) {
+      issues.push({
+        id: 'tech-sitemap-blocked',
+        category: 'technical',
+        type: 'missing_sitemap',
+        severity: 'low',
+        informational: true,
+        title: 'Sitemap Refused Our Request',
+        description: blocked.map((s) => `${s.url} answered HTTP ${s.status} to our scanner.`).join(' '),
+        impact: 'Sites often block automated tools while still letting Google in, so this may be fine. If Google is blocked too, it cannot read your page list.',
+        suggestion: 'Open Search Console, Sitemaps, and check that Google reports the sitemap as read successfully.',
+        priority: 3,
+        affectedUrls: blocked.map((s) => s.url),
+        timeToFix: '5 minutes',
+        difficulty: 'easy',
+      });
+    }
+
+    const broken = listed.filter((s) => !s.ok && !refused(s));
     if (broken.length > 0) {
       issues.push({
         id: 'tech-sitemap-broken',

@@ -4,6 +4,7 @@
 import { SEOAuditor } from '@/lib/website-audit/seo-audit';
 import { PerformanceAuditor } from '@/lib/website-audit/performance-audit';
 import { detectCdn } from '@/lib/website-audit/site-checks';
+import { isPlatformHost, registrableDomain } from '@/lib/website-audit/domains';
 import { toEntry, compare, recordAudit, historyFor, clearHistory } from '@/lib/website-audit/history';
 import type { PageData, WebsiteAuditResult, AuditIssue } from '@/lib/website-audit/types';
 
@@ -55,6 +56,15 @@ console.log('CDN detection');
   check('Fastly from x-served-by', detectCdn({ 'x-served-by': 'cache-lhr7349-LHR' }, []).name === 'Fastly');
   check('Shopify CDN from file host', detectCdn({ server: 'nginx' }, ['cdn.shopify.com']).name === 'Shopify CDN');
   check('plain nginx with own files is no CDN', detectCdn({ server: 'nginx' }, ['a.test']).name === null);
+  check('an edge cache that reports hits counts', detectCdn({ 'x-cache': 'cp1104 hit, cp1104 miss', server: 'ATS/9.2.5' }, []).name !== null);
+  check('Squarespace static host counts', detectCdn({}, ['static1.squarespace.com']).name !== null);
+}
+
+console.log('domains');
+{
+  check('www.squarespace.com is the platform itself, not a customer site', !isPlatformHost('www.squarespace.com') && !isPlatformHost('vercel.app'));
+  check('customer subdomains are platform hosts', isPlatformHost('mysite.vercel.app') && isPlatformHost('shop.myshopify.com'));
+  check('registrable domain handles two part suffixes', registrableDomain('blog.shop.example.co.uk') === 'example.co.uk' && registrableDomain('www.example.com') === 'example.com');
 }
 
 console.log('inline CSS');

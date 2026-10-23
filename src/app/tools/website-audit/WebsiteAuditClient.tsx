@@ -353,8 +353,9 @@ export default function WebsiteAuditClient() {
             >
               <div className="relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl p-2">
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 flex items-center gap-3 px-4">
-                    <Globe className="w-5 h-5 text-slate-400" />
+                  {/* min-w-0 lets the field shrink on phones so the button stays on screen. */}
+                  <div className="flex-1 min-w-0 flex items-center gap-2 sm:gap-3 px-2 sm:px-4">
+                    <Globe className="w-5 h-5 shrink-0 text-slate-400" />
                     <input
                       ref={inputRef}
                       type="url"
@@ -362,13 +363,14 @@ export default function WebsiteAuditClient() {
                       onChange={(e) => setUrl(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleAudit()}
                       placeholder="Enter website URL (e.g., example.com)"
-                      className="flex-1 py-4 bg-transparent outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                      aria-label="Website address to audit"
+                      className="flex-1 min-w-0 w-full py-4 bg-transparent outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
                     />
                   </div>
                   <Button
                     onClick={handleAudit}
                     disabled={isAuditing || !url.trim()}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/25 px-8 py-4 rounded-xl"
+                    className="shrink-0 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/25 px-4 sm:px-8 py-4 rounded-xl"
                   >
                     {isAuditing ? (
                       <>

@@ -227,7 +227,7 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     match: { idPrefix: ['tech-robots-', 'tech-missing-robots'], types: ['missing_robots_txt'] } },
   { id: 'sitemap', name: 'XML Sitemap Test', group: 'advanced-seo', category: 'technical',
     passText: 'An XML sitemap was found and loads.',
-    match: { ids: ['tech-missing-sitemap', 'tech-sitemap-broken', 'tech-sitemap-empty'],
+    match: { ids: ['tech-missing-sitemap', 'tech-sitemap-broken', 'tech-sitemap-empty', 'tech-sitemap-blocked'],
              types: ['missing_sitemap'] } },
   { id: 'canonical', name: 'Canonical Tag Test', group: 'advanced-seo', category: 'technical',
     passText: 'Canonical tags are present and valid.',
