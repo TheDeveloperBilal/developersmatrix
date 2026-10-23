@@ -221,6 +221,9 @@ export class SEOAuditor {
     // Open Graph Tags
     this.analyzeOpenGraph(pages, issues);
 
+    // Links to the brand's social profiles, and sameAs in structured data
+    this.analyzeSocialProfiles(pages, issues);
+
     // Sitemaps are checked properly by the technical module, which fetches them.
 
     // Alt Tags
@@ -710,6 +713,78 @@ export class SEOAuditor {
         suggestion: 'Add relevant schema markup (Organization, LocalBusiness, Article, etc.) that matches what the page shows.',
         url: mainPage?.url,
         priority: 5,
+      });
+    }
+  }
+
+  /**
+   * Social profile links on the homepage, and whether the Organization or
+   * Person schema lists them in sameAs. sameAs is how a site tells Google
+   * (and AI assistants) which profiles belong to the same brand.
+   */
+  private analyzeSocialProfiles(pages: PageData[], issues: AuditIssue[]): void {
+    const home = pages[0];
+    if (!home) return;
+
+    const SOCIAL = /(^|\.)(facebook\.com|x\.com|twitter\.com|linkedin\.com|instagram\.com|youtube\.com|tiktok\.com|pinterest\.[a-z.]+|github\.com|threads\.net|medium\.com|behance\.net|dribbble\.com|reddit\.com|bsky\.app|mastodon\.social)$/i;
+    // Share buttons point at the network, not at the brand's own profile.
+    const SHARE = /sharer|share\?|\/share\b|intent\/|shareArticle|pin\/create|\/hashtag\//i;
+    const profiles = new Set<string>();
+    for (const link of home.links) {
+      try {
+        const u = new URL(link.href);
+        if (!SOCIAL.test(u.hostname) || SHARE.test(u.pathname + u.search)) continue;
+        if (u.pathname.replace(/\/+$/, '') === '') continue; // the network's homepage, not a profile
+        profiles.add(u.hostname.replace(/^www\./, '').replace(/^m\./, ''));
+      } catch {
+        /* ignore */
+      }
+    }
+
+    let sameAs = 0;
+    for (const item of home.structured_data) {
+      const value = (item.json as Record<string, unknown>)?.sameAs;
+      if (typeof value === 'string' && value) sameAs++;
+      else if (Array.isArray(value)) sameAs += value.filter((v) => typeof v === 'string' && v).length;
+    }
+
+    if (profiles.size === 0 && sameAs === 0) {
+      issues.push({
+        id: 'social-no-profiles',
+        category: 'seo',
+        type: 'missing_og_tags',
+        severity: 'low',
+        informational: true,
+        title: 'No Social Profiles Linked',
+        description: 'The homepage does not link to any social profiles, and its structured data has no sameAs list.',
+        impact: 'Linking your real profiles helps visitors check you are genuine and helps Google and AI assistants connect your site with your brand. It is not a ranking factor, and some businesses have no profiles worth linking.',
+        suggestion: 'Link the profiles you actively use in the footer, and list them in sameAs in your Organization or Person schema.',
+        url: home.url,
+        priority: 2,
+        affectedUrls: [home.url],
+        timeToFix: '15 minutes',
+        difficulty: 'easy',
+      });
+      return;
+    }
+
+    if (profiles.size > 0 && sameAs === 0) {
+      issues.push({
+        id: 'social-no-sameas',
+        category: 'seo',
+        type: 'missing_schema',
+        severity: 'low',
+        informational: true,
+        title: 'Social Profiles Not Listed in sameAs',
+        description: `The homepage links to profiles on ${[...profiles].slice(0, 5).join(', ')}, but no structured data on it lists them in sameAs.`,
+        impact: 'sameAs tells Google and AI assistants which profiles belong to the same organization or person, which helps them describe your brand correctly.',
+        suggestion: 'Add a sameAs array with the full profile URLs to your Organization (or Person) JSON-LD.',
+        url: home.url,
+        priority: 2,
+        affectedUrls: [home.url],
+        codeSnippet: '<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "Organization",\n  "name": "Your Brand",\n  "url": "https://example.com",\n  "sameAs": [\n    "https://www.linkedin.com/company/your-brand",\n    "https://x.com/yourbrand"\n  ]\n}\n</script>',
+        timeToFix: '10 minutes',
+        difficulty: 'easy',
       });
     }
   }

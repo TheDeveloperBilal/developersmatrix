@@ -150,6 +150,12 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
   { id: 'http2', name: 'HTTP/2 Test', group: 'speed', category: 'performance',
     passText: 'The server supports HTTP/2.',
     match: { ids: ['perf-no-http2'] } },
+  { id: 'cdn', name: 'CDN Usage Test', group: 'speed', category: 'performance',
+    passText: 'The site is served through a CDN or edge network.',
+    match: { ids: ['perf-no-cdn'] } },
+  { id: 'inline-css', name: 'Inline CSS Test', group: 'speed', category: 'performance',
+    passText: 'Pages do not carry large amounts of CSS in style attributes.',
+    match: { idPrefix: ['inline_css_'] } },
 
   // ---- Server and Security ---------------------------------------------
   { id: 'https', name: 'HTTPS Test', group: 'server-security', category: 'security',
@@ -284,6 +290,9 @@ export const CHECK_DEFINITIONS: CheckDefinition[] = [
     match: { idPrefix: ['new_window_links_'] } },
 
   // ---- Social -----------------------------------------------------------
+  { id: 'social-profiles', name: 'Social Media Profiles Test', group: 'social', category: 'seo',
+    passText: 'The homepage links to your social profiles and lists them in sameAs.',
+    match: { ids: ['social-no-profiles', 'social-no-sameas'] } },
   { id: 'og-tags', name: 'Open Graph Test', group: 'social', category: 'seo',
     passText: 'Open Graph tags are present for sharing.',
     match: { ids: ['missing_og_title', 'missing_og_description', 'missing_og_image'],
