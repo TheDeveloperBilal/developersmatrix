@@ -17,13 +17,29 @@
  *   shortened to fit the time left, so one slow file cannot void a check.
  */
 
-import { lookup, resolveTxt, resolveMx } from 'node:dns/promises';
-import { connect as tlsConnect } from 'node:tls';
+import * as dns from 'node:dns/promises';
+import * as tls from 'node:tls';
 import * as cheerio from 'cheerio';
 import type { AuditIssue, PageData, SiteContext } from './types';
 import { safeFetch, readTextCapped, isPrivateAddress, BlockedUrlError } from './safe-fetch';
 import { isAllowed, type ParsedRobots } from './robots';
 import { registrableDomain, isPlatformHost, isIpHost, sameSiteHost } from './domains';
+
+/* ------------------------------------------------------------------ */
+/* Network access, replaceable in the self test                        */
+/* ------------------------------------------------------------------ */
+
+const net = {
+  lookup: (host: string, opts: { all: true }) => dns.lookup(host, opts),
+  resolveTxt: (name: string) => dns.resolveTxt(name),
+  resolveMx: (name: string) => dns.resolveMx(name),
+  tlsConnect: (opts: tls.ConnectionOptions) => tls.connect(opts),
+};
+
+/** Used only by scripts/audit-selftest to run without real DNS or TLS. */
+export function setSiteCheckNetworkForTests(stubs: Partial<typeof net>): void {
+  Object.assign(net, stubs);
+}
 
 /* ------------------------------------------------------------------ */
 /* Facts returned to the report                                        */
@@ -52,6 +68,8 @@ export interface SiteCheckFacts {
   assets?: { url: string; kind: 'css' | 'js'; bytes: number; cacheSeconds: number | null; minified: boolean }[];
   responsiveCss?: { mediaQueries: boolean; inspected: number; declared: number };
   aiCrawlers?: { token: string; name: string; purpose: 'search' | 'training'; allowed: boolean }[];
+  /** CDN or edge network found in the homepage headers or static file hosts. */
+  cdn?: { name: string | null; via: string | null };
   preview?: { url: string; title: string; description: string };
 }
 
@@ -236,8 +254,9 @@ export async function runSiteChecks(ctx: Context): Promise<SiteCheckResult> {
     description: home.meta.description || '',
   };
 
-  // AI crawler access needs no request.
+  // AI crawler access and CDN detection need no request.
   notMeasured.push(...aiCrawlerCheck(ctx, facts, issues, origin));
+  cdnCheck(home, $home, facts, issues, origin);
 
   const jobs: Job[] = [
     { ids: ['broken-links'], run: () => linkCheck(ctx, facts, issues, headers, deadline) },
@@ -746,14 +765,14 @@ async function http2Check(
   if (!https || isIpHost(host)) throw new NoVerdict(); // browsers use HTTP/2 only over HTTPS; the HTTPS check covers that
   const http3Advertised = /\bh3\b/.test((home.headers['alt-svc'] || '').toLowerCase());
 
-  const addresses = await lookup(host, { all: true });
+  const addresses = await net.lookup(host, { all: true });
   if (addresses.length === 0 || addresses.some((a) => isPrivateAddress(a.address))) throw new NoVerdict();
   // Serverless functions often have no IPv6 route, so try IPv4 first.
   const ordered = [...addresses.filter((a) => a.family === 4), ...addresses.filter((a) => a.family !== 4)];
 
   const connectOnce = (address: string) =>
     new Promise<string | null>((resolve, reject) => {
-      const socket = tlsConnect({
+      const socket = net.tlsConnect({
         host: address,
         port: 443,
         servername: host,
@@ -818,7 +837,7 @@ async function emailCheck(host: string, facts: SiteCheckFacts, issues: AuditIssu
 
   const txt = async (name: string): Promise<string[] | null> => {
     try {
-      const records = await resolveTxt(name);
+      const records = await net.resolveTxt(name);
       return records.map((parts) => parts.join(''));
     } catch (e) {
       const code = (e as NodeJS.ErrnoException)?.code;
@@ -832,7 +851,7 @@ async function emailCheck(host: string, facts: SiteCheckFacts, issues: AuditIssu
 
   let mx: boolean | null = null;
   try {
-    mx = (await resolveMx(domain)).length > 0;
+    mx = (await net.resolveMx(domain)).length > 0;
   } catch (e) {
     const code = (e as NodeJS.ErrnoException)?.code;
     mx = code === 'ENODATA' || code === 'ENOTFOUND' ? false : null;
@@ -1255,4 +1274,82 @@ function aiCrawlerCheck(ctx: Context, facts: SiteCheckFacts, issues: AuditIssue[
     });
   }
   return [];
+}
+
+/* ---------- CDN ---------- */
+
+/** Response headers that only a CDN or edge network sets. */
+const CDN_HEADERS: { name: string; test: (h: Record<string, string>) => boolean }[] = [
+  { name: 'Cloudflare', test: (h) => !!h['cf-ray'] || /cloudflare/i.test(h['server'] || '') },
+  { name: 'Vercel', test: (h) => !!h['x-vercel-id'] || !!h['x-vercel-cache'] },
+  { name: 'Netlify', test: (h) => !!h['x-nf-request-id'] || /netlify/i.test(h['server'] || '') },
+  { name: 'Amazon CloudFront', test: (h) => !!h['x-amz-cf-id'] || /cloudfront/i.test(h['via'] || '') },
+  { name: 'Fastly', test: (h) => !!h['x-fastly-request-id'] || /fastly/i.test(h['via'] || '') || /^cache-[a-z0-9-]+$/i.test((h['x-served-by'] || '').split(',')[0].trim()) },
+  { name: 'Akamai', test: (h) => /akamai/i.test(h['server'] || '') || !!h['akamai-grn'] || !!h['x-akamai-transformed'] },
+  { name: 'Bunny CDN', test: (h) => /bunnycdn/i.test(h['server'] || '') || !!h['cdn-pullzone'] },
+  { name: 'Azure Front Door', test: (h) => !!h['x-azure-ref'] },
+  { name: 'Google Cloud CDN', test: (h) => /\bgoogle\b/i.test(h['via'] || '') },
+  { name: 'Sucuri', test: (h) => !!h['x-sucuri-id'] },
+  { name: 'Wix', test: (h) => !!h['x-wix-request-id'] },
+  { name: 'Shopify', test: (h) => !!h['x-shopid'] || !!h['x-shopify-stage'] },
+  { name: 'GitHub Pages', test: (h) => !!h['x-github-request-id'] },
+];
+
+/** Static file hosts that are themselves CDNs. */
+const CDN_HOSTS: { name: string; test: RegExp }[] = [
+  { name: 'Amazon CloudFront', test: /\.cloudfront\.net$/i },
+  { name: 'Shopify CDN', test: /^cdn\.shopify\.com$/i },
+  { name: 'Bunny CDN', test: /\.b-cdn\.net$/i },
+  { name: 'Akamai', test: /\.akamai(hd|ized)?\.net$/i },
+  { name: 'Fastly', test: /\.fastly\.net$/i },
+  { name: 'WordPress.com CDN', test: /^i\d\.wp\.com$/i },
+  { name: 'Cloudinary', test: /res\.cloudinary\.com$/i },
+  { name: 'imgix', test: /\.imgix\.net$/i },
+  { name: 'Squarespace CDN', test: /\.squarespace-cdn\.com$/i },
+  { name: 'Webflow CDN', test: /\.website-files\.com$/i },
+];
+
+/** Exported for tests and for the report summary. */
+export function detectCdn(headers: Record<string, string>, assetHosts: string[]): { name: string | null; via: string | null } {
+  const lower: Record<string, string> = {};
+  for (const [k, v] of Object.entries(headers || {})) lower[k.toLowerCase()] = String(v);
+  const byHeader = CDN_HEADERS.find((c) => c.test(lower));
+  if (byHeader) return { name: byHeader.name, via: 'response headers' };
+  for (const host of assetHosts) {
+    const hit = CDN_HOSTS.find((c) => c.test.test(host));
+    if (hit) return { name: hit.name, via: `files served from ${host}` };
+  }
+  return { name: null, via: null };
+}
+
+function cdnCheck(home: PageData, $: cheerio.CheerioAPI, facts: SiteCheckFacts, issues: AuditIssue[], origin: string): void {
+  const base = home.finalUrl || home.url;
+  const hosts = new Set<string>();
+  $('img[src], script[src], link[rel~="stylesheet"][href]').each((_, el) => {
+    const raw = $(el).attr('src') || $(el).attr('href');
+    if (!raw) return;
+    try {
+      hosts.add(new URL(raw, base).hostname.toLowerCase());
+    } catch {
+      /* ignore */
+    }
+  });
+  const found = detectCdn(home.headers, [...hosts]);
+  facts.cdn = found;
+  if (found.name) return;
+  issues.push({
+    id: 'perf-no-cdn',
+    category: 'performance',
+    type: 'render_blocking',
+    severity: 'low',
+    informational: true,
+    title: 'No CDN Detected',
+    description: 'We found no sign of a CDN in the homepage response headers or in the hosts that serve its images, scripts and styles.',
+    impact: 'A CDN keeps copies of your pages and files on servers around the world, so visitors far from your host get them faster and your server does less work. Some CDNs leave no trace in the headers, so ignore this if you know you use one.',
+    suggestion: 'Put a CDN in front of the site. Cloudflare has a free plan, and most managed hosts include one you can switch on.',
+    priority: 2,
+    affectedUrls: [origin],
+    timeToFix: '30 minutes',
+    difficulty: 'medium',
+  });
 }

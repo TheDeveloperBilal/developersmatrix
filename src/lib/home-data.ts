@@ -45,7 +45,7 @@ export const explorerTools: ExplorerTool[] = [
   {
     name: "Website Audit",
     href: "/tools/website-audit",
-    description: "70 named checks across SEO, speed, security, mobile and more, with a prioritized fix list.",
+    description: "Over 70 named checks across SEO, speed, security, mobile and more, with a prioritized fix list.",
     category: "SEO",
     icon: TOOL_ICONS["website-audit"],
   },
@@ -369,7 +369,7 @@ export const homeFaqs = [
   },
   {
     question: "What does the Website Audit Tool check?",
-    answer: "It runs 70 named checks across seven scored areas: SEO, technical setup, performance, mobile, security, accessibility and content, plus conversion tips that do not change the score. You get a score out of 100 plus a prioritized list of fixes.",
+    answer: "It runs over 70 named checks across seven scored areas: SEO, technical setup, performance, mobile, security, accessibility and content, plus conversion tips that do not change the score. You get a score out of 100 plus a prioritized list of fixes.",
   },
   {
     question: "How does the Interview Simulator give feedback?",

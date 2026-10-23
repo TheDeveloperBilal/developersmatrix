@@ -32,6 +32,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import type { WebsiteAuditResult, AuditIssue, AuditScore, ContentAnalysis } from '@/lib/website-audit/types';
 import { NAMED_CHECK_COUNT } from '@/lib/website-audit/check-catalogue';
+import { recordAudit, clearHistory, siteOfUrl, type HistoryComparison, type HistoryEntry } from '@/lib/website-audit/history';
 
 // Category icons and colors
 const categoryConfig = {
@@ -63,6 +64,7 @@ export default function WebsiteAuditClient() {
   const [copyFailed, setCopyFailed] = useState(false);
   const [psiStatus, setPsiStatus] = useState<'idle' | 'loading' | 'ready' | 'failed'>('idle');
   const [progressLog, setProgressLog] = useState<string[]>([]);
+  const [history, setHistory] = useState<{ comparison: HistoryComparison | null; entries: HistoryEntry[] } | null>(null);
 
 
 
@@ -139,6 +141,8 @@ export default function WebsiteAuditClient() {
       clearInterval(progressInterval);
       setProgressLog(prev => [...prev, 'Done! Analysis complete.']);
       setResult(data.result);
+      // Kept only in this browser; returns nothing useful when storage is blocked.
+      setHistory(recordAudit(data.result));
       setActiveTab('all-issues');
 
       // PageSpeed comes from Google and can take 40 seconds on its own. The
@@ -471,6 +475,11 @@ export default function WebsiteAuditClient() {
               copyFailed={copyFailed}
               psiStatus={psiStatus}
               copied={copied}
+              history={history}
+              onClearHistory={() => {
+                clearHistory(siteOfUrl(result.url));
+                setHistory({ comparison: null, entries: [] });
+              }}
             />
           </div>
         </section>

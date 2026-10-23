@@ -27,7 +27,7 @@ const PAGE_DATES: Record<string, string> = {
   '/tools': '2026-10-13',
   '/services/website-audit': '2026-10-15',
 
-  '/tools/website-audit': '2026-10-22',
+  '/tools/website-audit': '2026-10-23',
   '/tools/ai-content-detector': '2026-09-29',
   '/tools/ai-resume-builder': '2026-10-05',
   '/tools/ai-cover-letter-generator': '2026-10-02',

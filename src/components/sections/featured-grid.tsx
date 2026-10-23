@@ -71,7 +71,7 @@ export default function FeaturedGrid() {
                   Free Website Audit
                 </h3>
                 <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
-                  70 named checks, from SEO and speed to security and
+                  Over 70 named checks, from SEO and speed to security and
                   accessibility, with a prioritized fix list you can act on the same day.
                 </p>
 

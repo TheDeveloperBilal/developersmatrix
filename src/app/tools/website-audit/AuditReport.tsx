@@ -14,6 +14,7 @@
 import { useMemo, useState } from 'react';
 import { buildReport, type CheckResult, type CheckStatus, type GroupResult } from '@/lib/website-audit/check-catalogue';
 import type { AuditIssue, WebsiteAuditResult, PageSpeedMetric } from '@/lib/website-audit/types';
+import type { HistoryComparison, HistoryEntry } from '@/lib/website-audit/history';
 
 /* ---------- status tokens: the only place colour is decided ---------- */
 
@@ -435,6 +436,107 @@ function GroupSection({ group }: { group: GroupResult }) {
   );
 }
 
+/* ---------- compared with the last audit ---------- */
+
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? iso
+    : d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function HistoryPanel({
+  result,
+  history,
+  onClear,
+}: {
+  result: WebsiteAuditResult;
+  history: { comparison: HistoryComparison | null; entries: HistoryEntry[] };
+  onClear?: () => void;
+}) {
+  const { comparison, entries } = history;
+  const sev = (s: string) => (s === 'critical' || s === 'high' ? 'text-[#a3242b]' : s === 'medium' ? 'text-[#8a5a00]' : 'text-gray-600');
+
+  return (
+    <section className="rounded-lg border border-gray-200 bg-white px-5 py-5 sm:px-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-base font-semibold text-gray-900">Since your last audit</h2>
+          <p className="mt-0.5 text-xs text-gray-500">Saved only in this browser. Nothing is stored on our servers.</p>
+        </div>
+        {onClear && entries.length > 0 && (
+          <button
+            type="button"
+            onClick={onClear}
+            className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 print:hidden"
+          >
+            Clear history for this site
+          </button>
+        )}
+      </div>
+
+      {comparison ? (
+        <div className="mt-4 space-y-4">
+          <p className="text-sm text-gray-700">
+            On {formatDate(comparison.previous.scannedAt)} this site scored{' '}
+            <span className="font-semibold tabular-nums">{comparison.previous.score}</span>. Today it scores{' '}
+            <span className="font-semibold tabular-nums">{result.overallScore}</span>
+            {comparison.scoreChange === 0 ? ', no change.' : (
+              <span className={comparison.scoreChange > 0 ? 'font-semibold text-[#0f7b3e]' : 'font-semibold text-[#a3242b]'}>
+                {' '}({comparison.scoreChange > 0 ? '+' : ''}{comparison.scoreChange})
+              </span>
+            )}
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-[#0f7b3e]">Fixed ({comparison.fixed.length})</h3>
+              {comparison.fixed.length === 0 ? (
+                <p className="mt-1 text-sm text-gray-500">Nothing from last time has gone yet.</p>
+              ) : (
+                <ul className="mt-1 space-y-1 text-sm text-gray-700">
+                  {comparison.fixed.slice(0, 8).map((f, i) => <li key={i}>{f.title}</li>)}
+                  {comparison.fixed.length > 8 && <li className="text-gray-500">and {comparison.fixed.length - 8} more</li>}
+                </ul>
+              )}
+            </div>
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-[#8a5a00]">New ({comparison.added.length})</h3>
+              {comparison.added.length === 0 ? (
+                <p className="mt-1 text-sm text-gray-500">No new problems.</p>
+              ) : (
+                <ul className="mt-1 space-y-1 text-sm">
+                  {comparison.added.slice(0, 8).map((f, i) => <li key={i} className={sev(f.severity)}>{f.title}</li>)}
+                  {comparison.added.length > 8 && <li className="text-gray-500">and {comparison.added.length - 8} more</li>}
+                </ul>
+              )}
+            </div>
+          </div>
+          <p className="text-xs text-gray-500">
+            A finding can also come and go because a different set of pages was crawled, or because the checks were
+            improved, so read the list rather than the score change alone.
+          </p>
+        </div>
+      ) : (
+        <p className="mt-3 text-sm text-gray-600">
+          {entries.length > 0
+            ? `This is your first audit of ${result.domain} in this browser. Run it again after you make changes and we will show what improved.`
+            : 'History is cleared, or this browser does not allow saving it.'}
+        </p>
+      )}
+
+      {entries.length > 1 && (
+        <ul className="mt-4 flex flex-wrap gap-2 text-xs">
+          {entries.map((e) => (
+            <li key={e.scannedAt} className="rounded-md border border-gray-200 px-2.5 py-1 text-gray-600">
+              {formatDate(e.scannedAt)}: <span className="font-semibold tabular-nums text-gray-900">{e.score}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
 /* ---------- Google search preview ---------- */
 
 function truncate(text: string, max: number): string {
@@ -484,6 +586,7 @@ function SiteFacts({ result }: { result: WebsiteAuditResult }) {
   if (f.links) {
     rows.push(['Links checked', `${f.links.checked} (${f.links.internalChecked} internal, ${f.links.externalChecked} outbound), ${f.links.broken.length} broken${f.links.unverified ? `, ${f.links.unverified} would not let us check` : ''}${f.links.notChecked ? `, ${f.links.notChecked} more not checked` : ''}`]);
   }
+  if (f.cdn) rows.push(['CDN', f.cdn.name ? `${f.cdn.name} (found in ${f.cdn.via})` : 'None found']);
   if (f.http2) rows.push(['Protocol', f.http2.protocol === 'h2' ? `HTTP/2${f.http2.http3Advertised ? ', HTTP/3 offered' : ''}` : f.http2.protocol || 'unknown']);
   if (f.email) rows.push(['Email records', `SPF ${f.email.spf ? 'found' : 'missing'}, DMARC ${f.email.dmarc ? 'found' : 'missing'}`]);
   if (f.ads) rows.push(['Ads', f.ads.adsFound ? `Ad code found, ads.txt ${f.ads.adsTxtFound ? 'found' : 'missing'}` : 'No ad code found']);
@@ -517,6 +620,8 @@ export default function AuditReport({
   copyFailed = false,
   psiStatus = 'ready',
   copied,
+  history,
+  onClearHistory,
 }: {
   result: WebsiteAuditResult;
   onReset?: () => void;
@@ -525,6 +630,8 @@ export default function AuditReport({
   copyFailed?: boolean;
   psiStatus?: 'idle' | 'loading' | 'ready' | 'failed';
   copied?: boolean;
+  history?: { comparison: HistoryComparison | null; entries: HistoryEntry[] } | null;
+  onClearHistory?: () => void;
 }) {
   const report = useMemo(() => buildReport(result), [result]);
   const { passed, warnings, failed } = report.totals;
@@ -605,6 +712,8 @@ export default function AuditReport({
           )}
         </div>
       </section>
+
+      {history && <HistoryPanel result={result} history={history} onClear={onClearHistory} />}
 
       <SearchPreview result={result} />
 

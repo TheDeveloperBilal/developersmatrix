@@ -97,6 +97,9 @@ export class PerformanceAuditor {
     // JPEG, PNG and GIF images that could be WebP or AVIF
     this.analyzeImageFormats(pages, issues);
 
+    // style="..." attributes repeated across the page
+    this.analyzeInlineCss(pages, issues);
+
     // Calculate score
     const totalChecks = 15;
     // A check counts as passed only if it raised no finding at all. Previously this
@@ -438,6 +441,42 @@ export class PerformanceAuditor {
   }
 
   /** Elements in the HTML the server sent. Elements added later by scripts are not counted. */
+  /**
+   * Inline style attributes. A few are normal (frameworks set image sizes this
+   * way), so only a page carrying a lot of them is flagged. A <style> block in
+   * the head is not counted: inlining critical CSS there is good practice.
+   */
+  private analyzeInlineCss(pages: PageData[], issues: AuditIssue[]): void {
+    pages.forEach((page) => {
+      const $ = this.doc(page);
+      let count = 0;
+      let bytes = 0;
+      $('body [style]').each((_, el) => {
+        const $el = $(el);
+        // next/image sets its own positioning styles, and SVG internals are drawing data.
+        if ($el.attr('data-nimg') !== undefined || $el.closest('svg').length > 0) return;
+        count++;
+        bytes += ($el.attr('style') || '').length;
+      });
+      if (count <= 200 && bytes <= 10_000) return;
+      issues.push({
+        id: `inline_css_${page.url}`,
+        category: 'performance',
+        type: 'render_blocking',
+        severity: 'low',
+        title: 'Lots of Inline CSS',
+        description: `${count} elements on ${page.url} carry a style attribute, about ${Math.round(bytes / 1024)} KB of CSS written straight into the HTML.`,
+        impact: 'Inline styles make every page heavier, cannot be cached like a stylesheet, and are hard to change across the site. They do not affect rankings directly.',
+        suggestion: 'Move repeated styles into CSS classes in a stylesheet. Page builders often have a setting to output CSS files instead of inline styles.',
+        url: page.url,
+        priority: 2,
+        affectedUrls: [page.url],
+        timeToFix: '1 to 3 hours',
+        difficulty: 'medium',
+      });
+    });
+  }
+
   private analyzeDomSize(pages: PageData[], issues: AuditIssue[]): void {
     pages.forEach((page) => {
       const $ = this.doc(page);
