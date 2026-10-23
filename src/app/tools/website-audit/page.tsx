@@ -546,6 +546,11 @@ export default function WebsiteAuditPage() {
                 and the{' '}
                 <a href="/blog/on-site-seo-guide-2026" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">on page SEO guide</a>.
               </p>
+              <p className="text-gray-700 dark:text-gray-300 mt-4 leading-relaxed">
+                Curious how real sites do on these checks? We ran this audit on 255 local business websites for our{' '}
+                <a href="/blog/small-business-website-statistics-2026" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">small business website statistics 2026</a>{' '}
+                study.
+              </p>
             </section>
 
             {/* Section 5: Code audit */}
@@ -825,6 +830,7 @@ export default function WebsiteAuditPage() {
                     ['/blog/on-site-seo-guide-2026', 'On page SEO guide'],
                     ['/blog/website-code-audit-guide', 'Website code audit guide'],
                     ['/services/website-audit', 'Website audit services and pricing'],
+                    ['/blog/small-business-website-statistics-2026', 'Small business website statistics'],
                     ['/blog', 'SEO guides and tips'],
                   ].map(([href, label]) => (
                     <li key={href}>

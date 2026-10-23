@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getBlogPostBySlug, getRecentBlogSummaries, getAllBlogSlugs, getBlogSummaries } from "@/data/blog";
 import { categoriesFrom, topTagsFrom } from "@/data/blog-categories";
 import { siteConfig } from "@/data/config";
-import { ArticleSchema, BreadcrumbSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
+import { ArticleSchema, BreadcrumbSchema, DatasetSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { BlogHero } from "@/components/blog/BlogHero";
@@ -256,6 +256,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
       {post.faqs && post.faqs.length > 0 && (
         <FAQSchema faqs={post.faqs} />
+      )}
+      {post.dataset && (
+        <DatasetSchema
+          name={post.dataset.name}
+          description={post.dataset.description}
+          url={postUrl}
+          creator={siteConfig.name}
+          datePublished={post.publishedAt}
+          variableMeasured={post.dataset.variableMeasured}
+          measurementMethod={post.dataset.measurementMethod}
+          temporalCoverage={post.dataset.temporalCoverage}
+          spatialCoverage={post.dataset.spatialCoverage}
+          downloadUrl={post.dataset.downloadUrl ? `${siteConfig.url}${post.dataset.downloadUrl}` : undefined}
+          keywords={post.dataset.keywords}
+        />
       )}
 
       <ReadingProgress />

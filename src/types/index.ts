@@ -38,6 +38,18 @@ export interface BlogPost {
   // title and excerpt in the page metadata only; the H1 and cards keep title.
   seoTitle?: string;
   seoDescription?: string;
+  // Original research posts describe their data as a schema.org Dataset, so
+  // search engines and AI tools can find and credit the figures.
+  dataset?: {
+    name: string;
+    description: string;
+    variableMeasured?: string[];
+    measurementMethod?: string;
+    temporalCoverage?: string;
+    spatialCoverage?: string;
+    downloadUrl?: string;
+    keywords?: string[];
+  };
 }
 
 // A blog post without its body. Used anywhere a list, card or sidebar only needs
