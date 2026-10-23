@@ -451,6 +451,9 @@ interface DatasetSchemaProps {
   measurementMethod?: string;
   temporalCoverage?: string;
   spatialCoverage?: string;
+  /** Link to a CSV (or other file) of the data, published as a DataDownload. */
+  downloadUrl?: string;
+  keywords?: string[];
 }
 
 export function DatasetSchema({
@@ -463,7 +466,9 @@ export function DatasetSchema({
   variableMeasured = [],
   measurementMethod,
   temporalCoverage,
-  spatialCoverage
+  spatialCoverage,
+  downloadUrl,
+  keywords = []
 }: DatasetSchemaProps) {
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -480,7 +485,15 @@ export function DatasetSchema({
     ...(variableMeasured.length > 0 && { variableMeasured }),
     ...(measurementMethod && { measurementMethod }),
     ...(temporalCoverage && { temporalCoverage }),
-    ...(spatialCoverage && { spatialCoverage })
+    ...(spatialCoverage && { spatialCoverage }),
+    ...(keywords.length > 0 && { keywords }),
+    ...(downloadUrl && {
+      distribution: {
+        '@type': 'DataDownload',
+        encodingFormat: 'text/csv',
+        contentUrl: downloadUrl
+      }
+    })
   };
 
   return (

@@ -273,6 +273,9 @@ export function BlogContent({ content }: { content: string }) {
       .replace(/^(-|\*)\s+(.+)$/gm, '<li class="blog-li">$2</li>')
       // Ordered lists
       .replace(/^(\d+)\.\s+(.+)$/gm, '<li class="blog-oli" data-num="$1">$2</li>')
+      // Images ![alt](src). This has to run before the link rule, which would
+      // otherwise turn the [alt](src) part into a link and leave a stray "!".
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="blog-img" loading="lazy" />')
       // Links [text](url)
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m: string, text: string, href: string) =>
         href.startsWith('/') || href.startsWith('#')
@@ -282,8 +285,6 @@ export function BlogContent({ content }: { content: string }) {
       .replace(/(?<!["\'>]|href=\")(https?:\/\/[^\s<>"{}|\^`\[\]]+)/g, '<a href="$1" class="blog-link" target="_blank" rel="noopener noreferrer">$1</a>')
       // Horizontal rule
       .replace(/^---$/gm, '<hr class="blog-hr" />')
-      // Images ![alt](src)
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="blog-img" loading="lazy" />')
       // Tables - simple parsing for | col1 | col2 |
       .replace(/(\|[^\n]+\|\n)(\|[-:\s|]+\|\n)((?:\|[^\n]+\|\n?)+)/g, (match, header, separator, rows) => {
         const ths = header.split('|').filter(Boolean).map(h => `<th class="blog-th">${h.trim()}</th>`).join('');
