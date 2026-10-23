@@ -1293,6 +1293,10 @@ const CDN_HEADERS: { name: string; test: (h: Record<string, string>) => boolean 
   { name: 'Wix', test: (h) => !!h['x-wix-request-id'] },
   { name: 'Shopify', test: (h) => !!h['x-shopid'] || !!h['x-shopify-stage'] },
   { name: 'GitHub Pages', test: (h) => !!h['x-github-request-id'] },
+  { name: 'Squarespace (Fastly)', test: (h) => /squarespace/i.test(h['server'] || '') },
+  { name: 'Wikimedia CDN', test: (h) => /^ATS/i.test(h['server'] || '') && /\bcp\d+/i.test(h['x-cache'] || '') },
+  // Generic: an edge cache that reports hits and misses.
+  { name: 'a CDN or edge cache', test: (h) => /\b(hit|miss)\b/i.test(h['x-cache'] || h['x-cache-status'] || h['cdn-cache-control'] || '') },
 ];
 
 /** Static file hosts that are themselves CDNs. */
@@ -1305,7 +1309,7 @@ const CDN_HOSTS: { name: string; test: RegExp }[] = [
   { name: 'WordPress.com CDN', test: /^i\d\.wp\.com$/i },
   { name: 'Cloudinary', test: /res\.cloudinary\.com$/i },
   { name: 'imgix', test: /\.imgix\.net$/i },
-  { name: 'Squarespace CDN', test: /\.squarespace-cdn\.com$/i },
+  { name: 'Squarespace CDN', test: /(\.squarespace-cdn\.com|^static1\.squarespace\.com)$/i },
   { name: 'Webflow CDN', test: /\.website-files\.com$/i },
 ];
 

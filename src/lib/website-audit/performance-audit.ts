@@ -152,7 +152,9 @@ export class PerformanceAuditor {
       const ms = page.loadTime;
       if (ms <= 800) return;
 
-      const severity = ms > 3000 ? 'high' : ms > 1800 ? 'medium' : 'low';
+      // Measured from one place (our server) and possibly slowed by bot
+      // throttling, so it never counts as more than medium.
+      const severity = ms > 1800 ? 'medium' : 'low';
       const seconds = (ms / 1000).toFixed(1);
       issues.push({
         id: `slow_load_${page.url}`,
@@ -164,7 +166,7 @@ export class PerformanceAuditor {
         impact: 'Nothing can appear on screen until the server answers, so a slow response delays everything else. The figure depends on where our server is and how busy yours was at that moment, so check the speed section, where Google PageSpeed shows real loading data.',
         suggestion: 'Cache pages at the server or a CDN, speed up slow database queries or API calls, and check that your hosting plan is not overloaded. Run the audit again to see whether the slow answer repeats.',
         url: page.url,
-        priority: severity === 'high' ? 7 : severity === 'medium' ? 5 : 3,
+        priority: severity === 'medium' ? 5 : 3,
         affectedUrls: [page.url],
         fixInstructions: [
           { step: 1, title: 'Confirm it repeats', description: 'Response times vary. Test again, and compare with the server response time in Google PageSpeed.' },

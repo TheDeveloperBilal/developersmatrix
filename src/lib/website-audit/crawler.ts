@@ -550,11 +550,18 @@ export class WebsiteCrawler {
             ? 'the site refused our scanner'
             : page.statusCode === 429
               ? 'the site is limiting requests right now'
-              : page.statusCode >= 500
-                ? 'the site had a server error'
-                : 'the request was rejected';
+              : page.statusCode >= 520 && page.statusCode <= 530
+                ? 'the site or its bot protection refused our scanner'
+                : page.statusCode === 503
+                  ? 'the site is unavailable or blocking automated visits'
+                  : page.statusCode >= 500
+                    ? 'the site had a server error'
+                    : 'the request was rejected';
+      const blocked = [401, 403, 429, 503].includes(page.statusCode) || (page.statusCode >= 520 && page.statusCode <= 530);
       throw new SiteResponseError(
-        `The address answered with HTTP ${page.statusCode} (${why}), so there is no page to audit. Check the address and try again.`
+        blocked
+          ? `The address answered with HTTP ${page.statusCode} (${why}). Many large sites block automated checks like ours, so we cannot audit this one. Your own site will not have this problem unless your firewall blocks scanners.`
+          : `The address answered with HTTP ${page.statusCode} (${why}), so there is no page to audit. Check the address and try again.`
       );
     }
     if (page.contentType && !/html|xml/.test(page.contentType)) {

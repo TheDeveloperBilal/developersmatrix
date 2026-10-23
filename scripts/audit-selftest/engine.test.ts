@@ -4,6 +4,7 @@ import { buildReport } from '@/lib/website-audit/check-catalogue';
 import { parseRobots, isAllowed } from '@/lib/website-audit/robots';
 import { overallScore, scoreCategory } from '@/lib/website-audit/scoring';
 import { setSiteCheckNetworkForTests } from '@/lib/website-audit/site-checks';
+import { generateTextReport, generateHTMLReport } from '@/app/tools/website-audit/generate-report';
 import type { AuditIssue } from '@/lib/website-audit/types';
 
 // No real DNS or TLS: email and HTTP/2 checks report Not run.
@@ -112,6 +113,17 @@ async function main() {
   const status = (name: string) => report.groups.flatMap((g) => g.checks).find((c) => c.definition.name === name)?.status;
   check('conversion checks show as tips', status('Trust Signals Test') === 'tip');
   check('Not run checks are not counted as passes', status('SPF Record Test') === 'not-run');
+  let reportsOk = true;
+  try {
+    const text = generateTextReport(result);
+    const html = generateHTMLReport(result);
+    reportsOk = text.includes('OVERALL SCORE') && html.includes('<html') && !/AI-Powered/i.test(html);
+  } catch {
+    reportsOk = false;
+  }
+  check('text and PDF reports build without errors', reportsOk);
+  const evil = { ...result, domain: '<img src=x onerror=alert(1)>', issues: [{ ...result.issues[0], title: '<script>alert(1)</script>' }] };
+  check('PDF report escapes text taken from the audited site', !generateHTMLReport(evil as typeof result).includes('<script>alert(1)</script>'));
 
   console.log('refusals');
   routes = { 'https://cf.example/': { status: 403, body: '<html><head><title>Just a moment...</title></head><body><div id="cf-chl-widget"></div></body></html>' } };
@@ -126,6 +138,16 @@ async function main() {
   err = null;
   try { await new WebsiteAuditEngine({ url: 'https://evil.example/' }).audit(); } catch (e) { err = e as Error; }
   check('redirect to a private address is refused', !!err && err.name === 'BlockedUrlError');
+
+  console.log('sitemap behind bot protection');
+  routes = {
+    'https://wall.example/': { status: 200, body: html('<main><h1>Wall</h1><p>Hi.</p></main>') },
+    'https://wall.example/robots.txt': { status: 200, body: 'User-agent: *\nDisallow:\nSitemap: https://wall.example/sitemap.xml\n', headers: { 'content-type': 'text/plain' } },
+    'https://wall.example/sitemap.xml': { status: 403, body: 'denied' },
+  };
+  const w = await new WebsiteAuditEngine({ url: 'https://wall.example/' }).audit();
+  const wids = w.issues.map((i) => i.id);
+  check('a sitemap answering 403 is a note to check, not broken', wids.includes('tech-sitemap-blocked') && !wids.includes('tech-sitemap-broken'));
 
   console.log('small sites');
   routes = {

@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
 
   if (!limit.allowed) {
     return NextResponse.json(
-      { success: false, error: 'Too many audits in a short time. Please wait a moment and try again.' },
+      { success: false, error: `You have run several audits in the last minute. Please wait about ${Math.max(1, limit.retryAfterSeconds)} seconds and try again.` },
       { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } }
     );
   }
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       if (!parsed.hostname.includes('.')) throw new Error('no dot');
     } catch {
       return NextResponse.json(
-        { success: false, error: 'Invalid URL format' },
+        { success: false, error: 'That does not look like a web address. Try something like example.com or https://example.com.' },
         { status: 400 }
       );
     }

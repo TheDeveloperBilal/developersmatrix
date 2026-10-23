@@ -48,8 +48,10 @@ export function registrableDomain(host: string): string {
 
 /** True for customer subdomains on hosting platforms (site.vercel.app and the like). */
 export function isPlatformHost(host: string): boolean {
-  const h = host.toLowerCase();
-  return PLATFORM_SUFFIXES.some((s) => h === s || h.endsWith(`.${s}`));
+  // squarespace.com itself (or www.squarespace.com) is the platform's own
+  // site, not a customer subdomain on it.
+  const h = host.toLowerCase().replace(/^www\./, '');
+  return PLATFORM_SUFFIXES.some((s) => h !== s && h.endsWith(`.${s}`));
 }
 
 /** Same site means the same registrable domain, except on platform hosts, where each subdomain is its own site. */
