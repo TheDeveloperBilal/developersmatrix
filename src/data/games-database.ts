@@ -40,6 +40,8 @@ export interface Game {
   popularity?: number; // 0-100 score, only used to order the picker
   // Short name people actually type into search, e.g. 'GTA 6' for Grand Theft Auto VI.
   searchName?: string;
+  // Replaces the generated search result title when set (used for GTA 5).
+  seoTitle?: string;
   // 'unannounced' means the publisher has not released PC specs for this title.
   // Never fill the requirement fields with estimates when this is set: the page
   // renders an honest "not published" answer instead, and the checker skips it.
@@ -701,6 +703,9 @@ export const gamesDatabase: Game[] = [
     id: 'gta-5',
     name: 'Grand Theft Auto V Enhanced',
     searchName: 'GTA 5',
+    // Changed 27 Oct 2026 (was "Can You Run GTA 5? PC Requirements"). The
+    // queries that click say "enhanced". Compare clicks from 27 Oct to 10 Nov.
+    seoTitle: 'GTA 5 Enhanced PC Requirements: Can You Run It?',
     developer: 'Rockstar North',
     publisher: 'Rockstar Games',
     releaseDate: 'March 4, 2025 (Enhanced edition on PC)',
