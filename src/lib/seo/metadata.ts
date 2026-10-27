@@ -394,7 +394,10 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     path: '/tools/ai-email-assistant'
   },
   'can-you-run-it': {
-    title: 'Can You Run It? Free PC Requirements Checker',
+    // Changed 27 Oct 2026 (was "Can You Run It? Free PC Requirements Checker").
+    // "can my pc run it" is the query this page ranks on page 1 for. The H1
+    // still says "Can You Run It?". Compare clicks from 27 Oct to 10 Nov.
+    title: 'Can My PC Run It? Free Game Requirements Checker',
     description: 'Can my PC run it? Enter your CPU, GPU and RAM and compare them with the specs publishers released for Cyberpunk 2077, Elden Ring, Battlefield 6 and more. Free, no signup.',
     keywords: [
       'can you run it',

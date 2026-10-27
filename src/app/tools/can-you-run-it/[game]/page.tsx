@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
 
   return {
     // A searchName (e.g. 'GTA 5') goes in the title because that is what people type.
-    title: game.searchName ? `Can You Run ${game.searchName}? PC Requirements` : `Can You Run ${game.name}?`,
+    title: game.seoTitle || (game.searchName ? `Can You Run ${game.searchName}? PC Requirements` : `Can You Run ${game.name}?`),
     description: `${game.name} PC system requirements. Minimum and recommended specs side by side, plus a free check to see whether your computer can run it.`,
     keywords: [
       `can i run ${game.name.toLowerCase()}`,
