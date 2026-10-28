@@ -83,6 +83,7 @@ export const GPUS: HardwareItem[] = [
   { name: 'NVIDIA GeForce GTX 750 Ti', score: 8, brand: 'NVIDIA' },
   { name: 'NVIDIA GeForce GTX 750', score: 7, brand: 'NVIDIA' },
   { name: 'NVIDIA GeForce GTX 560 Ti', score: 5, brand: 'NVIDIA' },
+  { name: 'NVIDIA GeForce GTX 650', score: 5, brand: 'NVIDIA' },
   { name: 'NVIDIA GeForce GT 730', score: 4, brand: 'NVIDIA' },
   // AMD RX 9000
   { name: 'AMD Radeon RX 9070 XT', score: 90, brand: 'AMD' },
@@ -151,6 +152,7 @@ export const GPUS: HardwareItem[] = [
   { name: 'Intel Iris Xe Graphics', score: 8, brand: 'Intel', integrated: true },
   { name: 'Intel UHD Graphics 770', score: 5, brand: 'Intel', integrated: true },
   { name: 'Intel UHD Graphics 630', score: 4, brand: 'Intel', integrated: true },
+  { name: 'Intel HD Graphics 530', score: 3, brand: 'Intel', integrated: true },
   { name: 'Intel HD Graphics 4000', score: 2, brand: 'Intel', integrated: true },
 ];
 
@@ -233,6 +235,7 @@ export const CPUS: HardwareItem[] = [
   { name: 'Intel Core i7-6700', score: 32, brand: 'Intel' },
   { name: 'Intel Core i5-6600K', score: 28, brand: 'Intel' },
   { name: 'Intel Core i5-6600', score: 26, brand: 'Intel' },
+  { name: 'Intel Core i5-6400', score: 23, brand: 'Intel' },
   { name: 'Intel Core i5-6500', score: 24, brand: 'Intel' },
   { name: 'Intel Core i3-6300', score: 15, brand: 'Intel' },
   { name: 'Intel Core i3-6100', score: 14, brand: 'Intel' },
@@ -252,10 +255,12 @@ export const CPUS: HardwareItem[] = [
   { name: 'Intel Core i5-3470', score: 14, brand: 'Intel' },
   { name: 'Intel Core i3-3240', score: 8, brand: 'Intel' },
   { name: 'Intel Core i3-3225', score: 7, brand: 'Intel' },
+  { name: 'Intel Core i3-3220', score: 7, brand: 'Intel' },
   { name: 'Intel Core i7-2600K', score: 15, brand: 'Intel' },
   { name: 'Intel Core i5-2500K', score: 12, brand: 'Intel' },
   { name: 'Intel Core i5 750', score: 4, brand: 'Intel' },
   { name: 'Intel Core i3-540', score: 3, brand: 'Intel' },
+  { name: 'Intel Core i3-530', score: 3, brand: 'Intel' },
   // AMD Ryzen 9000
   { name: 'AMD Ryzen 7 9800X3D', score: 100, brand: 'AMD' },
   { name: 'AMD Ryzen 9 9950X3D', score: 100, brand: 'AMD' },
@@ -320,6 +325,7 @@ export const CPUS: HardwareItem[] = [
   { name: 'AMD FX-6300', score: 9, brand: 'AMD' },
   { name: 'AMD FX-4350', score: 7, brand: 'AMD' },
   { name: 'AMD FX-4300', score: 6, brand: 'AMD' },
+  { name: 'AMD FX-4100', score: 5, brand: 'AMD' },
   { name: 'AMD Athlon 200GE', score: 6, brand: 'AMD' },
 ];
 

@@ -43,7 +43,7 @@ const PAGE_DATES: Record<string, string> = {
 };
 
 // Every /tools/can-you-run-it/[game] page shares one template and one data file.
-const GAME_PAGES_DATE = '2026-10-23';
+const GAME_PAGES_DATE = '2026-10-28';
 
 // Used only if a page is added without a date above, so it never gets a fake "today".
 const FALLBACK_DATE = '2026-07-24';

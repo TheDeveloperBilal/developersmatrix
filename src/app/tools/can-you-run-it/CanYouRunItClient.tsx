@@ -412,7 +412,11 @@ export default function CanYouRunItClient() {
     }
   };
 
-  const tone = result ? (!result.canRun ? 'bad' : result.performance.score >= 80 ? 'good' : 'warn') : 'good';
+  // "Comfortably" follows the suggested preset, not the score alone. The score
+  // compares the PC with the minimum spec, so a PC can score well above the
+  // minimum and still sit below the recommended spec.
+  const comfortable = !!result && result.canRun && result.performance.settings.startsWith('High');
+  const tone = result ? (!result.canRun ? 'bad' : comfortable ? 'good' : 'warn') : 'good';
 
   return (
     <div className={`${glass} p-2 sm:p-3`}>
@@ -696,7 +700,7 @@ export default function CanYouRunItClient() {
                     <div className="min-w-0">
                       <h3 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
                         {result.canRun
-                          ? result.performance.score >= 80
+                          ? comfortable
                             ? 'Yes, comfortably'
                             : 'Yes, with lower settings'
                           : 'Not at minimum spec'}
@@ -707,7 +711,7 @@ export default function CanYouRunItClient() {
                           : 'At least one part is below what the publisher lists as the minimum. The rows below show which one.'}
                       </p>
                       <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                        Estimate from relative hardware performance against the published minimum. Not a benchmark.
+                        Estimate from relative hardware performance against the publisher's minimum and recommended specs. Not a benchmark.
                       </p>
                     </div>
                   </div>

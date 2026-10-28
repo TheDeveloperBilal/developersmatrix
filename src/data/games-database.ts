@@ -42,6 +42,14 @@ export interface Game {
   searchName?: string;
   // Replaces the generated search result title when set (used for GTA 5).
   seoTitle?: string;
+  // True while the game is not out yet: the page says "Coming" before the date.
+  upcoming?: boolean;
+  // For a publisher minimum older than anything in the hardware catalogue: the
+  // score that stands for that part in the checker, and a short label for it.
+  checkerFloor?: {
+    cpu?: { score: number; label: string };
+    gpu?: { score: number; label: string };
+  };
   // 'unannounced' means the publisher has not released PC specs for this title.
   // Never fill the requirement fields with estimates when this is set: the page
   // renders an honest "not published" answer instead, and the checker skips it.
@@ -66,6 +74,7 @@ export interface Game {
 const CHECKED = 'September 30, 2026';
 // Titles added later carry the date they were copied from their source.
 const ADDED_ON = 'October 23, 2026';
+const ADDED_OCT_28 = 'October 28, 2026';
 
 const NOT_PUBLISHED = (who: string): GameRequirement => ({
   os: `Not published by ${who}`,
@@ -1363,6 +1372,271 @@ export const gamesDatabase: Game[] = [
     tags: ['FPS', 'Multiplayer', 'Zombies', 'Military'],
     trending: true,
     popularity: 91
+  },
+  // ==================== ADDED 28 OCTOBER 2026 ====================
+  // Each entry below was copied from its source on 28 October 2026.
+  {
+    id: 'phantom-blade-zero',
+    name: 'Phantom Blade Zero',
+    seoTitle: 'Phantom Blade Zero System Requirements: Can You Run It?',
+    developer: 'S-GAME',
+    publisher: 'S-GAME',
+    releaseDate: 'October 28, 2026',
+    genre: ['Action RPG', 'Action', 'Martial Arts'],
+    rating: 0,
+    price: '$59.99',
+    platforms: ['PC', 'PS5'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Phantom Blade Zero is a wuxia action RPG from S-GAME built on Unreal Engine 5. You play as Soul, a warrior with only sixty six days left to live.',
+    minimumRequirements: {
+      os: 'Windows 10/11, 64 bit',
+      processor: 'Intel Core i7-8700K / AMD Ryzen 5 3600',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1660 6GB / AMD Radeon RX 5500 XT 8GB',
+      directX: 'Version 12',
+      storage: 'Not listed by S-GAME'
+    },
+    recommendedRequirements: {
+      os: 'Windows 10/11, 64 bit',
+      processor: 'Intel Core i5-10600K / AMD Ryzen 5 5600X',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 3060 Ti 8GB / AMD Radeon RX 6700 XT 12GB',
+      directX: 'Version 12',
+      storage: 'Not listed by S-GAME'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Phantom Blade Zero on Steam', url: 'https://store.steampowered.com/app/4115450/' },
+    requirementsCheckedOn: ADDED_OCT_28,
+    requirementsNote: 'S-GAME says the minimum spec targets 1080p at 30 fps and the recommended spec 1440p at 60 fps, both with upscaling turned on. An SSD is required.',
+    features: [
+      'Fast martial arts combat',
+      'Wuxia story set in the Phantom World',
+      'Built on Unreal Engine 5'
+    ],
+    tags: ['Action RPG', 'Martial Arts', 'Soulslike', 'Single Player'],
+    trending: true,
+    popularity: 89
+  },
+  {
+    id: 'football-manager-27',
+    name: 'Football Manager 27',
+    seoTitle: 'Football Manager 27 System Requirements: Can You Run It?',
+    developer: 'Sports Interactive',
+    publisher: 'SEGA',
+    releaseDate: 'November 10, 2026',
+    // Set to false (or remove) once the game is out on 10 November 2026.
+    upcoming: true,
+    genre: ['Simulation', 'Sports', 'Strategy'],
+    rating: 0,
+    price: 'Not listed',
+    platforms: ['PC', 'Mac'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Football Manager 27 is the next football management sim from Sports Interactive. You run a club from the tactics board to the transfer market.',
+    minimumRequirements: {
+      os: 'Windows 10 or 11 with all updates',
+      processor: 'Intel Core i3-530 / AMD FX-4100',
+      memory: '6 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 960 / AMD Radeon R9 380 / Intel HD Graphics 530',
+      directX: 'Version 11',
+      storage: '20 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 11 with all updates, 64 bit',
+      processor: 'Intel Core i5-9600 / AMD Ryzen 5 2600',
+      memory: '12 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 2060 / AMD Radeon RX 5600 XT',
+      directX: 'Version 11',
+      storage: '20 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Football Manager 27 on Steam', url: 'https://store.steampowered.com/app/4530370/' },
+    requirementsCheckedOn: ADDED_OCT_28,
+    requirementsNote: 'These are the desktop parts. For laptops, Sports Interactive lists an Intel Core i3-330M or AMD A6-5200 with a GeForce GTX 960M, Radeon R9 M375 or Intel HD 530 at minimum, and an Intel Core i5-1035G7 or AMD Ryzen 7 3750H with a GeForce RTX 2060 Mobile or Radeon RX 6600M recommended. The processor must support SSE4.2 and SSSE3, and the graphics card needs 1 GB of video memory at minimum and 2 GB recommended.',
+    quickAnswer: 'Football Manager 27 runs on modest hardware. The desktop minimum is an Intel Core i3-530 or AMD FX-4100, 6 GB of memory and a GeForce GTX 960, Radeon R9 380 or Intel HD 530 integrated graphics, with 20 GB of free space. For the recommended experience aim for an Intel Core i5-9600 or AMD Ryzen 5 2600, 12 GB of memory and a GeForce RTX 2060 or Radeon RX 5600 XT. Laptop parts are listed under the specs.',
+    features: [
+      'Club management from tactics to transfers',
+      'Runs on Windows and Mac',
+      'Integrated graphics supported at minimum'
+    ],
+    tags: ['Football', 'Management', 'Simulation', 'Strategy'],
+    trending: true,
+    popularity: 88
+  },
+  {
+    id: 'enshrouded',
+    name: 'Enshrouded',
+    seoTitle: 'Enshrouded System Requirements: Can You Run It?',
+    developer: 'Keen Games',
+    publisher: 'Keen Games',
+    releaseDate: 'October 15, 2026 (1.0 release)',
+    genre: ['Survival', 'Action RPG', 'Cooperative'],
+    rating: 0,
+    price: '$39.99',
+    platforms: ['PC'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Enshrouded is a solo and cooperative survival action RPG. You fight back the Shroud, a corrupting fog, and build anywhere in a fully terraformable world.',
+    minimumRequirements: {
+      os: 'Windows 10',
+      processor: 'Intel Core i5-6400 / AMD Ryzen 5 1500X',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580 / Intel Arc A380',
+      directX: 'Not listed',
+      storage: '60 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 10',
+      processor: 'Intel Core i7-8700 / AMD Ryzen 7 2700X',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 2070 Super / AMD Radeon RX 6700 XT / Intel Arc A770',
+      directX: 'Not listed',
+      storage: '60 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Enshrouded on Steam', url: 'https://store.steampowered.com/app/1203620/' },
+    requirementsCheckedOn: ADDED_OCT_28,
+    requirementsNote: 'Keen Games asks for a graphics card with at least 6 GB of video memory at both tiers and recommends an SSD. Both tiers list a broadband internet connection.',
+    features: [
+      'Solo or cooperative survival',
+      'Build anywhere in a terraformable world',
+      'Full 1.0 release in October 2026'
+    ],
+    tags: ['Survival', 'Building', 'Cooperative', 'Action RPG'],
+    trending: true,
+    popularity: 86
+  },
+  {
+    id: 'call-of-duty-modern-warfare-4',
+    name: 'Call of Duty: Modern Warfare 4',
+    searchName: 'Modern Warfare 4',
+    seoTitle: 'Modern Warfare 4 System Requirements: Can You Run It?',
+    developer: 'Infinity Ward',
+    publisher: 'Activision',
+    releaseDate: 'October 23, 2026',
+    genre: ['FPS', 'Military', 'Multiplayer'],
+    rating: 0,
+    price: '$69.99',
+    platforms: ['PC', 'PS5', 'Xbox Series X|S'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Call of Duty: Modern Warfare 4 is the 2026 Call of Duty from Infinity Ward, with Beenox leading the PC version. The campaign is set during a war on the Korean Peninsula.',
+    minimumRequirements: {
+      os: 'Windows 10, 64 bit (latest update)',
+      processor: 'Intel Core i5-6600 / AMD Ryzen 5 1400',
+      memory: '8 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 970 / GTX 1060 / AMD Radeon RX 470 / Intel Arc A580',
+      directX: 'Version 12',
+      storage: '115 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 11, 64 bit (latest update)',
+      processor: 'Intel Core i7-8700K / AMD Ryzen 5 3600',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 3060 Ti / AMD Radeon RX 6600 XT / Intel Arc B580',
+      directX: 'Version 12',
+      storage: '115 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Modern Warfare 4 PC specs on callofduty.com', url: 'https://www.callofduty.com/blog/2026/09/call-of-duty-modern-warfare-4-pc-trailer-tech-specs-features' },
+    requirementsCheckedOn: ADDED_OCT_28,
+    requirementsNote: 'An SSD is required. Activision asks for 3 GB of video memory at minimum and 8 GB for the recommended spec, which targets 90 fps on high settings in multiplayer. A ray tracing tier asks for an Intel Core i7-10700K or AMD Ryzen 7 3700X, 32 GB of memory and a GeForce RTX 5070 Ti or Radeon RX 9070 XT. TPM 2.0 and Secure Boot must be on, the processor must support AVX, and Intel Arc cards need Resizable BAR. Steam lists a GeForce RTX 3060 for the recommended tier, while Activision lists an RTX 3060 Ti, so we show Activision\'s figure.',
+    features: [
+      'Campaign, multiplayer and DMZ style modes',
+      'Beenox led PC version',
+      'Ray tracing tier for high end PCs'
+    ],
+    tags: ['FPS', 'Multiplayer', 'Military', 'Call of Duty'],
+    trending: true,
+    popularity: 92
+  },
+  {
+    id: 'forza-horizon-6',
+    name: 'Forza Horizon 6',
+    seoTitle: 'Forza Horizon 6 System Requirements: Can You Run It?',
+    developer: 'Playground Games',
+    publisher: 'Xbox Game Studios',
+    releaseDate: 'May 19, 2026',
+    genre: ['Racing', 'Open World', 'Multiplayer'],
+    rating: 0,
+    price: '$69.99',
+    platforms: ['PC', 'Xbox Series X|S'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'Forza Horizon 6 is the open world racing game from Playground Games, set in Japan with more than 550 real world cars.',
+    minimumRequirements: {
+      os: 'Windows 10 22H2 or newer',
+      processor: 'Intel Core i5-8400 / AMD Ryzen 5 1600',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 1650 / AMD Radeon RX 6500 XT / Intel Arc A380',
+      directX: 'Version 12',
+      storage: '167 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 10 22H2 or newer',
+      processor: 'Intel Core i5-12400F / AMD Ryzen 5 5600X',
+      memory: '16 GB RAM',
+      graphics: 'NVIDIA GeForce RTX 3060 Ti / AMD Radeon RX 6700 XT / Intel Arc A580',
+      directX: 'Version 12',
+      storage: '167 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'Forza Horizon 6 on Steam', url: 'https://store.steampowered.com/app/2483190/' },
+    requirementsCheckedOn: ADDED_OCT_28,
+    requirementsNote: 'An SSD is required at both tiers. Both tiers list a broadband internet connection.',
+    features: [
+      'Open world Japan',
+      'More than 550 real world cars',
+      'Solo and online play'
+    ],
+    tags: ['Racing', 'Open World', 'Cars', 'Multiplayer'],
+    trending: true,
+    popularity: 88
+  },
+  {
+    id: 'the-sims-4',
+    name: 'The Sims 4',
+    seoTitle: 'The Sims 4 System Requirements: Can You Run It?',
+    developer: 'Maxis',
+    publisher: 'Electronic Arts',
+    releaseDate: 'September 2, 2014',
+    genre: ['Simulation', 'Life Sim', 'Casual'],
+    rating: 0,
+    price: 'Free (base game)',
+    platforms: ['PC', 'Mac', 'PS4', 'Xbox One'],
+    imageUrl: '/images/games/generic-game.png',
+    description: 'The Sims 4 is the life simulation game from Maxis. You create Sims, build their homes and play out their lives. The base game has been free since 2022.',
+    minimumRequirements: {
+      os: 'Windows 10, 64 bit',
+      processor: 'Intel Core i3-3220 / AMD Ryzen 3 1200',
+      memory: '4 GB RAM',
+      graphics: 'NVIDIA GeForce 6600 / ATI Radeon X1300 / Intel GMA X4500 (128 MB video memory, Pixel Shader 3.0)',
+      directX: 'Version 11',
+      storage: '26 GB available space'
+    },
+    recommendedRequirements: {
+      os: 'Windows 10, 64 bit',
+      processor: 'Intel Core i5 (4 cores) / AMD Ryzen 5',
+      memory: '8 GB RAM',
+      graphics: 'NVIDIA GeForce GTX 650 / AMD Radeon HD 7750 (1 GB video memory)',
+      directX: 'Version 11',
+      storage: '51 GB available space'
+    },
+    requirementsStatus: 'official',
+    requirementsSource: { label: 'The Sims 4 on Steam', url: 'https://store.steampowered.com/app/1222670/' },
+    requirementsCheckedOn: ADDED_OCT_28,
+    // EA's minimum graphics cards are from 2004 to 2008, older than anything in
+    // the hardware catalogue, so every card in the checker meets them. The
+    // recommended GTX 650 / HD 7750 then decides the suggested settings.
+    checkerFloor: {
+      gpu: { score: 2, label: 'GeForce 6600, Radeon X1300 or Intel GMA X4500 class' }
+    },
+    requirementsNote: 'EA asks for a graphics chip with 128 MB of video memory and Pixel Shader 3.0 support at minimum, and 1 GB of video memory recommended. Every graphics card in our checker is newer than EA\'s minimum. Plan for at least 1 GB of extra space for custom content and saved games, and a broadband connection for online features.',
+    quickAnswer: 'The Sims 4 runs on almost any Windows 10 PC. EA\'s minimum is an Intel Core i3-3220 or AMD Ryzen 3 1200, 4 GB of memory and a graphics chip with 128 MB of video memory, and the game needs 26 GB of space. For smoother play EA recommends a four core Intel Core i5 or AMD Ryzen 5, 8 GB of memory and a GeForce GTX 650 or Radeon HD 7750, with 51 GB of space.',
+    features: [
+      'Create Sims and build homes',
+      'Free base game',
+      'Runs on low end PCs and laptops'
+    ],
+    tags: ['Life Sim', 'Simulation', 'Building', 'Casual'],
+    trending: true,
+    popularity: 92
   }
 ];
 
