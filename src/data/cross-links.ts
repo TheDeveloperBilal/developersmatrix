@@ -61,7 +61,7 @@ const trendToBlogsMap: Record<string, string[]> = {
   'tech-skills-demand-2026': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', '5-job-offers-30-days-ai'],
   'tech-interview-preparation-2026': ['technical-interview-prep-2026', 'faang-interview-playbook-2026'],
   'ai-side-hustles-make-money-2026': ['ai-freelancing-2026-six-figure-guide', 'best-ai-tools-make-money-2026'],
-  'tiktok-algorithm-2026-complete-guide': ['tiktok-algorithm-guide-2026'],
+  'tiktok-algorithm-2026-complete-guide': ['ai-content-creation-business-2026'],
   'creator-economy-trends-2026': ['ai-content-creation-business-2026'],
 
   // NEW: Additional trend → blog mappings for internal linking blitz
@@ -132,7 +132,7 @@ const tagToBlogMap: Record<string, string[]> = {
   'audit': ['website-audit-checklist-2026', 'website-code-audit-guide'],
   'side hustle': ['ai-freelancing-2026-six-figure-guide', 'best-ai-tools-make-money-2026'],
   'freelance': ['ai-freelancing-2026-six-figure-guide', 'make-money-chatgpt-2026'],
-  'tiktok': ['tiktok-algorithm-guide-2026'],
+  'tiktok': ['ai-content-creation-business-2026'],
   'content creation': ['ai-content-creation-business-2026'],
 
   // NEW: Additional tag → blog mappings for internal linking blitz
@@ -143,7 +143,7 @@ const tagToBlogMap: Record<string, string[]> = {
   'creator': ['ai-content-creation-business-2026'],
   'green tech': ['ai-automation-business-ideas-2026'],
   'sustainability': ['ai-automation-business-ideas-2026'],
-  'social media': ['tiktok-algorithm-guide-2026'],
+  'social media': ['ai-content-creation-business-2026'],
   'mobile': ['website-code-audit-guide'],
   'security': ['ai-cybersecurity-guide-2026'],
 };

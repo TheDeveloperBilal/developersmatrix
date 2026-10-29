@@ -58,7 +58,9 @@ const GONE_EXACT = new Set([
 const REDIRECTS: Record<string, string> = {
   '/home': '/',
   '/home/': '/',
-  '/blog/how-tiktok-algorithm-works-2026': '/blog/tiktok-algorithm-guide-2026',
+  // TikTok blog post merged into the trend page on 28 October 2026.
+  '/blog/how-tiktok-algorithm-works-2026': '/trends/tiktok-algorithm-2026-complete-guide',
+  '/blog/tiktok-algorithm-guide-2026': '/trends/tiktok-algorithm-2026-complete-guide',
   '/trends/cybersecurity-skills-gap': '/trends/ai-cybersecurity-threats-protection-2026',
   // Audit cluster consolidated 15 September 2026. These two ranked for the same
   // checklist queries as the target and always ranked worse, so they were merged

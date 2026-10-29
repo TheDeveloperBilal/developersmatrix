@@ -73,9 +73,17 @@ const nextConfig: NextConfig = {
   },
   redirects: async () => {
     return [
+      // TikTok posts merged on 28 Oct 2026. The trend page held the stronger
+      // positions for the algorithm queries, so it keeps the URL. The old alias
+      // points straight at it so there is no redirect chain.
       {
         source: "/blog/how-tiktok-algorithm-works-2026",
-        destination: "/blog/tiktok-algorithm-guide-2026",
+        destination: "/trends/tiktok-algorithm-2026-complete-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/tiktok-algorithm-guide-2026",
+        destination: "/trends/tiktok-algorithm-2026-complete-guide",
         permanent: true,
       },
       {

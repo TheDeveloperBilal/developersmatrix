@@ -627,7 +627,7 @@ export default async function GamePage({ params }: GamePageProps) {
                 <Building2 className="w-4 h-4" aria-hidden="true" />{game.developer}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <CalendarDays className="w-4 h-4" aria-hidden="true" />Released {game.releaseDate}
+                <CalendarDays className="w-4 h-4" aria-hidden="true" />{game.upcoming ? 'Coming' : 'Released'} {game.releaseDate}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <MonitorSmartphone className="w-4 h-4" aria-hidden="true" />{game.platforms.join(', ')}

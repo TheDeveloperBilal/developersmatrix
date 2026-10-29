@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { gamesDatabase, type GameRequirement } from '@/data/games-database';
+import { gamesDatabase, type Game, type GameRequirement } from '@/data/games-database';
 import { matchHardware, matchAllHardware, suggestHardware, type HardwareItem, type HardwareKind } from '@/lib/hardware/catalogue';
 
 export const runtime = 'nodejs';
@@ -60,16 +60,39 @@ function requiredPart(text: string, kind: HardwareKind, yours: HardwareItem): Ha
   return pool.reduce((lowest, part) => (part.score < lowest.score ? part : lowest));
 }
 
-function calculatePerformance(cpu: HardwareItem, gpu: HardwareItem, specs: SystemSpecs, req: GameRequirement) {
+// The "Min" label shows every listed part we recognise, the visitor's own brand
+// first, so it never names only a part the visitor did not need to match.
+function requiredLabel(text: string, kind: HardwareKind, yours: HardwareItem): string | null {
+  const listed = matchAllHardware(text, kind);
+  if (listed.length === 0) return null;
+  const ordered = [...listed.filter((p) => p.brand === yours.brand), ...listed.filter((p) => p.brand !== yours.brand)];
+  return ordered.map((p) => p.name).join(' or ');
+}
+
+function calculatePerformance(cpu: HardwareItem, gpu: HardwareItem, specs: SystemSpecs, game: Game) {
+  const req = game.minimumRequirements;
   const minRam = parseRequirement(req.memory);
   const minStorage = parseStorageGB(req.storage);
   const minCpu = requiredPart(req.processor, 'cpu', cpu);
   const minGpu = requiredPart(req.graphics, 'gpu', gpu);
-  const minCpuScore = minCpu ? minCpu.score : UNKNOWN_REQUIREMENT_SCORE;
-  const minGpuScore = minGpu ? minGpu.score : UNKNOWN_REQUIREMENT_SCORE;
+  // Some publishers name a minimum part older than anything in our catalogue
+  // (The Sims 4 lists a 2004 GeForce 6600). The game then sets the score that
+  // stands for that part, instead of the generic "unknown" score.
+  const floor = game.checkerFloor;
+  const minCpuScore = minCpu ? minCpu.score : floor?.cpu?.score ?? UNKNOWN_REQUIREMENT_SCORE;
+  const minGpuScore = minGpu ? minGpu.score : floor?.gpu?.score ?? UNKNOWN_REQUIREMENT_SCORE;
 
   const cpuRatio = cpu.score / Math.max(minCpuScore, 1);
   const gpuRatio = gpu.score / Math.max(minGpuScore, 1);
+
+  // The recommended spec, when the publisher gives one we can read, decides the
+  // suggested settings. It is a far better guide to "high settings" than a
+  // multiple of the minimum spec.
+  const rec = game.recommendedPublished !== false ? game.recommendedRequirements : null;
+  const recCpu = rec ? requiredPart(rec.processor, 'cpu', cpu) : null;
+  const recGpu = rec ? requiredPart(rec.graphics, 'gpu', gpu) : null;
+  const recGpuRatio = recGpu && recGpu.score > minGpuScore ? gpu.score / recGpu.score : null;
+  const recCpuRatio = recCpu && recCpu.score > minCpuScore ? cpu.score / recCpu.score : null;
 
   let ram: Status;
   if (specs.ram >= minRam * 1.5) ram = 'excellent';
@@ -90,24 +113,46 @@ function calculatePerformance(cpu: HardwareItem, gpu: HardwareItem, specs: Syste
   const score = Math.round(part(cpuRatio) * 0.3 + part(gpuRatio) * 0.4 + tier(ram) * 0.15 + tier(storage) * 0.15);
 
   let settings: string;
-  if (gpuRatio >= 1.8 && cpuRatio >= 1.5) settings = 'Ultra (4K 60+ FPS)';
-  else if (gpuRatio >= 1.4 && cpuRatio >= 1.2) settings = 'High (1440p 60+ FPS)';
-  else if (gpuRatio >= 1.0 && cpuRatio >= 1.0) settings = 'Medium (1080p 60 FPS)';
-  else if (gpuRatio >= 0.7) settings = 'Low (1080p 30 to 45 FPS)';
-  else settings = 'Below minimum';
-
   let fps_estimate: string;
-  if (gpuRatio >= 1.8) fps_estimate = '100+ FPS at 1440p Ultra';
-  else if (gpuRatio >= 1.4) fps_estimate = '60 to 80 FPS at 1440p High';
-  else if (gpuRatio >= 1.0) fps_estimate = '50 to 60 FPS at 1080p Medium';
-  else if (gpuRatio >= 0.7) fps_estimate = '30 to 45 FPS at 1080p Low';
-  else fps_estimate = 'Unplayable';
+  if (gpuRatio < 0.7) {
+    settings = 'Below minimum';
+    fps_estimate = 'Unplayable';
+  } else if (gpuRatio < 1 || cpuRatio < 1) {
+    settings = 'Low (1080p or lower)';
+    fps_estimate = 'under 30 FPS at 1080p Low';
+  } else if (recGpuRatio !== null) {
+    const cpuMeetsRec = recCpuRatio === null ? cpuRatio >= 1.2 : recCpuRatio >= 1;
+    const cpuWellAboveRec = recCpuRatio === null ? cpuRatio >= 1.5 : recCpuRatio >= 1.2;
+    if (recGpuRatio >= 1.5 && cpuWellAboveRec) {
+      settings = 'High to Ultra (1440p)';
+      fps_estimate = '60+ FPS at 1440p High';
+    } else if (recGpuRatio >= 1 && cpuMeetsRec) {
+      settings = 'High (1080p)';
+      fps_estimate = '60 FPS at 1080p High';
+    } else if (recGpuRatio >= 1 || (recGpuRatio >= 0.8 && cpuMeetsRec)) {
+      // Close to the recommended spec, with one part a little short of it.
+      settings = 'Medium (1080p)';
+      fps_estimate = '45 to 60 FPS at 1080p Medium';
+    } else {
+      settings = 'Low to Medium (1080p)';
+      fps_estimate = '30 to 60 FPS at 1080p Low to Medium';
+    }
+  } else if (gpuRatio >= 1.8 && cpuRatio >= 1.5) {
+    settings = 'High to Ultra (1440p)';
+    fps_estimate = '60+ FPS at 1440p High';
+  } else if (gpuRatio >= 1.3 && cpuRatio >= 1.2) {
+    settings = 'High (1080p)';
+    fps_estimate = '60 FPS at 1080p High';
+  } else {
+    settings = 'Low to Medium (1080p)';
+    fps_estimate = '30 to 60 FPS at 1080p Low to Medium';
+  }
 
   return {
     performance: { cpu: ratioStatus(cpuRatio), gpu: ratioStatus(gpuRatio), ram, storage, score, settings, fps_estimate },
     compared: {
-      cpu: { yours: cpu.name, required: minCpu?.name ?? req.processor },
-      gpu: { yours: gpu.name, required: minGpu?.name ?? req.graphics },
+      cpu: { yours: cpu.name, required: requiredLabel(req.processor, 'cpu', cpu) ?? floor?.cpu?.label ?? req.processor },
+      gpu: { yours: gpu.name, required: requiredLabel(req.graphics, 'gpu', gpu) ?? floor?.gpu?.label ?? req.graphics },
       ram: { yours: specs.ram, required: minRam },
       storage: { yours: specs.storage, required: minStorage },
     },
@@ -173,7 +218,7 @@ export async function POST(request: NextRequest) {
   }
 
   const specs: SystemSpecs = { cpu: cpu.name, gpu: gpu.name, ram, storage };
-  const { performance, compared } = calculatePerformance(cpu, gpu, specs, game.minimumRequirements);
+  const { performance, compared } = calculatePerformance(cpu, gpu, specs, game);
   const hasRecommended = game.recommendedPublished !== false;
 
   const upgrades: string[] = [];
