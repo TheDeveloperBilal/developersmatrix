@@ -342,8 +342,8 @@ export default function AIContentDetectorPage() {
                       </a>
                     </li>
                     <li>
-                      <a href="/trends/creator-economy-trends-2026" className="text-blue-600 hover:underline dark:text-blue-400">
-                        Creator economy trends
+                      <a href="/trends/tiktok-algorithm-2026-complete-guide" className="text-blue-600 hover:underline dark:text-blue-400">
+                        TikTok algorithm guide
                       </a>
                     </li>
                     <li>

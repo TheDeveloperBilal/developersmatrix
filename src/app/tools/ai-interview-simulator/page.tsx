@@ -672,11 +672,6 @@ export default function InterviewSimulatorPage() {
                         Technical Interview Prep Guide
                       </a>
                     </li>
-                    <li>
-                      <a href="/trends/tech-interview-preparation-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-                        Tech Interview Trends 2026
-                      </a>
-                    </li>
                   </ul>
                 </div>
 

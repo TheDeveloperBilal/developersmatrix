@@ -346,9 +346,9 @@ export default function SalaryEstimatorPage() {
                   <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">Related Resources</h3>
                   <ul className="space-y-3 text-sm">
                     {[
-                      ["/trends/tech-skills-demand-2026", "Most In Demand Tech Skills for 2026"],
-                      ["/trends/remote-tech-jobs-guide-2026", "Remote Tech Jobs Guide"],
-                      ["/trends/tech-interview-preparation-2026", "Tech Interview Trends 2026"],
+                      ["/blog/technical-interview-prep-2026", "Technical Interview Prep 2026"],
+                      ["/blog/how-to-write-cover-letter-2026", "How to Write a Cover Letter"],
+                      ["/tools/ai-interview-simulator", "Interview Simulator"],
                       ["/tools/ai-resume-builder", "AI Resume Builder"],
                     ].map(([href, t]) => (
                       <li key={href}>

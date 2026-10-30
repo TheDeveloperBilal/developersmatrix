@@ -50,20 +50,20 @@ const HEX: Record<string, string> = {
 const PATHS: { title: string; blurb: string; steps: string[]; tool: { slug: string; name: string; href: string } }[] = [
   {
     title: 'Start a side income',
-    blurb: 'From a first idea to your first paying customer.',
-    steps: ['ai-side-hustles-make-money-2026', 'chatgpt-advanced-prompts-2026', 'no-code-tools-2026-guide'],
+    blurb: 'From a first idea to your first customers.',
+    steps: ['ai-side-hustles-make-money-2026', 'no-code-tools-2026-guide', 'tiktok-algorithm-2026-complete-guide'],
     tool: { slug: 'startup-idea-generator', name: 'Startup Idea Generator', href: '/tools/startup-idea-generator' },
   },
   {
-    title: 'Get hired in tech',
-    blurb: 'What employers look for and how to show it.',
-    steps: ['tech-skills-demand-2026', 'tech-interview-preparation-2026', 'remote-tech-jobs-guide-2026'],
-    tool: { slug: 'ai-resume-builder', name: 'AI Resume Builder', href: '/tools/ai-resume-builder' },
+    title: 'Build faster with AI',
+    blurb: 'Choose a coding assistant, then learn to prompt it well.',
+    steps: ['ai-coding-assistants-comparison-2026', 'chatgpt-advanced-prompts-2026'],
+    tool: { slug: 'ai-prompt-library', name: 'AI Prompt Library', href: '/tools/ai-prompt-library' },
   },
   {
     title: 'Stay safe online',
-    blurb: 'Understand new threats and protect your accounts and your site.',
-    steps: ['ai-cybersecurity-threats-protection-2026', 'passwordless-authentication-future'],
+    blurb: 'Understand new threats, including what quantum computing means for encryption.',
+    steps: ['ai-cybersecurity-threats-protection-2026', 'quantum-computing-practical-guide-2026'],
     tool: { slug: 'website-audit', name: 'Website Audit', href: '/tools/website-audit' },
   },
 ];

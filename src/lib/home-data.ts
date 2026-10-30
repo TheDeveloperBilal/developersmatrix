@@ -174,14 +174,8 @@ export const featuredTrendPicks: { slug: string; summary: string; related?: { la
     related: { label: "AI Prompt Library", href: "/tools/ai-prompt-library" },
   },
   {
-    slug: "ai-agents-autonomous-systems-2026",
-    summary: "How AI agents plan and carry out tasks, where businesses use them and where they still need a human.",
-    related: { label: "AI Prompt Library", href: "/tools/ai-prompt-library" },
-  },
-  {
-    slug: "gta-6-release-everything-we-know",
-    summary: "The confirmed release date, platforms, story and characters, plus what is still unannounced.",
-    related: { label: "Can You Run It", href: "/tools/can-you-run-it/gta-6" },
+    slug: "tiktok-algorithm-2026-complete-guide",
+    summary: "How the For You feed picks videos, the signals TikTok says count most, and how to show up in TikTok Search.",
   },
   {
     slug: "ai-coding-assistants-comparison-2026",
@@ -189,9 +183,14 @@ export const featuredTrendPicks: { slug: string; summary: string; related?: { la
     related: { label: "AI Prompt Library", href: "/tools/ai-prompt-library" },
   },
   {
-    slug: "tech-skills-demand-2026",
-    summary: "The technical skills worth learning this year and how to show them on a resume.",
-    related: { label: "Resume Builder", href: "/tools/ai-resume-builder" },
+    slug: "chatgpt-advanced-prompts-2026",
+    summary: "Prompt patterns that get more useful answers from ChatGPT, with examples you can adapt.",
+    related: { label: "AI Prompt Library", href: "/tools/ai-prompt-library" },
+  },
+  {
+    slug: "ai-cybersecurity-threats-protection-2026",
+    summary: "The AI driven threats people and businesses face in 2026 and the steps that protect accounts and websites.",
+    related: { label: "Website Audit", href: "/tools/website-audit" },
   },
 ];
 
@@ -233,7 +232,7 @@ export const goals: Goal[] = [
       { name: "Startup Idea Generator", href: "/tools/startup-idea-generator", icon: TOOL_ICONS["startup-idea-generator"], note: "Ideas plus a test plan" },
     ],
     content: [
-      { label: "AI agents in 2026", href: "/trends/ai-agents-autonomous-systems-2026", type: "Trend" },
+      { label: "AI agent examples by industry", href: "/blog/autonomous-ai-agents-examples-2026", type: "Guide" },
       { label: "AI coding assistants compared", href: "/trends/ai-coding-assistants-comparison-2026", type: "Trend" },
     ],
   },
@@ -249,7 +248,7 @@ export const goals: Goal[] = [
     ],
     content: [
       { label: "Technical interview prep 2026", href: "/blog/technical-interview-prep-2026", type: "Guide" },
-      { label: "Remote tech jobs guide", href: "/trends/remote-tech-jobs-guide-2026", type: "Trend" },
+      { label: "How to write a cover letter", href: "/blog/how-to-write-cover-letter-2026", type: "Guide" },
     ],
   },
   {
@@ -304,8 +303,8 @@ export const goals: Goal[] = [
       { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: TOOL_ICONS["ai-prompt-library"], note: "Learn by prompting" },
     ],
     content: [
-      { label: "Learn programming in 2026", href: "/trends/learn-programming-2026-complete-guide", type: "Guide" },
-      { label: "Most in demand tech skills", href: "/trends/tech-skills-demand-2026", type: "Trend" },
+      { label: "AI coding assistants compared", href: "/trends/ai-coding-assistants-comparison-2026", type: "Trend" },
+      { label: "AI tools developers use", href: "/blog/ai-tools-developers-2026", type: "Guide" },
     ],
   },
   {
@@ -319,7 +318,7 @@ export const goals: Goal[] = [
     ],
     content: [
       { label: "GTA 6 launch hub", href: "/gta-6", type: "Hub" },
-      { label: "Gaming tech trends 2026", href: "/trends/gaming-tech-trends-2026", type: "Trend" },
+      { label: "GTA 6 PC requirements", href: "/tools/can-you-run-it/gta-6", type: "Guide" },
     ],
   },
 ];
