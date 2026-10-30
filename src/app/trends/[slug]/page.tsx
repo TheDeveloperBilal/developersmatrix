@@ -65,9 +65,15 @@ export async function generateMetadata({ params }: TrendPageProps): Promise<Meta
     alternates: {
       canonical: trend.canonicalUrl || `${siteConfig.url}/trends/${resolvedParams.slug}`,
     },
+    // Spelled out because a page level robots value replaces the root layout's.
+    // Leaving it undefined printed no robots tag at all on indexable pages.
     robots: trend.noindex
       ? { index: false, follow: true }
-      : undefined,
+      : {
+          index: true,
+          follow: true,
+          googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
+        },
     openGraph: {
       title: trend.title,
       description: trend.subtitle,
