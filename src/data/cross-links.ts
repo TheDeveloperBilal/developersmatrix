@@ -24,19 +24,16 @@ export interface RelatedBlogPost {
 // Explicit topic cluster mappings for top trends
 const trendToToolsMap: Record<string, string[]> = {
   // AI trends → AI tools
-  'ai-agents-autonomous-systems-2026': ['ai-prompt-library', 'ai-email-assistant'],
   'chatgpt-advanced-prompts-2026': ['ai-prompt-library', 'ai-content-detector'],
   'ai-coding-assistants-comparison-2026': ['ai-resume-builder'],
   'ai-side-hustles-make-money-2026': ['startup-idea-generator', 'budget-planner'],
 
   // Gaming trends → gaming/career tools
-  'gta-6-release-everything-we-know': ['can-you-run-it'],
   'gaming-tech-trends-2026': ['can-you-run-it'],
 
   // Career trends → career tools
   'learn-programming-2026-complete-guide': ['ai-resume-builder', 'ai-interview-simulator', 'salary-estimator'],
   'tech-skills-demand-2026': ['salary-estimator', 'ai-resume-builder'],
-  'tech-interview-preparation-2026': ['ai-interview-simulator', 'ai-resume-builder'],
   'remote-tech-jobs-guide-2026': ['ai-resume-builder', 'salary-estimator', 'ai-cover-letter-generator'],
 
   // Website/SEO trends → audit tool
@@ -55,12 +52,10 @@ const trendToToolsMap: Record<string, string[]> = {
 };
 
 const trendToBlogsMap: Record<string, string[]> = {
-  'ai-agents-autonomous-systems-2026': ['autonomous-ai-agents-examples-2026'],
   'ai-coding-assistants-comparison-2026': ['ai-tools-developers-2026', 'faang-interview-playbook-2026'],
   'learn-programming-2026-complete-guide': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
   'tech-skills-demand-2026': ['faang-interview-playbook-2026', 'ats-resume-guide-2026', '5-job-offers-30-days-ai'],
-  'tech-interview-preparation-2026': ['technical-interview-prep-2026', 'faang-interview-playbook-2026'],
-  'ai-side-hustles-make-money-2026': ['ai-freelancing-2026-six-figure-guide', 'best-ai-tools-make-money-2026'],
+  'ai-side-hustles-make-money-2026': ['best-ai-tools-make-money-2026', 'ai-automation-business-ideas-2026'],
   'tiktok-algorithm-2026-complete-guide': ['ai-content-creation-business-2026'],
   'creator-economy-trends-2026': ['ai-content-creation-business-2026'],
 
@@ -130,8 +125,8 @@ const tagToBlogMap: Record<string, string[]> = {
   'seo': ['website-audit-checklist-2026', 'on-site-seo-guide-2026'],
   'website': ['website-audit-checklist-2026', 'website-code-audit-guide'],
   'audit': ['website-audit-checklist-2026', 'website-code-audit-guide'],
-  'side hustle': ['ai-freelancing-2026-six-figure-guide', 'best-ai-tools-make-money-2026'],
-  'freelance': ['ai-freelancing-2026-six-figure-guide', 'make-money-chatgpt-2026'],
+  'side hustle': ['best-ai-tools-make-money-2026', 'ai-automation-business-ideas-2026'],
+  'freelance': ['best-ai-tools-make-money-2026', 'ai-automation-agency-pricing-2026'],
   'tiktok': ['ai-content-creation-business-2026'],
   'content creation': ['ai-content-creation-business-2026'],
 
@@ -234,7 +229,7 @@ export function getRelatedBlogPostsForTrend(slug: string): RelatedBlogPost[] {
   // Category-based fallback
   const categoryBlogMap: Record<string, string[]> = {
     'career': ['faang-interview-playbook-2026', 'ats-resume-guide-2026'],
-    'technology': ['how-to-audit-website-2026-guide'],
+    'technology': ['website-audit-checklist-2026'],
     'gaming': [],
   };
   const categoryBlogs = categoryBlogMap[trend.category] || [];

@@ -30,7 +30,7 @@ export default function TrendsPage() {
       />
       <ItemListSchema
         name="DevelopersMatrix Trend Reports"
-        description="Detailed reports on AI, careers, coding, gaming, security and the creator economy"
+        description="Detailed reports on AI tools, coding, security, social media and making money online"
         itemListElement={trends.map((t) => ({ name: t.title, description: t.subtitle, url: `${siteConfig.url}/trends/${t.slug}` }))}
       />
 

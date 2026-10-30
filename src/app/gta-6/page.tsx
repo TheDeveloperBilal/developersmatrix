@@ -33,7 +33,7 @@ const gta6Faqs = [
   },
   {
     question: "When is the GTA 6 PC release date?",
-    answer: "Rockstar has not announced a PC version, so there is no date. What exists is a pattern. Grand Theft Auto V reached consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 reached consoles in October 2018 and PC in November 2019, a gap of thirteen months. Applying the same range to a 19 November 2026 console launch points somewhere between late 2027 and early 2028. That is arithmetic on past releases, not information from Rockstar, and the company has committed to nothing."
+    answer: "Rockstar has not announced a PC version, so there is no date. What exists is a pattern. Grand Theft Auto V reached consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 reached consoles in October 2018 and PC in November 2019, a gap of thirteen months. Applying the same range to a 19 November 2026 console launch points somewhere between late 2027 and mid 2028. That is arithmetic on past releases, not information from Rockstar, and the company has committed to nothing."
   },
   {
     question: "What are the GTA 6 system requirements for PC?",
@@ -50,6 +50,18 @@ const gta6Faqs = [
   {
     question: "What platforms will GTA 6 launch on?",
     answer: "Rockstar lists PlayStation 5 and Xbox Series X|S, launching 19 November 2026. That is the entire announced platform list. There is no PlayStation 4, Xbox One or Nintendo Switch version, and no PC version has been announced either. If Rockstar follows the pattern it set with Grand Theft Auto V and Red Dead Redemption 2, a PC release would land roughly thirteen to nineteen months after the console launch, but the company has said nothing on the subject."
+  },
+  {
+    question: "Who are the main characters in GTA 6?",
+    answer: "Lucia Caminos and Jason Duval, a couple drawn into crime in Leonida. Rockstar's official site also introduces Cal Hampton, Boobie Ike, Dre'Quan Priest, Real Dimez, Raul Bautista and Brian Heder."
+  },
+  {
+    question: "What city is GTA 6 set in?",
+    answer: "GTA 6 is set in Leonida, Rockstar's version of Florida. The main city is Vice City, its take on Miami, last seen in 2002's Grand Theft Auto: Vice City. Rockstar's site also shows the Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga National Park. Rockstar has not said how big the map is."
+  },
+  {
+    question: "Will my GTA 5 Online progress carry over to GTA 6?",
+    answer: "Rockstar has not said anything about carrying GTA Online progress into GTA 6, and it has not shared details or timing for GTA 6's online side. GTA Online for GTA V keeps running. The only link so far is the free month of GTA+ that comes with digital preorders."
   }
 ];
 
@@ -68,7 +80,7 @@ export default function GTA6Page() {
         image={`${siteConfig.url}/images/blog/gta6-news.jpg`}
         url={`${siteConfig.url}/gta-6`}
         datePublished="2026-05-08T00:00:00+00:00"
-        dateModified="2026-10-08T00:00:00+00:00"
+        dateModified="2026-10-30T00:00:00+00:00"
         author="Syed Bilal Shah"
         authorUrl={`${siteConfig.url}/about`}
         authorJobTitle="Founder & Lead Editor"
@@ -115,11 +127,86 @@ export default function GTA6Page() {
 
         <section className="mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            How the GTA 6 Release Date Moved
+          </h2>
+          <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+            <p className="leading-relaxed">
+              GTA 6 has moved twice. The first trailer, in December 2023, gave a 2025 window. In May 2025 Rockstar moved the game to May 26, 2026. In November 2025 it moved it again, to November 19, 2026, saying the extra time would let it finish the game with the level of polish players expect. Take-Two repeated the November date on its May and August 2026 earnings calls.
+            </p>
+            <p className="leading-relaxed">
+              Interest has held up through both delays. The first trailer drew 93 million YouTube views in its first 24 hours, and Rockstar says the second trailer, released on May 6, 2025, passed 475 million views across all platforms in its first day. Take-Two&rsquo;s results for the quarter to June 30, 2026 put GTA V at more than 230 million copies and Red Dead Redemption 2 at more than 87 million.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            GTA 6 Story, Characters and Setting
+          </h2>
+          <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+            <p className="leading-relaxed">
+              The story follows Lucia Caminos and Jason Duval, a couple pulled into crime in the state of Leonida. Rockstar&rsquo;s official site also introduces Cal Hampton, Boobie Ike, Dre&rsquo;Quan Priest, Real Dimez, Raul Bautista and Brian Heder.
+            </p>
+            <p className="leading-relaxed">
+              Leonida is Rockstar&rsquo;s version of Florida, and Vice City, its take on Miami, is the main city. Vice City was last the setting of a main game in 2002&rsquo;s Grand Theft Auto: Vice City. Rockstar has not said how big the map is.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            What Rockstar Has Confirmed and What It Has Not
+          </h2>
+          <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+            <p className="leading-relaxed">
+              <strong>Confirmed by Rockstar or Take-Two:</strong>
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>The November 19, 2026 release on PlayStation 5 and Xbox Series X|S</li>
+              <li>Two editions: Standard at $79.99 and Ultimate at $99.99 in the US</li>
+              <li>Preorders from June 25, 2026 and digital preloading from November 12</li>
+              <li>Boxed copies that hold a download code rather than a disc</li>
+              <li>The Vintage Vice City Pack for purchases before November 20, and a free month of GTA+ with digital preorders</li>
+              <li>The main characters and the Leonida setting</li>
+            </ul>
+            <p className="leading-relaxed">
+              <strong>Not announced:</strong>
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>A PC version or PC system requirements</li>
+              <li>The size of the map or the download</li>
+              <li>Details or timing of the online side of the game</li>
+              <li>Any third trailer</li>
+            </ul>
+            <p className="leading-relaxed">
+              An insider has reported a December disc release, but Rockstar has not confirmed it. If a claim does not trace back to Rockstar Newswire, Rockstar&rsquo;s official site or Take-Two&rsquo;s investor releases, treat it as a rumor.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Dates to Watch Before Launch
+          </h2>
+          <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+            <ul className="list-disc pl-6 space-y-2">
+              <li><strong>November 12, 2026:</strong> digital preloading opens and boxed copies go on sale</li>
+              <li><strong>November 19, 2026:</strong> GTA 6 unlocks on PS5 and Xbox Series X|S</li>
+              <li><strong>Before November 20, 2026:</strong> buy by then to get the Vintage Vice City Pack</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
             GTA 6 PC Release Date: What We Know About the PC Version
           </h2>
           <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
             <p className="leading-relaxed">
-              PC players are asking the same question they ask before every Rockstar release: when do we get ours? The honest answer is that nobody outside Rockstar knows, because no PC version has been announced. What we have is the pattern. Grand Theft Auto V hit consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 hit consoles in October 2018 and PC in November 2019, a gap of thirteen months. Apply that range to 19 November 2026 and you land somewhere between late 2027 and early 2028. Treat that as arithmetic, not as news.
+              PC players are asking the same question they ask before every Rockstar release: when do we get ours? The honest answer is that nobody outside Rockstar knows, because no PC version has been announced. What we have is the pattern. Grand Theft Auto V hit consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 hit consoles in October 2018 and PC in November 2019, a gap of thirteen months. Apply that range to 19 November 2026 and you land somewhere between late 2027 and mid 2028. Treat that as arithmetic, not as news.
+            </p>
+            <p className="leading-relaxed">
+              Going further back, Grand Theft Auto IV reached PC about seven months after consoles. Three games, three different gaps, which is why nobody can give you a real PC date yet.
             </p>
             <p className="leading-relaxed">
               Rockstar has not explained its PC plans for GTA 6. Until it does, ignore anyone selling PC keys, beta access or early downloads. None of those exist, and offers like that are scams.
@@ -190,12 +277,25 @@ export default function GTA6Page() {
 
         <section className="mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Sources
+          </h2>
+          <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
+            <ul className="list-disc pl-6 space-y-2">
+              <li><a href="https://www.rockstargames.com/newswire" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar Newswire</a>, Rockstar&rsquo;s official news page</li>
+              <li><a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Grand Theft Auto VI official site</a>: trailers, characters, places and editions</li>
+              <li><a href="https://www.rockstargames.com/newswire/article/517oa135328155/grand-theft-auto-vi-pre-orders-begin-on-june-25" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar: Grand Theft Auto VI preorders begin on June 25</a></li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Related Resources
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <Link href="/tools/can-you-run-it" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Can You Run It Tool</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Check if your PC meets GTA 6 requirements and compare against thousands of other games.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Check your PC against the specs publishers released for big PC games, including GTA 5 Enhanced.</p>
             </Link>
             <Link href="/trends" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Tech and Gaming Trends 2026</h3>

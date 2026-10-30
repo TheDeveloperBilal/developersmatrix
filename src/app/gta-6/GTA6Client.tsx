@@ -440,7 +440,7 @@ export default function GTA6Client() {
                     No PC version announced
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Rockstar lists PS5 and Xbox Series X|S only. It brought GTA V to PC nineteen months after consoles and Red Dead Redemption 2 thirteen months after. The same range would put a GTA 6 PC release in late 2027 or early 2028, which is arithmetic on past releases rather than anything Rockstar has said.
+                    Rockstar lists PS5 and Xbox Series X|S only. It brought GTA V to PC nineteen months after consoles and Red Dead Redemption 2 thirteen months after. The same range would put a GTA 6 PC release in late 2027 or mid 2028, which is arithmetic on past releases rather than anything Rockstar has said.
                   </p>
                 </div>
               </CardContent>

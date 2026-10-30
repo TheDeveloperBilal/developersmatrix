@@ -73,6 +73,55 @@ const nextConfig: NextConfig = {
   },
   redirects: async () => {
     return [
+      // Round 30 (30 Oct 2026): thin or duplicate pages merged into the strongest
+      // page on the same topic. Each is a single hop to a live 200 page.
+      {
+        source: "/trends/ai-agents-autonomous-systems-2026",
+        destination: "/blog/autonomous-ai-agents-examples-2026",
+        permanent: true,
+      },
+      {
+        source: "/trends/multi-agent-systems-enterprise",
+        destination: "/blog/autonomous-ai-agents-examples-2026",
+        permanent: true,
+      },
+      {
+        source: "/trends/tech-interview-preparation-2026",
+        destination: "/blog/technical-interview-prep-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/developer-tools-news-june-2026",
+        destination: "/blog/ai-tools-developers-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/make-money-chatgpt-2026",
+        destination: "/trends/ai-side-hustles-make-money-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/how-to-make-money-with-ai-2026",
+        destination: "/trends/ai-side-hustles-make-money-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/ai-freelancing-2026-six-figure-guide",
+        destination: "/trends/ai-side-hustles-make-money-2026",
+        permanent: true,
+      },
+      // GTA 6: one page before the 19 Nov launch. The /gta-6 hub keeps the URL
+      // (countdown, news feed, PC check, linked from the header and footer).
+      {
+        source: "/trends/gta-6-release-everything-we-know",
+        destination: "/gta-6",
+        permanent: true,
+      },
+      {
+        source: "/blog/gta-6-release-date-delayed-november-2026",
+        destination: "/gta-6",
+        permanent: true,
+      },
       // TikTok posts merged on 28 Oct 2026. The trend page held the stronger
       // positions for the algorithm queries, so it keeps the URL. The old alias
       // points straight at it so there is no redirect chain.

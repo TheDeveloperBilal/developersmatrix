@@ -22,7 +22,7 @@ const PAGE_DATES: Record<string, string> = {
   '/cookies': '2026-10-08',
   '/privacy': '2026-10-08',
   '/terms': '2026-10-08',
-  '/gta-6': '2026-10-08',
+  '/gta-6': '2026-10-30',
   '/trends': '2026-10-15',
   '/tools': '2026-10-13',
   '/services/website-audit': '2026-10-15',

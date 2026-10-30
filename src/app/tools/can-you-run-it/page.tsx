@@ -231,7 +231,7 @@ export default function CanYouRunItPage() {
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 mb-3">Related resources</h3>
                   <div className="flex flex-wrap gap-2 text-sm">
                     {[
-                      ["/trends/gta-6-release-everything-we-know", "GTA 6 news"],
+                      ["/gta-6", "GTA 6 news"],
                       ["/tools/salary-estimator", "Salary Estimator"],
                       ["/tools/budget-planner", "Budget Planner"],
                       ["/tools/habit-tracker", "Habit Tracker"],
@@ -504,7 +504,6 @@ export default function CanYouRunItPage() {
                 <ul className="flex flex-wrap gap-2 text-sm">
                   {[
                     ["/gta-6", "GTA 6 hub"],
-                    ["/trends/gta-6-release-everything-we-know", "GTA 6 news"],
                     ["/trends", "Tech trends 2026"],
                     ["/tools/budget-planner", "Budget Planner"],
                     ["/tools/salary-estimator", "Salary Estimator"],

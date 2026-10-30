@@ -640,8 +640,8 @@ export default function CoverLetterPage() {
                       </a>
                     </li>
                     <li>
-                      <a href="/trends/remote-tech-jobs-guide-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-                        Remote Tech Jobs Guide
+                      <a href="/blog/how-to-write-cover-letter-2026" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                        How to Write a Cover Letter 2026
                       </a>
                     </li>
                   </ul>

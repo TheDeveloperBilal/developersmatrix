@@ -293,7 +293,7 @@ export default function AIEmailAssistantPage() {
                       ["/tools/ai-cover-letter-generator", "Cover Letter Generator"],
                       ["/tools/ai-content-detector", "AI Content Detector"],
                       ["/tools/productivity-planner", "Productivity Planner"],
-                      ["/trends/remote-tech-jobs-guide-2026", "Remote Tech Jobs Guide"],
+                      ["/tools/ai-prompt-library", "AI Prompt Library"],
                     ].map(([href, t]) => (
                       <li key={href}>
                         <Link href={href} className="text-indigo-700 hover:underline dark:text-indigo-400">{t}</Link>

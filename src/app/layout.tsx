@@ -118,8 +118,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#7c3aed" />
         
         {/* Additional SEO Meta Tags */}
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <meta name="googlebot" content="index, follow" />
+        {/* robots and googlebot tags come from the metadata API (root layout and each page),
+            so a page set to noindex never also prints a hardcoded "index" tag. */}
         <meta name="language" content="English" />
         <meta name="revisit-after" content="1 days" />
         <meta name="author" content={siteAuthor.name} />
