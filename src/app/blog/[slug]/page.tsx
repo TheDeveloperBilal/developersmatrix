@@ -194,9 +194,15 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     alternates: {
       canonical: post.canonicalUrl || `${siteConfig.url}/blog/${post.slug}`,
     },
+    // Spelled out because a page level robots value replaces the root layout's.
+    // Leaving it undefined printed no robots tag at all on indexable pages.
     robots: post.noindex
       ? { index: false, follow: true }
-      : undefined,
+      : {
+          index: true,
+          follow: true,
+          googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
+        },
     openGraph: {
       title: seoTitle,
       description: seoDescription,
