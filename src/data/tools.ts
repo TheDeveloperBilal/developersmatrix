@@ -403,8 +403,8 @@ export const tools: Tool[] = [
     id: 'can-you-run-it',
     slug: 'can-you-run-it',
     name: 'Can You Run It?',
-    description: 'Check if your PC can run any game before buying. Compare your hardware specs against minimum and recommended requirements for popular games including GTA 6, Cyberpunk 2077, and more.',
-    shortDescription: 'Check if your PC can run any game',
+    description: 'Check if your PC can run popular games before buying. Compare your CPU, GPU and RAM with the minimum and recommended specs publishers released for Cyberpunk 2077, Elden Ring, Battlefield 6 and more.',
+    shortDescription: 'Check if your PC can run popular games',
     icon: 'Gamepad2',
     category: 'gaming',
     features: [

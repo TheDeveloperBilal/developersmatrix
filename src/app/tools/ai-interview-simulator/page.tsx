@@ -36,7 +36,7 @@ const toolFaqs = [
   },
   {
     question: "How accurate is the AI feedback compared to a real interviewer?",
-    answer: "It is a guide, not a hiring decision. The score combines three things: key points, meaning how many of the ideas the question is looking for you covered; structure, meaning whether your answer has the shape interviewers expect; and detail, meaning length, numbers and specifics. It catches common problems interviewers notice, such as a story with no result, an answer that says we instead of I, a design with no tradeoffs, or a list of keywords with no explanation. It also flags well known wrong statements on common technical questions. It cannot confirm that every sentence you write is true, and it cannot hear your tone or see your body language, so compare your answer with the model answer and practice out loud as well."
+    answer: "It is a guide, not a hiring decision. The score combines three things: key points, meaning how many of the ideas the question is looking for you covered; structure, meaning whether your answer has the shape interviewers expect; and detail, meaning length, numbers and specifics. On behavioral questions it also recognises common ways of saying the same idea in your own words, and a point you come close to without stating clearly earns half credit. It catches common problems interviewers notice, such as a story with no result, an answer that says we instead of I, a design with no tradeoffs, or a list of keywords with no explanation. It also flags well known wrong statements on common technical questions. It cannot confirm that every sentence you write is true, and it cannot hear your tone or see your body language, so compare your answer with the model answer and practice out loud as well."
   },
   {
     question: "How many mock interview sessions do I need before a real interview?",
@@ -108,7 +108,7 @@ export default function InterviewSimulatorPage() {
         name="DevelopersMatrix AI Interview Simulator"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
-        description="Free AI-powered interview simulator for developers and tech professionals. Practice behavioral, technical, and system design interviews with instant feedback, adaptive difficulty, and role-specific questions."
+        description="Free AI-powered interview simulator for developers and tech professionals. Practice behavioral, technical, and system design interviews with instant feedback, three experience levels, and role-specific questions."
         url={`${siteConfig.url}/tools/ai-interview-simulator`}
         offers={{
           price: "0",
@@ -139,7 +139,7 @@ export default function InterviewSimulatorPage() {
               Free AI Interview Simulator for FAANG Prep and Tech Jobs
             </h1>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-3xl">
-              An AI interview simulator is a practice tool that conducts realistic mock interviews using artificial intelligence, providing instant feedback on your answers, communication style, and technical accuracy. It adapts questions to your target role and experience level, giving you unlimited practice without scheduling a human interviewer.
+              An AI interview simulator is a practice tool that conducts realistic mock interviews using artificial intelligence, providing instant feedback on what your answers cover, how they are structured, and common technical mistakes. It picks questions for your target role and experience level, giving you unlimited practice without scheduling a human interviewer.
             </p>
             <dl className="mt-7 flex flex-wrap gap-x-10 gap-y-4">
               {[

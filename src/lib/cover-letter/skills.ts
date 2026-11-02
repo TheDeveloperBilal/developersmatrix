@@ -43,7 +43,7 @@ export const SKILLS: Skill[] = [
   S('Webpack'),
   S('Vite'),
   S('Accessibility', 'a11y', 'wcag'),
-  S('Web performance', 'core web vitals', 'page speed', 'lighthouse'),
+  S('Web performance', 'core web vitals', 'page speed', 'page load', 'load time', 'load times', 'lighthouse'),
   S('Responsive design', 'mobile first'),
   // Backend
   S('Node.js', 'node', 'nodejs', 'node js'),
@@ -135,8 +135,8 @@ export const SKILLS: Skill[] = [
   S('Content strategy', 'content marketing'),
   S('Copywriting'),
   S('Google Analytics', 'ga4'),
-  S('Email marketing'),
-  S('Social media', 'social media marketing'),
+  S('Email marketing', 'email newsletter', 'email newsletters', 'newsletter', 'newsletters', 'email campaigns'),
+  S('Social media', 'social media marketing', 'social media content', 'social channels'),
   S('Paid ads', 'google ads', 'ppc', 'paid media'),
   S('HubSpot'),
   S('Salesforce'),
@@ -144,6 +144,104 @@ export const SKILLS: Skill[] = [
   S('WordPress'),
   S('Shopify'),
   S('Webflow'),
+  S('Mailchimp'),
+  S('Klaviyo'),
+  S('Canva'),
+  S('Adobe Photoshop', 'photoshop'),
+  S('Adobe Illustrator', 'illustrator'),
+  S('Adobe InDesign', 'indesign'),
+  S('Adobe Premiere Pro', 'premiere pro'),
+  S('Adobe After Effects', 'after effects'),
+  S('Adobe Creative Cloud', 'adobe creative suite', 'creative cloud'),
+  S('Adobe XD'),
+  S('Graphic design'),
+  S('Video editing', 'video production'),
+  S('Photography'),
+  S('Wireframing', 'wireframes'),
+  S('Prototyping', 'prototypes'),
+  S('Design systems', 'design system'),
+  S('Semrush'),
+  S('Ahrefs'),
+  S('Google Search Console', 'search console'),
+  S('Google Tag Manager', 'tag manager'),
+  S('Meta Ads', 'facebook ads', 'instagram ads', 'meta ads manager'),
+  S('LinkedIn Ads'),
+  S('Hootsuite'),
+  S('Sprout Social'),
+  S('Marketing automation'),
+  S('Conversion rate optimization', 'conversion rate optimisation', 'cro'),
+  S('Market research'),
+  S('Brand strategy', 'branding', 'brand management'),
+  S('Public relations', 'media relations', 'press releases'),
+  S('Influencer marketing'),
+  S('Community management'),
+  S('Event planning', 'event management', 'organising events', 'organizing events'),
+  S('Writing', 'writing skills', 'blog posts', 'blog writing', 'content writing', 'written content'),
+  S('Editing', 'proofreading', 'copy editing', 'copyediting'),
+  // Sales and support tools
+  S('Lead generation', 'lead gen'),
+  S('Business development'),
+  S('Account management'),
+  S('Negotiation', 'negotiating'),
+  S('Cold calling', 'cold outreach'),
+  S('Pipedrive'),
+  S('Zoho CRM', 'zoho'),
+  S('Zendesk'),
+  S('Intercom'),
+  S('Freshdesk'),
+  // Office and operations
+  S('Microsoft Office', 'ms office', 'microsoft 365', 'office 365'),
+  S('Microsoft Word', 'ms word'),
+  S('PowerPoint', 'microsoft powerpoint'),
+  S('Google Workspace', 'g suite', 'gsuite', 'google sheets', 'google docs'),
+  S('Asana'),
+  S('Trello'),
+  { name: 'Notion', aliases: ['=Notion'] },
+  S('Monday.com'),
+  S('Data entry'),
+  S('Scheduling', 'calendar management'),
+  S('Inventory management', 'stock control'),
+  S('Supply chain', 'supply chain management'),
+  S('Logistics'),
+  S('Procurement', 'purchasing'),
+  S('Retail', 'merchandising'),
+  S('Cash handling', 'point of sale', 'pos systems'),
+  S('Food safety', 'food hygiene'),
+  // Finance and HR
+  S('Accounting', 'bookkeeping'),
+  S('QuickBooks'),
+  S('Xero'),
+  { name: 'SAP', aliases: ['=SAP'] },
+  S('Financial modeling', 'financial modelling'),
+  S('Financial analysis', 'financial reporting'),
+  S('Payroll'),
+  S('Accounts payable'),
+  S('Accounts receivable'),
+  S('Reconciliation', 'reconciliations', 'bank reconciliation'),
+  S('GAAP'),
+  S('IFRS'),
+  S('Tax preparation', 'tax returns'),
+  S('Onboarding', 'employee onboarding'),
+  S('Workday'),
+  S('BambooHR'),
+  // Healthcare and education
+  S('Patient care'),
+  S('EHR', 'electronic health records', 'emr', 'electronic medical records'),
+  S('HIPAA'),
+  S('Medical billing'),
+  S('Medical coding', 'icd 10', 'cpt coding'),
+  S('Phlebotomy'),
+  S('Triage'),
+  S('Lesson planning', 'lesson plans'),
+  S('Classroom management'),
+  S('Curriculum development', 'curriculum design'),
+  S('Tutoring'),
+  // Spoken languages
+  S('Spanish'),
+  S('French'),
+  S('German'),
+  S('Arabic'),
+  S('Mandarin'),
   // Ways of working
   S('Agile', 'scrum', 'kanban'),
   S('Jira'),
@@ -151,8 +249,10 @@ export const SKILLS: Skill[] = [
   S('Stakeholder management', 'stakeholders'),
   S('Mentoring', 'mentorship', 'coaching'),
   S('Leadership', 'team lead', 'leading teams'),
-  S('Hiring', 'recruiting', 'interviewing'),
-  S('Customer support', 'customer success'),
+  // "Hiring" on its own is left out on purpose: almost every posting says
+  // "we are hiring", which is not a skill the candidate needs.
+  { name: 'Hiring', aliases: ['recruiting', 'recruitment', 'interviewing', 'talent acquisition'] },
+  S('Customer support', 'customer success', 'customer service'),
   S('Sales'),
   S('Budgeting', 'forecasting'),
   S('Technical writing', 'documentation'),
@@ -166,7 +266,24 @@ export const SKILLS: Skill[] = [
 export const CONTEXT_SKILLS = new Set([
   'Communication', 'Sales', 'Customer support', 'Stakeholder management', 'Leadership', 'Hiring',
   'Budgeting', 'Project management', 'Mentoring', 'Technical writing', 'Security', 'Agile', 'Jira',
+  'Writing', 'Editing', 'Scheduling', 'Negotiation', 'Event planning', 'Retail', 'Data entry',
 ]);
+
+/** Skill names that read as ordinary words mid sentence ("email marketing", not "Email marketing"). */
+const GENERIC_SKILL_WORDS = new Set(
+  (
+    'writing editing accounting payroll logistics retail photography tutoring triage procurement scheduling negotiation ' +
+    'onboarding prototyping wireframing copywriting statistics leadership mentoring budgeting communication sales security ' +
+    'observability microservices serverless accessibility roadmapping reconciliation phlebotomy'
+  ).split(' ')
+);
+
+export function skillInSentence(name: string): string {
+  if (GENERIC_SKILL_WORDS.has(name.toLowerCase())) return name.toLowerCase();
+  // "Email marketing", "Social media", "Patient care": a capital only because it starts the name.
+  if (/^[A-Z][a-z]+(\s[a-z]+)+$/.test(name)) return name.toLowerCase();
+  return name;
+}
 
 function escapeRegex(s: string) {
   return s.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
@@ -195,10 +312,9 @@ export type SkillHit = { name: string; count: number; first: number };
 /** Skills found in a piece of text, most mentioned first. */
 export function findSkills(text: string): SkillHit[] {
   if (!text.trim()) return [];
-  const hits: SkillHit[] = [];
+  const found: { name: string; spans: [number, number][] }[] = [];
   for (const { skill, patterns } of compiled()) {
-    let count = 0;
-    let first = Infinity;
+    const spans: [number, number][] = [];
     for (const re of patterns) {
       re.lastIndex = 0;
       let m: RegExpExecArray | null;
@@ -209,23 +325,22 @@ export function findSkills(text: string): SkillHit[] {
           const around = text.slice(Math.max(0, m.index - 20), m.index + 20);
           if (!/[,/]|\b(and|or|in|with|using)\b/.test(around) || /\bGo (to|ahead|live|beyond|through)\b/.test(around)) continue;
         }
-        count++;
-        first = Math.min(first, m.index);
+        const span: [number, number] = [m.index, m.index + m[0].length];
+        // Two aliases of one skill can hit the same words ("email newsletter" and "newsletter").
+        if (!spans.some(([s, e]) => span[0] < e && span[1] > s)) spans.push(span);
       }
     }
-    if (count > 0) hits.push({ name: skill.name, count, first });
+    if (spans.length > 0) found.push({ name: skill.name, spans });
   }
-  // "React Native" also contains "React". Drop the shorter one if every
-  // mention was part of the longer name.
-  const names = new Set(hits.map((h) => h.name));
-  const filtered = hits.filter((h) => {
-    if (h.name === 'React' && names.has('React Native')) {
-      const rn = hits.find((x) => x.name === 'React Native')!;
-      return h.count > rn.count;
-    }
-    return true;
-  });
-  return filtered.sort((a, b) => b.count - a.count || a.first - b.first);
+  // "React Native" contains "React" and "Tailwind CSS" contains "CSS". A
+  // mention that sits inside a longer skill name only counts for the longer one.
+  const all = found.flatMap((f) => f.spans.map(([s, e]) => ({ name: f.name, s, e })));
+  const hits: SkillHit[] = [];
+  for (const f of found) {
+    const own = f.spans.filter(([s, e]) => !all.some((o) => o.name !== f.name && o.s <= s && o.e >= e && o.e - o.s > e - s));
+    if (own.length > 0) hits.push({ name: f.name, count: own.length, first: Math.min(...own.map(([s]) => s)) });
+  }
+  return hits.sort((a, b) => b.count - a.count || a.first - b.first);
 }
 
 /** Turn a comma separated skills field into display names, keeping unknown skills as typed. */

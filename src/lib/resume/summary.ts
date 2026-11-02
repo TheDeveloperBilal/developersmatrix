@@ -5,6 +5,7 @@
  * filling the gap.
  */
 
+import { skillInSentence } from '@/lib/cover-letter/skills';
 import { bulletLines, monthsOfExperience, type Resume } from './types';
 
 const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
@@ -52,7 +53,7 @@ export function draftSummary(r: Resume, now = new Date()): SummaryDraft {
     }
   }
 
-  const skills = r.skills.slice(0, 3);
+  const skills = r.skills.slice(0, 3).map(skillInSentence);
   if (skills.length === 0) missing.push('skills');
 
   const bullets = [...r.roles.flatMap((x) => bulletLines(x.bullets)), ...r.projects.flatMap((x) => bulletLines(x.bullets))];
