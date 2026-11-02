@@ -28,6 +28,10 @@ export interface HistoryEntry {
   url: string;
   scannedAt: string;
   score: number;
+  /** Scoring rules version. Missing on audits saved before 2 November 2026. */
+  model?: number;
+  /** True when Google PageSpeed was part of the score. */
+  withPageSpeed?: boolean;
   categories: Record<string, number>;
   /** One entry per rule (a finding id without the page it was found on). Tips are left out. */
   findings: Record<string, HistoryFinding>;
@@ -35,7 +39,10 @@ export interface HistoryEntry {
 
 export interface HistoryComparison {
   previous: HistoryEntry;
-  scoreChange: number;
+  /** Null when the two scores were worked out differently and cannot be compared. */
+  scoreChange: number | null;
+  /** Why scoreChange is null. */
+  notComparable?: 'model' | 'pagespeed';
   fixed: HistoryFinding[];
   added: HistoryFinding[];
 }
@@ -91,6 +98,8 @@ export function toEntry(result: WebsiteAuditResult): HistoryEntry {
     url: result.url,
     scannedAt: result.scannedAt,
     score: result.overallScore,
+    model: result.scoringModel,
+    withPageSpeed: !!result.pagespeedApplied,
     categories,
     findings,
   };
@@ -110,6 +119,11 @@ export function compare(previous: HistoryEntry, current: HistoryEntry): HistoryC
   const added = Object.entries(current.findings)
     .filter(([rule]) => !previous.findings[rule])
     .map(([, f]) => f);
+  // Scores from different scoring rules, or with Google PageSpeed in one audit
+  // and not the other, would show a change that has nothing to do with the
+  // site. The fixed and new findings still compare fine.
+  if ((previous.model ?? 1) !== (current.model ?? 1)) return { previous, scoreChange: null, notComparable: 'model', fixed, added };
+  if (!!previous.withPageSpeed !== !!current.withPageSpeed) return { previous, scoreChange: null, notComparable: 'pagespeed', fixed, added };
   return { previous, scoreChange: current.score - previous.score, fixed, added };
 }
 

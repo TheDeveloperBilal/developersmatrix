@@ -33,6 +33,7 @@ import { Badge } from '@/components/ui/badge';
 import type { WebsiteAuditResult, AuditIssue, AuditScore, ContentAnalysis } from '@/lib/website-audit/types';
 import { NAMED_CHECK_COUNT } from '@/lib/website-audit/check-catalogue';
 import { recordAudit, clearHistory, siteOfUrl, type HistoryComparison, type HistoryEntry } from '@/lib/website-audit/history';
+import { applyPageSpeed } from '@/lib/website-audit/apply-pagespeed';
 
 // Category icons and colors
 const categoryConfig = {
@@ -71,6 +72,8 @@ export default function WebsiteAuditClient() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  // The audit on screen. A late PageSpeed answer for an older audit is ignored.
+  const liveScanRef = useRef<string | null>(null);
 
   // The crawl route now budgets 45s and the function is capped at 60s. The
   // browser gives it a little more than that, so a network stall still ends in
@@ -91,6 +94,7 @@ export default function WebsiteAuditClient() {
     setError(null);
     setResult(null);
     setPsiStatus('idle');
+    liveScanRef.current = null;
     setProgressLog(['Initializing audit engine...', `Targeting ${url.trim()}...`]);
 
     const auditSteps = [
@@ -141,6 +145,7 @@ export default function WebsiteAuditClient() {
       clearInterval(progressInterval);
       setProgressLog(prev => [...prev, 'Done! Analysis complete.']);
       setResult(data.result);
+      liveScanRef.current = data.result?.scannedAt ?? null;
       // Kept only in this browser; returns nothing useful when storage is blocked.
       setHistory(recordAudit(data.result));
       setActiveTab('all-issues');
@@ -161,14 +166,22 @@ export default function WebsiteAuditClient() {
       })
         .then((res) => res.json())
         .then((psi) => {
+          // The visitor may have cleared the report or started another audit.
+          if (liveScanRef.current !== data.result?.scannedAt) return;
           if (psi?.success && psi.pagespeed) {
-            setResult((prev) => (prev ? { ...prev, pagespeed: psi.pagespeed } : prev));
+            // Half of Performance comes from Google's mobile score, so the
+            // overall score is worked out again (apply-pagespeed.ts).
+            const updated = applyPageSpeed(data.result, psi.pagespeed);
+            setResult(updated);
+            if (updated.pagespeedApplied) setHistory(recordAudit(updated));
             setPsiStatus('ready');
           } else {
             setPsiStatus('failed');
           }
         })
-        .catch(() => setPsiStatus('failed'))
+        .catch(() => {
+          if (liveScanRef.current === data.result?.scannedAt) setPsiStatus('failed');
+        })
         .finally(() => clearTimeout(psiTimeout));
 
       trackAuditCompleted({
@@ -276,6 +289,7 @@ export default function WebsiteAuditClient() {
   // Handle clear
   const handleClear = useCallback(() => {
     abortRef.current?.abort();
+    liveScanRef.current = null;
     setUrl('');
     setResult(null);
     setError(null);

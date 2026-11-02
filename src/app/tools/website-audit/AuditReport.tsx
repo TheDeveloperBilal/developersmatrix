@@ -481,7 +481,11 @@ function HistoryPanel({
             On {formatDate(comparison.previous.scannedAt)} this site scored{' '}
             <span className="font-semibold tabular-nums">{comparison.previous.score}</span>. Now it scores{' '}
             <span className="font-semibold tabular-nums">{result.overallScore}</span>
-            {comparison.scoreChange === 0 ? ', no change.' : (
+            {comparison.scoreChange === null ? (
+              comparison.notComparable === 'model'
+                ? '. That earlier audit used the scoring rules from before 2 November 2026, which were more generous, so the two scores cannot be compared. The fixed and new findings below still can.'
+                : '. Google speed data was part of only one of the two scores, so they cannot be compared directly. The fixed and new findings below still can.'
+            ) : comparison.scoreChange === 0 ? ', no change.' : (
               <span className={comparison.scoreChange > 0 ? 'font-semibold text-[#0f7b3e]' : 'font-semibold text-[#a3242b]'}>
                 {' '}({comparison.scoreChange > 0 ? '+' : ''}{comparison.scoreChange})
               </span>
@@ -689,6 +693,15 @@ export default function AuditReport({
               );
             })}
           </ul>
+          {result.scoringModel ? (
+            <p className="mt-3 text-xs leading-relaxed text-gray-500">
+              {result.pagespeedApplied
+                ? `Performance includes Google's mobile PageSpeed score (${result.scores.performance.pagespeedScore}), so the overall score includes real speed data.`
+                : psiStatus === 'loading'
+                  ? 'Waiting for speed data from Google. The Performance and overall scores may change when it arrives.'
+                  : 'Google did not return speed data this time, so Performance uses our own checks only.'}
+            </p>
+          ) : null}
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2 print:hidden">
@@ -727,8 +740,9 @@ export default function AuditReport({
         A check is marked passed when the audit ran it and raised nothing against it.
         Not run means we could not get a clear answer this time, so it is not counted as a pass.
         Tips are conversion suggestions and informational notes, and they do not change the
-        score. Core Web Vitals come from Google PageSpeed Insights. Everything else is
-        measured directly from the pages and files we fetched.
+        score. Core Web Vitals come from Google PageSpeed Insights, and half of the
+        Performance score comes from Google's mobile PageSpeed score when Google returns
+        one. Everything else is measured directly from the pages and files we fetched.
       </p>
     </div>
   );

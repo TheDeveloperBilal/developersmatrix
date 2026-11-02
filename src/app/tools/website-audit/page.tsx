@@ -13,7 +13,7 @@ export const metadata: Metadata = generatePageMetadata({
   description: `Audit your website online free. ${NAMED_CHECK_COUNT} named checks for SEO, speed, mobile and security, plus Core Web Vitals. A score out of 100 and a fix list. No signup.`,
   keywords: ['audit website online', 'website audit tool online', 'website audit', 'audit website', 'audit a website', 'website auditor tool online', 'site audit online', 'site auditor online', 'audit checker', 'online website audit', 'web site audit', 'website auditor', 'web audit tool', 'website code audit', 'audit my website', 'audit of website', 'free website audit tool', 'website health check free', 'seo audit tool online', 'technical seo audit free', 'seo score checker', 'website performance checker', 'google core web vitals checker', 'website speed test tool', 'mobile friendly test tool', 'accessibility audit tool free', 'website security scanner free', 'free website analyzer', 'website grader', 'grade my website'],
   path: "/tools/website-audit",
-  modifiedTime: "2026-10-23",
+  modifiedTime: "2026-11-02",
 });
 
 const toolFaqs = [
@@ -27,7 +27,7 @@ const toolFaqs = [
   },
   {
     question: "How is a website grade calculated?",
-    answer: "Every finding has a severity (critical, high, medium or low) and costs points in its category. A problem found on every page costs more than one found on a single page, and small low priority notes are capped per category so a pile of minor notes cannot sink a score. The seven categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or a homepage set to noindex, caps the grade at 55. Tips, such as conversion ideas, email records or AI crawler settings, are shown but never change the grade. The report shows every category score next to the overall grade."
+    answer: "Every finding has a severity (critical, high, medium or low) and costs points in its category. A problem found on every page costs more than one found on a single page, and small low priority notes are capped per category so a pile of minor notes cannot sink a score. The seven categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Performance is half our own checks and half Google's mobile PageSpeed score when Google returns one. Weak categories pull the grade down more than strong ones push it up. One critical finding, such as no HTTPS or a homepage set to noindex, caps the grade at 45, and two or more cap it at 35. Tips, such as conversion ideas, email records or AI crawler settings, are shown but never change the grade. The report shows every category score next to the overall grade."
   },
   {
     question: "What does the website audit tool check in 2026?",
@@ -35,7 +35,7 @@ const toolFaqs = [
   },
   {
     question: "How accurate is this compared to Google Lighthouse?",
-    answer: "They measure different things. Lighthouse loads one page in a real browser and measures speed. We read the HTML and headers of up to 5 pages and focus on the SEO, crawling, indexing and security checks Lighthouse does not cover in depth. The speed numbers in our report come straight from Google PageSpeed Insights, which runs Lighthouse, plus real Chrome user data when Google has enough of it. Our own score is separate from the Lighthouse score, so the two numbers will differ."
+    answer: "They measure different things. Lighthouse loads one page in a real browser and measures speed. We read the HTML and headers of up to 5 pages and focus on the SEO, crawling, indexing and security checks Lighthouse does not cover in depth. The speed numbers in our report come straight from Google PageSpeed Insights, which runs Lighthouse, plus real Chrome user data when Google has enough of it. Half of our Performance score comes from Google's mobile PageSpeed score, which is a Lighthouse score, but our grade also covers SEO, crawling, indexing and security, so the two numbers will differ."
   },
   {
     question: "Will fixing audit issues actually improve my Google rankings?",
@@ -51,7 +51,7 @@ const toolFaqs = [
   },
   {
     question: "What is a good website audit score?",
-    answer: "A score between 90 and 100 is excellent: the technical basics are in place and the remaining notes are small. 75 to 89 is good, with a few things worth fixing. 60 to 74 needs work, usually several medium or high findings in one or two areas. 40 to 59 is poor, and any site with a critical finding, such as no HTTPS or a homepage set to noindex, lands here at most. Below 40 means serious problems in several areas, so start with the critical and high findings. Do not chase a perfect 100. A high score does not guarantee rankings, and a site with useful content and a score of 85 can outrank a thin site that scores 98."
+    answer: "A score between 90 and 100 is excellent: the technical basics are in place and the remaining notes are small. 75 to 89 is good, with a few things worth fixing. 60 to 74 needs work, usually several medium or high findings in one or two areas. 40 to 59 is poor, and a site with one critical finding, such as no HTTPS or a homepage set to noindex, scores 45 at most. Below 40 means serious problems in several areas or two or more critical findings, so start with the critical and high findings. Do not chase a perfect 100. A high score does not guarantee rankings, and a site with useful content and a score of 85 can outrank a thin site that scores 98."
   },
   {
     question: "Can I download or share the audit report?",
@@ -87,7 +87,7 @@ const toolFaqs = [
   },
   {
     question: "What makes the DevelopersMatrix Site Health Score different from other audit tools?",
-    answer: "Generic pass or fail checkers count every failure the same. Ours does not. Each finding costs points by severity, so a missing title tag costs more than a long meta description, and a problem on every page costs more than one on a single page. Low priority notes are capped per category, so a pile of minor notes cannot sink the score. Any critical finding, such as robots.txt blocking Googlebot or a password form on plain HTTP, caps the grade at 55, because a site with one of those problems is not healthy whatever else it gets right."
+    answer: "Generic pass or fail checkers count every failure the same. Ours does not. Each finding costs points by severity, so a missing title tag costs more than a long meta description, and a problem on every page costs more than one on a single page. Low priority notes are capped per category, so a pile of minor notes cannot sink the score. Any critical finding, such as robots.txt blocking Googlebot or a password form on plain HTTP, caps the grade at 45 (35 with two or more), because a site with one of those problems is not healthy whatever else it gets right."
   },
 ];
 
@@ -276,7 +276,7 @@ export default function WebsiteAuditPage() {
           },
           {
             name: "Review your overall score and category breakdown",
-            text: "Your report opens with an overall score out of 100, followed by 7 category scores: SEO, Technical, Performance, Security, Content, Accessibility, and Mobile. Conversion tips are listed separately and do not change the score, and Core Web Vitals from Google PageSpeed appear next to the report. Click any failing check to see the detail and the fix. A score below 50 in any category requires immediate attention. Scores between 50 and 69 indicate moderate issues. Scores above 70 are solid with minor improvements available."
+            text: "Your report opens with an overall score out of 100, followed by 7 category scores: SEO, Technical, Performance, Security, Content, Accessibility, and Mobile. Conversion tips are listed separately and do not change the score, and Core Web Vitals from Google PageSpeed appear next to the report, with Google's mobile score counted as half of Performance. Click any failing check to see the detail and the fix. A score below 50 in any category requires immediate attention. Scores between 50 and 69 indicate moderate issues. Scores above 70 are solid with minor improvements available."
           },
           {
             name: "Prioritize fixes by impact level",
@@ -340,7 +340,7 @@ export default function WebsiteAuditPage() {
           </div>
 
           <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-            Each finding costs points in its category by severity, and the seven category scores are weighted into your overall Site Health Score out of 100. Core Web Vitals are shown next to the score, not inside it, and tips such as conversion ideas or email records never change it.
+            Each finding costs points in its category by severity, and the seven category scores are weighted into your overall Site Health Score out of 100. Core Web Vitals are shown next to the score, half of the Performance score comes from Google's mobile PageSpeed score when Google returns one, and tips such as conversion ideas or email records never change it.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-3">URL Audit: Check a Single Page or a Whole Site</h3>
@@ -419,7 +419,7 @@ export default function WebsiteAuditPage() {
               A <strong>website grader</strong> gives your site a number out of 100. That number is only useful if you can see what produced it. Most graders show you the score, colour it red, and then ask for your email before they will tell you which checks failed. This one does not. Enter a URL and you get the grade and the full breakdown in the same screen, with no signup.
             </p>
             <p>
-              The grade comes from {NAMED_CHECK_COUNT} named checks across seven scored categories. Every finding has a severity (critical, high, medium or low) and costs points in its category, and a problem found on every page costs more than one found on a single page. Small low priority notes are capped per category, so a pile of minor notes cannot sink a score. The categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or robots.txt blocking Googlebot, caps the grade at 55. Core Web Vitals from Google are shown next to the grade but are not part of it yet.
+              The grade comes from {NAMED_CHECK_COUNT} named checks across seven scored categories. Every finding has a severity (critical, high, medium or low) and costs points in its category, and a problem found on every page costs more than one found on a single page. Small low priority notes are capped per category, so a pile of minor notes cannot sink a score. The categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Performance is half our own checks and half Google's mobile PageSpeed score when Google returns one. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or robots.txt blocking Googlebot, caps the grade at 45, and two or more cap it at 35.
             </p>
           </div>
 
@@ -442,7 +442,7 @@ export default function WebsiteAuditPage() {
             Website Audit Report Example: A Real Result
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-8 max-w-3xl">
-            We ran this tool on our own site, developersmatrix.com, on {SAMPLE.date}. The numbers below are exactly what it returned, so you can see what a report looks like before you run one.
+            We ran this tool on our own site, developersmatrix.com, on {SAMPLE.date}. The numbers below are exactly what it returned, so you can see what a report looks like before you run one. They were scored with the rules in use that day; the scoring became stricter on 2 November 2026.
           </p>
 
           <div className="grid gap-6 lg:grid-cols-[18rem_1fr]">
