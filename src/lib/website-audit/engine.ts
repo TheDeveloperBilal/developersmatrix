@@ -19,7 +19,7 @@ import { AccessibilityAuditor } from './accessibility-audit';
 import { ContentAuditor } from './content-audit';
 import { ConversionAuditor } from './conversion-audit';
 import { TechnicalAuditor } from './technical-audit';
-import { scoreCategory, overallScore, CATEGORY_WEIGHTS } from './scoring';
+import { scoreCategory, overallScore, CATEGORY_WEIGHTS, SCORING_MODEL } from './scoring';
 import { buildReport } from './check-catalogue';
 import { runSiteChecks } from './site-checks';
 import type { AuditCategory } from './types';
@@ -229,7 +229,7 @@ export class WebsiteAuditEngine {
     const named = buildReport({ issues: allIssues, notMeasured } as unknown as WebsiteAuditResult);
     const namedChecks = named.groups.flatMap((g) => g.checks);
     const pageCount = Math.max(1, contentPages.length);
-    let hasCritical = false;
+    let criticalRules = 0;
     const scores = Object.fromEntries(
       categories.map((category) => {
         const own = allIssues.filter((i) => i.category === category);
@@ -237,7 +237,7 @@ export class WebsiteAuditEngine {
         // choices) are shown as tips and never cost points.
         const result = scoreCategory(own.filter((i) => !i.informational), pageCount);
         const scored = CATEGORY_WEIGHTS[category] > 0;
-        if (scored && result.critical) hasCritical = true;
+        if (scored) criticalRules += result.criticalRules;
         // Tips and checks that could not run are neither passes nor failures.
         const checks = namedChecks.filter(
           (c) => c.definition.category === category && (c.status === 'pass' || c.status === 'fail' || c.status === 'warning')
@@ -259,8 +259,11 @@ export class WebsiteAuditEngine {
 
     const overall = overallScore(
       Object.fromEntries(categories.map((c) => [c, scores[c].score])) as Record<AuditCategory, number>,
-      hasCritical
+      criticalRules
     );
+    // Performance from our own checks. Google PageSpeed arrives later in the
+    // browser and is blended in there (apply-pagespeed.ts).
+    scores.performance.checksScore = scores.performance.score;
 
     // Generate recommendations
     const recommendations = this.generateRecommendations(allIssues);
@@ -307,6 +310,8 @@ export class WebsiteAuditEngine {
       scanDuration,
       pagesScanned: pages.length,
       overallScore: overall,
+      scoringModel: SCORING_MODEL,
+      criticalRules,
       scores,
       issues: allIssues,
       recommendations,

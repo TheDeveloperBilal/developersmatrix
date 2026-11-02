@@ -291,6 +291,10 @@ export interface AuditScore {
   failed: number;
   /** False for categories shown as tips only (conversion). */
   scored?: boolean;
+  /** Performance only: the score from our own checks, before Google PageSpeed is blended in. */
+  checksScore?: number;
+  /** Performance only: the Google PageSpeed mobile performance score that was blended in. */
+  pagespeedScore?: number;
 }
 
 export interface ContentAnalysis {
@@ -410,6 +414,12 @@ export interface WebsiteAuditResult {
 
   /** Absent when PageSpeed Insights could not be reached. Never blocks the audit. */
   pagespeed?: PageSpeedData;
+  /** Version of the scoring rules (see scoring.ts). Absent on results from before 2 November 2026. */
+  scoringModel?: number;
+  /** Distinct critical problems across the scored categories, used to cap the overall score. */
+  criticalRules?: number;
+  /** True once the Google PageSpeed score has been blended into Performance and the overall score. */
+  pagespeedApplied?: boolean;
 }
 
 export interface CrawlProgress {
