@@ -5,7 +5,7 @@
  * the candidate has to replace, rather than filling the gap with flattery.
  */
 
-import { CONTEXT_SKILLS, findSkills, parseSkillList, type SkillHit } from './skills';
+import { CONTEXT_SKILLS, findSkills, parseSkillList, skillInSentence, type SkillHit } from './skills';
 import type { LetterInput } from './validate';
 
 export type JobMatch = {
@@ -119,7 +119,9 @@ const DUTY_VERBS = new Set(
     'build design develop maintain improve write work collaborate partner mentor lead own drive create ship deliver scale ' +
     'optimize optimise implement support help run manage analyze analyse plan define launch test review automate monitor ' +
     'migrate architect contribute research champion establish grow measure report present coordinate operate deploy ' +
-    'integrate troubleshoot debug map craft shape execute prioritize prioritise produce set get'
+    'integrate troubleshoot debug map craft shape execute prioritize prioritise produce set get track schedule handle ' +
+    'prepare process answer respond assist teach provide conduct organise organize update edit sell negotiate train ' +
+    'oversee prospect close greet serve care triage'
   ).split(' ')
 );
 
@@ -130,34 +132,91 @@ function gerund(verb: string): string {
   return `${v}ing`;
 }
 
+/** Openers postings put in front of a duty: "You will", "In this role you'll", "Responsibilities include". */
+const DUTY_LEAD_IN =
+  /^(?:(?:in this role|as (?:a|an|our) [a-z ]{2,40}|day to day|each day|every day|on a typical day),?\s+)?(?:you will be|you will|you'll be|you'll|you are going to|you would|the role involves|this role involves|responsibilities include|your responsibilities include|duties include|key duties include|what you will do|what you'll do)\s*:?\s+/i;
+
+function dutyClauses(jd: string): string[] {
+  const out: string[] = [];
+  for (const rawLine of jd.split(/\n|(?<=[.;])\s+/)) {
+    let line = rawLine.replace(/^[\s\-*•·▪◦>\d.)]+/, '').trim().replace(/[.;:,]+$/, '');
+    line = line.replace(DUTY_LEAD_IN, '');
+    if (!line) continue;
+    // A line in capitals reads as shouting once it is quoted back.
+    const letters = line.replace(/[^A-Za-z]/g, '');
+    if (letters.length > 0 && letters.replace(/[^A-Z]/g, '').length / letters.length > 0.6) continue;
+    const n = line.split(/\s+/).length;
+    if (n <= 22) out.push(line);
+    // Long lines are usually a list of duties joined by commas. Split them so
+    // each duty can be quoted on its own.
+    if (n > 12) {
+      for (const part of line.split(/,\s*(?:and\s+)?|;\s*|\s+and\s+(?=[a-z]+\s)/)) {
+        const p = part.trim().replace(/^and\s+/i, '');
+        if (p && p !== line) out.push(p);
+      }
+    }
+  }
+  return out;
+}
+
+/** "answering" back to "answer", "managing" to "manage", "planning" to "plan". Null if it is not a duty verb. */
+function dutyBase(word: string): string | null {
+  if (DUTY_VERBS.has(word)) return word;
+  if (!word.endsWith('ing')) return null;
+  const stem = word.slice(0, -3);
+  for (const base of [stem, `${stem}e`, stem.slice(0, -1)]) if (DUTY_VERBS.has(base) && gerund(base) === word) return base;
+  return null;
+}
+
+function duty(l: string, first: string): string {
+  // "write unit tests and review pull requests" becomes "writing unit tests and reviewing pull requests",
+  // and "provide care, triage patients" becomes "providing care, triaging patients".
+  const rest = l
+    .slice(l.indexOf(' ') + 1)
+    .replace(/(,\s*(?:and\s+|or\s+)?|\b(?:and|or)\s+)([a-z]+)\b/g, (m, joiner: string, verb: string) => (DUTY_VERBS.has(verb) ? `${joiner}${gerund(verb)}` : m));
+  const base = dutyBase(first) ?? first;
+  return `${gerund(base)} ${rest}`
+    .replace(/\bour\b/gi, 'your')
+    .replace(/\bwe\b/gi, 'you')
+    .replace(/\bus\b/g, 'you');
+}
+
 /**
- * Pick one duty from the posting that the candidate clearly matches, and
- * turn "Build fast UIs with React" into "building fast UIs with React".
+ * Duties from the posting that the candidate clearly matches, turned from
+ * "Build fast UIs with React" into "building fast UIs with React". Each duty
+ * names a different skill, so the letter does not repeat itself.
  */
-export function dutyFromPosting(jd: string, matched: string[]): string | null {
-  if (!jd.trim() || matched.length === 0) return null;
-  const candidates = jd
-    .split(/\n|(?<=[.;])\s+/)
-    .map((l) => l.replace(/^[\s\-*•·▪◦>\d.)]+/, '').trim().replace(/[.;:,]+$/, ''))
+export function dutiesFromPosting(jd: string, matched: string[], max = 2): string[] {
+  if (!jd.trim() || matched.length === 0) return [];
+  const candidates = dutyClauses(jd)
     .filter((l) => {
       const n = l.split(/\s+/).length;
       return n >= 4 && n <= 22;
     })
-    .map((l) => {
+    .map((l, i) => {
       const first = l.split(/\s+/)[0].toLowerCase().replace(/[^a-z]/g, '');
-      const hits = findSkills(l).filter((h) => matched.includes(h.name)).length;
-      return { l, first, hits };
+      const skills = findSkills(l).filter((h) => matched.includes(h.name)).map((h) => h.name);
+      return { l, first, skills, n: l.split(/\s+/).length, i };
     })
-    .filter((c) => c.hits > 0 && DUTY_VERBS.has(c.first))
-    .sort((a, b) => b.hits - a.hits);
-  const best = candidates[0];
-  if (!best) return null;
-  const rest = best.l.slice(best.l.indexOf(' ') + 1);
-  const phrase = `${gerund(best.first)} ${rest}`
-    .replace(/\bour\b/gi, 'your')
-    .replace(/\bwe\b/gi, 'you')
-    .replace(/\bus\b/g, 'you');
-  return phrase;
+    .filter((c) => c.skills.length > 0 && dutyBase(c.first) !== null)
+    // Most matching skills first, then the shorter and earlier duty.
+    .sort((a, b) => b.skills.length - a.skills.length || a.n - b.n || a.i - b.i);
+  const picked: string[] = [];
+  const usedSkills = new Set<string>();
+  for (const c of candidates) {
+    if (picked.length >= max) break;
+    if (c.skills.some((s) => usedSkills.has(s))) continue;
+    // Two duties together must still read as one sentence.
+    if (picked.length > 0 && c.n > 10) continue;
+    picked.push(duty(c.l, c.first));
+    c.skills.forEach((s) => usedSkills.add(s));
+  }
+  return picked;
+}
+
+/** The single best matching duty. Kept for callers that only need one. */
+export function dutyFromPosting(jd: string, matched: string[]): string | null {
+  return dutiesFromPosting(jd, matched, 1)[0] ?? null;
 }
 
 const DUTY_LINES: Record<LetterInput['tone'], (duty: string) => string> = {
@@ -228,6 +287,27 @@ function withLead(lead: string, sentence: string): string {
   return `${lead}${sentence}`;
 }
 
+/** The second achievement, phrased so it does not read like a new project was invented. */
+function secondAchievement(tone: LetterInput['tone'], text: string): string {
+  const s = achievementSentence(text);
+  if (!s) return '';
+  if (s.startsWith('One result I am proud of: ')) return s.replace('One result I am proud of: ', 'Another result I am proud of: ');
+  if (!/^I\s/.test(s)) return s;
+  if (tone === 'warm') return `I am also proud that ${s.charAt(0)}${s.slice(1)}`;
+  if (tone === 'direct') return s.replace(/^I\s+/, 'I also ');
+  return `Beyond that, ${s}`;
+}
+
+/** Posting skills the candidate has that the letter has not named yet. */
+function otherMatchedLine(extra: string[], tone: LetterInput['tone']): string {
+  if (extra.length === 0) return '';
+  const names = list(extra.map(skillInSentence));
+  const one = extra.length === 1;
+  if (tone === 'direct') return `You also ask for ${names}, which ${one ? 'is' : 'are'} already part of my work.`;
+  if (tone === 'warm') return `I was also happy to see ${names} in the posting, since ${one ? 'that is' : 'those are'} part of my everyday work.`;
+  return `${upperFirst(names)} ${one ? 'is' : 'are'} also on your list, and ${one ? 'it is' : 'they are'} part of my experience.`;
+}
+
 export const WHY_PLACEHOLDER_PREFIX = '[Add one line on why ';
 
 export function composeLetter(input: LetterInput, variant = 0, today = new Date()): string {
@@ -243,7 +323,7 @@ export function composeLetter(input: LetterInput, variant = 0, today = new Date(
   const ordered = match
     ? [...mySkills.filter((s) => matchedSet.has(canonical(s))), ...mySkills.filter((s) => !matchedSet.has(canonical(s)))]
     : mySkills;
-  const featured = ordered.slice(0, input.length === 'short' ? 3 : 4);
+  const featured = ordered.slice(0, input.length === 'short' ? 3 : 5);
   const fromPosting = !!match && featured.length >= 2 && featured.slice(0, 2).every((s) => matchedSet.has(canonical(s)));
 
   const opening = OPENINGS[input.tone][variant % OPENINGS[input.tone].length](job, company);
@@ -254,7 +334,7 @@ export function composeLetter(input: LetterInput, variant = 0, today = new Date(
   const p1 = `${opening} ${why}`;
 
   const p2Parts = [roleSentence(input.currentRole, input.years)];
-  if (featured.length > 0) p2Parts.push(SKILL_LINES[input.tone](list(featured), fromPosting));
+  if (featured.length > 0) p2Parts.push(SKILL_LINES[input.tone](list(featured.map(skillInSentence)), fromPosting));
   p2Parts.push(withLead('In that role, ', achievementSentence(input.achievement1)));
   const p2 = p2Parts.join(' ');
 
@@ -262,9 +342,22 @@ export function composeLetter(input: LetterInput, variant = 0, today = new Date(
 
   if (input.length === 'standard') {
     const p3: string[] = [];
-    const duty = match ? dutyFromPosting(input.jobDescription, match.matched) : null;
-    if (duty) p3.push(DUTY_LINES[input.tone](duty));
-    if (input.achievement2.trim()) p3.push(withLead('On another project, ', achievementSentence(input.achievement2)));
+    const duties = match ? dutiesFromPosting(input.jobDescription, match.matched, 2) : [];
+    if (duties.length > 0) {
+      // "x and y and z" reads badly, so join two duties that already contain "and" with "as well as".
+      const joined = duties.length === 2 && duties.some((d) => /\band\b/.test(d)) ? `${duties[0]}, as well as ${duties[1]}` : list(duties);
+      p3.push(DUTY_LINES[input.tone](joined));
+    }
+    if (match) {
+      // Skills the posting asks for that the candidate listed or described,
+      // but that the letter has not named yet. Never skills they do not have.
+      const said = new Set(findSkills(`${featured.join(', ')}\n${duties.join('\n')}`).map((h) => h.name.toLowerCase()));
+      featured.forEach((s) => said.add(canonical(s)));
+      const extra = match.matched.filter((m) => !said.has(m.toLowerCase())).slice(0, 3);
+      const line = otherMatchedLine(extra, input.tone);
+      if (line) p3.push(line);
+    }
+    if (input.achievement2.trim()) p3.push(secondAchievement(input.tone, input.achievement2));
     if (input.extra.trim()) p3.push(extraSentence(input.extra));
     if (input.achievement2.trim()) {
       p3.push(
@@ -277,7 +370,7 @@ export function composeLetter(input: LetterInput, variant = 0, today = new Date(
     }
     if (p3.length > 0) paragraphs.push(p3.join(' '));
   } else {
-    const more = [input.achievement2.trim() ? withLead('On another project, ', achievementSentence(input.achievement2)) : '', extraSentence(input.extra)]
+    const more = [input.achievement2.trim() ? secondAchievement(input.tone, input.achievement2) : '', extraSentence(input.extra)]
       .filter(Boolean)
       .join(' ');
     if (more) paragraphs[1] = `${p2} ${more}`;

@@ -37,6 +37,8 @@ export interface Evaluation {
   breakdown: { coverage: number; structure: number; specificity: number } | null;
   covered: string[];
   missed: string[];
+  /** Missed points the answer came close to: the right words, but not said clearly. Half credit. */
+  partial?: string[];
   /** Statements in the answer that look factually wrong. */
   incorrect: string[];
   structure: StructureCheck[];
@@ -190,6 +192,54 @@ function matchTerms(list: string, answer: Prepared): string[] {
 function hasAny(list: string, answer: Prepared): boolean {
   return matchTerms(list, answer).length > 0;
 }
+
+/**
+ * Near misses for multi word terms: every content word of the phrase is in
+ * the answer, close together, but not in that exact order. "understand
+ * their reasons" written as "to understand what his reasons were".
+ */
+function nearTerms(list: string, answer: Prepared): boolean {
+  for (const raw of list.split('|')) {
+    const tokens = tokenize(raw);
+    const content = tokens.filter((t) => !STOPWORDS.has(t)).map(stem);
+    if (tokens.length < 2 || content.length < 2) continue;
+    const positions = content.map((c) => answer.stems.flatMap((s, i) => (s === c ? [i] : [])));
+    if (positions.some((p) => p.length === 0)) continue;
+    // Some start position where every other word appears within 8 words.
+    const ok = positions[0].some((start) => positions.every((p) => p.some((i) => Math.abs(i - start) <= 8)));
+    if (ok) return true;
+  }
+  return false;
+}
+
+// ------------------------------------------------------ Everyday wording
+
+/**
+ * Rubric terms are written for each question, so a good behavioral answer in
+ * different words could miss a point. These groups add the common ways people
+ * say the same idea. They only add matches to a point whose label is about
+ * that idea, and they are used for behavioral questions only.
+ */
+const BEHAVIORAL_WORDING: [RegExp, string][] = [
+  [/facts or data|evidence|pilot/i, 'scored|measured|compared|wrote down|write down|written down|in writing|pros and cons|trade off|tradeoff|risks of|spike|pilot|trial|results showed|the numbers|figures|logs|user feedback|research|analysis|benchmark'],
+  [/understood the other|understood what the others|listened/i, 'asked each|asked them|asked him|asked her|their side|their view|both sides|each of them|one to one|hear them out|heard them out|where they were coming from|what mattered to|their worries|their reasoning'],
+  [/working relationship/i, 'still work|work closely|worked closely|good terms|get on well|got on well|no hard feelings|gave credit|stayed close|still friends'],
+  [/resolution or compromise/i, 'agreed to|settled on|chose to|we chose|landed on|went ahead|both happy'],
+  [/trade off/i, 'pros and cons|weighed|weighing|in exchange|at the cost|gave up|accepted|cost of|on the other hand'],
+  [/owned the mistake/i, 'i messed up|i got it wrong|i should have|i overlooked|my error'],
+  [/told the right people|communicated/i, 'emailed|messaged|let them know|let the team know|wrote up|status update|heads up|kept them posted|kept everyone|briefed'],
+];
+
+function termsFor(q: BankQuestion, label: string, terms: string): string {
+  if (q.category !== 'behavioral') return terms;
+  const extra = BEHAVIORAL_WORDING.filter(([re]) => re.test(label)).map(([, t]) => t);
+  return extra.length > 0 ? [terms, ...extra].join('|') : terms;
+}
+
+/** A concrete number tied to a result: 40%, 3x, 2,000 users, 12 hours, $5k. */
+const NUMBER_RESULT =
+  /\d+(?:[.,]\d+)?\s?(?:%|percent\b|x\b)|\b\d[\d,.]*\s?(?:users|customers|clients|hours|days|weeks|months|minutes|seconds|ms|incidents|tickets|bugs|errors|people|sales|orders|leads|subscribers|signups)\b|\$\s?\d/i;
+const MEASURABLE_LABEL = /measurable/i;
 
 // ---------------------------------------------------------- Vocabulary
 
@@ -509,23 +559,35 @@ export function evaluateAnswer(q: BankQuestion, answerText: string, level: Level
   const novelPrep: Prepared = a;
   const covered: string[] = [];
   const missed: string[] = [];
+  const partial: string[] = [];
   const allTermHits = new Set<string>();
+  // Points met by the question's own rubric words. The everyday wording and
+  // number rules add credit, but never rescue an answer that is off topic.
+  let rubricCovered = 0;
+  const notEcho = (hit: string) => {
+    const content = hit.split(' ').filter((s) => !STOPWORDS.has(s));
+    return content.length === 0 || !content.every((s) => qContent.has(s));
+  };
   for (const point of q.points) {
-    const hits = matchTerms(point.terms, novelPrep).filter((hit) => {
-      const content = hit.split(' ').filter((s) => !STOPWORDS.has(s));
-      return content.length === 0 || !content.every((s) => qContent.has(s));
-    });
+    const terms = termsFor(q, point.label, point.terms);
+    const hits = matchTerms(terms, novelPrep).filter(notEcho);
+    if (terms !== point.terms ? matchTerms(point.terms, novelPrep).some(notEcho) : hits.length > 0) rubricCovered++;
     if (hits.length > 0) {
       covered.push(point.label);
       hits.forEach((h) => allTermHits.add(h));
+    } else if (q.category === 'behavioral' && MEASURABLE_LABEL.test(point.label) && NUMBER_RESULT.test(text)) {
+      // "Gave a measurable result" is met by the number itself.
+      covered.push(point.label);
+      allTermHits.add('number');
     } else {
       missed.push(point.label);
+      if (nearTerms(terms, novelPrep)) partial.push(point.label);
     }
   }
 
   // Gate 5: nothing the question is looking for. If most of the words come
   // from the question itself, say so; otherwise it is off topic.
-  if (covered.length === 0) {
+  if (rubricCovered === 0) {
     const echo = aContent.length > 0 ? fromQuestion / aContent.length : 0;
     return rejected(q, echo >= 0.35 ? 'copied' : 'off_topic', wordCount, targetWords);
   }
@@ -542,7 +604,9 @@ export function evaluateAnswer(q: BankQuestion, answerText: string, level: Level
   const needed = Math.max(1, Math.ceil(q.points.length * COVERAGE_FACTOR[level]));
   // Reaching the level's bar earns most of the credit; the last few percent
   // need every point, so a perfect 10 means nothing was missed.
-  const coverage = 0.85 * Math.min(1, covered.length / needed) + 0.15 * (covered.length / q.points.length);
+  // A near miss earns half a point: the idea is there, it just is not said clearly.
+  const credit = covered.length + 0.5 * partial.length;
+  const coverage = 0.85 * Math.min(1, credit / needed) + 0.15 * (credit / q.points.length);
 
   const profile = profileForQuestion(q, role);
   const structure = structureChecks(profile, text, a);
@@ -611,7 +675,10 @@ export function evaluateAnswer(q: BankQuestion, answerText: string, level: Level
   if (flags.includes('team_language')) {
     improvements.push('You say "we" much more than "I". Interviewers are scoring you, so make your own part clear.');
   }
-  for (const point of missed.slice(0, 3)) improvements.push(`Add: ${point.charAt(0).toLowerCase()}${point.slice(1)}.`);
+  for (const point of missed.slice(0, 3)) {
+    const lower = `${point.charAt(0).toLowerCase()}${point.slice(1)}`;
+    improvements.push(partial.includes(point) ? `Make this clearer: ${lower}.` : `Add: ${lower}.`);
+  }
   for (const check of structure) if (!check.passed) improvements.push(check.tip);
   if (!numbers && profile !== 'technical') improvements.push('Add a number where you can, such as scale, a percentage or time saved.');
 
@@ -640,6 +707,7 @@ export function evaluateAnswer(q: BankQuestion, answerText: string, level: Level
     },
     covered,
     missed,
+    partial,
     incorrect,
     structure,
     strengths: strengths.slice(0, 5),

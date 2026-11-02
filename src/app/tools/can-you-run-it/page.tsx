@@ -112,7 +112,7 @@ export default function CanYouRunItPage() {
           },
           {
             name: "Search for the game",
-            text: "Enter the game name in the search box. The tool checks a curated database of major AAA releases and upcoming launches like GTA 6. Select the correct game from the dropdown to view its official minimum and recommended requirements.",
+            text: "Enter the game name in the search box. The tool checks a curated list of major releases and a few upcoming launches. GTA 6 is listed too, with a note that Rockstar has not announced a PC version. Select the correct game from the dropdown to view its official minimum and recommended requirements.",
             url: `${siteConfig.url}/tools/can-you-run-it`
           },
           {
