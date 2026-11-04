@@ -16,6 +16,12 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // The server sends this content fully visible. Only blocks that start
+    // below the screen get the fade in, and only once JavaScript is running,
+    // so a slow phone or a search engine never sees an empty section.
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.classList.add("reveal");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -32,7 +38,7 @@ export default function Reveal({
   }, []);
 
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div ref={ref} className={className} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );

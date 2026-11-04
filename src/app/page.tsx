@@ -1,8 +1,18 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/config";
-import { articles, guideCount, newestGuides } from "@/lib/home-articles";
+import { ARTICLE_GROUPS, articles, guideCount, newestGuides } from "@/lib/home-articles";
 import { getIndexableTrends, getTrendBySlug, trendCategories } from "@/data/trends-data";
-import { TOOLS_LABEL, featuredTrendPicks, homeFaqs, toolUpdates, type TrendCard, type UpdateItem } from "@/lib/home-data";
+import {
+  TICKER_UPDATES,
+  TOOLS_LABEL,
+  featuredTrendPicks,
+  homeFaqs,
+  pinnedTickerItems,
+  toolUpdates,
+  type TickerItem,
+  type TrendCard,
+  type UpdateItem,
+} from "@/lib/home-data";
 import { WebApplicationSchema, FAQSchema } from "@/components/seo/SchemaMarkup";
 import SeoContentSection from "@/components/sections/seo-content-section";
 import LiveTicker from "@/components/sections/live-ticker";
@@ -12,9 +22,7 @@ import ToolExplorer from "@/components/sections/tool-explorer";
 import TrendingNow from "@/components/sections/trending-now";
 import ExploreByGoal from "@/components/sections/explore-by-goal";
 import ArticlesCarousel from "@/components/sections/articles-carousel";
-import ToolStack from "@/components/sections/tool-stack";
 import LatestUpdates from "@/components/sections/latest-updates";
-import { Newsletter, FinalCta } from "@/components/sections/newsletter-cta";
 import IconDrawObserver from "@/components/icon-draw-observer";
 
 export const metadata: Metadata = {
@@ -137,6 +145,19 @@ export default function HomePage() {
     .sort((a, b) => +new Date(b.date) - +new Date(a.date))
     .map((u) => ({ ...u, shown: fmt(u.date) }));
 
+  // The ticker: pinned items first, then the newest changelog entries.
+  const pinned = new Set(pinnedTickerItems.map((p) => p.href));
+  const tickerItems: TickerItem[] = [
+    ...pinnedTickerItems,
+    ...updates
+      .filter((u) => !pinned.has(u.href))
+      .slice(0, TICKER_UPDATES)
+      .map((u) => ({ tag: u.kind === "New" ? ("NEW" as const) : ("UPDATED" as const), label: u.title, href: u.href })),
+  ];
+
+  // Articles grouped by subject, website and SEO first, newest first inside each group.
+  const groupedArticles = ARTICLE_GROUPS.flatMap((g) => articles.filter((a) => a.group === g));
+
   return (
     <>
       {/* Organization schema comes from the root layout (one entity, one @id). */}
@@ -151,18 +172,15 @@ export default function HomePage() {
       />
       <FAQSchema faqs={homeFaqs} />
 
-      <LiveTicker />
+      <LiveTicker items={tickerItems} />
       <HeroDiscovery toolsLabel={TOOLS_LABEL} guideCount={guideCount} trendCount={trendCount} />
       <FeaturedGrid />
       <ToolExplorer />
       <TrendingNow cards={trendCards} topics={topics} trendCount={trendCount} />
       <ExploreByGoal />
-      <ArticlesCarousel articles={articles} />
-      <ToolStack />
+      <ArticlesCarousel articles={groupedArticles} />
       <LatestUpdates items={updates} />
       <SeoContentSection />
-      <Newsletter />
-      <FinalCta />
     </>
   );
 }

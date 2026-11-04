@@ -4,20 +4,18 @@ import { TOOL_ICONS, TREND_RADAR_ICON } from "@/lib/tool-icons";
 /* ---------------- Live ticker ---------------- */
 
 export type TickerTag = "NEW" | "TRENDING" | "HOT" | "LATEST" | "UPDATED";
+export type TickerItem = { tag: TickerTag; label: string; href: string };
 
-export const liveTickerItems: { tag: TickerTag; label: string; href: string }[] = [
-  { tag: "UPDATED", label: "Budget Planner rebuilt as a monthly statement that saves your budget", href: "/tools/budget-planner" },
-  { tag: "UPDATED", label: "Habit Tracker now counts streaks from real dates", href: "/tools/habit-tracker" },
-  { tag: "UPDATED", label: "Productivity Planner turns your tasks into a timed day plan", href: "/tools/productivity-planner" },
-  { tag: "UPDATED", label: "Prompt Library rebuilt with 64 prompts and a prompt builder", href: "/tools/ai-prompt-library" },
+// Kept at the front of the ticker. Everything after these comes from the
+// changelog below (newest first, built in app/page.tsx), so the ticker can
+// never go stale. Remove the GTA 6 items once the launch week is over.
+export const pinnedTickerItems: TickerItem[] = [
   { tag: "HOT", label: "GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S", href: "/gta-6" },
-  { tag: "UPDATED", label: "Resume Builder rebuilt with a live resume check", href: "/tools/ai-resume-builder" },
   { tag: "LATEST", label: "No official GTA 6 PC specs yet: what is confirmed", href: "/tools/can-you-run-it/gta-6" },
-  { tag: "UPDATED", label: "Interview Simulator now checks what your answer covered", href: "/tools/ai-interview-simulator" },
-  { tag: "UPDATED", label: "Can You Run It specs checked against publishers", href: "/tools/can-you-run-it" },
-  { tag: "LATEST", label: "AI side hustles in 2026: one updated guide", href: "/trends/ai-side-hustles-make-money-2026" },
-  { tag: "UPDATED", label: "Cover Letter Generator rebuilt around the job posting", href: "/tools/ai-cover-letter-generator" },
 ];
+
+// How many changelog entries follow the pinned items.
+export const TICKER_UPDATES = 6;
 
 /* ---------------- Tool explorer ---------------- */
 
@@ -335,6 +333,7 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
+  { kind: "Updated", title: "Cover Letter, Resume and Interview tools now spot more skills and give fairer feedback", meta: "Tool · Career", href: "/tools/ai-cover-letter-generator", date: "2026-11-02" },
   { kind: "Updated", title: "Website Audit scoring made stricter and now counts real Google speed data", meta: "Tool · SEO", href: "/tools/website-audit", date: "2026-11-02" },
   { kind: "Updated", title: "Can You Run It: The Sims 4, Modern Warfare 4, Forza Horizon 6 and 3 more games added", meta: "Tool · Gaming", href: "/tools/can-you-run-it", date: "2026-10-28" },
   { kind: "Updated", title: "Can You Run It: Resident Evil Requiem, Crimson Desert and 3 more games added", meta: "Tool · Gaming", href: "/tools/can-you-run-it", date: "2026-10-23" },

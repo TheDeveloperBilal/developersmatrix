@@ -7,7 +7,8 @@ import { goals } from "@/lib/home-data";
 import { LinkIcon, SignedIcon } from "@/lib/tool-icons";
 
 export default function ExploreByGoal() {
-  const [activeId, setActiveId] = useState(goals[2].id); // default: Build my career
+  // Default: Improve my website, the site's main subject.
+  const [activeId, setActiveId] = useState(goals.find((g) => g.id === "website")?.id ?? goals[0].id);
   const active = goals.find((g) => g.id === activeId)!;
   // The panel animates only after a goal is picked, never on first load.
   const [changed, setChanged] = useState(false);

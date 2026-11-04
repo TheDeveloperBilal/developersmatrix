@@ -10,6 +10,12 @@ export default function ArticlesCarousel({ articles }: { articles: Article[] }) 
   const trackRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
+  // Every card stays in the page; a tab only hides the others, so all links
+  // are still there for visitors who switch back and for search engines.
+  const groups = articles.reduce<string[]>((acc, a) => (acc.includes(a.group) ? acc : [...acc, a.group]), []);
+  const tabs = ["All", ...groups];
+  const [tab, setTab] = useState("All");
+  const countFor = (t: string) => (t === "All" ? articles.length : articles.filter((a) => a.group === t).length);
 
   const updateArrows = () => {
     const el = trackRef.current;
@@ -31,6 +37,13 @@ export default function ArticlesCarousel({ articles }: { articles: Article[] }) 
 
   const scrollBy = (dir: number) => {
     trackRef.current?.scrollBy({ left: dir * 400, behavior: "smooth" });
+  };
+
+  const pick = (t: string) => {
+    setTab(t);
+    trackRef.current?.scrollTo({ left: 0 });
+    // Arrows depend on how many cards are showing, so check again after the change.
+    requestAnimationFrame(updateArrows);
   };
 
   return (
@@ -74,6 +87,24 @@ export default function ArticlesCarousel({ articles }: { articles: Article[] }) 
             </button>
           </div>
         </div>
+
+        <div className="mt-7 flex flex-wrap gap-2" role="tablist" aria-label="Filter articles by subject">
+          {tabs.map((t) => (
+            <button
+              key={t}
+              type="button"
+              role="tab"
+              aria-selected={tab === t}
+              onClick={() => pick(t)}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-300 ${
+                tab === t ? "bg-brand-600 text-white" : "bg-white/80 text-ink-600 shadow-sm hover:bg-white hover:text-ink-900"
+              }`}
+            >
+              {t}{" "}
+              <span className={`ml-1 text-xs ${tab === t ? "text-white/70" : "text-ink-400"}`}>{countFor(t)}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       <div
@@ -84,7 +115,7 @@ export default function ArticlesCarousel({ articles }: { articles: Article[] }) 
           <Link
             key={article.title}
             href={article.href}
-            className="group w-[19.5rem] shrink-0 snap-start sm:w-[22rem]"
+            className={`group w-[19.5rem] shrink-0 snap-start sm:w-[22rem] ${tab === "All" || article.group === tab ? "" : "hidden"}`}
           >
             <article className="card card-hover flex h-full flex-col overflow-hidden !p-0">
               <div className="relative h-44 overflow-hidden sm:h-48">
