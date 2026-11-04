@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { liveTickerItems, type TickerTag } from "@/lib/home-data";
+import type { TickerItem, TickerTag } from "@/lib/home-data";
 
 const tagStyles: Record<TickerTag, string> = {
   NEW: "bg-emerald-500 text-white",
@@ -9,8 +9,10 @@ const tagStyles: Record<TickerTag, string> = {
   UPDATED: "bg-amber-500 text-white",
 };
 
-export default function LiveTicker() {
-  const items = [...liveTickerItems, ...liveTickerItems];
+export default function LiveTicker({ items: list }: { items: TickerItem[] }) {
+  // The list runs twice so the loop is seamless; the second copy is hidden
+  // from screen readers and keyboard focus.
+  const items = [...list, ...list];
 
   return (
     <section
@@ -37,8 +39,8 @@ export default function LiveTicker() {
               <Link
                 key={`${item.label}-${i}`}
                 href={item.href}
-                tabIndex={i >= liveTickerItems.length ? -1 : undefined}
-                aria-hidden={i >= liveTickerItems.length}
+                tabIndex={i >= list.length ? -1 : undefined}
+                aria-hidden={i >= list.length}
                 className="flex shrink-0 items-center gap-2.5 text-[0.8125rem] font-medium text-white/70 transition-colors hover:text-white"
               >
                 <span

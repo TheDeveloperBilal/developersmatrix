@@ -9,13 +9,15 @@ import {
 import { ToolIcon } from "@/lib/tool-icons";
 import Reveal from "@/components/reveal";
 import { latestArticle } from "@/lib/home-articles";
-import { TOOLS_LABEL } from "@/lib/home-data";
+import { gamesDatabase } from "@/data/games-database";
 
-const quickAccess = [
-  { name: "Resume Builder", href: "/tools/ai-resume-builder", meta: "Free, no signup" },
-  { name: "Interview Simulator", href: "/tools/ai-interview-simulator", meta: "Instant answer feedback" },
-  { name: "Budget Planner", href: "/tools/budget-planner", meta: "Free, no signup" },
-];
+// The newest game pages, read from the games database (last added first).
+// GTA 6 is left out because it has its own card next to this one.
+const newestGames = gamesDatabase
+  .filter((g) => g.id !== "gta-6")
+  .slice(-3)
+  .reverse()
+  .map((g) => ({ name: g.name, href: `/tools/can-you-run-it/${g.id}`, meta: g.upcoming ? "Coming soon" : g.genre.slice(0, 2).join(", ") }));
 
 export default function FeaturedGrid() {
   return (
@@ -183,36 +185,40 @@ export default function FeaturedGrid() {
             </Link>
           </Reveal>
 
-          {/* Quick access stack */}
-          <Reveal delay={190}>
-            <div className="card flex h-full flex-col p-6 sm:p-7">
+          {/* Can You Run It: newest game pages */}
+          {/* min-w-0 lets long game names truncate instead of widening the grid on phones. */}
+          <Reveal delay={190} className="min-w-0">
+            <div className="card flex h-full min-w-0 flex-col p-6 sm:p-7">
               <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">
-                Quick access
+                Can my PC run it?
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-500">
+                {gamesDatabase.length} games, each with its own requirements page. The newest:
               </p>
               <ul className="mt-4 flex-1 space-y-2">
-                {quickAccess.map((tool) => (
-                  <li key={tool.name}>
+                {newestGames.map((game) => (
+                  <li key={game.href}>
                     <Link
-                      href={tool.href}
+                      href={game.href}
                       className="group flex w-full items-center gap-3 rounded-2xl bg-white/90 px-3 py-2.5 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-card"
                     >
-                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
-                        <ToolIcon tool={tool.href} className="h-4 w-4" />
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
+                        <ToolIcon tool="can-you-run-it" className="h-4 w-4" />
                       </span>
-                      <span className="flex-1">
-                        <span className="block text-sm font-semibold text-ink-900">{tool.name}</span>
-                        <span className="block text-xs text-ink-400">{tool.meta}</span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-semibold leading-snug text-ink-900">{game.name}</span>
+                        <span className="block truncate text-xs text-ink-400">{game.meta}</span>
                       </span>
-                      <ArrowUpRight className="h-4 w-4 text-ink-300 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-600" />
+                      <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-300 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-600" />
                     </Link>
                   </li>
                 ))}
               </ul>
               <Link
-                href="/tools"
+                href="/tools/can-you-run-it"
                 className="mt-4 inline-flex items-center gap-1.5 border-t border-ink-100/50 pt-4 text-sm font-semibold text-brand-600 hover:text-brand-700"
               >
-                All {TOOLS_LABEL} tools <ArrowRight className="h-3.5 w-3.5" />
+                Check your PC <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           </Reveal>

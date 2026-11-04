@@ -8,7 +8,18 @@
 import blogsJson from "@/data/high-quality-blogs.json";
 import { getBlogSummaries } from "@/data/blog";
 
+// Homepage article tabs. The first two match the site's main subjects.
+export const ARTICLE_GROUPS = ["Website and SEO", "Career", "AI and tech"] as const;
+export type ArticleGroup = (typeof ARTICLE_GROUPS)[number];
+
+function articleGroup(slug: string, category: string): ArticleGroup {
+  if (category === "SEO" || category === "Web Development" || /audit|seo|website/.test(slug)) return "Website and SEO";
+  if (/resume-builders|resume-guide|interview|cover-letter|faang|job-offers/.test(slug)) return "Career";
+  return "AI and tech";
+}
+
 export type Article = {
+  group: ArticleGroup;
   title: string;
   description: string;
   category: string;
@@ -55,6 +66,7 @@ export const articles: Article[] = rawBlogs
   .slice()
   .sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt))
   .map((b) => ({
+    group: articleGroup(b.slug, b.category),
     title: b.title,
     description: b.excerpt,
     category: b.category,
