@@ -39,12 +39,17 @@ export default function ArticlesCarousel({ articles }: { articles: Article[] }) 
     trackRef.current?.scrollBy({ left: dir * 400, behavior: "smooth" });
   };
 
-  const pick = (t: string) => {
-    setTab(t);
-    trackRef.current?.scrollTo({ left: 0 });
-    // Arrows depend on how many cards are showing, so check again after the change.
-    requestAnimationFrame(updateArrows);
-  };
+  const pick = (t: string) => setTab(t);
+
+  // After a tab change, go back to the first card. This has to run after the
+  // new cards are on screen: scroll snapping otherwise jumps back to the card
+  // that was showing before, which can be far along the row.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollTo({ left: 0 });
+    updateArrows();
+  }, [tab]);
 
   return (
     <section className="bg-ink-50/40 py-16 overflow-hidden lg:py-20" aria-labelledby="articles-heading">
