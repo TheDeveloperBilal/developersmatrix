@@ -158,17 +158,19 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
                   {pickedFromMore ? label(more.find((g) => g.id === gameId)!) : "More games"}
                 </span>
                 <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-2.5 h-3.5 w-3.5 opacity-70" />
+                {/* The open list takes its colours from the select. It must be set to dark
+                    explicitly, or browsers show white text on a white list. */}
                 <select
                   aria-label="More games"
                   value={pickedFromMore ? gameId : ""}
                   onChange={(e) => e.target.value && chooseGame(e.target.value)}
-                  className="absolute inset-0 cursor-pointer opacity-0"
+                  className="absolute inset-0 cursor-pointer bg-ink-900 text-white opacity-0 [color-scheme:dark]"
                 >
-                  <option value="" disabled>
+                  <option value="" disabled className="bg-ink-900 text-white/50">
                     More games
                   </option>
                   {more.map((g) => (
-                    <option key={g.id} value={g.id}>
+                    <option key={g.id} value={g.id} className="bg-ink-900 text-white">
                       {g.name}
                     </option>
                   ))}
