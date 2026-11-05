@@ -18,6 +18,7 @@ import SeoContentSection from "@/components/sections/seo-content-section";
 import LiveTicker from "@/components/sections/live-ticker";
 import HeroDiscovery from "@/components/sections/hero-discovery";
 import FeaturedGrid from "@/components/sections/featured-grid";
+import TryIt from "@/components/sections/try-it";
 import ToolExplorer from "@/components/sections/tool-explorer";
 import TrendingNow from "@/components/sections/trending-now";
 import ExploreByGoal from "@/components/sections/explore-by-goal";
@@ -175,6 +176,7 @@ export default function HomePage() {
       <LiveTicker items={tickerItems} />
       <HeroDiscovery toolsLabel={TOOLS_LABEL} guideCount={guideCount} trendCount={trendCount} />
       <FeaturedGrid />
+      <TryIt />
       <ToolExplorer />
       <TrendingNow cards={trendCards} topics={topics} trendCount={trendCount} />
       <ExploreByGoal />
