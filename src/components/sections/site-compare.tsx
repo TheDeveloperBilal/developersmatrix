@@ -72,6 +72,7 @@ export default function SiteCompare() {
             Average site
           </span>
         </p>
+        <p className="mt-1 text-[0.6875rem] text-ink-400">Based on your answers, not a scan of your site.</p>
       </div>
 
       <ul className="mt-5">
@@ -126,7 +127,7 @@ export default function SiteCompare() {
           href="/tools/website-audit"
           className="inline-flex h-11 items-center gap-1.5 rounded-xl bg-ink-950 px-4 text-[0.8125rem] font-medium text-white transition-colors hover:bg-ink-800"
         >
-          Run the free audit <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          Check my site for real <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
         <Link href={STUDY} className="text-[0.8125rem] text-ink-500 hover:text-brand-700">
           See the study

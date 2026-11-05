@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Loader2 } from "lucide-react";
 
@@ -12,7 +12,7 @@ type Result =
       gameId: string;
       gameName: string;
       canRun: boolean;
-      score: number;
+      settings: string;
       fps: string;
       upgrade: string | null;
       matched: { cpu: string; gpu: string };
@@ -31,6 +31,21 @@ const STORAGE_NOT_CHECKED = 100000;
 
 const label = (g: GameOption) => g.short ?? g.name;
 
+// The ring shows the likely settings, which the check route works out from the
+// publisher's recommended spec. The route's 0 to 100 score is not shown here:
+// it stops at 100 once a PC is about twice the minimum, so most mid range PCs
+// would score 100 on most games and the number would say nothing.
+function preset(settings: string): { pct: number; text: string } {
+  if (settings.startsWith("High to Ultra")) return { pct: 100, text: "Ultra" };
+  if (settings.startsWith("Low to Medium")) return { pct: 45, text: "Low to Med" };
+  if (settings.startsWith("High")) return { pct: 80, text: "High" };
+  if (settings.startsWith("Medium")) return { pct: 60, text: "Medium" };
+  if (settings.startsWith("Low")) return { pct: 30, text: "Low" };
+  return { pct: 10, text: "Below min" };
+}
+
+type Field = "gpu" | "cpu";
+
 export default function QuickPcCheck({ games }: { games: GameOption[] }) {
   const uid = useId();
   const [gameId, setGameId] = useState(games[0]?.id ?? "");
@@ -39,6 +54,8 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
   const [ram, setRam] = useState(16);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
+  const [missing, setMissing] = useState<Record<Field, boolean>>({ gpu: false, cpu: false });
+  const inputs = useRef<Record<Field, HTMLInputElement | null>>({ gpu: null, cpu: null });
   // The 274 part names load only when someone starts using the form, so they
   // add nothing to the homepage until they are needed.
   const [parts, setParts] = useState<{ gpus: string[]; cpus: string[] } | null>(null);
@@ -61,10 +78,16 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!gpu.trim() || !cpu.trim()) {
-      setResult({ kind: "error", message: "Add your graphics card and processor first.", suggestions: [] });
+    const empty = { gpu: !gpu.trim(), cpu: !cpu.trim() };
+    if (empty.gpu || empty.cpu) {
+      setMissing(empty);
+      // Point at the empty box, so the message is never confusing.
+      inputs.current[empty.gpu ? "gpu" : "cpu"]?.focus();
+      const what = empty.gpu && empty.cpu ? "your graphics card and processor" : empty.gpu ? "your graphics card" : "your processor";
+      setResult({ kind: "error", message: `Type ${what} first.`, suggestions: [] });
       return;
     }
+    setMissing({ gpu: false, cpu: false });
     setBusy(true);
     setResult(null);
     try {
@@ -75,6 +98,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
       });
       const data = await res.json();
       if (!res.ok) {
+        if (data.field === "gpu" || data.field === "cpu") setMissing({ gpu: data.field === "gpu", cpu: data.field === "cpu" });
         setResult({
           kind: "error",
           message: data.error ?? "Something went wrong. Please try again.",
@@ -88,7 +112,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
         gameId: data.game.id,
         gameName: data.game.name,
         canRun: !!data.canRun,
-        score: Math.max(0, Math.min(100, Number(data.performance?.score) || 0)),
+        settings: data.performance?.settings ?? "",
         fps: data.performance?.fps_estimate ?? "",
         upgrade: Array.isArray(data.upgrades) && data.upgrades.length > 0 ? data.upgrades[0] : null,
         matched: data.matched,
@@ -105,6 +129,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
     if (result?.kind !== "error") return;
     if (result.field === "cpu") setCpu(name);
     else setGpu(name);
+    setMissing({ gpu: false, cpu: false });
     setResult(null);
   };
 
@@ -117,7 +142,9 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
 
   const ok = result?.kind === "ok" ? result : null;
   const ringColor = ok ? (ok.canRun ? "#34d399" : "#fb7185") : "rgba(255,255,255,0.25)";
-  const ringPct = ok ? ok.score : 0;
+  // A PC below the minimum always reads "Below min", whatever part fell short.
+  const ring = ok ? (ok.canRun ? preset(ok.settings) : { pct: 10, text: "Below min" }) : null;
+  const ringPct = ring ? ring.pct : 0;
 
   return (
     <div className="relative min-w-0 overflow-hidden rounded-3xl bg-ink-950 p-6 text-white shadow-card sm:p-8">
@@ -134,7 +161,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-sora text-lg font-medium">Can my PC run it?</h3>
           <span className="shrink-0 rounded-full border border-white/12 bg-white/[0.07] px-2.5 py-1 text-[0.6875rem] text-brand-200">
-            {games.length} games
+            {games.length} games with PC specs
           </span>
         </div>
 
@@ -183,27 +210,41 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
         <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
           {(
             [
-              ["GPU", "Graphics card", gpu, setGpu, "RTX 3060", `${uid}-gpus`],
-              ["CPU", "Processor", cpu, setCpu, "Ryzen 5 5600", `${uid}-cpus`],
+              ["gpu", "GPU", "Graphics card", gpu, setGpu, "Type your graphics card", "RTX 3060", `${uid}-gpus`],
+              ["cpu", "CPU", "Processor", cpu, setCpu, "Type your processor", "Ryzen 5 5600", `${uid}-cpus`],
             ] as const
-          ).map(([short, full, value, set, hint, list]) => (
-            <label
-              key={short}
-              className="flex h-12 min-w-0 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-3.5 transition-colors focus-within:border-brand-300 focus-within:bg-white/[0.08]"
-            >
-              <span className="w-8 shrink-0 text-[0.6875rem] uppercase tracking-[0.12em] text-white/45" aria-hidden="true">
-                {short}
-              </span>
-              <input
-                value={value}
-                onChange={(e) => set(e.target.value)}
-                list={list}
-                aria-label={full}
-                placeholder={hint}
-                autoComplete="off"
-                className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/35"
-              />
-            </label>
+          ).map(([key, short, full, value, set, prompt, example, list]) => (
+            <div key={key} className="min-w-0">
+              <label
+                className={`flex h-12 min-w-0 items-center gap-3 rounded-2xl border bg-white/[0.05] px-3.5 transition-colors focus-within:bg-white/[0.08] ${
+                  missing[key] ? "border-rose-400/80" : "border-white/10 focus-within:border-brand-300"
+                }`}
+              >
+                <span className="w-8 shrink-0 text-[0.6875rem] uppercase tracking-[0.12em] text-white/45" aria-hidden="true">
+                  {short}
+                </span>
+                <input
+                  ref={(el) => {
+                    inputs.current[key] = el;
+                  }}
+                  value={value}
+                  onChange={(e) => {
+                    set(e.target.value);
+                    if (missing[key]) setMissing((m) => ({ ...m, [key]: false }));
+                  }}
+                  list={list}
+                  aria-label={full}
+                  aria-invalid={missing[key] || undefined}
+                  aria-describedby={`${uid}-${key}-example`}
+                  placeholder={prompt}
+                  autoComplete="off"
+                  className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:italic placeholder:text-white/30"
+                />
+              </label>
+              <p id={`${uid}-${key}-example`} className="mt-1 pl-1 text-[0.6875rem] text-white/40">
+                Example: {example}
+              </p>
+            </div>
           ))}
         </div>
 
@@ -285,8 +326,12 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
               className="grid h-16 w-16 shrink-0 place-items-center rounded-full transition-[background] duration-500"
               style={{ background: `conic-gradient(${ringColor} ${ringPct}%, rgba(255,255,255,0.08) 0)` }}
             >
-              <span className="grid h-[3.25rem] w-[3.25rem] place-items-center rounded-full bg-ink-950 font-sora text-[0.95rem] font-medium">
-                {ok ? ok.score : "?"}
+              <span
+                className={`grid h-[3.25rem] w-[3.25rem] place-items-center rounded-full bg-ink-950 px-1 text-center font-sora font-medium leading-tight ${
+                  ring && ring.text.length > 6 ? "text-[0.625rem]" : "text-[0.8125rem]"
+                }`}
+              >
+                {ring ? ring.text : "?"}
               </span>
             </div>
             <div className="min-w-0 text-sm">
@@ -299,7 +344,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
                     {ok.canRun ? `Our estimate: ${ok.fps}.` : ok.upgrade ?? "Part of your PC is below the minimum specs."}
                   </p>
                   <p className="mt-1 text-xs text-white/40">
-                    Score out of 100 for {ok.matched.gpu}, {ok.matched.cpu}, {ok.ram} GB. Free space not checked.
+                    Checked {ok.matched.gpu}, {ok.matched.cpu}, {ok.ram} GB. Free space not checked.
                   </p>
                   <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
                     <Link
@@ -316,7 +361,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
               ) : (
                 <>
                   <p className="font-sora text-[0.95rem] font-medium">Your result shows here</p>
-                  <p className="mt-0.5 text-white/55">A score, likely settings and a frame rate estimate.</p>
+                  <p className="mt-0.5 text-white/55">Likely settings and a frame rate estimate.</p>
                 </>
               )}
             </div>
