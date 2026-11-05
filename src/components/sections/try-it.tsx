@@ -9,27 +9,22 @@ const checkableGames = gamesDatabase
   .filter((g) => g.requirementsStatus !== "unannounced")
   .slice()
   .sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0) || a.name.localeCompare(b.name))
-  .map((g) => ({ id: g.id, name: g.name }));
+  .map((g) => ({ id: g.id, name: g.name, short: g.searchName ?? null }));
 
 export default function TryIt() {
   return (
-    <section className="border-t border-ink-100/60 py-16 overflow-hidden lg:py-20" aria-labelledby="try-heading">
+    <section className="py-16 overflow-hidden lg:py-20" aria-labelledby="try-heading">
       <div className="shell">
-        <div className="max-w-2xl">
-          <p className="eyebrow">Try it right here</p>
-          <h2
-            id="try-heading"
-            className="mt-4 font-sora text-3xl font-bold tracking-tight text-ink-950 sm:text-4xl"
-          >
-            Two quick answers, no signup
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-ink-500">
-            Check whether your PC can run a game, or see how your website compares with the local
-            business websites in our 2026 study. Each one takes under a minute.
-          </p>
-        </div>
+        <p className="eyebrow">Try it now</p>
+        <h2
+          id="try-heading"
+          className="mt-4 font-sora text-3xl font-semibold tracking-tight text-ink-950 sm:text-[2.1rem]"
+        >
+          Two quick answers
+        </h2>
+        <p className="mt-2 text-[0.95rem] text-ink-500">No signup. Under a minute each.</p>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        <div className="mt-8 grid gap-5 lg:grid-cols-[1.05fr_1fr]">
           <QuickPcCheck games={checkableGames} />
           <SiteCompare />
         </div>

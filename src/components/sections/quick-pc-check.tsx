@@ -2,10 +2,9 @@
 
 import { useId, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Loader2, XCircle } from "lucide-react";
-import { ToolIcon } from "@/lib/tool-icons";
+import { ArrowRight, ChevronDown, Loader2 } from "lucide-react";
 
-type GameOption = { id: string; name: string };
+type GameOption = { id: string; name: string; short: string | null };
 
 type Result =
   | {
@@ -13,20 +12,24 @@ type Result =
       gameId: string;
       gameName: string;
       canRun: boolean;
-      settings: string;
+      score: number;
       fps: string;
-      matched: { cpu: string; gpu: string };
       upgrade: string | null;
+      matched: { cpu: string; gpu: string };
       ram: number;
     }
   | { kind: "error"; message: string; field?: string; suggestions: string[] };
 
 const MEMORY = [8, 16, 32, 64];
+// How many of the most searched games get a one tap chip. The rest sit in "More games".
+const CHIPS = 5;
 
 // Free space is not asked here. The full checker on the game page checks it,
 // and the card says so, so a large value is sent to keep storage out of the
 // quick answer. The check route accepts up to 100,000 GB.
 const STORAGE_NOT_CHECKED = 100000;
+
+const label = (g: GameOption) => g.short ?? g.name;
 
 export default function QuickPcCheck({ games }: { games: GameOption[] }) {
   const uid = useId();
@@ -36,15 +39,24 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
   const [ram, setRam] = useState(16);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
-  // The 274 part names load only when someone starts filling the form in,
-  // so they add nothing to the homepage until they are needed.
+  // The 274 part names load only when someone starts using the form, so they
+  // add nothing to the homepage until they are needed.
   const [parts, setParts] = useState<{ gpus: string[]; cpus: string[] } | null>(null);
+
+  const chips = games.slice(0, CHIPS);
+  const more = games.slice(CHIPS);
+  const pickedFromMore = more.some((g) => g.id === gameId);
 
   const loadParts = () => {
     if (parts) return;
     import("@/lib/hardware/catalogue").then((m) =>
       setParts({ gpus: m.GPUS.map((p) => p.name), cpus: m.CPUS.map((p) => p.name) })
     );
+  };
+
+  const chooseGame = (id: string) => {
+    setGameId(id);
+    setResult(null);
   };
 
   const submit = async (e: FormEvent) => {
@@ -76,10 +88,10 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
         gameId: data.game.id,
         gameName: data.game.name,
         canRun: !!data.canRun,
-        settings: data.performance?.settings ?? "",
+        score: Math.max(0, Math.min(100, Number(data.performance?.score) || 0)),
         fps: data.performance?.fps_estimate ?? "",
-        matched: data.matched,
         upgrade: Array.isArray(data.upgrades) && data.upgrades.length > 0 ? data.upgrades[0] : null,
+        matched: data.matched,
         ram,
       });
     } catch {
@@ -96,68 +108,123 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
     setResult(null);
   };
 
-  const field =
-    "mt-1.5 h-11 w-full min-w-0 rounded-xl border border-ink-100 bg-white px-3 text-sm text-ink-900 shadow-sm outline-none transition-colors placeholder:text-ink-300 focus:border-brand-400 focus:ring-2 focus:ring-brand-100";
+  const chip = (active: boolean) =>
+    `rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors ${
+      active
+        ? "border-white bg-white text-ink-950"
+        : "border-white/15 bg-white/[0.04] text-white/80 hover:border-brand-300/60 hover:text-white"
+    }`;
+
+  const ok = result?.kind === "ok" ? result : null;
+  const ringColor = ok ? (ok.canRun ? "#34d399" : "#fb7185") : "rgba(255,255,255,0.25)";
+  const ringPct = ok ? ok.score : 0;
 
   return (
-    <div className="card flex min-w-0 flex-col p-6 sm:p-8">
-      <div className="flex items-center gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-          <ToolIcon tool="can-you-run-it" className="h-5 w-5" />
-        </span>
-        <h3 className="font-sora text-xl font-bold text-ink-950">Can my PC run it?</h3>
-      </div>
-      <p className="mt-3 text-sm leading-relaxed text-ink-500">
-        Pick a game, then type your graphics card and processor and choose one from the list. We
-        compare them with the specs the publisher released.
-      </p>
+    <div className="relative min-w-0 overflow-hidden rounded-3xl bg-ink-950 p-6 text-white shadow-card sm:p-8">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-28 -top-36 h-[24rem] w-[28rem] rounded-full bg-[radial-gradient(closest-side,rgba(124,58,237,0.42),transparent)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(circle,rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(black,transparent_70%)]"
+      />
 
-      <form onSubmit={submit} onFocus={loadParts} onPointerEnter={loadParts} className="mt-6 grid gap-4 sm:grid-cols-2">
-        <label className="block text-xs font-semibold text-ink-700 sm:col-span-2">
-          Game
-          <select value={gameId} onChange={(e) => { setGameId(e.target.value); setResult(null); }} className={field}>
-            {games.map((g) => (
-              <option key={g.id} value={g.id}>
-                {g.name}
-              </option>
+      <form onSubmit={submit} onFocus={loadParts} onPointerEnter={loadParts} className="relative">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="font-sora text-lg font-medium">Can my PC run it?</h3>
+          <span className="shrink-0 rounded-full border border-white/12 bg-white/[0.07] px-2.5 py-1 text-[0.6875rem] text-brand-200">
+            {games.length} games
+          </span>
+        </div>
+
+        <fieldset className="mt-5 min-w-0">
+          <legend className="sr-only">Game</legend>
+          <div className="flex flex-wrap gap-2">
+            {chips.map((g) => (
+              <button
+                key={g.id}
+                type="button"
+                aria-pressed={gameId === g.id}
+                onClick={() => chooseGame(g.id)}
+                className={chip(gameId === g.id)}
+              >
+                {label(g)}
+              </button>
             ))}
-          </select>
-        </label>
+            {more.length > 0 && (
+              <span className={`relative inline-flex items-center ${chip(pickedFromMore)}`}>
+                <span className="pointer-events-none max-w-[11rem] truncate pr-4">
+                  {pickedFromMore ? label(more.find((g) => g.id === gameId)!) : "More games"}
+                </span>
+                <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-2.5 h-3.5 w-3.5 opacity-70" />
+                <select
+                  aria-label="More games"
+                  value={pickedFromMore ? gameId : ""}
+                  onChange={(e) => e.target.value && chooseGame(e.target.value)}
+                  className="absolute inset-0 cursor-pointer opacity-0"
+                >
+                  <option value="" disabled>
+                    More games
+                  </option>
+                  {more.map((g) => (
+                    <option key={g.id} value={g.id}>
+                      {g.name}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            )}
+          </div>
+        </fieldset>
 
-        <label className="block text-xs font-semibold text-ink-700 sm:col-span-2">
-          Graphics card
-          <input
-            value={gpu}
-            onChange={(e) => setGpu(e.target.value)}
-            list={`${uid}-gpus`}
-            placeholder="For example RTX 3060"
-            autoComplete="off"
-            className={field}
-          />
-        </label>
+        <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+          {(
+            [
+              ["GPU", "Graphics card", gpu, setGpu, "RTX 3060", `${uid}-gpus`],
+              ["CPU", "Processor", cpu, setCpu, "Ryzen 5 5600", `${uid}-cpus`],
+            ] as const
+          ).map(([short, full, value, set, hint, list]) => (
+            <label
+              key={short}
+              className="flex h-12 min-w-0 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-3.5 transition-colors focus-within:border-brand-300 focus-within:bg-white/[0.08]"
+            >
+              <span className="w-8 shrink-0 text-[0.6875rem] uppercase tracking-[0.12em] text-white/45" aria-hidden="true">
+                {short}
+              </span>
+              <input
+                value={value}
+                onChange={(e) => set(e.target.value)}
+                list={list}
+                aria-label={full}
+                placeholder={hint}
+                autoComplete="off"
+                className="min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/35"
+              />
+            </label>
+          ))}
+        </div>
 
-        <label className="block text-xs font-semibold text-ink-700">
-          Processor
-          <input
-            value={cpu}
-            onChange={(e) => setCpu(e.target.value)}
-            list={`${uid}-cpus`}
-            placeholder="For example Ryzen 5 5600"
-            autoComplete="off"
-            className={field}
-          />
-        </label>
-
-        <label className="block text-xs font-semibold text-ink-700">
-          Memory
-          <select value={ram} onChange={(e) => setRam(Number(e.target.value))} className={field}>
+        <fieldset className="mt-2.5 min-w-0">
+          <legend className="sr-only">Memory</legend>
+          <div className="grid grid-cols-4 gap-1.5">
             {MEMORY.map((m) => (
-              <option key={m} value={m}>
+              <button
+                key={m}
+                type="button"
+                aria-pressed={ram === m}
+                onClick={() => setRam(m)}
+                className={`h-10 rounded-xl border text-[0.8125rem] font-medium transition-colors ${
+                  ram === m
+                    ? "border-brand-300 bg-brand-600/35 text-white"
+                    : "border-white/10 text-white/70 hover:border-white/25 hover:text-white"
+                }`}
+              >
                 {m} GB
-              </option>
+              </button>
             ))}
-          </select>
-        </label>
+          </div>
+        </fieldset>
 
         {parts && (
           <>
@@ -174,18 +241,26 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
           </>
         )}
 
-        <div className="sm:col-span-2">
-          <button type="submit" disabled={busy} className="btn-primary w-full justify-center disabled:opacity-60 sm:w-auto">
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            Check my PC
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={busy}
+          className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-brand-600 text-sm font-semibold text-white shadow-[0_12px_30px_-12px_rgba(124,58,237,0.9)] transition-colors hover:bg-brand-500 disabled:opacity-60"
+        >
+          {busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+          Check my PC
+        </button>
       </form>
 
-      <div aria-live="polite" className="mt-5">
-        {result?.kind === "error" && (
-          <div className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-900">
-            <p>{result.message}</p>
+      {/* Result. Always on screen, so the card does not jump when an answer arrives. */}
+      <div
+        aria-live="polite"
+        className={`relative mt-4 flex items-start gap-4 rounded-2xl border p-4 sm:items-center ${
+          result ? "border-white/12 bg-white/[0.05]" : "border-dashed border-white/15 bg-white/[0.03]"
+        }`}
+      >
+        {result?.kind === "error" ? (
+          <div className="min-w-0 text-sm">
+            <p className="text-amber-200">{result.message}</p>
             {result.suggestions.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {result.suggestions.map((s) => (
@@ -193,7 +268,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
                     key={s}
                     type="button"
                     onClick={() => pickSuggestion(s)}
-                    className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-ink-800 shadow-sm hover:text-brand-700"
+                    className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/20"
                   >
                     {s}
                   </button>
@@ -201,45 +276,49 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
               </div>
             )}
           </div>
-        )}
-
-        {result?.kind === "ok" && (
-          <div className={`rounded-2xl p-4 text-sm ${result.canRun ? "bg-emerald-50 text-emerald-950" : "bg-rose-50 text-rose-950"}`}>
-            <p className="flex items-start gap-2 font-semibold">
-              {result.canRun ? (
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-              ) : (
-                <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" />
-              )}
-              {result.canRun
-                ? `Yes, your PC meets the minimum specs for ${result.gameName}.`
-                : `Not quite. Part of your PC is below the minimum specs for ${result.gameName}.`}
-            </p>
-            {result.canRun && (
-              <p className="mt-2 leading-relaxed">
-                Likely settings: {result.settings}. Our estimate: {result.fps}.
-              </p>
-            )}
-            {!result.canRun && result.upgrade && <p className="mt-2 leading-relaxed">{result.upgrade}</p>}
-            <p className="mt-2 text-xs opacity-70">
-              Checked {result.matched.gpu} and {result.matched.cpu} with {result.ram} GB of memory. Free space is not
-              checked here.
-            </p>
-            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-              <Link
-                href={`/tools/can-you-run-it/${result.gameId}`}
-                className="inline-flex items-center gap-1 font-semibold text-brand-700 hover:text-brand-800"
-              >
-                Full breakdown for {result.gameName} <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-              <Link
-                href={`/tools/can-you-run-it#game=${result.gameId}`}
-                className="inline-flex items-center gap-1 font-semibold text-ink-600 hover:text-brand-700"
-              >
-                Check storage and more
-              </Link>
+        ) : (
+          <>
+            <div
+              aria-hidden="true"
+              className="grid h-16 w-16 shrink-0 place-items-center rounded-full transition-[background] duration-500"
+              style={{ background: `conic-gradient(${ringColor} ${ringPct}%, rgba(255,255,255,0.08) 0)` }}
+            >
+              <span className="grid h-[3.25rem] w-[3.25rem] place-items-center rounded-full bg-ink-950 font-sora text-[0.95rem] font-medium">
+                {ok ? ok.score : "?"}
+              </span>
             </div>
-          </div>
+            <div className="min-w-0 text-sm">
+              {ok ? (
+                <>
+                  <p className="font-sora text-[0.95rem] font-medium">
+                    {ok.canRun ? `Yes, it runs ${ok.gameName}` : `Not quite for ${ok.gameName}`}
+                  </p>
+                  <p className="mt-0.5 leading-relaxed text-white/60">
+                    {ok.canRun ? `Our estimate: ${ok.fps}.` : ok.upgrade ?? "Part of your PC is below the minimum specs."}
+                  </p>
+                  <p className="mt-1 text-xs text-white/40">
+                    Score out of 100 for {ok.matched.gpu}, {ok.matched.cpu}, {ok.ram} GB. Free space not checked.
+                  </p>
+                  <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                    <Link
+                      href={`/tools/can-you-run-it/${ok.gameId}`}
+                      className="inline-flex items-center gap-1 font-medium text-brand-300 hover:text-brand-200"
+                    >
+                      Full breakdown <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    </Link>
+                    <Link href={`/tools/can-you-run-it#game=${ok.gameId}`} className="text-white/55 hover:text-white">
+                      Check storage too
+                    </Link>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="font-sora text-[0.95rem] font-medium">Your result shows here</p>
+                  <p className="mt-0.5 text-white/55">A score, likely settings and a frame rate estimate.</p>
+                </>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>
