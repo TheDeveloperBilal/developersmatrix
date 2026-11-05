@@ -99,7 +99,7 @@ export default function SiteCompare() {
                   {OPTIONS.map((o) => (
                     <label
                       key={o.value}
-                      className={`cursor-pointer rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors focus-within:ring-2 focus-within:ring-brand-200 ${
+                      className={`cursor-pointer rounded-lg px-3 py-2 text-xs font-medium sm:px-2.5 sm:py-1.5 transition-colors focus-within:ring-2 focus-within:ring-brand-200 ${
                         a === o.value ? `bg-white shadow-sm ${o.on}` : "text-ink-500 hover:text-ink-900"
                       }`}
                     >
