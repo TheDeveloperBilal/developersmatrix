@@ -193,7 +193,7 @@ export default function FeaturedGrid() {
                 Can my PC run it?
               </p>
               <p className="mt-2 text-sm leading-relaxed text-ink-500">
-                {gamesDatabase.length} games, each with its own requirements page. The newest:
+                {gamesDatabase.length} game pages, {gamesDatabase.filter((g) => g.requirementsStatus !== "unannounced").length} with published PC specs. The newest:
               </p>
               <ul className="mt-4 flex-1 space-y-2">
                 {newestGames.map((game) => (

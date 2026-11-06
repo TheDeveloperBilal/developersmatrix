@@ -161,7 +161,7 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-sora text-lg font-medium">Can my PC run it?</h3>
           <span className="shrink-0 rounded-full border border-white/12 bg-white/[0.07] px-2.5 py-1 text-[0.6875rem] text-brand-200">
-            {games.length} games with PC specs
+            {games.length} with published specs
           </span>
         </div>
 
