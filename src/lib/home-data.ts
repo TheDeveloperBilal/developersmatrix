@@ -142,6 +142,22 @@ export const explorerTools: ExplorerTool[] = [
     icon: TOOL_ICONS["can-you-run-it"],
     badge: "UPDATED",
   },
+  {
+    name: "Bottleneck Calculator",
+    href: "/tools/bottleneck-calculator",
+    description: "See whether your CPU or GPU limits your frame rate, built on review benchmarks.",
+    category: "Gaming",
+    icon: TOOL_ICONS["bottleneck-calculator"],
+    badge: "NEW",
+  },
+  {
+    name: "AI Crawler Checker",
+    href: "/tools/ai-crawler-checker",
+    description: "See which AI crawlers your robots.txt lets in, and the line that decides each one.",
+    category: "SEO",
+    icon: TOOL_ICONS["ai-crawler-checker"],
+    badge: "NEW",
+  },
 ];
 
 export const TOOL_COUNT = explorerTools.length;
@@ -211,8 +227,8 @@ export const goals: Goal[] = [
     headline: "Audit, fix and grow your site",
     tools: [
       { name: "Website Audit", href: "/tools/website-audit", icon: TOOL_ICONS["website-audit"], note: "Start with a full health score" },
+      { name: "AI Crawler Checker", href: "/tools/ai-crawler-checker", icon: TOOL_ICONS["ai-crawler-checker"], note: "Check AI search access" },
       { name: "AI Content Detector", href: "/tools/ai-content-detector", icon: TOOL_ICONS["ai-content-detector"], note: "Keep content human and original" },
-      { name: "AI Prompt Library", href: "/tools/ai-prompt-library", icon: TOOL_ICONS["ai-prompt-library"], note: "Prompts for SEO and content" },
     ],
     content: [
       { label: "Website audit checklist: 47 checks", href: "/blog/website-audit-checklist-2026", type: "Guide" },
@@ -333,6 +349,8 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
+  { kind: "New", title: "AI Crawler Checker: see which AI bots your robots.txt lets in", meta: "Tool · SEO", href: "/tools/ai-crawler-checker", date: "2026-11-06" },
+  { kind: "New", title: "Bottleneck Calculator: see whether your CPU or GPU limits your frame rate", meta: "Tool · Gaming", href: "/tools/bottleneck-calculator", date: "2026-11-06" },
   { kind: "Updated", title: "Cover Letter, Resume and Interview tools now spot more skills and give fairer feedback", meta: "Tool · Career", href: "/tools/ai-cover-letter-generator", date: "2026-11-02" },
   { kind: "Updated", title: "Website Audit scoring made stricter and now counts real Google speed data", meta: "Tool · SEO", href: "/tools/website-audit", date: "2026-11-02" },
   { kind: "Updated", title: "Can You Run It: The Sims 4, Modern Warfare 4, Forza Horizon 6 and 3 more games added", meta: "Tool · Gaming", href: "/tools/can-you-run-it", date: "2026-10-28" },

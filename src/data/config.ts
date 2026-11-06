@@ -31,6 +31,8 @@ export const navigation = [
       { name: 'AI Email Assistant', href: '/tools/ai-email-assistant' },
       { name: 'AI Content Detector', href: '/tools/ai-content-detector' },
       { name: 'Can You Run It?', href: '/tools/can-you-run-it' },
+      { name: 'Bottleneck Calculator', href: '/tools/bottleneck-calculator' },
+      { name: 'AI Crawler Checker', href: '/tools/ai-crawler-checker' },
       { name: 'Budget Planner', href: '/tools/budget-planner' },
       { name: 'Habit Tracker', href: '/tools/habit-tracker' },
       { name: 'Productivity Planner', href: '/tools/productivity-planner' }

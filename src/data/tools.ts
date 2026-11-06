@@ -169,6 +169,30 @@ export const tools: Tool[] = [
     path: '/tools/website-audit'
   },
   {
+    id: 'ai-crawler-checker',
+    slug: 'ai-crawler-checker',
+    name: 'AI Crawler Checker',
+    description: 'See whether your robots.txt lets ChatGPT, Claude, Perplexity, Google and other AI crawlers read your site, with the exact line that decides each one. Also checks for llms.txt and builds rules to copy.',
+    shortDescription: 'See which AI crawlers your robots.txt allows',
+    icon: 'ScanSearch',
+    category: 'seo',
+    features: [
+      '17 AI crawlers and control tokens',
+      'AI search, fetches and training kept apart',
+      'The robots.txt line behind every result',
+      'llms.txt and Content-Signal check',
+      'Rules to copy for your robots.txt'
+    ],
+    benefits: [
+      'Stay visible in AI search answers',
+      'Keep content out of training if you want',
+      'No signup needed'
+    ],
+    faqs: [],
+    keywords: ['AI crawler checker', 'GPTBot checker', 'robots.txt AI bots', 'AI search visibility'],
+    path: '/tools/ai-crawler-checker'
+  },
+  {
     id: 'ai-content-detector',
     slug: 'ai-content-detector',
     name: 'AI Content Detector',
@@ -427,6 +451,30 @@ export const tools: Tool[] = [
     ],
     keywords: ['can you run it', 'game requirements', 'PC specs checker', 'system requirements', 'gaming hardware'],
     path: '/tools/can-you-run-it'
+  },
+  {
+    id: 'bottleneck-calculator',
+    slug: 'bottleneck-calculator',
+    name: 'Bottleneck Calculator',
+    description: 'Pick your CPU and GPU to see which one limits your frame rate at 1080p, 1440p and 4K, the frame rate to expect in demanding games, and which upgrade would help. Built on review benchmarks.',
+    shortDescription: 'See whether your CPU or GPU limits your frame rate',
+    icon: 'Gauge',
+    category: 'gaming',
+    features: [
+      '153 processors and 121 graphics cards',
+      'Bottleneck percentage at 1080p, 1440p and 4K',
+      'Expected frame rate in demanding games',
+      'Upgrade suggestions for the limiting part',
+      'The data source behind every result'
+    ],
+    benefits: [
+      'Know which part to upgrade first',
+      'Avoid paying for a card your processor cannot feed',
+      'No signup needed'
+    ],
+    faqs: [],
+    keywords: ['bottleneck calculator', 'CPU GPU bottleneck', 'PC bottleneck', 'frame rate estimate'],
+    path: '/tools/bottleneck-calculator'
   },
   {
     id: 'ai-prompt-library',

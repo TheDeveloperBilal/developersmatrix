@@ -421,4 +421,36 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     ],
     path: '/tools/can-you-run-it'
   },
+  'bottleneck-calculator': {
+    title: 'Bottleneck Calculator: Is Your CPU Holding Back Your GPU?',
+    description: 'Free bottleneck calculator built on review benchmarks. Pick your CPU and GPU to see which one limits your frame rate at 1080p, 1440p and 4K, and what to upgrade.',
+    keywords: [
+      'bottleneck calculator',
+      'cpu gpu bottleneck calculator',
+      'pc bottleneck calculator',
+      'is my cpu bottlenecking my gpu',
+      'cpu bottleneck calculator',
+      'gpu bottleneck calculator',
+      'bottleneck calculator 1440p',
+      'bottleneck calculator 4k',
+      'bottleneck test'
+    ],
+    path: '/tools/bottleneck-calculator'
+  },
+  'ai-crawler-checker': {
+    title: 'AI Crawler Checker: Is Your Site Blocking GPTBot?',
+    description: 'Free AI crawler checker. See if your robots.txt lets GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot and Google-Extended in, with the exact rule that decides each one.',
+    keywords: [
+      'ai crawler checker',
+      'check if site blocks gptbot',
+      'gptbot checker',
+      'can chatgpt crawl my site',
+      'does my site block ai crawlers',
+      'claudebot checker',
+      'perplexitybot checker',
+      'robots.txt ai bots',
+      'llms.txt checker'
+    ],
+    path: '/tools/ai-crawler-checker'
+  },
 };
