@@ -82,9 +82,26 @@ function scaleTop(n: number) {
   return Math.max(60, Math.ceil((n * 1.08) / step) * step);
 }
 
-function Lane({ label, sub, value, top, barClass, valueLabel }: { label: string; sub: string; value: number; top: number; barClass: string; valueLabel: string }) {
+// Strong colour for the part that sets the pace, a pale tint of the same hue
+// for the other one, so the limit reads at a glance. Text on every bar passes
+// WCAG AA: white on the dark bars, ink on the pale ones.
+const LANE_TONE = {
+  cpu: { strong: "bg-sky-700", soft: "bg-sky-100 ring-1 ring-inset ring-sky-200" },
+  gpu: { strong: "bg-brand-600", soft: "bg-brand-100 ring-1 ring-inset ring-brand-200" },
+  result: { strong: "bg-ink-900", soft: "bg-ink-900" },
+} as const;
+
+/** Motion for the pipeline: a slow light sweep across the part doing the work. */
+const MOTION_CSS = `
+@keyframes dm-sheen { 0% { transform: translateX(-120%); } 60%, 100% { transform: translateX(420%); } }
+.dm-sheen { animation: dm-sheen 3.2s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
+@media (prefers-reduced-motion: reduce) { .dm-sheen { animation: none; opacity: 0; } }
+`;
+
+function Lane({ label, sub, value, top, tone, strong, valueLabel }: { label: string; sub: string; value: number; top: number; tone: keyof typeof LANE_TONE; strong: boolean; valueLabel: string }) {
   const w = Math.min(100, (value / top) * 100);
   const inside = w > 62;
+  const dark = strong || tone === "result";
   return (
     <div className="grid grid-cols-[5.75rem_1fr] items-center gap-3 sm:grid-cols-[7.5rem_1fr]">
       <div className="min-w-0">
@@ -92,10 +109,17 @@ function Lane({ label, sub, value, top, barClass, valueLabel }: { label: string;
         <p className="hidden truncate text-[0.6875rem] text-ink-400 sm:block">{sub}</p>
       </div>
       <div className="relative h-10 rounded-lg bg-ink-50 ring-1 ring-inset ring-ink-100">
-        <div className={`h-full rounded-lg transition-[width] duration-500 ease-out ${barClass}`} style={{ width: `${w}%` }} />
+        <div
+          className={`relative z-10 h-full overflow-hidden rounded-lg transition-[width,background-color] duration-500 ease-out ${dark ? LANE_TONE[tone].strong : LANE_TONE[tone].soft}`}
+          style={{ width: `${w}%` }}
+        >
+          {strong && tone !== "result" && (
+            <span className="dm-sheen absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+          )}
+        </div>
         <span
-          className={`absolute top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[0.8125rem] font-semibold tabular-nums ${
-            inside ? "pr-2.5 text-white" : "pl-2 text-ink-800"
+          className={`absolute top-1/2 z-20 -translate-y-1/2 whitespace-nowrap font-mono text-[0.8125rem] font-semibold tabular-nums ${
+            inside ? `pr-2.5 ${dark ? "text-white" : "text-ink-900"}` : "ml-1.5 rounded bg-ink-50 px-1 text-ink-800"
           }`}
           style={inside ? { right: `${100 - w}%` } : { left: `${w}%` }}
         >
@@ -113,14 +137,15 @@ function Pipeline({ b, target }: { b: Balance; target: number }) {
   const targetLeft = (target / top) * 100;
   return (
     <div aria-hidden="true" className="mt-6">
+      <style>{MOTION_CSS}</style>
       <div className="relative">
         <div className="space-y-2.5">
-          <Lane label="Processor" sub="frames it can prepare" value={b.cpuFps} top={top} valueLabel={`${round(b.cpuFps)} fps`} barClass={b.limit === "cpu" ? "bg-amber-500" : "bg-amber-300"} />
-          <Lane label="Graphics card" sub={`frames it can draw`} value={b.gpuFps} top={top} valueLabel={`${round(b.gpuFps)} fps`} barClass={b.limit === "gpu" ? "bg-brand-600" : "bg-brand-300"} />
-          <Lane label="You get" sub="both working together" value={b.expected} top={top} valueLabel={`about ${round(b.expected)} fps`} barClass="bg-ink-900" />
+          <Lane label="Processor" sub="frames it can prepare" value={b.cpuFps} top={top} valueLabel={`${round(b.cpuFps)} fps`} tone="cpu" strong={b.limit === "cpu"} />
+          <Lane label="Graphics card" sub="frames it can draw" value={b.gpuFps} top={top} valueLabel={`${round(b.gpuFps)} fps`} tone="gpu" strong={b.limit === "gpu"} />
+          <Lane label="You get" sub="both working together" value={b.expected} top={top} valueLabel={`about ${round(b.expected)} fps`} tone="result" strong={false} />
         </div>
-        {/* Monitor target, drawn across the three tracks */}
-        <div className="pointer-events-none absolute inset-y-0 left-[calc(5.75rem+0.75rem)] right-0 sm:left-[calc(7.5rem+0.75rem)]">
+        {/* Monitor target: over the empty track, under the bars and labels */}
+        <div className="pointer-events-none absolute z-[5] inset-y-0 left-[calc(5.75rem+0.75rem)] right-0 sm:left-[calc(7.5rem+0.75rem)]">
           <div className="absolute -top-5 bottom-0 border-l-2 border-dashed border-emerald-500/80" style={{ left: `${targetLeft}%` }}>
             <span className="absolute -top-0.5 left-1.5 whitespace-nowrap text-[0.6875rem] font-medium text-emerald-700">{target} Hz</span>
           </div>
@@ -214,7 +239,7 @@ export default function BottleneckCalculatorClient() {
         {/* Inputs */}
         <div className="space-y-5 border-b border-ink-100 bg-[#fbfaf7] p-5 sm:p-6 lg:border-b-0 lg:border-r">
           <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">Your build</p>
-          <HardwareCombobox label="Processor" tag="CPU" tagClass="bg-amber-100 text-amber-800" items={CPU_ITEMS} value={cpuName} onChange={setCpuName} />
+          <HardwareCombobox label="Processor" tag="CPU" tagClass="bg-sky-100 text-sky-800" items={CPU_ITEMS} value={cpuName} onChange={setCpuName} />
           <HardwareCombobox label="Graphics card" tag="GPU" tagClass="bg-brand-100 text-brand-700" items={GPU_ITEMS} value={gpuName} onChange={setGpuName} />
           <Segmented label="Resolution" options={RESOLUTIONS.map((r) => r.id)} value={res} onChange={setRes} render={(o) => resolutionLabel(o)} />
           <Segmented label="Monitor refresh rate" options={REFRESH_RATES} value={target} onChange={setTarget} render={(o) => `${o} Hz`} />

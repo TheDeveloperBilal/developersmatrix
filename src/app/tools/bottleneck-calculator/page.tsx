@@ -7,6 +7,7 @@ import { BreadcrumbSchema, FAQSchema, HowToSchema, SoftwareApplicationSchema } f
 import { CPU_RATES, GPU_RATES, RATES_UPDATED, REFERENCE_CPU_FPS } from "@/lib/hardware/frame-rates";
 import { DEFAULT_CPU, DEFAULT_GPU, POPULAR_PAIRS, allResolutions, cpuByName, gpuByName, resolutionLabel, shortName, slugify } from "@/lib/hardware/bottleneck";
 import BottleneckCalculatorClient from "./BottleneckCalculatorClient";
+import FrameTrace from "./FrameTrace";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata["bottleneck-calculator"]);
 
@@ -138,7 +139,7 @@ export default function BottleneckCalculatorPage() {
       <main className="pt-16">
         {/* Hero */}
         <section className="relative overflow-hidden border-b border-ink-200 bg-[#fbfaf7]">
-          <div className="mx-auto max-w-6xl px-4 pb-14 pt-8 sm:px-6 lg:px-8 lg:pb-16 lg:pt-12">
+          <div className="mx-auto max-w-6xl px-4 pb-20 pt-8 sm:px-6 sm:pb-24 lg:px-8 lg:pb-28 lg:pt-12">
             <nav aria-label="Breadcrumb" className="text-sm text-ink-500">
               <Link href="/tools" className="hover:text-ink-900">Tools</Link>
               <span className="mx-2 text-ink-300">/</span>
@@ -156,13 +157,7 @@ export default function BottleneckCalculatorPage() {
               ))}
             </ul>
           </div>
-          {/* A frame time trace along the bottom edge: amber for the processor, violet for the card */}
-          <svg aria-hidden="true" className="absolute inset-x-0 bottom-0 h-8 w-full" preserveAspectRatio="none" viewBox="0 0 400 32">
-            {Array.from({ length: 100 }, (_, i) => {
-              const h = 6 + ((i * 37) % 17) + (i % 9 === 0 ? 8 : 0);
-              return <rect key={i} x={i * 4} y={32 - h} width="2" height={h} className={i % 7 === 3 ? "fill-amber-400/70" : "fill-brand-300/60"} />;
-            })}
-          </svg>
+          <FrameTrace />
         </section>
 
         {/* Tool */}
