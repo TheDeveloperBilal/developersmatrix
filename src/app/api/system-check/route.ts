@@ -106,11 +106,31 @@ function calculatePerformance(cpu: HardwareItem, gpu: HardwareItem, specs: Syste
   else if (specs.storage >= minStorage) storage = 'pass';
   else storage = 'fail';
 
-  const part = (ratio: number) =>
-    ratio > 2 ? 100 : ratio > 1.5 ? 90 : ratio > 1.2 ? 80 : ratio >= 1 ? 70 : ratio * 60;
+  // Points for the processor and the graphics card.
+  // When the publisher's recommended part can be read, the scale runs from the
+  // minimum to twice the recommended part: 60 at the minimum, 80 at the
+  // recommended part, 100 at twice it. Measuring against the minimum alone hit
+  // 100 for any PC about twice the minimum, so most mid range PCs tied at 100
+  // on most games and the number said nothing.
+  // Without a readable recommended part, the older minimum only scale is kept.
+  const part = (yours: number, min: number, rec: number | null) => {
+    const ratio = yours / Math.max(min, 1);
+    if (ratio < 1) return ratio * 60;
+    if (rec === null || rec <= min) return ratio > 2 ? 100 : ratio > 1.5 ? 90 : ratio > 1.2 ? 80 : 70;
+    if (yours < rec) return 60 + (20 * (yours - min)) / (rec - min);
+    return Math.min(100, 80 + 20 * (yours / rec - 1));
+  };
   const tier = (s: Status) => (s === 'excellent' ? 100 : s === 'good' ? 85 : s === 'pass' ? 70 : 40);
 
-  const score = Math.round(part(cpuRatio) * 0.3 + part(gpuRatio) * 0.4 + tier(ram) * 0.15 + tier(storage) * 0.15);
+  const cpuPoints = part(cpu.score, minCpuScore, recCpu && recCpu.score > minCpuScore ? recCpu.score : null);
+  const gpuPoints = part(gpu.score, minGpuScore, recGpu && recGpu.score > minGpuScore ? recGpu.score : null);
+  const weighted = Math.round(cpuPoints * 0.3 + gpuPoints * 0.4 + tier(ram) * 0.15 + tier(storage) * 0.15);
+  // A PC that misses the minimum processor, graphics card or memory cannot run
+  // the game as published, so it never scores 60 or more. The page explains
+  // below 60 as "you will struggle"; a strong processor used to lift a failing
+  // graphics card to 70 or more.
+  const belowMinimum = cpuRatio < 1 || gpuRatio < 1 || ram === 'fail';
+  const score = belowMinimum ? Math.min(weighted, 59) : weighted;
 
   let settings: string;
   let fps_estimate: string;
