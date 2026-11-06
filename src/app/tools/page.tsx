@@ -11,11 +11,11 @@ export const metadata: Metadata = generatePageMetadata(pageMetadata.tools);
 
 const categories: DirectoryCategory[] = [
   { id: 'career', name: 'Career', description: 'Resumes, cover letters, interview practice and pay data' },
-  { id: 'seo', name: 'SEO and Web', description: 'Audit a website and check content before you publish' },
+  { id: 'seo', name: 'SEO and Web', description: 'Audit a website, check AI crawler access and check content before you publish' },
   { id: 'ai', name: 'AI and Writing', description: 'Ready prompts and help with work emails' },
   { id: 'productivity', name: 'Productivity', description: 'Habits, day plans and business ideas' },
   { id: 'finance', name: 'Finance', description: 'Plan your monthly budget and savings' },
-  { id: 'gaming', name: 'Gaming', description: 'Check PC game requirements before you buy' },
+  { id: 'gaming', name: 'Gaming', description: 'Check PC game requirements and how well your CPU and GPU match' },
 ];
 
 // What a visitor walks away with, in plain words. Kept here rather than in
@@ -98,6 +98,18 @@ const extras: Record<string, { outcome: string; youGet: string; bestFor: string;
     youGet: 'Spec by spec verdict',
     bestFor: 'PC gamers before they buy',
     goals: ['pc'],
+  },
+  'bottleneck-calculator': {
+    outcome: 'See whether your processor or graphics card limits your frame rate.',
+    youGet: 'Bottleneck and fps',
+    bestFor: 'PC builders and upgraders',
+    goals: ['pc'],
+  },
+  'ai-crawler-checker': {
+    outcome: 'See which AI crawlers your robots.txt lets in, and why.',
+    youGet: 'Bot by bot verdict',
+    bestFor: 'Site owners who want AI search traffic',
+    goals: ['website'],
   },
 };
 

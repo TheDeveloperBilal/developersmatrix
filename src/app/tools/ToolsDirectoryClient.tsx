@@ -41,11 +41,11 @@ export interface DirectoryCategory {
 
 const GOALS: { id: string; label: string; hint: string; icon: LucideIcon }[] = [
   { id: 'hired', label: 'Get hired', hint: 'Resume, letters, interviews', icon: Briefcase },
-  { id: 'website', label: 'Fix a website', hint: 'Audit and content checks', icon: Globe },
+  { id: 'website', label: 'Fix a website', hint: 'Audits, AI crawlers, content', icon: Globe },
   { id: 'write', label: 'Write faster', hint: 'Emails, prompts, letters', icon: PenLine },
   { id: 'plan', label: 'Plan your day', hint: 'Habits, days and ideas', icon: CalendarCheck },
   { id: 'money', label: 'Manage money', hint: 'Budget, pay, side income', icon: Wallet },
-  { id: 'pc', label: 'Check your PC', hint: 'Game requirements', icon: Cpu },
+  { id: 'pc', label: 'Check your PC', hint: 'Game specs and bottlenecks', icon: Cpu },
 ];
 
 const START_HERE = [

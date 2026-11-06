@@ -71,6 +71,18 @@ export const moreTools: Tool[] = [
     icon: TOOL_ICONS["can-you-run-it"],
   },
   {
+    name: "Bottleneck Calculator",
+    href: "/tools/bottleneck-calculator",
+    description: "See if your CPU holds back your GPU.",
+    icon: TOOL_ICONS["bottleneck-calculator"],
+  },
+  {
+    name: "AI Crawler Checker",
+    href: "/tools/ai-crawler-checker",
+    description: "See which AI bots your site allows.",
+    icon: TOOL_ICONS["ai-crawler-checker"],
+  },
+  {
     name: "Startup Idea Generator",
     href: "/tools/startup-idea-generator",
     description: "Business ideas matched to your skills.",
@@ -134,8 +146,8 @@ export const categories: Category[] = [
   {
     name: "SEO and Web",
     href: "/tools#seo",
-    description: "Website audits and AI content detection",
-    count: "2 tools",
+    description: "Website audits, AI crawler access and AI content detection",
+    count: "3 tools",
     icon: Globe,
   },
   {
@@ -148,8 +160,8 @@ export const categories: Category[] = [
   {
     name: "Finance and Gaming",
     href: "/tools#finance",
-    description: "Budget planning and PC game requirement checks",
-    count: "2 tools",
+    description: "Budget planning, PC game requirements and bottleneck checks",
+    count: "3 tools",
     icon: PiggyBank,
   },
   {

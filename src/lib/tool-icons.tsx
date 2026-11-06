@@ -10,6 +10,7 @@ import {
   FileUser,
   Fingerprint,
   Gamepad2,
+  Gauge,
   Library,
   Lightbulb,
   Mic,
@@ -17,6 +18,7 @@ import {
   PiggyBank,
   Radar,
   Repeat,
+  ScanSearch,
   Send,
   type LucideIcon,
 } from 'lucide-react';
@@ -35,6 +37,8 @@ export const TOOL_ICONS = {
   'ai-email-assistant': Send,
   'budget-planner': PiggyBank,
   'can-you-run-it': Gamepad2,
+  'bottleneck-calculator': Gauge,
+  'ai-crawler-checker': ScanSearch,
 } as const satisfies Record<string, LucideIcon>;
 
 export type ToolSlug = keyof typeof TOOL_ICONS;

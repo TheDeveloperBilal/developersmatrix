@@ -15,7 +15,7 @@ import { gamesDatabase } from '@/data/games-database';
 // lastmod changes after a production deploy.
 // ---------------------------------------------------------------------------
 const PAGE_DATES: Record<string, string> = {
-  '/': '2026-10-15',
+  '/': '2026-11-06',
   '/about': '2026-10-09',
   '/connect': '2026-10-15',
   '/contact': '2026-10-13',
@@ -24,7 +24,7 @@ const PAGE_DATES: Record<string, string> = {
   '/terms': '2026-10-08',
   '/gta-6': '2026-10-30',
   '/trends': '2026-10-15',
-  '/tools': '2026-10-13',
+  '/tools': '2026-11-06',
   '/services/website-audit': '2026-10-15',
 
   '/tools/website-audit': '2026-11-02',
@@ -40,6 +40,8 @@ const PAGE_DATES: Record<string, string> = {
   '/tools/ai-email-assistant': '2026-10-07',
   '/tools/ai-prompt-library': '2026-10-06',
   '/tools/can-you-run-it': '2026-10-14',
+  '/tools/bottleneck-calculator': '2026-11-06',
+  '/tools/ai-crawler-checker': '2026-11-06',
 };
 
 // Every /tools/can-you-run-it/[game] page shares one template and one data file.
