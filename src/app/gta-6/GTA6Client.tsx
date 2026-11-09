@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -53,7 +53,7 @@ interface SystemRequirements {
   };
 }
 
-export default function GTA6Client() {
+export default function GTA6Client({ launchBlock }: { launchBlock?: ReactNode } = {}) {
   const [userSpecs, setUserSpecs] = useState({ cpu: '', gpu: '', ram: 16, storage: 500 });
   const [compatibilityResult, setCompatibilityResult] = useState<null | {
     canRun: boolean;
@@ -110,7 +110,7 @@ export default function GTA6Client() {
       "Regions shown so far: the Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga National Park",
       "Built for PlayStation 5 and Xbox Series X|S",
       "Standard and Ultimate editions, with the Vintage Vice City Pack for purchases before November 20, 2026",
-      "Digital preloading from November 12, 2026; boxed copies contain a download code"
+      "Digital preloading from November 10, 2026; boxed copies with a download code from November 12"
     ]
   };
 
@@ -235,7 +235,7 @@ export default function GTA6Client() {
             <div className="text-center md:text-left min-w-0">
               <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 max-w-full">
                 <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 shrink-0" />
-                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Preorders open · Releases Nov 19, 2026</span>
+                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Preload Nov 10 · Release Nov 19</span>
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 break-words">
                 Grand Theft Auto <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">VI</span>
@@ -297,6 +297,8 @@ export default function GTA6Client() {
           </div>
         </div>
       </section>
+
+      {launchBlock}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-16">
         <Tabs value={activeTab} onValueChange={setActiveTab}>

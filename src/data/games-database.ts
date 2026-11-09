@@ -302,7 +302,7 @@ export const gamesDatabase: Game[] = [
     releaseDate: 'November 19, 2026',
     genre: ['Action', 'Adventure', 'Open World'],
     rating: 0,
-    price: '$69.99',
+    price: '$79.99',
     platforms: ['PS5', 'Xbox Series X|S'],
     platformNote: 'Rockstar lists PlayStation 5 and Xbox Series X|S only. No PC version has been announced.',
     imageUrl: '/images/games/gta6.png',
