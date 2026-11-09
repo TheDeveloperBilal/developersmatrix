@@ -346,7 +346,16 @@ function Finding({ issue }: { issue: AuditIssue }) {
 
 /* ---------- one check row ---------- */
 
-function CheckRow({ check }: { check: CheckResult }) {
+// Checks that have a dedicated tool with more detail than the audit can show.
+const DEEPER_TOOL: Record<string, { label: string; href: (site: string) => string }> = {
+  'ai-crawlers': {
+    label: 'See every AI bot and the robots.txt line behind it in the AI Crawler Checker',
+    href: (site) => `/tools/ai-crawler-checker?url=${encodeURIComponent(site)}`,
+  },
+};
+
+function CheckRow({ check, siteUrl }: { check: CheckResult; siteUrl?: string }) {
+  const deeper = siteUrl && check.status !== 'not-run' ? DEEPER_TOOL[check.definition.id] : undefined;
   const [open, setOpen] = useState(false);
   const s = STATUS[check.status];
   const expandable = check.findings.length > 0;
@@ -390,13 +399,21 @@ function CheckRow({ check }: { check: CheckResult }) {
           {check.findings.map((f, i) => <Finding key={`${f.id}-${i}`} issue={f} />)}
         </div>
       )}
+
+      {deeper && siteUrl && (
+        <p className="px-4 pb-3 pl-[3.25rem] text-xs sm:px-6 sm:pl-[3.75rem] print:hidden">
+          <a href={deeper.href(siteUrl)} className="font-medium text-[#1d4ed8] underline underline-offset-2 hover:text-[#1e40af]">
+            {deeper.label}
+          </a>
+        </p>
+      )}
     </div>
   );
 }
 
 /* ---------- one group ---------- */
 
-function GroupSection({ group }: { group: GroupResult }) {
+function GroupSection({ group, siteUrl }: { group: GroupResult; siteUrl?: string }) {
   const order: Record<CheckStatus, number> = { fail: 0, warning: 1, tip: 2, pass: 3, 'not-run': 4 };
   const checks = [...group.checks].sort((a, b) => order[a.status] - order[b.status]);
 
@@ -416,7 +433,7 @@ function GroupSection({ group }: { group: GroupResult }) {
       </header>
 
       <div>
-        {checks.map((c) => <CheckRow key={c.definition.id} check={c} />)}
+        {checks.map((c) => <CheckRow key={c.definition.id} check={c} siteUrl={siteUrl} />)}
       </div>
 
       {group.additionalFindings.length > 0 && (
@@ -734,7 +751,7 @@ export default function AuditReport({
 
       <SiteFacts result={result} />
 
-      {report.groups.map((g) => <GroupSection key={g.group.id} group={g} />)}
+      {report.groups.map((g) => <GroupSection key={g.group.id} group={g} siteUrl={result.url} />)}
 
       <p className="px-1 pb-2 text-xs leading-relaxed text-gray-500">
         A check is marked passed when the audit ran it and raised nothing against it.

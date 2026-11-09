@@ -231,10 +231,10 @@ export default function CanYouRunItPage() {
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 mb-3">Related resources</h3>
                   <div className="flex flex-wrap gap-2 text-sm">
                     {[
-                      ["/gta-6", "GTA 6 news"],
+                      ["/tools/bottleneck-calculator", "Bottleneck Calculator"],
+                      ["/gta-6", "GTA 6 launch guide"],
                       ["/tools/salary-estimator", "Salary Estimator"],
                       ["/tools/budget-planner", "Budget Planner"],
-                      ["/tools/habit-tracker", "Habit Tracker"],
                       ["/tools/website-audit", "Website Audit"],
                     ].map(([href, label]) => (
                       <a
@@ -323,7 +323,7 @@ export default function CanYouRunItPage() {
                     Rockstar has brought its last two big titles to PC roughly thirteen months after console launch. Grand Theft Auto V reached consoles in September 2013 and PC in April 2015. Red Dead Redemption 2 reached consoles in October 2018 and PC in November 2019. That is a pattern worth knowing, not a promise, and Rockstar has committed to nothing.
                   </p>
                   <p>
-                    If you want to prepare anyway, put the money where Rockstar has already moved the floor: 16GB of memory, an SSD with at least 150GB free, and a graphics card at or above the RTX 3060 class. Those three cover the gap on almost every older build.
+                    If you want to prepare anyway, put the money where Rockstar has already moved the floor: 16GB of memory, an SSD with well over 200GB free (the console version alone needs up to 212GB), and a graphics card at or above the RTX 3060 class. Those three cover the gap on almost every older build.
                   </p>
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3">
@@ -331,7 +331,7 @@ export default function CanYouRunItPage() {
                     Full GTA 6 PC requirements breakdown
                   </a>
                   <a href="/gta-6" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    Latest GTA 6 news
+                    GTA 6 launch guide
                   </a>
                 </div>
               </section>
@@ -406,7 +406,7 @@ export default function CanYouRunItPage() {
               <section>
                 <h2 className="text-2xl font-bold mb-4">What Hardware Matters for PC Games in 2026</h2>
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  New releases keep asking for more, but they rarely ask for everything at once. Fix the part that holds you back, in this order, and you avoid paying for upgrades you do not need.
+                  New releases keep asking for more, but they rarely ask for everything at once. Fix the part that holds you back, in this order, and you avoid paying for upgrades you do not need. Before you buy a new graphics card, check in the <a href="/tools/bottleneck-calculator" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">bottleneck calculator</a> that your processor can keep up with it.
                 </p>
 
                 <h3 className="text-xl font-semibold mb-4">Upgrade Priority for New Releases</h3>
@@ -503,7 +503,8 @@ export default function CanYouRunItPage() {
                 <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">More from DevelopersMatrix</p>
                 <ul className="flex flex-wrap gap-2 text-sm">
                   {[
-                    ["/gta-6", "GTA 6 hub"],
+                    ["/tools/bottleneck-calculator", "Bottleneck Calculator"],
+                    ["/gta-6", "GTA 6 launch guide"],
                     ["/trends", "Tech trends 2026"],
                     ["/tools/budget-planner", "Budget Planner"],
                     ["/tools/salary-estimator", "Salary Estimator"],
