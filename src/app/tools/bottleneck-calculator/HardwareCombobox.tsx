@@ -56,10 +56,15 @@ export default function HardwareCombobox({ label, tag, tagClass, items, value, o
   const results = useMemo(() => {
     const words = query.trim().split(/\s+/).map(compact).filter(Boolean);
     if (words.length === 0) return items;
-    return items.filter((item) => {
+    const matches = items.filter((item) => {
       const n = compact(item.name);
       return words.every((w) => n.includes(w));
     });
+    // "rtx 3060" should offer the RTX 3060 before the faster 3060 Ti, so a name
+    // that ends with exactly what was typed goes to the top.
+    const whole = words.join("");
+    const exact = (name: string) => compact(name).endsWith(whole);
+    return [...matches.filter((m) => exact(m.name)), ...matches.filter((m) => !exact(m.name))];
   }, [items, query]);
 
   const choose = (name: string) => {

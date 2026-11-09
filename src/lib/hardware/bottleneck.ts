@@ -114,8 +114,8 @@ export function shortName(name: string): string {
 
 // Only parts still sold new are suggested, so the advice is something a
 // person can act on. Older parts can still be checked, just not recommended.
-const CURRENT_CPU = /Ryzen \d (5\d{3}X3D|7\d{3}|9\d{3})|Core i[3579]-1[234]\d{3}|Core Ultra/;
-const CURRENT_GPU = /RTX 50\d0|RTX 40\d0|RX 9\d{3}|RX 7\d{3}|Arc B\d{3}/;
+export const CURRENT_CPU = /Ryzen \d (5\d{3}X3D|7\d{3}|9\d{3})|Core i[3579]-1[234]\d{3}|Core Ultra/;
+export const CURRENT_GPU = /RTX 50\d0|RTX 40\d0|RX 9\d{3}|RX 7\d{3}|Arc B\d{3}/;
 
 export interface Advice {
   /** Current processors that would keep up with this card at this resolution. */

@@ -477,6 +477,30 @@ export const tools: Tool[] = [
     path: '/tools/bottleneck-calculator'
   },
   {
+    id: 'fps-calculator',
+    slug: 'fps-calculator',
+    name: 'FPS Calculator',
+    description: 'Pick your CPU and GPU to see how many frames per second your PC should get at 1080p, 1440p and 4K, whether it can keep up with your monitor, and how much a new graphics card or processor would add. Built on review benchmarks.',
+    shortDescription: 'See how many FPS your PC will get in games',
+    icon: 'Activity',
+    category: 'gaming',
+    features: [
+      'Frame rate at 1080p, 1440p and 4K',
+      'Checks your PC against a 60, 144, 165 or 240 Hz monitor',
+      'Before and after comparison for a new card or processor',
+      'FPS table for current graphics cards',
+      'The data source behind every result'
+    ],
+    benefits: [
+      'Know what to expect before you buy a part',
+      'Pick the resolution your PC can really handle',
+      'No signup needed'
+    ],
+    faqs: [],
+    keywords: ['fps calculator', 'pc fps calculator', 'game fps calculator', 'how many fps will i get'],
+    path: '/tools/fps-calculator'
+  },
+  {
     id: 'ai-prompt-library',
     slug: 'ai-prompt-library',
     name: 'AI Prompt Library',

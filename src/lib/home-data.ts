@@ -151,6 +151,14 @@ export const explorerTools: ExplorerTool[] = [
     badge: "NEW",
   },
   {
+    name: "FPS Calculator",
+    href: "/tools/fps-calculator",
+    description: "See how many frames per second your CPU and GPU should get at 1080p, 1440p and 4K.",
+    category: "Gaming",
+    icon: TOOL_ICONS["fps-calculator"],
+    badge: "NEW",
+  },
+  {
     name: "AI Crawler Checker",
     href: "/tools/ai-crawler-checker",
     description: "See which AI crawlers your robots.txt lets in, and the line that decides each one.",
@@ -349,6 +357,7 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
+  { kind: "New", title: "FPS Calculator: see how many frames per second your PC will get", meta: "Tool · Gaming", href: "/tools/fps-calculator", date: "2026-11-09" },
   { kind: "New", title: "AI Crawler Checker: see which AI bots your robots.txt lets in", meta: "Tool · SEO", href: "/tools/ai-crawler-checker", date: "2026-11-06" },
   { kind: "New", title: "Bottleneck Calculator: see whether your CPU or GPU limits your frame rate", meta: "Tool · Gaming", href: "/tools/bottleneck-calculator", date: "2026-11-06" },
   { kind: "Updated", title: "Cover Letter, Resume and Interview tools now spot more skills and give fairer feedback", meta: "Tool · Career", href: "/tools/ai-cover-letter-generator", date: "2026-11-02" },

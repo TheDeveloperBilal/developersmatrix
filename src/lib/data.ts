@@ -77,6 +77,12 @@ export const moreTools: Tool[] = [
     icon: TOOL_ICONS["bottleneck-calculator"],
   },
   {
+    name: "FPS Calculator",
+    href: "/tools/fps-calculator",
+    description: "See how many FPS your PC will get.",
+    icon: TOOL_ICONS["fps-calculator"],
+  },
+  {
     name: "AI Crawler Checker",
     href: "/tools/ai-crawler-checker",
     description: "See which AI bots your site allows.",
@@ -160,8 +166,8 @@ export const categories: Category[] = [
   {
     name: "Finance and Gaming",
     href: "/tools#finance",
-    description: "Budget planning, PC game requirements and bottleneck checks",
-    count: "3 tools",
+    description: "Budget planning, PC game requirements, bottleneck and FPS checks",
+    count: "4 tools",
     icon: PiggyBank,
   },
   {

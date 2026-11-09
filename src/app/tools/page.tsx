@@ -15,7 +15,7 @@ const categories: DirectoryCategory[] = [
   { id: 'ai', name: 'AI and Writing', description: 'Ready prompts and help with work emails' },
   { id: 'productivity', name: 'Productivity', description: 'Habits, day plans and business ideas' },
   { id: 'finance', name: 'Finance', description: 'Plan your monthly budget and savings' },
-  { id: 'gaming', name: 'Gaming', description: 'Check PC game requirements and how well your CPU and GPU match' },
+  { id: 'gaming', name: 'Gaming', description: 'Check PC game requirements, how well your CPU and GPU match and the FPS to expect' },
 ];
 
 // What a visitor walks away with, in plain words. Kept here rather than in
@@ -103,6 +103,12 @@ const extras: Record<string, { outcome: string; youGet: string; bestFor: string;
     outcome: 'See whether your processor or graphics card limits your frame rate.',
     youGet: 'Bottleneck and fps',
     bestFor: 'PC builders and upgraders',
+    goals: ['pc'],
+  },
+  'fps-calculator': {
+    outcome: 'See how many frames per second your CPU and GPU should get.',
+    youGet: 'FPS at three resolutions',
+    bestFor: 'Gamers choosing a monitor or upgrade',
     goals: ['pc'],
   },
   'ai-crawler-checker': {

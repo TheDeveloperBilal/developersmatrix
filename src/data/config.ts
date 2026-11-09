@@ -32,6 +32,7 @@ export const navigation = [
       { name: 'AI Content Detector', href: '/tools/ai-content-detector' },
       { name: 'Can You Run It?', href: '/tools/can-you-run-it' },
       { name: 'Bottleneck Calculator', href: '/tools/bottleneck-calculator' },
+      { name: 'FPS Calculator', href: '/tools/fps-calculator' },
       { name: 'AI Crawler Checker', href: '/tools/ai-crawler-checker' },
       { name: 'Budget Planner', href: '/tools/budget-planner' },
       { name: 'Habit Tracker', href: '/tools/habit-tracker' },

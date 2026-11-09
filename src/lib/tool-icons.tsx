@@ -4,6 +4,7 @@
  * everywhere. No two tools may share an icon.
  */
 import {
+  Activity,
   BadgeDollarSign,
   CalendarClock,
   FileSearch,
@@ -38,6 +39,7 @@ export const TOOL_ICONS = {
   'budget-planner': PiggyBank,
   'can-you-run-it': Gamepad2,
   'bottleneck-calculator': Gauge,
+  'fps-calculator': Activity,
   'ai-crawler-checker': ScanSearch,
 } as const satisfies Record<string, LucideIcon>;
 
