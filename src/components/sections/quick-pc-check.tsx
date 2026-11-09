@@ -31,6 +31,9 @@ const STORAGE_NOT_CHECKED = 100000;
 
 const label = (g: GameOption) => g.short ?? g.name;
 
+/** Same rule as slugify in lib/hardware/bottleneck, kept here so the homepage does not load the frame rate table. */
+const partSlug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 // The ring shows the likely settings, which the check route works out from the
 // publisher's recommended spec. The route's 0 to 100 score is not shown here:
 // it stops at 100 once a PC is about twice the minimum, so most mid range PCs
@@ -355,6 +358,12 @@ export default function QuickPcCheck({ games }: { games: GameOption[] }) {
                     </Link>
                     <Link href={`/tools/can-you-run-it#game=${ok.gameId}`} className="text-white/55 hover:text-white">
                       Check storage too
+                    </Link>
+                    <Link
+                      href={`/tools/bottleneck-calculator?cpu=${partSlug(ok.matched.cpu)}&gpu=${partSlug(ok.matched.gpu)}&res=1080p`}
+                      className="text-white/55 hover:text-white"
+                    >
+                      Check for a bottleneck
                     </Link>
                   </p>
                 </>

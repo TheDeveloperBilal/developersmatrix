@@ -17,6 +17,8 @@ import { gamesDatabase, type Game, type GameRequirement } from '@/data/games-dat
 import { relatedGames } from '@/data/related-games';
 import { siteConfig } from '@/data/config';
 import { FAQSchema, BreadcrumbSchema } from '@/components/seo/SchemaMarkup';
+import { matchHardware } from '@/lib/hardware/catalogue';
+import { shortName, slugify } from '@/lib/hardware/bottleneck';
 
 interface GamePageProps {
   params: Promise<{ game: string }>;
@@ -510,6 +512,13 @@ export default async function GamePage({ params }: GamePageProps) {
   const storageSize = /^\d/.test(min.storage) ? min.storage.replace(' available space', '') : null;
   const mentionsSsd = !!game.requirementsNote && /SSD/.test(game.requirementsNote);
 
+  // The publisher's recommended processor and card, opened in the bottleneck
+  // calculator. Only when both name a part we have figures for.
+  const recCpu = hasRecommended ? matchHardware(rec.processor, 'cpu') : null;
+  const recGpu = hasRecommended ? matchHardware(rec.graphics, 'gpu') : null;
+  const recPairHref =
+    recCpu && recGpu ? `/tools/bottleneck-calculator?cpu=${slugify(recCpu.name)}&gpu=${slugify(recGpu.name)}&res=1080p` : null;
+
   const quickAnswer = (
     game.quickAnswer ||
     `To run ${game.name} at minimum settings you need an ${min.processor.split('/')[0].trim()} or better, ` +
@@ -663,6 +672,20 @@ export default async function GamePage({ params }: GamePageProps) {
             </a>
           </section>
 
+          {game.id === 'gta-5' && (
+            <aside
+              aria-label="GTA 6"
+              className="-mt-6 mb-12 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-5 py-4 sm:px-6"
+            >
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                <span className="font-semibold text-gray-900 dark:text-white">Waiting for GTA 6?</span> It launches November 19 on PS5 and Xbox. See{' '}
+                <Link href="/gta-6" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">GTA 6 preload and unlock times</Link>{' '}
+                and the{' '}
+                <Link href="/tools/can-you-run-it/gta-6" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">likely GTA 6 PC requirements</Link>, based on what Rockstar asks for today.
+              </p>
+            </aside>
+          )}
+
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               {game.name} system requirements
@@ -710,6 +733,15 @@ export default async function GamePage({ params }: GamePageProps) {
                 )}
               </div>
             )}
+            {recPairHref && recCpu && recGpu && (
+              <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                Is the recommended {shortName(recCpu.name)} a good match for the {shortName(recGpu.name)}?{' '}
+                <Link href={recPairHref} className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">
+                  Check the pair in the bottleneck calculator
+                </Link>
+                .
+              </p>
+            )}
           </section>
 
           <section className="mb-12">
@@ -727,7 +759,9 @@ export default async function GamePage({ params }: GamePageProps) {
                 The graphics card matters more than any other component here. In our scoring the GPU
                 carries 40 percent of the compatibility result, the processor 30 percent, and memory and
                 storage speed 15 percent each. A strong processor cannot rescue a card that falls below the
-                minimum, though a weak processor can hold back a strong card at lower resolutions.
+                minimum, though a weak processor can hold back a strong card at lower resolutions. Our{' '}
+                <Link href="/tools/bottleneck-calculator" className="text-purple-700 dark:text-purple-300 underline underline-offset-2">bottleneck calculator</Link>{' '}
+                shows whether that happens with your own processor and graphics card.
               </p>
               {storageSize && /GB/.test(storageSize) && (
                 <p>

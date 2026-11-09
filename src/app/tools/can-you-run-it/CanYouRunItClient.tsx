@@ -767,6 +767,19 @@ export default function CanYouRunItClient() {
                       {result.note}
                     </p>
                   )}
+
+                  {result.matched?.cpu && result.matched?.gpu && (
+                    <a
+                      href={`/tools/bottleneck-calculator?cpu=${partSlug(result.matched.cpu)}&gpu=${partSlug(result.matched.gpu)}&res=1080p`}
+                      className="mt-5 flex items-center justify-between gap-3 rounded-2xl border border-slate-900/[0.08] bg-white/70 px-4 py-3 text-sm transition-colors hover:border-slate-900/20 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/25"
+                    >
+                      <span className="min-w-0">
+                        <span className="block font-medium text-slate-900 dark:text-white">Is your processor holding back your graphics card?</span>
+                        <span className="block text-xs text-slate-500 dark:text-slate-400">Open this processor and card in the bottleneck calculator</span>
+                      </span>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-slate-400" aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               )}
             </div>
@@ -775,6 +788,11 @@ export default function CanYouRunItClient() {
       </div>
     </div>
   );
+}
+
+/** Same rule as slugify in lib/hardware/bottleneck, kept here so this page does not load the frame rate table. */
+function partSlug(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
 function EmptyState() {
