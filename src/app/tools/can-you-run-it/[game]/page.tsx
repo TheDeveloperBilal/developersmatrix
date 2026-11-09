@@ -166,6 +166,9 @@ function UnannouncedGamePage({ game }: { game: Game }) {
   const sourceUrl = game.requirementsSource?.url;
   const maker = game.developer;
 
+  // Only GTA 6 uses this template today. Its console download size is known.
+  const isGta6 = game.id === 'gta-6';
+
   const quickAnswer =
     `${maker} has not published PC system requirements for ${short}. There is no announced PC version at all. ` +
     `${game.name} is listed for ${game.platforms.join(' and ')} on ${game.releaseDate}. ` +
@@ -198,11 +201,11 @@ function UnannouncedGamePage({ game }: { game: Game }) {
     },
     {
       question: `How much storage will ${short} need?`,
-      answer: `Not published. For scale, Red Dead Redemption 2 asks for 150 GB and Grand Theft Auto V Enhanced asks for 105 GB on an SSD. Planning for at least 150 GB of free SSD space is reasonable. Rockstar moved to requiring solid state storage for the Enhanced release, so a mechanical drive is the part of an older build most likely to fall short.`,
+      answer: `${isGta6 ? 'Not published for PC. The console version needs up to 212 GB, and Rockstar PC versions are usually larger, so plan for well over 200 GB of free SSD space.' : 'Not published.'} For scale, Red Dead Redemption 2 asks for 150 GB and Grand Theft Auto V Enhanced asks for 105 GB on an SSD.${isGta6 ? '' : ' Planning for at least 150 GB of free SSD space is reasonable.'} Rockstar moved to requiring solid state storage for the Enhanced release, so a mechanical drive is the part of an older build most likely to fall short.`,
     },
     {
       question: `Should I upgrade my PC now for ${short}?`,
-      answer: `Not for this game specifically. Buying hardware against a spec sheet that does not exist is how people overspend. If you are upgrading anyway, the safe targets are 16 GB of memory, an SSD with 150 GB free, and a graphics card at or above the RTX 3060 or RX 6600 XT class, because that is what Rockstar already asks for on its current PC titles.`,
+      answer: `Not for this game specifically. Buying hardware against a spec sheet that does not exist is how people overspend. If you are upgrading anyway, the safe targets are 16 GB of memory, an SSD with ${isGta6 ? 'well over 200 GB' : '150 GB'} free, and a graphics card at or above the RTX 3060 or RX 6600 XT class, because that is what Rockstar already asks for on its current PC titles.`,
     },
   ];
 
@@ -288,6 +291,12 @@ function UnannouncedGamePage({ game }: { game: Game }) {
             <p className="text-base sm:text-lg leading-relaxed text-gray-800 dark:text-gray-100">
               {quickAnswer}
             </p>
+            {isGta6 && (
+              <p className="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                GTA 6 launches November 19 on PS5 and Xbox only. For preload times, unlock times and editions, see our{' '}
+                <Link href="/gta-6" className="font-semibold text-purple-700 dark:text-purple-300 underline underline-offset-2">GTA 6 launch guide</Link>.
+              </p>
+            )}
           </section>
 
           <section className="mb-12">

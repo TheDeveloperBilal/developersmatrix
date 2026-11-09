@@ -7,6 +7,20 @@ import { NextResponse } from 'next/server';
 // Take-Two announce something.
 const NEWS = [
   {
+    title: 'GTA 6 preload opens November 10 and needs up to 212 GB',
+    snippet: 'Rockstar moved digital preloading forward two days to November 10. PS5 preloads start at midnight local time and Xbox at 12:00 a.m. GMT. The download is up to 212 GB, and boxed copies with a code reach shops on November 12.',
+    url: 'https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10',
+    source: 'Rockstar Newswire',
+    date: 'November 2026',
+  },
+  {
+    title: 'Rockstar releases the GTA 6 launch trailer',
+    snippet: 'The launch trailer arrived on October 15, 2026, five weeks before release, with new music from Justice.',
+    url: 'https://www.rockstargames.com/VI/launch-trailer',
+    source: 'Rockstar Games',
+    date: 'October 2026',
+  },
+  {
     title: 'Take-Two repeats the November 19, 2026 date on its August earnings call',
     snippet: 'Take-Two kept GTA 6 on track for November 19, 2026 on PS5 and Xbox Series X|S. It described preorder demand as very strong but did not publish a figure.',
     url: 'https://www.techradar.com/gaming/gta-6-is-locked-in-for-november-19-2026-according-to-take-two-interactive-despite-delay-rumors-and-marketing-starts-soon',
@@ -15,7 +29,7 @@ const NEWS = [
   },
   {
     title: 'GTA 6 preorders open with Standard and Ultimate editions',
-    snippet: 'Preorders opened on June 25, 2026: Standard Edition $79.99, Ultimate Edition $99.99 in the US. Boxed copies contain a download code. Digital preloading starts November 12.',
+    snippet: 'Preorders opened on June 25, 2026: Standard Edition $79.99, Ultimate Edition $99.99 in the US. Boxed copies contain a download code.',
     url: 'https://www.rockstargames.com/newswire/article/517oa135328155/grand-theft-auto-vi-pre-orders-begin-on-june-25',
     source: 'Rockstar Newswire',
     date: 'June 2026',

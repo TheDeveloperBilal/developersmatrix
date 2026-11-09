@@ -4,21 +4,134 @@ import { FAQSchema, BreadcrumbSchema, ArticleSchema } from '@/components/seo/Sch
 import { siteConfig } from '@/data/config';
 import Link from 'next/link';
 
+const LAUNCH_DESCRIPTION = "GTA 6 unlocks at midnight local time on November 19, 2026 on PS5 and Xbox Series X|S. Preload opens November 10 and needs up to 212 GB of space.";
+
 export const metadata: Metadata = {
-  title: "GTA 6 Release Date and PC Requirements",
-  description: "GTA 6 releases November 19, 2026 on PS5 and Xbox Series X|S. Check system requirements, gameplay features, and the latest confirmed news about Grand Theft Auto VI.",
-  keywords: ['GTA 6 pre order live', 'GTA 6 release date november 19 2026', 'GTA 6 release date confirmed', 'GTA 6 PC requirements', 'GTA 6 gameplay', 'Grand Theft Auto 6', 'GTA 6 news 2026', 'GTA 6 system requirements', 'when is GTA 6 coming out', 'GTA 6 release date november 2026', 'GTA VI confirmed', 'GTA 6 price', 'GTA 6 editions'],
+  title: "GTA 6 Release Date and Time, Preload Date and File Size",
+  description: LAUNCH_DESCRIPTION,
+  keywords: ['GTA 6 preload date', 'GTA 6 release time', 'GTA 6 unlock time', 'GTA 6 file size', 'GTA 6 download size', 'GTA 6 collectors edition', 'GTA 6 pre order live', 'GTA 6 release date november 19 2026', 'GTA 6 release date confirmed', 'GTA 6 PC requirements', 'GTA 6 gameplay', 'Grand Theft Auto 6', 'GTA 6 news 2026', 'GTA 6 system requirements', 'when is GTA 6 coming out', 'GTA 6 release date november 2026', 'GTA VI confirmed', 'GTA 6 price', 'GTA 6 editions'],
   alternates: {
     canonical: 'https://developersmatrix.com/gta-6'
   },
   openGraph: {
-    title: "GTA 6 Release Date, Price and PC News",
-    description: "GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S. Preorders are open at $79.99 and $99.99. No PC version has been announced.",
+    title: "GTA 6 Release Date and Time, Preload Date and File Size",
+    description: LAUNCH_DESCRIPTION,
+    images: ['/images/blog/gta6-news.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "GTA 6 Release Date and Time, Preload Date and File Size",
+    description: LAUNCH_DESCRIPTION,
     images: ['/images/blog/gta6-news.jpg'],
   },
 };
 
+// Xbox opens preload at one moment worldwide: 12:00 a.m. GMT on November 10.
+// Rows are that moment in local time (November, so no US or UK daylight saving).
+const XBOX_PRELOAD_TIMES = [
+  ['US Pacific', '4:00 p.m., November 9'],
+  ['US Eastern', '7:00 p.m., November 9'],
+  ['UK', '12:00 a.m., November 10'],
+  ['Central Europe', '1:00 a.m., November 10'],
+  ['Pakistan', '5:00 a.m., November 10'],
+  ['India', '5:30 a.m., November 10'],
+  ['Japan', '9:00 a.m., November 10'],
+  ['Sydney and Melbourne', '11:00 a.m., November 10'],
+];
+
+const KEY_DATES = [
+  ['Preload opens on PS5', 'November 10, midnight local time'],
+  ['Preload opens on Xbox Series X|S', 'November 10, 12:00 a.m. GMT (one moment worldwide)'],
+  ['Boxed copies (download code in the box)', 'November 12'],
+  ['GTA 6 unlocks', 'November 19, midnight local time in each region'],
+];
+
+/** Launch week answers, shown right under the hero. Server rendered so the text is in the HTML. */
+function LaunchWeek() {
+  return (
+    <section aria-labelledby="launch-week" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10">
+      <div className="rounded-2xl border border-purple-200 dark:border-purple-500/30 bg-white dark:bg-gray-900 shadow-sm overflow-hidden">
+        <div className="p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-700 dark:text-purple-300">Updated November 9, 2026</p>
+          <h2 id="launch-week" className="mt-2 text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            GTA 6 Launch Week: Release Time, Preload and File Size
+          </h2>
+          <p className="mt-4 text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            GTA 6 unlocks at midnight local time on Thursday, November 19, 2026, on PS5 and Xbox Series X|S. If you bought a digital copy, you can preload it from November 10. Rockstar says you need up to 212 GB of free space, and the exact size depends on your console. Boxed copies contain a download code, not a disc, and reach shops on November 12. There is still no PC version.
+          </p>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <div className="min-w-0">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Key dates</h3>
+              <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
+                <table className="w-full text-sm">
+                  <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    {KEY_DATES.map(([what, when]) => (
+                      <tr key={what}>
+                        <th scope="row" className="text-left font-medium text-gray-600 dark:text-gray-300 px-4 py-2.5 align-top">{what}</th>
+                        <td className="px-4 py-2.5 text-gray-900 dark:text-white">{when}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Xbox preload start in your time zone</h3>
+              <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
+                <table className="w-full text-sm">
+                  <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    {XBOX_PRELOAD_TIMES.map(([region, time]) => (
+                      <tr key={region}>
+                        <th scope="row" className="text-left font-medium text-gray-600 dark:text-gray-300 px-4 py-2 align-top">{region}</th>
+                        <td className="px-4 py-2 text-gray-900 dark:text-white tabular-nums">{time}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">On PS5 there is nothing to convert: preload and launch both follow midnight where you live.</p>
+            </div>
+          </div>
+
+          <h3 className="mt-8 text-sm font-semibold text-gray-900 dark:text-white">Get ready in four steps</h3>
+          <ol className="mt-3 space-y-2 text-gray-700 dark:text-gray-300 list-decimal pl-5">
+            <li>Free up 212 GB on your console&rsquo;s internal drive or a supported external drive.</li>
+            <li>Turn on automatic downloads and leave the console in rest mode.</li>
+            <li>Bought a boxed copy? Redeem the code from November 12 to start the download.</li>
+            <li>Want a printed cover or map? Rockstar&rsquo;s site offers a free printable cover and a map of Leonida on November 19.</li>
+          </ol>
+
+          <p className="mt-6 text-sm text-gray-600 dark:text-gray-400">
+            Playing on PC? There is no PC version or date yet.{' '}
+            <Link href="/tools/can-you-run-it/gta-6" className="font-medium text-purple-700 dark:text-purple-300 hover:underline">
+              See what PC you will likely need
+            </Link>{' '}
+            based on Rockstar&rsquo;s current PC games.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const gta6Faqs = [
+  {
+    question: "When can I preload GTA 6?",
+    answer: "From November 10, 2026, if you bought a digital copy. On PS5 it starts at midnight local time. On Xbox it starts at 12:00 a.m. GMT worldwide, which is 7:00 p.m. Eastern on November 9. Boxed copies hold a code you can redeem from November 12."
+  },
+  {
+    question: "What time does GTA 6 unlock?",
+    answer: "Midnight local time on November 19, 2026. Each region unlocks at its own midnight, so players in New Zealand and Australia start first and the US West Coast starts last."
+  },
+  {
+    question: "How big is the GTA 6 download?",
+    answer: "Rockstar says up to 212 GB, and the exact size depends on your console. Clear that space before preload starts so the download does not stop halfway."
+  },
+  {
+    question: "Does the GTA 6 Collector's Edition include the game?",
+    answer: "No. The $399.99 Goodtime State: Vice City Collection on the Rockstar Store is merchandise only. You need to buy the Standard ($79.99) or Ultimate ($99.99) edition separately."
+  },
   {
     question: "When did GTA 6 preorders go live?",
     answer: "GTA 6 preorders opened on June 25, 2026 on PlayStation 5 and Xbox Series X|S. The Standard Edition costs $79.99 and the Ultimate Edition $99.99 in the US. Purchases made before November 20, 2026 include the Vintage Vice City Pack, and digital preorders add one month of GTA+."
@@ -29,7 +142,7 @@ const gta6Faqs = [
   },
   {
     question: "Is the GTA 6 release date November 19, 2026 confirmed?",
-    answer: "Yes. Rockstar set November 19, 2026 for PlayStation 5 and Xbox Series X|S in November 2025, after moving the game from May 26, 2026. Take-Two repeated the date on its May and August 2026 earnings calls. Digital preloading starts on November 12."
+    answer: "Yes. Rockstar set November 19, 2026 for PlayStation 5 and Xbox Series X|S in November 2025, after moving the game from May 26, 2026. Take-Two repeated the date on its May and August 2026 earnings calls. Digital preloading starts on November 10, and boxed copies reach shops on November 12."
   },
   {
     question: "When is the GTA 6 PC release date?",
@@ -45,7 +158,7 @@ const gta6Faqs = [
   },
   {
     question: "Will GTA 6 be on Xbox Game Pass?",
-    answer: "There is no official confirmation that GTA 6 will launch on Xbox Game Pass or PlayStation Plus on day one. Rockstar typically releases games at full price first, then adds them to subscription services 12 to 18 months later. GTA V has sold more than 230 million copies, so full price sales are clearly Rockstar's priority at launch."
+    answer: "Neither Rockstar nor Microsoft has announced GTA 6 for Xbox Game Pass, and it is not part of PlayStation Plus either. At launch it is a paid game on PS5 and Xbox Series X|S."
   },
   {
     question: "What platforms will GTA 6 launch on?",
@@ -80,14 +193,14 @@ export default function GTA6Page() {
         image={`${siteConfig.url}/images/blog/gta6-news.jpg`}
         url={`${siteConfig.url}/gta-6`}
         datePublished="2026-05-08T00:00:00+00:00"
-        dateModified="2026-10-30T00:00:00+00:00"
+        dateModified="2026-11-09T00:00:00+00:00"
         author="Syed Bilal Shah"
         authorUrl={`${siteConfig.url}/about`}
         authorJobTitle="Founder & Lead Editor"
         articleSection="Gaming News"
       />
       <FAQSchema faqs={gta6Faqs} />
-      <GTA6Client />
+      <GTA6Client launchBlock={<LaunchWeek />} />
       
       {/* SEO Content Section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -100,7 +213,7 @@ export default function GTA6Page() {
               GTA 6 preorders opened on June 25, 2026 for PlayStation 5 and Xbox Series X|S. In the US the Standard Edition costs $79.99 and the Ultimate Edition costs $99.99. The Ultimate Edition adds a collection of vehicles, weapons, outfits and other extras tied to Jason and Lucia&rsquo;s story.
             </p>
             <p className="leading-relaxed">
-              Anything bought before November 20, 2026 includes the Vintage Vice City Pack, and digital preorders come with a free month of GTA+. Digital preloading starts on November 12, 2026, and boxed copies go on sale the same day. The box holds a download code rather than a disc, so you will still need to download the game.
+              Anything bought before November 20, 2026 includes the Vintage Vice City Pack, and digital preorders come with a free month of GTA+. Digital preloading starts on November 10, 2026, two days earlier than Rockstar first said. Boxed copies reach shops on November 12. The box holds a download code rather than a disc, so you will still need to download the game, which takes up to 212 GB.
             </p>
             <p className="leading-relaxed">
               You may have seen headlines about $1 billion in the first hour or tens of millions of copies preordered. Those were outside estimates. Take-Two has not published a preorder figure. On its August 2026 earnings call it described demand as very strong and repeated the November 19 date, but it shared no number.
@@ -164,7 +277,9 @@ export default function GTA6Page() {
             <ul className="list-disc pl-6 space-y-2">
               <li>The November 19, 2026 release on PlayStation 5 and Xbox Series X|S</li>
               <li>Two editions: Standard at $79.99 and Ultimate at $99.99 in the US</li>
-              <li>Preorders from June 25, 2026 and digital preloading from November 12</li>
+              <li>Preorders from June 25, 2026, digital preloading from November 10 and boxed copies from November 12</li>
+              <li>A download of up to 212 GB, depending on the console</li>
+              <li>The launch trailer, released October 15, 2026</li>
               <li>Boxed copies that hold a download code rather than a disc</li>
               <li>The Vintage Vice City Pack for purchases before November 20, and a free month of GTA+ with digital preorders</li>
               <li>The main characters and the Leonida setting</li>
@@ -174,9 +289,8 @@ export default function GTA6Page() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>A PC version or PC system requirements</li>
-              <li>The size of the map or the download</li>
+              <li>The size of the map</li>
               <li>Details or timing of the online side of the game</li>
-              <li>Any third trailer</li>
             </ul>
             <p className="leading-relaxed">
               An insider has reported a December disc release, but Rockstar has not confirmed it. If a claim does not trace back to Rockstar Newswire, Rockstar&rsquo;s official site or Take-Two&rsquo;s investor releases, treat it as a rumor.
@@ -190,7 +304,8 @@ export default function GTA6Page() {
           </h2>
           <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>November 12, 2026:</strong> digital preloading opens and boxed copies go on sale</li>
+              <li><strong>November 10, 2026:</strong> digital preloading opens (PS5 at midnight local time, Xbox at 12:00 a.m. GMT)</li>
+              <li><strong>November 12, 2026:</strong> boxed copies with a download code reach shops</li>
               <li><strong>November 19, 2026:</strong> GTA 6 unlocks on PS5 and Xbox Series X|S</li>
               <li><strong>Before November 20, 2026:</strong> buy by then to get the Vintage Vice City Pack</li>
             </ul>
@@ -226,7 +341,7 @@ export default function GTA6Page() {
               Grand Theft Auto V Enhanced, released in 2025, asks for a Core i7-4770 or FX-9590 with 8GB of memory and a GTX 1630 at minimum, and recommends a Core i5-9600K or Ryzen 5 3600 with 16GB and an RTX 3060 or RX 6600 XT. It needs 105GB and will not install on a mechanical drive. Red Dead Redemption 2, from 2019, asks for 150GB of space and recommends a GTX 1060 with 12GB of memory. Six years moved Rockstar&rsquo;s floor up roughly two graphics card generations and made solid state storage compulsory.
             </p>
             <p className="leading-relaxed">
-              If you want to prepare, that direction of travel is the only honest guide: 16GB of memory, an SSD with at least 150GB free, and a graphics card at or above the RTX 3060 class. Read the full breakdown on our <Link href="/tools/can-you-run-it/gta-6" className="text-blue-600 dark:text-blue-400 hover:underline">GTA 6 PC requirements page</Link>, or test your machine against the Rockstar games that do have published specs in the <Link href="/tools/can-you-run-it" className="text-blue-600 dark:text-blue-400 hover:underline">Can You Run It tool</Link>.
+              If you want to prepare, that direction of travel is the only honest guide: 16GB of memory, an SSD with well over 200GB free (the console version needs up to 212GB, and Rockstar&rsquo;s PC versions are usually larger), and a graphics card at or above the RTX 3060 class. Read the full breakdown on our <Link href="/tools/can-you-run-it/gta-6" className="text-blue-600 dark:text-blue-400 hover:underline">GTA 6 PC requirements page</Link>, or test your machine against the Rockstar games that do have published specs in the <Link href="/tools/can-you-run-it" className="text-blue-600 dark:text-blue-400 hover:underline">Can You Run It tool</Link>.
             </p>
           </div>
         </section>
@@ -251,7 +366,7 @@ export default function GTA6Page() {
           </h2>
           <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
             <p className="leading-relaxed">
-              There are two editions. The Standard Edition costs $79.99 and the Ultimate Edition costs $99.99 in the US, with local prices set by each store. There is no physical collector&rsquo;s edition, and boxed copies contain a download code. For comparison, GTA V launched at $59.99 in 2013.
+              There are two editions. The Standard Edition costs $79.99 and the Ultimate Edition costs $99.99 in the US, with local prices set by each store. Boxed copies contain a download code. Rockstar also sells a $399.99 box called The Goodtime State: Vice City Collection on its store, but it holds merchandise only and does not include the game. For comparison, GTA V launched at $59.99 in 2013.
             </p>
           </div>
         </section>
@@ -284,6 +399,8 @@ export default function GTA6Page() {
               <li><a href="https://www.rockstargames.com/newswire" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar Newswire</a>, Rockstar&rsquo;s official news page</li>
               <li><a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Grand Theft Auto VI official site</a>: trailers, characters, places and editions</li>
               <li><a href="https://www.rockstargames.com/newswire/article/517oa135328155/grand-theft-auto-vi-pre-orders-begin-on-june-25" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar: Grand Theft Auto VI preorders begin on June 25</a></li>
+              <li><a href="https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar: Grand Theft Auto VI pre-load begins on November 10</a></li>
+              <li><a href="https://www.rockstargames.com/VI/launch-trailer" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar: Grand Theft Auto VI launch trailer</a></li>
             </ul>
           </div>
         </section>
