@@ -316,6 +316,7 @@ export default function BottleneckCalculatorPage() {
                 <h2 className="mb-6 font-sora text-2xl font-semibold tracking-tight text-ink-950 sm:text-3xl">Related PC Gaming Tools</h2>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {[
+                    ["/tools/fps-calculator", "FPS Calculator", "See how many frames per second your PC gets and what an upgrade adds."],
                     ["/tools/can-you-run-it", "Can You Run It?", "Check your PC against the specs publishers released for popular games."],
                     ["/tools/can-you-run-it/cyberpunk-2077", "Cyberpunk 2077 PC requirements", "Minimum and recommended specs with a check for your PC."],
                     ["/tools/can-you-run-it/fortnite", "Fortnite PC requirements", "What Fortnite needs, from low settings to Epic."],

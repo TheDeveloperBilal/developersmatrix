@@ -437,6 +437,21 @@ export const toolMetadata: Record<string, PageMetadataOptions> = {
     ],
     path: '/tools/bottleneck-calculator'
   },
+  'fps-calculator': {
+    title: 'FPS Calculator: How Many FPS Will Your PC Get?',
+    description: 'Free game FPS calculator built on review benchmarks. Pick your CPU and GPU to see your frame rate at 1080p, 1440p and 4K, whether it keeps up with your monitor, and what an upgrade adds.',
+    keywords: [
+      'fps calculator',
+      'fps calculator pc',
+      'pc fps calculator',
+      'game fps calculator',
+      'how many fps will i get',
+      'how much fps will i get',
+      'best gpu for 1440p',
+      'gpu for 144 fps 1440p'
+    ],
+    path: '/tools/fps-calculator'
+  },
   'ai-crawler-checker': {
     title: 'AI Crawler Checker: Is Your Site Blocking GPTBot?',
     description: 'Free AI crawler checker. See if your robots.txt lets GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot and Google-Extended in, with the exact rule that decides each one.',
