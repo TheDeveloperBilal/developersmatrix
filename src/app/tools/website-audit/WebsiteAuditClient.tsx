@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import {
   trackAuditCompleted,
   trackAuditFailed,
@@ -207,6 +207,34 @@ export default function WebsiteAuditClient() {
       setIsAuditing(false);
     }
   }, [url]);
+
+  // The homepage links here as /tools/website-audit#url=<address>, so the
+  // visitor arrives with the address filled in and the scan already running.
+  // A hash rather than a query string keeps one URL for search engines. The
+  // hash is removed once read, so a refresh does not start a second scan.
+  const autoStartRef = useRef(false);
+  useEffect(() => {
+    const fromHash = () => {
+      const p = new URLSearchParams(window.location.hash.slice(1));
+      const raw = p.get('url');
+      if (!raw) return;
+      const address = raw.trim().slice(0, 300);
+      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+      if (!address) return;
+      setUrl(address);
+      // Only a plausible address starts on its own; anything else waits for the button.
+      if (/^[^\s]+\.[^\s]{2,}$/.test(address)) autoStartRef.current = true;
+      requestAnimationFrame(() => inputRef.current?.scrollIntoView({ block: 'center' }));
+    };
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+    return () => window.removeEventListener('hashchange', fromHash);
+  }, []);
+  useEffect(() => {
+    if (!autoStartRef.current || !url || isAuditing) return;
+    autoStartRef.current = false;
+    handleAudit();
+  }, [url, isAuditing, handleAudit]);
 
   // Handle copy
   const handleCopy = useCallback(async () => {

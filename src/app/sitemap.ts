@@ -15,7 +15,7 @@ import { gamesDatabase } from '@/data/games-database';
 // lastmod changes after a production deploy.
 // ---------------------------------------------------------------------------
 const PAGE_DATES: Record<string, string> = {
-  '/': '2026-11-09',
+  '/': '2026-11-11',
   '/about': '2026-10-09',
   '/connect': '2026-10-15',
   '/contact': '2026-10-13',

@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useId, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Sparkles, TrendingUp } from "lucide-react";
 import { SignedIcon, TOOL_ICONS } from "@/lib/tool-icons";
 import Reveal from "@/components/reveal";
 import { homeFaqs } from "@/lib/home-data";
@@ -64,7 +65,51 @@ const topicClusters = [
 
 const faqs = homeFaqs;
 
+/*
+ * On phones each answer starts closed and opens with a tap, which saves about
+ * two screens of scrolling. From 640px up every answer is always shown. The
+ * answer text is in the server HTML either way, and the FAQ schema on the page
+ * is unchanged.
+ */
+function FaqItem({ question, answer, wide }: { question: string; answer: string; wide: boolean }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  const shown = wide || open;
+  return (
+    <div className="card h-full p-5 sm:p-6">
+      <h4 className="font-sora text-sm font-bold text-ink-950">
+        <button
+          type="button"
+          aria-expanded={shown}
+          aria-controls={id}
+          tabIndex={wide ? -1 : 0}
+          onClick={() => setOpen((o) => !o)}
+          className="flex w-full items-start justify-between gap-3 text-left sm:pointer-events-none sm:cursor-default"
+        >
+          <span>{question}</span>
+          <ChevronDown
+            className={`mt-0.5 h-4 w-4 shrink-0 text-ink-400 transition-transform sm:hidden ${open ? "rotate-180" : ""}`}
+            aria-hidden="true"
+          />
+        </button>
+      </h4>
+      <p id={id} className={`mt-2 text-sm leading-relaxed text-ink-500 ${open ? "" : "hidden sm:block"}`}>
+        {answer}
+      </p>
+    </div>
+  );
+}
+
 export default function SeoContentSection() {
+  const [wide, setWide] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 640px)");
+    const sync = () => setWide(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   return (
     <section className="bg-ink-50/40 py-16 lg:py-20" aria-labelledby="seo-content-heading">
       <div className="shell">
@@ -91,14 +136,14 @@ export default function SeoContentSection() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {topicClusters.map((cluster) => (
             <Reveal key={cluster.title}>
-              <div className="card h-full p-6">
+              <div className="card h-full p-5 sm:p-6">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                   <SignedIcon icon={cluster.icon} className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 font-sora text-lg font-bold text-ink-950">
                   {cluster.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-500">{cluster.text}</p>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-500 sm:line-clamp-none">{cluster.text}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {cluster.links.map((link) => (
                     <Link
@@ -123,13 +168,11 @@ export default function SeoContentSection() {
               Frequently asked questions
             </h3>
           </Reveal>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <p className="mt-2 text-center text-[0.8125rem] text-ink-400 sm:hidden">Tap a question to see the answer.</p>
+          <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {faqs.map((faq) => (
               <Reveal key={faq.question}>
-                <div className="card h-full p-6">
-                  <h4 className="font-sora text-sm font-bold text-ink-950">{faq.question}</h4>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-500">{faq.answer}</p>
-                </div>
+                <FaqItem question={faq.question} answer={faq.answer} wide={wide} />
               </Reveal>
             ))}
           </div>

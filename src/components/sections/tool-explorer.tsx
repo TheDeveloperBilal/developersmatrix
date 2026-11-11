@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { ToolIcon } from "@/lib/tool-icons";
 import { explorerCategories, explorerTools } from "@/lib/home-data";
+
+// Cards shown on phones before "Show all".
+const PHONE_LIMIT = 6;
 
 const badgeStyles: Record<string, string> = {
   NEW: "bg-emerald-50 text-emerald-600",
@@ -18,6 +21,10 @@ export default function ToolExplorer() {
   const [active, setActive] = useState("All");
   // Cards animate in only after the visitor picks a tab, never on first load.
   const [changed, setChanged] = useState(false);
+  // On phones the full grid is about four screens tall, so it starts with the
+  // first few cards. The rest stay in the page (hidden only below 640px), so
+  // every tool link is still there for search engines and wider screens.
+  const [expanded, setExpanded] = useState(false);
 
   const visible =
     active === "All" ? explorerTools : explorerTools.filter((t) => t.category === active);
@@ -69,11 +76,14 @@ export default function ToolExplorer() {
 
         {/* Cards */}
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {visible.map((tool) => (
-              <div key={`${active}-${tool.name}`} className={changed ? "animate-pop-in" : undefined}>
+            {visible.map((tool, i) => (
+              <div
+                key={`${active}-${tool.name}`}
+                className={[changed ? "animate-pop-in" : "", !expanded && i >= PHONE_LIMIT ? "hidden sm:block" : ""].join(" ").trim() || undefined}
+              >
                 <Link
                   href={tool.href}
-                  className="card card-hover group flex h-full flex-col p-6"
+                  className="card card-hover group flex h-full flex-col p-5 sm:p-6"
                 >
                   <div className="flex items-start justify-between">
                     <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
@@ -86,10 +96,11 @@ export default function ToolExplorer() {
                   <h3 className="mt-4 font-sora text-base font-semibold text-ink-900">
                     {tool.name}
                   </h3>
-                  <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-500">
+                  <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-ink-500 sm:line-clamp-none">
                     {tool.description}
                   </p>
-                  <div className="mt-5 flex items-center justify-between border-t border-ink-100/50 pt-4">
+                  {/* On phones the whole card is the link, so the footer row is left out to save space. */}
+                  <div className="mt-5 hidden items-center justify-between border-t border-ink-100/50 pt-4 sm:flex">
                     <span className="text-xs font-medium text-ink-400">
                       {tool.category}
                     </span>
@@ -102,6 +113,17 @@ export default function ToolExplorer() {
               </div>
             ))}
         </div>
+
+        {!expanded && visible.length > PHONE_LIMIT && (
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-ink-200 bg-white text-sm font-medium text-ink-800 shadow-sm transition-colors hover:border-brand-300 hover:text-brand-700 sm:hidden"
+          >
+            Show all tools
+            <ChevronDown className="h-4 w-4" aria-hidden="true" />
+          </button>
+        )}
       </div>
     </section>
   );

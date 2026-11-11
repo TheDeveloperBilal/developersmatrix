@@ -1,15 +1,6 @@
-import { gamesDatabase } from "@/data/games-database";
+import { checkableGames } from "@/lib/checkable-games";
 import QuickPcCheck from "./quick-pc-check";
 import SiteCompare from "./site-compare";
-
-// Games the quick check can answer for: every game whose publisher has
-// released PC specs, most searched first. GTA 6 has no PC specs yet, so it
-// is left out here and keeps its own card above.
-const checkableGames = gamesDatabase
-  .filter((g) => g.requirementsStatus !== "unannounced")
-  .slice()
-  .sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0) || a.name.localeCompare(b.name))
-  .map((g) => ({ id: g.id, name: g.name, short: g.searchName ?? null }));
 
 export default function TryIt() {
   return (
