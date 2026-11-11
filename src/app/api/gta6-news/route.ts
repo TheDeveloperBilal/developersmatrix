@@ -7,6 +7,13 @@ import { NextResponse } from 'next/server';
 // Take-Two announce something.
 const NEWS = [
   {
+    title: 'Take-Two: GTA 6 development is complete and preorders are far above plan',
+    snippet: 'On its November 9 earnings call, ten days before launch, Take-Two said Rockstar has finished GTA 6, preloads are rolling out and preorders are tracking far above its own expectations. It gave no preorder figure and no PC news.',
+    url: 'https://www.fool.com/earnings/call-transcripts/2026/11/10/take-two-ttwo-q2-2027-earnings-call-transcript/',
+    source: 'Take-Two earnings call',
+    date: 'November 2026',
+  },
+  {
     title: 'GTA 6 preload opens November 10 and needs up to 212 GB',
     snippet: 'Rockstar moved digital preloading forward two days to November 10. PS5 preloads start at midnight local time and Xbox at 12:00 a.m. GMT. The download is up to 212 GB, and boxed copies with a code reach shops on November 12.',
     url: 'https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10',

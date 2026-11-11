@@ -75,6 +75,7 @@ const CHECKED = 'September 30, 2026';
 // Titles added later carry the date they were copied from their source.
 const ADDED_ON = 'October 23, 2026';
 const ADDED_OCT_28 = 'October 28, 2026';
+const CHECKED_NOV_11 = 'November 11, 2026';
 
 const NOT_PUBLISHED = (who: string): GameRequirement => ({
   os: `Not published by ${who}`,
@@ -1424,14 +1425,12 @@ export const gamesDatabase: Game[] = [
     developer: 'Sports Interactive',
     publisher: 'SEGA',
     releaseDate: 'November 10, 2026',
-    // Set to false (or remove) once the game is out on 10 November 2026.
-    upcoming: true,
     genre: ['Simulation', 'Sports', 'Strategy'],
     rating: 0,
-    price: 'Not listed',
+    price: '$59.99',
     platforms: ['PC', 'Mac'],
     imageUrl: '/images/games/generic-game.png',
-    description: 'Football Manager 27 is the next football management sim from Sports Interactive. You run a club from the tactics board to the transfer market.',
+    description: 'Football Manager 27 is the latest football management sim from Sports Interactive, out on PC and Mac since November 10, 2026. You run a club from the tactics board to the transfer market.',
     minimumRequirements: {
       os: 'Windows 10 or 11 with all updates',
       processor: 'Intel Core i3-530 / AMD FX-4100',
@@ -1450,7 +1449,7 @@ export const gamesDatabase: Game[] = [
     },
     requirementsStatus: 'official',
     requirementsSource: { label: 'Football Manager 27 on Steam', url: 'https://store.steampowered.com/app/4530370/' },
-    requirementsCheckedOn: ADDED_OCT_28,
+    requirementsCheckedOn: CHECKED_NOV_11,
     requirementsNote: 'These are the desktop parts. For laptops, Sports Interactive lists an Intel Core i3-330M or AMD A6-5200 with a GeForce GTX 960M, Radeon R9 M375 or Intel HD 530 at minimum, and an Intel Core i5-1035G7 or AMD Ryzen 7 3750H with a GeForce RTX 2060 Mobile or Radeon RX 6600M recommended. The processor must support SSE4.2 and SSSE3, and the graphics card needs 1 GB of video memory at minimum and 2 GB recommended.',
     quickAnswer: 'Football Manager 27 runs on modest hardware. The desktop minimum is an Intel Core i3-530 or AMD FX-4100, 6 GB of memory and a GeForce GTX 960, Radeon R9 380 or Intel HD 530 integrated graphics, with 20 GB of free space. For the recommended experience aim for an Intel Core i5-9600 or AMD Ryzen 5 2600, 12 GB of memory and a GeForce RTX 2060 or Radeon RX 5600 XT. Laptop parts are listed under the specs.',
     features: [

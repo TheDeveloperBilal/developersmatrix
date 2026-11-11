@@ -436,6 +436,13 @@ export default function CanYouRunItClient() {
             <span className="text-xs tabular-nums text-slate-500 dark:text-slate-400">{games.length} titles</span>
           </div>
 
+          {/* On phones the game list comes first, so say here that the parts carried over. */}
+          {!selected && (cpuMatch || gpuMatch) && (
+            <p className="mb-3 rounded-xl border border-emerald-600/20 bg-emerald-50 px-3 py-2 text-[13px] leading-snug text-emerald-900 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-100 lg:hidden">
+              Your PC is filled in: <span className="font-semibold">{[cpuMatch?.name, gpuMatch?.name].filter(Boolean).join(' and ')}</span>. Pick a game below.
+            </p>
+          )}
+
           <div className="relative">
             <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
             <input
