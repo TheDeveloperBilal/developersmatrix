@@ -52,12 +52,12 @@ function LaunchWeek() {
     <section aria-labelledby="launch-week" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10">
       <div className="rounded-2xl border border-purple-200 dark:border-purple-500/30 bg-white dark:bg-gray-900 shadow-sm overflow-hidden">
         <div className="p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-700 dark:text-purple-300">Updated November 9, 2026</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-700 dark:text-purple-300">Updated November 11, 2026</p>
           <h2 id="launch-week" className="mt-2 text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
             GTA 6 Launch Week: Release Time, Preload and File Size
           </h2>
           <p className="mt-4 text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-            GTA 6 unlocks at midnight local time on Thursday, November 19, 2026, on PS5 and Xbox Series X|S. If you bought a digital copy, you can preload it from November 10. Rockstar says you need up to 212 GB of free space, and the exact size depends on your console. Boxed copies contain a download code, not a disc, and reach shops on November 12. There is still no PC version.
+            GTA 6 unlocks at midnight local time on Thursday, November 19, 2026, on PS5 and Xbox Series X|S. If you bought a digital copy, you can preload it from November 10. Rockstar says you need up to 212 GB of free space, and the exact size depends on your console. Boxed copies contain a download code, not a disc, and reach shops on November 12. On November 9, Take-Two said Rockstar has finished developing the game. There is still no PC version.
           </p>
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -138,15 +138,15 @@ const gta6Faqs = [
   },
   {
     question: "How much money did GTA 6 make from preorders?",
-    answer: "Nobody outside Rockstar and Take-Two knows. Take-Two has not published a preorder figure. On its August 2026 earnings call it said preorder demand was very strong but shared no number. Headlines claiming $1 billion in the first hour or 39 million copies came from outside estimates, not from the company."
+    answer: "Nobody outside Rockstar and Take-Two knows. Take-Two has not published a preorder figure. On its November 9, 2026 earnings call, CEO Strauss Zelnick said preorders were tracking far above the company's own expectations, and he again shared no number, saying results would come after launch. Headlines claiming $1 billion in the first hour or 39 million copies came from outside estimates, not from the company."
   },
   {
     question: "Is the GTA 6 release date November 19, 2026 confirmed?",
-    answer: "Yes. Rockstar set November 19, 2026 for PlayStation 5 and Xbox Series X|S in November 2025, after moving the game from May 26, 2026. Take-Two repeated the date on its May and August 2026 earnings calls. Digital preloading starts on November 10, and boxed copies reach shops on November 12."
+    answer: "Yes. Rockstar set November 19, 2026 for PlayStation 5 and Xbox Series X|S in November 2025, after moving the game from May 26, 2026. Take-Two repeated the date on its May, August and November 2026 earnings calls, and on November 9 it said Rockstar had completed development. Digital preloading started on November 10, and boxed copies reach shops on November 12."
   },
   {
     question: "When is the GTA 6 PC release date?",
-    answer: "Rockstar has not announced a PC version, so there is no date. What exists is a pattern. Grand Theft Auto V reached consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 reached consoles in October 2018 and PC in November 2019, a gap of thirteen months. Applying the same range to a 19 November 2026 console launch points somewhere between late 2027 and mid 2028. That is arithmetic on past releases, not information from Rockstar, and the company has committed to nothing."
+    answer: "Rockstar has not announced a PC version, so there is no date. What exists is a pattern. Grand Theft Auto V reached consoles in September 2013 and PC in April 2015, a gap of nineteen months. Red Dead Redemption 2 reached consoles in October 2018 and PC in November 2019, a gap of thirteen months. Applying the same range to a 19 November 2026 console launch points somewhere between late 2027 and mid 2028. That is arithmetic on past releases, not information from Rockstar. Take-Two's November 9, 2026 earnings call, ten days before launch, gave no PC news either."
   },
   {
     question: "What are the GTA 6 system requirements for PC?",
@@ -193,7 +193,7 @@ export default function GTA6Page() {
         image={`${siteConfig.url}/images/blog/gta6-news.jpg`}
         url={`${siteConfig.url}/gta-6`}
         datePublished="2026-05-08T00:00:00+00:00"
-        dateModified="2026-11-09T00:00:00+00:00"
+        dateModified="2026-11-11T00:00:00+00:00"
         author="Syed Bilal Shah"
         authorUrl={`${siteConfig.url}/about`}
         authorJobTitle="Founder & Lead Editor"
@@ -216,7 +216,7 @@ export default function GTA6Page() {
               Anything bought before November 20, 2026 includes the Vintage Vice City Pack, and digital preorders come with a free month of GTA+. Digital preloading starts on November 10, 2026, two days earlier than Rockstar first said. Boxed copies reach shops on November 12. The box holds a download code rather than a disc, so you will still need to download the game, which takes up to 212 GB.
             </p>
             <p className="leading-relaxed">
-              You may have seen headlines about $1 billion in the first hour or tens of millions of copies preordered. Those were outside estimates. Take-Two has not published a preorder figure. On its August 2026 earnings call it described demand as very strong and repeated the November 19 date, but it shared no number.
+              You may have seen headlines about $1 billion in the first hour or tens of millions of copies preordered. Those were outside estimates. Take-Two has not published a preorder figure. On its November 9, 2026 earnings call it said preorders were running far above its own expectations and that Rockstar had finished the game, but it again shared no number and said it would report results after launch.
             </p>
           </div>
         </section>
@@ -230,7 +230,7 @@ export default function GTA6Page() {
               Rockstar Games has officially confirmed the GTA 6 release date as November 19, 2026. This is not a rumor or a leak. The date appears in official trailers, press releases, and across Rockstar's verified marketing channels. The date has moved twice: Rockstar first aimed for fall 2025, then May 26, 2026, and in November 2025 it settled on November 19, 2026.
             </p>
             <p className="leading-relaxed">
-              The November 19, 2026 release puts GTA 6 squarely in the holiday shopping season, the same season Rockstar picked for Red Dead Redemption 2 in October 2018. GTA V, released in September 2013, has now sold more than 230 million copies according to Take-Two.
+              The November 19, 2026 release puts GTA 6 squarely in the holiday shopping season, the same season Rockstar picked for Red Dead Redemption 2 in October 2018. GTA V, released in September 2013, has sold nearly 235 million copies, Take-Two said on November 9, 2026.
             </p>
             <p className="leading-relaxed">
               What makes this release particularly significant is the platform strategy. GTA 6 is launching on PlayStation 5 and Xbox Series X|S only. There is no PlayStation 4 or Xbox One version, and no PC version has been announced.
@@ -244,7 +244,7 @@ export default function GTA6Page() {
           </h2>
           <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-4">
             <p className="leading-relaxed">
-              GTA 6 has moved twice. The first trailer, in December 2023, gave a 2025 window. In May 2025 Rockstar moved the game to May 26, 2026. In November 2025 it moved it again, to November 19, 2026, saying the extra time would let it finish the game with the level of polish players expect. Take-Two repeated the November date on its May and August 2026 earnings calls.
+              GTA 6 has moved twice. The first trailer, in December 2023, gave a 2025 window. In May 2025 Rockstar moved the game to May 26, 2026. In November 2025 it moved it again, to November 19, 2026, saying the extra time would let it finish the game with the level of polish players expect. Take-Two repeated the November date on its May, August and November 2026 earnings calls.
             </p>
             <p className="leading-relaxed">
               Interest has held up through both delays. The first trailer drew 93 million YouTube views in its first 24 hours, and Rockstar says the second trailer, released on May 6, 2025, passed 475 million views across all platforms in its first day. Take-Two&rsquo;s results for the quarter to June 30, 2026 put GTA V at more than 230 million copies and Red Dead Redemption 2 at more than 87 million.
@@ -280,6 +280,7 @@ export default function GTA6Page() {
               <li>Preorders from June 25, 2026, digital preloading from November 10 and boxed copies from November 12</li>
               <li>A download of up to 212 GB, depending on the console</li>
               <li>The launch trailer, released October 15, 2026</li>
+              <li>Development finished, as Take-Two said on November 9, 2026</li>
               <li>Boxed copies that hold a download code rather than a disc</li>
               <li>The Vintage Vice City Pack for purchases before November 20, and a free month of GTA+ with digital preorders</li>
               <li>The main characters and the Leonida setting</li>
@@ -401,6 +402,7 @@ export default function GTA6Page() {
               <li><a href="https://www.rockstargames.com/newswire/article/517oa135328155/grand-theft-auto-vi-pre-orders-begin-on-june-25" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar: Grand Theft Auto VI preorders begin on June 25</a></li>
               <li><a href="https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar: Grand Theft Auto VI pre-load begins on November 10</a></li>
               <li><a href="https://www.rockstargames.com/VI/launch-trailer" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Rockstar: Grand Theft Auto VI launch trailer</a></li>
+              <li><a href="https://www.fool.com/earnings/call-transcripts/2026/11/10/take-two-ttwo-q2-2027-earnings-call-transcript/" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Take-Two second quarter earnings call, November 9, 2026 (transcript)</a></li>
             </ul>
           </div>
         </section>

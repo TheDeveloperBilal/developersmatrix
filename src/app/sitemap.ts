@@ -22,7 +22,7 @@ const PAGE_DATES: Record<string, string> = {
   '/cookies': '2026-10-08',
   '/privacy': '2026-10-08',
   '/terms': '2026-10-08',
-  '/gta-6': '2026-11-09',
+  '/gta-6': '2026-11-11',
   '/trends': '2026-10-15',
   '/tools': '2026-11-09',
   '/services/website-audit': '2026-10-15',
@@ -47,6 +47,10 @@ const PAGE_DATES: Record<string, string> = {
 
 // Every /tools/can-you-run-it/[game] page shares one template and one data file.
 const GAME_PAGES_DATE = '2026-10-28';
+// Game pages changed after that date.
+const GAME_DATES: Record<string, string> = {
+  'football-manager-27': '2026-11-11',
+};
 
 // Used only if a page is added without a date above, so it never gets a fake "today".
 const FALLBACK_DATE = '2026-07-24';
@@ -127,7 +131,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Game requirement pages under the Can You Run It tool
   const gamePages: MetadataRoute.Sitemap = gamesDatabase.map((game) => ({
     url: `${baseUrl}/tools/can-you-run-it/${game.id}`,
-    lastModified: new Date(GAME_PAGES_DATE),
+    lastModified: new Date(GAME_DATES[game.id] ?? GAME_PAGES_DATE),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }));
