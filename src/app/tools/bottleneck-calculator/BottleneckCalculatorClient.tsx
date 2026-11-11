@@ -313,12 +313,12 @@ export default function BottleneckCalculatorClient() {
           </div>
 
           <p className="mt-4 text-[0.75rem] leading-relaxed text-ink-400">
-            Averages for 11 demanding games at Ultra settings, without ray tracing or upscaling. Processor figure: {sourceLine(cpu)}. Graphics card figure: {sourceLine(gpu)}.{" "}
+            Averages for 11 demanding games at Ultra settings, without ray tracing or upscaling. Processor figure: {sourceLine(cpu)}. Graphics card figure: {sourceLine(gpu)}.{gpu.note ? ` ${gpu.note}` : ""}{" "}
             <a href="#how-it-works" className="underline decoration-ink-300 underline-offset-2 hover:text-ink-700">How this works</a>
           </p>
 
           <Link
-            href="/tools/can-you-run-it"
+            href={`/tools/can-you-run-it#cpu=${slugify(cpu.name)}&gpu=${slugify(gpu.name)}`}
             className="mt-5 inline-flex items-center gap-1.5 text-[0.875rem] font-medium text-brand-700 hover:text-brand-800"
           >
             Check this PC against a specific game <ArrowRight className="h-4 w-4" aria-hidden="true" />

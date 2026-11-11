@@ -187,8 +187,13 @@ export default function FpsCalculatorClient() {
   const fitLine =
     fit.reason === "monitor"
       ? `Best match for this PC: ${resolutionLabel(fit.res!)} keeps up with your ${hz} Hz monitor on Ultra in demanding games.`
+      : fit.reason === "close"
+        ? `No resolution quite holds your ${hz} Hz monitor on Ultra, but ${resolutionLabel(fit.res!)} comes close at about ${fit.fastest} fps.` +
+          (fit.sixty && fit.sixty !== fit.res ? ` For a steady 60 fps or more, you can go up to ${resolutionLabel(fit.sixty)}.` : "")
       : fit.reason === "sixty"
-        ? `Best match for this PC: ${resolutionLabel(fit.res!)} for a steady 60 fps or more. To get closer to ${hz} fps, lower some settings or drop a resolution.`
+        ? fit.sixty === "1080p"
+          ? `Best match for this PC: 1080p, at about ${fit.fastest} fps. To get closer to ${hz} fps, lower some settings.`
+          : `Best match for this PC: ${resolutionLabel(fit.res!)} for a steady 60 fps or more. For the most frames on your ${hz} Hz monitor, 1080p gives about ${fit.fastest} fps.`
         : `This PC averages under 60 fps at every resolution on Ultra in demanding games. Lower settings or lighter games will run faster.`;
 
   const copy = async () => {
@@ -232,7 +237,7 @@ export default function FpsCalculatorClient() {
           </div>
           <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-700">{fitLine}</p>
           <p className="mt-2 text-[0.75rem] leading-relaxed text-ink-400">
-            Averages for 11 demanding games at Ultra settings, without ray tracing or upscaling. Processor figure: {sourceLine(cpu)}. Graphics card figure: {sourceLine(gpu)}.{" "}
+            Averages for 11 demanding games at Ultra settings, without ray tracing or upscaling. Processor figure: {sourceLine(cpu)}. Graphics card figure: {sourceLine(gpu)}.{gpu.note ? ` ${gpu.note}` : ""}{" "}
             <a href="#how-it-works" className="underline decoration-ink-300 underline-offset-2 hover:text-ink-700">How this works</a>
           </p>
         </div>
@@ -331,7 +336,7 @@ export default function FpsCalculatorClient() {
           <p className="mt-4 text-[0.875rem] text-ink-500">You already have the fastest part in our list. Pick any other part to compare.</p>
         )}
 
-        <Link href="/tools/can-you-run-it" className="mt-5 inline-flex items-center gap-1.5 text-[0.875rem] font-medium text-brand-700 hover:text-brand-800">
+        <Link href={`/tools/can-you-run-it#cpu=${slugify(cpu.name)}&gpu=${slugify(gpu.name)}`} className="mt-5 inline-flex items-center gap-1.5 text-[0.875rem] font-medium text-brand-700 hover:text-brand-800">
           Check this PC against a specific game <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>
