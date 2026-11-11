@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState, type FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { auditLink, looksLikeSite } from "@/lib/audit-link";
 import { ArrowRight } from "lucide-react";
 
 type Answer = "yes" | "no" | "unsure";
@@ -30,6 +32,21 @@ const OPTIONS: { value: Answer; label: string; on: string }[] = [
 
 export default function SiteCompare() {
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  const [site, setSite] = useState("");
+  const [siteError, setSiteError] = useState(false);
+  const router = useRouter();
+  const siteId = useId();
+
+  // An address opens the audit with it filled in and the scan started.
+  // An empty box just opens the audit, which is what the button did before.
+  const checkForReal = (e: FormEvent) => {
+    e.preventDefault();
+    if (site.trim() && !looksLikeSite(site)) {
+      setSiteError(true);
+      return;
+    }
+    router.push(auditLink(looksLikeSite(site) ? site : ""));
+  };
   const values = Object.values(answers);
   const yes = values.filter((a) => a === "yes").length;
   const unsure = values.filter((a) => a === "unsure").length;
@@ -122,17 +139,42 @@ export default function SiteCompare() {
         })}
       </ul>
 
-      <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-4">
-        <Link
-          href="/tools/website-audit"
-          className="inline-flex h-11 items-center gap-1.5 rounded-xl bg-ink-950 px-4 text-[0.8125rem] font-medium text-white transition-colors hover:bg-ink-800"
-        >
-          Check my site for real <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-        </Link>
-        <Link href={STUDY} className="text-[0.8125rem] text-ink-500 hover:text-brand-700">
-          See the study
-        </Link>
-      </div>
+      <form onSubmit={checkForReal} action="/tools/website-audit" noValidate className="mt-auto pt-4">
+        <label htmlFor={siteId} className="sr-only">
+          Your website address
+        </label>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <input
+            id={siteId}
+            type="text"
+            inputMode="url"
+            autoComplete="url"
+            spellCheck={false}
+            value={site}
+            onChange={(e) => {
+              setSite(e.target.value);
+              if (siteError) setSiteError(false);
+            }}
+            placeholder="yourbusiness.com"
+            aria-invalid={siteError}
+            className="h-11 w-full min-w-0 rounded-xl border border-ink-200 bg-white px-3.5 text-sm text-ink-950 outline-none transition placeholder:text-ink-400 focus:border-brand-400 focus:ring-4 focus:ring-brand-100"
+          />
+          <button
+            type="submit"
+            className="inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-xl bg-ink-950 px-4 text-[0.8125rem] font-medium text-white transition-colors hover:bg-ink-800"
+          >
+            Check my site for real <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </button>
+        </div>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-x-5 gap-y-2">
+          <p className={`text-[0.75rem] ${siteError ? "text-rose-700" : "text-ink-400"}`} aria-live="polite">
+            {siteError ? "Type an address like yourbusiness.com" : "Add your address to start the scan straight away."}
+          </p>
+          <Link href={STUDY} className="text-[0.8125rem] text-ink-500 hover:text-brand-700">
+            See the study
+          </Link>
+        </div>
+      </form>
     </div>
   );
 }

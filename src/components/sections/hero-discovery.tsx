@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { ToolIcon } from "@/lib/tool-icons";
-import ToolMatrix from "./tool-matrix";
+import StartHere from "./start-here";
+import { checkableGames } from "@/lib/checkable-games";
 
 // Numbers are rendered on the server. The old count up started at 0, so search
 // engines and anyone without JavaScript saw "0+ Free AI tools".
@@ -71,9 +72,10 @@ export default function HeroDiscovery({
           </div>
         </div>
 
-        {/* Interactive tool matrix */}
+        {/* Start here: the 3D tile grid used to sit here. Every tool it linked to
+            is in the tool explorer further down. */}
         <div className="relative animate-fade-up [animation-delay:120ms]">
-          <ToolMatrix />
+          <StartHere games={checkableGames} />
         </div>
       </div>
     </section>
