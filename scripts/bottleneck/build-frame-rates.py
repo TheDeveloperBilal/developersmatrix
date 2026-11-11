@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CATALOGUE = ROOT / 'src/lib/hardware/catalogue.ts'
 OUT = ROOT / 'src/lib/hardware/frame-rates.ts'
-UPDATED = '2026-11-06'
+UPDATED = '2026-11-11'
 
 src = CATALOGUE.read_text(encoding='utf-8').replace('\r', '')
 _pat = re.compile(r"name: '([^']+)', score: (\d+), brand: '(\w+)'(, integrated: true)?")
@@ -78,6 +78,15 @@ TOM_GPU = {
     A+'RX 6600 XT': (62.7, 40.7, 17.3),
     A+'RX 6600': (51.9, 24.8, 14.5),
     N+'RTX 3050': (44.6, 29.8, 12.6),
+}
+
+# Published figures that cannot be right. The RX 7600 XT is listed at 102.1 fps
+# at 1080p but 50.2 at 1440p: a drop of half, where every similar card loses
+# about a third. Its 1080p figure is rebuilt from its 1440p one with the same
+# 1080p to 1440p ratio as the other GPU bound cards (below), and the card is
+# marked so the tools can say so.
+CORRECTED_1080 = {
+    A+'RX 7600 XT': 'Its 1080p figure is corrected: the published 102 fps does not fit its 1440p result.',
 }
 
 # Current table, 1080p, 9850X3D = 100
@@ -181,9 +190,13 @@ for k, (sib, a, b) in SIBLINGS.items():
     cpu_rel[k] = cpu_rel[sib] * a / b; cpu_src[k] = 'sibling'; cpu_sib[k] = sib
 
 # ---- GPU: true 1080p capacity for cards that the 9800X3D holds back --------
-ratios = [f[0] / f[1] for f in TOM_GPU.values() if 45 <= f[1] <= 80]
+ratios = [f[0] / f[1] for k, f in TOM_GPU.items() if 45 <= f[1] <= 80 and k not in CORRECTED_1080]
 R = st.median(ratios)
 log('1080/1440 ratio for GPU bound cards', round(R, 3), len(ratios))
+for k in CORRECTED_1080:
+    f = TOM_GPU[k]
+    TOM_GPU[k] = (f[1] * R, f[1], f[2])
+    log('corrected 1080p', k, f[0], '->', round(f[1] * R, 1))
 
 # How sharply the slower part takes over. Games in the suite differ, so an
 # average over all of them blends the two limits instead of taking a hard
@@ -288,6 +301,8 @@ lines = [
     '  /** Frames per second the card can draw at 1080p, 1440p and 4K, Ultra settings (at least 1). */',
     '  fps: [number, number, number];',
     '  source: RateSource;',
+    '  /** Set when a published figure was corrected. Shown next to the result. */',
+    '  note?: string;',
     '}',
     '',
     'export interface CpuRate {',
@@ -311,6 +326,7 @@ lines = [
 for k, (sc, b, integ) in GPUS.items():
     f = gpu_fps[k]
     extra = ', integrated: true' if integ else ''
+    if k in CORRECTED_1080: extra += f', note: {q(CORRECTED_1080[k])}'
     lines.append(f"  {{ name: {q(k)}, brand: {q(b)}{extra}, fps: [{max(1, round(f[0]))}, {max(1, round(f[1]))}, {max(1, round(f[2]))}], source: {q(gpu_src[k])} }},")
 lines += ['];', '', 'export const CPU_RATES: CpuRate[] = [']
 for k, (sc, b) in CPUS.items():

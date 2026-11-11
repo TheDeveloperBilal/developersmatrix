@@ -18,6 +18,7 @@ const GPU_COUNT = GPU_RATES.length;
 const GPU_MEASURED = GPU_RATES.filter((g) => g.source === "measured").length;
 const UPDATED = new Date(`${RATES_UPDATED}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
 const r = Math.round;
+const CORRECTED = GPU_RATES.filter((g) => g.note).map((g) => shortName(g.name));
 
 // Every number quoted in the copy is computed from the same data the tool uses.
 const cards = currentCardsByFps();
@@ -191,7 +192,7 @@ export default function FpsCalculatorPage() {
                   </table>
                 </div>
                 <p className="mt-3 text-[12.5px] text-ink-500">
-                  Source: Tom&apos;s Hardware GPU benchmarks hierarchy, with the test processor&apos;s effect modelled as described below. Cards with 8 GB of video memory fall behind at 4K in this data. Figures updated {UPDATED}.
+                  Source: Tom&apos;s Hardware GPU benchmarks hierarchy, with the test processor&apos;s effect modelled as described below. Cards with 8 GB of video memory fall behind at 4K in this data.{CORRECTED.length ? ` The ${CORRECTED.join(" and ")} 1080p figure is corrected, because the published one does not fit its 1440p result.` : ""} Figures updated {UPDATED}.
                 </p>
               </section>
 

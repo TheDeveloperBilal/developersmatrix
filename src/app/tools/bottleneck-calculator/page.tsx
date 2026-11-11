@@ -20,6 +20,8 @@ const GPU_COUNT = GPU_RATES.length;
 const GPU_MEASURED = count(GPU_RATES, "measured");
 const CPU_MEASURED = count(CPU_RATES, "measured");
 const CPU_SIBLING = count(CPU_RATES, "sibling");
+const GPU_ESTIMATED = count(GPU_RATES, "estimated");
+const CORRECTED = GPU_RATES.filter((g) => g.note).map((g) => shortName(g.name));
 const UPDATED = new Date(`${RATES_UPDATED}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
 
 const pairs = POPULAR_PAIRS.map(([c, g]) => {
@@ -242,7 +244,7 @@ export default function BottleneckCalculatorPage() {
                     ],
                     [
                       "Close variants and missing parts",
-                      `${CPU_SIBLING} processors with no review figure of their own, such as the Ryzen 5 5600, use their closest measured sibling scaled by boost clock. Parts with neither are estimated from our own hardware scale and marked as estimates in the list and in the result.`,
+                      `${CPU_SIBLING} processors with no review figure of their own, such as the Ryzen 5 5600, use their closest measured sibling scaled by boost clock. Parts with neither are estimated from our own hardware scale and marked as estimates in the list and in the result. That covers ${GPU_ESTIMATED} of the ${GPU_COUNT} graphics cards: each is placed by the five measured cards closest to it on our performance score, and the middle of those five readings is used, so one odd review result cannot pull it off course.${CORRECTED.length ? ` One published figure is corrected: the ${CORRECTED.join(" and ")} 1080p result, which does not fit its own 1440p result.` : ""}`,
                     ],
                     [
                       "Putting the two together",

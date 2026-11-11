@@ -17,6 +17,8 @@ export interface GpuRate {
   /** Frames per second the card can draw at 1080p, 1440p and 4K, Ultra settings (at least 1). */
   fps: [number, number, number];
   source: RateSource;
+  /** Set when a published figure was corrected. Shown next to the result. */
+  note?: string;
 }
 
 export interface CpuRate {
@@ -29,7 +31,7 @@ export interface CpuRate {
   from?: string;
 }
 
-export const RATES_UPDATED = '2026-11-06';
+export const RATES_UPDATED = '2026-11-11';
 /** How sharply the slower part takes over (see the build script). */
 export const BLEND_K = 3;
 /** Frames a Ryzen 7 9800X3D can prepare in this suite (fitted). */
@@ -62,7 +64,7 @@ export const GPU_RATES: GpuRate[] = [
   { name: 'NVIDIA GeForce RTX 3060', brand: 'NVIDIA', fps: [62, 42, 22], source: 'measured' },
   { name: 'NVIDIA GeForce RTX 3050', brand: 'NVIDIA', fps: [45, 30, 13], source: 'measured' },
   { name: 'NVIDIA GeForce RTX 2080 Ti', brand: 'NVIDIA', fps: [96, 66, 33], source: 'estimated' },
-  { name: 'NVIDIA GeForce RTX 2080 Super', brand: 'NVIDIA', fps: [104, 59, 27], source: 'estimated' },
+  { name: 'NVIDIA GeForce RTX 2080 Super', brand: 'NVIDIA', fps: [90, 59, 27], source: 'estimated' },
   { name: 'NVIDIA GeForce RTX 2080', brand: 'NVIDIA', fps: [85, 58, 21], source: 'estimated' },
   { name: 'NVIDIA GeForce RTX 2070 Super', brand: 'NVIDIA', fps: [68, 48, 25], source: 'estimated' },
   { name: 'NVIDIA GeForce RTX 2070', brand: 'NVIDIA', fps: [65, 44, 19], source: 'estimated' },
@@ -82,8 +84,8 @@ export const GPU_RATES: GpuRate[] = [
   { name: 'NVIDIA GeForce GTX 1050 Ti', brand: 'NVIDIA', fps: [18, 11, 4], source: 'estimated' },
   { name: 'NVIDIA GeForce GTX 1050', brand: 'NVIDIA', fps: [14, 8, 3], source: 'estimated' },
   { name: 'NVIDIA GeForce GT 1030', brand: 'NVIDIA', fps: [5, 3, 1], source: 'estimated' },
-  { name: 'NVIDIA GeForce GTX 980 Ti', brand: 'NVIDIA', fps: [44, 29, 12], source: 'estimated' },
-  { name: 'NVIDIA GeForce GTX 980', brand: 'NVIDIA', fps: [37, 24, 9], source: 'estimated' },
+  { name: 'NVIDIA GeForce GTX 980 Ti', brand: 'NVIDIA', fps: [43, 29, 12], source: 'estimated' },
+  { name: 'NVIDIA GeForce GTX 980', brand: 'NVIDIA', fps: [36, 24, 9], source: 'estimated' },
   { name: 'NVIDIA GeForce GTX 970', brand: 'NVIDIA', fps: [24, 15, 5], source: 'estimated' },
   { name: 'NVIDIA GeForce GTX 960', brand: 'NVIDIA', fps: [13, 8, 2], source: 'estimated' },
   { name: 'NVIDIA GeForce GTX 950', brand: 'NVIDIA', fps: [10, 6, 2], source: 'estimated' },
@@ -103,7 +105,7 @@ export const GPU_RATES: GpuRate[] = [
   { name: 'AMD Radeon RX 7900 GRE', brand: 'AMD', fps: [147, 102, 56], source: 'estimated' },
   { name: 'AMD Radeon RX 7800 XT', brand: 'AMD', fps: [124, 86, 45], source: 'measured' },
   { name: 'AMD Radeon RX 7700 XT', brand: 'AMD', fps: [106, 73, 38], source: 'measured' },
-  { name: 'AMD Radeon RX 7600 XT', brand: 'AMD', fps: [105, 50, 26], source: 'measured' },
+  { name: 'AMD Radeon RX 7600 XT', brand: 'AMD', note: 'Its 1080p figure is corrected: the published 102 fps does not fit its 1440p result.', fps: [74, 50, 26], source: 'measured' },
   { name: 'AMD Radeon RX 7600', brand: 'AMD', fps: [71, 46, 18], source: 'measured' },
   { name: 'AMD Radeon RX 6950 XT', brand: 'AMD', fps: [130, 91, 48], source: 'measured' },
   { name: 'AMD Radeon RX 6900 XT', brand: 'AMD', fps: [123, 85, 45], source: 'measured' },
@@ -123,7 +125,7 @@ export const GPU_RATES: GpuRate[] = [
   { name: 'AMD Radeon RX 5500 XT', brand: 'AMD', fps: [30, 19, 7], source: 'estimated' },
   { name: 'AMD Radeon RX Vega 64', brand: 'AMD', fps: [55, 37, 16], source: 'estimated' },
   { name: 'AMD Radeon RX Vega 56', brand: 'AMD', fps: [47, 32, 13], source: 'estimated' },
-  { name: 'AMD Radeon RX 590', brand: 'AMD', fps: [37, 24, 9], source: 'estimated' },
+  { name: 'AMD Radeon RX 590', brand: 'AMD', fps: [36, 24, 9], source: 'estimated' },
   { name: 'AMD Radeon RX 580', brand: 'AMD', fps: [33, 22, 8], source: 'estimated' },
   { name: 'AMD Radeon RX 570', brand: 'AMD', fps: [24, 15, 5], source: 'estimated' },
   { name: 'AMD Radeon RX 560', brand: 'AMD', fps: [13, 8, 2], source: 'estimated' },
@@ -134,7 +136,7 @@ export const GPU_RATES: GpuRate[] = [
   { name: 'AMD Radeon R9 390', brand: 'AMD', fps: [27, 17, 6], source: 'estimated' },
   { name: 'AMD Radeon R9 380', brand: 'AMD', fps: [13, 8, 2], source: 'estimated' },
   { name: 'AMD Radeon R9 290', brand: 'AMD', fps: [21, 13, 5], source: 'estimated' },
-  { name: 'AMD Radeon R9 280', brand: 'AMD', fps: [12, 7, 2], source: 'estimated' },
+  { name: 'AMD Radeon R9 280', brand: 'AMD', fps: [11, 7, 2], source: 'estimated' },
   { name: 'AMD Radeon R7 370', brand: 'AMD', fps: [10, 6, 2], source: 'estimated' },
   { name: 'AMD Radeon R7 240', brand: 'AMD', fps: [2, 1, 1], source: 'estimated' },
   { name: 'AMD Radeon R5 220', brand: 'AMD', fps: [1, 1, 1], source: 'estimated' },
@@ -155,7 +157,7 @@ export const GPU_RATES: GpuRate[] = [
   { name: 'Intel Iris Xe Graphics', brand: 'Intel', integrated: true, fps: [6, 3, 1], source: 'estimated' },
   { name: 'Intel UHD Graphics 770', brand: 'Intel', integrated: true, fps: [3, 2, 1], source: 'estimated' },
   { name: 'Intel UHD Graphics 630', brand: 'Intel', integrated: true, fps: [2, 1, 1], source: 'estimated' },
-  { name: 'Intel HD Graphics 530', brand: 'Intel', integrated: true, fps: [2, 1, 1], source: 'estimated' },
+  { name: 'Intel HD Graphics 530', brand: 'Intel', integrated: true, fps: [1, 1, 1], source: 'estimated' },
   { name: 'Intel HD Graphics 4000', brand: 'Intel', integrated: true, fps: [1, 1, 1], source: 'estimated' },
 ];
 

@@ -16,7 +16,7 @@ import {
   X,
 } from 'lucide-react';
 import { gamesDatabase, type Game } from '@/data/games-database';
-import { matchHardware, suggestHardware, type HardwareItem, type HardwareKind } from '@/lib/hardware/catalogue';
+import { CPUS, GPUS, matchHardware, suggestHardware, type HardwareItem, type HardwareKind } from '@/lib/hardware/catalogue';
 
 type Status = 'excellent' | 'good' | 'pass' | 'fail';
 
@@ -365,18 +365,24 @@ export default function CanYouRunItClient() {
     }
   };
 
-  // Game pages link here as /tools/can-you-run-it#game=<id>, so the visitor
-  // arrives with that game already chosen. A hash rather than a query string
-  // keeps a single URL for search engines.
+  // Game pages link here as /tools/can-you-run-it#game=<id>, and the
+  // bottleneck and FPS calculators add the visitor's parts as
+  // #cpu=<slug>&gpu=<slug>, so they arrive with the form already filled in.
+  // A hash rather than a query string keeps a single URL for search engines.
   useEffect(() => {
     const fromHash = () => {
-      const match = window.location.hash.match(/^#game=([a-z0-9-]+)$/);
-      const game = match ? gamesDatabase.find((g) => g.id === match[1]) : undefined;
-      if (!game) return;
-      setSelected(game);
+      const p = new URLSearchParams(window.location.hash.slice(1));
+      const game = gamesDatabase.find((g) => g.id === p.get('game'));
+      const cpuPart = CPUS.find((c) => partSlug(c.name) === p.get('cpu'));
+      const gpuPart = GPUS.find((g) => partSlug(g.name) === p.get('gpu'));
+      if (!game && !cpuPart && !gpuPart) return;
+      if (cpuPart) setCpu(cpuPart.name);
+      if (gpuPart) setGpu(gpuPart.name);
+      if (game) setSelected(game);
       setResult(null);
       setError(null);
-      const target = window.innerWidth < 1024 ? panelRef.current : document.getElementById('can-you-run-it');
+      // With a game chosen the form is next; with only parts, the game list is.
+      const target = game && window.innerWidth < 1024 ? panelRef.current : document.getElementById('can-you-run-it');
       requestAnimationFrame(() => target?.scrollIntoView({ block: 'start' }));
     };
     fromHash();
@@ -524,7 +530,7 @@ export default function CanYouRunItClient() {
 
         {/* ---------------- Right side ---------------- */}
         <section ref={panelRef} aria-live="polite" className={`${inset} min-w-0 scroll-mt-24 p-4 sm:p-6`}>
-          {!selected && <EmptyState />}
+          {!selected && <EmptyState cpu={cpuMatch?.name} gpu={gpuMatch?.name} />}
 
           {selected && unannounced && (
             <UnannouncedPanel
@@ -795,13 +801,19 @@ function partSlug(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-function EmptyState() {
+function EmptyState({ cpu, gpu }: { cpu?: string; gpu?: string }) {
+  const filled = [cpu, gpu].filter(Boolean) as string[];
   return (
     <div className="flex h-full min-h-[22rem] flex-col">
       <p className={eyebrow}>How it works</p>
       <h3 className="mt-2 max-w-md text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
         Pick a game on the left, then tell us what is inside your PC.
       </h3>
+      {filled.length > 0 && (
+        <p className="mt-4 rounded-2xl border border-emerald-600/20 bg-emerald-50 px-4 py-3 text-sm leading-relaxed text-emerald-900 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-100">
+          Your PC is already filled in: <span className="font-semibold">{filled.join(' and ')}</span>. Pick a game to check it.
+        </p>
+      )}
       <ol className="mt-6 grid gap-3 sm:grid-cols-3">
         {[
           ['01', 'Choose a game', 'Every title uses the specs its publisher released, with the source on its page.'],

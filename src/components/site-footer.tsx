@@ -18,6 +18,10 @@ const columns = [
     title: "Tools",
     links: [
       { name: "Website Audit", href: "/tools/website-audit" },
+      { name: "AI Crawler Checker", href: "/tools/ai-crawler-checker" },
+      { name: "Can You Run It?", href: "/tools/can-you-run-it" },
+      { name: "Bottleneck Calculator", href: "/tools/bottleneck-calculator" },
+      { name: "FPS Calculator", href: "/tools/fps-calculator" },
       { name: "AI Resume Builder", href: "/tools/ai-resume-builder" },
       { name: "Cover Letter Generator", href: "/tools/ai-cover-letter-generator" },
       { name: "Interview Simulator", href: "/tools/ai-interview-simulator" },

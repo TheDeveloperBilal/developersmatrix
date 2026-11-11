@@ -40,8 +40,8 @@ const PAGE_DATES: Record<string, string> = {
   '/tools/ai-email-assistant': '2026-10-07',
   '/tools/ai-prompt-library': '2026-10-06',
   '/tools/can-you-run-it': '2026-10-14',
-  '/tools/bottleneck-calculator': '2026-11-09',
-  '/tools/fps-calculator': '2026-11-09',
+  '/tools/bottleneck-calculator': '2026-11-11',
+  '/tools/fps-calculator': '2026-11-11',
   '/tools/ai-crawler-checker': '2026-11-06',
 };
 

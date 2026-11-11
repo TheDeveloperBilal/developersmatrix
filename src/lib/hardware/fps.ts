@@ -22,21 +22,35 @@ export function fitFor(fps: number, hz: number): Fit {
 }
 
 export interface BestFit {
+  /** The resolution the advice is about. */
   res: ResolutionId | null;
-  reason: 'monitor' | 'sixty' | 'none';
+  /**
+   * monitor: the highest resolution that keeps up with the monitor.
+   * close: nothing keeps up, but the fastest resolution is within 20% of it.
+   * sixty: nothing comes close, so the highest resolution at 60 fps or more.
+   * none: nothing reaches 60.
+   */
+  reason: 'monitor' | 'close' | 'sixty' | 'none';
+  /** Highest resolution at 60 fps or more, whatever the reason. */
+  sixty: ResolutionId | null;
+  /** Rounded fps at the fastest resolution (1080p). */
+  fastest: number;
 }
 
 /**
- * The highest resolution that keeps up with the monitor. If none does, the
- * highest that stays at 60 fps or more. If none does that, nothing.
+ * Someone with a high refresh monitor wants to know which resolution gets
+ * nearest to it, so that comes before the plain 60 fps answer.
  */
 export function bestFit(rows: Balance[], hz: number): BestFit {
   const order = [...rows].reverse(); // 4K first
+  const top = rows.reduce((a, b) => (b.expected > a.expected ? b : a));
+  const fastest = Math.round(top.expected);
+  const sixty = order.find((r) => Math.round(r.expected) >= 60)?.res ?? null;
   const monitor = order.find((r) => Math.round(r.expected) >= hz);
-  if (monitor) return { res: monitor.res, reason: 'monitor' };
-  const sixty = order.find((r) => Math.round(r.expected) >= 60);
-  if (sixty) return { res: sixty.res, reason: 'sixty' };
-  return { res: null, reason: 'none' };
+  if (monitor) return { res: monitor.res, reason: 'monitor', sixty, fastest };
+  if (fitFor(top.expected, hz) === 'close') return { res: top.res, reason: 'close', sixty, fastest };
+  if (sixty) return { res: sixty, reason: 'sixty', sixty, fastest };
+  return { res: null, reason: 'none', sixty, fastest };
 }
 
 /* ---------------- Upgrade comparison ---------------- */
