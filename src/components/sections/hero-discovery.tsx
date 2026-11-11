@@ -74,7 +74,7 @@ export default function HeroDiscovery({
 
         {/* Start here: the 3D tile grid used to sit here. Every tool it linked to
             is in the tool explorer further down. */}
-        <div className="relative animate-fade-up [animation-delay:120ms]">
+        <div className="relative min-w-0 animate-fade-up [animation-delay:120ms]">
           <StartHere games={checkableGames} />
         </div>
       </div>
