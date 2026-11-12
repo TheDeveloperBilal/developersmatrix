@@ -19,6 +19,12 @@ import { siteConfig } from '@/data/config';
 import { FAQSchema, BreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { matchHardware } from '@/lib/hardware/catalogue';
 import { shortName, slugify } from '@/lib/hardware/bottleneck';
+import { TEST_CPU, gameById } from '@/lib/hardware/fps';
+import { GAME_RATES_SOURCE_DATE } from '@/lib/hardware/game-rates';
+
+// Three common current cards, as Tom's Hardware measured them in the game.
+const FPS_CARDS = ['NVIDIA GeForce RTX 5060', 'NVIDIA GeForce RTX 5070', 'AMD Radeon RX 9070 XT'];
+const FPS_DATE = new Date(`${GAME_RATES_SOURCE_DATE}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
 interface GamePageProps {
   params: Promise<{ game: string }>;
@@ -516,6 +522,7 @@ export default async function GamePage({ params }: GamePageProps) {
   // calculator. Only when both name a part we have figures for.
   const recCpu = hasRecommended ? matchHardware(rec.processor, 'cpu') : null;
   const recGpu = hasRecommended ? matchHardware(rec.graphics, 'gpu') : null;
+  const fpsData = gameById(game.id);
   const recPairHref =
     recCpu && recGpu ? `/tools/bottleneck-calculator?cpu=${slugify(recCpu.name)}&gpu=${slugify(recGpu.name)}&res=1080p` : null;
 
@@ -743,6 +750,54 @@ export default async function GamePage({ params }: GamePageProps) {
               </p>
             )}
           </section>
+
+          {fpsData && (
+            <section className="mb-12" aria-labelledby="fps-heading">
+              <h2 id="fps-heading" className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                How many FPS in {game.searchName ?? game.name}?
+              </h2>
+              <p className="mb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                Average frame rate{fpsData.lowShare.gpu !== null ? ' and 1% low' : ''} from Tom&apos;s Hardware testing on a {shortName(TEST_CPU)}. Settings: {fpsData.settings}.
+                {fpsData.rayTracing ? ' Cards without ray tracing hardware were not tested here.' : ''} Lower settings run faster, and the calculator below scales these results to your own processor and graphics card.
+              </p>
+              <div className="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-700">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-gray-50 dark:bg-gray-800 text-[12px] uppercase tracking-[0.08em] text-gray-500 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" className="px-3 py-3 font-medium sm:px-4">Card</th>
+                      {['1080p', '1440p', '4K'].map((x) => (
+                        <th key={x} scope="col" className="px-2 py-3 text-right font-medium sm:px-4">{x}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    {FPS_CARDS.map((c) => (
+                      <tr key={c}>
+                        <th scope="row" className="px-3 py-2.5 font-medium text-gray-900 dark:text-white sm:px-4">{shortName(c)}</th>
+                        {fpsData.measured[c].map(([avg, low], i) => (
+                          <td key={i} className="px-2 py-2.5 text-right font-mono tabular-nums text-gray-900 dark:text-gray-100 sm:px-4">
+                            {Math.round(avg)}
+                            {fpsData.lowShare.gpu !== null && <span className="block whitespace-nowrap text-[11px] text-gray-500 dark:text-gray-400 sm:text-[12px]">1% low {Math.round(low)}</span>}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                Source: Tom&apos;s Hardware GPU benchmarks hierarchy, per game results, read {FPS_DATE}.
+                {fpsData.lowShare.gpu === null ? ' 1% lows are left out because they swung too much between cards in this test.' : ''}
+                {fpsData.fpsCap ? ` The game stops at ${fpsData.fpsCap} fps.` : ''}
+              </p>
+              <Link
+                href={`/tools/fps-calculator?game=${game.id}`}
+                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+              >
+                Estimate {game.searchName ?? game.name} FPS for your PC <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </section>
+          )}
 
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
