@@ -39,9 +39,9 @@ const PAGE_DATES: Record<string, string> = {
   '/tools/startup-idea-generator': '2026-10-07',
   '/tools/ai-email-assistant': '2026-10-07',
   '/tools/ai-prompt-library': '2026-10-06',
-  '/tools/can-you-run-it': '2026-10-14',
+  '/tools/can-you-run-it': '2026-11-12',
   '/tools/bottleneck-calculator': '2026-11-11',
-  '/tools/fps-calculator': '2026-11-11',
+  '/tools/fps-calculator': '2026-11-12',
   '/tools/ai-crawler-checker': '2026-11-06',
 };
 
@@ -50,6 +50,17 @@ const GAME_PAGES_DATE = '2026-10-28';
 // Game pages changed after that date.
 const GAME_DATES: Record<string, string> = {
   'football-manager-27': '2026-11-11',
+  // Round 43: FPS results section on the 10 games with measured data.
+  'fortnite': '2026-11-12',
+  'gta-5': '2026-11-12',
+  'counter-strike-2': '2026-11-12',
+  'apex-legends': '2026-11-12',
+  'cyberpunk-2077': '2026-11-12',
+  'arc-raiders': '2026-11-12',
+  'black-myth-wukong': '2026-11-12',
+  'assassins-creed-shadows': '2026-11-12',
+  'alan-wake-2': '2026-11-12',
+  'clair-obscur-expedition-33': '2026-11-12',
 };
 
 // Used only if a page is added without a date above, so it never gets a fake "today".

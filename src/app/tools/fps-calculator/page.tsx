@@ -6,7 +6,8 @@ import { InContentAd, SidebarAd } from "@/components/ads/AdBanner";
 import { BreadcrumbSchema, FAQSchema, HowToSchema, SoftwareApplicationSchema } from "@/components/seo/SchemaMarkup";
 import { CPU_RATES, GPU_RATES, RATES_UPDATED } from "@/lib/hardware/frame-rates";
 import { allResolutions, cpuByName, gpuByName, shortName } from "@/lib/hardware/bottleneck";
-import { TEST_CPU, currentCardsByFps } from "@/lib/hardware/fps";
+import { GAMES, TEST_CPU, currentCardsByFps, fpsRows, gameById } from "@/lib/hardware/fps";
+import { GAME_RATES_SOURCE_DATE } from "@/lib/hardware/game-rates";
 import FpsCalculatorClient from "./FpsCalculatorClient";
 
 export const metadata: Metadata = generatePageMetadata(toolMetadata["fps-calculator"]);
@@ -33,10 +34,20 @@ const tiers = [
 const example = allResolutions(cpuByName("AMD Ryzen 5 5600"), gpuByName("NVIDIA GeForce RTX 3060"));
 const exUp = allResolutions(cpuByName("AMD Ryzen 5 5600"), gpuByName("NVIDIA GeForce RTX 5060 Ti"));
 
+// Per game: Tom's Hardware's own results for three common current cards at 1440p.
+const REF_CARDS = ["NVIDIA GeForce RTX 5060", "NVIDIA GeForce RTX 5070", "AMD Radeon RX 9070 XT"];
+const GAME_DATE = new Date(`${GAME_RATES_SOURCE_DATE}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+const errLow = Math.round(Math.min(...GAMES.map((g) => g.fitError[0])) * 100);
+const errHigh = Math.round(Math.max(...GAMES.map((g) => g.fitError[0])) * 100);
+const fortnite = gameById("fortnite")!;
+const fn5060 = fortnite.measured["NVIDIA GeForce RTX 5060"];
+const fn5070 = fortnite.measured["NVIDIA GeForce RTX 5070"];
+const cpExample = fpsRows(cpuByName("AMD Ryzen 5 5600"), gpuByName("NVIDIA GeForce RTX 3060"), gameById("cyberpunk-2077"));
+
 const toolFaqs = [
   {
     question: "How many FPS will I get?",
-    answer: `Enter your processor and graphics card in the calculator above. It shows your average frame rate in demanding games at 1080p, 1440p and 4K on Ultra settings. For example, a Ryzen 5 5600 with an RTX 3060 averages about ${r(example[0].expected)} fps at 1080p and ${r(example[1].expected)} fps at 1440p.`,
+    answer: `Enter your processor and graphics card in the calculator above, and pick a game. It shows your average frame rate and 1% low at 1080p, 1440p and 4K, either in one of ${GAMES.length} popular games or across 11 demanding games on Ultra settings. For example, a Ryzen 5 5600 with an RTX 3060 averages about ${r(example[0].expected)} fps at 1080p and ${r(example[1].expected)} fps at 1440p across the 11 games, and about ${r(cpExample[0].expected)} fps at 1080p in Cyberpunk 2077 on Ultra.`,
   },
   {
     question: "What is a good FPS for gaming?",
@@ -48,7 +59,7 @@ const toolFaqs = [
   },
   {
     question: "How accurate is this FPS calculator?",
-    answer: `It uses published review averages, not guesses. ${GPU_MEASURED} of the ${GPU_COUNT} graphics cards use Tom's Hardware benchmark results directly, and every result says whether its figures are measured, scaled from a close sibling or estimated. The numbers are averages for demanding games at Ultra settings, so lighter games and lower settings run faster, and a single game can be quite different.`,
+    answer: `It uses published review results, not guesses. ${GPU_MEASURED} of the ${GPU_COUNT} graphics cards use Tom's Hardware benchmark results directly, and every result says whether its figures are measured, scaled or estimated. For the ${GAMES.length} games with their own results, the cards Tom's Hardware tested show their measured numbers, and the model behind the other cards lands typically within ${errLow}% to ${errHigh}% of those measured results. A single mid range card can still be off by up to about 20% in one game, and lower settings run faster than the settings tested.`,
   },
   {
     question: "Does the processor affect FPS?",
@@ -63,6 +74,18 @@ const toolFaqs = [
     answer: "The most common reasons are a game that is heavier than average, ray tracing switched on, memory running at its slow default speed because XMP or EXPO is off in the BIOS, too little free video memory at high texture settings, or background apps using the processor. Laptops also run slower than desktop parts with the same name.",
   },
   {
+    question: "How many FPS will I get in Fortnite?",
+    answer: `It depends on your graphics card and settings. In Tom's Hardware's test at High with Lumen and Nanite on, an RTX 5060 averaged ${r(fn5060[0][0])} fps at 1080p and ${r(fn5060[1][0])} fps at 1440p, and an RTX 5070 averaged ${r(fn5070[0][0])} and ${r(fn5070[1][0])}, with a Ryzen 7 9800X3D. Competitive players often turn those features off, which runs far faster. Pick Fortnite in the calculator to see your own PC.`,
+  },
+  {
+    question: "What is a 1% low in FPS?",
+    answer: "The 1% low is the frame rate of the slowest 1% of frames. It shows how smooth a game feels: an average of 60 fps with a 1% low of 50 feels steady, while the same average with a 1% low of 30 feels choppy. The calculator takes the 1% low from the lows Tom's Hardware measured in each game.",
+  },
+  {
+    question: "What is frame time?",
+    answer: "Frame time is how long each frame takes to arrive, in milliseconds. It is 1000 divided by the frame rate, so 60 fps is about 16.7 ms a frame and 144 fps is about 6.9 ms. Lower and steadier is smoother.",
+  },
+  {
     question: "Is the FPS calculator free?",
     answer: "Yes. It is free with no signup and no limits, and it runs in your browser.",
   },
@@ -71,6 +94,7 @@ const toolFaqs = [
 const steps = [
   { name: "Choose your processor", text: `Type the model, such as 5600 or 12400F, and pick it from the list. ${CPU_COUNT} desktop processors are covered.` },
   { name: "Choose your graphics card", text: `Type the model, such as 3060 or 7800 XT. ${GPU_COUNT} graphics cards are covered.` },
+  { name: "Pick a game", text: `Choose one of ${GAMES.length} games with measured results, or keep the average of 11 demanding games.` },
   { name: "Pick your monitor's refresh rate", text: "Choose 60, 144, 165 or 240 Hz to see which resolution keeps up with it." },
   { name: "Compare an upgrade", text: "Pick a new graphics card or processor to see how many fps it would add at each resolution." },
 ];
@@ -94,6 +118,8 @@ export default function FpsCalculatorPage() {
         offers={{ price: "0", priceCurrency: "USD" }}
         featureList={[
           "Average fps at 1080p, 1440p and 4K",
+          `Per game fps and 1% lows for ${GAMES.length} games`,
+          "Frame time in milliseconds",
           "Shows which resolution keeps up with your monitor",
           "Upgrade comparison for a new graphics card or processor",
           `${CPU_COUNT} processors and ${GPU_COUNT} graphics cards`,
@@ -125,10 +151,10 @@ export default function FpsCalculatorPage() {
               <div className="max-w-2xl">
                 <h1 className="text-balance font-sora text-4xl font-semibold tracking-tight sm:text-5xl">FPS Calculator</h1>
                 <p className="mt-4 text-lg leading-relaxed text-white/70">
-                  Find out how many FPS your PC will get in games. Enter your processor and graphics card to see your average frame rate at 1080p, 1440p and 4K, which resolution keeps up with your monitor, and how many fps an upgrade would add.
+                  Find out how many FPS your PC will get in games. Enter your processor and graphics card, pick a game, and see your average frame rate and 1% low at 1080p, 1440p and 4K, which resolution keeps up with your monitor, and how many fps an upgrade would add.
                 </p>
                 <ul className="mt-6 flex flex-wrap gap-2 text-sm">
-                  {[`${GPU_COUNT} graphics cards`, `${CPU_COUNT} processors`, "Built on review benchmarks", "No signup"].map((t) => (
+                  {[`${GPU_COUNT} graphics cards`, `${CPU_COUNT} processors`, `${GAMES.length} games with measured results`, "No signup"].map((t) => (
                     <li key={t} className="rounded-full border border-white/15 bg-white/5 px-3 py-1 font-medium text-white/80">{t}</li>
                   ))}
                 </ul>
@@ -162,6 +188,47 @@ export default function FpsCalculatorPage() {
                     Each step up in resolution asks the graphics card to draw more pixels, so the frame rate falls: 1440p has about 1.8 times the pixels of 1080p, and 4K has 4 times. The processor prepares roughly the same number of frames at any resolution, so it matters most at 1080p, where the card is fastest. Lower settings, lighter games and upscaling such as DLSS or FSR all raise the numbers above.
                   </p>
                 </div>
+              </section>
+
+              <section className="mb-12">
+                <h2 className="mb-2 font-sora text-2xl font-semibold tracking-tight text-ink-950 sm:text-3xl">FPS in Popular Games</h2>
+                <p className="mb-6 text-sm leading-relaxed text-ink-500">
+                  Average fps and 1% low at 1440p, as Tom&apos;s Hardware measured them with a {shortName(TEST_CPU)}. Settings are the ones Tom&apos;s Hardware tested, which are often higher than players use. Pick a game in the calculator to see your own PC.
+                </p>
+                <div className="overflow-x-auto rounded-2xl border border-ink-200">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-ink-50 text-[12px] uppercase tracking-[0.08em] text-ink-500">
+                      <tr>
+                        <th scope="col" className="px-3 py-3 font-medium sm:px-4">Game</th>
+                        {REF_CARDS.map((c) => (
+                          <th key={c} scope="col" className="px-3 py-3 text-right font-medium sm:px-4">{shortName(c)}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-ink-100">
+                      {GAMES.map((g) => (
+                        <tr key={g.id} className="align-top hover:bg-ink-50/70">
+                          <th scope="row" className="px-3 py-2.5 font-medium text-ink-900 sm:px-4">
+                            <Link href={`/tools/can-you-run-it/${g.id}`} className="hover:text-brand-700 hover:underline">{g.name}</Link>
+                            <span className="mt-0.5 block text-[12px] font-normal text-ink-500">{g.settings}</span>
+                          </th>
+                          {REF_CARDS.map((c) => {
+                            const m = g.measured[c][1];
+                            return (
+                              <td key={c} className="px-3 py-2.5 text-right font-mono tabular-nums text-ink-900 sm:px-4">
+                                {r(m[0])}
+                                {g.lowShare.gpu !== null && <span className="block text-[12px] text-ink-400">1% low {r(m[1])}</span>}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-3 text-[12.5px] leading-relaxed text-ink-500">
+                  Source: Tom&apos;s Hardware GPU benchmarks hierarchy, per game results, read {GAME_DATE}. GTA 5 Enhanced and Assassin&apos;s Creed Shadows are tested with ray tracing on. GTA 5 1% lows are left out because they swung too much between cards to be useful. Apex Legends stops at 300 fps.
+                </p>
               </section>
 
               <section className="mb-12">
@@ -244,6 +311,7 @@ export default function FpsCalculatorPage() {
                   {[
                     ["Graphics card speed from reviews", `Frame rates for ${GPU_MEASURED} graphics cards come from Tom's Hardware's GPU benchmarks hierarchy: the average of 11 demanding games at Ultra settings at 1080p, 1440p and 4K. Other cards are read off our own hardware scale and marked as estimates.`],
                     ["Processor speed from reviews", "Processor results come from Tom's Hardware's CPU benchmarks hierarchy and are turned into the number of frames each processor can prepare in the same games. Close variants without their own review, such as the Ryzen 5 5600, are scaled from their measured sibling by boost clock."],
+                    ["Results for single games", `For ${GAMES.length} popular games, Tom's Hardware also publishes each game's own average and 1% low for 14 current cards. Those cards show their measured numbers. Every other card is scaled by how the game ran compared with the 11 game average, and the processor side uses the frame rate the test processor reached in that game. Checked against the measured results, the model is typically within ${errLow}% to ${errHigh}%.`],
                     ["Putting them together", "Your frame rate sits close to the lower of the two numbers. Because the figures average many games, the calculator blends the two the way the review results do, so your result is a little under the lower number. This is the same model the bottleneck calculator uses, so the two tools always agree."],
                     ["Comparing an upgrade", "The upgrade comparison runs the same sum with the new part in place of the old one, then shows the gain at each resolution. If your processor stops a new card from giving most of its speed, it says so."],
                   ].map(([t, p], i) => (
@@ -257,7 +325,7 @@ export default function FpsCalculatorPage() {
                   ))}
                 </ol>
                 <p className="mt-6 leading-relaxed text-ink-700">
-                  <strong className="text-ink-900">What it does not cover:</strong> ray tracing, upscaling and frame generation, Low and Medium settings, 1% lows and stutter, and laptop parts. For one specific game, use the{" "}
+                  <strong className="text-ink-900">What it does not cover:</strong> ray tracing (apart from GTA 5 and Assassin&apos;s Creed Shadows, which are tested with it on), upscaling and frame generation, Low and Medium settings, stutter beyond the 1% low, and laptop parts. To check a game&apos;s published requirements, use the{" "}
                   <Link href="/tools/can-you-run-it" className="font-medium text-brand-700 hover:underline">Can You Run It checker</Link>. To see which part limits your frame rate, use the{" "}
                   <Link href="/tools/bottleneck-calculator" className="font-medium text-brand-700 hover:underline">bottleneck calculator</Link>.
                 </p>
@@ -306,6 +374,8 @@ export default function FpsCalculatorPage() {
                       ["Card figures", "Tom's Hardware GPU hierarchy"],
                       ["Processor figures", "Tom's Hardware CPU hierarchy"],
                       ["Games averaged", "11, Ultra settings"],
+                      ["Games with own results", String(GAMES.length)],
+                      ["Game results read", GAME_DATE],
                       ["Graphics cards", `${GPU_COUNT} (${GPU_MEASURED} measured)`],
                       ["Processors", String(CPU_COUNT)],
                       ["Last updated", UPDATED],

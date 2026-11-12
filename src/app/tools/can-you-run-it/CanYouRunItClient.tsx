@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { gamesDatabase, type Game } from '@/data/games-database';
 import { CPUS, GPUS, matchHardware, suggestHardware, type HardwareItem, type HardwareKind } from '@/lib/hardware/catalogue';
+import { FPS_GAME_IDS } from '@/lib/hardware/game-ids';
 
 type Status = 'excellent' | 'good' | 'pass' | 'fail';
 
@@ -779,6 +780,19 @@ export default function CanYouRunItClient() {
                       <span className="font-semibold text-slate-700 dark:text-slate-300">Publisher note: </span>
                       {result.note}
                     </p>
+                  )}
+
+                  {result.matched?.cpu && result.matched?.gpu && selected && FPS_GAME_IDS.includes(selected.id) && (
+                    <a
+                      href={`/tools/fps-calculator?cpu=${partSlug(result.matched.cpu)}&gpu=${partSlug(result.matched.gpu)}&game=${selected.id}`}
+                      className="mt-5 flex items-center justify-between gap-3 rounded-2xl border border-slate-900/[0.08] bg-white/70 px-4 py-3 text-sm transition-colors hover:border-slate-900/20 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/25"
+                    >
+                      <span className="min-w-0">
+                        <span className="block font-medium text-slate-900 dark:text-white">How many FPS in {selected.searchName ?? selected.name}?</span>
+                        <span className="block text-xs text-slate-500 dark:text-slate-400">Your PC at 1080p, 1440p and 4K, based on measured benchmark results</span>
+                      </span>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-slate-400" aria-hidden="true" />
+                    </a>
                   )}
 
                   {result.matched?.cpu && result.matched?.gpu && (
