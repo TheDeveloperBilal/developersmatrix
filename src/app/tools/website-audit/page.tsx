@@ -6,14 +6,21 @@ import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import WebsiteAuditClient from './WebsiteAuditClient';
-import { NAMED_CHECK_COUNT } from '@/lib/website-audit/check-catalogue';
+import { NAMED_CHECK_COUNT, CHECK_GROUPS, CHECK_DEFINITIONS } from '@/lib/website-audit/check-catalogue';
+
+// Every named test in the report, grouped the way the report groups them.
+// Read from the check catalogue, so this list can never drift from the tool.
+const HEALTH_GROUPS = CHECK_GROUPS.map((group) => ({
+  ...group,
+  checks: CHECK_DEFINITIONS.filter((check) => check.group === group.id),
+}));
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Free Website Audit Tool Online: Score Your Site",
-  description: `Audit your website online free. ${NAMED_CHECK_COUNT} named checks for SEO, speed, mobile and security, plus Core Web Vitals. A score out of 100 and a fix list. No signup.`,
+  title: "Free Website Audit Tool Online: Health Check and Score",
+  description: `Free website audit and health check online: ${NAMED_CHECK_COUNT} named checks for SEO, speed, mobile and security, plus Core Web Vitals. A score out of 100 and a fix list. No signup.`,
   keywords: ['audit website online', 'website audit tool online', 'website audit', 'audit website', 'audit a website', 'website auditor tool online', 'site audit online', 'site auditor online', 'audit checker', 'online website audit', 'web site audit', 'website auditor', 'web audit tool', 'website code audit', 'audit my website', 'audit of website', 'free website audit tool', 'website health check free', 'seo audit tool online', 'technical seo audit free', 'seo score checker', 'website performance checker', 'google core web vitals checker', 'website speed test tool', 'mobile friendly test tool', 'accessibility audit tool free', 'website security scanner free', 'free website analyzer', 'website grader', 'grade my website'],
   path: "/tools/website-audit",
-  modifiedTime: "2026-11-02",
+  modifiedTime: "2026-11-16",
 });
 
 const toolFaqs = [
@@ -550,6 +557,39 @@ export default function WebsiteAuditPage() {
                 Curious how real sites do on these checks? We ran this audit on 255 local business websites for our{' '}
                 <a href="/blog/small-business-website-statistics-2026" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">small business website statistics 2026</a>{' '}
                 study.
+              </p>
+            </section>
+
+            {/* Section 4b: every named test in the health check */}
+            <section className="mb-12" aria-labelledby="health-check-tests">
+              <h2 id="health-check-tests" className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                Free Website Health Check: Every Test in the Report
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                A website health check is only as good as the tests behind it, so here is the full list. These are the {NAMED_CHECK_COUNT} named tests in your report, grouped the way the report shows them. Each one comes back as passed, warning, failed or not checked. Not checked means the test could not run on that audit, for example when a request to your server failed, and it is never shown as a pass. Tests marked tip are suggestions for turning visitors into customers: they appear in the report but do not change your score.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                {HEALTH_GROUPS.map((group) => (
+                  <div key={group.id} className="min-w-0 rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <h3 className="flex items-baseline justify-between gap-3 font-semibold text-gray-900 dark:text-white">
+                      <span>{group.name}</span>
+                      <span className="shrink-0 text-xs font-medium tabular-nums text-gray-500 dark:text-gray-400">{group.checks.length} tests</span>
+                    </h3>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{group.description}</p>
+                    <ul className="mt-3 flex flex-wrap gap-1.5">
+                      {group.checks.map((check) => (
+                        <li key={check.id} className="rounded-md bg-gray-50 px-2 py-1 text-xs text-gray-700 ring-1 ring-gray-200 dark:bg-gray-900 dark:text-gray-300 dark:ring-gray-700">
+                          {check.name.replace(/ Test$/, '')}
+                          {check.category === 'conversion' && <span className="ml-1 text-gray-400 dark:text-gray-500">(tip)</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 mt-6 leading-relaxed">
+                Speed results from Google PageSpeed Insights, including the three Core Web Vitals, appear next to these tests, and half of your Performance score comes from Google&apos;s mobile speed score when Google returns one. To see which items on a full manual audit a tool can and cannot cover, read the one page table in our{' '}
+                <a href="/blog/website-audit-checklist-2026" className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2">47 point website audit checklist</a>.
               </p>
             </section>
 
