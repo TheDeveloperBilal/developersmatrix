@@ -187,7 +187,7 @@ function buildAuditOrderReceipt(data: ContactFormData, first: string): Built {
   const tier = findTier(data.tier) ?? AUDIT_PRICING.tiers[0];
   const label = `${tier.name} (${tierPrice(tier)})`;
   const site = data.site || 'your website';
-  const subject = 'We received your audit order | DevelopersMatrix';
+  const subject = 'We received your audit order | Developers Matrix';
   const delivery = tier.period
     ? 'We send your first report after the first full re audit, and then one report every month.'
     : `Your report arrives within ${tier.turnaround}.`;
@@ -206,9 +206,9 @@ function buildAuditOrderReceipt(data: ContactFormData, first: string): Built {
     </ol>
     <p style="margin:0 0 16px;font-size:15px;">${esc(refund)}</p>
     <p style="margin:0 0 16px;font-size:15px;">If you need to add something, just reply to this email.</p>
-    <p style="margin:0 0 4px;font-size:15px;">The DevelopersMatrix Team</p>
+    <p style="margin:0 0 4px;font-size:15px;">The Developers Matrix Team</p>
     <p style="margin:0;font-size:13px;color:#6b7280;">developersmatrix.com</p>
-    <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">You received this because someone used this address to order a website audit on DevelopersMatrix. If that was not you, you can ignore this email and nothing will be charged.</p>
+    <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">You received this because someone used this address to order a website audit on Developers Matrix. If that was not you, you can ignore this email and nothing will be charged.</p>
   `);
 
   const text = `Hi ${first},
@@ -221,10 +221,10 @@ ${refund}
 
 If you need to add something, just reply to this email.
 
-The DevelopersMatrix Team
+The Developers Matrix Team
 https://developersmatrix.com
 
-You received this because someone used this address to order a website audit on DevelopersMatrix. If that was not you, you can ignore this email and nothing will be charged.`;
+You received this because someone used this address to order a website audit on Developers Matrix. If that was not you, you can ignore this email and nothing will be charged.`;
 
   return { subject, html, text };
 }
@@ -238,8 +238,8 @@ export function buildAutoReply(data: ContactFormData): Built {
   const first = oneLine(data.name, 60).split(' ')[0] || 'there';
   if (data.type === 'audit-order') return buildAuditOrderReceipt(data, first);
   const subject = isCollab
-    ? 'We received your enquiry | DevelopersMatrix'
-    : 'We received your message | DevelopersMatrix';
+    ? 'We received your enquiry | Developers Matrix'
+    : 'We received your message | Developers Matrix';
 
   const what = isCollab ? 'enquiry' : 'message';
 
@@ -247,9 +247,9 @@ export function buildAutoReply(data: ContactFormData): Built {
     <p style="margin:0 0 16px;font-size:15px;">Hi ${esc(first)},</p>
     <p style="margin:0 0 16px;font-size:15px;">Thank you for getting in touch. Your ${what} has reached our team, and we will reply within 24 hours.</p>
     <p style="margin:0 0 16px;font-size:15px;">If you need to add something, just reply to this email.</p>
-    <p style="margin:0 0 4px;font-size:15px;">The DevelopersMatrix Team</p>
+    <p style="margin:0 0 4px;font-size:15px;">The Developers Matrix Team</p>
     <p style="margin:0;font-size:13px;color:#6b7280;">developersmatrix.com</p>
-    <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">You received this because someone used this address on the DevelopersMatrix ${isCollab ? 'Connect' : 'Contact'} page. If that was not you, you can ignore this email.</p>
+    <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;">You received this because someone used this address on the Developers Matrix ${isCollab ? 'Connect' : 'Contact'} page. If that was not you, you can ignore this email.</p>
   `);
 
   const text = `Hi ${first},
@@ -258,10 +258,10 @@ Thank you for getting in touch. Your ${what} has reached our team, and we will r
 
 If you need to add something, just reply to this email.
 
-The DevelopersMatrix Team
+The Developers Matrix Team
 https://developersmatrix.com
 
-You received this because someone used this address on the DevelopersMatrix ${isCollab ? 'Connect' : 'Contact'} page. If that was not you, you can ignore this email.`;
+You received this because someone used this address on the Developers Matrix ${isCollab ? 'Connect' : 'Contact'} page. If that was not you, you can ignore this email.`;
 
   return { subject, html, text };
 }

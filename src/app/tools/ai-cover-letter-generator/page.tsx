@@ -62,7 +62,7 @@ export default function CoverLetterPage() {
 
       <HowToSchema
         name="How to Write a Tech Cover Letter Using AI in 2026"
-        description="Step-by-step guide to generating, customizing, and submitting a professional cover letter for software developer and tech roles using the DevelopersMatrix AI Cover Letter Generator."
+        description="Step-by-step guide to generating, customizing, and submitting a professional cover letter for software developer and tech roles using the Developers Matrix AI Cover Letter Generator."
         url={`${siteConfig.url}/tools/ai-cover-letter-generator`}
         totalTime="PT10M"
         estimatedCost={{ currency: 'USD', value: '0' }}
@@ -98,7 +98,7 @@ export default function CoverLetterPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Cover Letter Generator"
+        name="Developers Matrix AI Cover Letter Generator"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
         description="Free cover letter generator for developers and tech professionals. Builds a tailored, ATS friendly letter from your own results and the job description, then checks it for stock phrases, missing numbers and keyword gaps. No signup needed."
@@ -210,7 +210,7 @@ export default function CoverLetterPage() {
                     So cover letters are not dead. They are harder. A generic template gets filtered by ATS. A pure AI draft gets rejected by humans. The winning strategy is a hybrid approach: use a tool to get a strong, structured draft built from your real results, then add the company specific details only you know.
                   </p>
                   <p className="leading-relaxed">
-                    The <strong>DevelopersMatrix AI Cover Letter Generator</strong> was built for this exact challenge. It is completely free, requires no signup, and generates a professional cover letter in under a minute. You enter the job title, company name, your experience, and skills. The tool produces a structured letter with a strong opening, relevant qualifications, genuine enthusiasm, and a clear call to action. Then you spend 5 to 10 minutes customizing it with company-specific details that make it unmistakably yours.
+                    The <strong>Developers Matrix AI Cover Letter Generator</strong> was built for this exact challenge. It is completely free, requires no signup, and generates a professional cover letter in under a minute. You enter the job title, company name, your experience, and skills. The tool produces a structured letter with a strong opening, relevant qualifications, genuine enthusiasm, and a clear call to action. Then you spend 5 to 10 minutes customizing it with company-specific details that make it unmistakably yours.
                   </p>
                   <p className="leading-relaxed">
                     The result? A cover letter that passes ATS filters, impresses hiring managers, and takes 15 minutes total instead of 45 minutes writing from scratch.
@@ -455,7 +455,7 @@ export default function CoverLetterPage() {
                   Complete Your Job Application Toolkit
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  A great cover letter is one piece of a strong application. Here are the other free tools from DevelopersMatrix that work together to help you land the job:
+                  A great cover letter is one piece of a strong application. Here are the other free tools from Developers Matrix that work together to help you land the job:
                 </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <a

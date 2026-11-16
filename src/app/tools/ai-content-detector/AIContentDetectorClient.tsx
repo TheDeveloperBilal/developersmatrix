@@ -149,7 +149,7 @@ export default function AIContentDetectorClient() {
   const copyReport = async () => {
     if (!result) return;
     const lines = [
-      'DevelopersMatrix AI Content Detector',
+      'Developers Matrix AI Content Detector',
       `Result: ${result.verdictLabel}`,
       `AI signal score: ${result.aiScore} out of 100`,
       `Reliability: ${result.detectionReliability}. ${result.reliabilityNote}`,

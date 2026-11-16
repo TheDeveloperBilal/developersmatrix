@@ -113,7 +113,7 @@ export default function BottleneckCalculatorPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Bottleneck Calculator"
+        name="Developers Matrix Bottleneck Calculator"
         applicationCategory="GameApplication"
         operatingSystem="Web"
         description={`Free CPU and GPU bottleneck calculator built on review benchmarks. Covers ${CPU_COUNT} processors and ${GPU_COUNT} graphics cards at 1080p, 1440p and 4K.`}
@@ -134,7 +134,7 @@ export default function BottleneckCalculatorPage() {
         url={URL}
         totalTime="PT1M"
         estimatedCost={{ currency: "USD", value: "0" }}
-        tool={["Web browser", "DevelopersMatrix Bottleneck Calculator"]}
+        tool={["Web browser", "Developers Matrix Bottleneck Calculator"]}
         step={steps}
       />
 

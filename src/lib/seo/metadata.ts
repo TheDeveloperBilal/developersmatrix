@@ -81,7 +81,7 @@ export function generatePageMetadata({
 // Pre-defined metadata for main pages
 export const pageMetadata = {
   home: {
-    title: 'DevelopersMatrix - Free AI Tools & Career Hub',
+    title: 'Developers Matrix - Free AI Tools & Career Hub',
     description: 'Your daily destination for AI-powered tools, career insights, productivity hacks, and market trends. Free resume builder, interview simulator, budget planner, and more.',
     keywords: ['AI tools', 'resume builder', 'career optimization', 'productivity tools', 'budget planner', 'job search', 'developer tools', 'interview preparation'],
     path: '/'
@@ -117,20 +117,20 @@ export const pageMetadata = {
     path: '/gta-6'
   },
   about: {
-    title: 'About DevelopersMatrix - Our Mission & Team',
-    description: 'Learn about DevelopersMatrix - our mission to empower developers, entrepreneurs, and tech professionals with AI-powered tools and curated content.',
-    keywords: ['about DevelopersMatrix', 'our mission', 'tech company', 'AI tools company'],
+    title: 'About Developers Matrix - Our Mission & Team',
+    description: 'Learn about Developers Matrix - our mission to empower developers, entrepreneurs, and tech professionals with AI-powered tools and curated content.',
+    keywords: ['about Developers Matrix', 'our mission', 'tech company', 'AI tools company'],
     path: '/about'
   },
   contact: {
     title: 'Contact Us - Get in Touch',
-    description: 'Have questions or feedback? Contact the DevelopersMatrix team. We are here to help with any inquiries about our tools and services.',
+    description: 'Have questions or feedback? Contact the Developers Matrix team. We are here to help with any inquiries about our tools and services.',
     keywords: ['contact', 'support', 'customer service', 'get in touch'],
     path: '/contact'
   },
   connect: {
     title: 'Connect: Collaborate and Partner',
-    description: 'Connect with DevelopersMatrix for collaboration opportunities, partnerships, sponsorships, or just to say hello. We would love to hear from you.',
+    description: 'Connect with Developers Matrix for collaboration opportunities, partnerships, sponsorships, or just to say hello. We would love to hear from you.',
     keywords: ['connect', 'partnership', 'collaboration', 'sponsorship', 'business inquiry'],
     path: '/connect'
   },

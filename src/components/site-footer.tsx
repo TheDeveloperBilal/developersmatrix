@@ -71,10 +71,10 @@ export default function SiteFooter() {
       <div className="shell relative py-14 lg:py-16">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/" className="flex items-center gap-2.5" aria-label="DevelopersMatrix home">
+            <Link href="/" className="flex items-center gap-2.5" aria-label="Developers Matrix home">
               <Image
                 src="/logo.webp"
-                alt="DevelopersMatrix"
+                alt="Developers Matrix"
                 width={160}
                 height={36}
                 className="h-8 w-auto brightness-0 invert"
@@ -130,7 +130,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
           <p className="text-xs text-white/40">
-            {`© ${new Date().getFullYear()} DevelopersMatrix. All rights reserved.`}
+            {`© ${new Date().getFullYear()} Developers Matrix. All rights reserved.`}
           </p>
           <p className="text-xs text-white/40">Made for the global community</p>
         </div>

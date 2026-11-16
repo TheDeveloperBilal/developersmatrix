@@ -27,7 +27,7 @@ import LatestUpdates from "@/components/sections/latest-updates";
 import IconDrawObserver from "@/components/icon-draw-observer";
 
 export const metadata: Metadata = {
-  title: "Free AI Tools, Resources & Trends | DevelopersMatrix",
+  title: "Free AI Tools, Resources & Trends | Developers Matrix",
   description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
   keywords: [
     "free AI tools",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     canonical: siteConfig.url,
   },
   openGraph: {
-    title: "Free AI Tools, Resources & Trends | DevelopersMatrix",
+    title: "Free AI Tools, Resources & Trends | Developers Matrix",
     description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
     url: siteConfig.url,
     siteName: siteConfig.name,
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "DevelopersMatrix - Free AI Tools Platform"
+        alt: "Developers Matrix - Free AI Tools Platform"
       }
     ],
     locale: 'en_US',
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free AI Tools, Resources & Trends | DevelopersMatrix',
+    title: 'Free AI Tools, Resources & Trends | Developers Matrix',
     description: 'Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.',
     images: [siteConfig.ogImage],
     creator: '@developersmatrix',
@@ -172,6 +172,19 @@ export default function HomePage() {
         offers={{ price: "0", priceCurrency: "USD" }}
       />
       <FAQSchema faqs={homeFaqs} />
+      {/* Site name for Google search results: "Developers Matrix", with the old one word spelling as an alternate. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: siteConfig.name,
+            alternateName: ['DevelopersMatrix', 'developersmatrix.com'],
+            url: `${siteConfig.url}/`,
+          }),
+        }}
+      />
 
       <LiveTicker items={tickerItems} />
       <HeroDiscovery toolsLabel={TOOLS_LABEL} guideCount={guideCount} trendCount={trendCount} />

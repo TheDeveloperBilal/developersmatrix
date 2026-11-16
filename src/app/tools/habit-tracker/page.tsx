@@ -49,7 +49,7 @@ export default function HabitTrackerPage() {
   return (
     <>
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Habit Tracker"
+        name="Developers Matrix Habit Tracker"
         applicationCategory="LifestyleApplication"
         operatingSystem="Web"
         description="Free daily habit tracker with date based streaks, a 7 day check in strip and a 12 week wall for every habit. Saved in your browser with backup and restore. No signup."

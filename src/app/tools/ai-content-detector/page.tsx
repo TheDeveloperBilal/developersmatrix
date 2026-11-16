@@ -56,7 +56,7 @@ export default function AIContentDetectorPage() {
   return (
     <>
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Content Detector"
+        name="Developers Matrix AI Content Detector"
         description="Free AI content detector. Paste English text to see whether it reads like AI writing or human writing, which sentences carry AI style patterns, and why. An estimate with an honest unclear band, never proof."
         url={`${siteConfig.url}/tools/ai-content-detector`}
         applicationCategory="UtilityApplication"
@@ -74,11 +74,11 @@ export default function AIContentDetectorPage() {
 
       <HowToSchema
         name="How to check whether text was written by AI"
-        description="Use the free DevelopersMatrix AI Content Detector to see whether text reads like AI writing, which sentences carry AI patterns, and how much weight to give the result."
+        description="Use the free Developers Matrix AI Content Detector to see whether text reads like AI writing, which sentences carry AI patterns, and how much weight to give the result."
         url={`${siteConfig.url}/tools/ai-content-detector`}
         totalTime="PT1M"
         estimatedCost={{ currency: 'USD', value: '0' }}
-        tool={['Web browser', 'DevelopersMatrix AI Content Detector']}
+        tool={['Web browser', 'Developers Matrix AI Content Detector']}
         step={[
           {
             name: 'Paste the text',

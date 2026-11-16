@@ -67,11 +67,11 @@ export default function InterviewSimulatorPage() {
 
       <HowToSchema
         name="How to Prepare for a Technical Interview Using AI in 2026"
-        description="Step-by-step guide to practicing behavioral, technical, and system design interviews using the DevelopersMatrix AI Interview Simulator. Covers goal-setting, targeted practice, and feedback analysis."
+        description="Step-by-step guide to practicing behavioral, technical, and system design interviews using the Developers Matrix AI Interview Simulator. Covers goal-setting, targeted practice, and feedback analysis."
         url={`${siteConfig.url}/tools/ai-interview-simulator`}
         totalTime="PT30M"
         estimatedCost={{ currency: 'USD', value: '0' }}
-        tool={['Web browser', 'DevelopersMatrix Interview Simulator']}
+        tool={['Web browser', 'Developers Matrix Interview Simulator']}
         step={[
           {
             name: "Choose your target role and level",
@@ -105,7 +105,7 @@ export default function InterviewSimulatorPage() {
         { name: "AI Interview Simulator", url: `${siteConfig.url}/tools/ai-interview-simulator` }
       ]} />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Interview Simulator"
+        name="Developers Matrix AI Interview Simulator"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
         description="Free AI-powered interview simulator for developers and tech professionals. Practice behavioral, technical, and system design interviews with instant feedback, three experience levels, and role-specific questions."
@@ -217,7 +217,7 @@ export default function InterviewSimulatorPage() {
                     That is why the gap between wanting a software engineering job and actually landing one has never been wider. It is not enough to know React or Python. You need to explain your thinking under pressure, handle unexpected follow-up questions, and demonstrate genuine understanding rather than memorized answers.
                   </p>
                   <p className="leading-relaxed">
-                    The <strong>DevelopersMatrix AI Interview Simulator</strong> was built for this exact moment. Every question is written for a specific role and level, and each one has a rubric of what a strong answer covers. Your answer is checked against that rubric, its structure and its detail, and you get feedback on exactly what to add. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
+                    The <strong>Developers Matrix AI Interview Simulator</strong> was built for this exact moment. Every question is written for a specific role and level, and each one has a rubric of what a strong answer covers. Your answer is checked against that rubric, its structure and its detail, and you get feedback on exactly what to add. You can practice behavioral questions using the STAR method, technical questions covering algorithms and data structures, and system design questions testing architecture thinking.
                   </p>
                   <p className="leading-relaxed">
                     Best part? It is completely free. No signup. No credit card. No scheduling. Just pick your role, select a category, and start practicing.
@@ -483,7 +483,7 @@ export default function InterviewSimulatorPage() {
                   Complete Your Interview Preparation Toolkit
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  Practicing interviews is essential, but it is only one part of landing the job. Here are the other free tools from DevelopersMatrix that work together with our AI Interview Simulator:
+                  Practicing interviews is essential, but it is only one part of landing the job. Here are the other free tools from Developers Matrix that work together with our AI Interview Simulator:
                 </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <a

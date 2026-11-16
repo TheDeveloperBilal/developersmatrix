@@ -17,7 +17,7 @@ const tool = getToolBySlug('ai-resume-builder');
 const toolFaqs = [
   {
     question: "Is this AI resume builder completely free to use?",
-    answer: "Yes, DevelopersMatrix AI Resume Builder is 100% free. You can create, customize, and download your resume without any hidden charges, subscription fees, or credit card requirements. We believe every developer deserves access to professional tools regardless of budget."
+    answer: "Yes, Developers Matrix AI Resume Builder is 100% free. You can create, customize, and download your resume without any hidden charges, subscription fees, or credit card requirements. We believe every developer deserves access to professional tools regardless of budget."
   },
   {
     question: "How does the ATS optimization work in this resume builder?",
@@ -79,7 +79,7 @@ export default function ResumeBuilderPage() {
 
       {/* Software Application Schema */}
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Resume Builder"
+        name="Developers Matrix AI Resume Builder"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
         description="Free resume builder for developers and tech professionals. Live A4 preview, three ATS friendly templates, a built in resume check and job posting skill matching. No signup."
@@ -96,7 +96,7 @@ export default function ResumeBuilderPage() {
       {/* HowTo Schema — AI systems love step-by-step instructional content */}
       <HowToSchema
         name="How to Build an ATS Optimized Developer Resume in 2026"
-        description="A step by step guide to creating a professional, ATS friendly resume for software developers using the DevelopersMatrix AI Resume Builder."
+        description="A step by step guide to creating a professional, ATS friendly resume for software developers using the Developers Matrix AI Resume Builder."
         url={`${siteConfig.url}/tools/ai-resume-builder`}
         totalTime="PT15M"
         estimatedCost={{ currency: 'USD', value: '0' }}
@@ -218,7 +218,7 @@ export default function ResumeBuilderPage() {
                   Let's be honest. Most resume builders are built for marketers and managers, not people who actually build software. You know the type: fancy templates with graphics that look great on Instagram but that many ATS parsers misread before a human even sees your name.
                 </p>
                 <p className="leading-relaxed">
-                  That's exactly why we built the <strong>DevelopersMatrix AI Resume Builder</strong>. It's designed specifically for software engineers, web developers, DevOps specialists, data scientists, and anyone else who writes code for a living. It pushes you to show where you used a tool and what changed, because "React" in a skills list means little until a bullet proves it.
+                  That's exactly why we built the <strong>Developers Matrix AI Resume Builder</strong>. It's designed specifically for software engineers, web developers, DevOps specialists, data scientists, and anyone else who writes code for a living. It pushes you to show where you used a tool and what changed, because "React" in a skills list means little until a bullet proves it.
                 </p>
                 <p className="leading-relaxed">
                   In 2026 most employers run applications through an Applicant Tracking System before a recruiter opens them. That makes plain formatting and the posting's own words matter more than design. This builder keeps the format plain, checks every bullet as you write it, and shows which skills from a job posting your resume is missing.
@@ -331,7 +331,7 @@ export default function ResumeBuilderPage() {
                     <thead>
                       <tr className="bg-gray-50 dark:bg-gray-800">
                         <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Feature</th>
-                        <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">DevelopersMatrix</th>
+                        <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Developers Matrix</th>
                         <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Resume.io</th>
                         <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Zety</th>
                         <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">Canva</th>
@@ -340,35 +340,35 @@ export default function ResumeBuilderPage() {
                     <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                       <tr>
                         <th scope="row" className="px-4 py-3 font-medium">Price</th>
-                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600 font-bold">Free</td>
+                        <td data-label="Developers Matrix" className="px-4 py-3 text-green-600 font-bold">Free</td>
                         <td data-label="Resume.io" className="px-4 py-3">$2.95+</td>
                         <td data-label="Zety" className="px-4 py-3">$2.70+</td>
                         <td data-label="Canva" className="px-4 py-3">Free / Pro</td>
                       </tr>
                       <tr>
                         <th scope="row" className="px-4 py-3 font-medium">Single column ATS templates</th>
-                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">All three</td>
+                        <td data-label="Developers Matrix" className="px-4 py-3 text-green-600">All three</td>
                         <td data-label="Resume.io" className="px-4 py-3">Some</td>
                         <td data-label="Zety" className="px-4 py-3">Some</td>
                         <td data-label="Canva" className="px-4 py-3">Few, many are design led</td>
                       </tr>
                       <tr>
                         <th scope="row" className="px-4 py-3 font-medium">Built for developers</th>
-                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">Yes</td>
+                        <td data-label="Developers Matrix" className="px-4 py-3 text-green-600">Yes</td>
                         <td data-label="Resume.io" className="px-4 py-3">General purpose</td>
                         <td data-label="Zety" className="px-4 py-3">General purpose</td>
                         <td data-label="Canva" className="px-4 py-3">General purpose</td>
                       </tr>
                       <tr>
                         <th scope="row" className="px-4 py-3 font-medium">Data stored</th>
-                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">Your browser only</td>
+                        <td data-label="Developers Matrix" className="px-4 py-3 text-green-600">Your browser only</td>
                         <td data-label="Resume.io" className="px-4 py-3">Account</td>
                         <td data-label="Zety" className="px-4 py-3">Account</td>
                         <td data-label="Canva" className="px-4 py-3">Account</td>
                       </tr>
                       <tr>
                         <th scope="row" className="px-4 py-3 font-medium">Signup Required</th>
-                        <td data-label="DevelopersMatrix" className="px-4 py-3 text-green-600">No</td>
+                        <td data-label="Developers Matrix" className="px-4 py-3 text-green-600">No</td>
                         <td data-label="Resume.io" className="px-4 py-3">Yes</td>
                         <td data-label="Zety" className="px-4 py-3">Yes</td>
                         <td data-label="Canva" className="px-4 py-3">Yes</td>
@@ -377,7 +377,7 @@ export default function ResumeBuilderPage() {
                   </table>
                 </div>
                 <p className="leading-relaxed">
-                  Paid builders offer more design templates and features such as cover letter bundles. DevelopersMatrix focuses on what tech resumes need most: a plain format tracking systems read well, a live check on every bullet, and a skills comparison against the posting, free and without an account. Prices for other tools change often, so check their sites before you buy.
+                  Paid builders offer more design templates and features such as cover letter bundles. Developers Matrix focuses on what tech resumes need most: a plain format tracking systems read well, a live check on every bullet, and a skills comparison against the posting, free and without an account. Prices for other tools change often, so check their sites before you buy.
                 </p>
               </div>
             </section>
@@ -390,7 +390,7 @@ export default function ResumeBuilderPage() {
                 Complete Your Job Search Toolkit
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                A great resume gets you the interview. But you need more than just a resume to land the job. Here are the other free tools from DevelopersMatrix that work together with our AI Resume Builder:
+                A great resume gets you the interview. But you need more than just a resume to land the job. Here are the other free tools from Developers Matrix that work together with our AI Resume Builder:
               </p>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <a 

@@ -123,7 +123,7 @@ const faqs = [
   {
     question: 'Are these tools free?',
     answer:
-      'Yes. Every tool on DevelopersMatrix is free to use, with no trial period and no card details. The site is supported by a small number of ads.',
+      'Yes. Every tool on Developers Matrix is free to use, with no trial period and no card details. The site is supported by a small number of ads.',
   },
   {
     question: 'Is an account needed?',
@@ -172,7 +172,7 @@ export default function ToolsPage() {
         ]}
       />
       <ItemListSchema
-        name="DevelopersMatrix Tools"
+        name="Developers Matrix Tools"
         description="Free browser tools for careers, websites, writing, planning, money and PC gaming"
         itemListElement={list.map((t) => ({ name: t.name, description: t.outcome, url: `${siteConfig.url}${t.path}` }))}
       />

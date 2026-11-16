@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   keywords: ["tech community", "developer threads", "programming discussions", "career advice", "tech help", "AI discussions", "gaming", "finance"],
   openGraph: {
-    title: "Community Threads | DevelopersMatrix",
+    title: "Community Threads | Developers Matrix",
     description: "Join our community of developers, entrepreneurs, and tech professionals. Create threads, reply to discussions, and share your knowledge.",
     url: `${siteConfig.url}/community`,
   },

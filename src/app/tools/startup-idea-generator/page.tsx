@@ -61,7 +61,7 @@ export default function StartupIdeaPage() {
   return (
     <>
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Startup Idea Generator"
+        name="Developers Matrix Startup Idea Generator"
         description={`Free startup and business idea generator. Answer five questions and get ideas matched to your skills, time and budget, each with a one page canvas and a 7 day test plan. ${IDEA_COUNT} idea combinations across ${INDUSTRY_COUNT} industries.`}
         url={`${siteConfig.url}/tools/startup-idea-generator`}
         applicationCategory="BusinessApplication"

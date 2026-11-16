@@ -25,10 +25,10 @@ const navLinks = [
 
 function Logo() {
   return (
-    <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="DevelopersMatrix home">
+    <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Developers Matrix home">
       <Image
         src="/logo.webp"
-        alt="DevelopersMatrix"
+        alt="Developers Matrix"
         width={180}
         height={40}
         className="h-9 w-auto"

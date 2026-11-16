@@ -12,13 +12,13 @@ import ConnectWithUsClient from "./ConnectWithUsClient";
 export const metadata: Metadata = {
   title: "Connect: Advertise and Partner",
   description:
-    "Work with DevelopersMatrix: sponsored and guest posts, AI tool features, ad placements, website audits and web development. Quoted per project.",
+    "Work with Developers Matrix: sponsored and guest posts, AI tool features, ad placements, website audits and web development. Quoted per project.",
   alternates: {
     canonical: `${siteConfig.url}/connect`,
   },
   keywords: ["advertise with us", "partner with us", "sponsored content", "guest post", "AI tool promotion", "tech advertising", "website audit service"],
   openGraph: {
-    title: "Connect With Us | DevelopersMatrix",
+    title: "Connect With Us | Developers Matrix",
     description: "Sponsored posts, tool features, ad placements, website audits and web development. Tell us what you have in mind and get a quote.",
     url: `${siteConfig.url}/connect`,
   },
@@ -52,7 +52,7 @@ const audiences = [
 
 const glance = [
   { term: "Free tools on the site", detail: `${TOOLS_LABEL}, plus trend reports and guides` },
-  { term: "Who you work with", detail: "The DevelopersMatrix team", href: "/about" },
+  { term: "Who you work with", detail: "The Developers Matrix team", href: "/about" },
   { term: "Reply time", detail: "Under 24 hours" },
   { term: "Pricing", detail: "Quoted per project" },
   { term: "Sponsored articles", detail: "Edited, published and promoted" },
@@ -124,7 +124,7 @@ export default function ConnectPage() {
                 <span className="text-ink-200">Connect</span>
               </nav>
               <p className="mt-8 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-brand-300">
-                Work with DevelopersMatrix
+                Work with Developers Matrix
               </p>
               <h1 className="mt-3 font-sora text-4xl font-bold tracking-tight sm:text-6xl">
                 Connect With Us
@@ -183,7 +183,7 @@ export default function ConnectPage() {
                 Who You Reach With Us
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-                DevelopersMatrix is built around intent. Readers arrive with a specific job to do, whether that is fixing a website, preparing for an interview or finding an AI tool worth paying for, and every page is designed around that job. Your brand appears at the moment it is most useful.
+                Developers Matrix is built around intent. Readers arrive with a specific job to do, whether that is fixing a website, preparing for an interview or finding an AI tool worth paying for, and every page is designed around that job. Your brand appears at the moment it is most useful.
               </p>
               <p className="mt-4 leading-relaxed text-ink-600 dark:text-ink-300">
                 Budgets start from under $50, and current figures for any page you are interested in are shared with your quote.

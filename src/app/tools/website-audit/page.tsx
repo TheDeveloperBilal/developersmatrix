@@ -70,7 +70,7 @@ const toolFaqs = [
   },
   {
     question: "How much does a website audit cost in 2026?",
-    answer: "Website audit cost in 2026 ranges from free to over $5,000 depending on depth and provider. Free tools like DevelopersMatrix and Google Lighthouse cover technical SEO, performance, and security basics for small to medium sites. Paid desktop tools like Screaming Frog cost $259 per year and excel at full site crawling. All in one suites like Ahrefs ($99-$999/month) and SEMrush ($119-$449/month) add competitive analysis, rank tracking, and backlink data. Professional agency audits run $500-$5,000 and include manual review with custom strategy. For most sites under 1,000 pages, a free audit combined with Google Search Console is sufficient to start. Upgrade to paid tools only when your traffic justifies the investment."
+    answer: "Website audit cost in 2026 ranges from free to over $5,000 depending on depth and provider. Free tools like Developers Matrix and Google Lighthouse cover technical SEO, performance, and security basics for small to medium sites. Paid desktop tools like Screaming Frog cost $259 per year and excel at full site crawling. All in one suites like Ahrefs ($99-$999/month) and SEMrush ($119-$449/month) add competitive analysis, rank tracking, and backlink data. Professional agency audits run $500-$5,000 and include manual review with custom strategy. For most sites under 1,000 pages, a free audit combined with Google Search Console is sufficient to start. Upgrade to paid tools only when your traffic justifies the investment."
   },
   {
     question: "Can I audit a single URL instead of my entire website?",
@@ -78,7 +78,7 @@ const toolFaqs = [
   },
   {
     question: "What is the best online website auditor for small businesses?",
-    answer: `For small businesses, the best online website auditor is one that balances depth with simplicity and cost. DevelopersMatrix offers a completely free audit with ${NAMED_CHECK_COUNT} named checks across seven scored areas, which suits small sites that need quick, actionable fixes without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals. It has a short SEO section and focuses on speed. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full site technical crawling. Avoid expensive all in one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence.`
+    answer: `For small businesses, the best online website auditor is one that balances depth with simplicity and cost. Developers Matrix offers a completely free audit with ${NAMED_CHECK_COUNT} named checks across seven scored areas, which suits small sites that need quick, actionable fixes without a learning curve or subscription. Google Lighthouse is also free and excellent for Core Web Vitals. It has a short SEO section and focuses on speed. If you outgrow free tools, Screaming Frog at $259 per year is the next logical step for full site technical crawling. Avoid expensive all in one suites like Ahrefs or SEMrush until your site has significant traffic and you need ongoing rank tracking and competitive intelligence.`
   },
   {
     question: "Why is my website audit score low?",
@@ -90,10 +90,10 @@ const toolFaqs = [
   },
   {
     question: "How is this different from Google Search Console?",
-    answer: "Google Search Console reports on how Google sees your site after the fact: indexing status, manual actions, and search performance data. The DevelopersMatrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
+    answer: "Google Search Console reports on how Google sees your site after the fact: indexing status, manual actions, and search performance data. The Developers Matrix audit tool gives you an instant proactive health check across SEO, speed, mobile, and security before Google flags issues. Use both together: the audit tool to identify and fix problems proactively, and Search Console to monitor the results."
   },
   {
-    question: "What makes the DevelopersMatrix Site Health Score different from other audit tools?",
+    question: "What makes the Developers Matrix Site Health Score different from other audit tools?",
     answer: "Generic pass or fail checkers count every failure the same. Ours does not. Each finding costs points by severity, so a missing title tag costs more than a long meta description, and a problem on every page costs more than one on a single page. Low priority notes are capped per category, so a pile of minor notes cannot sink the score. Any critical finding, such as robots.txt blocking Googlebot or a password form on plain HTTP, caps the grade at 45 (35 with two or more), because a site with one of those problems is not healthy whatever else it gets right."
   },
 ];
@@ -253,7 +253,7 @@ export default function WebsiteAuditPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Website Audit Tool"
+        name="Developers Matrix Website Audit Tool"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
         description={`Free website audit tool for SEO, technical, performance, security, content, accessibility and mobile checks. ${NAMED_CHECK_COUNT} named checks, a score out of 100 and a fix list ordered by severity.`}
@@ -267,11 +267,11 @@ export default function WebsiteAuditPage() {
 
       <HowToSchema
         name="How to Audit Your Website for SEO, Speed and Security in 2026"
-        description="Step by step guide to running a website audit using the DevelopersMatrix free tool. Covers preparation, running the audit, and prioritizing fixes by severity."
+        description="Step by step guide to running a website audit using the Developers Matrix free tool. Covers preparation, running the audit, and prioritizing fixes by severity."
         url={`${siteConfig.url}/tools/website-audit`}
         totalTime="PT5M"
         estimatedCost={{ currency: 'USD', value: '0' }}
-        tool={['Web browser', 'DevelopersMatrix Website Audit Tool']}
+        tool={['Web browser', 'Developers Matrix Website Audit Tool']}
         step={[
           {
             name: "Prepare your website URL",
@@ -698,8 +698,8 @@ export default function WebsiteAuditPage() {
                   </thead>
                   <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                     {[
-                      ['DevelopersMatrix tool', 'Free', 'Quick checks, small sites, developers', 'Up to 5 pages per scan'],
-                      ['DevelopersMatrix manual audit', 'From $9.99', 'A person checks the findings and writes the fix list', 'Fixed scope per audit'],
+                      ['Developers Matrix tool', 'Free', 'Quick checks, small sites, developers', 'Up to 5 pages per scan'],
+                      ['Developers Matrix manual audit', 'From $9.99', 'A person checks the findings and writes the fix list', 'Fixed scope per audit'],
                       ['Google Lighthouse', 'Free', 'Performance and Core Web Vitals', 'Limited SEO checks, one page at a time'],
                       ['Screaming Frog', 'Annual licence', 'Full site crawls, technical SEO', 'Desktop only, steep learning curve'],
                       ['Ahrefs or Semrush site audit', 'Monthly subscription', 'Large sites, backlinks, rank tracking', 'Expensive if you only need audits'],

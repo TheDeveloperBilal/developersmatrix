@@ -110,7 +110,7 @@ export default function FpsCalculatorPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix FPS Calculator"
+        name="Developers Matrix FPS Calculator"
         applicationCategory="GameApplication"
         operatingSystem="Web"
         description={`Free FPS calculator for PC games. Enter your CPU and GPU to see your average frame rate at 1080p, 1440p and 4K, and how many fps an upgrade would add. Built on review benchmarks.`}
@@ -133,7 +133,7 @@ export default function FpsCalculatorPage() {
         url={URL}
         totalTime="PT1M"
         estimatedCost={{ currency: "USD", value: "0" }}
-        tool={["Web browser", "DevelopersMatrix FPS Calculator"]}
+        tool={["Web browser", "Developers Matrix FPS Calculator"]}
         step={steps}
       />
 

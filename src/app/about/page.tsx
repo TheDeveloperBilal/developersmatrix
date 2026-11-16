@@ -10,18 +10,18 @@ import { TOOLS_LABEL } from "@/lib/home-data";
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'About Syed Bilal Shah, Founder',
-  description: 'Meet Syed Bilal Shah, founder of DevelopersMatrix and cofounder of OviTech Global: his path from intern to entrepreneur and why the tools here stay free.',
+  description: 'Meet Syed Bilal Shah, founder of Developers Matrix and cofounder of OviTech Global: his path from intern to entrepreneur and why the tools here stay free.',
   path: '/about',
 });
 
 // Shown on the page and sent as FAQPage schema, so the two always match.
 const aboutFaqs = [
   {
-    question: "Who founded DevelopersMatrix?",
-    answer: "DevelopersMatrix was founded by Syed Bilal Shah, a full stack developer who started his career in 2018 and has worked across web development, SEO and digital marketing since then. He is also the cofounder of OviTech Global, a software and digital solutions company with more than 20 team members."
+    question: "Who founded Developers Matrix?",
+    answer: "Developers Matrix was founded by Syed Bilal Shah, a full stack developer who started his career in 2018 and has worked across web development, SEO and digital marketing since then. He is also the cofounder of OviTech Global, a software and digital solutions company with more than 20 team members."
   },
   {
-    question: "Are the tools on DevelopersMatrix really free?",
+    question: "Are the tools on Developers Matrix really free?",
     answer: "Yes. The tools are free to use with no signup and no credit card. The site is supported by ads. It exists because Bilal kept seeing the useful features of professional tools locked behind expensive monthly plans."
   },
   {
@@ -29,8 +29,8 @@ const aboutFaqs = [
     answer: "OviTech Global is a software and digital solutions company that Syed Bilal Shah cofounded with a business partner in 2023. Its team of more than 20 professionals builds websites and helps businesses grow their online visibility. You can find it at ovitech.co."
   },
   {
-    question: "Is my data private when using DevelopersMatrix tools?",
-    answer: "Most tools run in your browser, so what you type into a resume, budget or day plan stays on your device. A few tools, such as the website audit and the content detector, send what you enter to our server so it can be processed. Like most free websites, DevelopersMatrix uses Google Analytics to understand which pages are useful and Google AdSense to pay for hosting, and both use cookies. The cookie policy lists everything that is used."
+    question: "Is my data private when using Developers Matrix tools?",
+    answer: "Most tools run in your browser, so what you type into a resume, budget or day plan stays on your device. A few tools, such as the website audit and the content detector, send what you enter to our server so it can be processed. Like most free websites, Developers Matrix uses Google Analytics to understand which pages are useful and Google AdSense to pay for hosting, and both use cookies. The cookie policy lists everything that is used."
   }
 ];
 
@@ -63,8 +63,8 @@ const milestones = [
   },
   {
     year: "2024",
-    title: "DevelopersMatrix",
-    text: "Built DevelopersMatrix to give developers, freelancers, students and business owners useful tools without expensive paywalls.",
+    title: "Developers Matrix",
+    text: "Built Developers Matrix to give developers, freelancers, students and business owners useful tools without expensive paywalls.",
   },
 ];
 
@@ -87,8 +87,8 @@ const principles = [
 const facts = [
   { value: "2018", label: "Started as a web developer intern" },
   { value: "2023", label: "Cofounded OviTech Global" },
-  { value: "2024", label: "Launched DevelopersMatrix" },
-  { value: TOOLS_LABEL, label: "Free tools on DevelopersMatrix" },
+  { value: "2024", label: "Launched Developers Matrix" },
+  { value: TOOLS_LABEL, label: "Free tools on Developers Matrix" },
 ];
 
 const profiles = [
@@ -143,13 +143,13 @@ export default function AboutPage() {
                 <span className="text-ink-700 dark:text-ink-300">About</span>
               </nav>
               <p className="mt-8 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-300">
-                Founder of DevelopersMatrix
+                Founder of Developers Matrix
               </p>
               <h1 className="mt-3 font-sora text-4xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-6xl">
                 Syed Bilal Shah
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-600 dark:text-ink-300 sm:text-xl">
-                Founder of DevelopersMatrix and cofounder of{" "}
+                Founder of Developers Matrix and cofounder of{" "}
                 <a href={OVITECH.url} target="_blank" rel="noopener" className="font-medium text-ink-950 underline decoration-brand-300 underline-offset-4 hover:decoration-brand-600 dark:text-white">
                   OviTech Global
                 </a>
@@ -184,7 +184,7 @@ export default function AboutPage() {
                 <div aria-hidden="true" className="absolute -inset-3 rounded-[2rem] border border-ink-200 dark:border-ink-800" />
                 <Image
                   src="/images/about/bilal-1.jpg"
-                  alt="Syed Bilal Shah, founder of DevelopersMatrix"
+                  alt="Syed Bilal Shah, founder of Developers Matrix"
                   width={960}
                   height={1280}
                   priority
@@ -222,7 +222,7 @@ export default function AboutPage() {
                   From Intern to Entrepreneur
                 </h2>
                 <p className="mt-4 text-ink-600 dark:text-ink-300">
-                  The real story of how DevelopersMatrix came to be, without the polished startup version.
+                  The real story of how Developers Matrix came to be, without the polished startup version.
                 </p>
               </div>
             </div>
@@ -255,7 +255,7 @@ export default function AboutPage() {
             <div className="mx-auto max-w-[44rem]">
               <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-300">The full story</p>
               <h2 className="mt-3 font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-4xl">
-                Why I Built DevelopersMatrix
+                Why I Built Developers Matrix
               </h2>
               <div className="mt-8 space-y-6 text-[1.0625rem] leading-[1.8] text-ink-700 dark:text-ink-300">
                 <p>
@@ -298,24 +298,24 @@ export default function AboutPage() {
                   Why should essential tools only be available to people who can afford expensive monthly plans?
                 </blockquote>
 
-                <p>That question became the foundation of DevelopersMatrix.</p>
+                <p>That question became the foundation of Developers Matrix.</p>
                 <p>
-                  I wanted to create a platform that gives developers, freelancers, students, job seekers, entrepreneurs, marketers and business owners access to powerful tools without unnecessary paywalls. DevelopersMatrix is more than a collection of AI tools. It is a platform built from years of real world experience, countless client projects, failed experiments, successful businesses and continuous learning.
+                  I wanted to create a platform that gives developers, freelancers, students, job seekers, entrepreneurs, marketers and business owners access to powerful tools without unnecessary paywalls. Developers Matrix is more than a collection of AI tools. It is a platform built from years of real world experience, countless client projects, failed experiments, successful businesses and continuous learning.
                 </p>
                 <p>
                   Every tool on the platform is designed to solve a practical problem. Whether it is auditing a website, building a professional resume, writing an effective cover letter, improving content quality, discovering AI prompts or exploring the latest technology trends, my goal is simple: build tools that are useful, accessible and free for everyone.
                 </p>
                 <p>
-                  I also believe knowledge should be shared openly. That is why DevelopersMatrix includes guides, research, tutorials, comparison articles and trend analysis alongside its tools. My goal is not just to provide software but to help people understand how to use technology to grow their careers, businesses and ideas.
+                  I also believe knowledge should be shared openly. That is why Developers Matrix includes guides, research, tutorials, comparison articles and trend analysis alongside its tools. My goal is not just to provide software but to help people understand how to use technology to grow their careers, businesses and ideas.
                 </p>
                 <p>
                   This journey has taught me one important lesson: there is no shortcut to success. Every failed project, every difficult client, every Google algorithm update, every late night debugging session and every business challenge has contributed to where I am today.
                 </p>
                 <p>
-                  DevelopersMatrix is the result of that journey, and this is only the beginning. I am committed to improving the platform, building better tools, publishing more valuable content and helping millions of people solve real problems through technology.
+                  Developers Matrix is the result of that journey, and this is only the beginning. I am committed to improving the platform, building better tools, publishing more valuable content and helping millions of people solve real problems through technology.
                 </p>
                 <p>
-                  If DevelopersMatrix helps you save time, learn something new, improve your website, land your dream job or grow your business, then every step of this journey has been worth it.
+                  If Developers Matrix helps you save time, learn something new, improve your website, land your dream job or grow your business, then every step of this journey has been worth it.
                 </p>
                 <p className="font-sora text-lg font-semibold text-ink-950 dark:text-white">Syed Bilal Shah</p>
               </div>
@@ -329,7 +329,7 @@ export default function AboutPage() {
             <div className="max-w-2xl">
               <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-300">Principles</p>
               <h2 className="mt-3 font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white sm:text-4xl">
-                What Drives DevelopersMatrix
+                What Drives Developers Matrix
               </h2>
               <p className="mt-4 text-ink-600 dark:text-ink-300">The principles behind every decision on the site.</p>
             </div>
@@ -358,7 +358,7 @@ export default function AboutPage() {
         <section className="border-t border-ink-200 bg-ink-50 py-16 dark:border-ink-800 dark:bg-ink-900/40 lg:py-24">
           <div className="shell grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <h2 className="font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white">Questions About DevelopersMatrix</h2>
+              <h2 className="font-sora text-3xl font-bold tracking-tight text-ink-950 dark:text-white">Questions About Developers Matrix</h2>
               <p className="mt-4 text-ink-600 dark:text-ink-300">
                 Something else? Email{" "}
                 <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-brand-700 hover:underline dark:text-brand-300">{CONTACT_EMAIL}</a>
@@ -417,7 +417,7 @@ export default function AboutPage() {
                 </dd>
               </div>
               <div className="bg-ink-950 p-6">
-                <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">Follow DevelopersMatrix</dt>
+                <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">Follow Developers Matrix</dt>
                 <dd className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
                   {brandProfiles.map((p) => (
                     <a key={p.name} href={p.href} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white">{p.name}</a>

@@ -190,7 +190,7 @@ export default function TrendNewsroom({ trends }: { trends: NewsroomTrend[] }) {
               <span className="mx-2">/</span>
               <span className="text-ink-800 dark:text-ink-200">Trends</span>
             </nav>
-            <p className="font-semibold text-ink-900 dark:text-ink-100">The DevelopersMatrix Trend Radar</p>
+            <p className="font-semibold text-ink-900 dark:text-ink-100">The Developers Matrix Trend Radar</p>
             <p>
               {trends.length} reports <span aria-hidden="true">·</span> {cats.length} topics
               {latest && (

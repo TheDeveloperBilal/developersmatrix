@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   keywords: ["micro-learning", "daily lessons", "tech tutorials", "learn programming", "quick lessons"],
   openGraph: {
-    title: "Short Tech Lessons | DevelopersMatrix",
+    title: "Short Tech Lessons | Developers Matrix",
     description: "Ten short lessons on core developer topics.",
     url: `${siteConfig.url}/learn`,
   },
