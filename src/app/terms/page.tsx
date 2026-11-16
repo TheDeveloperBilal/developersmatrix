@@ -5,12 +5,12 @@ import { siteConfig } from "@/data/config";
 
 export const metadata: Metadata = {
   title: "Terms of Service - Usage Agreement",
-  description: "Read the terms and conditions for using DevelopersMatrix services and tools.",
+  description: "Read the terms and conditions for using Developers Matrix services and tools.",
   alternates: {
     canonical: `${siteConfig.url}/terms`,
   },
   openGraph: {
-    title: "Terms of Service | DevelopersMatrix",
+    title: "Terms of Service | Developers Matrix",
     description: "Terms and conditions for using our services.",
     url: `${siteConfig.url}/terms`,
   },
@@ -39,10 +39,10 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Welcome to DevelopersMatrix. By accessing or using our website and services, you agree 
+                Welcome to Developers Matrix. By accessing or using our website and services, you agree 
                 to be bound by these Terms of Service and all applicable laws and regulations. If you 
                 do not agree with any of these terms, you are prohibited from using or accessing this 
-                site. These terms constitute a legally binding agreement between you and DevelopersMatrix 
+                site. These terms constitute a legally binding agreement between you and Developers Matrix 
                 regarding your use of our website and services. We recommend that you read these terms 
                 carefully and print a copy for your records.
               </p>
@@ -61,7 +61,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                DevelopersMatrix provides a platform offering AI-powered tools and resources designed 
+                Developers Matrix provides a platform offering AI-powered tools and resources designed 
                 to help developers, entrepreneurs, and tech professionals optimize their careers and 
                 daily productivity. Our services include, but are not limited to:
               </p>
@@ -179,13 +179,13 @@ export default function TermsPage() {
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
                 The service and its original content, features, and functionality are and will remain 
-                the exclusive property of DevelopersMatrix and its licensors. The service is protected 
+                the exclusive property of Developers Matrix and its licensors. The service is protected 
                 by copyright, trademark, patent, trade secret, and other intellectual property laws 
                 of the United States and other countries.
               </p>
               <p className="text-sm text-muted-foreground mb-4">
                 Our trademarks and trade dress may not be used in connection with any product or 
-                service without the prior written consent of DevelopersMatrix. You may not reproduce, 
+                service without the prior written consent of Developers Matrix. You may not reproduce, 
                 modify, distribute, display, or create derivative works from our content without 
                 express written permission.
               </p>
@@ -212,7 +212,7 @@ export default function TermsPage() {
               </p>
               <p className="text-sm text-muted-foreground">
                 You are solely responsible for reviewing, verifying, and editing any AI-generated 
-                content before using it for any purpose. DevelopersMatrix is not responsible for any 
+                content before using it for any purpose. Developers Matrix is not responsible for any 
                 decisions made or actions taken based on AI-generated content. We recommend exercising 
                 judgment and conducting additional research when relying on AI-generated suggestions, 
                 particularly for important decisions related to employment, finances, or legal matters.
@@ -227,11 +227,11 @@ export default function TermsPage() {
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
                 Our service may contain links to third-party websites or services that are not owned 
-                or controlled by DevelopersMatrix. We have no control over, and assume no responsibility 
+                or controlled by Developers Matrix. We have no control over, and assume no responsibility 
                 for, the content, privacy policies, or practices of any third-party websites or services.
               </p>
               <p className="text-sm text-muted-foreground">
-                You acknowledge and agree that DevelopersMatrix shall not be responsible or liable, 
+                You acknowledge and agree that Developers Matrix shall not be responsible or liable, 
                 directly or indirectly, for any damage or loss caused or alleged to be caused by or 
                 in connection with the use of or reliance on any such content, goods, or services 
                 available on or through any such websites or services. We strongly advise you to read 
@@ -249,7 +249,7 @@ export default function TermsPage() {
               <p className="text-sm text-muted-foreground mb-4">
                 THE SERVICE IS PROVIDED ON AN &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; BASIS, WITHOUT ANY 
                 WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED 
-                BY LAW, DEVELOPERSMATRIX DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, 
+                BY LAW, DEVELOPERS MATRIX DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, 
                 BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
                 PURPOSE, AND NON-INFRINGEMENT.
               </p>
@@ -269,7 +269,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                IN NO EVENT SHALL DEVELOPERSMATRIX, ITS DIRECTORS, EMPLOYEES, PARTNERS, AGENTS, 
+                IN NO EVENT SHALL DEVELOPERS MATRIX, ITS DIRECTORS, EMPLOYEES, PARTNERS, AGENTS, 
                 SUPPLIERS, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, 
                 CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING, WITHOUT LIMITATION, LOSS OF PROFITS, 
                 DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR ACCESS TO OR 
@@ -291,7 +291,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                You agree to defend, indemnify, and hold harmless DevelopersMatrix and its licensors, 
+                You agree to defend, indemnify, and hold harmless Developers Matrix and its licensors, 
                 employees, contractors, agents, officers, and directors from and against any and all 
                 claims, damages, obligations, losses, liabilities, costs, and expenses arising from 
                 your use of the service, your violation of these terms, or your violation of any 
@@ -308,7 +308,7 @@ export default function TermsPage() {
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
                 We reserve the right to modify or discontinue, temporarily or permanently, the service 
-                or any portion thereof, with or without notice. You agree that DevelopersMatrix shall 
+                or any portion thereof, with or without notice. You agree that Developers Matrix shall 
                 not be liable to you or to any third party for any modification, suspension, or 
                 discontinuance of the service.
               </p>
@@ -383,7 +383,7 @@ export default function TermsPage() {
             <CardContent>
               <p className="text-sm text-muted-foreground">
                 These terms, together with our Privacy Policy and Cookie Policy, constitute the entire 
-                agreement between you and DevelopersMatrix regarding your use of the service and 
+                agreement between you and Developers Matrix regarding your use of the service and 
                 supersede all prior and contemporaneous understandings, agreements, representations, 
                 and warranties, both written and oral, regarding the service.
               </p>

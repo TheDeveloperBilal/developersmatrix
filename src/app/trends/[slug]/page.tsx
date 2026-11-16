@@ -669,7 +669,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                 {/* Breach Cost Calculator Framework */}
                 <section className="p-6 rounded-2xl bg-red-50 dark:bg-red-500/5 border border-red-100 dark:border-red-500/20">
                   <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
-                    DevelopersMatrix Breach Cost Calculator™
+                    Developers Matrix Breach Cost Calculator™
                   </h2>
                   <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
                     Use this formula to estimate the total cost of a data breach for your organization. Based on IBM's 2025 Cost of a Data Breach Report and our analysis of 2026 incidents.
@@ -717,7 +717,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                     <li className="text-red-600 dark:text-red-400 font-bold">• Total estimated cost: $12,130,000</li>
                   </ul>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Source: IBM Cost of a Data Breach Report 2025, Ponemon Institute analysis, DevelopersMatrix 2026 security incident database.
+                    Source: IBM Cost of a Data Breach Report 2025, Ponemon Institute analysis, Developers Matrix 2026 security incident database.
                   </p>
                 </section>
 
@@ -788,7 +788,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                     </div>
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-4">
-                    Source: CrowdStrike 2025 Global Threat Report, Verizon DBIR 2025, IBM Cost of a Data Breach 2025, Gartner 2026, DevelopersMatrix Security Incident Database.
+                    Source: CrowdStrike 2025 Global Threat Report, Verizon DBIR 2025, IBM Cost of a Data Breach 2025, Gartner 2026, Developers Matrix Security Incident Database.
                   </p>
                 </section>
               </>

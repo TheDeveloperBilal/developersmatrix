@@ -70,7 +70,7 @@ export default function SalaryEstimatorPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Salary Estimator"
+        name="Developers Matrix Salary Estimator"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
         description={`Free salary estimator using official BLS wage data (${DATA_PERIOD}). See the pay range for ${JOB_COUNT} tech, data, design, marketing and business jobs in any US state or metro area, check an offer and compare places.`}
@@ -84,7 +84,7 @@ export default function SalaryEstimatorPage() {
         url={`${siteConfig.url}/tools/salary-estimator`}
         totalTime="PT2M"
         estimatedCost={{ currency: 'USD', value: '0' }}
-        tool={['Web browser', 'DevelopersMatrix Salary Estimator']}
+        tool={['Web browser', 'Developers Matrix Salary Estimator']}
         step={[
           { name: "Choose a job", text: `Search your job title or browse ${JOB_COUNT} job categories. If BLS does not track your title separately, the tool shows the closest official categories.` },
           { name: "Choose a place", text: "Pick the whole US, a state, or a metro area. Type a city name to find the metro area it belongs to." },

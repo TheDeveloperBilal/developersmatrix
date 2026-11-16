@@ -10,7 +10,7 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 export const PERSON_ID = `${SITE_URL}/about#person`;
 export const CONTACT_EMAIL = 'info@developersmatrix.com';
 
-// Official DevelopersMatrix profiles, confirmed by the owner (Oct 2026).
+// Official Developers Matrix profiles, confirmed by the owner (Oct 2026).
 export const ORG_SAME_AS = [
   'https://www.facebook.com/developersmatrix/',
   'https://www.instagram.com/developermatrix/',
@@ -27,7 +27,7 @@ interface OrganizationSchemaProps {
   logo?: string;
   /** Kept for older call sites. The founder is always the site owner. */
   founder?: string;
-  /** Ignored. DevelopersMatrix does not publish a team size. */
+  /** Ignored. Developers Matrix does not publish a team size. */
   employees?: string;
   knowsAbout?: string[];
   /** Ignored. The official profiles in ORG_SAME_AS are always used. */
@@ -55,6 +55,9 @@ export function OrganizationSchema({
     '@type': 'Organization',
     '@id': ORG_ID,
     name,
+    // The brand was written as one word until November 2026. Keeping the old
+    // spelling here tells search engines both names are the same site.
+    alternateName: 'DevelopersMatrix',
     url,
     description,
     ...(logo && { logo }),
@@ -116,7 +119,7 @@ export function PersonSchema({
   url,
   image,
   jobTitle = 'Lead Editor',
-  worksFor = 'DevelopersMatrix',
+  worksFor = 'Developers Matrix',
   description,
   alumniOf,
   knowsAbout = ['Software Engineering', 'Web Development', 'Technical Writing', 'Career Development'],
@@ -250,7 +253,8 @@ export function ArticleSchema({
     ...(image && { image }),
     publisher: {
       '@type': 'Organization',
-      name: 'DevelopersMatrix',
+      name: 'Developers Matrix',
+      alternateName: 'DevelopersMatrix',
       url: 'https://developersmatrix.com',
       logo: {
         '@type': 'ImageObject',

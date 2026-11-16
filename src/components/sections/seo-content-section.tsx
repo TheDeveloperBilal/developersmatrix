@@ -126,7 +126,7 @@ export default function SeoContentSection() {
               Free AI tools that do what they say
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink-500">
-              DevelopersMatrix brings free browser tools, detailed trend reports and practical
+              Developers Matrix brings free browser tools, detailed trend reports and practical
               career guides together in one place. Whether you are fixing your resume, auditing a
               website or planning a budget, each tool is built to save you time, with no signup.
             </p>

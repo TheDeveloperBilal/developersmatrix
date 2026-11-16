@@ -5,12 +5,12 @@ import { siteConfig } from "@/data/config";
 
 export const metadata: Metadata = {
   title: "Privacy Policy - Your Data, Your Rights",
-  description: "Learn how DevelopersMatrix collects, uses, and protects your personal information. Our privacy-first approach to your data.",
+  description: "Learn how Developers Matrix collects, uses, and protects your personal information. Our privacy-first approach to your data.",
   alternates: {
     canonical: `${siteConfig.url}/privacy`,
   },
   openGraph: {
-    title: "Privacy Policy | DevelopersMatrix",
+    title: "Privacy Policy | Developers Matrix",
     description: "Learn how we protect your personal information.",
     url: `${siteConfig.url}/privacy`,
   },
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                At DevelopersMatrix, we understand that your privacy is important to you, and we take 
+                At Developers Matrix, we understand that your privacy is important to you, and we take 
                 our responsibility to protect it seriously. This Privacy Policy explains how we collect, 
                 use, disclose, and safeguard your information when you visit our website and use our 
                 services. We believe in being transparent about our data practices, and we want you to 
@@ -78,7 +78,7 @@ export default function PrivacyPage() {
               <div>
                 <h4 className="font-semibold mb-2 text-foreground">Automatically Collected Information</h4>
                 <p className="text-sm text-muted-foreground">
-                  When you visit DevelopersMatrix, we automatically collect certain information about 
+                  When you visit Developers Matrix, we automatically collect certain information about 
                   your device and how you interact with our website. This includes your IP address, 
                   browser type and version, operating system, referring URLs, pages viewed, time spent 
                   on pages, links clicked, and other diagnostic data. We use this information to improve 
@@ -274,7 +274,7 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                DevelopersMatrix is operated from the United States, and the information we collect 
+                Developers Matrix is operated from the United States, and the information we collect 
                 may be transferred to and processed in the United States or other countries where our 
                 service providers are located. By using our website, you acknowledge that your 
                 information may be transferred to and processed in countries other than your own. We 

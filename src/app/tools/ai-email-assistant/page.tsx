@@ -38,7 +38,7 @@ const toolFaqs = [
   },
   {
     question: "Is my email content private and secure?",
-    answer: "Writing from a template and checking a draft both happen in your browser. Nothing you type there is sent to DevelopersMatrix. The only thing remembered is your own name and preferred tone, saved in this browser so you do not have to retype them. If you click Open in ChatGPT or Open in Claude, your text is placed in that service's address bar and handled under its privacy rules, so remove private details first if you need to."
+    answer: "Writing from a template and checking a draft both happen in your browser. Nothing you type there is sent to Developers Matrix. The only thing remembered is your own name and preferred tone, saved in this browser so you do not have to retype them. If you click Open in ChatGPT or Open in Claude, your text is placed in that service's address bar and handled under its privacy rules, so remove private details first if you need to."
   },
   {
     question: "What are the most common email mistakes this tool catches?",
@@ -72,7 +72,7 @@ export default function AIEmailAssistantPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Email Assistant"
+        name="Developers Matrix AI Email Assistant"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
         description={`Free email assistant with ${SCENARIO_COUNT} email templates in ${TONE_COUNT} tones, a draft checker, and ready prompts to reply or rewrite in ChatGPT or Claude. No signup.`}

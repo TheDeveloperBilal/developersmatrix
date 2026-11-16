@@ -384,11 +384,11 @@ export const toolUpdates: UpdateItem[] = [
 
 export const homeFaqs = [
   {
-    question: "What is DevelopersMatrix?",
-    answer: `DevelopersMatrix is a free platform with ${TOOLS_LABEL} browser tools for resumes, cover letters, interview practice, website audits, prompts, budgeting and more, plus detailed trend reports and guides. No signup required.`,
+    question: "What is Developers Matrix?",
+    answer: `Developers Matrix is a free platform with ${TOOLS_LABEL} browser tools for resumes, cover letters, interview practice, website audits, prompts, budgeting and more, plus detailed trend reports and guides. No signup required.`,
   },
   {
-    question: "Are the tools on DevelopersMatrix really free?",
+    question: "Are the tools on Developers Matrix really free?",
     answer: "Yes. The tools are free to use with no credit card and no account. The site is supported by advertising.",
   },
   {

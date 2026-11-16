@@ -38,7 +38,7 @@ const toolFaqs = [
   },
   {
     question: "Is what I type into the blanks private?",
-    answer: "What you type stays in your browser. Nothing is sent to DevelopersMatrix. It only leaves your device when you copy the prompt or choose to open it in ChatGPT or Claude, which then works under that service's own privacy rules. Avoid pasting passwords, keys or personal data about other people into any AI tool."
+    answer: "What you type stays in your browser. Nothing is sent to Developers Matrix. It only leaves your device when you copy the prompt or choose to open it in ChatGPT or Claude, which then works under that service's own privacy rules. Avoid pasting passwords, keys or personal data about other people into any AI tool."
   },
   {
     question: "Do I need to know prompt engineering to use this?",
@@ -63,7 +63,7 @@ export default function AIPromptLibraryPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Prompt Library"
+        name="Developers Matrix AI Prompt Library"
         applicationCategory="WebApplication"
         operatingSystem="Web"
         description={`Free library of ${TOTAL} ready to use AI prompts for ChatGPT, Claude, Gemini and Midjourney, with a builder that fills in the blanks. No signup.`}
@@ -184,7 +184,7 @@ export default function AIPromptLibraryPage() {
                     The same AI model can give you a generic answer or a genuinely useful one, and the difference is mostly the prompt. A vague request like "write a blog post about productivity" gets safe, forgettable text. A prompt that gives the model a role, your real context, clear steps and the format you want gets something you can actually use.
                   </p>
                   <p className="leading-relaxed">
-                    Writing prompts like that every time is slow. The <strong>DevelopersMatrix AI Prompt Library</strong> gives you {TOTAL} prompts that already have that structure. You pick one, fill in a few blanks with your details and use it in ChatGPT, Claude, Gemini or an image tool.
+                    Writing prompts like that every time is slow. The <strong>Developers Matrix AI Prompt Library</strong> gives you {TOTAL} prompts that already have that structure. You pick one, fill in a few blanks with your details and use it in ChatGPT, Claude, Gemini or an image tool.
                   </p>
                 </div>
               </section>
@@ -260,7 +260,7 @@ export default function AIPromptLibraryPage() {
                   Complete Your AI Toolkit
                 </h2>
                 <p className="text-zinc-700 dark:text-zinc-300 mb-6 leading-relaxed">
-                  Other free tools from DevelopersMatrix that pair well with a good prompt:
+                  Other free tools from Developers Matrix that pair well with a good prompt:
                 </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[

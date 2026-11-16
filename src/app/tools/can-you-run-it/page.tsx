@@ -88,7 +88,7 @@ export default function CanYouRunItPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Can You Run It"
+        name="Developers Matrix Can You Run It"
         applicationCategory="GameApplication"
         operatingSystem="Web"
         description="Free PC game requirements checker. Compare your hardware specs against game requirements and get upgrade recommendations."
@@ -100,7 +100,7 @@ export default function CanYouRunItPage() {
       />
       <HowToSchema
         name="How to Check If Your PC Can Run a Game"
-        description="Step-by-step guide to checking game compatibility with your PC hardware using the DevelopersMatrix Can You Run It tool."
+        description="Step-by-step guide to checking game compatibility with your PC hardware using the Developers Matrix Can You Run It tool."
         url={`${siteConfig.url}/tools/can-you-run-it`}
         totalTime="PT2M"
         estimatedCost={{ currency: 'USD', value: '0' }}
@@ -499,8 +499,8 @@ export default function CanYouRunItPage() {
               </div>
 
               {/* Related: merged from the two old link grids */}
-              <nav aria-label="More from DevelopersMatrix">
-                <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">More from DevelopersMatrix</p>
+              <nav aria-label="More from Developers Matrix">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">More from Developers Matrix</p>
                 <ul className="flex flex-wrap gap-2 text-sm">
                   {[
                     ["/tools/bottleneck-calculator", "Bottleneck Calculator"],

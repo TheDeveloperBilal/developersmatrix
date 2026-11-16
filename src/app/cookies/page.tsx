@@ -5,12 +5,12 @@ import { siteConfig } from "@/data/config";
 
 export const metadata: Metadata = {
   title: "Cookie Policy - How We Use Cookies",
-  description: "Understand how DevelopersMatrix uses cookies and similar technologies to improve your experience, provide relevant advertising, and analyze site traffic.",
+  description: "Understand how Developers Matrix uses cookies and similar technologies to improve your experience, provide relevant advertising, and analyze site traffic.",
   alternates: {
     canonical: `${siteConfig.url}/cookies`,
   },
   openGraph: {
-    title: "Cookie Policy | DevelopersMatrix",
+    title: "Cookie Policy | Developers Matrix",
     description: "Learn about our cookie usage and privacy practices.",
     url: `${siteConfig.url}/cookies`,
   },
@@ -43,7 +43,7 @@ export default function CookiePolicyPage() {
                 They serve various purposes such as remembering your preferences, understanding how you 
                 interact with our site, and delivering personalized content and advertisements. Cookies 
                 help us provide you with a better, more tailored experience each time you visit 
-                DevelopersMatrix. Without cookies, many features of modern websites would not function 
+                Developers Matrix. Without cookies, many features of modern websites would not function 
                 properly, and your browsing experience would be significantly less convenient.
               </p>
             </CardContent>
@@ -55,7 +55,7 @@ export default function CookiePolicyPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                At DevelopersMatrix, we use cookies for several important reasons. First, we use them to 
+                At Developers Matrix, we use cookies for several important reasons. First, we use them to 
                 ensure the basic functionality of our website operates smoothly. This includes keeping you 
                 signed in during your session and remembering your preferences such as dark mode settings. 
                 Second, we use cookies to analyze how visitors interact with our platform, which helps us 
@@ -155,7 +155,7 @@ export default function CookiePolicyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                We use Google AdSense to serve advertisements on DevelopersMatrix. Google AdSense uses 
+                We use Google AdSense to serve advertisements on Developers Matrix. Google AdSense uses 
                 cookies to serve ads based on your prior visits to our website or other websites. 
                 Google&apos;s use of advertising cookies enables it and its partners to serve ads based on 
                 your visit to our site and/or other sites on the Internet. This personalized advertising 

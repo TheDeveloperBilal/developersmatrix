@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     question: 'Is support free?',
-    answer: 'Yes. Every tool on DevelopersMatrix is free to use, and so is help with using them.',
+    answer: 'Yes. Every tool on Developers Matrix is free to use, and so is help with using them.',
   },
 ];
 
@@ -75,7 +75,7 @@ export default function ContactPage() {
                 <span className="text-ink-200">Contact</span>
               </nav>
               <p className="mt-8 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-brand-300">
-                Contact DevelopersMatrix
+                Contact Developers Matrix
               </p>
               <h1 className="mt-3 font-sora text-4xl font-bold tracking-tight sm:text-6xl">
                 Get in <span className="text-brand-300">Touch</span>

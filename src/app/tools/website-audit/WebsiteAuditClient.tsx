@@ -75,10 +75,11 @@ export default function WebsiteAuditClient() {
   // The audit on screen. A late PageSpeed answer for an older audit is ignored.
   const liveScanRef = useRef<string | null>(null);
 
-  // The crawl route now budgets 45s and the function is capped at 60s. The
-  // browser gives it a little more than that, so a network stall still ends in
-  // a real error instead of a spinner that never stops.
-  const CLIENT_TIMEOUT_MS = 70000;
+  // The crawl route budgets 45s and the function is capped at 60s, so the
+  // server always answers within a minute: a report, or an error saying why.
+  // If nothing at all arrives by 65s the request was lost on the way, and we
+  // try once more before giving up.
+  const CLIENT_TIMEOUT_MS = 65000;
 
   // Handle audit
   const handleAudit = useCallback(async () => {
@@ -121,24 +122,60 @@ export default function WebsiteAuditClient() {
     }, 400);
 
     abortRef.current?.abort();
+    // Aborted only when the visitor clears the form or starts another audit.
     const controller = new AbortController();
     abortRef.current = controller;
-    const timeoutId = setTimeout(() => controller.abort(), CLIENT_TIMEOUT_MS);
+    // True when we stopped waiting because no answer came, so a lost request
+    // can be told apart from the visitor cancelling.
+    let gaveUp = false;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    /** One request to the audit route, with its own time limit. */
+    const attempt = async () => {
+      const attemptController = new AbortController();
+      const cancel = () => attemptController.abort();
+      controller.signal.addEventListener('abort', cancel);
+      gaveUp = false;
+      timeoutId = setTimeout(() => {
+        gaveUp = true;
+        attemptController.abort();
+      }, CLIENT_TIMEOUT_MS);
+      try {
+        const response = await fetch('/api/website-audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: url.trim() }),
+          signal: attemptController.signal,
+        });
+        const data = await response.json().catch(() => null);
+        return { response, data };
+      } finally {
+        clearTimeout(timeoutId);
+        controller.signal.removeEventListener('abort', cancel);
+      }
+    };
 
     try {
-      const response = await fetch('/api/website-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url.trim() }),
-        signal: controller.signal,
-      });
-
-      const data = await response.json().catch(() => null);
+      let reply: Awaited<ReturnType<typeof attempt>>;
+      try {
+        reply = await attempt();
+      } catch (firstError) {
+        // No answer at all: we stopped waiting, or the connection dropped
+        // (fetch throws a TypeError). The server always answers within 60s,
+        // so silence means the request was lost on the way. Try once more.
+        const lost = gaveUp || firstError instanceof TypeError;
+        if (!lost || controller.signal.aborted) throw firstError;
+        setProgressLog(prev => [...prev, 'No answer from our server yet. Trying once more...']);
+        reply = await attempt();
+      }
+      const { response, data } = reply;
 
       if (!response.ok || !data || !data.success) {
         throw new Error(
           (data && data.error) ||
-            `The audit service returned an error (${response.status}). Please try again.`
+            (response.status === 504
+              ? 'The audit took longer than our server allows and was stopped. Try again, or audit a single page URL instead.'
+              : `The audit service returned an error (${response.status}). Please try again.`)
         );
       }
 
@@ -192,19 +229,27 @@ export default function WebsiteAuditClient() {
       });
     } catch (err) {
       clearInterval(progressInterval);
-      const aborted = err instanceof DOMException && err.name === 'AbortError';
-      const message = aborted
-        ? 'This site took too long to analyse and the audit was stopped. Large or slow sites can exceed the limit. Try again, or try a single page URL.'
-        : err instanceof Error
-          ? err.message
-          : 'Audit failed. Please try again.';
+      // The visitor cleared the form or started another audit: nothing to report.
+      if (controller.signal.aborted) return;
+      const noAnswer = gaveUp;
+      const offline = !noAnswer && err instanceof TypeError;
+      const message = noAnswer
+        ? 'We did not get an answer from our audit server, even after trying twice, so the audit was stopped. This is usually a connection problem, not your website. Check your internet connection and try again in a minute.'
+        : offline
+          ? 'We could not reach our audit server. Check your internet connection and try again.'
+          : err instanceof Error
+            ? err.message
+            : 'Audit failed. Please try again.';
       setError(message);
-      trackAuditFailed({ targetHost, reason: aborted ? 'timeout' : message });
+      trackAuditFailed({ targetHost, reason: noAnswer ? 'no_answer' : offline ? 'network' : message });
     } finally {
       clearTimeout(timeoutId);
       clearInterval(progressInterval);
-      abortRef.current = null;
-      setIsAuditing(false);
+      // Only the audit that is still current may reset the form.
+      if (abortRef.current === controller) {
+        abortRef.current = null;
+        setIsAuditing(false);
+      }
     }
   }, [url]);
 
@@ -466,7 +511,7 @@ export default function WebsiteAuditClient() {
                           <div className="w-3 h-3 rounded-full bg-green-500" />
                         </div>
                         <div className="flex-1 text-center text-xs text-slate-400 font-mono">
-                          DevelopersMatrix Audit Engine
+                          Developers Matrix Audit Engine
                         </div>
                         <Terminal className="w-4 h-4 text-slate-500" />
                       </div>

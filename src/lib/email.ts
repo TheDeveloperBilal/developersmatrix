@@ -30,7 +30,7 @@ export interface EmailPayload {
 
 export async function sendEmail(payload: EmailPayload): Promise<void> {
   await transporter.sendMail({
-    from: `"DevelopersMatrix" <${GMAIL_USER}>`,
+    from: `"Developers Matrix" <${GMAIL_USER}>`,
     to: payload.to || NOTIFY_TO,
     replyTo: payload.replyTo,
     subject: payload.subject,

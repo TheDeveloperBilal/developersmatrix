@@ -1,7 +1,7 @@
 import { SiteConfig } from '@/types';
 
 export const siteConfig: SiteConfig = {
-  name: 'DevelopersMatrix',
+  name: 'Developers Matrix',
   description: 'Free tools, trend reports and practical guides for developers, creators and professionals building better careers and businesses. No signup needed.',
   url: 'https://developersmatrix.com',
   ogImage: 'https://developersmatrix.com/og-image.png',

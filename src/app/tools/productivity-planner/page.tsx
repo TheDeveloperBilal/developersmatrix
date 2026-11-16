@@ -47,7 +47,7 @@ export default function ProductivityPlannerPage() {
   return (
     <>
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Productivity Planner"
+        name="Developers Matrix Productivity Planner"
         applicationCategory="BusinessApplication"
         operatingSystem="Web"
         description="Free daily planner that turns your tasks into an hour by hour timeline with a Top 3, fixed time meetings, an overbooked warning, calendar export and an optional AI planning prompt. Saved in your browser, no signup."

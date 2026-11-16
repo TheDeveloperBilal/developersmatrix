@@ -77,7 +77,7 @@ export default function AiCrawlerCheckerPage() {
         ]}
       />
       <SoftwareApplicationSchema
-        name="DevelopersMatrix AI Crawler Checker"
+        name="Developers Matrix AI Crawler Checker"
         applicationCategory="DeveloperApplication"
         operatingSystem="Web"
         description={`Free AI crawler checker. See whether a site's robots.txt allows ${BOT_COUNT} AI crawlers including GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot and Google-Extended, with the line that decides each one.`}
@@ -98,7 +98,7 @@ export default function AiCrawlerCheckerPage() {
         url={URL}
         totalTime="PT1M"
         estimatedCost={{ currency: "USD", value: "0" }}
-        tool={["Web browser", "DevelopersMatrix AI Crawler Checker"]}
+        tool={["Web browser", "Developers Matrix AI Crawler Checker"]}
         step={steps}
       />
 

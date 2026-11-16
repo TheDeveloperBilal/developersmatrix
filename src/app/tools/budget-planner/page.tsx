@@ -48,7 +48,7 @@ export default function BudgetPlannerPage() {
   return (
     <>
       <SoftwareApplicationSchema
-        name="DevelopersMatrix Budget Planner"
+        name="Developers Matrix Budget Planner"
         applicationCategory="FinanceApplication"
         operatingSystem="Web"
         description="Free monthly budget planner. List money in and money out with any frequency, see what is left over, compare your split with the 50/30/20 rule and plan a savings goal. Saved in your browser, no signup."
