@@ -7,6 +7,13 @@ import { NextResponse } from 'next/server';
 // Take-Two announce something.
 const NEWS = [
   {
+    title: 'GTA 6 unlock time: midnight local, with a reported single US time',
+    snippet: 'Rockstar Support says GTA 6 releases at midnight local time on November 19 in all regions. US PlayStation Store listings reportedly show one nationwide time, midnight Eastern, which would be 9:00 p.m. Pacific on November 18. Rockstar has not confirmed the US detail.',
+    url: 'https://www.techtimes.com/articles/330648/20261113/gta-6-release-time-west-coast-players-may-start-9-pm-wednesday-not-midnight-thursday.htm',
+    source: 'Tech Times',
+    date: 'November 2026',
+  },
+  {
     title: 'Take-Two: GTA 6 development is complete and preorders are far above plan',
     snippet: 'On its November 9 earnings call, ten days before launch, Take-Two said Rockstar has finished GTA 6, preloads are rolling out and preorders are tracking far above its own expectations. It gave no preorder figure and no PC news.',
     url: 'https://www.fool.com/earnings/call-transcripts/2026/11/10/take-two-ttwo-q2-2027-earnings-call-transcript/',
