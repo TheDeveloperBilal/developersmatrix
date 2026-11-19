@@ -35,6 +35,17 @@ import { NAMED_CHECK_COUNT } from '@/lib/website-audit/check-catalogue';
 import { recordAudit, clearHistory, siteOfUrl, type HistoryComparison, type HistoryEntry } from '@/lib/website-audit/history';
 import { applyPageSpeed } from '@/lib/website-audit/apply-pagespeed';
 
+/** The final answer from /api/website-audit, streamed or plain. */
+type AuditReply = { success?: boolean; result?: WebsiteAuditResult; error?: string };
+
+/** The streamed answer stopped before the result arrived. */
+class CutOff extends Error {
+  constructor() {
+    super('The connection was cut before the report arrived.');
+    this.name = 'CutOff';
+  }
+}
+
 // Category icons and colors
 const categoryConfig = {
   seo: { icon: Search, color: 'blue', label: 'SEO' },
@@ -75,11 +86,12 @@ export default function WebsiteAuditClient() {
   // The audit on screen. A late PageSpeed answer for an older audit is ignored.
   const liveScanRef = useRef<string | null>(null);
 
-  // The crawl route budgets 45s and the function is capped at 60s, so the
-  // server always answers within a minute: a report, or an error saying why.
-  // If nothing at all arrives by 65s the request was lost on the way, and we
-  // try once more before giving up.
-  const CLIENT_TIMEOUT_MS = 65000;
+  // The audit route streams its answer: a progress line after each step and
+  // a heartbeat every 5 seconds, then the result. If nothing arrives for 15
+  // seconds the connection is dead, so we stop waiting and try once more. The
+  // server stops itself within 60 seconds, so 70 is the ceiling for one try.
+  const IDLE_LIMIT_MS = 15000;
+  const ATTEMPT_LIMIT_MS = 70000;
 
   // Handle audit
   const handleAudit = useCallback(async () => {
@@ -98,29 +110,6 @@ export default function WebsiteAuditClient() {
     liveScanRef.current = null;
     setProgressLog(['Initializing audit engine...', `Targeting ${url.trim()}...`]);
 
-    const auditSteps = [
-      'Fetching homepage...',
-      'Parsing HTML structure...',
-      'Checking robots.txt...',
-      'Analyzing SEO meta tags...',
-      'Scanning heading hierarchy...',
-      'Checking images for alt text...',
-      'Analyzing page performance...',
-      'Checking security headers...',
-      'Scanning accessibility...',
-      'Analyzing content quality...',
-      'Checking mobile viewport...',
-      'Generating report...',
-    ];
-
-    let stepIndex = 0;
-    const progressInterval = setInterval(() => {
-      if (stepIndex < auditSteps.length) {
-        setProgressLog(prev => [...prev, auditSteps[stepIndex]]);
-        stepIndex++;
-      }
-    }, 400);
-
     abortRef.current?.abort();
     // Aborted only when the visitor clears the form or starts another audit.
     const controller = new AbortController();
@@ -130,27 +119,71 @@ export default function WebsiteAuditClient() {
     let gaveUp = false;
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-    /** One request to the audit route, with its own time limit. */
-    const attempt = async () => {
+    /** One request to the audit route. Reads the streamed answer line by line. */
+    const attempt = async (): Promise<{ status: number; data: AuditReply | null }> => {
       const attemptController = new AbortController();
       const cancel = () => attemptController.abort();
       controller.signal.addEventListener('abort', cancel);
       gaveUp = false;
-      timeoutId = setTimeout(() => {
+      let idleId: ReturnType<typeof setTimeout> | undefined;
+      const stopWaiting = () => {
         gaveUp = true;
         attemptController.abort();
-      }, CLIENT_TIMEOUT_MS);
+      };
+      const stillAlive = () => {
+        clearTimeout(idleId);
+        idleId = setTimeout(stopWaiting, IDLE_LIMIT_MS);
+      };
+      timeoutId = setTimeout(stopWaiting, ATTEMPT_LIMIT_MS);
+      stillAlive();
       try {
         const response = await fetch('/api/website-audit', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/x-ndjson, application/json' },
           body: JSON.stringify({ url: url.trim() }),
           signal: attemptController.signal,
         });
-        const data = await response.json().catch(() => null);
-        return { response, data };
+        stillAlive();
+
+        // Rate limits, bad addresses and platform errors arrive as one plain answer.
+        if (!(response.headers.get('content-type') || '').includes('application/x-ndjson') || !response.body) {
+          const data = await response.json().catch(() => null);
+          return { status: response.status, data };
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          stillAlive();
+          buffer += decoder.decode(value, { stream: true });
+          let end = buffer.indexOf('\n');
+          while (end !== -1) {
+            const line = buffer.slice(0, end).trim();
+            buffer = buffer.slice(end + 1);
+            end = buffer.indexOf('\n');
+            if (!line) continue;
+            let message: { type?: string; message?: unknown; status?: unknown } & AuditReply;
+            try {
+              message = JSON.parse(line);
+            } catch {
+              continue;
+            }
+            if (message.type === 'progress' && typeof message.message === 'string') {
+              const step = message.message;
+              setProgressLog(prev => (prev[prev.length - 1] === step ? prev : [...prev, step]));
+            } else if (message.type === 'done') {
+              return { status: Number(message.status) || 200, data: message };
+            }
+          }
+        }
+        // The answer stopped before the result: the connection was cut.
+        throw new CutOff();
       } finally {
         clearTimeout(timeoutId);
+        clearTimeout(idleId);
         controller.signal.removeEventListener('abort', cancel);
       }
     };
@@ -163,34 +196,34 @@ export default function WebsiteAuditClient() {
         // No answer at all: we stopped waiting, or the connection dropped
         // (fetch throws a TypeError). The server always answers within 60s,
         // so silence means the request was lost on the way. Try once more.
-        const lost = gaveUp || firstError instanceof TypeError;
+        const lost = gaveUp || firstError instanceof TypeError || firstError instanceof CutOff;
         if (!lost || controller.signal.aborted) throw firstError;
-        setProgressLog(prev => [...prev, 'No answer from our server yet. Trying once more...']);
+        setProgressLog(prev => [...prev, 'Lost the connection to our server. Trying once more...']);
         reply = await attempt();
       }
-      const { response, data } = reply;
+      const { status, data } = reply;
 
-      if (!response.ok || !data || !data.success) {
+      if (status >= 400 || !data || !data.success || !data.result) {
         throw new Error(
           (data && data.error) ||
-            (response.status === 504
+            (status === 504
               ? 'The audit took longer than our server allows and was stopped. Try again, or audit a single page URL instead.'
-              : `The audit service returned an error (${response.status}). Please try again.`)
+              : `The audit service returned an error (${status}). Please try again.`)
         );
       }
 
-      clearInterval(progressInterval);
+      const audit = data.result;
       setProgressLog(prev => [...prev, 'Done! Analysis complete.']);
-      setResult(data.result);
-      liveScanRef.current = data.result?.scannedAt ?? null;
+      setResult(audit);
+      liveScanRef.current = audit.scannedAt ?? null;
       // Kept only in this browser; returns nothing useful when storage is blocked.
-      setHistory(recordAudit(data.result));
+      setHistory(recordAudit(audit));
       setActiveTab('all-issues');
 
       // PageSpeed comes from Google and can take 40 seconds on its own. The
       // report is already on screen by now, so it fills its section in when it
       // arrives. If it never does, every other section still works.
-      const auditedUrl = data.result?.url || url.trim();
+      const auditedUrl = audit.url || url.trim();
       setPsiStatus('loading');
 
       // 50s ceiling. Google can simply not answer, and a spinner that spins
@@ -204,11 +237,11 @@ export default function WebsiteAuditClient() {
         .then((res) => res.json())
         .then((psi) => {
           // The visitor may have cleared the report or started another audit.
-          if (liveScanRef.current !== data.result?.scannedAt) return;
+          if (liveScanRef.current !== audit.scannedAt) return;
           if (psi?.success && psi.pagespeed) {
             // Half of Performance comes from Google's mobile score, so the
             // overall score is worked out again (apply-pagespeed.ts).
-            const updated = applyPageSpeed(data.result, psi.pagespeed);
+            const updated = applyPageSpeed(audit, psi.pagespeed);
             setResult(updated);
             if (updated.pagespeedApplied) setHistory(recordAudit(updated));
             setPsiStatus('ready');
@@ -217,34 +250,35 @@ export default function WebsiteAuditClient() {
           }
         })
         .catch(() => {
-          if (liveScanRef.current === data.result?.scannedAt) setPsiStatus('failed');
+          if (liveScanRef.current === audit.scannedAt) setPsiStatus('failed');
         })
         .finally(() => clearTimeout(psiTimeout));
 
       trackAuditCompleted({
         targetHost,
-        score: data.result?.overallScore ?? 0,
+        score: audit.overallScore ?? 0,
         durationMs: Date.now() - startedAt,
-        issueCount: Array.isArray(data.result?.issues) ? data.result.issues.length : 0,
+        issueCount: Array.isArray(audit.issues) ? audit.issues.length : 0,
       });
     } catch (err) {
-      clearInterval(progressInterval);
       // The visitor cleared the form or started another audit: nothing to report.
       if (controller.signal.aborted) return;
       const noAnswer = gaveUp;
-      const offline = !noAnswer && err instanceof TypeError;
+      const cutOff = !noAnswer && err instanceof CutOff;
+      const offline = !noAnswer && !cutOff && err instanceof TypeError;
       const message = noAnswer
         ? 'We did not get an answer from our audit server, even after trying twice, so the audit was stopped. This is usually a connection problem, not your website. Check your internet connection and try again in a minute.'
-        : offline
-          ? 'We could not reach our audit server. Check your internet connection and try again.'
-          : err instanceof Error
-            ? err.message
-            : 'Audit failed. Please try again.';
+        : cutOff
+          ? 'The connection to our audit server was cut before the report arrived, even after trying twice. Check your internet connection and try again.'
+          : offline
+            ? 'We could not reach our audit server. Check your internet connection and try again.'
+            : err instanceof Error
+              ? err.message
+              : 'Audit failed. Please try again.';
       setError(message);
-      trackAuditFailed({ targetHost, reason: noAnswer ? 'no_answer' : offline ? 'network' : message });
+      trackAuditFailed({ targetHost, reason: noAnswer ? 'no_answer' : cutOff ? 'cut_off' : offline ? 'network' : message });
     } finally {
       clearTimeout(timeoutId);
-      clearInterval(progressInterval);
       // Only the audit that is still current may reset the form.
       if (abortRef.current === controller) {
         abortRef.current = null;
