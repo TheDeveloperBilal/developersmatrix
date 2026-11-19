@@ -15,7 +15,7 @@ const toolFaqs = [
   },
   {
     question: "Will my PC run GTA 6?",
-    answer: "Nobody can answer that yet. Rockstar has published no PC system requirements for GTA 6, and no PC version has been announced. Grand Theft Auto VI is listed for PlayStation 5 and Xbox Series X|S on 19 November 2026. Every GTA 6 PC spec chart online is a third party estimate. What you can do is measure your machine against what Rockstar asks for today: Grand Theft Auto V Enhanced recommends a Core i5-9600K or Ryzen 5 3600, 16GB of memory and an RTX 3060 or RX 6600 XT, and it requires an SSD even at minimum. Both that game and Red Dead Redemption 2 are in the checker above."
+    answer: "Nobody can answer that yet. Rockstar has published no PC system requirements for GTA 6, and no PC version has been announced. Grand Theft Auto VI came out on PlayStation 5 and Xbox Series X|S on 19 November 2026, with no PC version. Every GTA 6 PC spec chart online is a third party estimate. What you can do is measure your machine against what Rockstar asks for today: Grand Theft Auto V Enhanced recommends a Core i5-9600K or Ryzen 5 3600, 16GB of memory and an RTX 3060 or RX 6600 XT, and it requires an SSD even at minimum. Both that game and Red Dead Redemption 2 are in the checker above."
   },
   {
     question: "Will my PC run Cyberpunk 2077?",
@@ -293,12 +293,12 @@ export default function CanYouRunItPage() {
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white mb-2">No PC specs exist yet, and no PC version has been announced</h3>
                       <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
-                        Rockstar lists Grand Theft Auto VI for PlayStation 5 and Xbox Series X|S on 19 November 2026. PC is not on that list, and Rockstar has published no minimum or recommended PC requirements. Every GTA 6 PC spec table circulating online is a third party estimate.
+                        Grand Theft Auto VI came out on PlayStation 5 and Xbox Series X|S on 19 November 2026. PC is not on that list, and Rockstar has published no minimum or recommended PC requirements. Every GTA 6 PC spec table circulating online is a third party estimate.
                       </p>
                       <div className="grid sm:grid-cols-2 gap-3 text-sm">
                         <div className="bg-white dark:bg-gray-800 rounded-lg p-3">
                           <p className="font-medium text-gray-900 dark:text-white">Confirmed by Rockstar</p>
-                          <p className="text-gray-600 dark:text-gray-400 mt-1">Release: 19 November 2026</p>
+                          <p className="text-gray-600 dark:text-gray-400 mt-1">Released: 19 November 2026</p>
                           <p className="text-gray-600 dark:text-gray-400">Platforms: PS5, Xbox Series X|S</p>
                           <p className="text-gray-600 dark:text-gray-400">PC version: not announced</p>
                           <p className="text-gray-600 dark:text-gray-400">PC specs: not published</p>

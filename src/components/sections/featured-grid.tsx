@@ -131,18 +131,18 @@ export default function FeaturedGrid() {
                   </span>
                   <span className="flex items-center gap-1 text-sm font-bold text-emerald-600">
                     <TrendingUp className="h-4 w-4" />
-                    Countdown
+                    Out now
                   </span>
                 </div>
                 <h3 className="mt-4 font-sora text-xl font-bold leading-snug tracking-tight text-ink-950 transition-colors group-hover:text-brand-700">
-                  GTA 6 countdown: what is confirmed, and what about PC?
+                  GTA 6 is out: reviews, performance and what about PC?
                 </h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-ink-500">
-                  GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S. Rockstar has not announced a PC version or PC specs yet. See what is confirmed so far.
+                  GTA 6 came out on November 19, 2026 on PS5 and Xbox Series X|S, with a 99 on Metacritic. Rockstar still has not announced a PC version or PC specs.
                 </p>
               </div>
               <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
-                <span className="text-xs font-medium text-ink-400">Releases Nov 19, 2026</span>
+                <span className="text-xs font-medium text-ink-400">Released Nov 19, 2026</span>
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600">
                   Open the hub <ArrowUpRight className="h-3.5 w-3.5" />
                 </span>

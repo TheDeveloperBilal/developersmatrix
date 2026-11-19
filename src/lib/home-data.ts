@@ -10,8 +10,8 @@ export type TickerItem = { tag: TickerTag; label: string; href: string };
 // changelog below (newest first, built in app/page.tsx), so the ticker can
 // never go stale. Remove the GTA 6 items once the launch week is over.
 export const pinnedTickerItems: TickerItem[] = [
-  { tag: "HOT", label: "GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S", href: "/gta-6" },
-  { tag: "LATEST", label: "No official GTA 6 PC specs yet: what is confirmed", href: "/tools/can-you-run-it/gta-6" },
+  { tag: "HOT", label: "GTA 6 is out on PS5 and Xbox: reviews, 30 fps and PC status", href: "/gta-6" },
+  { tag: "LATEST", label: "GTA 6 on PC: still no version or specs, and how consoles run it", href: "/tools/can-you-run-it/gta-6" },
 ];
 
 // How many changelog entries follow the pinned items.
@@ -357,6 +357,7 @@ export type UpdateItem = {
 
 // A real, dated log of changes. Newest guides are added from the blog on the server.
 export const toolUpdates: UpdateItem[] = [
+  { kind: "Updated", title: "GTA 6 is out: launch guide updated with reviews, console performance and PC status", meta: "Guide · Gaming", href: "/gta-6", date: "2026-11-19" },
   { kind: "New", title: "FPS Calculator: see how many frames per second your PC will get", meta: "Tool · Gaming", href: "/tools/fps-calculator", date: "2026-11-09" },
   { kind: "New", title: "AI Crawler Checker: see which AI bots your robots.txt lets in", meta: "Tool · SEO", href: "/tools/ai-crawler-checker", date: "2026-11-06" },
   { kind: "New", title: "Bottleneck Calculator: see whether your CPU or GPU limits your frame rate", meta: "Tool · Gaming", href: "/tools/bottleneck-calculator", date: "2026-11-06" },

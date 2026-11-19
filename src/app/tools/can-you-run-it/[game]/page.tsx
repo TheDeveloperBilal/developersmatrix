@@ -168,6 +168,15 @@ function SpecCard({
   );
 }
 
+// Digital Foundry's GTA 6 launch analysis, as reported by GTA BOOM (19 Nov 2026) and
+// AltChar (18 Nov 2026). Measured console results, not PC requirements.
+const GTA6_CONSOLE_PERFORMANCE = [
+  { console: 'PS5 Pro', resolution: '1440p, upscaled to near 4K with PSSR, plus ray traced shadows', fps: 'Near locked 30 fps; about 24 fps in the worst explosions' },
+  { console: 'PS5', resolution: '1440p, upscaled to 4K', fps: 'Mostly 30 fps; about 23 fps in heavy action' },
+  { console: 'Xbox Series X', resolution: '1440p, upscaled to 4K', fps: 'Mostly 30 fps; 20 to 22 fps in the heaviest shootouts' },
+  { console: 'Xbox Series S', resolution: '720p, upscaled to about 1080p', fps: 'Mid to upper 20s; around 20 fps in heavy action' },
+];
+
 function UnannouncedGamePage({ game }: { game: Game }) {
   const short = game.searchName || game.name;
   const pageUrl = `${siteConfig.url}/tools/can-you-run-it/${game.id}`;
@@ -179,7 +188,9 @@ function UnannouncedGamePage({ game }: { game: Game }) {
 
   const quickAnswer =
     `${maker} has not published PC system requirements for ${short}. There is no announced PC version at all. ` +
-    `${game.name} is listed for ${game.platforms.join(' and ')} on ${game.releaseDate}. ` +
+    (isGta6
+      ? `${game.name} came out on ${game.platforms.join(' and ')} on ${game.releaseDate}, and there was still no PC news at launch. `
+      : `${game.name} is listed for ${game.platforms.join(' and ')} on ${game.releaseDate}. `) +
     `Every minimum and recommended spec chart you have seen for ${short} on PC is somebody's estimate, including the ones formatted to look official.`;
 
   const confirmed = [
@@ -197,7 +208,7 @@ function UnannouncedGamePage({ game }: { game: Game }) {
     },
     {
       question: `Is ${short} coming to PC?`,
-      answer: `${maker} has not said so. The announced platform list is ${game.platforms.join(' and ')}, with no PC entry. Previous Rockstar titles did reach PC eventually: Grand Theft Auto V arrived on consoles in September 2013 and on PC in April 2015, and Red Dead Redemption 2 arrived on consoles in October 2018 and on PC in November 2019. Both gaps ran to roughly thirteen months. That pattern is a reasonable expectation, not an announcement.`,
+      answer: `${maker} has not said so. The announced platform list is ${game.platforms.join(' and ')}, with no PC entry. Previous Rockstar titles did reach PC eventually: Grand Theft Auto V arrived on consoles in September 2013 and on PC in April 2015, and Red Dead Redemption 2 arrived on consoles in October 2018 and on PC in November 2019. The gaps were nineteen and thirteen months. That pattern is a reasonable expectation, not an announcement.`,
     },
     {
       question: `When is the ${short} PC release date?`,
@@ -205,7 +216,7 @@ function UnannouncedGamePage({ game }: { game: Game }) {
     },
     {
       question: `Will my PC run ${short}?`,
-      answer: `Nobody can answer that yet, including us, because the target has not been published. What you can do is measure your machine against what Rockstar asks for today. Its most recent PC release, Grand Theft Auto V Enhanced, recommends a Core i5-9600K or Ryzen 5 3600, 16 GB of memory and an RTX 3060 or RX 6600 XT, and it requires an SSD even at minimum. A PC that clears that comfortably is in sensible shape.`,
+      answer: `Nobody can answer that yet, including us, because the target has not been published.${isGta6 ? ' The console versions give one hint: Digital Foundry found the game runs at 1440p and 30 fps on PS5 and Xbox Series X, with no 60 fps mode, so it is a demanding game.' : ''} What you can do is measure your machine against what Rockstar asks for today. Its most recent PC release, Grand Theft Auto V Enhanced, recommends a Core i5-9600K or Ryzen 5 3600, 16 GB of memory and an RTX 3060 or RX 6600 XT, and it requires an SSD even at minimum. A PC that clears that comfortably is in sensible shape.`,
     },
     {
       question: `How much storage will ${short} need?`,
@@ -301,7 +312,7 @@ function UnannouncedGamePage({ game }: { game: Game }) {
             </p>
             {isGta6 && (
               <p className="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-                GTA 6 launches November 19 on PS5 and Xbox only. For preload times, unlock times and editions, see our{' '}
+                For release times, reviews and editions, see our{' '}
                 <Link href="/gta-6" className="font-semibold text-purple-700 dark:text-purple-300 underline underline-offset-2">GTA 6 launch guide</Link>.
               </p>
             )}
@@ -359,6 +370,47 @@ function UnannouncedGamePage({ game }: { game: Game }) {
               </p>
             </div>
           </section>
+
+          {isGta6 && (
+            <section className="mb-12" aria-labelledby="console-performance">
+              <h2 id="console-performance" className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                How GTA 6 runs on PS5 and Xbox
+              </h2>
+              <p className="mb-5 text-gray-700 dark:text-gray-300 leading-relaxed">
+                The game is out on consoles, so for the first time there is measured performance to look at. These figures come from Digital Foundry&rsquo;s launch analysis. Every version targets 30 fps, and none has a 60 fps or 40 fps mode.
+              </p>
+              <div className="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-700">
+                <table className="table-stack table-stack--block w-full text-sm">
+                  <thead className="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                      <th scope="col" className="text-left font-semibold text-gray-700 dark:text-gray-200 px-5 py-3">Console</th>
+                      <th scope="col" className="text-left font-semibold text-gray-700 dark:text-gray-200 px-5 py-3">Resolution</th>
+                      <th scope="col" className="text-left font-semibold text-gray-700 dark:text-gray-200 px-5 py-3">Frame rate</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    {GTA6_CONSOLE_PERFORMANCE.map((row) => (
+                      <tr key={row.console} className="bg-white dark:bg-gray-800/50 align-top">
+                        <th scope="row" className="px-5 py-4 text-left font-semibold text-gray-900 dark:text-white">{row.console}</th>
+                        <td data-label="Resolution" className="px-5 py-4 text-gray-700 dark:text-gray-300">{row.resolution}</td>
+                        <td data-label="Frame rate" className="px-5 py-4 text-gray-700 dark:text-gray-300">{row.fps}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-5 space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p>
+                  What this means for PC is our reading, not a Rockstar spec. A PS5 has an eight core Zen 2 processor and an AMD graphics chip rated at 10.3 teraflops, and it still runs GTA 6 at 1440p and 30 fps. When a PC version arrives, expect it to ask for more than the RTX 3060 class card Rockstar recommends for Grand Theft Auto V Enhanced today, especially if you want 60 fps.
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Sources:{' '}
+                  <a href="https://www.gtaboom.com/digital-foundry-finds-that-gta-6-indeed-runs-best-on-ps5-pro-b72f" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">GTA BOOM on Digital Foundry&rsquo;s console analysis</a>{' '}and{' '}
+                  <a href="https://www.altchar.com/game-news/gta-vi-dips-as-low-as-23fps-on-base-ps5-in-heavy-action-digital-foundry-finds-aJybE7x7IsZa" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">AltChar on the PS5 and PS5 Pro results</a>, November 18 and 19, 2026.
+                </p>
+              </div>
+            </section>
+          )}
 
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
@@ -685,8 +737,8 @@ export default async function GamePage({ params }: GamePageProps) {
               className="-mt-6 mb-12 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-5 py-4 sm:px-6"
             >
               <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                <span className="font-semibold text-gray-900 dark:text-white">Waiting for GTA 6?</span> It launches November 19 on PS5 and Xbox. See{' '}
-                <Link href="/gta-6" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">GTA 6 preload and unlock times</Link>{' '}
+                <span className="font-semibold text-gray-900 dark:text-white">GTA 6 is out</span> on PS5 and Xbox, but not on PC. See{' '}
+                <Link href="/gta-6" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">GTA 6 reviews, performance and PC status</Link>{' '}
                 and the{' '}
                 <Link href="/tools/can-you-run-it/gta-6" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">likely GTA 6 PC requirements</Link>, based on what Rockstar asks for today.
               </p>
