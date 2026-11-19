@@ -7,10 +7,24 @@ import { NextResponse } from 'next/server';
 // Take-Two announce something.
 const NEWS = [
   {
-    title: 'GTA 6 unlock time: midnight local, with a reported single US time',
-    snippet: 'Rockstar Support says GTA 6 releases at midnight local time on November 19 in all regions. US PlayStation Store listings reportedly show one nationwide time, midnight Eastern, which would be 9:00 p.m. Pacific on November 18. Rockstar has not confirmed the US detail.',
-    url: 'https://www.techtimes.com/articles/330648/20261113/gta-6-release-time-west-coast-players-may-start-9-pm-wednesday-not-midnight-thursday.htm',
-    source: 'Tech Times',
+    title: 'GTA 6 is out on PS5 and Xbox Series X|S',
+    snippet: 'GTA 6 unlocked at midnight local time on November 19, 2026, starting in New Zealand at 11:00 UTC on November 18. US stores unlocked at one moment nationwide, midnight Eastern, which was 9:00 p.m. Pacific. It launched as a single player game, with no PC version.',
+    url: 'https://www.vice.com/en/article/gta-6-us-canada-launch-ps5-download-size-game-sharing/',
+    source: 'VICE',
+    date: 'November 2026',
+  },
+  {
+    title: 'GTA 6 scores 99 on Metacritic, tying the all time record',
+    snippet: 'Reviews went live on November 18. The 99 score, from 109 critic reviews on the day, ties The Legend of Zelda: Ocarina of Time for the highest Metacritic score ever and beats Grand Theft Auto IV, Rockstar\'s previous best at 98.',
+    url: 'https://www.forbes.com/sites/paultassi/2026/11/18/the-gta-6-metacritic-review-score-is-in-and-ties-an-all-time-record/',
+    source: 'Forbes',
+    date: 'November 2026',
+  },
+  {
+    title: 'Digital Foundry: 30 fps on every console, steadiest on PS5 Pro',
+    snippet: 'Every console version targets 30 fps with no 60 fps mode. PS5, PS5 Pro and Series X render at 1440p; the Pro adds ray traced shadows and holds 30 fps best, while the base PS5 can dip to about 23 fps in heavy explosions and Series S renders at 720p.',
+    url: 'https://www.gtaboom.com/digital-foundry-finds-that-gta-6-indeed-runs-best-on-ps5-pro-b72f',
+    source: 'GTA BOOM on Digital Foundry',
     date: 'November 2026',
   },
   {

@@ -305,7 +305,7 @@ export const gamesDatabase: Game[] = [
     rating: 0,
     price: '$79.99',
     platforms: ['PS5', 'Xbox Series X|S'],
-    platformNote: 'Rockstar lists PlayStation 5 and Xbox Series X|S only. No PC version has been announced.',
+    platformNote: 'Out on PlayStation 5 and Xbox Series X|S since November 19, 2026. No PC version has been announced.',
     imageUrl: '/images/games/gta6.png',
     description: 'Grand Theft Auto VI heads to the state of Leonida, home to the neon-soaked streets of Vice City and beyond in the biggest, most immersive evolution of the Grand Theft Auto series yet.',
     requirementsStatus: 'unannounced',
@@ -329,15 +329,13 @@ export const gamesDatabase: Game[] = [
       storage: 'Not announced'
     },
     features: [
-      'Massive open world map covering Vice City and beyond',
-      'Dual protagonist system with Lucia and Jason',
-      'Next-gen graphics with ray tracing support',
-      'Enhanced physics and destruction system',
-      'Expanded multiplayer with GTA Online integration',
-      'Dynamic weather and day/night cycle',
-      'Hundreds of vehicles including cars, boats, and aircraft'
+      'Set in Leonida, with Vice City as its main city',
+      'Two leads: Lucia Caminos and Jason Duval',
+      'Single player at launch; no online mode announced',
+      '30 fps on every console, with no 60 fps mode (Digital Foundry)',
+      'Metacritic score of 99 at launch'
     ],
-    tags: ['Open World', 'Action', 'Crime', 'Multiplayer', 'Third-Person'],
+    tags: ['Open World', 'Action', 'Crime', 'Third-Person'],
     trending: true,
     popularity: 100
   },

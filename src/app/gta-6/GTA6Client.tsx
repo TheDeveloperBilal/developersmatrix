@@ -100,7 +100,7 @@ export default function GTA6Client({ launchBlock }: { launchBlock?: ReactNode } 
     platforms: ["PlayStation 5", "Xbox Series X|S"],
     pcPlatforms: ["PC: no version announced, no store listing"],
     genres: ["Action", "Adventure", "Open World"],
-    rating: "Not yet rated",
+    rating: "Metacritic 99",
     location: "Vice City, Leonida",
     protagonists: ["Lucia Caminos", "Jason Duval"],
     preOrderDate: "June 25, 2026",
@@ -108,9 +108,10 @@ export default function GTA6Client({ launchBlock }: { launchBlock?: ReactNode } 
       "Set in Leonida, Rockstar's version of Florida, with Vice City as its main city",
       "Two leads: Lucia Caminos and Jason Duval",
       "Regions shown so far: the Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga National Park",
-      "Built for PlayStation 5 and Xbox Series X|S",
-      "Standard and Ultimate editions, with the Vintage Vice City Pack for purchases before November 20, 2026",
-      "Digital preloading from November 10, 2026; boxed copies with a download code from November 12"
+      "Out now on PlayStation 5 and Xbox Series X|S since November 19, 2026",
+      "Single player at launch; Rockstar has not announced an online mode",
+      "30 fps on every console, with no 60 fps mode (Digital Foundry)",
+      "Standard and Ultimate editions, with the Vintage Vice City Pack for purchases before November 20, 2026"
     ]
   };
 
@@ -235,13 +236,13 @@ export default function GTA6Client({ launchBlock }: { launchBlock?: ReactNode } 
             <div className="text-center md:text-left min-w-0">
               <div className="inline-flex items-center gap-2 bg-purple-500/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 max-w-full">
                 <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 shrink-0" />
-                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Preload Nov 10 · Release Nov 19</span>
+                <span className="text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap">Out now · PS5 and Xbox Series X|S</span>
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 break-words">
                 Grand Theft Auto <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">VI</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-xl mb-4 sm:mb-8">
-                Release date, price, editions and the latest confirmed news, plus what PC players can check while they wait.
+                Out now on consoles. Release times, reviews, performance and the latest confirmed news, plus what PC players can check while they wait.
               </p>
               {/* Flex wrap, not a two column grid. The Badge component is w-fit and
                   whitespace-nowrap, so a long badge ignores a fixed grid track and runs
@@ -251,11 +252,11 @@ export default function GTA6Client({ launchBlock }: { launchBlock?: ReactNode } 
               <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-400 shrink-0" />
-                  <span className="truncate">Preorders open</span>
+                  <span className="truncate">On sale now</span>
                 </Badge>
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
-                  <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-400 shrink-0" />
-                  <span className="truncate">Nov 19, 2026 Release</span>
+                  <Star className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-yellow-400 shrink-0" />
+                  <span className="truncate">Metacritic 99</span>
                 </Badge>
                 <Badge variant="outline" className="max-w-full min-w-0 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm justify-center">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-400 shrink-0" />
@@ -290,7 +291,7 @@ export default function GTA6Client({ launchBlock }: { launchBlock?: ReactNode } 
                   className="w-full rounded-2xl shadow-2xl shadow-purple-500/20 border border-purple-500/30"
                 />
                 <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm">
-                  Nov 19, 2026
+                  Out now
                 </div>
               </div>
             </div>
@@ -634,7 +635,7 @@ export default function GTA6Client({ launchBlock }: { launchBlock?: ReactNode } 
                     <h4 className="font-semibold mb-2">Two leads</h4>
                     <p className="text-sm text-muted-foreground">
                       Lucia Caminos and Jason Duval lead the story, a couple pulled into crime in Leonida.
-                      Rockstar has not explained yet how you move between the two during play.
+                      We have not played it ourselves, so we leave how the two play together to the reviews.
                     </p>
                   </div>
                 </CardContent>

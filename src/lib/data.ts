@@ -185,7 +185,7 @@ export const tickerItems = [
   { tag: "TOOL", label: "Resume Builder", href: "/tools/ai-resume-builder" },
   { tag: "GUIDE", label: "Technical Interview Prep", href: "/blog/technical-interview-prep-2026" },
   { tag: "TOOL", label: "Interview Simulator", href: "/tools/ai-interview-simulator" },
-  { tag: "TREND", label: "GTA 6 · Nov 19 2026", href: "/gta-6" },
+  { tag: "TREND", label: "GTA 6 · Out now", href: "/gta-6" },
   { tag: "TOOL", label: "Budget Planner", href: "/tools/budget-planner" },
   { tag: "GUIDE", label: "Cover Letters That Convert", href: "/blog/how-to-write-cover-letter-2026" },
   { tag: "TOOL", label: "AI Content Detector", href: "/tools/ai-content-detector" },
