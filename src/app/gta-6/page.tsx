@@ -381,7 +381,7 @@ export default function GTA6Page() {
               Grand Theft Auto V Enhanced, released in 2025, asks for a Core i7-4770 or FX-9590 with 8GB of memory and a GTX 1630 at minimum, and recommends a Core i5-9600K or Ryzen 5 3600 with 16GB and an RTX 3060 or RX 6600 XT. It needs 105GB and will not install on a mechanical drive. Red Dead Redemption 2, from 2019, asks for 150GB of space and recommends a GTX 1060 with 12GB of memory. Six years moved Rockstar&rsquo;s floor up roughly two graphics card generations and made solid state storage compulsory.
             </p>
             <p className="leading-relaxed">
-              If you want to prepare, that direction of travel is the only honest guide: 16GB of memory, an SSD with well over 200GB free (the console version needs up to 212GB, and Rockstar&rsquo;s PC versions are usually larger), and a graphics card at or above the RTX 3060 class. Read the full breakdown on our <Link href="/tools/can-you-run-it/gta-6" className="text-blue-600 dark:text-blue-400 hover:underline">GTA 6 PC requirements page</Link>, or test your machine against the Rockstar games that do have published specs in the <Link href="/tools/can-you-run-it" className="text-blue-600 dark:text-blue-400 hover:underline">Can You Run It tool</Link>.
+              If you want to prepare, that direction of travel is the only honest guide: 16GB of memory, an SSD with well over 200GB free (the console version needs up to 212GB, and Rockstar&rsquo;s PC versions are usually larger), and a graphics card at or above the RTX 3060 class. Read the full breakdown on our <Link href="/tools/can-you-run-it/gta-6" className="text-blue-600 dark:text-blue-400 hover:underline">GTA 6 PC requirements page</Link>, or test your machine against the Rockstar games that do have published specs in the <Link href="/tools/can-you-run-it" className="text-blue-600 dark:text-blue-400 hover:underline">Can You Run It tool</Link>. Nobody can measure GTA 6 frame rates on PC yet, but the <Link href="/tools/fps-calculator?game=gta-5" className="text-blue-600 dark:text-blue-400 hover:underline">FPS Calculator</Link> shows what your card gets today in GTA 5 Enhanced at maximum settings with ray tracing, Rockstar&rsquo;s newest PC release.
             </p>
           </div>
         </section>
@@ -465,17 +465,17 @@ export default function GTA6Page() {
               <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Can You Run It Tool</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">Check your PC against the specs publishers released for big PC games, including GTA 5 Enhanced.</p>
             </Link>
-            <Link href="/trends" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Tech and Gaming Trends 2026</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Explore the biggest gaming releases, hardware launches, and industry shifts happening this year.</p>
+            <Link href="/tools/can-you-run-it/gta-6" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">GTA 6 PC Requirements</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">What Rockstar has and has not said about a PC version, and the specs its current PC games ask for.</p>
             </Link>
-            <Link href="/blog" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Gaming News and Guides</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Deep dives into the biggest releases, hardware reviews, and gaming industry analysis.</p>
+            <Link href="/tools/fps-calculator?game=gta-5" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">FPS Calculator</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">See the frame rate your PC gets in GTA 5 Enhanced at 1080p, 1440p and 4K, from published benchmark results.</p>
             </Link>
-            <Link href="/tools/website-audit" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Website Audit Tool</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Check if your gaming blog or streaming site is optimized for Google search and page speed.</p>
+            <Link href="/tools/bottleneck-calculator" className="block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-md">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Bottleneck Calculator</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Check whether your processor will hold back a new graphics card before you upgrade for GTA 6.</p>
             </Link>
           </div>
         </section>

@@ -228,11 +228,25 @@ export function BlogContent({ content }: { content: string }) {
       </div>`;
     };
 
+    // Code is taken out before any other rule runs, so headings, bold, lists,
+    // links and the bare URL rule never touch it. It goes back in at the very end.
+    const codeBlocks: string[] = [];
+    const inlineCode: string[] = [];
+    const escapeCode = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
     // Normalize line endings to \n for consistent parsing
     let html = rawContent
       .replace(/\r\n/g, '\n')
       .replace(/\r/g, '\n')
-      // Escape HTML entities first (but we'll handle code blocks specially)
+      .replace(/```(\w+)?\n?([\s\S]*?)```/g, (_m: string, lang: string | undefined, code: string) => {
+        codeBlocks.push(generateCodeBlock(code, lang).replace(/>\s+</g, '><'));
+        return `\n@@CODEBLOCK${codeBlocks.length - 1}@@\n`;
+      })
+      .replace(/`([^`\n]+)`/g, (_m: string, code: string) => {
+        inlineCode.push(`<code class="blog-code">${escapeCode(code)}</code>`);
+        return `@@INLINECODE${inlineCode.length - 1}@@`;
+      })
+      // Escape HTML entities first
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
@@ -250,23 +264,6 @@ export function BlogContent({ content }: { content: string }) {
       .replace(/\*\*(.+?)\*\*/g, '<strong class="blog-strong">$1</strong>')
       // Italic
       .replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-    // Handle code blocks specially — need to do this before inline code since code blocks contain backticks
-    // First, temporarily replace code blocks with placeholders
-    const codeBlocks: Array<{ placeholder: string; html: string }> = [];
-    html = html.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
-      const placeholder = `___CODE_BLOCK_${codeBlocks.length}___`;
-      codeBlocks.push({ placeholder, html: generateCodeBlock(code, lang) });
-      return placeholder;
-    });
-
-    // Now safe to process inline code
-    html = html.replace(/`([^`]+)`/g, '<code class="blog-code">$1</code>');
-
-    // Restore code blocks
-    codeBlocks.forEach(({ placeholder, html: blockHtml }) => {
-      html = html.replace(placeholder, blockHtml);
-    });
 
     html = html
       // Unordered lists
@@ -287,7 +284,8 @@ export function BlogContent({ content }: { content: string }) {
       .replace(/^---$/gm, '<hr class="blog-hr" />')
       // Tables - simple parsing for | col1 | col2 |
       .replace(/(\|[^\n]+\|\n)(\|[-:\s|]+\|\n)((?:\|[^\n]+\|\n?)+)/g, (match, header, separator, rows) => {
-        const ths = header.split('|').filter(Boolean).map(h => `<th class="blog-th">${h.trim()}</th>`).join('');
+        // trim first: the header line keeps its newline, which used to become an extra empty cell
+        const ths = header.trim().split('|').filter(Boolean).map(h => `<th class="blog-th">${h.trim()}</th>`).join('');
         const trs = rows.trim().split('\n').map(row => {
           const tds = row.split('|').filter(Boolean).map(d => `<td class="blog-td">${d.trim()}</td>`).join('');
           return `<tr class="blog-tr">${tds}</tr>`;
@@ -315,6 +313,12 @@ export function BlogContent({ content }: { content: string }) {
       const items = match.replace(/<blockquote class="quote-block">(.*?)<\/blockquote>/g, '$1\n').trim();
       return `<blockquote class="blog-blockquote">${items}</blockquote>`;
     });
+
+    // Put the code back. A block placeholder sits on its own line, so the paragraph
+    // rule wrapped it in a <p>; that wrapper is dropped with it.
+    html = html
+      .replace(/(?:<p class="blog-p">)?@@CODEBLOCK(\d+)@@(?:<\/p>)?/g, (_m: string, i: string) => codeBlocks[Number(i)])
+      .replace(/@@INLINECODE(\d+)@@/g, (_m: string, i: string) => inlineCode[Number(i)]);
 
     return html;
   };

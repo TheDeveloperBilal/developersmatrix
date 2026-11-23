@@ -18,6 +18,7 @@ import { CTABanner } from "@/components/blog/CTABanner";
 import { ArrowRight, Sparkles, Wrench } from "lucide-react";
 import { ToolIcon } from "@/lib/tool-icons";
 import Link from "next/link";
+import { TOOLS_LABEL } from "@/lib/home-data";
 
 // Topic-aware tool recommendations based on blog post tags
 interface ToolRecommendation {
@@ -361,7 +362,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm text-foreground mb-1">Explore more tools</p>
                       <p className="text-sm text-muted-foreground mb-3">
-                        Discover 20+ free AI tools to boost your productivity, career, and content creation.
+                        {TOOLS_LABEL} free tools for SEO, PC gaming, job hunting and content. No signup, and they run in your browser.
                       </p>
                       <Link href="/tools" className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
                         Browse All Tools
