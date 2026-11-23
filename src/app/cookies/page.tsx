@@ -29,7 +29,7 @@ export default function CookiePolicyPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Cookie Policy</h1>
         <p className="text-muted-foreground mb-8">
-          Last updated: May 2025
+          Last updated: November 2026
         </p>
 
         <div className="prose prose-lg dark:prose-invert max-w-none space-y-8">
@@ -56,8 +56,8 @@ export default function CookiePolicyPage() {
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
                 At Developers Matrix, we use cookies for several important reasons. First, we use them to 
-                ensure the basic functionality of our website operates smoothly. This includes keeping you 
-                signed in during your session and remembering your preferences such as dark mode settings. 
+                ensure the basic functionality of our website operates smoothly. This includes remembering 
+                your preferences such as dark mode settings. 
                 Second, we use cookies to analyze how visitors interact with our platform, which helps us 
                 identify areas for improvement and understand which features are most valuable to our users. 
                 Third, we work with trusted advertising partners to display relevant advertisements that 
