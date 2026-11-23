@@ -6,6 +6,7 @@ import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import WebsiteAuditClient from './WebsiteAuditClient';
+import { TOOLS_LABEL } from "@/lib/home-data";
 import { NAMED_CHECK_COUNT, CHECK_GROUPS, CHECK_DEFINITIONS } from '@/lib/website-audit/check-catalogue';
 
 // Every named test in the report, grouped the way the report groups them.
@@ -428,6 +429,11 @@ export default function WebsiteAuditPage() {
             <p>
               The grade comes from {NAMED_CHECK_COUNT} named checks across seven scored categories. Every finding has a severity (critical, high, medium or low) and costs points in its category, and a problem found on every page costs more than one found on a single page. Small low priority notes are capped per category, so a pile of minor notes cannot sink a score. The categories are then weighted: SEO 22%, Technical 18%, Performance 15%, Security 12%, Content 12%, Accessibility 11% and Mobile 10%. Performance is half our own checks and half Google's mobile PageSpeed score when Google returns one. Weak categories pull the grade down more than strong ones push it up. Any critical finding, such as no HTTPS or robots.txt blocking Googlebot, caps the grade at 45, and two or more cap it at 35.
             </p>
+            <p>
+              The audit also notes whether AI search crawlers can read your site, but only as a tip that does not change the grade. For the full picture, the{' '}
+              <a href="/tools/ai-crawler-checker" className="font-medium text-blue-700 dark:text-blue-300 underline underline-offset-2">AI Crawler Checker</a>{' '}
+              reads your robots.txt for each AI crawler, including OAI-SearchBot (ChatGPT search), PerplexityBot and GPTBot, and shows the exact line that allows or blocks it.
+            </p>
           </div>
 
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-3">What Is a Good Website Health Score?</h3>
@@ -841,12 +847,11 @@ export default function WebsiteAuditPage() {
                   ['/blog/on-site-seo-guide-2026', 'On page SEO guide'],
                   ['/blog/website-code-audit-guide', 'Website code audit guide'],
                   ['/services/website-audit', 'Website audit services'],
+                  ['/tools/ai-crawler-checker', 'AI Crawler Checker'],
+                  ['/blog/chatgpt-vs-google-ai-overview-seo-2026', 'ChatGPT vs Google AI Overview for SEO'],
+                  ['/blog/small-business-website-statistics-2026', 'Small business website statistics'],
                   ['/tools/ai-content-detector', 'AI Content Detector'],
-                  ['/tools/ai-resume-builder', 'AI Resume Builder'],
-                  ['/tools/ai-interview-simulator', 'AI Interview Simulator'],
-                  ['/tools/ai-cover-letter-generator', 'AI Cover Letter Generator'],
-                  ['/tools/salary-estimator', 'Salary Estimator'],
-                  ['/tools', 'All 20+ free tools'],
+                  ['/tools', `All ${TOOLS_LABEL} free tools`],
                 ].map(([href, label]) => (
                   <li key={href}>
                     <a href={href} className="inline-flex rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-gray-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-blue-300">
@@ -871,6 +876,7 @@ export default function WebsiteAuditPage() {
                     ['/blog/website-code-audit-guide', 'Website code audit guide'],
                     ['/services/website-audit', 'Website audit services and pricing'],
                     ['/blog/small-business-website-statistics-2026', 'Small business website statistics'],
+                    ['/tools/ai-crawler-checker', 'AI Crawler Checker'],
                     ['/blog', 'SEO guides and tips'],
                   ].map(([href, label]) => (
                     <li key={href}>

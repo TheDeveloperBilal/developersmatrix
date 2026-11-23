@@ -170,8 +170,9 @@ export const explorerTools: ExplorerTool[] = [
 
 export const TOOL_COUNT = explorerTools.length;
 
-// How the site describes its tool count. Change this one line when new tools ship.
-export const TOOLS_LABEL = "20+";
+// How the site describes its tool count. Counted from the list above, so it can never
+// claim more tools than the site has.
+export const TOOLS_LABEL = String(TOOL_COUNT);
 
 /* ---------------- Trending now ---------------- */
 

@@ -482,6 +482,12 @@ function UnannouncedGamePage({ game }: { game: Game }) {
               in our free checker and you will see exactly which component is closest to falling short.
               That is the component to spend money on, whenever the real requirements arrive.
             </p>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-5">
+              For a frame rate, the{' '}
+              <Link href="/tools/fps-calculator?game=gta-5" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">FPS Calculator</Link>{' '}
+              shows what your graphics card gets in GTA 5 Enhanced at maximum settings with ray tracing, based on
+              published benchmark results. {short} is a newer and much bigger game, so expect it to ask more of your card than that.
+            </p>
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/tools/can-you-run-it"
@@ -532,18 +538,19 @@ function UnannouncedGamePage({ game }: { game: Game }) {
               {relatedGames(game)
                 .filter((g) => g.requirementsStatus !== 'unannounced')
                 .map((g) => (
-                  <Link
+                  <div
                     key={g.id}
-                    href={`/tools/can-you-run-it/${g.id}`}
-                    className="group rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-4 py-3.5 hover:border-purple-300 dark:hover:border-purple-500/40 hover:shadow-sm transition-all"
+                    className="group relative rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-4 py-3.5 hover:border-purple-300 dark:hover:border-purple-500/40 hover:shadow-sm transition-all focus-within:ring-2 focus-within:ring-purple-500"
                   >
                     <p className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-300 truncate">
-                      {g.name}
+                      <Link href={`/tools/can-you-run-it/${g.id}`} className="after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none">
+                        {g.name}
+                      </Link>
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
                       {g.genre[0]} · {g.releaseDate}
                     </p>
-                  </Link>
+                  </div>
                 ))}
             </div>
           </section>
@@ -569,6 +576,10 @@ export default async function GamePage({ params }: GamePageProps) {
   // Storage is only quoted as a size when the publisher actually gives one.
   const storageSize = /^\d/.test(min.storage) ? min.storage.replace(' available space', '') : null;
   const mentionsSsd = !!game.requirementsNote && /SSD/.test(game.requirementsNote);
+  // Memory as a plain figure ("16 GB"), only when the publisher gives one.
+  const ramFigure = (s: string) => s.match(/^\d+ GB/)?.[0] ?? null;
+  const minRam = ramFigure(min.memory);
+  const recRam = hasRecommended ? ramFigure(rec.memory) : null;
 
   // The publisher's recommended processor and card, opened in the bottleneck
   // calculator. Only when both name a part we have figures for.
@@ -603,7 +614,10 @@ export default async function GamePage({ params }: GamePageProps) {
   const faqs = [
     {
       question: `Can I run ${game.name} on my PC?`,
-      answer: `${quickAnswer} Enter your own specs in the checker above and you will get a compatibility score with an estimated frame rate rather than a simple yes or no.`,
+      answer:
+        `Start with your graphics card, because it decides most of the result. ` +
+        (minRam ? `${game.name} needs at least ${minRam} of memory${recRam && recRam !== minRam ? `, and ${recRam} for the recommended spec` : ''}. ` : '') +
+        `Enter your processor, graphics card and memory in the checker above. It compares them with the official ${game.name} requirements and gives you a compatibility score with an estimated frame rate, not just a yes or no.`,
     },
     {
       question: `What are the minimum requirements for ${game.name}?`,
@@ -870,6 +884,16 @@ export default async function GamePage({ params }: GamePageProps) {
                 <Link href="/tools/bottleneck-calculator" className="text-purple-700 dark:text-purple-300 underline underline-offset-2">bottleneck calculator</Link>{' '}
                 shows whether that happens with your own processor and graphics card.
               </p>
+              {!fpsData && (
+                <p>
+                  Want a frame rate rather than a pass or fail? {game.name} does not have its own benchmark
+                  results in our data yet, so the{' '}
+                  <Link href="/tools/fps-calculator" className="text-purple-700 dark:text-purple-300 underline underline-offset-2">FPS Calculator</Link>{' '}
+                  cannot give a figure for this game itself. It does show your average across 11 demanding
+                  games on Ultra settings at 1080p, 1440p and 4K, so you can see where your graphics card
+                  stands. Lighter games run faster than that average, and the heaviest new releases run slower.
+                </p>
+              )}
               {storageSize && /GB/.test(storageSize) && (
                 <p>
                   Storage speed is the most commonly overlooked requirement. {game.name} lists{' '}
@@ -907,18 +931,19 @@ export default async function GamePage({ params }: GamePageProps) {
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {related.map((g) => (
-                <Link
+                <div
                   key={g.id}
-                  href={`/tools/can-you-run-it/${g.id}`}
-                  className="group rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-4 py-3.5 hover:border-purple-300 dark:hover:border-purple-500/40 hover:shadow-sm transition-all"
+                  className="group relative rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 px-4 py-3.5 hover:border-purple-300 dark:hover:border-purple-500/40 hover:shadow-sm transition-all focus-within:ring-2 focus-within:ring-purple-500"
                 >
                   <p className="font-semibold text-gray-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-300 truncate">
-                    {g.name}
+                    <Link href={`/tools/can-you-run-it/${g.id}`} className="after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none">
+                      {g.name}
+                    </Link>
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
                     {g.genre[0]} · {g.releaseDate}
                   </p>
-                </Link>
+                </div>
               ))}
             </div>
           </section>

@@ -11,7 +11,6 @@ function Stat({ value, label }: { value: string; label: string }) {
     <div>
       <p className="font-sora text-2xl font-bold tracking-tight text-ink-950 sm:text-[1.7rem]">
         {value}
-        <span className="text-brand-600">+</span>
       </p>
       <p className="mt-0.5 text-xs font-medium text-ink-400">{label}</p>
     </div>
@@ -27,8 +26,6 @@ export default function HeroDiscovery({
   guideCount: number;
   trendCount: number;
 }) {
-  const toolsNumber = toolsLabel.replace(/\+$/, "");
-
   return (
     <section className="relative overflow-hidden bg-ink-50/50">
       <div aria-hidden="true" className="dot-grid absolute inset-0 [mask-image:radial-gradient(ellipse_75%_70%_at_50%_0%,black,transparent)]" />
@@ -66,7 +63,7 @@ export default function HeroDiscovery({
           </div>
 
           <div className="mt-10 flex gap-8 border-t border-ink-100/40 pt-6 sm:gap-10">
-            <Stat value={toolsNumber} label="Free tools" />
+            <Stat value={toolsLabel} label="Free tools" />
             <Stat value={String(guideCount)} label="Guides published" />
             <Stat value={String(trendCount)} label="Trend reports" />
           </div>

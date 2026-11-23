@@ -231,11 +231,10 @@ export default function CanYouRunItPage() {
                   <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 mb-3">Related resources</h3>
                   <div className="flex flex-wrap gap-2 text-sm">
                     {[
+                      ["/tools/fps-calculator", "FPS Calculator"],
                       ["/tools/bottleneck-calculator", "Bottleneck Calculator"],
+                      ["/tools/can-you-run-it/gta-6", "GTA 6 PC requirements"],
                       ["/gta-6", "GTA 6 launch guide"],
-                      ["/tools/salary-estimator", "Salary Estimator"],
-                      ["/tools/budget-planner", "Budget Planner"],
-                      ["/tools/website-audit", "Website Audit"],
                     ].map(([href, label]) => (
                       <a
                         key={href}
@@ -278,6 +277,9 @@ export default function CanYouRunItPage() {
                   </p>
                   <p>
                     Storage is the requirement people skip. Games stream textures and world data off the drive while you play, so a mechanical hard disk produces stuttering and texture pop in even when every other component is comfortably above spec. If you are running a hard drive, that is the cheapest fix on the list and usually the one you feel most.
+                  </p>
+                  <p>
+                    The score tells you whether a game will run. To see how well, the <a href="/tools/fps-calculator" className="font-medium text-purple-700 dark:text-purple-300 underline underline-offset-2">FPS Calculator</a> estimates your average frame rate and 1% low at 1080p, 1440p and 4K for your exact processor and graphics card. It is built on Tom&rsquo;s Hardware benchmark results, with separate figures for ten popular games such as Fortnite, Cyberpunk 2077 and GTA 5 Enhanced.
                   </p>
                   <p>
                     On a laptop, compare the actual mobile chip rather than the desktop card with a similar name. Laptop graphics run roughly 15 to 30 percent slower than their desktop namesakes because of power and heat limits, so a laptop card that matches the recommended spec on paper often behaves closer to the minimum in practice.
@@ -503,13 +505,10 @@ export default function CanYouRunItPage() {
                 <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">More from Developers Matrix</p>
                 <ul className="flex flex-wrap gap-2 text-sm">
                   {[
+                    ["/tools/fps-calculator", "FPS Calculator"],
                     ["/tools/bottleneck-calculator", "Bottleneck Calculator"],
+                    ["/tools/can-you-run-it/gta-6", "GTA 6 PC requirements"],
                     ["/gta-6", "GTA 6 launch guide"],
-                    ["/trends", "Tech trends 2026"],
-                    ["/tools/budget-planner", "Budget Planner"],
-                    ["/tools/salary-estimator", "Salary Estimator"],
-                    ["/tools/habit-tracker", "Habit Tracker"],
-                    ["/tools/productivity-planner", "Productivity Planner"],
                     ["/tools/website-audit", "Website Audit"],
                     ["/blog", "Guides"],
                     ["/tools", "All tools"],

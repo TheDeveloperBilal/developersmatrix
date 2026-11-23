@@ -7,6 +7,7 @@ import { siteConfig } from "@/data/config";
 import { generatePageMetadata } from "@/lib/seo/metadata";
 import { BANK } from "@/lib/interview/bank";
 import InterviewSimulatorClient from "./InterviewSimulatorClient";
+import { TOOLS_LABEL } from "@/lib/home-data";
 
 const QUESTION_COUNT = BANK.length;
 
@@ -546,7 +547,7 @@ export default function InterviewSimulatorPage() {
                     className="group block bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl p-5 shadow-sm border border-orange-100 dark:border-orange-800 hover:border-orange-300 dark:hover:border-orange-600 transition-all hover:shadow-md"
                   >
                     <h3 className="font-semibold text-orange-700 dark:text-orange-400 mb-2">
-                      View All 20+ Free Tools →
+                      View All {TOOLS_LABEL} Free Tools →
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Explore habit trackers, budget planners, startup idea generators, and more. Everything you need to grow your career.

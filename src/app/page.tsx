@@ -28,7 +28,7 @@ import IconDrawObserver from "@/components/icon-draw-observer";
 
 export const metadata: Metadata = {
   title: "Free AI Tools, Resources & Trends | Developers Matrix",
-  description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
+  description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, PC game checkers and more. No signup needed.",
   keywords: [
     "free AI tools",
     "AI resume builder",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Free AI Tools, Resources & Trends | Developers Matrix",
-    description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.",
+    description: "Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, PC game checkers and more. No signup needed.",
     url: siteConfig.url,
     siteName: siteConfig.name,
     images: [
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Free AI Tools, Resources & Trends | Developers Matrix',
-    description: 'Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, and 20+ more. No signup needed.',
+    description: 'Free AI tools for developers, marketers, and career builders. Cover letter generator, website auditor, interview simulator, PC game checkers and more. No signup needed.',
     images: [siteConfig.ogImage],
     creator: '@developersmatrix',
   },

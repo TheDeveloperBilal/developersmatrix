@@ -7,6 +7,7 @@ import { siteConfig } from '@/data/config';
 import { SidebarAd, InContentAd } from '@/components/ads/AdBanner';
 import Link from 'next/link';
 import ResumeBuilderClient from './ResumeBuilderClient';
+import { TOOLS_LABEL } from "@/lib/home-data";
 
 export async function generateMetadata(): Promise<Metadata> {
   return generatePageMetadata(toolMetadata['ai-resume-builder']);
@@ -453,7 +454,7 @@ export default function ResumeBuilderPage() {
                   className="group block bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500 transition-all hover:shadow-md"
                 >
                   <h3 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">
-                    View All 20+ Free Tools →
+                    View All {TOOLS_LABEL} Free Tools →
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     Explore productivity planners, habit trackers, startup idea generators, and more. Everything you need to level up your career.
