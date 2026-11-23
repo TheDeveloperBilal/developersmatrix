@@ -690,7 +690,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                     </div>
                     <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
                       <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Detection Time</h4>
-                      <p className="text-2xl font-bold text-red-600 dark:text-red-400">280 days</p>
+                      <p className="text-2xl font-bold text-red-600 dark:text-red-400">241 days</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400">Average time to identify and contain a breach</p>
                     </div>
                     <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
@@ -717,7 +717,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                     <li className="text-red-600 dark:text-red-400 font-bold">• Total estimated cost: $12,130,000</li>
                   </ul>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Source: IBM Cost of a Data Breach Report 2025, Ponemon Institute analysis, Developers Matrix 2026 security incident database.
+                    Source: IBM Cost of a Data Breach Report 2025, Ponemon Institute analysis.
                   </p>
                 </section>
 
@@ -727,26 +727,6 @@ export default async function TrendPage({ params }: TrendPageProps) {
                     2026 Cybersecurity Threat Timeline
                   </h2>
                   <div className="space-y-4">
-                    <div className="flex gap-4">
-                      <div className="flex flex-col items-center">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
-                      </div>
-                      <div className="pb-4">
-                        <p className="text-sm font-semibold text-red-600 dark:text-red-400">January 2026</p>
-                        <p className="text-slate-700 dark:text-slate-300 text-sm">Major AI-powered phishing campaign targets 12,000 organizations using deepfake audio of executives. Average loss per incident: $450,000.</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="flex flex-col items-center">
-                        <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
-                      </div>
-                      <div className="pb-4">
-                        <p className="text-sm font-semibold text-orange-600 dark:text-orange-400">March 2026</p>
-                        <p className="text-slate-700 dark:text-slate-300 text-sm">First documented AI-generated polymorphic malware discovered. Mutates every 4 hours to evade signature-based detection. Infects 340,000 endpoints globally.</p>
-                      </div>
-                    </div>
                     <div className="flex gap-4">
                       <div className="flex flex-col items-center">
                         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -759,22 +739,12 @@ export default async function TrendPage({ params }: TrendPageProps) {
                     </div>
                     <div className="flex gap-4">
                       <div className="flex flex-col items-center">
-                        <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                        <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
-                      </div>
-                      <div className="pb-4">
-                        <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">June 2026</p>
-                        <p className="text-slate-700 dark:text-slate-300 text-sm">EU AI Security Directive takes effect. Mandatory disclosure of AI-powered security tools used by critical infrastructure operators. Fines up to 4% of global revenue.</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="flex flex-col items-center">
                         <div className="w-3 h-3 rounded-full bg-purple-500"></div>
                         <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700"></div>
                       </div>
                       <div className="pb-4">
                         <p className="text-sm font-semibold text-purple-600 dark:text-purple-400">July 2026</p>
-                        <p className="text-slate-700 dark:text-slate-300 text-sm">AI-powered vulnerability scanning tools discover 3x more zero-days than human researchers in H1 2026. CrowdStrike reports average breakout time drops to 62 minutes.</p>
+                        <p className="text-slate-700 dark:text-slate-300 text-sm">AI-powered vulnerability scanning tools discover 3x more zero-days than human researchers in H1 2026. CrowdStrike reports average breakout time drops to 48 minutes.</p>
                       </div>
                     </div>
                     <div className="flex gap-4">
@@ -788,7 +758,7 @@ export default async function TrendPage({ params }: TrendPageProps) {
                     </div>
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-4">
-                    Source: CrowdStrike 2025 Global Threat Report, Verizon DBIR 2025, IBM Cost of a Data Breach 2025, Gartner 2026, Developers Matrix Security Incident Database.
+                    Source: CrowdStrike 2025 Global Threat Report, Verizon DBIR 2025, IBM Cost of a Data Breach 2025, Gartner 2026.
                   </p>
                 </section>
               </>

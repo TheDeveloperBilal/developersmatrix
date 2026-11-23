@@ -39,7 +39,7 @@ const faqs = [
   {
     question: 'What is the difference between this and your free audit tool?',
     answer:
-      'The free tool runs around 150 automated checks and returns a score with a list of issues. It is genuinely useful and you should run it first. What it cannot do is tell you which of those issues actually matter for your site, why a page dropped, or whether a problem is a symptom of something else. A paid audit is a person reading the output, checking it against Search Console and your analytics, discarding the false positives, and writing you a prioritised list of what to fix in what order.',
+      'The free tool runs over 70 named checks and returns a score with a list of issues. It is genuinely useful and you should run it first. What it cannot do is tell you which of those issues actually matter for your site, why a page dropped, or whether a problem is a symptom of something else. A paid audit is a person reading the output, checking it against Search Console and your analytics, discarding the false positives, and writing you a prioritised list of what to fix in what order.',
   },
   {
     question: 'How long does a website audit take?',
@@ -177,7 +177,7 @@ export default function WebsiteAuditServicesPage() {
                 <Link href="/tools/website-audit" className="text-blue-600 dark:text-blue-400 underline">
                   free website audit tool
                 </Link>{' '}
-                runs around 150 automated checks in about a minute and costs nothing. For a lot of
+                runs over 70 named checks in about a minute and costs nothing. For a lot of
                 sites that is genuinely enough, and if it is, you should not be paying anyone. Come
                 back here when the automated output stops telling you what you need to know, which
                 usually happens when traffic drops and the score still says everything is fine.
@@ -447,7 +447,7 @@ export default function WebsiteAuditServicesPage() {
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { href: '/tools/website-audit', t: 'Free website audit tool', d: 'Around 150 automated checks, no signup' },
+                { href: '/tools/website-audit', t: 'Free website audit tool', d: 'Over 70 named checks, no signup' },
                 { href: '/blog/website-audit-checklist-2026', t: 'Website audit checklist', d: 'The 47 checks that actually matter' },
                 { href: '/blog/website-code-audit-guide', t: 'Website code audit guide', d: 'Performance, rendering, security and schema' },
                 { href: '/blog/on-site-seo-guide-2026', t: 'On page SEO checklist', d: 'Titles, headings and internal links' },

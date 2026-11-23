@@ -29,7 +29,7 @@ export default function PrivacyPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
         <p className="text-muted-foreground mb-8">
-          Last updated: May 2025
+          Last updated: November 2026
         </p>
 
         <div className="prose prose-lg dark:prose-invert max-w-none space-y-8">
@@ -70,8 +70,7 @@ export default function PrivacyPage() {
                   contact information when you reach out to our support team, and any other details you 
                   voluntarily share. When you use our AI-powered tools like the Resume Builder or Budget 
                   Planner, the data you enter is processed to provide you with the service. For most of 
-                  our tools, data is stored locally in your browser unless you explicitly choose to save 
-                  it to an account. We do not sell or rent your personal information to third parties.
+                  our tools, data is stored locally in your browser. We do not sell or rent your personal information to third parties.
                 </p>
               </div>
 
@@ -91,9 +90,8 @@ export default function PrivacyPage() {
               <div>
                 <h4 className="font-semibold mb-2 text-foreground">Information from Third Parties</h4>
                 <p className="text-sm text-muted-foreground">
-                  We may receive information about you from third-party sources, such as when you sign 
-                  in using social media accounts or when our advertising partners share information 
-                  with us. This information is typically limited to what is necessary for providing 
+                  We may receive information about you from third-party sources, such as when our advertising 
+                  partners share information with us. This information is typically limited to what is necessary for providing 
                   the requested service or for advertising purposes. We do not purchase personal 
                   information from data brokers or similar services.
                 </p>
@@ -218,8 +216,7 @@ export default function PrivacyPage() {
               <p className="text-sm text-muted-foreground">
                 While we take reasonable steps to protect your information, no method of transmission 
                 over the Internet or electronic storage is 100% secure. We cannot guarantee absolute 
-                security of your data. You are responsible for maintaining the confidentiality of any 
-                account credentials and for taking steps to protect your own privacy online.
+                security of your data. You are responsible for taking steps to protect your own privacy online.
               </p>
             </CardContent>
           </Card>
@@ -274,9 +271,9 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Developers Matrix is operated from the United States, and the information we collect 
-                may be transferred to and processed in the United States or other countries where our 
-                service providers are located. By using our website, you acknowledge that your 
+                Developers Matrix is operated from Pakistan. The information we collect may be 
+                processed in Pakistan and in other countries where our service providers, such as our 
+                hosting and analytics providers, are located. By using our website, you acknowledge that your 
                 information may be transferred to and processed in countries other than your own. We 
                 take appropriate measures to ensure that your information remains protected in 
                 accordance with this privacy policy, regardless of where it is processed.

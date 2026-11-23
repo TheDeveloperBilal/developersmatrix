@@ -29,7 +29,7 @@ export default function TermsPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
         <p className="text-muted-foreground mb-8">
-          Last updated: May 2025
+          Last updated: November 2026
         </p>
 
         <div className="space-y-8">
@@ -101,28 +101,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>3. User Accounts and Registration</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Some features of our service may require you to create an account. When you create an 
-                account, you agree to provide accurate, current, and complete information during the 
-                registration process and to update such information to keep it accurate, current, and 
-                complete. You are responsible for safeguarding your account password and for any 
-                activities or actions under your account.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                You agree not to disclose your password to any third party. You must notify us 
-                immediately upon becoming aware of any breach of security or unauthorized use of your 
-                account. We reserve the right to refuse service, terminate accounts, remove or edit 
-                content, or cancel orders at our sole discretion.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>4. Acceptable Use Policy</CardTitle>
+              <CardTitle>3. Acceptable Use Policy</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
@@ -174,14 +153,14 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>5. Intellectual Property Rights</CardTitle>
+              <CardTitle>4. Intellectual Property Rights</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
                 The service and its original content, features, and functionality are and will remain 
                 the exclusive property of Developers Matrix and its licensors. The service is protected 
                 by copyright, trademark, patent, trade secret, and other intellectual property laws 
-                of the United States and other countries.
+                of Pakistan and other countries.
               </p>
               <p className="text-sm text-muted-foreground mb-4">
                 Our trademarks and trade dress may not be used in connection with any product or 
@@ -201,7 +180,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>6. AI-Generated Content</CardTitle>
+              <CardTitle>5. AI-Generated Content</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
@@ -222,7 +201,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>7. Third-Party Links and Services</CardTitle>
+              <CardTitle>6. Third-Party Links and Services</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
@@ -243,7 +222,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>8. Disclaimer of Warranties</CardTitle>
+              <CardTitle>7. Disclaimer of Warranties</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
@@ -265,7 +244,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>9. Limitation of Liability</CardTitle>
+              <CardTitle>8. Limitation of Liability</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
@@ -287,7 +266,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>10. Indemnification</CardTitle>
+              <CardTitle>9. Indemnification</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
@@ -303,7 +282,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>11. Modifications to Service and Terms</CardTitle>
+              <CardTitle>10. Modifications to Service and Terms</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
@@ -324,18 +303,18 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>12. Termination</CardTitle>
+              <CardTitle>11. Termination</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                We may terminate or suspend your account and bar access to the service immediately, 
-                without prior notice or liability, under our sole discretion, for any reason whatsoever, 
-                including, without limitation, if you breach these terms.
+                We may suspend or end your access to the service immediately, without prior notice 
+                or liability, under our sole discretion, for any reason whatsoever, including, without 
+                limitation, if you breach these terms. We reserve the right to refuse service, remove 
+                or edit content, or cancel orders at our sole discretion.
               </p>
               <p className="text-sm text-muted-foreground">
-                Upon termination, your right to use the service will immediately cease. If you wish 
-                to terminate your account, you may simply discontinue using the service or contact us 
-                to request account deletion. The provisions of these terms that by their nature should 
+                Upon termination, your right to use the service will immediately cease. If you no 
+                longer wish to use the service, you may simply stop using it. The provisions of these terms that by their nature should 
                 survive termination shall survive termination, including ownership provisions, warranty 
                 disclaimers, indemnification, and limitations of liability.
               </p>
@@ -344,12 +323,12 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>13. Governing Law and Dispute Resolution</CardTitle>
+              <CardTitle>12. Governing Law and Dispute Resolution</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                These terms shall be governed by and construed in accordance with the laws of the 
-                United States, without regard to its conflict of law provisions. Any disputes arising 
+                These terms shall be governed by and construed in accordance with the laws of 
+                Pakistan, without regard to its conflict of law provisions. Any disputes arising 
                 under or in connection with these terms or the service shall be resolved through 
                 binding arbitration, except where prohibited by law.
               </p>
@@ -363,7 +342,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>14. Severability</CardTitle>
+              <CardTitle>13. Severability</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
@@ -378,7 +357,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>15. Entire Agreement</CardTitle>
+              <CardTitle>14. Entire Agreement</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
@@ -392,7 +371,7 @@ export default function TermsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>16. Contact Information</CardTitle>
+              <CardTitle>15. Contact Information</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
